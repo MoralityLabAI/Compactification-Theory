@@ -1,4 +1,4 @@
-# adapter-bits
+# Compactification Theory
 
 How many bits does a trained adapter store per parameter, and what limits it? This repository tests a theory note on that question against LoRA adapters on Qwen3-0.6B. Everything runs on CPU in RAM.
 
