@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bits, Depth and Lipschitz Constants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single reading column set like a mathematical preprint; theorem blocks in amsthm style, status tags as small coloured chips. */
+:root {
+  --paper: #f4f5f2;
+  --ink: #1c2330;
+  --muted: #5a6371;
+  --rule: #d5dadf;
+  --panel: #e9ece6;
+  --accent: #2c4ca3;
+  --st-p: #1d7556;
+  --st-o: #2b5bb0;
+  --st-r: #8f620f;
+  --st-j: #9c3673;
+  --serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --step--1: 0.9rem;
+  --step-0: 1.08rem;
+  --step-1: 1.3rem;
+  --step-2: 1.65rem;
+  --step-3: 2.3rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12151a; --ink: #e3e6ea; --muted: #99a2ae; --rule: #2c323b; --panel: #1a1e25; --accent: #93abff;
+    --st-p: #5fcaa1; --st-o: #8fb2ff; --st-r: #e2b55a; --st-j: #e78cc3;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12151a; --ink: #e3e6ea; --muted: #99a2ae; --rule: #2c323b; --panel: #1a1e25; --accent: #93abff;
+  --st-p: #5fcaa1; --st-o: #8fb2ff; --st-r: #e2b55a; --st-j: #e78cc3;
+  color-scheme: dark;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  padding-inline: 16px;
+  padding-block: 2.5rem 4rem;
+}
+main { max-width: 44rem; margin-inline: auto; display: flex; flex-direction: column; gap: 2.4rem; }
+header { display: flex; flex-direction: column; gap: 0.7rem; border-bottom: 1px solid var(--rule); padding-block: 0 1.6rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-size: var(--step-3); line-height: 1.15; font-weight: 600; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+.setting { font-size: var(--step-0); color: var(--muted); margin: 0; }
+h2 { font-size: var(--step-2); font-weight: 600; margin: 0; line-height: 1.25; text-wrap: balance; }
+h2 .sec { font-family: var(--mono); font-size: 0.95rem; color: var(--accent); margin-right: 0.6rem; font-weight: 600; vertical-align: 0.15em; }
+h3 { font-size: var(--step-1); font-weight: 600; margin: 0; text-wrap: balance; }
+section { display: flex; flex-direction: column; gap: 1rem; }
+p { margin: 0; }
+ul, ol { margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.45rem; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; font-size: var(--step--1); color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+.tag { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; border: 1px solid currentColor; border-radius: 3px; padding: 0 0.3rem; white-space: nowrap; vertical-align: 0.1em; }
+.tag.p { color: var(--st-p); } .tag.o { color: var(--st-o); } .tag.r { color: var(--st-r); } .tag.j { color: var(--st-j); }
+.summary { background: var(--panel); padding: 1.2rem 1.3rem; border-radius: 4px; display: flex; flex-direction: column; gap: 0.6rem; }
+.summary h2 { font-size: var(--step-1); }
+.thm { display: flex; flex-direction: column; gap: 0.6rem; padding-block: 0.2rem; }
+.thm > .head { font-variant: small-caps; font-weight: 600; letter-spacing: 0.02em; }
+.thm .stmt { font-style: italic; }
+.proof { display: flex; flex-direction: column; gap: 0.5rem; }
+.proof > p:first-child::before { content: "Proof. "; font-style: italic; }
+.proof > p:last-child::after { content: " \220E"; }
+.sub { padding-left: 1rem; border-left: 1px solid var(--rule); display: flex; flex-direction: column; gap: 0.6rem; }
+.label { font-weight: 600; }
+.mjx-wrap { overflow-x: auto; overflow-y: hidden; }
+.table-wrap { overflow-x: auto; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+table { border-collapse: collapse; width: 100%; min-width: 40rem; font-size: var(--step--1); line-height: 1.45; }
+th, td { text-align: left; vertical-align: top; padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--rule); }
+th { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+tr:last-child td { border-bottom: 0; }
+.verdict { font-size: var(--step-0); }
+.refs li { font-size: var(--step--1); }
+.note { font-size: var(--step--1); color: var(--muted); }
+mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width: 100%; padding-block: 0.2rem; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="eyebrow">Research note · 10 October 2026</div>
+  <h1>Bits, depth and Lipschitz constants in deep ReLU approximation</h1>
+  <p class="setting">Setting: \(F\) is the unit ball of the Hölder class \(C^s([0,1]^d)\). Networks are ReLU with \(W\) weights in \([-R,R]\), depth \(L\), and \(b\) bits per weight. Error is the sup norm, worst case over \(F\).</p>
+  <div class="legend" aria-label="Claim status labels">
+    <span><span class="tag p">P</span> proved here (S = sketch)</span>
+    <span><span class="tag o">O</span> cited, source opened</span>
+    <span><span class="tag r">R</span> cited from memory, not opened</span>
+    <span><span class="tag j">J</span> conjecture</span>
+  </div>
+</header>
+
+<div class="summary">
+  <h2>Bottom line</h2>
+  <ul>
+    <li>Capability per <em>bit</em> is fundamentally bounded: \(\varepsilon \gtrsim (\text{total bits})^{-s/d}\), with no Lipschitz assumption.</li>
+    <li>Capability per <em>parameter</em> is not. The \(W^{-s/d}\) barrier holds exactly when the effective bits per weight, \(\log_2(RK/\varepsilon)\), are \(O(\log W)\). For bounded weights that is the same as polylog depth. It also holds whenever weights are chosen continuously in the target.</li>
+    <li>The \(W^{-2s/d}\) ceiling is real for ReLU, and it comes from VC dimension, not from any Lipschitz constant.</li>
+    <li>Most standard generalization assumptions exclude \(\gamma&gt;1\) only through a polynomial bound on \(K\) or a local or \(L^2\) version of it. None excludes it through input-Lipschitzness alone.</li>
+  </ul>
+</div>
+
+<section>
+  <h2><span class="sec">§</span>Notation</h2>
+  <ul>
+    <li>\(W\): number of weights, biases included. \(L\): depth. \(n\): maximum width. Each weight lies in \([-R,R]\), with \(R\) fixed, and takes one of \(2^b\) values.</li>
+    <li>\(\varepsilon^*(W,b,L) = \inf_{\text{arch},\,\theta}\ \sup_{f\in F}\|f-f_\theta\|_\infty\), the minimax error.</li>
+    <li>\(H(\varepsilon)=\log_2 N(\varepsilon,F,\|\cdot\|_\infty)\), the metric entropy of \(F\).</li>
+    <li>\(K\): the Lipschitz constant of \(\theta\mapsto f_\theta\) from \(([-R,R]^W,\ell^\infty)\) to \((C([0,1]^d),\|\cdot\|_\infty)\).</li>
+    <li>Rates are written \(\varepsilon = W^{-\gamma s/d}\). \(\gamma=1\) is the classical rate and \(\gamma=2\) the deep ReLU ceiling.</li>
+    <li>Ou–Schenkel–Bölcskei (OSB) use \(W\) for <em>width</em>. Their results are converted here to weight count, \(W\asymp \text{width}^2\cdot L\).</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="sec">§0</span>The four background claims</h2>
+  <p>All four are correct as stated.</p>
+
+  <div class="thm">
+    <div class="head">0.1 Continuous selection (DeVore–Howard–Micchelli)</div>
+    <p>Correct. <span class="tag r">R</span> DHM 1989. <span class="tag o">O</span> Restated for Hölder balls in sup norm as YZ20, Theorem 3.2(2).</p>
+    <div class="proof">
+      <p><span class="tag p">P</span> Place \(W+1\) disjoint bumps \(\varphi_j\) of width \(h\asymp W^{-1/d}\) and height 1, so that \(\|\varphi_j\|_{C^s}\lesssim h^{-s}\). The sphere \(S=\{\sum_j c_j\varphi_j : \max_j|c_j|=\rho\}\) with \(\rho\asymp h^s\asymp W^{-s/d}\) lies in \(F\).</p>
+      <p>If the weight selection \(a:F\to\mathbb R^W\) is continuous, then \(g(f)=a(f)-a(-f)\) is odd and continuous on \(S\cong S^W\). By Borsuk–Ulam, \(g(f_0)=0\) for some \(f_0\in S\).</p>
+      <p>Then \(f_0\) and \(-f_0\) receive the same network \(\phi\), so \(\max(\|f_0-\phi\|_\infty,\|{-f_0}-\phi\|_\infty)\ge\|f_0\|_\infty=\rho\). Nothing is assumed about the map from weights to functions.</p>
+    </div>
+  </div>
+
+  <div class="thm">
+    <div class="head">0.2 The deep ReLU rate</div>
+    <p>Correct, and now known for every \(s&gt;0\).</p>
+    <ul>
+      <li>Yarotsky 2018 proved it for \(s\le 1\), stated via the modulus of continuity <span class="tag r">R</span>, <span class="tag o">O</span> as described in YZ20 §1.</li>
+      <li>YZ20, Theorem 3.3 <span class="tag o">O</span>: for every \(s&gt;0\) and every \(p\in(s/d,\,2s/d]\), error \(O(W^{-p})\) is achievable with depth \(L\le c\,W^{pd/s-1}\). There is no log factor, even at \(p=2s/d\).</li>
+      <li>YZ20, Theorem 3.2 <span class="tag o">O</span>: \(p&gt;2s/d\) is infeasible for any piecewise-polynomial activation. Any \(p\in(s/d,\,2s/d]\) forces \(L\ge c\,W^{pd/s-1}/\log W\).</li>
+      <li>YZ20 state on p. 7 that these results ignore weight magnitude and precision <span class="tag o">O</span>.</li>
+    </ul>
+  </div>
+
+  <div class="thm">
+    <div class="head">0.3 Counting</div>
+    <p>Correct <span class="tag p">P</span>. If every \(f\in F\) lies within \(\varepsilon\) of one of the at most \(2^{Wb}\) networks, those networks form an \(\varepsilon\)-net. Hence</p>
+    \[ N(2\varepsilon,F)\le 2^{Wb}\quad\Longrightarrow\quad Wb\ \ge\ H(2\varepsilon)\asymp\varepsilon^{-d/s}. \]
+    <ul>
+      <li>The entropy estimate is Kolmogorov–Tikhomirov 1959 <span class="tag r">R</span>; YZ20 §7 cites it in the same form <span class="tag o">O</span>.</li>
+      <li>Choosing the architecture per target adds at most \(O(W\log W)\) bits, which changes no rate.</li>
+    </ul>
+  </div>
+
+  <div class="thm">
+    <div class="head">0.4 Covering</div>
+    <p>Correct, with a slightly loose constant <span class="tag p">P</span>. Cover the box \([-R,R]^W\) by \(\lceil RK/\varepsilon\rceil^W\) \(\ell^\infty\)-cubes of radius \(\varepsilon/K\). Their images are \(\varepsilon\)-balls, so</p>
+    \[ H(2\varepsilon)\ \le\ W\log_2\!\big(1+RK/\varepsilon\big). \]
+    <p>This is Petrova–Wojtaszczyk (PW), Proposition 4.4 <span class="tag o">O</span>. Three refinements are used below.</p>
+    <div class="sub">
+      <p><span class="label">(i) Local version.</span> <span class="tag p">P</span> Only flatness at the approximants matters. Suppose each \(f\) has some \(\theta_f\) with \(\|f-f_{\theta_f}\|\le\varepsilon\), and \(\|f_{\theta'}-f_{\theta_f}\|\le\varepsilon\) whenever \(\|\theta'-\theta_f\|_\infty\le\delta\). Rounding \(\theta_f\) to a grid of spacing \(2\delta\) gives \(H(4\varepsilon)\le W\log_2(1+R/\delta)\).</p>
+      <p><span class="label">(ii) Bits and \(K\) are the same currency.</span> <span class="tag p">P</span> Rounding a \(K\)-Lipschitz network to \(b=\lceil\log_2(2RK/\varepsilon)\rceil\) bits moves it by at most \(\varepsilon/2\). Define \(b_{\rm eff}=\log_2(RK/\varepsilon)\). Both bounds then read \(W\,b_{\rm eff}\gtrsim\varepsilon^{-d/s}\).</p>
+      <p><span class="label">(iii) For networks, \(K\) is a depth quantity.</span> <span class="tag p">P</span> For \(R\ge1\),</p>
+      \[ K\ \le\ L\prod_{l=1}^{L}(n_{l-1}+1)R. \]
+      <div class="proof">
+        <p>Activations satisfy \(\max(1,\|h_l\|_\infty)\le\prod_{k\le l}(n_{k-1}+1)R\). Under a weight perturbation of size \(\delta\), the error \(E_l=\|z_l-z_l'\|_\infty\) obeys \(E_l\le n_{l-1}R\,E_{l-1}+(n_{l-1}+1)\,\delta\,\max(1,\|h_{l-1}\|_\infty)\), with \(E_0=0\). Unroll the recursion.</p>
+      </div>
+      <p>OSB Proposition 3.3 states the \(R=1\) case as quantization error \(\le L(\text{width}+1)^L 2^{-b}\) <span class="tag o">O</span>.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sec">§1</span>Q1: precision growing as \(b=W^\alpha\)</h2>
+  <div class="thm">
+    <div class="head">Theorem 1</div>
+    <p class="stmt">For fixed \(s,d,R\) and \(1\le\min(b,L)\le W\),</p>
+    \[ c\,\max\Big\{(Wb)^{-s/d},\ (WL\log W)^{-s/d}\Big\}\ \le\ \varepsilon^*(W,b,L)\ \le\ C\Big(\frac{W\min(b,L)}{\log^{c'}W}\Big)^{-s/d}. \]
+    <p class="stmt">With \(b=W^\alpha\), \(\alpha\in[0,1]\), the counting rate \(W^{-(1+\alpha)s/d}\) is attained up to log factors if and only if \(L\gtrsim W^\alpha\), up to logs. Raising \(b\) beyond \(W\) gains nothing.</p>
+  </div>
+
+  <div class="sub">
+    <p><span class="label">Lower bound.</span> <span class="tag p">P</span> Counting (§0.3) gives the first term. For the second, put bumps of height \(3\varepsilon\) on \(\asymp\varepsilon^{-d/s}\) grid points. Approximating every sign pattern to \(\varepsilon\) means the thresholded networks shatter the grid, so \(\varepsilon^{-d/s}\lesssim\mathrm{VCdim}\lesssim WL\log W\). The VC bound is Bartlett–Harvey–Liaw–Mehrabian 2019 <span class="tag r">R</span>, used the same way in YZ20 Theorem 3.2(3) <span class="tag o">O</span>.</p>
+    <p><span class="label">Upper bound for \(d=s=1\).</span> <span class="tag o">O</span> OSB Theorem 5.1 proves it, with weights in \((-4,4)\cap2^{-b}\mathbb Z\), width \(w\), and \(W\asymp w^2L\). There are three regimes:</p>
+    <ul>
+      <li><strong>Proper quantization</strong>, \(E_2\log w/L\le b&lt;E_1L\log w\): \(\varepsilon^*\asymp(w^2Lb)^{-1}=(Wb)^{-1}\), with matching upper and lower constants. This is the memory-optimal regime, and it answers Q1 for \(d=s=1\).</li>
+      <li><strong>Over-quantization</strong>, \(b\ge E_1L\log w\): \(\varepsilon^*\asymp(w^2L^2\log w)^{-1}\), flat in \(b\).</li>
+      <li><strong>Under-quantization</strong>, \(b&lt;E_2\log w/L\): \(c\,2^{-Lb}\le\varepsilon^*\le C\,\alpha^{-Lb}\) for some \(\alpha&gt;1\). This regime is empty once \(L\gtrsim\log w\).</li>
+    </ul>
+    <p>OSB Proposition 4.1 <span class="tag o">O</span> gives the depth–precision tradeoff: \(\mathcal R^{ka}_{kb}(w,L)\subseteq\mathcal R^{a}_{b}(16w,(k+2)L)\). OSB say the extensions to \(d\) dimensions and to Hölder smoothness follow readily, but they don't prove them.</p>
+
+    <p><span class="label">Upper bound for general \((s,d)\).</span> <span class="tag p">P·S</span> YZ20's construction already has the right information layout: about \(W\) encoding weights carrying \(W^{pd/s-1}\) bits each (§7 and Table 1 <span class="tag o">O</span>). With \(p=(1+\alpha)s/d\), that is exactly \(W^\alpha\) bits per weight at depth \(W^\alpha\). What it lacks is a bounded-magnitude, uniform-\(b\)-bit version. Sketch:</p>
+    <ol>
+      <li><strong>Grid.</strong> Use \(N\asymp W\) coarse cells, each with \(B\asymp W^\alpha\) fine cells of side \(h\asymp(NB)^{-1/d}=W^{-(1+\alpha)/d}\). Walk the fine cells of a coarse cell along a snake path, so consecutive cells are neighbours.</li>
+      <li><strong>Code.</strong> Let \(u_i=\big(D^\beta f(x_i)/h^{\,s-|\beta|}\big)_{|\beta|&lt;s}\) be the scaled Taylor data. Taylor's theorem gives \(u_{i+1}=Tu_i+r_i\), where \(T\) is a fixed unipotent matrix and \(\|r_i\|_\infty\le C\). The decoder runs \(\tilde u_{i+1}=T\tilde u_i+c_i\), with integers \(c_i=-\mathrm{round}(Te_i+r_i)\) and \(e_i=\tilde u_i-u_i\). This keeps \(\|e_i\|_\infty\le\tfrac12\) and \(|c_i|\le\tfrac12\|T\|_\infty+C+1\), a fixed alphabet. The local Taylor polynomial built from \(\tilde u_i\) has error \(O(h^s)\). This is the sequential Kolmogorov–Tikhomirov encoding that YZ20 use <span class="tag o">O</span>.</li>
+      <li><strong>Storage.</strong> One coarse cell needs \(O(B)+O(\log W)\) bits, so one weight with \(b\asymp W^\alpha\) bits per cell. Store bits as redundant base-4 digits, \(y=\sum_k(1+\beta_k)4^{-k}\). The first digit puts \(y\in[\tfrac13,\tfrac5{12}]\) or \(y\in[\tfrac7{12},\tfrac23]\), a gap of \(\tfrac16\). A ramp of slope 6 reads it, and \(y\leftarrow4y-(1+\beta_1)\in[\tfrac13,\tfrac23]\) shifts to the next digit, so every extraction weight is at most 6.</li>
+      <li><strong>Decoder.</strong> Three parts:
+        <ul>
+          <li>a lookup of the cell's encoding weight, \(O(N)\) weights;</li>
+          <li>a chain of width \(O(1)\) and depth \(O(B)\) that runs the recursion in the bounded variable \(h^s\tilde u\) and captures the index \(i(x)\);</li>
+          <li>Yarotsky's approximate multiplication, \(O(\log W)\) weights.</li>
+        </ul>
+        Regions near cell boundaries are handled by partition of unity or by the median of shifted copies, as in YZ20 and Lu–Shen–Yang–Zhang 2021 <span class="tag r">R</span>. This costs a constant factor.</li>
+      <li><strong>Lemma M (magnitude).</strong> <span class="tag p">P</span> A weight \(w=2^m w'\) with \(|w'|\le1\) equals a chain of \(m\) doublings through identity units \(x=\sigma(x)-\sigma(-x)\). This costs \(O(m)\) weights and depth. Here \(m=O(\log W)\), and only the shallow lookup part needs it.</li>
+      <li><strong>Precision of the fixed weights.</strong> Round \(T\) to \(\tilde T\) with \(O(\log W)\) bits and let the encoder use \(\tilde T\). The extra term \((\tilde T-T)u_i\) stays \(O(1)\) once \(2^{-b'}h^{-s}=O(1)\). For \(b&lt;C\log W\), apply OSB's depth–precision tradeoff, which costs a log factor in \(W\).</li>
+    </ol>
+    <p><strong>Total:</strong> \(O(W\log W)\) weights, depth \(O(W^\alpha+\log^2W)\), error \(O(W^{-(1+\alpha)s/d})\). I have not found this bounded-weight, \(b\)-bit statement for general \((s,d)\) in print; every ingredient is in YZ20 and OSB.</p>
+    <p><span class="label">Obstruction.</span> There is none for \(\alpha\le1\) apart from depth, which must grow like \(W^\alpha/\log W\). For \(\alpha&gt;1\) the VC term dominates.</p>
+    <p><span class="label">Memorization analogue.</span> <span class="tag r">R</span> Vardi–Yehudai–Shamir (ICLR 2022) show that \(\tilde\Theta(N/B)\) parameters are necessary and sufficient to memorize \(N\) points with \(B\)-bit weights, for \(B\lesssim\sqrt N\).</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sec">§2</span>Q2: the frontier in \(K\)</h2>
+  <div class="thm">
+    <div class="head">Theorem 2</div>
+    <div class="sub">
+      <p><span class="label">(a) Necessity.</span> <span class="tag p">P</span>, equivalent to PW Proposition 4.4 <span class="tag o">O</span>. If error \(\varepsilon=W^{-\gamma s/d}\) is reached inside a box where \(\theta\mapsto f_\theta\) is \(K\)-Lipschitz, then</p>
+      \[ \log_2(RK)\ \ge\ c\,W^{\gamma-1}-\tfrac{\gamma s}{d}\log_2W-O(1). \]
+      <p>The proof substitutes \(\varepsilon\) into \(c(2\varepsilon)^{-d/s}\le H(2\varepsilon)\le W\log_2(1+RK/\varepsilon)\). Your derivation is right. At \(\gamma=1\) the condition is vacuous.</p>
+      <p><span class="label">(b) Exactly tight for abstract Lipschitz parameterizations, for every \(\gamma\ge1\).</span> <span class="tag o">O</span> PW Theorem 4.2: the \(2^k\mathrm{rad}(F)\)-Lipschitz width with \(n\) parameters satisfies \(d_n^{\,2^k\mathrm{rad}(F)}(F)\le\varepsilon_{kn}(F)\asymp(kn)^{-s/d}\). Taking \(k=W^{\gamma-1}\) gives \(W^{-\gamma s/d}\) with \(\log K\asymp W^{\gamma-1}\). For general Lipschitz maps there is no ceiling at \(\gamma=2\).</p>
+      <p><span class="label">(c) Tight for ReLU on \(1&lt;\gamma\le2\), up to one log factor in \(\log K\).</span> <span class="tag p">P·S</span> In the Theorem 1 network with \(\alpha=\gamma-1\), the deep part has width \(O(1)\), weights \(O(1)\) and depth \(O(W^{\gamma-1})\), and the shallow part has depth \(O(\log W)\) and width at most \(W\). By §0.4(iii), \(\log K=O(W^{\gamma-1}+\log^2W)\).</p>
+      <p><span class="label">(d) For ReLU, \(\gamma&gt;2\) is impossible at any \(K\).</span> This follows from the VC bound in §0.2. Above \(\gamma=2\) the \(K\)-condition is necessary but not sufficient, and the cap is combinatorial. Periodic activations remove it: YZ20 Theorem 6.1 gives error \(\exp(-c\sqrt W)\) <span class="tag o">O</span>, consistent with (b).</p>
+      <p><span class="label">(e) For bounded-weight ReLU networks, \(K\) and depth are the same resource.</span> <span class="tag p">P</span> Combining (a) with §0.4(iii) gives</p>
+      \[ L\ \ge\ \frac{c\,W^{\gamma-1}-O(\log W)}{\log_2\big((n+1)R\big)}. \]
+      <p>This recovers YZ20's depth bound by covering instead of VC. YZ20 Appendix D gets the same from Anthony–Bartlett Theorem 14.5: with per-neuron \(\ell^1\) norm at most \(V\), \(\varepsilon\ge c\,(WL)^{-s/d}\ln^{-s/d}V\) <span class="tag o">O</span>.</p>
+      <p><span class="label">(f) The two maps are independent constraints.</span> <span class="tag p">P</span> DHM constrains the target-to-weights map; (a) constrains the weights-to-function map. \(\gamma&gt;1\) needs both a discontinuous selection and a large \(K\), and neither condition implies the other.</p>
+      <ul>
+        <li>Cohen–DeVore–Petrova–Wojtaszczyk 2022: when both maps are Lipschitz ("stable"), the best rate is the entropy rate <span class="tag r">R</span> (abstract seen).</li>
+        <li>Petrova–Wojtaszczyk 2023: rates beyond entropy need depth tending to infinity <span class="tag o">O</span> (abstract).</li>
+      </ul>
+    </div>
+  </div>
+  <p class="verdict"><strong>The headline question.</strong> Capability per bit is bounded for information-theoretic reasons. Capability per parameter is bounded exactly to the extent that effective bits per weight are bounded. Lipschitz assumptions on the parameterization, polylog depth, continuous selection, or fixed hardware precision all impose such a bound. At bf16 (\(b=16\)) or fp32 (\(b=32\)), counting alone forces \(\gamma\le1\) asymptotically.</p>
+</section>
+
+<section>
+  <h2><span class="sec">§3</span>Q3: which "Lipschitz" each assumption controls</h2>
+  <p>Three notions are involved:</p>
+  <ul>
+    <li><strong>(a) Input-Lipschitz:</strong> \(\sup_x\|\nabla_x f_\theta(x)\|\).</li>
+    <li><strong>(b) \(K\):</strong> weights to function, global or local, in sup norm or in \(L^2(\mu)\).</li>
+    <li><strong>(c) \(\beta\):</strong> the Lipschitz constant of \(\nabla_\theta\) of a loss.</li>
+  </ul>
+  <p>Selection continuity (§0.1) is a fourth notion that is often implicit.</p>
+
+  <div class="sub">
+    <p><span class="label">Lemma R (rebalancing).</span> <span class="tag p">P</span> Take a bias-free ReLU network with \(\prod_l\|A_l\|_2\le\Lambda\). By positive homogeneity it equals a network with every \(\|A_l\|_2\le\Lambda^{1/L}\). On that set \(K\le L\sqrt d\,n\max(1,\Lambda)\), so \(\gamma&gt;1\) needs \(\log\Lambda\gtrsim W^{\gamma-1}\).</p>
+    <p><span class="label">Lemma G (per-example Lipschitz loss).</span> <span class="tag p">P</span> Suppose the loss is \(G\)-Lipschitz in \(\theta\) (in \(\ell^2\)) for every \(x\) and every label \(y\) within 1 of the network's outputs; absolute loss also qualifies. Then \(|f_\theta(x)-f_{\theta'}(x)|\le G\|\theta-\theta'\|_2\), so \(K\le G\sqrt W\).</p>
+    <p><span class="label">Lemma S (smoothness over realizable targets).</span> <span class="tag p">P</span> Suppose \(g_{\theta_0}(\theta)=\tfrac12\|f_\theta-f_{\theta_0}\|^2_{L^2(\mu)}\) is \(\beta\)-smooth for every \(\theta_0\). Since \(g_{\theta_0}(\theta_0)=0\) and \(\nabla g_{\theta_0}(\theta_0)=0\), the descent lemma gives</p>
+    \[ \|f_\theta-f_{\theta_0}\|_{L^2(\mu)}\ \le\ \sqrt\beta\,\|\theta-\theta_0\|_2 . \]
+    <ul>
+      <li>With \(\mu\) a point mass (per-example smoothness), this gives \(K\le\sqrt{\beta W}\) in sup norm.</li>
+      <li>\(L^2\) entropy has the same order \(\varepsilon^{-d/s}\) (Birman–Solomyak <span class="tag r">R</span>), so \(\gamma&gt;1\) needs \(\log\beta\gtrsim W^{\gamma-1}\).</li>
+      <li>This needs smooth activations, because ReLU networks are never globally \(\beta\)-smooth.</li>
+    </ul>
+    <p><span class="label">Lemma C (a single target constrains nothing).</span> <span class="tag p">P</span> Let \(f_\theta=f^*+a\sin(N\theta)g_1+a\cos(N\theta)g_2\) with \(g_1,g_2\) orthonormal in \(L^2(\mu)\). Then \(\|f_\theta-f^*\|^2=a^2\) for all \(\theta\), so \(\beta=0\), while the \(L^2\) Lipschitz constant \(aN\) can be anything.</p>
+    <p><span class="label">Lemma N (lazy training).</span> <span class="tag p">P</span> If the trained predictor equals \(f_{\theta_0}+J(\theta-\theta_0)\) up to error \(\eta\), then the worst-case error is at least \(d_{W+1}(F,C)-\eta\asymp W^{-s/d}-\eta\). The Kolmogorov-width estimate is <span class="tag r">R</span>; YZ20 §1 states the linear-width version <span class="tag o">O</span>.</p>
+    <p><span class="label">Lemma D (fixed-step training is a continuous selection).</span> <span class="tag p">P</span> Take a \(C^1\) activation and run \(T\) steps \(\theta_{t+1}=\theta_t-\eta_t\nabla_\theta\mathcal L(\theta_t;f)\) of square-loss gradient descent, with fixed initialization, step sizes and seed. Then \(\theta_T(f)\) is continuous in \(f\in(F,\|\cdot\|_\infty)\), and DHM gives worst-case error at least \(c\,W^{-s/d}\) for any \(T\), depth or precision.</p>
+    <ul>
+      <li>This does not cover ReLU (the gradient jumps in \(\theta\)), adaptive stopping, or the limit \(T\to\infty\).</li>
+      <li>Borsuk–Ulam gives one bad target per seed. Whether randomized continuous selection beats \(W^{-s/d}\) with high probability for each fixed \(f\) is open to me <span class="tag j">J</span>.</li>
+    </ul>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th scope="col">Assumption (where it appears)</th><th scope="col">Constrains</th><th scope="col">Bounds \(K\)?</th><th scope="col">Excludes \(\gamma&gt;1\)?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>VC / pseudo-dimension, in terms of \(W, L\) only (Bartlett–Harvey–Liaw–Mehrabian 2019 <span class="tag r">R</span>)</td><td>none of (a)–(c)</td><td>No</td><td>No. Caps \(\gamma\le2\) and forces depth</td></tr>
+        <tr><td>Lipschitz-parameterized covering (Anthony–Bartlett Thm 14.5 <span class="tag o">O</span>, via YZ20 App. D)</td><td>(b) directly, \(K\approx(aV)^L\)</td><td>Yes</td><td>Only if \(L\log V=\mathrm{polylog}\,W\)</td></tr>
+        <tr><td>Spectral, Frobenius and path-norm margin bounds (Bartlett–Foster–Telgarsky 2017, Neyshabur et al. 2018, Golowich–Rakhlin–Shamir 2018 <span class="tag r">R</span>)</td><td>norm products, an upper bound on (a)</td><td>Yes, via Lemma R</td><td>Yes if \(\Lambda=\mathrm{poly}(W)\). A non-vacuous bound implies \(\gamma\le1\)</td></tr>
+        <tr><td>Sharpness, PAC-Bayes, compression (Neyshabur et al. 2017, Dziugaite–Roy 2017, Arora et al. 2018 <span class="tag r">R</span>)</td><td>local (b) at the learned \(\theta\), on the training sample</td><td>Locally</td><td>Yes in sup-norm form by §0.4(i). The on-sample version is heuristic <span class="tag j">J</span></td></tr>
+        <tr><td>Uniform stability: \(G\)-Lipschitz and \(\beta\)-smooth for every example (Hardt–Recht–Singer 2016 <span class="tag r">R</span>)</td><td>(b) pointwise, and (c)</td><td>Yes: \(K\le\min(G,\sqrt\beta)\sqrt W\)</td><td>Yes if \(G,\beta=\mathrm{poly}(W)\)</td></tr>
+        <tr><td>Nonconvex SGD rates for one fixed objective (Ghadimi–Lan 2013 <span class="tag r">R</span>)</td><td>(c), one target</td><td>No (Lemma C)</td><td>No. Yes if \(\beta\) is uniform over realizable targets (Lemma S, in \(L^2\))</td></tr>
+        <tr><td>NTK / lazy regime (Jacot et al. 2018, Chizat et al. 2019 <span class="tag r">R</span>)</td><td>local (b) and (c) near initialization</td><td>Locally</td><td>Yes (Lemma N), and by DHM, since selection is nearly linear</td></tr>
+        <tr><td>Input-Lipschitz of the realized function only</td><td>(a)</td><td>No</td><td>No entropy obstruction, since \(F\subset\mathrm{Lip}(1)\) for \(s\ge1\). For \(d=s=1\) the intended Yarotsky approximant is slope-\(\pm1\) piecewise linear (YZ20 Fig. 1a <span class="tag o">O</span>). I conjecture this holds in general <span class="tag j">J</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="verdict"><strong>Verdict.</strong> Some assumptions bound \(K\), its local or \(L^2\) versions, or norm products by \(\mathrm{poly}(W)\). Those exclude \(\gamma&gt;1\), and so do fixed-step smooth training (via DHM) and the lazy regime. VC bounds, input-Lipschitzness of the output, and smoothness of a single training objective do not. In the standard theory, the \(W^{-s/d}\) per-parameter barrier comes from these assumptions or from fixed precision, not from the architecture.</p>
+</section>
+
+<section>
+  <h2><span class="sec">§4</span>Predictions for small-network experiments</h2>
+  <p><strong>Testbed.</strong> Take \(d=s=1\) and targets</p>
+  \[ f_\sigma(x)=\sum_{j=1}^{M}\sigma_j\,h\,\varphi\!\Big(\frac{x-x_j}{h}\Big),\qquad \varphi(t)=\big(\tfrac12-|t|\big)_+,\quad h=1/M,\quad \sigma\in\{\pm1\}^M . \]
+  <p>These form a \(2^M\)-element packing of \(F\) at separation \(h\). Success means sup error below \(h/2\), measured on a grid of at least \(20M\) points.</p>
+  <ol>
+    <li><strong>Counting binds, and trained networks use about \(\log W\) bits per weight.</strong>
+      <ul>
+        <li><span class="tag p">P</span> Any training at any depth succeeds with probability at most \(2^{Wb-M}\), because each network lies within \(h/2\) of at most one target.</li>
+        <li><span class="tag j">J</span> For trained networks, the quantization knee \(b^*\) will be about \(c\log_2W\) regardless of depth, so their threshold is \(W^*\asymp M/\log M\).</li>
+        <li>Constructed OSB-style networks should succeed at \(W\asymp\sqrt M\) with depth \(\asymp\sqrt M\). They need exact or multiprecision arithmetic: past \(M\approx3000\) the encoding weights exceed float64's 53-bit mantissa.</li>
+        <li>A trained network whose \(b^*\) grows like a power of \(W\) would falsify this.</li>
+      </ul>
+    </li>
+    <li><strong>\(b_{\rm eff}=\log_2(RK/\varepsilon)\) is the right currency, and trained networks leave the depth's \(K\) budget unused.</strong>
+      <ul>
+        <li><span class="tag p">P</span> \(b^*\le\log_2(RK_{\rm loc}/\varepsilon)+1\) and \(\log K\le\log L+L\log_2((n+1)R)\).</li>
+        <li><span class="tag j">J</span> In constructed networks, \(\log K_{\rm loc}\), measured by sup-norm finite differences under weight perturbations, grows linearly in \(L\). In trained networks of the same depths it stays \(O(\log W)\), and the log–log slope of error against \(W\) stays at \(-s/d\) or flatter.</li>
+      </ul>
+    </li>
+    <li><strong>The optimizer caps \(K\).</strong> <span class="tag j">J</span>, motivated by Lemma S.
+      <ul>
+        <li>At constructed \(\gamma&gt;1\) solutions, the top Hessian eigenvalue grows like \(e^{cL}\). Gradient descent started there with step \(\eta\gg e^{-cL}\) should leave at once, because edge-of-stability dynamics keep \(\lambda_{\max}\lesssim2/\eta\).</li>
+        <li>At fixed \(W\), sweeping \(\eta\) over six decades should improve the converged error at most polylogarithmically in \(1/\eta\).</li>
+        <li>If the error instead improves like a power of \(1/\eta\), uniform smoothness is not what limits trained networks.</li>
+      </ul>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="sec">§5</span>Empirical check: adapters on Qwen3-0.6B</h2>
+  <p>This section is measured, not proved, and it reports a pilot scale: one seed, 3,000 Adam steps per run, CPU only.</p>
+  <p><strong>Task.</strong> \(M\) random keys (<code>"482910 -&gt;"</code>), each labelled A or B at random, so the targets are \(M\) fair bits. This is the language-model version of the packing in §4.</p>
+  <p><strong>Exact computation.</strong> The frozen model runs once per item. Training recomputes only the adapted part, which matches the full model's margin to \(2\times10^{-6}\).</p>
+  <p><strong>Measured per run:</strong></p>
+  <ul>
+    <li>stored information \(I=M(1-H_2(\text{err}))\), a Fano estimate;</li>
+    <li>\(I_b\), the same after rounding every adapter weight to \(b\) bits;</li>
+    <li>the knee \(b^*\), the fewest bits per weight that keep error within one point;</li>
+    <li>the rank of the items × parameters gradient matrix.</li>
+  </ul>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th scope="col">Adapter</th><th scope="col">\(W\)</th><th scope="col">Best stored bits</th><th scope="col">Bits / parameter</th><th scope="col">Knee \(b^*\)</th><th scope="col">\(2\times\) gradient rank at \(10^{-3}\)</th></tr></thead>
+      <tbody>
+        <tr><td>Linear probe, whitened, \(k=64\)</td><td>64</td><td>128</td><td>2.0</td><td>7</td><td>128</td></tr>
+        <tr><td>Linear probe, whitened, \(k=512\)</td><td>512</td><td>557</td><td>1.09</td><td>8</td><td>1,020</td></tr>
+        <tr><td>LoRA on last-layer gate, rank 1</td><td>4,096</td><td>256</td><td>0.063</td><td>7</td><td>252</td></tr>
+        <tr><td>LoRA on last-layer gate, rank 2</td><td>8,192</td><td>381</td><td>0.047</td><td>16</td><td>292</td></tr>
+        <tr><td>LoRA on last-layer gate, rank 4</td><td>16,384</td><td>324</td><td>0.020</td><td>10</td><td>390</td></tr>
+        <tr><td>LoRA on last-layer gate, rank 8</td><td>32,768</td><td>493</td><td>0.015</td><td>10</td><td>646</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li><strong>The counting bound held on all 36 runs at every \(b\)</strong>, as it must: \(I_b\le Wb\). The probe reaches Cover's 2 bits per parameter.</li>
+    <li><strong>Trained LoRA sits far below \(\gamma=1\).</strong> An eightfold increase in \(W\) gave about twice the stored bits, a log–log slope of 0.26 against about 1 for the probe.
+      <ul>
+        <li>LoRA's stored bits stay within a factor of 1.3 of twice the rank of its gradient matrix at relative threshold \(10^{-3}\).</li>
+        <li>So the binding constraint is the spread of the frozen model's features at the adapter site (Lemma N, in tangent form). Neither \(W\) nor \(b\) is.</li>
+      </ul>
+    </li>
+    <li><strong>Precision is spent on conditioning, not information.</strong> LoRA needs 7 to 16 bits per weight to keep at most 0.06 bits per parameter, so \(b_{\rm eff}\) runs far above \(I/W\).</li>
+    <li><strong>The knee is predicted by first-order sensitivity.</strong>
+      <ul>
+        <li>Treating rounding errors as independent noise on the margins predicts the probe's knee within 2 bits on 12 of 12 runs, and exactly on 7.</li>
+        <li>The worst-case prediction from the \(\ell^\infty\) Lipschitz constant (§0.4(ii)) asks for 3 to 4 more bits on the probe's full-fit runs. That is \(\tfrac12\log_2W\), the gap expected between \(\ell^1\) and \(\ell^2\) gradient norms.</li>
+      </ul>
+    </li>
+    <li><strong>Depth helps capacity, but not through precision.</strong> At fixed \(W=16{,}384\) (last-token gate LoRA):
+      <ul>
+        <li>Rank 4 in layer 27 alone stored 220 bits.</li>
+        <li>Rank 1 in each of layers 24 to 27 stored all 2,048 labels, with no sign of saturation. That is at least 9 times more per parameter.</li>
+        <li>The four-layer solution needed fewer bits per weight (7 against 8) and was about 100 times flatter (top Hessian eigenvalue 10 against 1,297).</li>
+        <li>What grew was the gradient matrix's rank at \(10^{-2}\), from 16 to 503. So depth bought a richer tangent space, not bit extraction.</li>
+        <li>This contradicts the plain form of conjecture §4.2. It supports its narrower form: trained adapters leave depth's precision (\(K\)) budget unused.</li>
+        <li>A follow-up separates depth from early-layer features (rank 4 in layer 24 alone) and finds where the four-layer adapter saturates.</li>
+      </ul>
+    </li>
+    <li>Code, raw results and full tables: <a href="https://github.com/MoralityLabAI/adapter-bits">github.com/MoralityLabAI/adapter-bits</a>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="sec">§6</span>Sources</h2>
+  <p class="note">Opened this session:</p>
+  <ul class="refs">
+    <li>W. Ou, P. Schenkel, H. Bölcskei, <a href="https://arxiv.org/abs/2405.01952">Three Quantization Regimes for ReLU Networks</a>, arXiv:2405.01952.</li>
+    <li>D. Yarotsky, A. Zhevnerchuk, <a href="https://arxiv.org/abs/1906.09477">The phase diagram of approximation rates for deep neural networks</a>, NeurIPS 2020, arXiv:1906.09477.</li>
+    <li>G. Petrova, P. Wojtaszczyk, <a href="https://arxiv.org/abs/2111.01341">Lipschitz widths</a>, arXiv:2111.01341.</li>
+  </ul>
+  <p class="note">Abstracts only:</p>
+  <ul class="refs">
+    <li>G. Petrova, P. Wojtaszczyk, <a href="https://arxiv.org/abs/2212.02223">Limitations on approximation by deep and shallow neural networks</a>.</li>
+    <li>G. Petrova, P. Wojtaszczyk, <a href="https://arxiv.org/abs/2310.07190">Neural networks: deep, shallow, or in between?</a></li>
+    <li>A. Cohen, R. DeVore, G. Petrova, P. Wojtaszczyk, <a href="https://arxiv.org/abs/2009.09907">Optimal stable nonlinear approximation</a>.</li>
+  </ul>
+  <p class="note">All other references, marked R above, are cited from memory: DeVore–Howard–Micchelli 1989; Yarotsky 2018; Lu–Shen–Yang–Zhang 2021; Kolmogorov–Tikhomirov 1959; Bartlett–Harvey–Liaw–Mehrabian 2019; Birman–Solomyak; Hardt–Recht–Singer 2016; Bartlett–Foster–Telgarsky 2017; Neyshabur et al. 2017 and 2018; Golowich–Rakhlin–Shamir 2018; Dziugaite–Roy 2017; Arora et al. 2018; Ghadimi–Lan 2013; Jacot et al. 2018; Chizat et al. 2019; Vardi–Yehudai–Shamir 2022.</p>
+</section>
+</main>
+
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+  svg: { fontCache: 'global' },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" defer></script>
+
+</body>
+</html>
