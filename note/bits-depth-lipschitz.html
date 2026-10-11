@@ -369,7 +369,13 @@ mjx-container[display="true"] { overflow-x: auto; overflow-y: hidden; max-width:
         <li>The four-layer solution needed fewer bits per weight (7 against 8) and was about 100 times flatter (top Hessian eigenvalue 10 against 1,297).</li>
         <li>What grew was the gradient matrix's rank at \(10^{-2}\), from 16 to 503. So depth bought a richer tangent space, not bit extraction.</li>
         <li>This contradicts the plain form of conjecture §4.2. It supports its narrower form: trained adapters leave depth's precision (\(K\)) budget unused.</li>
-        <li>A follow-up separates depth from early-layer features (rank 4 in layer 24 alone) and finds where the four-layer adapter saturates.</li>
+        <li><strong>Follow-up: placement matters most, spreading adds more.</strong>
+          <ul>
+            <li>Rank 4 in layer 24 alone also stored all 2,048 labels. Most of the gain over layer 27 comes from where the adapter sits.</li>
+            <li>At \(M=8{,}192\), with both runs stopped at the same 4,000-step cap, the four-layer adapter stored 3,284 bits (0.20 per parameter). That is 3.9 times the 848 bits of the same parameters in layer 24 alone.</li>
+            <li>Both solutions stay flat and need 7 to 8 bits per weight.</li>
+          </ul>
+        </li>
       </ul>
     </li>
     <li>Code, raw results and full tables: <a href="https://github.com/MoralityLabAI/Compactification-Theory">github.com/MoralityLabAI/Compactification-Theory</a>.</li>

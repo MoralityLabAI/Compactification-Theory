@@ -34,7 +34,7 @@ Adapters:
 
 ## Results
 
-Single seed, Adam, 2,000 to 3,000 steps, CPU. Full tables are in `results/<run>/report.md` and raw records in `results/<run>/results.jsonl`.
+Single seed, Adam, 2,000 to 4,000 steps, CPU. Full tables are in `results/<run>/report.md` and raw records in `results/<run>/results.jsonl`.
 
 ### What sets single-layer capacity (`results/sweep-1`, 36 runs)
 
@@ -56,26 +56,26 @@ Single seed, Adam, 2,000 to 3,000 steps, CPU. Full tables are in `results/<run>/
 - **Overloading costs information the adapter could have kept.** With 2,048 to 4,096 labels a LoRA adapter ends with 40 to 240 bits, less than it keeps with 256 to 512.
 - **The knee follows first-order sensitivity.** The typical-noise model predicts the probe's knee within 2 bits on 12 of 12 runs, and exactly on 7. The worst-case ℓ∞ prediction overshoots the probe's full-fit runs by 3 to 4 bits, which is ½·log2 W, the gap the note predicted.
 
-### Same parameters, more layers (`results/deep-2`, W = 16,384)
+### Placement and spread at fixed W = 16,384 (`results/deep-2`, `results/deep-3`)
 
-| placement | stored bits at M = 512 | stored bits at M = 2,048 | knee | top Hessian eigenvalue | gradient rank at 1e-2, init → trained |
-|---|---|---|---|---|---|
-| rank 4 in layer 27 | 220 | 106 | 8 | 1,297 | 22 → 16 |
-| rank 2 in layers 26, 27 | 512 (all) | 782 | 10 | 141 | 28 → 207 |
-| rank 1 in each of layers 24–27 | 512 (all) | **2,048 (all)** | 7 | 10 | 35 → 503 |
+All rows use last-token gate LoRA.
 
-- **Spreading the same parameters over four layers stored at least 9 times more bits.** The four-layer adapter fit every label it was given, so its capacity has not been reached yet.
-- **This is not the theory's route through depth.** Bit extraction gains capacity through more bits per weight and sharp, high-K solutions. Here the knee went down slightly and the solution was about 100 times flatter.
-- **What grew was the gradient matrix's rank**, and stored bits again track twice that rank.
-- **The note conjectured that trained adapters would not use depth.** That is wrong as stated. It holds only in the narrower sense that they do not spend depth on precision.
+| placement | stored bits at M = 512 | at M = 2,048 | at M = 8,192 | knee | top Hessian eigenvalue | gradient rank at 1e-2, init → trained |
+|---|---|---|---|---|---|---|
+| rank 4 in layer 27 | 220 | 106 | — | 8 | 1,297 | 22 → 16 |
+| rank 2 in layers 26, 27 | 512 (all) | 782 | — | 10 | 141 | 28 → 207 |
+| rank 4 in layer 24 | — | 2,048 (all) | 848 | 8 | 5 to 20 | 37 → 509 |
+| rank 1 in each of layers 24–27 | 512 (all) | 2,048 (all) | **3,284** | 7 to 8 | 8 to 51 | 35 → 463 |
 
-### Pending: `deep-3`
+`deep-2` ran 2,000 steps. `deep-3` (the rows with M = 8,192, and layer 24 alone) ran up to 4,000. Neither M = 8,192 run converged before that cap, so the comparison there is at equal compute.
 
-`deep-3` runs:
-- rank 4 in layer 24 alone, at the same W, to tell depth apart from layer 24's own features;
-- the four-layer adapter at M = 8,192, to find where it saturates.
-
-Its results will be added here.
+- **Placement matters most.** The same adapter moved from layer 27 to layer 24 goes from 106 bits to all 2,048 labels. Layer 27's features at the answer position are too uniform across keys for an adapter there to separate them.
+- **Spreading adds more on top.** At M = 8,192, rank 1 in each of four layers stored 3,284 bits (0.20 per parameter), 3.9 times the 848 bits of the same parameters in layer 24 alone.
+- **This is not the theory's route through depth.** Bit extraction gains capacity through more bits per weight and sharp, high-K solutions. Here every high-capacity solution needed 7 to 8 bits per weight and was 25 to 250 times flatter than the layer-27 one.
+- **What grew was the gradient matrix's rank**, from 16 in layer 27 to 385 to 509 whenever layer 24 is adapted.
+  - In `deep-2`, stored bits track twice that rank, as in `sweep-1`.
+  - In `deep-3` the rank at 1e-3 reached the 512 items sampled, so this check cannot tell those runs apart. A larger gradient sample is needed.
+- **The note conjectured that trained adapters would not use depth.** That is wrong as stated, since spreading helped. It holds only in the narrower sense that they do not spend depth on precision.
 
 ### Pilots
 
@@ -92,6 +92,7 @@ Python 3.12 with the packages in `requirements.txt`. The model is `Qwen/Qwen3-0.
 pip install -r requirements.txt
 python src/adapter_bits.py --pool 4096 --steps 3000 --lora-lr 0.03 --name sweep-1
 python src/adapter_bits_deep.py --first 24 --pool 2048 --items 512,2048 --specs "27:4;24:1,25:1,26:1,27:1;26:2,27:2" --lr 0.03 --name deep-2
+python src/adapter_bits_deep.py --first 24 --pool 8192 --items 2048,8192 --specs "24:4;24:1,25:1,26:1,27:1" --lr 0.03 --steps 4000 --name deep-3
 python src/adapter_bits_report.py runs/sweep-1
 ```
 
@@ -99,7 +100,7 @@ python src/adapter_bits_report.py runs/sweep-1
 - `--plan` takes entries like `probe:256:512,lora:gate:1:2048` (adapter, size, items).
 - `--cache-file` keeps the residual cache on disk between invocations.
 - `--wait-commit-gb` makes a Windows job wait for memory headroom before loading the model. This is for shared machines.
-- Expect about 3 hours for `sweep-1` and about 2 hours for `deep-2` on an 8-thread laptop CPU.
+- Expect about 3 hours for `sweep-1`, 2 hours for `deep-2` and 3 hours for `deep-3` on an 8-thread laptop CPU.
 
 ## Layout
 
