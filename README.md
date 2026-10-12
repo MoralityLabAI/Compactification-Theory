@@ -77,6 +77,13 @@ All rows use last-token gate LoRA.
   - In `deep-3` the rank at 1e-3 reached the 512 items sampled, so this check cannot tell those runs apart. A larger gradient sample is needed.
 - **The note conjectured that trained adapters would not use depth.** That is wrong as stated, since spreading helped. It holds only in the narrower sense that they do not spend depth on precision.
 
+### Follow-ups in progress
+
+[`docs/followups.md`](docs/followups.md) records predictions written and pushed before running them:
+- whether plain gradient descent's stability limit (sharpness ≤ 2/η) caps what an adapter can store;
+- seeds 1 and 2 of the main comparisons;
+- where the four-layer adapter saturates.
+
 ### Pilots
 
 - **`results/pilot-2`** used the template `"Item {key} belongs to group"` and a probe on raw random directions.

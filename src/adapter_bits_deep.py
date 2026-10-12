@@ -116,6 +116,9 @@ def main() -> None:
     parser.add_argument("--pool", type=int, default=8192)
     parser.add_argument("--lr", default="0.01", help="comma list")
     parser.add_argument("--steps", type=int, default=3000)
+    parser.add_argument("--optimizer", default="adam", choices=["adam", "gd"])
+    parser.add_argument("--eval-every", type=int, default=100)
+    parser.add_argument("--sharpness-every", type=int, default=0)
     parser.add_argument("--batch", type=int, default=512)
     parser.add_argument("--grad-items", type=int, default=128)
     parser.add_argument("--hessian-items", type=int, default=1024)
@@ -177,6 +180,8 @@ def main() -> None:
         raise SystemExit(f"last-token recomputation disagrees with the full model by {gap}")
 
     measure_args = argparse.Namespace(steps=args.steps, batch=args.batch, seed=args.seed, grad_items=args.grad_items,
+                                      optimizer=args.optimizer, eval_every=args.eval_every,
+                                      sharpness_every=args.sharpness_every,
                                       hessian_items=args.hessian_items, hessian_iters=args.hessian_iters)
     for spec in specs:
         for items in item_counts:
@@ -187,7 +192,7 @@ def main() -> None:
             for lr in args.lr.split(","):
                 module = DeepHead(model, cache, args.first, spec, readout, args.seed)
                 header = {"adapter": "deep-gate", "size": ",".join(f"{k}:{v}" for k, v in spec.items()),
-                          "layers": len(spec), "items": items, "lr": float(lr)}
+                          "layers": len(spec), "items": items, "lr": float(lr), "optimizer": args.optimizer}
                 measure(module, header, idx, ss, base_err, measure_args, log)
     log({"event": "done"})
 

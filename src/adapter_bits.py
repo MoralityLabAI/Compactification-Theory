@@ -220,16 +220,31 @@ def quantize_(module: nn.Module, bits: int) -> None:
 
 
 def train(module: nn.Module, h: torch.Tensor, sigma: torch.Tensor, steps: int, lr: float, batch: int,
-          seed: int, log, eval_every: int = 100) -> dict:
-    """Adam on the logistic loss of the signed margin, cosine-decayed over `steps` minibatch steps."""
+          seed: int, log, eval_every: int = 100, optimizer: str = "adam", sharpness_every: int = 0,
+          sharpness_items: int = 1024) -> dict:
+    """Minimise the logistic loss of the signed margin.
+
+    optimizer "adam": Adam, cosine-decayed over `steps` minibatch steps.
+    optimizer "gd": plain gradient descent (no momentum) at the constant step `lr`, full batch when
+    `batch` >= items. This is the setting of the edge-of-stability prediction (sharpness <= 2/lr).
+    With sharpness_every = k > 0, every k-th evaluation also logs the top Hessian eigenvalue of the loss
+    on `sharpness_items` items.
+    """
     params = [p for p in module.parameters() if p.requires_grad]
-    opt = torch.optim.Adam(params, lr=lr)
-    sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda step: 0.5 * (1 + math.cos(math.pi * min(step, steps) / steps)))
+    if optimizer == "adam":
+        opt = torch.optim.Adam(params, lr=lr)
+        sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda step: 0.5 * (1 + math.cos(math.pi * min(step, steps) / steps)))
+    elif optimizer == "gd":
+        opt, sched = torch.optim.SGD(params, lr=lr, momentum=0.0), None
+    else:
+        raise ValueError(f"unknown optimizer {optimizer}")
     gen = torch.Generator().manual_seed(seed)
     batch = min(batch, len(h))
     start = time.time()
     order: list[torch.Tensor] = []
     step = 0
+    evaluations = 0
+    peak_sharpness = 0.0
     for step in range(1, steps + 1):
         if not order:
             order = list(torch.randperm(len(h), generator=gen).split(batch))
@@ -238,15 +253,27 @@ def train(module: nn.Module, h: torch.Tensor, sigma: torch.Tensor, steps: int, l
         opt.zero_grad(set_to_none=True)
         loss.backward()
         opt.step()
-        sched.step()
+        if sched is not None:
+            sched.step()
         if step % eval_every == 0 or step == steps:
+            evaluations += 1
             z = margins(module, h, sigma)
             err = (z <= 0).float().mean().item()
-            log({"event": "step", "step": step, "loss": round(F.softplus(-z).mean().item(), 5),
-                 "err": round(err, 5), "seconds": round(time.time() - start, 1)})
+            record = {"event": "step", "step": step, "loss": round(F.softplus(-z).mean().item(), 5),
+                      "err": round(err, 5), "seconds": round(time.time() - start, 1)}
+            if not math.isfinite(record["loss"]):
+                log({**record, "diverged": True})
+                break
+            if sharpness_every and evaluations % sharpness_every == 0:
+                sharp = top_hessian_eigenvalue(module, h[:sharpness_items], sigma[:sharpness_items], 10, seed)
+                peak_sharpness = max(peak_sharpness, sharp)
+                record["hessian_top"] = round(sharp, 5)
+                record["lr_times_hessian"] = round(lr * sharp, 4)
+            log(record)
             if err == 0.0 and z.min().item() > 0.5:
                 break
-    return {"steps_run": step, "epochs_run": round(step * batch / len(h), 1), "train_seconds": round(time.time() - start, 1)}
+    return {"steps_run": step, "epochs_run": round(step * batch / len(h), 1), "train_seconds": round(time.time() - start, 1),
+            "optimizer": optimizer, "peak_tracked_hessian": round(peak_sharpness, 5)}
 
 
 def per_item_gradients(module: nn.Module, h: torch.Tensor, sigma: torch.Tensor, sample: torch.Tensor) -> dict:
@@ -329,7 +356,8 @@ def run_one(kind: str, size: int, items: int, lr: float, frozen: Frozen, h: torc
     else:
         module = LoraHead(frozen, kind.split(":", 1)[1].split("+"), size, args.seed)
     base_err = ((frozen.final_hidden(hs) @ frozen.readout) * ss <= 0).float().mean().item()
-    return measure(module, {"adapter": kind, "size": size, "items": items, "lr": lr}, hs, ss, base_err, args, log)
+    return measure(module, {"adapter": kind, "size": size, "items": items, "lr": lr, "optimizer": args.optimizer},
+                   hs, ss, base_err, args, log)
 
 
 def measure(module: nn.Module, header: dict, hs: torch.Tensor, ss: torch.Tensor, base_err: float, args, log) -> dict:
@@ -341,7 +369,9 @@ def measure(module: nn.Module, header: dict, hs: torch.Tensor, ss: torch.Tensor,
     run_log = lambda record: log({**header, **record})  # noqa: E731
     sample = torch.randperm(items, generator=torch.Generator().manual_seed(args.seed + 1))[:args.grad_items]
     tangent_init = tangent_rank(per_item_gradients(module, hs, ss, sample)["jacobian"])
-    fit = train(module, hs, ss, args.steps, lr, args.batch, args.seed, run_log)
+    fit = train(module, hs, ss, args.steps, lr, args.batch, args.seed, run_log,
+                eval_every=getattr(args, "eval_every", 100), optimizer=getattr(args, "optimizer", "adam"),
+                sharpness_every=getattr(args, "sharpness_every", 0), sharpness_items=getattr(args, "hessian_items", 1024))
     z = margins(module, hs, ss)
     err = (z <= 0).float().mean().item()
     grads = per_item_gradients(module, hs, ss, sample)
@@ -383,6 +413,10 @@ def main() -> None:
     parser.add_argument("--pool", type=int, default=32768, help="items cached; each run uses a prefix")
     parser.add_argument("--plan", default="default", help="'default', or entries like probe:256:512,lora:gate:1:2048")
     parser.add_argument("--steps", type=int, default=4000)
+    parser.add_argument("--optimizer", default="adam", choices=["adam", "gd"],
+                        help="gd = plain full-batch gradient descent at a constant step (set --batch >= items)")
+    parser.add_argument("--eval-every", type=int, default=100)
+    parser.add_argument("--sharpness-every", type=int, default=0, help="log the top Hessian eigenvalue every k evaluations")
     parser.add_argument("--batch", type=int, default=1024)
     parser.add_argument("--probe-lr", default="0.05", help="comma list; each plan entry runs once per value")
     parser.add_argument("--probe-pca-items", type=int, default=4096, help="items used to fit the probe's whitening")
