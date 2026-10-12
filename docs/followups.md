@@ -34,6 +34,23 @@ The note's §4.3 conjecture is this: gradient descent at step η can only settle
 - **P-A1b (J).** Stored bits at T = 400 do not increase with η: I(0.003) ≥ I(0.01) ≥ I(0.03) ≥ I(0.1), each within 10 bits of tolerance.
 - **P-A1c (J).** No run with η ≥ 0.01 memorizes all 256 labels. Adam's memorizing solution has λ ≈ 1,400, above 2/η = 200.
 
+**A1 results (2026-10-12; `results/fu-a1-eta*`):**
+
+| η | steps | stored bits I | error | final λ | η·λ at the end | tracked points in [1.5, 2.6]/η after first reaching 1.5/η |
+|---|---|---|---|---|---|---|
+| 0.1 | 4,000 | 10.9 | 0.379 | 19.4 | 1.94 | 7 of 7 (reached at step 500) |
+| 0.03 | 13,333 | 30.1 | 0.301 | 69.0 | 2.07 | 12 of 12 (step 2,000) |
+| 0.01 | 40,000 | 18.3 | 0.344 | 189 | 1.89 | 15 of 15 (step 10,000) |
+| 0.003 | 133,333 | 45.2 | 0.258 | 695 | 2.09 | 18 of 18 (step 45,000) |
+
+- **P-A1a: passes.**
+  - Every run's sharpness climbed to the stability limit and stayed there. η·λ was 1.87 to 2.35 at every tracked point after first reaching the limit, and the final sharpness was 2/η within 5% at every η.
+  - Before reaching the limit, sharpness rose steadily ("progressive sharpening").
+- **P-A1b: fails as registered.** I(0.03) = 30.1 exceeds I(0.01) = 18.3 by 11.8 bits, beyond the 10-bit tolerance. The other two pairs hold.
+  - The η = 0.03 run's error fell from 0.398 at step 13,000 to 0.301 at its final step 13,333. η·λ jumped from 1.87 to 2.07 at the same time.
+  - The final iterate of a run oscillating at the edge of stability is a noisy sample. The registered rule used it anyway, and the result stands as a failure.
+- **P-A1c: passes.** No run memorized. Even η = 0.003, whose limit 2/η ≈ 667 is closest to Adam's λ ≈ 1,400, stored 45 bits against Adam's 256.
+
 **A2.** Layer 24 alone, gate LoRA rank 4 (`24:4`), M = 256, full batch, T = 400, η ∈ {0.1, 0.03}.
 
 - **P-A2 (J).** At each η, layer 24 stores at least 4 times the bits that layer 27 stores in A1 at the same η, because flat high-capacity solutions exist there.
