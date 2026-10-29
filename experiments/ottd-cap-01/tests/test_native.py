@@ -84,7 +84,8 @@ class FakeBridge:
         if name == "inspect.station":
             return {"id": args["station"]}
         if name == "inspect.vehicle":
-            return {"id": args["vehicle"], "state": "stopped"}
+            running = any(op == "vehicles.start" for op, _ in self.builds)
+            return {"id": args["vehicle"], "state": "running" if running else "stopped"}
         if name == "inspect.orders":
             return {"vehicle": args["vehicle"], "orders": list(self.orders)}
         receipt = {"ok": True, "possible": True, "executed": True, "cost": self.cost}
@@ -200,6 +201,23 @@ class ExecutorTest(unittest.TestCase):
                 NativeExecutor(fake).run(road_plan(), path)
             self.assertNotIn("vehicles.start", [x[0] for x in fake.builds])
             self.assertEqual(json.loads(path.read_text())["status"], "stopped")
+
+    def test_start_ack_without_running_state_is_failure(self):
+        class StubbornBridge(FakeBridge):
+            def command(self, name, args=None, *, validate=False):
+                if name == "inspect.vehicle":
+                    self.calls.append((name, args, validate))
+                    return {"id": args["vehicle"], "state": "stopped"}
+                return super().command(name, args, validate=validate)
+        fake = StubbornBridge()
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "stubborn.json"
+            with self.assertRaises(RunStopped):
+                NativeExecutor(fake, sleep=lambda _: None).run(road_plan(), path)
+            receipt = json.loads(path.read_text())
+            self.assertEqual(receipt["steps"][-1]["cmd"], "vehicles.start")
+            self.assertEqual(receipt["steps"][-1]["status"], "failed")
+            self.assertEqual(receipt["status"], "stopped")
 
     def test_cost_cap_blocks_before_mutation(self):
         fake = FakeBridge()
