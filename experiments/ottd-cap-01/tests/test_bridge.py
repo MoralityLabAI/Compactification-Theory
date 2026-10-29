@@ -60,6 +60,20 @@ class BridgeTests(unittest.TestCase):
         with self.assertRaises(BridgeError):
             SeatBridge(transport=t, allow_writes=True).command("road.stop", {})
 
+    def test_ticket_is_read_only_and_identity_checked(self):
+        calls = []
+
+        def transport(method, path, body):
+            calls.append((method, path, body))
+            return {"ticket": 42, "status": "done", "ok": True}
+        bridge = SeatBridge(transport=transport)
+        self.assertTrue(bridge.ticket(42, timeout=8)["ok"])
+        self.assertEqual(calls, [("GET", "/api/ticket/42?timeout=8", None)])
+        with self.assertRaises(BridgeError):
+            bridge.ticket("42")
+        with self.assertRaises(BridgeError):
+            bridge.ticket(42, timeout=60)
+
     def test_atif_is_provenance_only(self):
         doc = {"schema_version": "ATIF-v1.8", "trajectory_id": "t1",
                "agent": {"name": "fake"}, "steps": [{"tool_calls": [{"id": "x"}]}, {}],
