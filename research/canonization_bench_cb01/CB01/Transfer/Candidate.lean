@@ -1,7 +1,8 @@
+import CB01.Transfer.Canonical
+
 /-!
 Frozen canonical refactor. Holdout tests must import this without changing it.
 -/
-import CB01.Transfer.Canonical
 
 set_option autoImplicit false
 universe u v w z

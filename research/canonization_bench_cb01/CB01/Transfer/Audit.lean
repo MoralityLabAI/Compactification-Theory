@@ -1,9 +1,10 @@
+import CB01.Transfer.Baseline
+import CB01.Transfer.Candidate
+
 /-!
 The identical declared Prop targets force semantic type alignment between
 baseline and candidate. Lean elaborates both proofs independently.
 -/
-import CB01.Transfer.Baseline
-import CB01.Transfer.Candidate
 
 set_option autoImplicit false
 universe u v w z

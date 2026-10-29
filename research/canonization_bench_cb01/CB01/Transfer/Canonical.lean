@@ -1,8 +1,9 @@
+import CB01.Transfer.Statements
+import CB01.Canonical
+
 /-!
 Canonical lemmas submitted before held-out tests are written.
 -/
-import CB01.Transfer.Statements
-import CB01.Canonical
 
 set_option autoImplicit false
 universe u v w z

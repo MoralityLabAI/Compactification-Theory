@@ -1,9 +1,10 @@
+import CB01.Core
+
 /-!
 CB02 statement-only contracts. These are deterministic/abstract specializations
 of EvalMath IRC-02/T at pinned commit 2616092a...; they do not formalize its
 rational stochastic posterior or conditional Bayesian update.
 -/
-import CB01.Core
 
 set_option autoImplicit false
 universe u v w z

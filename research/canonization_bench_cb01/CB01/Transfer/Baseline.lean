@@ -1,7 +1,8 @@
+import CB01.Transfer.Statements
+
 /-!
 Three independent, source-specific proofs. Never imports Transfer.Canonical.
 -/
-import CB01.Transfer.Statements
 
 set_option autoImplicit false
 universe u v w z
