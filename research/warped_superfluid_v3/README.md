@@ -115,7 +115,7 @@ Set initial `Bdot=chidot=0`, choose `B(y)` near the exact BPS background with it
  \dot A(0,y)=H_{\rm UV}\exp[B(0,y)-A(0,y)].
 \]
 
-The Hamiltonian constraint becomes a nonlinear ODE for `A(y)`, with its UV initial slope fixed by the UV spatial Israel condition. `H_UV²` is determined by the remaining IR spatial Israel condition through a bracketed scalar root solve. This constructs a legitimate constraint-satisfying initial hypersurface for the full time-dependent system. The bulk variables are then evolved using method of lines, consistent Neumann/Robin brane slopes, fourth-order one-sided boundary second derivatives and a high-accuracy explicit ODE integrator.
+The Hamiltonian constraint becomes a nonlinear ODE for `A(y)`, with its UV initial slope fixed by the UV spatial Israel condition. `H_UV²` is determined by the remaining IR spatial Israel condition through a bracketed scalar root solve. This constructs a legitimate constraint-satisfying initial hypersurface for the full time-dependent system. The bulk variables are then evolved using method of lines, consistent Neumann/Robin brane slopes, third-order one-sided boundary second derivatives and a high-accuracy explicit ODE integrator.
 
 For `s0=.001`, the result is
 
