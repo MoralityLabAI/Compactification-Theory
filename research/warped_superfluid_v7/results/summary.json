@@ -1,0 +1,301 @@
+{
+  "title": "WS-07: self-gravitating stationary charged slab and its staticity obstruction",
+  "status": "Classical dimensionless exact bulk Einstein-scalar branch, with explicit exotic IR brane ghost. Not viable dark energy.",
+  "parameters": {
+    "M3": 1.0,
+    "k": 1.0,
+    "u": 0.25,
+    "chi0": 0.4,
+    "L": 1.0,
+    "F0": 0.08,
+    "kap_uv": 1.0,
+    "kap_ir": 1.0,
+    "mass2": 0.5,
+    "lam": 0.3
+  },
+  "omega": 1.0880076523530724,
+  "equations": {
+    "metric": "ds2=-exp(2N(y)) dt2+exp(2A(y)) dx3_squared+dy2",
+    "charged_field": "Psi=F(y) exp(i omega t)",
+    "local_identity": "d_y[exp(N+3A)*(Nprime-Aprimes)] = omega^2/M3 *exp(-N+3A)*F^2",
+    "integral_identity": "sum_i exp(N_i+3 A_i)*(rho_i+p_i)+2 omega^2 integral exp(-N+3A)*F^2 dy = 0"
+  },
+  "bulk_diagnostics": {
+    "max_hamiltonian_constraint": 2.851052727237402e-13,
+    "sumrule_lhs": 0.005877940547587779,
+    "sumrule_integral": 0.00587793987780513,
+    "sumrule_quad_error": 6.697826486143366e-10,
+    "uv_D": 0.0,
+    "ir_D": 0.3366251646239796,
+    "uv_rho_plus_p": 0.0,
+    "ir_rho_plus_p": -0.6732503292479592,
+    "bulk_charge": 0.00540248027216785,
+    "bulk_anisotropy_positive_min": 0.007576068170104603,
+    "UV_F_robin": 0.0,
+    "IR_F_robin": 3.37924133120282e-13,
+    "uv_chi_prime": 0.1,
+    "ir_chi_prime": 0.13464886837321235,
+    "uv_A_prime": -1.006913735857556,
+    "uv_N_prime": -1.006913735857556,
+    "ir_A_prime": -1.1069561440624744,
+    "ir_N_prime": -0.7703309794384948,
+    "D_rhs_min": 0.007576068170104603,
+    "uv_surface_rho": 6.041482415145335,
+    "uv_surface_p": -6.041482415145335,
+    "ir_surface_rho": -6.641736864374847,
+    "ir_surface_p": 5.968486535126887
+  },
+  "israel_branes": {
+    "uv_potential_constant": 6.038282415145336,
+    "uv_chi_linear": 0.2,
+    "uv_charged_quadratic": 1.0,
+    "ir_potential_constant": -6.317847898812353,
+    "ir_chi_linear": -0.2692977367464247,
+    "ir_charged_quadratic": 1.0,
+    "ir_ghost_proper_phase_gradient_squared": 0.6732503292479592,
+    "ir_ghost_coordinate_phase_rate": 0.3132687704949578,
+    "ir_rho_from_action": -6.641736864374847,
+    "ir_p_from_action": 5.968486535126887,
+    "uv_rho_from_action": 6.041482415145335,
+    "uv_p_from_action": -6.041482415145335,
+    "ir_F_slope_action_residual": 3.37924133120282e-13,
+    "uv_F_slope_action_residual": 0.0,
+    "ir_chi_slope_action_residual": 0.0,
+    "uv_chi_slope_action_residual": 0.0
+  },
+  "max_exact_all_einstein_components": 2.851052727237402e-13,
+  "max_fd_all_einstein_components_interior": 7.688997918364748e-06,
+  "integrated_sumrule_simpson": {
+    "lhs": 0.005877940547587779,
+    "rhs": 0.005877940547590701,
+    "abs_error": 2.9221416952829316e-15
+  },
+  "tensor_low_p": {
+    "uv_brane_light_speed": 1.0,
+    "c_t2": 1.0104112771709814,
+    "c_t": 1.005192159326256,
+    "delta_ct": 0.005192159326256052,
+    "interpretation": "5D transverse traceless sector only; IR ghost implies scalar-sector instability"
+  },
+  "charge_sweep": [
+    {
+      "F0": 0.0,
+      "omega": null,
+      "ir_NEC": 0.0,
+      "graviton_speed": 1.0,
+      "charge": 0.0,
+      "hamiltonian_error": 0.0
+    },
+    {
+      "F0": 0.02,
+      "omega": 1.0796602098168333,
+      "ir_NEC": -0.04202858564186296,
+      "graviton_speed": 1.0003246572634181,
+      "charge": 0.0003441009041943157,
+      "hamiltonian_error": 1.1901590823981678e-13
+    },
+    {
+      "F0": 0.04,
+      "omega": 1.0813454071050457,
+      "ir_NEC": -0.16812812280213407,
+      "graviton_speed": 1.0012985312732414,
+      "charge": 0.0013711197298998585,
+      "hamiltonian_error": 1.412203687323199e-13
+    },
+    {
+      "F0": 0.06,
+      "omega": 1.0841366262962602,
+      "ir_NEC": -0.3784039383927622,
+      "graviton_speed": 1.00292127807246,
+      "charge": 0.0030655256251570532,
+      "hamiltonian_error": 3.0464519795714295e-13
+    },
+    {
+      "F0": 0.08,
+      "omega": 1.0880076523530724,
+      "ir_NEC": -0.6732503292479592,
+      "graviton_speed": 1.0051921593262163,
+      "charge": 0.005402478425345626,
+      "hamiltonian_error": 2.851052727237402e-13
+    },
+    {
+      "F0": 0.1,
+      "omega": 1.092921754050103,
+      "ir_NEC": -1.0536985819433602,
+      "graviton_speed": 1.0081098070156695,
+      "charge": 0.00834930955193447,
+      "hamiltonian_error": 1.3322676295501878e-14
+    },
+    {
+      "F0": 0.12,
+      "omega": 1.0988318024786625,
+      "ir_NEC": -1.521947357797842,
+      "graviton_speed": 1.011671916991679,
+      "charge": 0.011867426764513274,
+      "hamiltonian_error": 9.059419880941277e-14
+    }
+  ],
+  "tensor_modes": [
+    {
+      "nodes": 33,
+      "p3": 0.0,
+      "omega2_first_four": [
+        1.2398765314693408e-12,
+        3.7008050663055085,
+        13.939654505817504,
+        31.093012403346115
+      ]
+    },
+    {
+      "nodes": 33,
+      "p3": 0.002,
+      "omega2_first_four": [
+        4.041752361821815e-06,
+        3.7008092861524045,
+        13.939658662815336,
+        31.093016545188156
+      ]
+    },
+    {
+      "nodes": 33,
+      "p3": 0.02,
+      "omega2_first_four": [
+        0.00040417520350130435,
+        3.7012270510109584,
+        13.940070205709711,
+        31.09342658778501
+      ]
+    },
+    {
+      "nodes": 33,
+      "p3": 0.2,
+      "omega2_first_four": [
+        0.04041732518748167,
+        3.7430035518119027,
+        13.981224586322533,
+        31.13443088031736
+      ]
+    },
+    {
+      "nodes": 65,
+      "p3": 0.0,
+      "omega2_first_four": [
+        0.0,
+        3.6968312056498727,
+        13.893989503811792,
+        30.877039874184838
+      ]
+    },
+    {
+      "nodes": 65,
+      "p3": 0.002,
+      "omega2_first_four": [
+        4.041670245603181e-06,
+        3.696835425233999,
+        13.893993660868905,
+        30.877044016468588
+      ]
+    },
+    {
+      "nodes": 65,
+      "p3": 0.02,
+      "omega2_first_four": [
+        0.000404167182285237,
+        3.6972531645897817,
+        13.894405209652177,
+        30.877454102655648
+      ]
+    },
+    {
+      "nodes": 65,
+      "p3": 0.2,
+      "omega2_first_four": [
+        0.04041652334937747,
+        3.7390271139700273,
+        13.9355601782249,
+        30.918462754076536
+      ]
+    },
+    {
+      "nodes": 129,
+      "p3": 0.0,
+      "omega2_first_four": [
+        0.0,
+        3.695837080811108,
+        13.882566461547752,
+        30.823031080130093
+      ]
+    },
+    {
+      "nodes": 129,
+      "p3": 0.002,
+      "omega2_first_four": [
+        4.041659500999155e-06,
+        3.695841300323649,
+        13.882570618634622,
+        30.82303522254371
+      ]
+    },
+    {
+      "nodes": 129,
+      "p3": 0.02,
+      "omega2_first_four": [
+        0.00040416517513250513,
+        3.696259033317188,
+        13.882982169041002,
+        30.823445320201742
+      ]
+    },
+    {
+      "nodes": 129,
+      "p3": 0.2,
+      "omega2_first_four": [
+        0.04041632293993459,
+        3.738032347258633,
+        13.924137300915074,
+        30.86445511967295
+      ]
+    },
+    {
+      "nodes": 257,
+      "p3": 0.0,
+      "omega2_first_four": [
+        5.234600869467557e-11,
+        3.6955885084818783,
+        13.879710291355781,
+        30.80952814891575
+      ]
+    },
+    {
+      "nodes": 257,
+      "p3": 0.002,
+      "omega2_first_four": [
+        4.041656528856881e-06,
+        3.6955927280775427,
+        13.879714448527292,
+        30.80953229133939
+      ]
+    },
+    {
+      "nodes": 257,
+      "p3": 0.02,
+      "omega2_first_four": [
+        0.00040416470453604023,
+        3.6960104594415197,
+        13.880125999264173,
+        30.809942391827118
+      ]
+    },
+    {
+      "nodes": 257,
+      "p3": 0.2,
+      "omega2_first_four": [
+        0.04041627279158108,
+        3.7377836146221854,
+        13.921281172975505,
+        30.850952482011184
+      ]
+    }
+  ],
+  "limitation": "No full scalar-radion-ghost constrained spectrum; no stable NEC-satisfying stationary two-brane solution. No helium-3 data or cosmological constant fit."
+}
