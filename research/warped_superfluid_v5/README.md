@@ -19,10 +19,10 @@ Run outputs `results/summary.json` and five independent PNG diagnostic plots. Th
 
 ## 1. Exact homogeneous Goldstone control
 
-For two real fields `x,v` with global U(1), use
+For two real fields `x,v` with global U(1), use metric signature `(-,+,+,+)` and
 
 \[
- {\cal L}=\tfrac12(\partial x)^2+\tfrac12(\partial v)^2
+ {\cal L}=-\tfrac12\partial_\mu x\,\partial^\mu x-\tfrac12\partial_\mu v\,\partial^\mu v
  -\tfrac12m_B^2(x^2+v^2)-\tfrac14\lambda_B(x^2+v^2)^2 .
 \]
 
@@ -35,8 +35,8 @@ A constant-amplitude charged solution of the *flat-space* bulk field equations i
 Writing the amplitude and phase as `F+r` and `omega*t+pi`, the quadratic Lagrangian is
 
 \[
- {\cal L}_2=\tfrac12(\partial r)^2+
- \tfrac12F^2(\partial\pi)^2+2 F\omega r\dot\pi
+ {\cal L}_2=-\tfrac12\partial_\mu r\,\partial^\mu r+
+ -\tfrac12F^2\partial_\mu\pi\,\partial^\mu\pi+2 F\omega r\dot\pi
  -\lambda_B F^2r^2.
 \]
 
