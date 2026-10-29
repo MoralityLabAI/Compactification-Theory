@@ -14,6 +14,7 @@ sys.path[:0]=[str(ROOT.parent/'warped_superfluid_v3'),
               str(ROOT.parent/'warped_superfluid_v4'),str(ROOT)]
 from bulk_complex import BulkChargedSystem
 from goldstone import HomogeneousCondensate
+from isocurvature import entropy_projection,unit_entropy_normal
 from tangent import (evolve_tangent,finite_difference_response,phase_rotation_tangent,
                      jvp,geometry_derivative,charge_derivative,constraint_jvp)
 
@@ -43,6 +44,11 @@ def run():
                              'initial_linear_charge':x['linear_observables'][0,2],
                              'final_linear_charge':x['linear_observables'][-1,2]}
     primary=references[65]
+    spacing=primary['grid'][1]-primary['grid'][0]
+    entropy_series=np.array([entropy_projection(m,s,d,spacing)
+                  for s,d in zip(primary['states'],primary['tangent_states'])])
+    entropy_rms=np.sqrt(np.mean(entropy_series**2,axis=1))
+    normal,rank_mag=unit_entropy_normal(m,primary['states'][-1],spacing)
     compare=finite_difference_response(m,primary,epsilon=5e-4)
     smaller=finite_difference_response(m,primary,epsilon=2.5e-4)
     # Exact symmetry of the semi-discrete field equations, metric and boundary slopes.
@@ -64,6 +70,12 @@ def run():
                                         'local_UV_equilibrium_frequency_gap':ref.local_frequency_gap(m.bulk_omega,0),
                                         'omega2_minus_equilibrium_omega2':m.bulk_omega**2-ref.equilibrium_frequency**2,
                                         'sample_goldstone_branches':modes},
+             'gauge_invariant_entropy':{'construction':'n_I delta q^I, n proportional to dt q cross dy q',
+                         'rank_min_final':float(np.min(rank_mag)),
+                         'rms_t':entropy_rms.tolist(),
+                         'first_profile':entropy_series[0].tolist(),
+                         'last_profile':entropy_series[-1].tolist(),
+                         'scope':'gauge-invariant local scalar projection; no complete coupled GI spectrum'},
              'metric_phase_response':{'nodes':65,'time_end':float(primary['t'][-1]),
                                       'max_relative_errors_FD_epsilon_5e_minus4':compare['max_relative_error'].tolist(),
                                       'max_relative_errors_FD_epsilon_2p5e_minus4':smaller['max_relative_error'].tolist(),
@@ -107,6 +119,15 @@ def run():
         plt.close()
 
     plt.figure(figsize=(6.8,4))
+    plt.plot(primary['grid'],entropy_series[0],label='Initial')
+    plt.plot(primary['grid'],entropy_series[-1],label='t=0.12')
+    plt.xlabel('Conformal bulk coordinate y')
+    plt.ylabel('n · delta(q_chi, q_x, q_v)')
+    plt.title('Gauge-invariant field-space entropy projection')
+    plt.grid(alpha=.2);plt.legend();plt.tight_layout()
+    plt.savefig(outdir/'entropy_isocurvature.png',dpi=170);plt.close()
+
+    plt.figure(figsize=(6.8,4))
     for col,lab in [(0,'Hamiltonian'),(1,'Momentum')]:
         plt.loglog(list(results.keys()),[results[z][['max_linear_H_constraint','max_linear_momentum_constraint'][col]] for z in results],marker='o',label=lab)
     plt.xlabel('Grid nodes');plt.ylabel('Max tangent constraint residual')
@@ -119,7 +140,8 @@ def run():
         'max_relative_FD_response_error':compare['max_relative_error'].tolist(),
         'tangent_last':primary['linear_observables'][-1].tolist(),
         'constraint_refinement':results,
-        'U1_symmetry_residual':u1_error},indent=2))
+        'U1_symmetry_residual':u1_error,
+        'entropy_rms_initial_final':[float(entropy_rms[0]),float(entropy_rms[-1])]},indent=2))
     return summary
 
 if __name__=='__main__': run()

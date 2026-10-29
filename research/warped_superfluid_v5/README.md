@@ -15,7 +15,7 @@ python -m unittest discover -s tests -v
 python run_experiment.py
 ```
 
-Run outputs `results/summary.json` and five independent PNG diagnostic plots. The package has **20 locally passing regression tests** and a scoped GitHub Actions workflow. It imports `BulkChargedSystem` from WS-04 without modifying WS-03/04 source.
+Run outputs `results/summary.json` and six independent PNG diagnostic plots. The package has **25 locally passing regression tests** and a scoped GitHub Actions workflow. It imports `BulkChargedSystem` from WS-04 without modifying WS-03/04 source.
 
 ## 1. Exact homogeneous Goldstone control
 
@@ -122,7 +122,38 @@ Both linearized Einstein constraints decrease under refinement. The charge deriv
 
 The central finite-difference error decreases quadratically with the amplitude perturbation, another separate acceptance gate. These results are within a short-time numerical regime; they do not establish a long-duration non-tachyonic charged background.
 
-## 4. Boundaries and what is still missing
+## 4. One local *gauge-invariant* charged isocurvature projection
+
+There is a useful exact invariant inside the evolving charged background. The canonical real field vector
+
+\[
+ q^I=(\chi,x,v), \quad I=1,2,3
+\]
+
+has two background spacetime gradients, \(\partial_t q^I\) and \(\partial_y q^I\). When these are linearly independent, their field-space cross product defines a unit normal,
+
+\[
+ n_I=\frac{(\partial_t\vec q\times\partial_y\vec q)_I}
+ {\|\partial_t\vec q\times\partial_y\vec q\|}.
+\]
+
+Under an infinitesimal time/extra-dimensional scalar diffeomorphism, the matter perturbation changes as
+
+\[
+ \delta q^I\longmapsto\delta q^I+\xi^t\partial_t q^I+\xi^y\partial_y q^I.
+\]
+
+Consequently, the **local field entropy**
+
+\[
+ \boxed{{\cal S}_\perp=n_I\delta q^I}
+\]
+
+is exactly invariant at first perturbative order, because \(n_I\partial_t q^I=n_I\partial_y q^I=0\). The background is homogeneous in the three extended spatial directions, so scalar shifts along those directions add no matter-field variation. This construction uses a flat field-space metric appropriate to the canonical Cartesian variables. It also respects global SO(2) rotations of the charged pair. It becomes undefined at rank-deficient points where \(\partial_t\vec q\times\partial_y\vec q=0\); WS-05 rejects those explicitly.
+
+The solver now evaluates \({\cal S}_\perp(t,y)\) along the charged tangent evolution and tests random local \(\xi^t(y),\xi^y(y)\) shifts, SO(2) frame rotations, nondegeneracy of the field-gradient plane, and persistence over short time. This gives **one genuinely gauge-invariant charged isocurvature observable**, while the remaining physical metric/radion/phase mode reduction still requires solving the constraint algebra and brane bending at finite three-momentum.
+
+## 5. Boundaries and what is still missing
 
 The gauge-invariant Lesgourgues–Sorbo radion calculation in WS-04 applies to **one static uncharged background scalar**. In contrast, WS-05 evolves three-dimensionally homogeneous perturbations of an **expanding** geometry with two active scalar sectors (GW plus complex charge). A time-dependent 5D background and finite charge produce both metric gauge modes and physical scalar mixing; their fully gauge-invariant decomposition requires a 3D Fourier scalar-sector ansatz and systematic elimination of the linearized Einstein constraints and brane bending modes. A positive Goldstone dispersion in the *flat homogeneous equilibrium* control does not imply stability of the full curved, charged two-brane system.
 

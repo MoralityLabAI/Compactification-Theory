@@ -8,6 +8,7 @@ sys.path[:0]=[str(ROOT.parent/'warped_superfluid_v3'),
               str(ROOT.parent/'warped_superfluid_v4'),str(ROOT)]
 from bulk_complex import BulkChargedSystem
 from goldstone import HomogeneousCondensate
+from isocurvature import field_gradients,unit_entropy_normal,entropy_projection,shifted_scalar_tangent,u1_rotate_state
 from tangent import (
     base_initial_state,initial_tangent,jvp,constraint_jvp,junction_jvp,
     charge_derivative,geometry_derivative,geometry_observables,
@@ -170,6 +171,53 @@ class CoupledLinearResponse(unittest.TestCase):
             initial_tangent(self.m,n=33,parameter='bulk_amp',step=.1)
         with self.assertRaises(ValueError):
             jvp(self.m,0,self.state,self.tangent[:-1],self.dy)
+
+
+class GaugeInvariantEntropy(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.m=BulkChargedSystem()
+        cls.grid,cls.state,cls.tangent=initial_tangent(cls.m,n=65)
+        cls.spacing=cls.grid[1]-cls.grid[0]
+
+    def test_21_gradients_are_rank_two(self):
+        n,mag=unit_entropy_normal(self.m,self.state,self.spacing)
+        self.assertGreater(np.min(mag),1e-5)
+        self.assertLess(np.max(abs(np.linalg.norm(n,axis=0)-1)),1e-12)
+
+    def test_22_arbitrary_time_and_extra_dimensional_shifts_invariant(self):
+        y=self.grid
+        xi_t=.08*np.cos(3*y)
+        xi_y=.11*np.sin(2*y)
+        shifted=shifted_scalar_tangent(self.m,self.state,self.tangent,self.spacing,xi_t,xi_y)
+        original=entropy_projection(self.m,self.state,self.tangent,self.spacing)
+        after=entropy_projection(self.m,self.state,shifted,self.spacing)
+        self.assertLess(np.max(abs(original-after)),1e-12)
+
+    def test_23_global_u1_frame_rotation_invariant(self):
+        for angle in [.2,1.1,2.5]:
+            b=u1_rotate_state(self.state,angle)
+            d=u1_rotate_state(self.tangent,angle)
+            original=entropy_projection(self.m,self.state,self.tangent,self.spacing)
+            rotated=entropy_projection(self.m,b,d,self.spacing)
+            self.assertLess(np.max(abs(original-rotated)),1e-12)
+
+    def test_24_entropy_projection_persists_in_evolving_charged_system(self):
+        out=evolve_tangent(self.m,n=49,time_end=.07,samples=4)
+        dy=out['grid'][1]-out['grid'][0]
+        for base,pert in zip(out['states'],out['tangent_states']):
+            s=entropy_projection(self.m,base,pert,dy)
+            self.assertTrue(np.all(np.isfinite(s)))
+            self.assertGreater(np.max(abs(s)),.01)
+            x=np.linspace(0,1,len(s))
+            shift=shifted_scalar_tangent(self.m,base,pert,dy,.02*np.sin(x),.03*np.cos(x))
+            self.assertLess(np.max(abs(entropy_projection(self.m,base,shift,dy)-s)),1e-12)
+
+    def test_25_degenerate_gradient_plane_rejected(self):
+        zero=self.state.copy()
+        zero[7:10]=0
+        with self.assertRaises(ValueError):
+            entropy_projection(self.m,zero,self.tangent,self.spacing)
 
 
 if __name__=='__main__':
