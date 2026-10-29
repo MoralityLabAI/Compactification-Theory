@@ -1,0 +1,139 @@
+{
+  "experiment": "WS-03",
+  "status": "nonlinear 5D Einstein-GW scalar PDE with two Z2 branes and charged phase confined to the UV brane",
+  "scope_limits": [
+    "dimensionless kL=1 benchmark",
+    "no physical gauge-invariant radion spectrum",
+    "no charged condensate propagating in the 5D bulk",
+    "no dark-energy self-tuning or cosmological fit",
+    "short-time convergence, not global stability"
+  ],
+  "parameters": {
+    "k": 1.0,
+    "M5_cubed": 1.0,
+    "u": 0.25,
+    "chi_uv": 0.4,
+    "L_proper": 1.0,
+    "kappa_uv": 8.0,
+    "kappa_ir": 8.0,
+    "phase_kinetic_s0": 0.001,
+    "rho_uv_0": 0.003,
+    "time_end": 0.4
+  },
+  "static_Backreacted_background": {
+    "conformal_y_extent": 1.726343868551912,
+    "4d_planck_squared": 0.8601207030453716,
+    "prediction_H_squared_over_rho": 0.38754250671228163
+  },
+  "constraint_satisfying_initial_slice": {
+    "H_uv_squared": 0.001162382262836894,
+    "H_uv": 0.034093727617215665,
+    "actual_H_squared_over_rho": 0.38746075427896465,
+    "relative_difference_to_reduced_4d": -0.0002109508812607741,
+    "hamiltonian_analytic_max": 2.220446049250313e-16,
+    "momentum_analytic_max": 2.0816681711721685e-17,
+    "six_junction_errors": {
+      "uv_A": 2.220446049250313e-16,
+      "uv_B": 0.0,
+      "uv_chi": 0.0,
+      "ir_A": -5.88418203051333e-15,
+      "ir_B": 0.0,
+      "ir_chi": 0.0
+    },
+    "radion_initial_proper_length": 1.0006824806340082
+  },
+  "evolution_convergence": {
+    "65": {
+      "max_00_constraint_interior": 0.003323647923248352,
+      "max_0y_constraint_interior": 0.003379725068721339,
+      "max_independent_junction_derivative_error": 3.436275036539094e-05,
+      "radion_final_proper_length": 1.0006967864869976,
+      "radion_proper_length_change": -2.5272831696954157e-05,
+      "final_H_uv": 0.03357939234818587,
+      "maximum_charge_relative_error": 4.440892098500626e-16
+    },
+    "129": {
+      "max_00_constraint_interior": 0.0009402050666600381,
+      "max_0y_constraint_interior": 0.0009610019988319,
+      "max_independent_junction_derivative_error": 4.175131148143052e-06,
+      "radion_final_proper_length": 1.000676040512041,
+      "radion_proper_length_change": -6.440121967266066e-06,
+      "final_H_uv": 0.03329017048297356,
+      "maximum_charge_relative_error": 4.440892098500626e-16
+    },
+    "257": {
+      "max_00_constraint_interior": 0.0002536745383552308,
+      "max_0y_constraint_interior": 0.00025968002836669493,
+      "max_independent_junction_derivative_error": 8.500316301951472e-07,
+      "radion_final_proper_length": 1.0006710141894373,
+      "radion_proper_length_change": -1.5710011571634652e-06,
+      "final_H_uv": 0.033214342196401354,
+      "maximum_charge_relative_error": 4.440892098500626e-16
+    }
+  },
+  "radion_response_to_interior_scalar_perturbation": {
+    "65": {
+      "bump_plus_minus": 0.001,
+      "central_difference_dD_dbump_at_t1": 0.006864581034382589,
+      "max_00_constraint_interior": 0.00921415255726954
+    },
+    "129": {
+      "bump_plus_minus": 0.001,
+      "central_difference_dD_dbump_at_t1": 0.006885429727376824,
+      "max_00_constraint_interior": 0.00262112387199398
+    },
+    "257": {
+      "bump_plus_minus": 0.001,
+      "central_difference_dD_dbump_at_t1": 0.006890889572397363,
+      "max_00_constraint_interior": 0.0007131243381284236
+    }
+  },
+  "detuned_brane_vacuum_response": [
+    {
+      "positive_tension_detuning": 0.0001,
+      "H_uv_squared": 3.8749591500372274e-05,
+      "H_squared_over_detuning": 0.3874959150037227,
+      "max_israel_residual": 9.381384558082573e-15
+    },
+    {
+      "positive_tension_detuning": 0.001,
+      "H_uv_squared": 0.0003875466937047969,
+      "H_squared_over_detuning": 0.3875466937047969,
+      "max_israel_residual": 3.4416913763379853e-15
+    },
+    {
+      "positive_tension_detuning": 0.01,
+      "H_uv_squared": 0.0038763138119571315,
+      "H_squared_over_detuning": 0.38763138119571316,
+      "max_israel_residual": 3.1086244689504383e-15
+    }
+  ],
+  "fixed_metric_GW_scalar_probe_eigenvalues_m_squared": {
+    "65": [
+      2.4238079944176234,
+      8.129122272632088,
+      18.960140222559087,
+      35.93388219578911
+    ],
+    "129": [
+      2.423384889723632,
+      8.125391206039495,
+      18.93969011777557,
+      35.86017451681244
+    ],
+    "257": [
+      2.4232790971769074,
+      8.12445830471771,
+      18.934577409549306,
+      35.84174894443902
+    ]
+  },
+  "uncharged_static_reference": {
+    "max_00_constraint_interior": 0.0002635373709987121,
+    "radion_drift_t0p4": -1.7254856619075554e-06
+  },
+  "tests": {
+    "count": 20,
+    "execution": "python -m unittest discover -s tests -v"
+  }
+}
