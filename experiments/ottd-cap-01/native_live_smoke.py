@@ -23,7 +23,7 @@ import sys
 import time
 from urllib.request import Request, urlopen
 
-from bridge import SeatBridge, UPSTREAM_PIN
+from bridge import SeatBridge, BridgeError, UPSTREAM_PIN
 from native_controller import NativeExecutor, PLAN_SCHEMA, compile_route
 
 SEED = 101
@@ -164,9 +164,14 @@ def place_plan(bridge: SeatBridge, *, stop_after: int = 220) -> tuple[dict, dict
                 a2 = int(acc2.get("accepts", {}).get("PASS", 0))
                 if min(p1, p2, a1, a2) < 8:
                     continue
-                test = bridge.command("road.road",
-                                      {"x": x1, "y": y, "to_x": x2, "to_y": y, "full": True},
-                                      validate=True)
+                try:
+                    test = bridge.command("road.road",
+                                          {"x": x1, "y": y, "to_x": x2, "to_y": y, "full": True},
+                                          validate=True)
+                except BridgeError:
+                    # A candidate's real OpenTTD test-mode construction can fail
+                    # (existing road, house, slope, authority); continue surveying.
+                    continue
                 if not isinstance(test, dict) or test.get("possible") is not True:
                     continue
                 mid = (x1 + x2) // 2
