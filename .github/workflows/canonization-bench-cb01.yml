@@ -19,17 +19,33 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout pinned EvalMath source
+        uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/EvalMath
+          ref: 2616092a2c73c083378e508abfd966fdf5e84814
+          path: external-evalmath
+          persist-credentials: false
       - uses: leanprover/lean-action@v1
         with:
           lake-package-directory: research/canonization_bench_cb01
           build: 'true'
           test: 'false'
-      - name: Python oracle tests
+      - name: Python oracle and transfer protocol tests
         run: python3 -m unittest discover -s research/canonization_bench_cb01 -p 'test_*.py' -v
-      - name: Verified deterministic receipt
+      - name: Verified CB01 receipt
         run: python3 research/canonization_bench_cb01/runner.py --require-lean --json /tmp/cb01-receipt.json
-      - name: Upload receipt
+      - name: Pinned-source CB02 transfer receipt
+        run: |
+          python3 research/canonization_bench_cb01/transfer_bench_v1.py \
+            --require-lean \
+            --source-paper external-evalmath/paper/interface_relative_compactification.md \
+            --source-reference external-evalmath/src/spiral_ln/interface_relative_compactification.py \
+            --json /tmp/cb02-transfer-receipt.json
+      - name: Upload receipts
         uses: actions/upload-artifact@v4
         with:
-          name: cb01-receipt
-          path: /tmp/cb01-receipt.json
+          name: cb01-cb02-receipts
+          path: |
+            /tmp/cb01-receipt.json
+            /tmp/cb02-transfer-receipt.json
