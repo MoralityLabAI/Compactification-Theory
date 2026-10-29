@@ -27,7 +27,7 @@ READ_COMMANDS = frozenset({
 })
 WRITE_COMMANDS = frozenset({
     "road.road", "road.stop", "road.depot", "rail.track", "rail.station",
-    "rail.depot", "vehicles.build", "vehicles.start", "orders.append",
+    "rail.depot", "vehicles.build", "vehicles.add_wagon", "vehicles.start", "orders.append",
 })
 
 
@@ -96,6 +96,24 @@ class SeatBridge:
         result = reply.get("result")
         if isinstance(result, dict) and result.get("ok") is False:
             raise BridgeError("engine rejected action: " + str(result.get("error")))
+        return result
+
+    def ticket(self, ticket: int, timeout: float = 8.0) -> dict:
+        """Read an actual upstream asynchronous order ticket.
+
+        Reads do not mutate an order. A pending, failed or unknown ticket is
+        never silently treated as success. The remote endpoint limits waits
+        to 60 seconds; this adapter additionally caps a single wait at 15.
+        """
+        if type(ticket) is not int or ticket < 0:
+            raise BridgeError("ticket must be a nonnegative integer")
+        if type(timeout) not in (float, int) or not 0 <= timeout <= 15:
+            raise BridgeError("ticket timeout must be in [0,15]")
+        result = self.transport("GET", f"/api/ticket/{ticket}?timeout={timeout:g}", None)
+        if not isinstance(result, dict) or result.get("ticket") != ticket:
+            raise BridgeError("upstream ticket identity mismatch")
+        if result.get("status") not in ("pending", "done", "failed"):
+            raise BridgeError("unrecognized ticket status")
         return result
 
     def probe(self, include_map: bool = False) -> dict:
