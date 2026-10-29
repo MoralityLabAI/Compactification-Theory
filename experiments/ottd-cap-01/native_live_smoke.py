@@ -110,7 +110,7 @@ def field_cargo(table: dict, label: str) -> list[dict]:
             type(row.get("id")) is int and row.get("capacity", 0) > 0]
 
 
-def place_plan(bridge: SeatBridge, *, stop_after: int = 220) -> tuple[dict, dict]:
+def place_plan(bridge: SeatBridge, *, stop_after: int = 480) -> tuple[dict, dict]:
     """Survey two towns and seek a straight, station-viable road corridor.
 
     The search consists only of real visible API observations and test-mode
@@ -163,6 +163,17 @@ def place_plan(bridge: SeatBridge, *, stop_after: int = 220) -> tuple[dict, dict
                 a1 = int(acc1.get("accepts", {}).get("PASS", 0))
                 a2 = int(acc2.get("accepts", {}).get("PASS", 0))
                 if min(p1, p2, a1, a2) < 8:
+                    continue
+                # A through-stop cannot replace a house, an existing station
+                # or some town-owned road junctions. Demand vacant, genuinely
+                # buildable landing tiles before trying the long road.
+                endpoints = [
+                    bridge.command("inspect.tile", {"x": x1, "y": y}),
+                    bridge.command("inspect.tile", {"x": x2, "y": y}),
+                ]
+                if any(not isinstance(tile, dict) or tile.get("buildable") is not True
+                       or tile.get("house") or tile.get("road_station")
+                       or tile.get("road_depot") for tile in endpoints):
                     continue
                 try:
                     test = bridge.command("road.road",
