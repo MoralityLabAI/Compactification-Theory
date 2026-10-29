@@ -1,0 +1,21 @@
+{
+  "attempts": [
+    {
+      "attempt": "isolated_venv_bootstrap",
+      "detail": "Python 3.12 ensurepip returned nonzero; isolated venv had no pip. Global Python was left untouched.",
+      "outcome": "failed"
+    },
+    {
+      "attempt": "first_cuda_nand_smoke",
+      "detail": "CUDA work ran but output hashing failed because NumPy was missing from torch.Tensor.numpy(). Added NumPy to task-local package directory and reran the same smoke successfully.",
+      "outcome": "executed_without_receipt"
+    },
+    {
+      "attempt": "full_transformer_fp32_resident_timing",
+      "detail": "Five timing samples ranged 0.260-1.087 s; GPU is shared and Windows WDDM hid process ownership. Raw samples retained in gpu_transformer_fp32_resident.json.",
+      "outcome": "completed_with_high_variability"
+    }
+  ],
+  "recovery": "Installed torch 2.11.0+cu128, NumPy 2.5.4 and psutil 7.2.2 only under the task work directory. Rerun receipts are preserved alongside this file.",
+  "schema_version": 1
+}

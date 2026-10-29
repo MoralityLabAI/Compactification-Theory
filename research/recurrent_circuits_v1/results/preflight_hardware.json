@@ -1,7 +1,8 @@
 {
   "captured_at_local": "2026-10-29 08:19 Asia/Singapore (host nvidia-smi timestamp 08:19:33)",
-  "execution_decision": "No CUDA work started. Utilization, memory use, and power increased during observation while process ownership remained hidden; preserve active allocation. Available host RAM was 3.15 GiB.",
-  "gpu": {
+  "execution_decision": "Bounded CUDA smoke tests, exact transformer resident/spill matrix, NAND precision matrix, multitenant host-residency prototype, random pointer-chasing control, and a per-process-cap OOM control completed. No other process was stopped.",
+  "gpu_jobs_started": true,
+  "gpu_pre_run": {
     "cuda_pytorch_compatibility": "not testable: no PyTorch build installed",
     "driver": "577.05",
     "driver_cuda_api": "12.9",
@@ -32,8 +33,7 @@
       }
     ]
   },
-  "gpu_jobs_started": false,
-  "host": {
+  "host_pre_install": {
     "installed_py_launcher_runtimes": 0,
     "process_inventory": "PowerShell process listing did not expose GPU owner; nvidia-smi WDDM process section empty",
     "psutil_installed": false,
@@ -43,6 +43,20 @@
     "ram_total_gib": 31.12,
     "torch_import": "ModuleNotFoundError: No module named torch"
   },
+  "post_install_and_run": {
+    "compute_capability": "12.0",
+    "cuda_jobs_started": true,
+    "driver": "577.05, CUDA API 12.9",
+    "environment": "task-local target package directory; global Python unchanged",
+    "gpu_global_telemetry": "WDDM process owner hidden. nvidia-smi table readings varied substantially; process-level CUDA allocator peaks and enforced caps are saved in each run JSON.",
+    "gpu_name": "NVIDIA GeForce RTX 5080 Laptop GPU",
+    "host_ram_during_cuda_suite": "available RAM varied; about 1.0\u20131.6 GiB during the multitenant run; process peak working set about 1.04 GB",
+    "max_allocator_caps": "1 GiB for NAND; 2 GiB for transformer; 8% of total device memory for multitenant prototype",
+    "numpy": "2.5.4",
+    "psutil": "7.2.2",
+    "torch": "2.11.0+cu128",
+    "torch_cuda_runtime": "12.8"
+  },
   "schema_version": 1,
-  "transfer_measurements_started": false
+  "transfer_measurements_started": true
 }
