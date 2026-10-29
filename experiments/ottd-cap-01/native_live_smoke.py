@@ -175,8 +175,22 @@ def place_plan(bridge: SeatBridge, *, stop_after: int = 220) -> tuple[dict, dict
                 if not isinstance(test, dict) or test.get("possible") is not True:
                     continue
                 mid = (x1 + x2) // 2
-                site = bridge.command("inspect.tile", {"x": mid, "y": y + 1})
-                if not isinstance(site, dict) or site.get("buildable") is not True:
+                # A depot placed directly beside an east-west road can have
+                # no accessible north-south roadbit. Reserve a one-tile access
+                # spur and site the depot beyond it to make a true T-junction.
+                spur = bridge.command("inspect.tile", {"x": mid, "y": y + 1})
+                depot_site = bridge.command("inspect.tile", {"x": mid, "y": y + 2})
+                if (not isinstance(spur, dict) or not isinstance(depot_site, dict)
+                        or spur.get("buildable") is not True
+                        or depot_site.get("buildable") is not True):
+                    continue
+                try:
+                    spur_test = bridge.command("road.road",
+                                               {"x": mid, "y": y, "to_x": mid, "to_y": y + 1,
+                                                "full": True}, validate=True)
+                except BridgeError:
+                    continue
+                if not isinstance(spur_test, dict) or spur_test.get("possible") is not True:
                     continue
                 viable.append((min(p1, p2), min(a1, a2), -(x2 - x1),
                                (x1, x2, y, mid, p1, p2, a1, a2)))
@@ -198,8 +212,11 @@ def place_plan(bridge: SeatBridge, *, stop_after: int = 220) -> tuple[dict, dict
             "b": {"site": {"x": x2, "y": y}, "front": {"x": x2 - 1, "y": y},
                   "kind": "bus", "drive_through": True},
         },
-        "segments": [{"start": {"x": x1, "y": y}, "end": {"x": x2, "y": y}}],
-        "depot": {"site": {"x": mid, "y": y + 1}, "front": {"x": mid, "y": y}},
+        "segments": [
+            {"start": {"x": x1, "y": y}, "end": {"x": x2, "y": y}},
+            {"start": {"x": mid, "y": y}, "end": {"x": mid, "y": y + 1}},
+        ],
+        "depot": {"site": {"x": mid, "y": y + 2}, "front": {"x": mid, "y": y + 1}},
         "vehicle": {"engine": engine["id"], "wagon_engine": None, "wagons": 0},
         "limits": {"max_cost": 750000, "max_wall_seconds": 90,
                    "latest_start_year": 1950},
@@ -237,6 +254,21 @@ def exercise(work: Path) -> int:
         atomic(work / "native-plan.json", plan)
         atomic(report_path, report)
         receipt = NativeExecutor(bridge).run(plan, work / "native-receipt.json")
+        junction = plan["depot"]["front"]
+        main = {"x": junction["x"], "y": junction["y"] - 1}
+        depot = plan["depot"]["site"]
+        report["depot_access"] = {
+            "main_to_spur": bridge.command("road.connected",
+                {"x": main["x"], "y": main["y"],
+                 "to_x": junction["x"], "to_y": junction["y"]}),
+            "spur_to_depot": bridge.command("road.connected",
+                {"x": junction["x"], "y": junction["y"],
+                 "to_x": depot["x"], "to_y": depot["y"]}),
+        }
+        atomic(report_path, report)
+        if not all(isinstance(q, dict) and q.get("connected") is True
+                   for q in report["depot_access"].values()):
+            raise RuntimeError("the built depot spur fails upstream road.connected checks")
         report["receipt_sha256"] = sha256((work / "native-receipt.json").read_bytes()).hexdigest()
         report["completed_steps"] = len(receipt["steps"])
         report["vehicle"] = bridge.command("inspect.vehicle", {"vehicle": receipt["captures"]["vehicle"]})
