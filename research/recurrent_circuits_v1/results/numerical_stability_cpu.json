@@ -1,0 +1,582 @@
+{
+  "cases": [
+    {
+      "bounded_perturbation": false,
+      "correct_through_horizon": {
+        "128": 16,
+        "2048": 16,
+        "32": 16,
+        "512": 16
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 16,
+      "perturbation_pattern": "none",
+      "precision": "float32",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 16,
+        "2048": 16,
+        "32": 16,
+        "512": 16
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 16,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float32",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 12,
+        "2048": 12,
+        "32": 12,
+        "512": 12
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": {
+        "actual_bit": 1,
+        "instruction": 3,
+        "oracle_bit": 0,
+        "seed": 3,
+        "transition": 5
+      },
+      "gate_restoration": false,
+      "initial_states": 16,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float32",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": false,
+      "correct_through_horizon": {
+        "128": 16,
+        "2048": 16,
+        "32": 16,
+        "512": 16
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 16,
+      "perturbation_pattern": "none",
+      "precision": "bfloat16",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 16,
+        "2048": 16,
+        "32": 16,
+        "512": 16
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 16,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "bfloat16",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 12,
+        "2048": 12,
+        "32": 12,
+        "512": 12
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": {
+        "actual_bit": 1,
+        "instruction": 3,
+        "oracle_bit": 0,
+        "seed": 3,
+        "transition": 5
+      },
+      "gate_restoration": false,
+      "initial_states": 16,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "bfloat16",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": false,
+      "correct_through_horizon": {
+        "128": 16,
+        "2048": 16,
+        "32": 16,
+        "512": 16
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 16,
+      "perturbation_pattern": "none",
+      "precision": "float16",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 16,
+        "2048": 16,
+        "32": 16,
+        "512": 16
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 16,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float16",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 12,
+        "2048": 12,
+        "32": 12,
+        "512": 12
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": {
+        "actual_bit": 1,
+        "instruction": 3,
+        "oracle_bit": 0,
+        "seed": 3,
+        "transition": 5
+      },
+      "gate_restoration": false,
+      "initial_states": 16,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float16",
+      "width": 4
+    },
+    {
+      "bounded_perturbation": false,
+      "correct_through_horizon": {
+        "128": 5,
+        "2048": 5,
+        "32": 5,
+        "512": 5
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 5,
+      "perturbation_pattern": "none",
+      "precision": "float32",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 5,
+        "2048": 5,
+        "32": 5,
+        "512": 5
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 5,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float32",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 1,
+        "2048": 1,
+        "32": 1,
+        "512": 1
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": {
+        "actual_bit": 1,
+        "instruction": 11,
+        "oracle_bit": 0,
+        "seed": 0,
+        "transition": 5
+      },
+      "gate_restoration": false,
+      "initial_states": 5,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float32",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": false,
+      "correct_through_horizon": {
+        "128": 5,
+        "2048": 5,
+        "32": 5,
+        "512": 5
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 5,
+      "perturbation_pattern": "none",
+      "precision": "bfloat16",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 5,
+        "2048": 5,
+        "32": 5,
+        "512": 5
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 5,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "bfloat16",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 1,
+        "2048": 1,
+        "32": 1,
+        "512": 1
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": {
+        "actual_bit": 1,
+        "instruction": 11,
+        "oracle_bit": 0,
+        "seed": 0,
+        "transition": 5
+      },
+      "gate_restoration": false,
+      "initial_states": 5,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "bfloat16",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": false,
+      "correct_through_horizon": {
+        "128": 5,
+        "2048": 5,
+        "32": 5,
+        "512": 5
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 5,
+      "perturbation_pattern": "none",
+      "precision": "float16",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 5,
+        "2048": 5,
+        "32": 5,
+        "512": 5
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": null,
+      "gate_restoration": true,
+      "initial_states": 5,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float16",
+      "width": 16
+    },
+    {
+      "bounded_perturbation": true,
+      "correct_through_horizon": {
+        "128": 1,
+        "2048": 1,
+        "32": 1,
+        "512": 1
+      },
+      "experiment": "nand_ring",
+      "first_incorrect": {
+        "actual_bit": 1,
+        "instruction": 11,
+        "oracle_bit": 0,
+        "seed": 0,
+        "transition": 5
+      },
+      "gate_restoration": false,
+      "initial_states": 5,
+      "perturbation_pattern": "all coordinates +1/8 each transition",
+      "precision": "float16",
+      "width": 16
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "float32",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 16
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 4,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "float32",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 16
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "bfloat16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 16
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 4,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "bfloat16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 16
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "float16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 16
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 4,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "float16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 16
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "float32",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 64
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 20,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "float32",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 64
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "bfloat16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 64
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 20,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "bfloat16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 64
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "float16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 64
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 20,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "float16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 64
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "float32",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 256
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 8,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "float32",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 256
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "bfloat16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 256
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 8,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "bfloat16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 256
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": null,
+      "idle_restoration": true,
+      "perturbation_per_transition": 0.125,
+      "precision": "float16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 256
+    },
+    {
+      "experiment": "idle_memory",
+      "first_incorrect": {
+        "active": false,
+        "actual_bit": 1,
+        "instruction": 8,
+        "oracle_bit": 0,
+        "transition": 4
+      },
+      "idle_restoration": false,
+      "perturbation_per_transition": 0.125,
+      "precision": "float16",
+      "schedule": "one quarter of cells active per step, cells cycle every four steps",
+      "width": 256
+    }
+  ],
+  "claims": {
+    "gpu_device_precision": false,
+    "uniform_theorem_proved_by_measurement": false
+  },
+  "decoder": "threshold at 0.5 after every transition; first differing lane recorded",
+  "device": "CPU; no CUDA/PyTorch installed in available Python",
+  "evidence": "cpu_scalar_software_emulation",
+  "gate": "T H E O R Y.md clipped-ReLU restoration, operation-level rounding emulation",
+  "horizons": [
+    32,
+    128,
+    512,
+    2048
+  ],
+  "idle_widths": [
+    16,
+    64,
+    256
+  ],
+  "oracle": "independent symbolic NAND transition recomputed from integer bits at every step",
+  "precisions": [
+    "float32",
+    "bfloat16",
+    "float16"
+  ],
+  "ring_widths": [
+    4,
+    16
+  ],
+  "runtime_seconds": 41.768491,
+  "schema_version": 1,
+  "source_sha256": {
+    "EXPERIMENTS.md": "e0833b91650b13c2b40ceec6f06c48f37fc55cbc2d602895ab4b8454366ad6e2",
+    "THEORY.md": "b785f9e46ed8688730220e6e81ab27ab6bb0d580e317ff7a729ffa23d344f9ea",
+    "numerical_stability.py": "1d1ec5ae8c2e727d70028f7cd94e66ccaa85c3760a6dbaa59bfb533e54a7c19b",
+    "reference.py": "a7e38fe592e27a36b895f0dbb0a9f5ec47bc42a5be7e0a2793e93fe22ad03f78"
+  },
+  "theorem_reference": "THEORY.md Theorem 5: rho<1, eta<=(1-rho)r, 2r<Delta; explicit NAND permits additional error <=1/8/update"
+}
