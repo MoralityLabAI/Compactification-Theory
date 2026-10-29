@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import copy
 import csv
+import json
 import tempfile
 from pathlib import Path
 import unittest
@@ -142,6 +143,32 @@ class CoderPacketTests(unittest.TestCase):
             self.assertEqual(report["axes"]["agency"]["raw_agreement"], 1.0)
             self.assertEqual(report["axes"]["agency"]["cohen_kappa"], 1.0)
             self.assertFalse(report["human_independence_verified"])
+
+    def test_aliases_do_not_follow_corpus_order(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            make_packets(self.data, out)
+            manifest = json.loads((out / "researcher_manifest.json").read_text(encoding="utf-8"))
+            source_order = [p["id"] for p in self.data["passages"]]
+            alias_order = [manifest["alias_to_source_id"][f"P{i+1:03d}"] for i in range(len(source_order))]
+            self.assertNotEqual(source_order, alias_order)
+            self.assertEqual(set(source_order), set(alias_order))
+
+    def test_tampered_source_card_is_rejected(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = Path(temp)
+            make_packets(self.data, out)
+            path = out / "coder_B.csv"
+            with path.open(encoding="utf-8", newline="") as f:
+                reader = csv.DictReader(f)
+                fields, rows = reader.fieldnames, list(reader)
+            rows[0]["source_locator"] = "tampered locator"
+            with path.open("w", encoding="utf-8", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=fields)
+                writer.writeheader()
+                writer.writerows(rows)
+            with self.assertRaisesRegex(ValueError, "source card mismatch"):
+                score_code_files(out / "coder_A.csv", out / "coder_B.csv")
 
     def test_same_file_cannot_be_two_coders(self):
         with tempfile.TemporaryDirectory() as temp:

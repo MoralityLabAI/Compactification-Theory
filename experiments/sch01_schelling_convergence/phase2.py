@@ -139,8 +139,10 @@ def make_packets(data: dict[str, Any], output: Path) -> dict[str, Any]:
     verify_passages(data)
     output.mkdir(parents=True, exist_ok=True)
     cards = data["passages"]
-    # IDs remain stable across coders for mechanical agreement, original IDs hidden.
-    aliases = {p["id"]: f"P{i+1:03d}" for i, p in enumerate(cards)}
+    # Randomize alias assignment independently of corpus order, then shuffle each sheet.
+    alias_order = [p["id"] for p in cards]
+    random.Random(3031).shuffle(alias_order)
+    aliases = {original_id: f"P{i+1:03d}" for i, original_id in enumerate(alias_order)}
     for side, seed in (("A", 17), ("B", 71)):
         shuffled = list(cards)
         random.Random(seed).shuffle(shuffled)
@@ -182,6 +184,11 @@ def score_code_files(a_file: Path, b_file: Path) -> dict[str, Any]:
     a, b = read_codes(a_file), read_codes(b_file)
     if not a or set(a) != set(b):
         raise ValueError("different passage sets")
+    # Compare preserved source-card metadata to catch swapped or tampered rows.
+    for key in a:
+        if any(a[key][field] != b[key][field] for field in
+               ("source_url", "source_locator", "language", "edition", "synthetic_text")):
+            raise ValueError("source card mismatch")
     # This is an audit of supplied annotation files. Human independence is not
     # technically verifiable and must be recorded separately by investigators.
     per_axis = {}

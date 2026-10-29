@@ -10,7 +10,7 @@ The analysis unit is a *bounded source passage*. `passages.json` currently conta
 
 ## Review protocol
 
-1. Both coders must first be given the codebook below and the independently shuffled `coder_A.csv` and `coder_B.csv` templates. Distribute only one sheet to each coder, without the researcher-only alias manifest, the earlier SCH-01 fixture, or the research hypothesis predictions.
+1. Both coders must first be given the codebook below and the independently shuffled `coder_A.csv` and `coder_B.csv` templates. Distribute only one sheet to each coder, without the researcher-only alias manifest, the earlier SCH-01 fixture, or the research hypothesis predictions. Passage aliases are permuted independently of corpus order to reduce accidental grouping disclosure.
 2. Coders read the actual linked paragraphs or verses at `source_url` and `source_locator`. For synthetic cases, `synthetic_text` is the authored input. Source URL visibility makes this **pairing-blinded rather than source-blinded**. The material cannot be fully tradition-blinded without destroying provenance.
 3. Each coder supplies a separate value in every axis, plus `confidence` (0–3) and `notes` recording the exact words that justify contested boundaries. No consultation with the other coder during initial work.
 4. Each field may be `unknown` or `disputed` when justified. For multiple compatible labels use `multi:label+label` and explain in notes. Unknown and multi-label items are held out of the simple exact-agreement estimate pending adjudication.
