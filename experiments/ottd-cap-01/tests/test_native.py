@@ -120,6 +120,21 @@ class CompilerTest(unittest.TestCase):
                                                    "orders.append", "vehicles.start"])
         self.assertEqual(steps[0].args["to_x"], 25)
 
+    def test_branching_depot_spur_is_connected(self):
+        p = road_plan()
+        p["segments"].append({"start": {"x": 18, "y": 20},
+                              "end": {"x": 18, "y": 21}})
+        p["depot"] = {"site": {"x": 18, "y": 22},
+                      "front": {"x": 18, "y": 21}}
+        steps = compile_route(p)
+        self.assertEqual([s.cmd for s in steps[:2]], ["road.road", "road.road"])
+        self.assertEqual(len(steps), 9)
+        self.assertEqual(steps[1].args["to_y"], 21)
+        p["segments"][1] = {"start": {"x": 100, "y": 100},
+                             "end": {"x": 100, "y": 101}}
+        with self.assertRaisesRegex(PlanError, "connected component"):
+            compile_route(p)
+
     def test_reject_malformed_and_unknown_commands(self):
         bad = deepcopy(road_plan())
         bad["shell"] = "rm -rf /"
