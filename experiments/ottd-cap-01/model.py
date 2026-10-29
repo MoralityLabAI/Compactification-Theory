@@ -240,6 +240,11 @@ def canonical(value: object) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
 
 
+def _plain(value: object) -> object:
+    """Round-trip tuples to JSON lists for portable receipt verification."""
+    return json.loads(canonical(value))
+
+
 def run_episode(scenario: Scenario, quality_mask: int, policy: Policy) -> dict:
     """A hash-chained, deterministic rollout. Truth is in the receipt, never the view."""
     policy.reset()
@@ -250,17 +255,17 @@ def run_episode(scenario: Scenario, quality_mask: int, policy: Policy) -> dict:
         before = observe(world)
         action = policy.act(scenario, before)
         next_world = advance(scenario, world, quality_mask, action)
-        row = {"before": asdict(before), "action": asdict(action),
-               "after": asdict(observe(next_world))}
+        row = {"before": _plain(asdict(before)), "action": asdict(action),
+               "after": _plain(asdict(observe(next_world)))}
         digest = sha256((prior + canonical(row)).encode("utf-8")).hexdigest()
         trace.append({**row, "sha256": digest})
         prior = digest
         world = next_world
     return {
         "kind": "synthetic_ottd_cap_01",
-        "scenario": asdict(scenario),
+        "scenario": _plain(asdict(scenario)),
         "quality_mask": quality_mask,
-        "terminal": asdict(world),
+        "terminal": _plain(asdict(world)),
         "net_cash": net_cash(scenario, world),
         "operating_profit": world.operating_profit,
         "peak_memory_bits": policy.peak_memory_bits,
@@ -280,16 +285,16 @@ def verify_receipt(receipt: dict) -> bool:
         prior = "0" * 64
         for row in receipt["trace"]:
             action = Action(**row["action"])
-            if row["before"] != asdict(observe(world)):
+            if row["before"] != _plain(asdict(observe(world))):
                 return False
             world = advance(scenario, world, mask, action)
-            payload = {"before": row["before"], "action": row["action"], "after": asdict(observe(world))}
+            payload = {"before": row["before"], "action": row["action"], "after": _plain(asdict(observe(world)))}
             if row["after"] != payload["after"]:
                 return False
             prior = sha256((prior + canonical(payload)).encode("utf-8")).hexdigest()
             if row["sha256"] != prior:
                 return False
-        return (world.month == scenario.horizon and receipt["terminal"] == asdict(world)
+        return (world.month == scenario.horizon and receipt["terminal"] == _plain(asdict(world))
                 and receipt["net_cash"] == net_cash(scenario, world)
                 and receipt["operating_profit"] == world.operating_profit
                 and receipt["trace_sha256"] == prior)
