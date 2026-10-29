@@ -93,3 +93,37 @@ successful development CI and import `CB01.Transfer.Canonical` only:
 The evaluation manifest pins the held-out source blob. This test checks proof
 reuse and compiler acceptance on mathematically related statements. The
 results do not measure autonomous research novelty or model generalization.
+
+## Verified CB02 v1 result (2026-10-29)
+
+Evidence: [held-out CI run 40886987513](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/40886987513),
+head `885cc118740051f1727f832437dbf46e4c8e00bf`. The GitHub
+artifact `cb01-cb02-receipts` contains `cb02-transfer-receipt.json`,
+including Git blob checks and the Lean build verdict.
+
+| Measurement | Measured |
+|---|---:|
+| Registered source-derived target propositions | 3 |
+| Independently compiled baseline proof bodies | 577 UTF-8 bytes |
+| Refactored candidate proof bodies | 112 UTF-8 bytes |
+| Shared canonical proof bodies | 604 UTF-8 bytes |
+| Candidate plus shared library | 716 UTF-8 bytes |
+| Common-target statement identity checks | 6 |
+| Held-out Lean consumer theorems compiled | 4 |
+| Normal Python tests in first held-out CI | 11 passed |
+| EvalMath paper and reference Python blob checks | Both passed |
+| Lean package build | Passed |
+
+The client proof-body saving is `(577-112)/577 = 80.6%`, measured
+lexically, while the one-off library-inclusive total is
+`716/577 = 1.241` times the baseline. This is a positive *reuse*
+result with measured general-library overhead. The four held-out clients
+also compile without touching the frozen five-file development set.
+The complete Lean elaborated proof terms, elaboration time under controlled
+hardware, and comparability of disparate mathematical claims are outside
+these initial source-byte measurements.
+
+Frozen development commit:
+[`d216fb87623ec396a0b59538908a422c5db66e6a`](https://github.com/MoralityLabAI/Compactification-Theory/commit/d216fb87623ec396a0b59538908a422c5db66e6a).
+Held-out source blob: `3d684e4e6c53975503080a257b1959cef0486d1f`.
+An additional CI regression replays the Python tests with `python -O`.

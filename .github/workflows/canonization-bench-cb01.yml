@@ -33,6 +33,8 @@ jobs:
           test: 'false'
       - name: Python oracle and transfer protocol tests
         run: python3 -m unittest discover -s research/canonization_bench_cb01 -p 'test_*.py' -v
+      - name: Optimized Python regression tests
+        run: python3 -O -m unittest discover -s research/canonization_bench_cb01 -p 'test_*.py' -v
       - name: Verified CB01 receipt
         run: python3 research/canonization_bench_cb01/runner.py --require-lean --json /tmp/cb01-receipt.json
       - name: Pinned-source CB02 transfer receipt
