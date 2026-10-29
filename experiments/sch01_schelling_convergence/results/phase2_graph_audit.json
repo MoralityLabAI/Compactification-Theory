@@ -1,0 +1,56 @@
+{
+  "evidence_grade": "dated_public_source_ledger_not_independence_proof",
+  "nodes": 16,
+  "edges": 11,
+  "edge_counts": {
+    "transmission:documented": 6,
+    "scholarly_analysis:documented": 3,
+    "comparison:interpretive": 2
+  },
+  "documented_transmission_paths": {
+    "plotinus_to_falsafa": [
+      "PLOTINUS",
+      "ARABIC_PLOTINUS",
+      "FALSAFA"
+    ],
+    "bible_to_witnesses": [
+      "APOCALYPTIC_BIBLE",
+      "BIBLE_STUDENTS",
+      "JW_PRESENT"
+    ],
+    "watchtower_to_kurzweil": null,
+    "advaita_to_kurzweil": null,
+    "dao_to_kurzweil": null
+  },
+  "unverified_queries": [
+    {
+      "from": "BIBLE_STUDENTS",
+      "to": "KURZWEIL_2005",
+      "question": "Direct Witness/Bible Student exposure?",
+      "status": "unverified",
+      "next_evidence": "Author reading histories, interviews, citations"
+    },
+    {
+      "from": "SHANKARA",
+      "to": "KURZWEIL_2005",
+      "question": "Specific Advaita texts read by Kurzweil?",
+      "status": "unverified",
+      "next_evidence": "Verified bibliographies and dated authorship"
+    },
+    {
+      "from": "DAO_DE_JING",
+      "to": "KURZWEIL_2005",
+      "question": "Direct Daoist textual borrowing?",
+      "status": "unverified",
+      "next_evidence": "Verified citations and intermediaries"
+    },
+    {
+      "from": "PLOTINUS",
+      "to": "KURZWEIL_2005",
+      "question": "Named Neoplatonic route to Kurzweil?",
+      "status": "unverified",
+      "next_evidence": "Trace intermediary authors, avoid ontology-as-evidence"
+    }
+  ],
+  "warning": "No path is an evidence-absence statement, not proof of independent origin."
+}

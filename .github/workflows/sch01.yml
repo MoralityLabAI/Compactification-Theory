@@ -1,0 +1,22 @@
+name: SCH-01 hermetic tests
+on:
+  pull_request:
+    paths:
+      - 'experiments/sch01_schelling_convergence/**'
+      - '.github/workflows/sch01.yml'
+  push:
+    paths:
+      - 'experiments/sch01_schelling_convergence/**'
+      - '.github/workflows/sch01.yml'
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Python standard-library fixtures and provenance gates
+        run: python3 -m unittest discover -s experiments/sch01_schelling_convergence -p 'test_*.py' -v
+      - name: Print documented influence paths
+        run: python3 experiments/sch01_schelling_convergence/phase2.py graph

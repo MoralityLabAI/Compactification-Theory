@@ -1,0 +1,266 @@
+{
+  "schema": "SCH-01B influence ledger v1",
+  "as_of": "2026-10-30",
+  "dating_rule": "Approximate years mark textual or institutional eras, not the first appearance of every motif; overlapping ranges require manual review.",
+  "nodes": [
+    {
+      "id": "PLOTINUS",
+      "label": "Plotinus' Enneads and later compilation",
+      "min_year": 250,
+      "max_year": 305,
+      "source_url": "https://plato.stanford.edu/entries/plotinus/",
+      "dating_basis": "third-century writings, compiled by Porphyry"
+    },
+    {
+      "id": "ARABIC_PLOTINUS",
+      "label": "Arabic Plotinus, Theology of Aristotle",
+      "min_year": 800,
+      "max_year": 899,
+      "source_url": "https://plato.stanford.edu/archives/spr2019/entries/theology-aristotle/",
+      "dating_basis": "ninth-century adaptation"
+    },
+    {
+      "id": "AL_KINDI_CIRCLE",
+      "label": "al-Kindi translation circle",
+      "min_year": 800,
+      "max_year": 875,
+      "source_url": "https://plato.stanford.edu/archives/spr2019/entries/theology-aristotle/",
+      "dating_basis": "ninth century, approximate"
+    },
+    {
+      "id": "FALSAFA",
+      "label": "Arabic philosophical reception of Greek ideas",
+      "min_year": 850,
+      "max_year": 1250,
+      "source_url": "https://plato.stanford.edu/entries/arabic-islamic-greek/",
+      "dating_basis": "broad period, not one author"
+    },
+    {
+      "id": "APOCALYPTIC_BIBLE",
+      "label": "early Christian scriptural corpus relevant to apocalyptic claims",
+      "min_year": 1,
+      "max_year": 200,
+      "source_url": "https://www.biblegateway.com/passage/?search=Revelation%2021&version=NRSVUE",
+      "dating_basis": "rough New Testament period"
+    },
+    {
+      "id": "BIBLE_STUDENTS",
+      "label": "Russell and nineteenth-century Bible Students",
+      "min_year": 1870,
+      "max_year": 1880,
+      "source_url": "https://www.jw.org/en/library/brochures/Jehovahs-Witnesses-Who-Are-They-What-Do-They-Believe/Their-Modern-Development-and-Growth/",
+      "dating_basis": "early 1870s group; July 1879 magazine"
+    },
+    {
+      "id": "JW_PRESENT",
+      "label": "Current Jehovah's Witness doctrinal summary",
+      "min_year": 2026,
+      "max_year": 2026,
+      "source_url": "https://www.jw.org/en/jehovahs-witnesses/faq/jehovah-witness-beliefs/",
+      "dating_basis": "date of reviewed page, not origin"
+    },
+    {
+      "id": "KURZWEIL_2005",
+      "label": "Kurzweil singularity Q&A, 2005",
+      "min_year": 2005,
+      "max_year": 2005,
+      "source_url": "https://www.writingsbyraykurzweil.com/a-singularity-q-a",
+      "dating_basis": "2005 original, reposted in 2024"
+    },
+    {
+      "id": "GERACI_2008",
+      "label": "Geraci, Apocalyptic AI article",
+      "min_year": 2008,
+      "max_year": 2008,
+      "source_url": "https://doi.org/10.1093/jaarel/lfm101",
+      "dating_basis": "published Jan 28, 2008"
+    },
+    {
+      "id": "GERACI_2010",
+      "label": "Geraci, Apocalyptic AI book",
+      "min_year": 2010,
+      "max_year": 2010,
+      "source_url": "https://academic.oup.com/book/11442",
+      "dating_basis": "published Feb 5, 2010"
+    },
+    {
+      "id": "GERACI_2018",
+      "label": "Geraci, Temples of Modernity",
+      "min_year": 2018,
+      "max_year": 2018,
+      "source_url": "https://books.google.com/books?id=VUphEQAAQBAJ",
+      "dating_basis": "published 2018"
+    },
+    {
+      "id": "GERACI_2022",
+      "label": "Geraci, Futures of Artificial Intelligence",
+      "min_year": 2022,
+      "max_year": 2022,
+      "source_url": "https://academic.oup.com/book/41826",
+      "dating_basis": "published Feb 22, 2022"
+    },
+    {
+      "id": "US_AI_FUTURISM",
+      "label": "American AI futurism as broad cultural milieu",
+      "min_year": 1980,
+      "max_year": 2005,
+      "source_url": "https://academic.oup.com/book/11442/chapter-abstract/160128670",
+      "dating_basis": "analytic era, not an individual author"
+    },
+    {
+      "id": "INDIAN_AI_RECEPTION",
+      "label": "Indian reinterpretations of American AI visions",
+      "min_year": 2005,
+      "max_year": 2022,
+      "source_url": "https://academic.oup.com/book/41826",
+      "dating_basis": "period discussed by Geraci"
+    },
+    {
+      "id": "SHANKARA",
+      "label": "Śaṅkara's Advaita tradition",
+      "min_year": 700,
+      "max_year": 820,
+      "source_url": "https://plato.stanford.edu/entries/shankara/",
+      "dating_basis": "eighth-century thinker with disputed dates"
+    },
+    {
+      "id": "DAO_DE_JING",
+      "label": "Daodejing composite text",
+      "min_year": -450,
+      "max_year": -150,
+      "source_url": "https://plato.stanford.edu/archives/spr2024/entries/daoism/",
+      "dating_basis": "approximate composite text dating"
+    }
+  ],
+  "edges": [
+    {
+      "from": "PLOTINUS",
+      "to": "ARABIC_PLOTINUS",
+      "edge_class": "transmission",
+      "status": "documented",
+      "mechanism": "adapted_translation",
+      "evidence_url": "https://plato.stanford.edu/archives/spr2019/entries/theology-aristotle/",
+      "evidence_scope": "intro §1: Arabic version of Enneads"
+    },
+    {
+      "from": "AL_KINDI_CIRCLE",
+      "to": "ARABIC_PLOTINUS",
+      "edge_class": "transmission",
+      "status": "documented",
+      "mechanism": "translation_circle_editorial",
+      "evidence_url": "https://plato.stanford.edu/archives/spr2019/entries/theology-aristotle/",
+      "evidence_scope": "§2-3: association with al-Kindi circle; authorship contested"
+    },
+    {
+      "from": "ARABIC_PLOTINUS",
+      "to": "FALSAFA",
+      "edge_class": "transmission",
+      "status": "documented",
+      "mechanism": "textual_reception",
+      "evidence_url": "https://plato.stanford.edu/archives/spr2019/entries/theology-aristotle/",
+      "evidence_scope": "intro §5: reception within Arabic philosophy"
+    },
+    {
+      "from": "APOCALYPTIC_BIBLE",
+      "to": "BIBLE_STUDENTS",
+      "edge_class": "transmission",
+      "status": "documented",
+      "mechanism": "biblical_study",
+      "evidence_url": "https://www.jw.org/en/jehovahs-witnesses/faq/founder/",
+      "evidence_scope": "movement self-describes study of Bible; no Revelation-specific borrowing proved"
+    },
+    {
+      "from": "BIBLE_STUDENTS",
+      "to": "JW_PRESENT",
+      "edge_class": "transmission",
+      "status": "documented",
+      "mechanism": "organizational_continuity",
+      "evidence_url": "https://www.jw.org/en/jehovahs-witnesses/faq/founder/",
+      "evidence_scope": "modern JW movement developed from Bible Students; doctrine evolved"
+    },
+    {
+      "from": "KURZWEIL_2005",
+      "to": "GERACI_2010",
+      "edge_class": "scholarly_analysis",
+      "status": "documented",
+      "mechanism": "named_book_subject",
+      "evidence_url": "https://academic.oup.com/book/11442",
+      "evidence_scope": "publisher abstract names Kurzweil; analysis not reverse influence"
+    },
+    {
+      "from": "US_AI_FUTURISM",
+      "to": "INDIAN_AI_RECEPTION",
+      "edge_class": "transmission",
+      "status": "documented",
+      "mechanism": "cultural_reception",
+      "evidence_url": "https://academic.oup.com/book/41826",
+      "evidence_scope": "publisher abstract documents Indian adaptation of US transhumanism; not person-level borrowing"
+    },
+    {
+      "from": "INDIAN_AI_RECEPTION",
+      "to": "GERACI_2022",
+      "edge_class": "scholarly_analysis",
+      "status": "documented",
+      "mechanism": "research_topic",
+      "evidence_url": "https://academic.oup.com/book/41826",
+      "evidence_scope": "publisher description analyzes this reception"
+    },
+    {
+      "from": "US_AI_FUTURISM",
+      "to": "GERACI_2008",
+      "edge_class": "scholarly_analysis",
+      "status": "documented",
+      "mechanism": "research_topic",
+      "evidence_url": "https://doi.org/10.1093/jaarel/lfm101",
+      "evidence_scope": "paper abstract studies AI future religious motifs"
+    },
+    {
+      "from": "APOCALYPTIC_BIBLE",
+      "to": "US_AI_FUTURISM",
+      "edge_class": "comparison",
+      "status": "interpretive",
+      "mechanism": "genre_resemblance",
+      "evidence_url": "https://academic.oup.com/book/11442/chapter-abstract/160128115",
+      "evidence_scope": "Geraci's comparison does not identify individual biblical reading"
+    },
+    {
+      "from": "GERACI_2008",
+      "to": "GERACI_2022",
+      "edge_class": "comparison",
+      "status": "interpretive",
+      "mechanism": "research_program",
+      "evidence_url": "https://robertgeraci.com/publications/",
+      "evidence_scope": "publishing order and author, no claim of specific citation"
+    }
+  ],
+  "unverified_queries": [
+    {
+      "from": "BIBLE_STUDENTS",
+      "to": "KURZWEIL_2005",
+      "question": "Direct Witness/Bible Student exposure?",
+      "status": "unverified",
+      "next_evidence": "Author reading histories, interviews, citations"
+    },
+    {
+      "from": "SHANKARA",
+      "to": "KURZWEIL_2005",
+      "question": "Specific Advaita texts read by Kurzweil?",
+      "status": "unverified",
+      "next_evidence": "Verified bibliographies and dated authorship"
+    },
+    {
+      "from": "DAO_DE_JING",
+      "to": "KURZWEIL_2005",
+      "question": "Direct Daoist textual borrowing?",
+      "status": "unverified",
+      "next_evidence": "Verified citations and intermediaries"
+    },
+    {
+      "from": "PLOTINUS",
+      "to": "KURZWEIL_2005",
+      "question": "Named Neoplatonic route to Kurzweil?",
+      "status": "unverified",
+      "next_evidence": "Trace intermediary authors, avoid ontology-as-evidence"
+    }
+  ]
+}
