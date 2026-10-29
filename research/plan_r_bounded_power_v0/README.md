@@ -16,7 +16,7 @@ python research/plan_r_bounded_power_v0/reference.py --check --out /tmp/plan_r_v
 
 The CLI writes deterministic JSON with every arm's immutable model-program digest, configuration digest, explored state count, blocked attempted edges, task-capability proxy, and shortest unsafe witness. Each witness records the complete sequence of toy states and actions. Output is locally generated; source files contain no unpublished claims about a learned neural network.
 
-## Five preregistered toy comparisons
+## Five declared toy comparisons
 
 | Family | Controls | Expected finite result |
 |---|---|---|
