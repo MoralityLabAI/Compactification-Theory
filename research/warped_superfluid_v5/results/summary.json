@@ -1,0 +1,193 @@
+{
+  "status": "short-time homogeneous k_3D=0 gauge-fixed coupled tangent response; full GI spectrum remains open",
+  "version": "WS-05",
+  "date": "2026-10-29",
+  "background": {
+    "k": 1.0,
+    "M5_cubed": 1.0,
+    "proper_brane_separation": 1.0,
+    "bulk_charge_initial_amplitude": 0.02,
+    "bulk_phase_frequency": 0.4,
+    "bulk_mass2": 0.5,
+    "bulk_quartic": 0.3,
+    "note": "curved/inhomogeneous dynamical background, NOT homogeneous equilibrium"
+  },
+  "flat_homogeneous_control": {
+    "equilibrium_frequency_at_0p02": 0.707191628909732,
+    "reference_input_phase_frequency": 0.4,
+    "local_UV_equilibrium_frequency_gap": -0.30719162890973195,
+    "omega2_minus_equilibrium_omega2": -0.34012,
+    "sample_goldstone_branches": {
+      "0.02": {
+        "omega": 0.707191628909732,
+        "radial_curvature": 0.00024,
+        "mass_gap_squared": 2.00072,
+        "sound_speed_squared": 0.0001199568155464033
+      },
+      "0.2": {
+        "omega": 0.7155417527999327,
+        "radial_curvature": 0.024000000000000004,
+        "mass_gap_squared": 2.072,
+        "sound_speed_squared": 0.011583011583011584
+      },
+      "0.5": {
+        "omega": 0.758287544405155,
+        "radial_curvature": 0.15,
+        "mass_gap_squared": 2.4499999999999997,
+        "sound_speed_squared": 0.06122448979591837
+      },
+      "1.0": {
+        "omega": 0.8944271909999159,
+        "radial_curvature": 0.6,
+        "mass_gap_squared": 3.8,
+        "sound_speed_squared": 0.15789473684210525
+      }
+    }
+  },
+  "metric_phase_response": {
+    "nodes": 65,
+    "time_end": 0.12,
+    "max_relative_errors_FD_epsilon_5e_minus4": [
+      7.342316946958537e-09,
+      1.8465618538070687e-08,
+      6.160172310211681e-08
+    ],
+    "max_relative_errors_FD_epsilon_2p5e_minus4": [
+      3.606543382931315e-07,
+      1.2273782322649094e-07,
+      1.5300347742215075e-08
+    ],
+    "u1_covariance_error": 1.5453784085739386e-14,
+    "u1_observable_derivative": [
+      0.0,
+      0.0,
+      -7.708417706074626e-22
+    ],
+    "t": [
+      0.0,
+      0.02,
+      0.04,
+      0.06,
+      0.08,
+      0.1,
+      0.12
+    ],
+    "tangent_observables": [
+      [
+        0.5457835688662399,
+        -0.0012826025272305694,
+        0.008217542206300284
+      ],
+      [
+        0.5455870244486819,
+        -0.001278460889860558,
+        0.008217541116256588
+      ],
+      [
+        0.5453866460401872,
+        -0.0012660384181224582,
+        0.008217533905166887
+      ],
+      [
+        0.5451828581741112,
+        -0.0012453426755389468,
+        0.008217533479273228
+      ],
+      [
+        0.5449761163292596,
+        -0.0012163866593566924,
+        0.008217542334328039
+      ],
+      [
+        0.5447595641203299,
+        -0.0011791912330416715,
+        0.008217529665639565
+      ],
+      [
+        0.5445361740038568,
+        -0.0011337836964192684,
+        0.00821751806924896
+      ]
+    ],
+    "finite_difference_observables": [
+      [
+        0.5457835649151557,
+        -0.0012826025190815216,
+        0.008217541700091447
+      ],
+      [
+        0.545587020442809,
+        -0.001278460881160015,
+        0.0082175406100477
+      ],
+      [
+        0.5453866423111905,
+        -0.0012660384087759269,
+        0.008217533398957429
+      ],
+      [
+        0.5451828546984231,
+        -0.001245342666766902,
+        0.008217532973063137
+      ],
+      [
+        0.5449761126654663,
+        -0.0012163866549563807,
+        0.00821754182811759
+      ],
+      [
+        0.5447595605070007,
+        -0.001179191237987709,
+        0.008217529159427979
+      ],
+      [
+        0.544536171504767,
+        -0.0011337837173552856,
+        0.008217517563035688
+      ]
+    ],
+    "names": [
+      "delta_H_UV_proper",
+      "delta_constant_t_proper_length",
+      "delta_global_U1_charge"
+    ]
+  },
+  "linear_constraint_refinement": {
+    "33": {
+      "max_linear_H_constraint": 0.0011933489401874506,
+      "max_linear_momentum_constraint": 0.0007805845914548835,
+      "initial_linear_H": 0.5457835688662399,
+      "final_linear_H": 0.5444625385243106,
+      "initial_linear_proper_length": -0.0012818480245283836,
+      "final_linear_proper_length": -0.001131834567695364,
+      "initial_linear_charge": 0.008223211874223145,
+      "final_linear_charge": 0.008223073521188132
+    },
+    "65": {
+      "max_linear_H_constraint": 0.0003524179070548374,
+      "max_linear_momentum_constraint": 0.00023375899992519463,
+      "initial_linear_H": 0.5457835688662399,
+      "final_linear_H": 0.5445361740038568,
+      "initial_linear_proper_length": -0.0012826025272305694,
+      "final_linear_proper_length": -0.0011337836964192684,
+      "initial_linear_charge": 0.008217542206300284,
+      "final_linear_charge": 0.00821751806924896
+    },
+    "129": {
+      "max_linear_H_constraint": 0.0001000862707239466,
+      "max_linear_momentum_constraint": 6.712153877951895e-05,
+      "initial_linear_H": 0.5457835688662399,
+      "final_linear_H": 0.5445575773368828,
+      "initial_linear_proper_length": -0.0012827912118833695,
+      "final_linear_proper_length": -0.00113428115867598,
+      "initial_linear_charge": 0.008216124349171256,
+      "final_linear_charge": 0.008216122012144172
+    }
+  },
+  "limitations": [
+    "Only x-homogeneous perturbations (3D momentum = 0)",
+    "Conformal-coordinate gauge fixed; complete gauge-invariant radion and phase decomposition still open",
+    "No dynamical background spectrum or long-time Lyapunov exponent",
+    "No holographic UV completion, no helium-3 BdG fit, no dark-energy derivation"
+  ]
+}
