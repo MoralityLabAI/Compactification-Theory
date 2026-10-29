@@ -1,0 +1,47 @@
+{
+  "schema": "cb02-transfer-manifest-v1",
+  "protocol": "development code and theorem statements first, holdout modules committed only after compiling and freezing candidate Git blobs",
+  "evalmath": {
+    "repo": "MoralityLabAI/EvalMath",
+    "ref": "2616092a2c73c083378e508abfd966fdf5e84814",
+    "paper_path": "paper/interface_relative_compactification.md",
+    "reference_path": "src/spiral_ln/interface_relative_compactification.py",
+    "paper_git_blob": "1036fcb7c9a7c9caaf07b5afca87c816938c16fd",
+    "reference_git_blob": "db1f9b9872baef0215e00734faa52f748a896f9d",
+    "verbatim_anchors": [
+      "expanding a nested action interface can only refine the exact future-test partition.",
+      "A sufficient code must distinguish histories separated by some future experiment;",
+      "After any event `e` with positive probability, the successor posteriors are equivalent"
+    ]
+  },
+  "targets": [
+    {
+      "id": "T01_MENU",
+      "source_section": "§4 exact all-futures action-menu monotonicity",
+      "lean_statement": "CB01.Transfer.MenuTarget",
+      "specialization": "abstract shared-continuation test precomposition; stochastic event probabilities kept abstract"
+    },
+    {
+      "id": "T02_CODE",
+      "source_section": "§2 quotient coarseness and necessary codeword separation",
+      "lean_statement": "CB01.Transfer.CodeTarget",
+      "specialization": "exact decoder necessity, no cardinality or bit-width theorem"
+    },
+    {
+      "id": "T03_STEP",
+      "source_section": "§2 graded successor congruence",
+      "lean_statement": "CB01.Transfer.StepTarget",
+      "specialization": "deterministic event trace only, without positive-probability Bayesian conditioning"
+    }
+  ],
+  "frozen_git_blobs": {
+    "CB01/Transfer/Statements.lean": "0515412abad85ab753e0c6ee94c12d5e40bcc160",
+    "CB01/Transfer/Baseline.lean": "24dca7ebe6e4774e9800696cf4d908149a438f68",
+    "CB01/Transfer/Canonical.lean": "c409ce6e7d46b7206c0674f679a04b6a38755ddc",
+    "CB01/Transfer/Candidate.lean": "a60e765dbf7e5fd32a37e6bcbfcde33e6cc5c96e",
+    "CB01/Transfer/Audit.lean": "5b89fd80cf7d6b856ff0ef3b15d6bc40a4b3e475"
+  },
+  "frozen_candidate_commit": "d216fb87623ec396a0b59538908a422c5db66e6a",
+  "heldout_expected_count": 4,
+  "heldout_git_blob": "3d684e4e6c53975503080a257b1959cef0486d1f"
+}
