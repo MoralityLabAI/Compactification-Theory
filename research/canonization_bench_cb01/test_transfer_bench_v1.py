@@ -50,6 +50,10 @@ class CB02TransferProtocolTests(unittest.TestCase):
         data = metrics()
         holds = ROOT / "CB01/Transfer/Heldout.lean"
         self.assertEqual(data["heldout_theorem_count"], 4 if holds.exists() else 0)
+        if holds.exists():
+            cfg = manifest()
+            self.assertEqual(verify_blob(holds, cfg["heldout_git_blob"]),
+                             cfg["heldout_git_blob"])
 
 
 if __name__ == "__main__":

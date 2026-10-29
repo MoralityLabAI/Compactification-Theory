@@ -1,8 +1,11 @@
 # CB02: pinned EvalMath canonization transfer
 
 **Parent**: [CB01](README.md), branch `research/canonization-bench-cb01-20261029`, draft PR #9.
-**Status**: development phase; held-out clients will be added only after this
-phase builds and its canonical library is frozen by exact Git blob SHA.
+**Status**: four held-out consumers added after successful development CI run
+[40886559993](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/40886559993).
+Frozen development commit: `d216fb87623ec396a0b59538908a422c5db66e6a`; the subsequent
+manifest-only commit does not alter the candidate. CI for the held-out
+phase independently compiles all four new consumers.
 
 ## Source ownership
 
@@ -72,3 +75,21 @@ python transfer_bench_v1.py --require-lean --source-paper ../../external-evalmat
 The last command's source paths assume a sibling pinned EvalMath checkout
 at repository root. A local source-free run reports
 `not_replayed_external_source` and thereby keeps that evidence separate.
+
+## Held-out challenge log (CB02/H)
+
+The four client tasks in `CB01/Transfer/Heldout.lean` were authored after
+successful development CI and import `CB01.Transfer.Canonical` only:
+
+- **H01**: future-law invariance across a fixed public interface mode/deadline
+  and an independently supplied action translation.
+- **H02**: postprocessed observations remain equal when exact encoded states
+  collide under a correct decoder.
+- **H03**: two feedback channels remain jointly equal after a common action
+  translation.
+- **H04**: code equality induces deterministic immediate-event and successor
+  equivalence.
+
+The evaluation manifest pins the held-out source blob. This test checks proof
+reuse and compiler acceptance on mathematically related statements. The
+results do not measure autonomous research novelty or model generalization.

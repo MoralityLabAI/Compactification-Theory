@@ -183,7 +183,12 @@ def receipt(require_lean: bool = False,
     verified_source = verify_source(config, paper, reference)
     observed = metrics()
     heldout_present = (TRANSFER / "Heldout.lean").exists()
+    holdout_sha = None
     if heldout_present:
+        expected_holdout_sha = config.get("heldout_git_blob")
+        if not expected_holdout_sha:
+            raise ValueError("heldout present without immutable source seal")
+        holdout_sha = verify_blob(TRANSFER / "Heldout.lean", expected_holdout_sha)
         if observed["heldout_theorem_count"] != config["heldout_expected_count"]:
             raise ValueError("heldout challenge coverage changed")
         if "CB01.Transfer.Canonical" not in observed["heldout_imports"]:
@@ -205,6 +210,7 @@ def receipt(require_lean: bool = False,
         },
         "targets": config["targets"],
         "frozen_git_blobs": frozen,
+        "heldout_git_blob": holdout_sha,
         "phase": "heldout_evaluation" if heldout_present else "frozen_development",
         "frozen_commit": config["frozen_candidate_commit"],
         "metrics": observed,
