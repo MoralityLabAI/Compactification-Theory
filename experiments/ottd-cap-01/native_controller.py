@@ -163,11 +163,31 @@ def compile_route(document: dict) -> tuple[Step, ...]:
             start, end = _coord(raw["start"], f"segments[{i}].start"), _coord(raw["end"], f"segments[{i}].end")
             if start == end or (start["x"] != end["x"] and start["y"] != end["y"]):
                 raise PlanError("road segments must be nonzero axis-aligned runs")
-            if parsed and parsed[-1][1] != start:
-                raise PlanError("road segments must form a contiguous waypoint chain")
             parsed.append((start, end))
             steps.append(Step(f"road_{i}", "road.road",
                               {**start, "to_x": end["x"], "to_y": end["y"], "full": True}))
+        # Road corridors can branch at a tile, e.g. a short depot access spur.
+        # Charge every intersecting segment in the ordered execution plan.
+        roads = []
+        for start, end in parsed:
+            distance = abs(start["x"] - end["x"]) + abs(start["y"] - end["y"])
+            if distance > 256:
+                raise PlanError("road segment length exceeds 256 tiles")
+            if start["x"] == end["x"]:
+                roads.append({(start["x"], y) for y in range(
+                    min(start["y"], end["y"]), max(start["y"], end["y"]) + 1)})
+            else:
+                roads.append({(x, start["y"]) for x in range(
+                    min(start["x"], end["x"]), max(start["x"], end["x"]) + 1)})
+        reached = {0}
+        while True:
+            expanded = reached | {i for i in range(len(roads))
+                                  if any(roads[i] & roads[j] for j in reached)}
+            if expanded == reached:
+                break
+            reached = expanded
+        if len(reached) != len(roads):
+            raise PlanError("road segments must intersect in one connected component")
         def on_corridor(p: dict) -> bool:
             return any((start["x"] == end["x"] == p["x"] and
                         min(start["y"], end["y"]) <= p["y"] <= max(start["y"], end["y"])) or
