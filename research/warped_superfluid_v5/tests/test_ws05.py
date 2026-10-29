@@ -142,11 +142,11 @@ class CoupledLinearResponse(unittest.TestCase):
 
     def test_17_response_centred_difference_quadratic(self):
         r=evolve_tangent(self.m,n=33,time_end=.06,samples=4)
-        x=finite_difference_response(self.m,r,epsilon=1e-3)
-        y=finite_difference_response(self.m,r,epsilon=5e-4)
+        x=finite_difference_response(self.m,r,epsilon=6e-3)
+        y=finite_difference_response(self.m,r,epsilon=3e-3)
         a=np.max(x['absolute_error'][:,[0,2]])
         b=np.max(y['absolute_error'][:,[0,2]])
-        self.assertGreater(a/b,2.3)
+        self.assertGreater(a/b,2.7)
 
     def test_18_linearized_constraints_refine(self):
         lo=evolve_tangent(self.m,n=49,time_end=.06,samples=3)
