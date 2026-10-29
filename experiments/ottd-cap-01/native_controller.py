@@ -292,10 +292,16 @@ class NativeExecutor:
             return {"verified": "station_id", "id": station}
         if cmd in ("vehicles.build", "vehicles.add_wagon", "vehicles.start"):
             vehicle = captures["vehicle"]
-            observed = self.bridge.command("inspect.vehicle", {"vehicle": vehicle})
-            if not isinstance(observed, dict) or observed.get("id") != vehicle:
-                raise RunStopped(f"{step.name}: vehicle identity not confirmed")
-            return {"verified": "vehicle_id", "id": vehicle, "state": observed.get("state")}
+            for attempt in range(5 if cmd == "vehicles.start" else 1):
+                observed = self.bridge.command("inspect.vehicle", {"vehicle": vehicle})
+                if not isinstance(observed, dict) or observed.get("id") != vehicle:
+                    raise RunStopped(f"{step.name}: vehicle identity not confirmed")
+                state = observed.get("state")
+                if cmd != "vehicles.start" or state in ("running", "at_station"):
+                    return {"verified": "vehicle_id", "id": vehicle, "state": state,
+                            "wagons": observed.get("wagons")}
+                self.sleep(0.2)
+            raise RunStopped("vehicle.start acknowledged but actual vehicle remains stopped")
         if cmd == "orders.append":
             tid = result.get("ticket")
             if type(tid) is not int or tid < 0:
@@ -339,12 +345,14 @@ class NativeExecutor:
             receipt["steps"].append(entry)
             persist()
 
+        receipt_claimed = False
         try:
             # Acquire the receipt name exclusively. A second executor cannot race
             # this job and replay side-effecting operations against the same file.
             receipt_path.parent.mkdir(parents=True, exist_ok=True)
             with receipt_path.open("x", encoding="utf-8") as stream:
                 stream.write(json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+            receipt_claimed = True
             for step in steps:
                 if self.clock() >= deadline:
                     raise RunStopped("live wall-time limit reached")
@@ -399,7 +407,8 @@ class NativeExecutor:
         except Exception as exc:
             receipt["status"] = "stopped"
             receipt["error"] = f"{type(exc).__name__}: {exc}"
-            persist()
+            if receipt_claimed:
+                persist()
             raise
         persist()
         return receipt
