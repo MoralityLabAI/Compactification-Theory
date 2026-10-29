@@ -1,0 +1,72 @@
+name: OTTD-CAP-01 pinned native OpenTTD smoke
+
+on:
+  push:
+    paths:
+      - "experiments/ottd-cap-01/native_live_smoke.py"
+      - ".github/workflows/ottd-cap01-native.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-game-smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install minimal native engine dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends libgomp1 libglib2.0-0
+          python -m pip install "pydantic>=2,<3" "fastapi>=0.110" "uvicorn>=0.29"
+      - name: Checkout Sophia Xu benchmark at exact pinned commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --filter=blob:none --no-checkout https://github.com/thesophiaxu/openttd-bench.git "$RUNNER_TEMP/upstream"
+          git -C "$RUNNER_TEMP/upstream" fetch --depth 1 origin fee25ab19837959fd9c9749808b117144b9d1b3e
+          git -C "$RUNNER_TEMP/upstream" checkout --detach fee25ab19837959fd9c9749808b117144b9d1b3e
+          test "$(git -C "$RUNNER_TEMP/upstream" rev-parse HEAD)" = fee25ab19837959fd9c9749808b117144b9d1b3e
+      - name: Launch actual OpenTTD 15.3 and attempt passenger service
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="$GITHUB_WORKSPACE/experiments/ottd-cap-01"
+          UPSTREAM="$RUNNER_TEMP/upstream"
+          WORK="$RUNNER_TEMP/ottd-cap01-native"
+          mkdir -p "$WORK"
+          python "$ROOT/native_live_smoke.py" prepare --upstream "$UPSTREAM" --work "$WORK"
+          python "$UPSTREAM/image/init_game.py" --root "$UPSTREAM/image" \
+            --world "$WORK/world.json" --seats "$WORK/seats.json" --dev-home "$WORK/dev" \
+            > "$WORK/bootstrap.log" 2>&1 &
+          GAME_PID=$!
+          trap 'kill "$GAME_PID" 2>/dev/null || true; wait "$GAME_PID" 2>/dev/null || true' EXIT
+          if ! timeout 480s python "$ROOT/native_live_smoke.py" exercise --upstream "$UPSTREAM" --work "$WORK"; then
+            echo "Native game exercise failed. Last bootstrap logs:"
+            tail -n 70 "$WORK/bootstrap.log" || true
+            echo "Last server API logs:"
+            tail -n 70 "$WORK/dev/run/api.log" || true
+            echo "Last OpenTTD logs:"
+            tail -n 70 "$WORK/dev/run/openttd.log" || true
+            exit 1
+          fi
+      - name: Preserve native evidence (no seat tokens)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ottd-cap01-native-evidence
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            ${{ runner.temp }}/ottd-cap01-native/fixture.json
+            ${{ runner.temp }}/ottd-cap01-native/report.json
+            ${{ runner.temp }}/ottd-cap01-native/native-plan.json
+            ${{ runner.temp }}/ottd-cap01-native/native-receipt.json
+            ${{ runner.temp }}/ottd-cap01-native/bootstrap.log
+            ${{ runner.temp }}/ottd-cap01-native/dev/run/api.log
+            ${{ runner.temp }}/ottd-cap01-native/dev/run/openttd.log
