@@ -4,7 +4,8 @@ This is a SEPARATE controlled homogeneous benchmark.  The actual WS-04
 charged warped background is spatially inhomogeneous, time dependent, and
 is not asserted to be in this equilibrium state.
 
-L=1/2 (partial x)^2+1/2 (partial v)^2 - V,
+L=-1/2 eta^mu_nu dx_mu dx_nu -1/2 eta^mu_nu dv_mu dv_nu - V,
+eta=(-,+,+,+),
 V=m2*(x*x+v*v)/2+lam*(x*x+v*v)**2/4.
 x+iv=F exp(i omega*t).  Equilibrium: omega**2=m2+lam*F**2.
 The quadratic radial/phase determinant reads
