@@ -256,17 +256,38 @@ def exercise(work: Path) -> int:
             passenger = cargo.get("PASS", {})
             delivered = int(passenger.get("total") or 0)
             company = bridge.command("inspect.company", {})
+            vehicle_live = bridge.command("inspect.vehicle", {"vehicle": receipt["captures"]["vehicle"]})
+            station_live = [
+                bridge.command("inspect.station", {"station": receipt["captures"][f"station_{n}"]})
+                for n in ("a", "b")
+            ]
             snapshots.append({"date": bridge.state().get("date"),
                               "delivered_PASS": delivered,
                               "operating_profit_observed": company.get("operating_profit"),
-                              "cash_observed": company.get("cash")})
+                              "cash_observed": company.get("cash"),
+                              "vehicle": {k: vehicle_live.get(k) for k in ("x", "y", "state", "speed", "orders", "profit_this_year", "cargo")},
+                              "station_cargo": [s.get("cargo") for s in station_live]})
             if delivered > 0:
                 break
             if bridge.state().get("game_over"):
                 break
             time.sleep(5)
         report["cargo_delivered_PASS"] = delivered
-        report["sampled_metrics"] = snapshots[-20:]
+        report["sampled_metrics"] = snapshots[-30:]
+        report["final_vehicle"] = bridge.command("inspect.vehicle", {"vehicle": receipt["captures"]["vehicle"]})
+        report["final_stations"] = [
+            bridge.command("inspect.station", {"station": receipt["captures"][f"station_{n}"]})
+            for n in ("a", "b")
+        ]
+        report["acceptance_after_construction"] = [
+            bridge.command("inspect.acceptance", station["site"])
+            for station in (plan["stations"]["a"], plan["stations"]["b"])
+        ]
+        report["town_production"] = [
+            bridge.command("inspect.town", {"town": t["id"]})
+            for t in bridge.command("inspect.towns", {"limit": 50})["towns"]
+            if t.get("name") in ("Northgate", "Southbridge")
+        ]
         report["native_grading_snapshot"] = admin_api(url, admin_token, "/api/admin/snapshot")
         report["own_company_after"] = bridge.command("inspect.company", {})
         if delivered <= 0:
