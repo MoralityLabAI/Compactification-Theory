@@ -39,7 +39,13 @@ def atomic(path: Path, data: dict) -> None:
 def prepare(upstream: Path, work: Path) -> None:
     if not (upstream / "image" / "init_game.py").exists():
         raise RuntimeError("upstream checkout must contain the real game bootstrap")
-    sys.path.insert(0, str(upstream))
+    # The upstream top-level package imports its verifiers inference harness.
+    # This smoke only needs the independently importable Pydantic scenario/schema
+    # modules, so mark the package search path without executing that __init__.
+    import types
+    package = types.ModuleType("openttd_bench")
+    package.__path__ = [str(upstream / "openttd_bench")]
+    sys.modules["openttd_bench"] = package
     from openttd_bench.tasks.two_towns_rail import spec
     from openttd_bench.task_spec import Rules
     from openttd_bench.schema import schema_dict
