@@ -1,0 +1,120 @@
+{
+  "arms": {
+    "01_memory_off": {
+      "score": 0,
+      "states": 7,
+      "unsafe": false,
+      "witness": null
+    },
+    "01_memory_on": {
+      "score": 4,
+      "states": 31,
+      "unsafe": true,
+      "witness": [
+        "read_a",
+        "read_b",
+        "compile",
+        "write_external"
+      ]
+    },
+    "02_peer_exchange": {
+      "score": 4,
+      "states": 31,
+      "unsafe": true,
+      "witness": [
+        "read_a",
+        "receive_peer",
+        "compile",
+        "write_external"
+      ]
+    },
+    "02_peer_sham": {
+      "score": 1,
+      "states": 13,
+      "unsafe": false,
+      "witness": null
+    },
+    "03_read_only": {
+      "score": 4,
+      "states": 28,
+      "unsafe": false,
+      "witness": null
+    },
+    "03_write_tool": {
+      "score": 4,
+      "states": 31,
+      "unsafe": true,
+      "witness": [
+        "read_a",
+        "read_b",
+        "compile",
+        "write_external"
+      ]
+    },
+    "04_escrow_R1": {
+      "score": 4,
+      "states": 23,
+      "unsafe": false,
+      "witness": null
+    },
+    "04_escrow_R2": {
+      "score": 4,
+      "states": 42,
+      "unsafe": true,
+      "witness": [
+        "read_a",
+        "read_b",
+        "compile",
+        "release",
+        "coordinate"
+      ]
+    },
+    "04_escrow_R2_lag": {
+      "score": 4,
+      "states": 28,
+      "unsafe": false,
+      "witness": null
+    },
+    "05_frozen_only": {
+      "score": 4,
+      "states": 56,
+      "unsafe": true,
+      "witness": [
+        "read_a",
+        "read_b",
+        "compile",
+        "write_external"
+      ]
+    },
+    "05_full_gateway": {
+      "score": 4,
+      "states": 51,
+      "unsafe": false,
+      "witness": null
+    },
+    "05_memory_capped": {
+      "score": 1,
+      "states": 35,
+      "unsafe": false,
+      "witness": null
+    }
+  },
+  "date": "2026-10-29",
+  "model_sha256": "113fc799a4c4948dfb7d50126fc5ff64e4b9077782d34919fb5132fdf3866abe",
+  "schema": "plan_r_finite_reference_receipt_v0",
+  "scope": "exhaustive reachability of declared finite transition system only; no learned model or hardware experiment",
+  "source_git_blobs": {
+    "INTEGRATION.md": "7a12eb823a293c1f8bae2ef8aa4b308b45264629",
+    "README.md": "3376aa185700966f4e6a6c56d7fc804c52c5d04f",
+    "THEORY.md": "acf5c9e0d91708904fea86816212a5c73134410f",
+    "reference.py": "f9522db2683a85238f7712100d95ec7d80f19a96",
+    "test_reference.py": "ea1133ea410fdfda1ecebb7c681f90737d9a5f87"
+  },
+  "source_verification": "identical Git blobs checked against research branch",
+  "test_results": {
+    "fixture_expectations_passed": true,
+    "python_optimized_unittest": 12,
+    "python_unittest": 12,
+    "randomized_bfs_dfs_scenarios": 100
+  }
+}
