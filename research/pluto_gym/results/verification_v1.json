@@ -1,0 +1,62 @@
+{
+  "actual_upstream_integration_tests_passed": 5,
+  "base_commit": "8a79b9668d2fc4f2e2028b8914379aded33285f7",
+  "existing_files_changed": [
+    "README.md"
+  ],
+  "gpu_training_executed": false,
+  "native_games_executed": 0,
+  "paid_provider_calls": 0,
+  "runs": {
+    "optimized": {
+      "exit_code": 0,
+      "log": "----------------------------------------------------------------------\nRan 59 tests in 2.394s\n\nOK (skipped=4)\n",
+      "passed": 55,
+      "seconds": 2.394,
+      "skipped": 4,
+      "tests_run": 59
+    },
+    "ordinary": {
+      "exit_code": 0,
+      "log": "----------------------------------------------------------------------\nRan 59 tests in 3.785s\n\nOK (skipped=4)\n",
+      "passed": 55,
+      "seconds": 3.785,
+      "skipped": 4,
+      "tests_run": 59
+    }
+  },
+  "schema": "pluto-gym.verification.v1",
+  "skips": {
+    "gymnasium": 1,
+    "http_loopback": 3,
+    "reason_gymnasium": "optional dependency unavailable",
+    "reason_http": "execution sandbox prohibits socket creation"
+  },
+  "smoke_manifest_sha256": "ff40dc21626a86f3bf945e03ebddc306ec89d8243cbb318bd6f5a7d47945b31c",
+  "smoke_receipt_sha256": "2a0a07d9d8118e454cf499d3d8ac53aa315584e80a48485f829266a0b244148d",
+  "smoke_run_id": "0732e92cd3aa8bc6e44e",
+  "source_sha256": {
+    "__init__.py": "6e415f8bd5e951491e87b3a0cea7b6f3a92e576cbe7704a850ee1ea19a3e7359",
+    "__main__.py": "db279b643ca774c294cfba511efe101c899677aa1389fc2bd85099d1498f509c",
+    "_http_worker.py": "675be2215ebd2e4b76e8efe158b0751d27453978ca89ddf81fda046d75eec26a",
+    "dependencies.lock.json": "793deeaac3215fe9a9ac8f48bd06bf3de103385e1517beb0a9bdf7d12ddc3ab8",
+    "design.py": "e0f1914b9088e07e20bb9547b7c256a6001e52bdfd390168b7aa08f5818d1724",
+    "env.py": "a1cbb4821377fafb10334dbcc1994212935a1a9c22c4d3ecf0f8cadbb7d28f93",
+    "gymnasium_adapter.py": "9bb8f5d72e01138c624e8e17a203b95c3f3324b9055f5241376b1a0f34240eee",
+    "io.py": "7946b4b2c17b8de3da858e97514686cdc5c70461ed098b225117f13ac39099d5",
+    "learner.py": "84579975809f2f22ac63b237a7b5f29c027a39b187f9bcb2fed741560191b27c",
+    "math_ref.py": "8707af5324becde875db94f84c39ed9890a94053eff9d283611b186d861b32ad",
+    "replay.py": "a4d698356f04948eee6115d66cab61aad6f7d3145f8b0139072924c77f97dcef",
+    "run.py": "83a561c6ed6ca69924a2520fe9c03806558560ad05da5b3e1ffcc57dab168656",
+    "tensorcraft.py": "5f809a2afbfe167fc7baa564825283c34b50b8342af770045a91686aee578dfb"
+  },
+  "tensorcraft_upstream_files_verified": 70,
+  "test_source_sha256": {
+    "tests/test_design.py": "358538e5c4c3fd8f97021e6ba2a335f3a15a6c03c91b94576d1282692b6f1132",
+    "tests/test_env.py": "dd17d55abf80da363f3d34f7e538605ca69dcf0611680834e402652246854285",
+    "tests/test_gymnasium.py": "09198e5bc9e96eabda2aede5cce7be6e1fa927bc808008a04582fda170664d31",
+    "tests/test_learner.py": "69a942a40d1c86c6948e599085f3ef0f3519f7b71c4d5b5931fb772d99626933",
+    "tests/test_run.py": "754326529ea712c6ba1cc31f2db873e44137e56b8f92f4ab7cc9891251742015",
+    "tests/test_tensorcraft.py": "bd812c0d794f773906f792575928c530f7ccbf02984a6f7378592ee924205e7e"
+  }
+}

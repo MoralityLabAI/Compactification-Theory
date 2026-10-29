@@ -1,0 +1,342 @@
+{
+  "compactification_theory": {
+    "base_commit": "8a79b9668d2fc4f2e2028b8914379aded33285f7",
+    "repository": "https://github.com/MoralityLabAI/Compactification-Theory"
+  },
+  "pluto": {
+    "asset_policy": "Owner-provided local game and release assets; no bundled executable or weights.",
+    "bwapi": "4.4.0",
+    "commit": "8e78659caf1a987697abe76cd296a8eef9671c97",
+    "game": "StarCraft: Brood War 1.16.1",
+    "integration_verified": false,
+    "model": "md09b_1331000",
+    "release_kind": "binary_inference_only",
+    "repository": "https://github.com/tscmoo/pluto",
+    "training_source_available": false,
+    "version": "2.0"
+  },
+  "schema": "pluto_gym.dependencies.v1",
+  "tensorcraft": {
+    "apis": {
+      "native_cli": "python -m starcraft_lab.farm.runner run --workspace PATH --allow-native",
+      "prepare": [
+        "starcraft_lab.batch.build_plan",
+        "starcraft_lab.batch.save_plan",
+        "starcraft_lab.farm.schema.validate_runtime",
+        "starcraft_lab.farm.runner.prepare"
+      ],
+      "provenance_binding": "starcraft_lab.world_model.provenance.bind",
+      "synthetic_combat": "starcraft_lab.world_model.combat.simulate_batch",
+      "trace_analysis": "starcraft_lab.world_model.trace_analysis.analyze_file"
+    },
+    "branch": "research/starcraft-headless-farm-v0",
+    "capabilities": {
+      "interface_action_interception": false,
+      "native_frozen_pluto_farm": true,
+      "native_reset_step_bridge": false,
+      "native_runtime_verified": false,
+      "offline_paired_plan": true,
+      "pluto_weight_training": false,
+      "strict_trace_analysis": true,
+      "uncalibrated_combat_surrogate": true
+    },
+    "commit": "f12f3241b686231d09fbfe40a9f03706ebc7e068",
+    "license_note": "TensorCraft README describes MIT; pinned tree has no standalone LICENSE. Referenced externally. Existing upstream licensing and native acceptance requirements remain in force.",
+    "mod_variants": [
+      "control",
+      "devourer_speed_550",
+      "devourer_cooldown_90",
+      "devourer_speed_550_cooldown_90"
+    ],
+    "planner_variants": [
+      "control",
+      "devourer_speed_550"
+    ],
+    "pull_request": "https://github.com/patrickdugan/TensorCraft/pull/5",
+    "repository": "https://github.com/patrickdugan/TensorCraft",
+    "source_files": {
+      ".github/workflows/starcraft-lab.yml": {
+        "git_blob_sha1": "dfffc20a54eff02f4378cc2937fdd57037c7e4df",
+        "size_bytes": 9784
+      },
+      "README.md": {
+        "git_blob_sha1": "b501eccdd6d3716102d7609d8aab54182cfdd098",
+        "size_bytes": 824
+      },
+      "game.js": {
+        "git_blob_sha1": "240fce37104bebfc949208928e18a9ba152e145e",
+        "size_bytes": 2453
+      },
+      "index.html": {
+        "git_blob_sha1": "9a215f1a31e4434cab927f6b7ba82c22378a67b4",
+        "size_bytes": 406
+      },
+      "main.js": {
+        "git_blob_sha1": "33901d4df432358eef2d38a4be8f5fcd1e0b627a",
+        "size_bytes": 500
+      },
+      "starcraft_lab/.gitignore": {
+        "git_blob_sha1": "753f2f4dbeac76e9fb312905f289157ea9614f5c",
+        "size_bytes": 178
+      },
+      "starcraft_lab/BATCH.md": {
+        "git_blob_sha1": "b18c84a2c9350f0db6cee5164c37d4bf883e6c90",
+        "size_bytes": 6448
+      },
+      "starcraft_lab/DEVOURER_FACTORIAL.md": {
+        "git_blob_sha1": "ec2da0c411f5e5d9b8ef3df1ab9d8954b4e9cb55",
+        "size_bytes": 2749
+      },
+      "starcraft_lab/README.md": {
+        "git_blob_sha1": "432add15a025dfa4b085f061def22fb23f9f6908",
+        "size_bytes": 13240
+      },
+      "starcraft_lab/STAGE1_SMOKE.md": {
+        "git_blob_sha1": "902f5de06ee017b9a546dfa5ae68a118fd3fea7a",
+        "size_bytes": 7832
+      },
+      "starcraft_lab/__init__.py": {
+        "git_blob_sha1": "73512060ea2d50df38e56169f8eba1b059c6e0c6",
+        "size_bytes": 79
+      },
+      "starcraft_lab/batch.example.json": {
+        "git_blob_sha1": "0b7a156b89a5c9a1cb60c7116839ce27f278bca6",
+        "size_bytes": 640
+      },
+      "starcraft_lab/batch.py": {
+        "git_blob_sha1": "4cc0913f6ea272f1508c6c78f92d97c7334ac152",
+        "size_bytes": 14058
+      },
+      "starcraft_lab/farm/README.md": {
+        "git_blob_sha1": "8a8b67625e976651dcf87532f240687c17585345",
+        "size_bytes": 16445
+      },
+      "starcraft_lab/farm/__init__.py": {
+        "git_blob_sha1": "5a54f3cbefdbbc25964cf079343073807a6dd5a1",
+        "size_bytes": 83
+      },
+      "starcraft_lab/farm/native_match.py": {
+        "git_blob_sha1": "b8f8c2ff308ca79b7a03b2e79406769fffa0e707",
+        "size_bytes": 11917
+      },
+      "starcraft_lab/farm/render_pool.example.json": {
+        "git_blob_sha1": "49ab52a7daeaa8da55d6e26890500430179985a0",
+        "size_bytes": 1244
+      },
+      "starcraft_lab/farm/render_queue.py": {
+        "git_blob_sha1": "522ef4918c4d807edd6056473052425c6562a996",
+        "size_bytes": 10713
+      },
+      "starcraft_lab/farm/replay_gui.py": {
+        "git_blob_sha1": "0e9af64dccfbecf2d0034e1a2f99906a3e50c741",
+        "size_bytes": 11556
+      },
+      "starcraft_lab/farm/runner.py": {
+        "git_blob_sha1": "80b83585c92a7d498cb3c45aba99949a22421505",
+        "size_bytes": 19333
+      },
+      "starcraft_lab/farm/runtime.example.json": {
+        "git_blob_sha1": "9c1bf9c3428c6a24446189fa6370465db957c1bd",
+        "size_bytes": 1823
+      },
+      "starcraft_lab/farm/runtime.virtual-screen.example.json": {
+        "git_blob_sha1": "23ab85230b368998f81abdda883483a95e9a60fa",
+        "size_bytes": 2756
+      },
+      "starcraft_lab/farm/schema.py": {
+        "git_blob_sha1": "ec5e1336188e745437892e8a7183f2628a727472",
+        "size_bytes": 12907
+      },
+      "starcraft_lab/farm/smoke_video.py": {
+        "git_blob_sha1": "2efa6c346c66722b7a7cc80efaf87fef3dc1fd21",
+        "size_bytes": 2168
+      },
+      "starcraft_lab/farm/smoke_xvfb.py": {
+        "git_blob_sha1": "42782d267d62ed2be4d98a34085d0cba96bdc93b",
+        "size_bytes": 3240
+      },
+      "starcraft_lab/farm/video.example.json": {
+        "git_blob_sha1": "5dd09240c74d12a67415cd03e4978d74956ae329",
+        "size_bytes": 1355
+      },
+      "starcraft_lab/farm/video.py": {
+        "git_blob_sha1": "007018f953a628b07794713ff489a8ad841b839b",
+        "size_bytes": 19342
+      },
+      "starcraft_lab/farm/xdisplay.py": {
+        "git_blob_sha1": "7623e83b32a487d4f24dfeb3e4b329f19d842577",
+        "size_bytes": 3058
+      },
+      "starcraft_lab/live_trace/CMakeLists.txt": {
+        "git_blob_sha1": "cc3347fdb959190bbc8e2981eb80fe2e899b4cf4",
+        "size_bytes": 1476
+      },
+      "starcraft_lab/live_trace/README.md": {
+        "git_blob_sha1": "a1a331f20fc2bc4d5dc20649db9eb9a539f023ee",
+        "size_bytes": 12618
+      },
+      "starcraft_lab/live_trace/TraceTournament.cpp": {
+        "git_blob_sha1": "0be1d52bf9f5e59f0c33d1a2905684110c0be06f",
+        "size_bytes": 12327
+      },
+      "starcraft_lab/manifest.example.json": {
+        "git_blob_sha1": "d3a1c19967bd27a9be7836c227718e513e4abce9",
+        "size_bytes": 869
+      },
+      "starcraft_lab/mod.py": {
+        "git_blob_sha1": "3aa8fd18f54cfd7b4d56d1a8ad99d85d4fb56cac",
+        "size_bytes": 5327
+      },
+      "starcraft_lab/mod_factorial.py": {
+        "git_blob_sha1": "6b34a6b9c6fe48f18265306e96c9bb10e6805c55",
+        "size_bytes": 6703
+      },
+      "starcraft_lab/preflight.py": {
+        "git_blob_sha1": "b20045e673e09bdb199c32e12a455463a868b674",
+        "size_bytes": 8121
+      },
+      "starcraft_lab/replay_probe/Cargo.toml": {
+        "git_blob_sha1": "bac78c46014b226bae884312c3bdef742bd5b268",
+        "size_bytes": 259
+      },
+      "starcraft_lab/replay_probe/src/main.rs": {
+        "git_blob_sha1": "161ab9c3d20702221365208d17f150efe2809e09",
+        "size_bytes": 5886
+      },
+      "starcraft_lab/replay_validation.py": {
+        "git_blob_sha1": "2b7fda029016be3cfa152fae0a14d20b79af8cbc",
+        "size_bytes": 5703
+      },
+      "starcraft_lab/telemetry.py": {
+        "git_blob_sha1": "6aea209acaa7d9757802cdfe8c3946bbe6708673",
+        "size_bytes": 9986
+      },
+      "starcraft_lab/tests/test_batch.py": {
+        "git_blob_sha1": "be20a7d81dcf859d3281b662c9bdda65502f4115",
+        "size_bytes": 6920
+      },
+      "starcraft_lab/tests/test_calibration_gate.py": {
+        "git_blob_sha1": "8f8b6b158437cc45dac679eedc382548654a6a4b",
+        "size_bytes": 4672
+      },
+      "starcraft_lab/tests/test_factorial.py": {
+        "git_blob_sha1": "6ba1588ec36eab6d06c93ac625b5ae1d50c213ed",
+        "size_bytes": 2719
+      },
+      "starcraft_lab/tests/test_farm.py": {
+        "git_blob_sha1": "d41f0d29b731dc38c3598bd39373c2adda0fd116",
+        "size_bytes": 15221
+      },
+      "starcraft_lab/tests/test_lab.py": {
+        "git_blob_sha1": "771894511aa37430d8ddef00d047dca35a1f3662",
+        "size_bytes": 8680
+      },
+      "starcraft_lab/tests/test_matchups.py": {
+        "git_blob_sha1": "dcf22927efce479b107b74838ecbbd5363a960f0",
+        "size_bytes": 1958
+      },
+      "starcraft_lab/tests/test_native_match.py": {
+        "git_blob_sha1": "cd156f280ca8cdfa0d2e0f04a5e909f2bb9691de",
+        "size_bytes": 6656
+      },
+      "starcraft_lab/tests/test_preflight.py": {
+        "git_blob_sha1": "ae636bea383bdff107c03d07085ab37fd456e69e",
+        "size_bytes": 4320
+      },
+      "starcraft_lab/tests/test_provenance.py": {
+        "git_blob_sha1": "934f724d2bc4f68a2cfb837dc84f935fa7421185",
+        "size_bytes": 3833
+      },
+      "starcraft_lab/tests/test_render_queue.py": {
+        "git_blob_sha1": "4214b62a05fca410ce2561ccafe3ce477e3c82c5",
+        "size_bytes": 5317
+      },
+      "starcraft_lab/tests/test_replay_gui.py": {
+        "git_blob_sha1": "f117ddaa796d390eac941b8388b37d6cd53a855a",
+        "size_bytes": 6332
+      },
+      "starcraft_lab/tests/test_replay_validation.py": {
+        "git_blob_sha1": "8bd4cd145ddc5f6eef0923695c2a237ae22b4649",
+        "size_bytes": 5773
+      },
+      "starcraft_lab/tests/test_scaffold.py": {
+        "git_blob_sha1": "18b34d7169744953c2307c4fdc604018cdda2cdb",
+        "size_bytes": 1860
+      },
+      "starcraft_lab/tests/test_trace_analysis.py": {
+        "git_blob_sha1": "8539529af679846df97acacb9ffc7db67195828f",
+        "size_bytes": 9494
+      },
+      "starcraft_lab/tests/test_world_model.py": {
+        "git_blob_sha1": "157c66af8002002b810d2b9fb7f657dff9315e92",
+        "size_bytes": 10525
+      },
+      "starcraft_lab/world_model/README.md": {
+        "git_blob_sha1": "b5ec91607f1640cae7f035954bd12ab499b64165",
+        "size_bytes": 11016
+      },
+      "starcraft_lab/world_model/__init__.py": {
+        "git_blob_sha1": "a37ccca86ce905895ef855da747e374769ca0481",
+        "size_bytes": 88
+      },
+      "starcraft_lab/world_model/calibrate.py": {
+        "git_blob_sha1": "128ded564b28ea7c5a9602a5ff97711a28325ac3",
+        "size_bytes": 4997
+      },
+      "starcraft_lab/world_model/calibration_gate.py": {
+        "git_blob_sha1": "4d0ba0c53e312aa19ee520224cf1a4b08cccf13e",
+        "size_bytes": 9662
+      },
+      "starcraft_lab/world_model/catalog.json": {
+        "git_blob_sha1": "57fe2e55a70fd6bf6b269808b1e1942250d62fe5",
+        "size_bytes": 15887
+      },
+      "starcraft_lab/world_model/combat.py": {
+        "git_blob_sha1": "b29cfe3d5ee21935a53d3edbde0bd9ad3f5f0ea3",
+        "size_bytes": 15311
+      },
+      "starcraft_lab/world_model/dat_extract.py": {
+        "git_blob_sha1": "d53d1836c58ad83ec2908f2d8f94a16e92c0f46e",
+        "size_bytes": 7351
+      },
+      "starcraft_lab/world_model/experiments.py": {
+        "git_blob_sha1": "83c9ce47067745254c11a89a28d65a816d593a15",
+        "size_bytes": 6882
+      },
+      "starcraft_lab/world_model/matchups.py": {
+        "git_blob_sha1": "199a2c534ee8d6be1615b6796105a565a386d8fb",
+        "size_bytes": 5954
+      },
+      "starcraft_lab/world_model/ontology.py": {
+        "git_blob_sha1": "726c630ffad2192963a1f2c3274d74cf60f82026",
+        "size_bytes": 12419
+      },
+      "starcraft_lab/world_model/provenance.py": {
+        "git_blob_sha1": "65aedbf95db42e8340320ba7523dee15e40d1f09",
+        "size_bytes": 6465
+      },
+      "starcraft_lab/world_model/scaffold.py": {
+        "git_blob_sha1": "bffad80c473a28eec0695a437da5f6f994c36ea3",
+        "size_bytes": 5265
+      },
+      "starcraft_lab/world_model/scenarios.json": {
+        "git_blob_sha1": "dd0d33e53f726a56f455d719d928b103e77ea73a",
+        "size_bytes": 4540
+      },
+      "starcraft_lab/world_model/trace_analysis.py": {
+        "git_blob_sha1": "e757d5511b6dd93665f03b1b650a7067c9bb09fc",
+        "size_bytes": 21218
+      },
+      "style.css": {
+        "git_blob_sha1": "03fabcba4856d19c7147e919d2b3c8a5a8610903",
+        "size_bytes": 135
+      },
+      "units.js": {
+        "git_blob_sha1": "dc6f3653b4949f3bae80374f31185f2bf178e93f",
+        "size_bytes": 771
+      }
+    },
+    "source_verification": "complete_repository_regular_file_manifest_git_blob_sha1",
+    "upstream_state": "stacked_draft_prs_1_3_4_5_preserved"
+  }
+}

@@ -1,5 +1,11 @@
 # Compactification Theory
 
+The new [Pluto-Gym research package](research/pluto_gym/README.md) adds a runnable
+interface-relative gym, a compact CPU student with bounded DRAM replay, and
+curriculum experiments with a configurable designer webhook. Its pinned
+TensorCraft adapter reuses the existing StarCraft surrogate, frozen-Pluto farm
+and trace checks.
+
 How many bits does a trained adapter store per parameter, and what limits it? This repository tests a theory note on that question against LoRA adapters on Qwen3-0.6B. Everything runs on CPU in RAM.
 
 The note, [`note/bits-depth-lipschitz.html`](note/bits-depth-lipschitz.html), works out these claims for ReLU networks approximating Hölder functions:
