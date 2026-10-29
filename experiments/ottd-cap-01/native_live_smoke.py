@@ -241,6 +241,44 @@ def place_plan(bridge: SeatBridge, *, stop_after: int = 480) -> tuple[dict, dict
     }
 
 
+
+def verify_native_ledger(snapshot: dict, seat: int, delivered: int) -> dict:
+    """Require independent cargo and valid quarterly accounting evidence.
+
+    This checks an *interim* native measurement, never a leaderboard grade.
+    """
+    if type(seat) is not int or seat < 0 or type(delivered) is not int or delivered <= 0:
+        raise RuntimeError("positive delivered cargo and a native company seat are required")
+    if not isinstance(snapshot, dict):
+        raise RuntimeError("native grading snapshot is not a JSON object")
+    status = snapshot.get("accounting_snapshot")
+    if not isinstance(status, dict) or status.get("fresh") is not True or status.get("error") is not None:
+        raise RuntimeError("native accounting snapshot is stale or unverified")
+    companies = snapshot.get("companies")
+    if not isinstance(companies, dict) or not isinstance(companies.get(str(seat)), dict):
+        raise RuntimeError("native snapshot missing the authenticated seat's company")
+    row = companies[str(seat)]
+    account = row.get("accounting")
+    if (not isinstance(account, dict) or account.get("valid") is not True
+            or account.get("version") != "company-quarterly-v1"):
+        raise RuntimeError("native quarterly accounting record invalid")
+    income, expense, profit = (account.get(k) for k in ("income", "expenses", "operating_profit"))
+    if any(type(v) is not int for v in (income, expense, profit)):
+        raise RuntimeError("native ledger income/expenses/profit must be exact integers")
+    if income + expense != profit or profit != row.get("operating_profit"):
+        raise RuntimeError("native ledger arithmetic or company operating-profit mismatch")
+    native_pass = (row.get("cargo_delivered") or {}).get("PASS")
+    if type(native_pass) is not int or native_pass < delivered:
+        raise RuntimeError("native grading snapshot disagrees with PASS accumulator")
+    if income <= 0 or profit <= 0:
+        raise RuntimeError("native passenger revenue has not yielded positive operating profit")
+    return {"seat": seat, "native_cargo_PASS": native_pass, "income": income,
+            "signed_expenses": expense, "operating_profit": profit,
+            "accounting_version": account["version"],
+            "snapshot_date": snapshot.get("date"), "horizon_year": snapshot.get("horizon_year"),
+            "state": "verified_interim_native_ledger"}
+
+
 def exercise(work: Path) -> int:
     world = json.loads((work / "world.json").read_text())
     secrets_doc = json.loads((work / "seats.json").read_text())
@@ -335,7 +373,10 @@ def exercise(work: Path) -> int:
         report["own_company_after"] = bridge.command("inspect.company", {})
         if delivered <= 0:
             raise RuntimeError("route was built, but no actual passenger delivery was recorded")
-        report["status"] = "native_cargo_delivery_verified"
+        report["native_ledger_check"] = verify_native_ledger(
+            report["native_grading_snapshot"],
+            int(state["seat"]["company"]), delivered)
+        report["status"] = "native_cargo_delivery_and_operating_ledger_verified"
         atomic(report_path, report)
         print("Native OpenTTD 15.3 cargo delivery verified, PASS=", delivered)
         return 0
