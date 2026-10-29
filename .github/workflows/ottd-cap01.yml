@@ -31,3 +31,5 @@ jobs:
         run: |
           python experiments/ottd-cap-01/bench.py --mode sweep --seeds 101,202 --output /tmp/ottd-cap01.json > /dev/null
           python experiments/ottd-cap-01/bench.py --mode exact --seeds 101 --routes 2 --horizon 5 > /dev/null
+          python experiments/ottd-cap-01/native_controller.py experiments/ottd-cap-01/examples/road_bus.json > /dev/null
+          python experiments/ottd-cap-01/native_controller.py experiments/ottd-cap-01/examples/rail_two_stations.json > /dev/null

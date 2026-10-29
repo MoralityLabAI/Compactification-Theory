@@ -40,3 +40,14 @@ ATIF inventory reports the source SHA-256, tool activity and upstream-declared u
 ## Research ownership
 
 The exact finite Bayesian *value* oracle and synthetic controller comparisons belong to this experiment. The canonical full adaptive future-trace history-equivalence oracle is separately owned by [EvalMath IRC-02](https://github.com/MoralityLabAI/EvalMath/pull/21). [Compactification-Theory IRC-02](../interface-relative-compactification/README.md) owns the cross-environment resource protocol. [Pluto-Gym](../../research/pluto_gym/README.md) owns its synthetic scheduler and game-design curriculum. Native controller work will first need a tested, time-aware translation from route plans into stations, tracks, vehicles and orders, with a separate receipt of actual OpenTTD grading.
+
+
+## Native controller milestone (October 30, 2026)
+
+The experiment now includes a schema-constrained native road/rail controller in [native_controller.py](native_controller.py), with [execution instructions](NATIVE.md) and illustrative plans under examples/. It captures real station and vehicle IDs, validates construction before each write, confirms asynchronous order tickets and records a stop-on-failure audit receipt.
+
+Both example plans compile fully offline:
+
+    python experiments/ottd-cap-01/native_controller.py experiments/ottd-cap-01/examples/road_bus.json
+
+Live writes require explicit clock and write gates and a separately provisioned upstream seat. The mocked API suite has been executed; live OpenTTD and native benchmark scoring remain unverified.

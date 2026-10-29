@@ -1,0 +1,62 @@
+{
+  "version": "ottd-cap01.native-route.v1",
+  "mode": "road",
+  "stations": {
+    "a": {
+      "site": {
+        "x": 10,
+        "y": 21
+      },
+      "front": {
+        "x": 10,
+        "y": 20
+      },
+      "kind": "bus",
+      "drive_through": false
+    },
+    "b": {
+      "site": {
+        "x": 25,
+        "y": 21
+      },
+      "front": {
+        "x": 25,
+        "y": 20
+      },
+      "kind": "bus",
+      "drive_through": false
+    }
+  },
+  "segments": [
+    {
+      "start": {
+        "x": 10,
+        "y": 20
+      },
+      "end": {
+        "x": 25,
+        "y": 20
+      }
+    }
+  ],
+  "depot": {
+    "site": {
+      "x": 18,
+      "y": 21
+    },
+    "front": {
+      "x": 18,
+      "y": 20
+    }
+  },
+  "vehicle": {
+    "engine": 11,
+    "wagon_engine": null,
+    "wagons": 0
+  },
+  "limits": {
+    "max_cost": 500000,
+    "max_wall_seconds": 180,
+    "latest_start_year": 1951
+  }
+}
