@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - "experiments/ottd-cap-01/native_live_smoke.py"
+      - "experiments/ottd-cap-01/bridge.py"
+      - "experiments/ottd-cap-01/native_controller.py"
       - ".github/workflows/ottd-cap01-native.yml"
   workflow_dispatch:
 
