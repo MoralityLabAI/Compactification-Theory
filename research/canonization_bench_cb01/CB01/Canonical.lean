@@ -26,6 +26,7 @@ theorem pair {H : Type u} {W : Type v} {O : Type w} {P : Type z}
     (hFirst : SameFuture first x y) (hSecond : SameFuture second x y) :
     SameFuture (fun history word => (first history word, second history word)) x y := by
   intro word
+  change (first x word, second x word) = (first y word, second y word)
   rw [hFirst word, hSecond word]
 
 end CB01.Canonical
