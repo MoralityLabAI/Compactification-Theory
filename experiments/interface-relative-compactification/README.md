@@ -4,7 +4,7 @@
 
 ## Canonical mathematics and ownership
 
-EvalMath owns the exact mathematical reference, finite Bayesian oracle, test suite and source-hashed receipt, reviewed in [EvalMath PR #21](https://github.com/MoralityLabAI/EvalMath/pull/21), branch `research/irc02-timed-predictive-quotient-20261029`, pinned head **`95ff27ac746f2883108e925888da05a8e42d81b6`**. Read [the proof and limitations](https://github.com/MoralityLabAI/EvalMath/blob/95ff27ac746f2883108e925888da05a8e42d81b6/paper/interface_relative_compactification.md). The pinned reference treats rewards as observable feedback, uses positive integer durations, and keeps all action legality public.
+EvalMath owns the exact mathematical reference, finite Bayesian oracle, test suite and source-hashed receipt, reviewed in [EvalMath PR #21](https://github.com/MoralityLabAI/EvalMath/pull/21), branch `research/irc02-timed-predictive-quotient-20261029`, pinned head **`2616092a2c73c083378e508abfd966fdf5e84814`**. Read [the proof and limitations](https://github.com/MoralityLabAI/EvalMath/blob/2616092a2c73c083378e508abfd966fdf5e84814/paper/interface_relative_compactification.md). The pinned reference treats rewards as observable feedback, uses positive integer durations, and keeps all action legality public.
 
 This repository owns the resource-accounting and model experiment questions. The runnable [Pluto-Gym](../../research/pluto_gym/README.md) already owns synthetic multi-front scheduling, compact student training and rule-designer curriculum comparisons. Its exact reachable reward ceiling may serve as an independent **scheduler-specific** oracle. IRC-02 adds a formal stochastic *history-equivalence* contract and adversarial representation tests; it does not replace Pluto-Gym or vendor EvalMath code.
 
@@ -14,7 +14,7 @@ Ownership exclusions: [HC-01 PR #1](https://github.com/MoralityLabAI/Compactific
 
 Given an interface `I`, a public mode `q` (for example, camera and selection), and a remaining deadline `d`, which distinctions between observable histories must survive compression to predict **every legal future action/observation/reward/time trace**?
 
-EvalMath's exact reference computes the signature of a posterior history under legal feedback-adaptive future policy trees. For a declared finite set of histories at each `(q,d)`, let `N(q,d)` count predictive equivalence classes. With public mode and deadline delivered separately, exact fixed-length memory needs
+EvalMath's exact reference computes the signature of a posterior history under legal feedback-adaptive future policy trees. For a declared finite **successor-closed** set of histories at each `(q,d)`, let `N(q,d)` count predictive equivalence classes. The finite closure tool adds every continuing positive-probability posterior history reached before the deadline. With public mode and deadline delivered separately, exact fixed-length memory needs
 
 \[
 M_{\min}=\left\lceil\log_2\max_{q,d}N(q,d)\right\rceil.
@@ -37,7 +37,7 @@ Define optimal finite-interface value `V_I*` by exact dynamic programming when t
 ## First bounded phase: exact finite oracles
 
 1. **Pin source and inputs.** Fix the EvalMath commit and source hashes; assign immutable fixture IDs to `S`, `Q`, public action grammar, kernel probabilities, public reward/termination, duration distributions, candidate belief histories, horizon and seed. Record the entire event tuple `(signal,reward,duration,next_mode,done)`.
-2. **Run exact oracle.** Compare recursive predictive signatures with independent hidden-state cylinder enumeration and exhaustive policy trees for small instances. Check the minimum fixed-bit cardinality on the **declared history set**. Replay the returned shortest distinguishing policy within its deadline.
+2. **Run exact oracle.** Construct the full positive-probability successor closure of the declared finite seed set and reject any dynamic quotient claim from a nonclosed domain. Compare recursive predictive signatures with independent hidden-state cylinder enumeration and exhaustive policy trees for small instances. Check the minimum fixed-bit cardinality on the **declared history set**. Replay the returned shortest distinguishing policy within its deadline.
 3. **Reproduce counterexamples.** Value-only collisions; two-tick delayed observation; camera switch; zero-probability feedback; mixed terminal/duration outcomes; deterministic four-state hold/swap reduction. Verify that expanding a permitted action grammar refines exact all-futures partitions when all other semantics are unchanged.
 4. **Mutation gates.** Deliberately alter probability mass, next-state branch, duration or public action access. Recompute the oracle and require a changed witness or clearly declared equality where the altered parameter is observationally irrelevant. Re-run normal and optimized verification. A source hash mismatch is a failed receipt, never a reason to silently replace a baseline.
 
@@ -45,7 +45,7 @@ Reproduce the pinned EvalMath module from an independently checked checkout:
 
 ```bash
 cd ../EvalMath
-# Verify HEAD matches 95ff27ac746f2883108e925888da05a8e42d81b6
+# Verify HEAD matches 2616092a2c73c083378e508abfd966fdf5e84814
 PYTHONPATH=src python -m unittest discover -s tests -p test_interface_relative_compactification.py -v
 python scripts/check_receipts.py --only irc02
 ```
