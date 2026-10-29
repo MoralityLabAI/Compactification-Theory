@@ -1,6 +1,6 @@
 # OTTD-CAP-01: native OpenTTD-Bench controller
 
-**Evidence:** Offline compiler and mocked upstream API execution; no scored or live native session has been run. Upstream pinned to Sophia Xu's OpenTTD-Bench commit fee25ab19837959fd9c9749808b117144b9d1b3e.
+**Evidence:** Offline compiler, mocked upstream API suite, and an actual native OpenTTD 15.3 single-company smoke that delivered 31 passengers and produced +$1,061 operating profit as of 1950-04-16. See [S101-R3 evidence](results/native_s101_r3.md). This is an interim snapshot in a modified one-year game; no official ten-year competitive benchmark result is claimed. Upstream pinned to Sophia Xu's OpenTTD-Bench commit fee25ab19837959fd9c9749808b117144b9d1b3e.
 
 ## Supported plans
 
@@ -34,6 +34,10 @@ An exclusive receipt is written before the first live request. Each attempted st
 
 The validated cost sum budgets construction and vehicle spending. It does not report the upstream operating-profit ledger. Real benchmark profit and rankings require authoritative upstream grading snapshots and matched opponent runs. Completion of a route in the API does not prove train motion or profitable cargo delivery.
 
-## Next evidence gate
+## Native integration result and next evidence gate
 
-Provision an unscored native seat, confirm the pinned version, survey map/engine/acceptance/connectivity, and manually review a viable route. Then run one route with the gates above and collect terminal map/vehicle/cargo and financial evidence. A separate frozen-seed study can compare TRM/HRM controllers at matched action, inference and memory budgets. All prior synthetic experiments remain separately owned.
+The pinned Linux runner at `.github/workflows/ottd-cap01-native.yml` provisioned a real OpenTTD 15.3 server, surveyed a route, built its connected bus service, and recorded 31 PASS deliveries. The verified company ledger contained $1,170 income, -$109 signed operating expenses and +$1,061 operating profit at 1950-04-16. Its nine-step receipt and source-hashed plan are available in the [passing run artifact](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/40937181974). See [S101-R3](results/native_s101_r3.md) for the precise fixture and evidence limits.
+
+A follow-up native CI gate requires `company-quarterly-v1` with a fresh snapshot, valid accounting, correct income/expense arithmetic, an authentic matching passenger-delivery count, and positive income/profit. It additionally recomputes the native plan SHA-256 and step-by-step hash chain with `receipt_verify.py`.
+
+The next experimental step is a **horizon-finalized** one-year grading snapshot, followed by multiple frozen seeds and competitive head-to-head games. A later comparison can evaluate small TRM/HRM planners under matched interface, wall-clock, and inference budgets. The original finite oracle, IRC-02 and Pluto-Gym retain their separate protocols.
