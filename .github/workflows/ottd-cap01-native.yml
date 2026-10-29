@@ -6,6 +6,7 @@ on:
       - "experiments/ottd-cap-01/native_live_smoke.py"
       - "experiments/ottd-cap-01/bridge.py"
       - "experiments/ottd-cap-01/native_controller.py"
+      - "experiments/ottd-cap-01/receipt_verify.py"
       - ".github/workflows/ottd-cap01-native.yml"
   workflow_dispatch:
 
@@ -57,6 +58,7 @@ jobs:
             tail -n 70 "$WORK/dev/run/openttd.log" || true
             exit 1
           fi
+          python "$ROOT/receipt_verify.py" "$WORK/native-receipt.json" "$WORK/native-plan.json" > "$WORK/receipt-verification.json"
       - name: Preserve native evidence (no seat tokens)
         if: always()
         uses: actions/upload-artifact@v4
@@ -69,6 +71,7 @@ jobs:
             ${{ runner.temp }}/ottd-cap01-native/report.json
             ${{ runner.temp }}/ottd-cap01-native/native-plan.json
             ${{ runner.temp }}/ottd-cap01-native/native-receipt.json
+            ${{ runner.temp }}/ottd-cap01-native/receipt-verification.json
             ${{ runner.temp }}/ottd-cap01-native/bootstrap.log
             ${{ runner.temp }}/ottd-cap01-native/dev/run/api.log
             ${{ runner.temp }}/ottd-cap01-native/dev/run/openttd.log
