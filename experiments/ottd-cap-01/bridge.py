@@ -24,6 +24,8 @@ READ_COMMANDS = frozenset({
     "inspect.company", "inspect.stations", "inspect.station",
     "inspect.vehicles", "inspect.vehicle", "inspect.orders",
     "inspect.bridges", "inspect.subsidies", "inspect.deliveries",
+    "road.types", "road.engines", "road.connected",
+    "rail.types", "rail.engines", "rail.connected",
 })
 WRITE_COMMANDS = frozenset({
     "road.road", "road.stop", "road.depot", "rail.track", "rail.station",
