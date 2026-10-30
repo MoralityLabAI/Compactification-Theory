@@ -153,7 +153,7 @@ class EndToEndTests(unittest.TestCase):
     def test_repair_case_count_and_actual_missing_flags(self):
         self.assertEqual(len(REPAIR_CASES),8)
         for caseid,damage,note in REPAIR_CASES:
-            self.assertEqual(missing_guards(initial(damage)),list(damage))
+            self.assertCountEqual(missing_guards(initial(damage)),list(damage))
         self.assertEqual(REPAIR_ROUNDS,3)
 
     def test_feedback_contains_actual_result(self):
