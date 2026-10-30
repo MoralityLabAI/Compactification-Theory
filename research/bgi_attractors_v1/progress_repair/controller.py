@@ -228,7 +228,9 @@ def exhaustive_progress_certificate() -> dict:
     suggestion, including invalid/untrusted proposals.
     """
     from core import policies, patch_space
-    proposals = (["bad-json", '{"field":null}', '{"field":"__class__"}'] +
+    proposals = (["bad-json", '{"field":null}', '{"field":"__class__"}',
+                  '{"field":"require_active_badge","extra":true}',
+                  '{"field":12}', '["require_clear_stop"]'] +
                  [json.dumps({"field":name}) for name in FLAGS])
     states = policies()
     checked_edges = 0
