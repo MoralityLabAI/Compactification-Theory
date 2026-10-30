@@ -1,0 +1,5 @@
+# Optional real-model backend; pin exact versions in a run environment lock.
+torch>=2.4
+transformers>=5.13
+accelerate>=1.0
+# For --load-in-4bit also install a CUDA-compatible bitsandbytes release.
