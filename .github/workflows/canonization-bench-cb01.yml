@@ -1,0 +1,35 @@
+name: CB01 Lean proof reuse
+
+on:
+  pull_request:
+    paths:
+      - 'research/canonization_bench_cb01/**'
+      - '.github/workflows/canonization-bench-cb01.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/canonization_bench_cb01/**'
+      - '.github/workflows/canonization-bench-cb01.yml'
+  workflow_dispatch:
+
+jobs:
+  cb01:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: research/canonization_bench_cb01
+          build: 'true'
+          test: 'false'
+      - name: Python oracle tests
+        run: python3 -m unittest discover -s research/canonization_bench_cb01 -p 'test_*.py' -v
+      - name: Verified deterministic receipt
+        run: python3 research/canonization_bench_cb01/runner.py --require-lean --json /tmp/cb01-receipt.json
+      - name: Upload receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: cb01-receipt
+          path: /tmp/cb01-receipt.json
