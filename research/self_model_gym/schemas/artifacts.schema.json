@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/MoralityLabAI/Compactification-Theory/research/self_model_gym/schemas/artifacts.schema.json",
+  "title": "SELF-01 evidence formats v0.1",
+  "$defs": {
+    "nullableNumber": {"type": ["number", "null"]},
+    "metrics": {
+      "type": "object",
+      "required": ["word_count", "adjacent_repeat_fraction", "normalized_word_entropy", "trace_tokens", "trace_width", "nonlocal_recurrence_rate", "mean_nonlocal_cosine"],
+      "properties": {
+        "word_count": {"type": "integer", "minimum": 0},
+        "adjacent_repeat_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "normalized_word_entropy": {"type": "number", "minimum": 0, "maximum": 1},
+        "trace_tokens": {"type": "integer", "minimum": 0, "maximum": 64},
+        "trace_width": {"type": "integer", "minimum": 0, "maximum": 8192},
+        "nonlocal_recurrence_rate": {"$ref": "#/$defs/nullableNumber"},
+        "mean_nonlocal_cosine": {"$ref": "#/$defs/nullableNumber"}
+      }
+    },
+    "step": {
+      "type": "object",
+      "required": ["turn", "prompt_sha256", "response", "response_sha256", "generation_tokens", "trace_source", "metrics"],
+      "properties": {
+        "turn": {"type": "integer", "minimum": 0, "maximum": 3},
+        "prompt_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "response": {"type": "string"},
+        "response_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "generation_tokens": {"type": "integer", "minimum": 0},
+        "trace_source": {"enum": ["none", "synthetic", "model_posthoc"]},
+        "metrics": {"$ref": "#/$defs/metrics"},
+        "trace": {"type": ["array", "null"], "items": {"type": "array", "items": {"type": "number"}}}
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "required": ["protocol_id", "protocol_sha256", "backend", "evidence_type", "replicates", "root_seed", "conditions", "turns", "save_traces"],
+      "properties": {
+        "protocol_id": {"const": "SELF-01-v0.1"},
+        "protocol_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "backend": {"enum": ["scripted", "hf"]},
+        "evidence_type": {"enum": ["synthetic_smoke", "real_model_inference"]},
+        "replicates": {"type": "integer", "minimum": 1, "maximum": 1000},
+        "root_seed": {"type": "integer", "minimum": 0},
+        "conditions": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "items": {"type": "string"}},
+        "turns": {"const": 4},
+        "save_traces": {"type": "boolean"},
+        "model_id": {"type": ["string", "null"]},
+        "revision": {"type": ["string", "null"]}
+      }
+    },
+    "episode": {
+      "type": "object",
+      "required": ["replicate", "condition", "episode_seed", "steps", "aggregate"],
+      "properties": {
+        "replicate": {"type": "integer", "minimum": 0},
+        "condition": {"enum": ["neutral", "self_reference", "repetition_control", "meditation_control", "fiction_control"]},
+        "episode_seed": {"type": "integer", "minimum": 0},
+        "steps": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"$ref": "#/$defs/step"}},
+        "aggregate": {
+          "type": "object",
+          "required": ["primary_mean_recurrence", "traced_turns", "turns"],
+          "properties": {
+            "primary_mean_recurrence": {"$ref": "#/$defs/nullableNumber"},
+            "traced_turns": {"type": "integer", "minimum": 0, "maximum": 4},
+            "turns": {"const": 4}
+          }
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "required": ["status", "evidence_type", "protocol_sha256", "manifest_sha256", "episodes_sha256", "episodes", "expected_episodes", "per_condition", "paired_n", "primary_paired_difference", "source_sha256"],
+      "properties": {
+        "status": {"const": "complete"},
+        "evidence_type": {"enum": ["synthetic_smoke", "real_model_inference"]},
+        "protocol_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "episodes_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "episodes": {"type": "integer", "minimum": 1},
+        "expected_episodes": {"type": "integer", "minimum": 1},
+        "per_condition": {"type": "object", "minProperties": 5},
+        "paired_n": {"type": "integer", "minimum": 0},
+        "primary_paired_difference": {"$ref": "#/$defs/nullableNumber"},
+        "source_sha256": {"type": "object", "minProperties": 1}
+      }
+    }
+  }
+}
