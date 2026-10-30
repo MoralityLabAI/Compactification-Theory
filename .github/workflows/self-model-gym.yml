@@ -1,0 +1,25 @@
+name: SELF-01 offline gym
+on:
+  push:
+    paths:
+      - 'research/self_model_gym/**'
+      - '.github/workflows/self-model-gym.yml'
+  pull_request:
+    paths:
+      - 'research/self_model_gym/**'
+      - '.github/workflows/self-model-gym.yml'
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Stdlib regression suite
+        run: python -m unittest discover -s research/self_model_gym/tests -v
+      - name: Synthetic smoke and independent replay
+        run: |
+          python -m research.self_model_gym.run --backend scripted --replicates 2 --seed 20261030 --save-traces --output runs/self-01-ci
+          python -m research.self_model_gym.verify runs/self-01-ci
