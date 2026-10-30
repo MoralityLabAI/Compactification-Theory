@@ -1,0 +1,117 @@
+name: BGI-01G factored admission and feedback-repair study
+
+on:
+  push:
+    branches:
+      - research/bgi01g-factored-decisions-feedback-repair-20261030
+    paths:
+      - 'research/bgi_attractors_v1/factored_admission/**'
+      - '.github/workflows/bgi01g-factored.yml'
+  pull_request:
+    paths:
+      - 'research/bgi_attractors_v1/factored_admission/**'
+      - '.github/workflows/bgi01g-factored.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-oracle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: research/bgi_attractors_v1/verified_repair:research/bgi_attractors_v1/factored_admission
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.11'
+      - name: Frozen synthetic task and verifier tests
+        run: python -m unittest discover -s research/bgi_attractors_v1/factored_admission/tests -v
+      - name: Exact inherited F safety oracle
+        run: |
+          python - <<'PY'
+          from core import exhaustive_certificate
+          data = exhaustive_certificate()
+          assert (data["states"], data["verified_edges"], data["blocked_regressions"]) == (32, 352, 80)
+          print("BGI01G_INHERITED_ORACLE=" + repr(data))
+          PY
+
+  pinned-model:
+    needs: offline-oracle
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      PYTHONPATH: research/bgi_attractors_v1/verified_repair:research/bgi_attractors_v1/factored_admission
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      TOKENIZERS_PARALLELISM: "false"
+      PYTHONHASHSEED: "20261030"
+      OMP_NUM_THREADS: "2"
+      MKL_NUM_THREADS: "2"
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.11'
+      - name: Install pinned Qwen CPU dependencies
+        run: |
+          python -m pip install --disable-pip-version-check torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --disable-pip-version-check transformers==4.46.3 huggingface_hub==0.27.1 safetensors==0.4.5
+      - name: Execute genuine 1.5B direct/fact extraction and three-round repairs
+        run: |
+          python -u research/bgi_attractors_v1/factored_admission/run_model.py --mode both
+      - name: Independently validate full paired receipt
+        run: |
+          python - <<'PY'
+          import json, hashlib
+          from pathlib import Path
+          from suite import fixture_hash
+          p = Path("research/bgi_attractors_v1/factored_admission/results/bgi01g_both_qwen15b_v1.json")
+          blob = json.loads(p.read_text())
+          payload = blob["payload"]
+          canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode()
+          assert hashlib.sha256(canonical).hexdigest() == blob["sha256"]
+          assert payload["model"]["revision"] == "775b11afaf83e0dc75bd5abaf90133e47b3ec082"
+          assert payload["source_fixture_sha256"] == fixture_hash()
+          assert payload["independent_human_review"] is False
+          assert payload["total_callbacks"] == 272
+          assert payload["genuine_model_forwards"] + payload["identical_prompt_cache_hits"] == 272
+          assert payload["policy_certificate"]["verified_edges"] == 352
+          sem = payload["semantic"]
+          assert len(sem["rows"]) == 112
+          assert sem["summary"]["n_cases"] == 56
+          assert sem["summary"]["expected_run"] == 24
+          assert sem["summary"]["expected_hold"] == 32
+          assert sem["summary"]["total_actual_model_callbacks"] == 224
+          for row in sem["rows"]:
+              assert row["model_evidence_direct"]["inference"] == "genuine_cpu_greedy_autoregressive"
+              assert row["model_evidence_facts"]["inference"] == "genuine_cpu_greedy_autoregressive"
+              assert row["model_evidence_direct"]["input_tokens"] <= 1024
+              assert row["model_evidence_facts"]["input_tokens"] <= 1024
+          repairs = payload["repair"]
+          assert repairs["n_scenarios"] == 8 and repairs["query_callbacks"] == 48
+          for sc in repairs["scenarios"]:
+              for mode in ("baseline", "feedback"):
+                  item = sc[mode]
+                  assert len(item["attempts"]) == 3 and item["ledger_verified"]
+                  assert item["unsafe_exposures"] >= 0
+                  for a in item["attempts"]:
+                      ev = a["event"]
+                      assert hashlib.sha256(json.dumps(
+                          {k: v for k, v in ev.items() if k != "event_sha256"},
+                          sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest() == ev["event_sha256"]
+          review=Path("research/bgi_attractors_v1/factored_admission/results/human_review_pending.csv").read_text()
+          assert review.count(",UNREVIEWED") == 56
+          print("BGI01G_FULL_RECEIPT_VERIFIED=" + blob["sha256"])
+          PY
+      - name: Save complete model outputs and unreviewed-label sheet
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bgi01g-factored-qwen15b-complete
+          path: |
+            research/bgi_attractors_v1/factored_admission/results/bgi01g_both_qwen15b_v1.json
+            research/bgi_attractors_v1/factored_admission/results/human_review_pending.csv
+          if-no-files-found: warn
+          retention-days: 30
