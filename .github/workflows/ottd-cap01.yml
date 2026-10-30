@@ -1,0 +1,35 @@
+name: OTTD-CAP-01 tests
+
+on:
+  push:
+    paths:
+      - "experiments/ottd-cap-01/**"
+      - ".github/workflows/ottd-cap01.yml"
+  pull_request:
+    paths:
+      - "experiments/ottd-cap-01/**"
+      - ".github/workflows/ottd-cap01.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Finite oracle and bridge checks
+        run: python -m unittest discover -s experiments/ottd-cap-01/tests -v
+      - name: Optimized Python checks
+        run: python -O -m unittest discover -s experiments/ottd-cap-01/tests -v
+      - name: Deterministic CLI smoke
+        run: |
+          python experiments/ottd-cap-01/bench.py --mode sweep --seeds 101,202 --output /tmp/ottd-cap01.json > /dev/null
+          python experiments/ottd-cap-01/bench.py --mode exact --seeds 101 --routes 2 --horizon 5 > /dev/null
+          python experiments/ottd-cap-01/native_controller.py experiments/ottd-cap-01/examples/road_bus.json > /dev/null
+          python experiments/ottd-cap-01/native_controller.py experiments/ottd-cap-01/examples/rail_two_stations.json > /dev/null

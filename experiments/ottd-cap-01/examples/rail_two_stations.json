@@ -1,0 +1,60 @@
+{
+  "version": "ottd-cap01.native-route.v1",
+  "mode": "rail",
+  "stations": {
+    "a": {
+      "site": {
+        "x": 40,
+        "y": 40
+      },
+      "direction": "NE_SW",
+      "platforms": 1,
+      "length": 2
+    },
+    "b": {
+      "site": {
+        "x": 60,
+        "y": 40
+      },
+      "direction": "NE_SW",
+      "platforms": 1,
+      "length": 2
+    }
+  },
+  "segments": [
+    {
+      "from": {
+        "x": 41,
+        "y": 40
+      },
+      "via": {
+        "x": 42,
+        "y": 40
+      },
+      "to": {
+        "x": 60,
+        "y": 40
+      }
+    }
+  ],
+  "depot": {
+    "site": {
+      "x": 50,
+      "y": 41
+    },
+    "front": {
+      "x": 50,
+      "y": 40
+    }
+  },
+  "vehicle": {
+    "engine": 13,
+    "wagon_engine": 14,
+    "wagons": 1
+  },
+  "limits": {
+    "max_cost": 900000,
+    "max_wall_seconds": 180,
+    "latest_start_year": 1951
+  }
+}
