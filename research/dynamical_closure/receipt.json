@@ -1,0 +1,109 @@
+{
+  "schema": "dynamical-closure-sprint/v1",
+  "repository": "MoralityLabAI/Compactification-Theory",
+  "branch": "math/dynamical-closure-coarse-graining",
+  "baseline_commit": "c211f12a9f82daef5c0ffbc5c2c846585fd54bae",
+  "source_commit": "96f76a65b7a612c4577702ae72e842ab5590a7fb",
+  "python": "3.13.5",
+  "scope": "Standalone deterministic finite-state package; scoped CPU tests only. No full-repository suite, transformer evaluation, Lean compilation, model calls, or paid compute.",
+  "source_hashes": {
+    "closure.py": {
+      "git_blob_sha": "bd08070d24a970caca2cd10d19af737d1ec39a96",
+      "sha256": "729d9711c0e3a90f80edcf0a52059d72a60ac07a92968f4e4598d46877a87be2"
+    },
+    "test_closure.py": {
+      "git_blob_sha": "badbfcae60af349ac9655c3660e87457b2f3f059",
+      "sha256": "346d2699c5dfba35d3c8bf43a7f996bad10abea9d4391759e1f92b86424a5221"
+    },
+    "task_closure.py": {
+      "git_blob_sha": "c7b1bb0fd642e29745c152e2936cc85c6c75b9e8",
+      "sha256": "b3b88fcaf5ee6fac5bf275a48eda80feb7f5b02537e86b3c46fb0e5752bc764f"
+    },
+    "test_task_closure.py": {
+      "git_blob_sha": "907ca72713e38f5f5ff2f941a659a8ee2932b857",
+      "sha256": "720fe8b009cc73efee1e043f5ae0280071906af37e86f5b6c9dbb4deda5bfce0"
+    },
+    "TASK_CLOSURE.md": {
+      "git_blob_sha": "686ac98b925bd3f834810f62d7fb64aa0dea2337",
+      "sha256": "db823c28e82b997de31051fdbde257d3713c128a35bc1d27c9b499b18e626732"
+    }
+  },
+  "exhaustive_cases": {
+    "controlled_systems": 5898,
+    "candidate_partitions": 29290,
+    "controlled_states": "1-3",
+    "actions": 2,
+    "task_values": [
+      0,
+      1
+    ],
+    "fixed_target_risk_states": "1-4"
+  },
+  "runs": [
+    {
+      "mode": "baseline",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s research/dynamical_closure -p test_closure.py -v",
+      "exit_code": 0,
+      "tests_run": 4,
+      "reported_seconds": 0.142,
+      "result": "OK",
+      "transcript_sha256": "389115e522345300b1c39d090a0982d110324ee21b843f5ea1cc51ddc787228b",
+      "test_outcomes": [
+        "test_empirical_support_matters (test_closure.FiniteClosureTests.test_empirical_support_matters) ... ok",
+        "test_factorization_theorem_exhaustive (test_closure.FiniteClosureTests.test_factorization_theorem_exhaustive) ... ok",
+        "test_nonmonotonic_closure (test_closure.FiniteClosureTests.test_nonmonotonic_closure) ... ok",
+        "test_zero_risk_equivalence (test_closure.FiniteClosureTests.test_zero_risk_equivalence) ... ok"
+      ]
+    },
+    {
+      "mode": "standard",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s research/dynamical_closure -v",
+      "exit_code": 0,
+      "tests_run": 14,
+      "reported_seconds": 1.279,
+      "result": "OK",
+      "transcript_sha256": "61f565cef943d158e0cac0056ef132d71ab4abd2d51330ead735734c65aea5dc",
+      "test_outcomes": [
+        "test_empirical_support_matters (test_closure.FiniteClosureTests.test_empirical_support_matters) ... ok",
+        "test_factorization_theorem_exhaustive (test_closure.FiniteClosureTests.test_factorization_theorem_exhaustive) ... ok",
+        "test_nonmonotonic_closure (test_closure.FiniteClosureTests.test_nonmonotonic_closure) ... ok",
+        "test_zero_risk_equivalence (test_closure.FiniteClosureTests.test_zero_risk_equivalence) ... ok",
+        "test_empty_action_family_and_constant_task (test_task_closure.TaskClosureTests.test_empty_action_family_and_constant_task) ... ok",
+        "test_exact_minimax_midpoint_and_weighted_variance (test_task_closure.TaskClosureTests.test_exact_minimax_midpoint_and_weighted_variance) ... ok",
+        "test_exhaustive_action_family_refinement (test_task_closure.TaskClosureTests.test_exhaustive_action_family_refinement) ... ok",
+        "test_exhaustive_fixed_target_monotonicity (test_task_closure.TaskClosureTests.test_exhaustive_fixed_target_monotonicity) ... ok",
+        "test_exhaustive_two_action_minimality_and_horizon (test_task_closure.TaskClosureTests.test_exhaustive_two_action_minimality_and_horizon) ... ok",
+        "test_exhaustive_witness_soundness_shortestness_and_bound (test_task_closure.TaskClosureTests.test_exhaustive_witness_soundness_shortestness_and_bound) ... ok",
+        "test_finite_horizon_can_require_more_state (test_task_closure.TaskClosureTests.test_finite_horizon_can_require_more_state) ... ok",
+        "test_intervention_reveals_hidden_bit (test_task_closure.TaskClosureTests.test_intervention_reveals_hidden_bit) ... ok",
+        "test_invalid_inputs (test_task_closure.TaskClosureTests.test_invalid_inputs) ... ok",
+        "test_nonconstant_task_preserving_reclosure (test_task_closure.TaskClosureTests.test_nonconstant_task_preserving_reclosure) ... ok"
+      ]
+    },
+    {
+      "mode": "optimized",
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -O -m unittest discover -s research/dynamical_closure -v",
+      "exit_code": 0,
+      "tests_run": 14,
+      "reported_seconds": 1.126,
+      "result": "OK",
+      "transcript_sha256": "62e439d86e3e92aa7a2067bd7bb77d46b9a792f28c4bb17d0c2c3e1cd89ae119",
+      "test_outcomes": [
+        "test_empirical_support_matters (test_closure.FiniteClosureTests.test_empirical_support_matters) ... ok",
+        "test_factorization_theorem_exhaustive (test_closure.FiniteClosureTests.test_factorization_theorem_exhaustive) ... ok",
+        "test_nonmonotonic_closure (test_closure.FiniteClosureTests.test_nonmonotonic_closure) ... ok",
+        "test_zero_risk_equivalence (test_closure.FiniteClosureTests.test_zero_risk_equivalence) ... ok",
+        "test_empty_action_family_and_constant_task (test_task_closure.TaskClosureTests.test_empty_action_family_and_constant_task) ... ok",
+        "test_exact_minimax_midpoint_and_weighted_variance (test_task_closure.TaskClosureTests.test_exact_minimax_midpoint_and_weighted_variance) ... ok",
+        "test_exhaustive_action_family_refinement (test_task_closure.TaskClosureTests.test_exhaustive_action_family_refinement) ... ok",
+        "test_exhaustive_fixed_target_monotonicity (test_task_closure.TaskClosureTests.test_exhaustive_fixed_target_monotonicity) ... ok",
+        "test_exhaustive_two_action_minimality_and_horizon (test_task_closure.TaskClosureTests.test_exhaustive_two_action_minimality_and_horizon) ... ok",
+        "test_exhaustive_witness_soundness_shortestness_and_bound (test_task_closure.TaskClosureTests.test_exhaustive_witness_soundness_shortestness_and_bound) ... ok",
+        "test_finite_horizon_can_require_more_state (test_task_closure.TaskClosureTests.test_finite_horizon_can_require_more_state) ... ok",
+        "test_intervention_reveals_hidden_bit (test_task_closure.TaskClosureTests.test_intervention_reveals_hidden_bit) ... ok",
+        "test_invalid_inputs (test_task_closure.TaskClosureTests.test_invalid_inputs) ... ok",
+        "test_nonconstant_task_preserving_reclosure (test_task_closure.TaskClosureTests.test_nonconstant_task_preserving_reclosure) ... ok"
+      ]
+    }
+  ]
+}
