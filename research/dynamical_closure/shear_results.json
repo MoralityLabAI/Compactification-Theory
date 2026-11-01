@@ -1,0 +1,1226 @@
+{
+  "p": 31,
+  "states": 961,
+  "task": "h0=a+b, h1=2a+b mod p",
+  "measure": "uniform exhaustive states",
+  "loss": "one-hot squared Bayes error",
+  "code_budget": "B bits TOTAL, round-robin dyadic allocation to 4 fixed coordinates",
+  "decoder": "optimal conditional mean per attained codeword for every method",
+  "phase_dtype": "float64; exact risk conditional on realized integer partitions",
+  "pca_tie": "uniform input-phase covariance = 0.5 I; fixed canonical axes",
+  "random_seeds": [
+    0,
+    1,
+    2
+  ],
+  "present_first_reference": [
+    {
+      "bits": 0,
+      "codes": 1,
+      "present_risk": "30/31",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 1,
+      "codes": 2,
+      "present_risk": "29/31",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 2,
+      "codes": 4,
+      "present_risk": "27/31",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 3,
+      "codes": 8,
+      "present_risk": "23/31",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 4,
+      "codes": 16,
+      "present_risk": "15/31",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 5,
+      "codes": 31,
+      "present_risk": "0",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 6,
+      "codes": 62,
+      "present_risk": "0",
+      "after_shear_risk": "29/31"
+    },
+    {
+      "bits": 7,
+      "codes": 124,
+      "present_risk": "0",
+      "after_shear_risk": "27/31"
+    },
+    {
+      "bits": 8,
+      "codes": 248,
+      "present_risk": "0",
+      "after_shear_risk": "23/31"
+    },
+    {
+      "bits": 9,
+      "codes": 496,
+      "present_risk": "0",
+      "after_shear_risk": "15/31"
+    },
+    {
+      "bits": 10,
+      "codes": 961,
+      "present_risk": "0",
+      "after_shear_risk": "0"
+    }
+  ],
+  "balanced_reference": [
+    {
+      "bits": 0,
+      "codes": 1,
+      "present_risk": "30/31",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 1,
+      "codes": 2,
+      "present_risk": "29/31",
+      "after_shear_risk": "30/31"
+    },
+    {
+      "bits": 2,
+      "codes": 4,
+      "present_risk": "29/31",
+      "after_shear_risk": "29/31"
+    },
+    {
+      "bits": 3,
+      "codes": 8,
+      "present_risk": "27/31",
+      "after_shear_risk": "29/31"
+    },
+    {
+      "bits": 4,
+      "codes": 16,
+      "present_risk": "27/31",
+      "after_shear_risk": "27/31"
+    },
+    {
+      "bits": 5,
+      "codes": 32,
+      "present_risk": "23/31",
+      "after_shear_risk": "27/31"
+    },
+    {
+      "bits": 6,
+      "codes": 64,
+      "present_risk": "23/31",
+      "after_shear_risk": "23/31"
+    },
+    {
+      "bits": 7,
+      "codes": 128,
+      "present_risk": "15/31",
+      "after_shear_risk": "23/31"
+    },
+    {
+      "bits": 8,
+      "codes": 256,
+      "present_risk": "15/31",
+      "after_shear_risk": "15/31"
+    },
+    {
+      "bits": 9,
+      "codes": 496,
+      "present_risk": "0",
+      "after_shear_risk": "15/31"
+    },
+    {
+      "bits": 10,
+      "codes": 961,
+      "present_risk": "0",
+      "after_shear_risk": "0"
+    }
+  ],
+  "controls": {
+    "fourier_sum_a": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "29/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "27/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "27/31",
+        "after_shear_risk": "7039/7440"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "27/31",
+        "after_shear_risk": "49163/53816"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 32,
+        "present_risk": "23/31",
+        "after_shear_risk": "48119/53816"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 48,
+        "present_risk": "19/31",
+        "after_shear_risk": "142675/161448"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 96,
+        "present_risk": "19/31",
+        "after_shear_risk": "69353/86490"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 144,
+        "present_risk": "19/31",
+        "after_shear_risk": "12661/17298"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 240,
+        "present_risk": "11/31",
+        "after_shear_risk": "3911/5766"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 312,
+        "present_risk": "5/31",
+        "after_shear_risk": "3679/5766"
+      }
+    ],
+    "pca_input_tie_axes": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "7039/7440",
+        "after_shear_risk": "3559/3720"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "49163/53816",
+        "after_shear_risk": "50879/53816"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 32,
+        "present_risk": "48119/53816",
+        "after_shear_risk": "92492/100905"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 48,
+        "present_risk": "142675/161448",
+        "after_shear_risk": "72367/80724"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 96,
+        "present_risk": "69353/86490",
+        "after_shear_risk": "12236/14415"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 144,
+        "present_risk": "12661/17298",
+        "after_shear_risk": "7052/8649"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 240,
+        "present_risk": "3911/5766",
+        "after_shear_risk": "700/961"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 312,
+        "present_risk": "3679/5766",
+        "after_shear_risk": "1912/2883"
+      }
+    ],
+    "random_fourier_0": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "266293/275280",
+        "after_shear_risk": "28859/29822"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "1534512840229/1588498271382",
+        "after_shear_risk": "767079977062/794249135691"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "126764120935803/135587829809600",
+        "after_shear_risk": "721257976245619/762681542679000"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "2940480369895/3358059632928",
+        "after_shear_risk": "11003916821489/11993070117600"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 31,
+        "present_risk": "4203226564802173/4848176473434840",
+        "after_shear_risk": "4278921654435125179/4799694708700491600"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 47,
+        "present_risk": "101932117177874234/121044932346613275",
+        "after_shear_risk": "667325923087019/768539252994370"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 76,
+        "present_risk": "2494831722157/3215883721050",
+        "after_shear_risk": "3980860737323/4823825581575"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 108,
+        "present_risk": "2194461911/3072989700",
+        "after_shear_risk": "4825554923/6145979400"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 157,
+        "present_risk": "2310674/3329865",
+        "after_shear_risk": "3946861/5327784"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 219,
+        "present_risk": "112535573/173152980",
+        "after_shear_risk": "59044207/86576490"
+      }
+    ],
+    "random_input_0": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "28859/29822",
+        "after_shear_risk": "3463049/3578640"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "767079977062/794249135691",
+        "after_shear_risk": "512349100809/529499423794"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "721257976245619/762681542679000",
+        "after_shear_risk": "280226690177527/290545349592000"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "11003916821489/11993070117600",
+        "after_shear_risk": "225544779491/238498553475"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 31,
+        "present_risk": "4278921654435125179/4799694708700491600",
+        "after_shear_risk": "2243551343537217403/2399847354350245800"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 47,
+        "present_risk": "667325923087019/768539252994370",
+        "after_shear_risk": "731441423537863/795040606545900"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 76,
+        "present_risk": "3980860737323/4823825581575",
+        "after_shear_risk": "35761343837/40536349425"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 108,
+        "present_risk": "4825554923/6145979400",
+        "after_shear_risk": "9099890171/10755463950"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 157,
+        "present_risk": "3946861/5327784",
+        "after_shear_risk": "21716479/26638920"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 219,
+        "present_risk": "59044207/86576490",
+        "after_shear_risk": "4412251/5771766"
+      }
+    ],
+    "random_fourier_1": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "1702685/1789227",
+        "after_shear_risk": "577151/596409"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "1917704269/2087783071",
+        "after_shear_risk": "18083352290/18790047639"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "1454232770161243/1636505346150906",
+        "after_shear_risk": "258858018610354/272750891025151"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "5713192615031791/6499248032745468",
+        "after_shear_risk": "7454505206402146/8124060040931835"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 30,
+        "present_risk": "578191680826021/686637115640190",
+        "after_shear_risk": "218391168106697/246485118434940"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 53,
+        "present_risk": "172641404574697/218864327802120",
+        "after_shear_risk": "364353851469531127/427879760853144600"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 73,
+        "present_risk": "14576683191617/19295302326300",
+        "after_shear_risk": "1513306404887/1837647840600"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 106,
+        "present_risk": "1877247563623/2572706976840",
+        "after_shear_risk": "253488551179/321588372105"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 151,
+        "present_risk": "3880586221/5887201320",
+        "after_shear_risk": "4325667611/5887201320"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 206,
+        "present_risk": "47838631/86576490",
+        "after_shear_risk": "39252923/57717660"
+      }
+    ],
+    "random_input_1": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "577151/596409",
+        "after_shear_risk": "383951/397606"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "18083352290/18790047639",
+        "after_shear_risk": "1648009895/1708186149"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "258858018610354/272750891025151",
+        "after_shear_risk": "262258938271391/272750891025151"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "7454505206402146/8124060040931835",
+        "after_shear_risk": "30762343051913723/32496240163727340"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 30,
+        "present_risk": "218391168106697/246485118434940",
+        "after_shear_risk": "8885680063377517/9612919618962660"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 53,
+        "present_risk": "364353851469531127/427879760853144600",
+        "after_shear_risk": "32730572991209441/36675408073126680"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 73,
+        "present_risk": "1513306404887/1837647840600",
+        "after_shear_risk": "3377763046279/3859060465260"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 106,
+        "present_risk": "253488551179/321588372105",
+        "after_shear_risk": "728170790833/857568992280"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 151,
+        "present_risk": "4325667611/5887201320",
+        "after_shear_risk": "591376679/735900165"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 206,
+        "present_risk": "39252923/57717660",
+        "after_shear_risk": "64604443/86576490"
+      }
+    ],
+    "random_fourier_2": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "3362611/3578609",
+        "after_shear_risk": "3463051/3578609"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "622714153/666987816",
+        "after_shear_risk": "319897579/333493908"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "7703880086449/8649257437485",
+        "after_shear_risk": "398644773799117/421342398026055"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "5091171327951899/5835140825366160",
+        "after_shear_risk": "18525490198890449/20098818398483440"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 30,
+        "present_risk": "1074826030637/1342551250040",
+        "after_shear_risk": "206027887358893/229576263756840"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 54,
+        "present_risk": "10663431937163/14045730195420",
+        "after_shear_risk": "56913843889148/66717218428245"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 77,
+        "present_risk": "139714061969/197900536680",
+        "after_shear_risk": "6334891207859/7718120930520"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 104,
+        "present_risk": "5621342303/8245855695",
+        "after_shear_risk": "183800232509/233882452440"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 152,
+        "present_risk": "96460369/173152980",
+        "after_shear_risk": "128499533/173152980"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 209,
+        "present_risk": "12700019/24736140",
+        "after_shear_risk": "121283/180180"
+      }
+    ],
+    "random_input_2": [
+      {
+        "bits": 0,
+        "allocation": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "codes": 1,
+        "present_risk": "30/31",
+        "after_shear_risk": "30/31"
+      },
+      {
+        "bits": 1,
+        "allocation": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "codes": 2,
+        "present_risk": "3463051/3578609",
+        "after_shear_risk": "3461687/3578609"
+      },
+      {
+        "bits": 2,
+        "allocation": [
+          1,
+          1,
+          0,
+          0
+        ],
+        "codes": 4,
+        "present_risk": "319897579/333493908",
+        "after_shear_risk": "268707089/277911590"
+      },
+      {
+        "bits": 3,
+        "allocation": [
+          1,
+          1,
+          1,
+          0
+        ],
+        "codes": 8,
+        "present_risk": "398644773799117/421342398026055",
+        "after_shear_risk": "630457051607863/655421508040530"
+      },
+      {
+        "bits": 4,
+        "allocation": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "codes": 16,
+        "present_risk": "18525490198890449/20098818398483440",
+        "after_shear_risk": "22877860060446701/24118582078180128"
+      },
+      {
+        "bits": 5,
+        "allocation": [
+          2,
+          1,
+          1,
+          1
+        ],
+        "codes": 30,
+        "present_risk": "206027887358893/229576263756840",
+        "after_shear_risk": "1396060110392/1510370156295"
+      },
+      {
+        "bits": 6,
+        "allocation": [
+          2,
+          2,
+          1,
+          1
+        ],
+        "codes": 54,
+        "present_risk": "56913843889148/66717218428245",
+        "after_shear_risk": "34039001438183/38124124816140"
+      },
+      {
+        "bits": 7,
+        "allocation": [
+          2,
+          2,
+          2,
+          1
+        ],
+        "codes": 77,
+        "present_risk": "6334891207859/7718120930520",
+        "after_shear_risk": "1339229331919/1543624186104"
+      },
+      {
+        "bits": 8,
+        "allocation": [
+          2,
+          2,
+          2,
+          2
+        ],
+        "codes": 104,
+        "present_risk": "183800232509/233882452440",
+        "after_shear_risk": "270254018323/321588372105"
+      },
+      {
+        "bits": 9,
+        "allocation": [
+          3,
+          2,
+          2,
+          2
+        ],
+        "codes": 152,
+        "present_risk": "128499533/173152980",
+        "after_shear_risk": "4887743/6184035"
+      },
+      {
+        "bits": 10,
+        "allocation": [
+          3,
+          3,
+          2,
+          2
+        ],
+        "codes": 209,
+        "present_risk": "121283/180180",
+        "after_shear_risk": "128428709/173152980"
+      }
+    ]
+  }
+}
