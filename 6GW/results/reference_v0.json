@@ -1,0 +1,44 @@
+{
+  "schema": "6gw.reference.v0",
+  "status": "verified_finite_reference_only",
+  "date": "2026-11-01",
+  "environment": "Python 3.13.5, standard library, CPU",
+  "commands": [
+    "python -m unittest discover -s 6GW -p 'test_*.py' -v",
+    "python -O -m unittest discover -s 6GW -p 'test_*.py' -v",
+    "python 6GW/finite_model.py"
+  ],
+  "tests": {
+    "normal": {
+      "passed": 10,
+      "failed": 0
+    },
+    "optimized": {
+      "passed": 10,
+      "failed": 0
+    }
+  },
+  "source_sha256": {
+    "finite_model.py": "566ee83d01ab084d36b8398f9e9d68c9c964fc7b67528004d37e4955d6cbb620",
+    "test_finite_model.py": "f91e26f5a574e2f26bdca81b38db957602fb6a99700f3ee294f025ea71a328d5"
+  },
+  "output": {
+    "all_interventions": 6,
+    "approval_only_fails_quotient": true,
+    "exact_classes_all_interventions": 8,
+    "exact_classes_revoke_only": 2,
+    "no_model_calls_or_war_simulation": true,
+    "states": 8,
+    "status": "verified_finite_reference_only",
+    "witness_action": "grant_mandate"
+  },
+  "claims_excluded": [
+    "model training",
+    "GPU testing",
+    "human study",
+    "weapon control",
+    "RSI validation",
+    "Lean verification",
+    "CI pass"
+  ]
+}
