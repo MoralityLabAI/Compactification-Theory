@@ -44,3 +44,8 @@ This is a conditional validity statement: no other learning process may access t
 - A registered but unhelpful state enlargement leaves the incumbent unchanged. A regressive reduction after a promotion is rejected.
 
 The next implementation step is **a neural recurrent student** with the same graph and measurements, followed by an actual 27B proposer adapter. Compare the introspection-guided proposer to fixed, random and behavioral-only policies on independent graph variants under matched full compute. FAW/FRC remain deferred.
+
+
+### Neural CPU reference
+
+Install CPU PyTorch using [requirements-neural.txt](requirements-neural.txt), then run `python neural_curriculum.py --seeds 20,21,22,23,24 --steps 320 --batch 32 --width 48 --interval 16 --output /tmp/siml01n.json` from this directory. Validate with `python verify_neural_receipt.py --receipt /tmp/siml01n.json`. The five-seed archived result is downloadable from the conversation artifact. The local 27B proposer is opt-in and proposal-only.

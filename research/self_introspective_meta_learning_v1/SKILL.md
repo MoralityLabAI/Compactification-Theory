@@ -48,3 +48,8 @@ A scorer change, pre-freeze look at promotion outcomes, overlapping batch or mis
 ## Scope
 
 This skill authorizes no paid or neural job on publication. The CPU finite demonstration is opt-in. Actual execution requires a configured runtime and an explicit budget. FAW/FRC oversight belongs to a later version. Current statistical guarantees assume the acquisition conditions stated in the protocol. A fixed finite fixture result supports its specified domain; broader capability claims require the corresponding fresh task families.
+
+
+## Neural proposer extension
+
+Refer to [NEURAL_PROTOCOL.md](NEURAL_PROTOCOL.md) and [NEURAL_RESULTS.md](NEURAL_RESULTS.md). The `local_proposer.py`/`proposer_cli.py` interface accepts strictly typed proposals only from a separately started loopback server; any choice to execute training remains in the bounded task-graph runner. No local 27B inference occurred in the initial CPU pilot.

@@ -364,3 +364,8 @@ python -O -m unittest discover -s research/self_introspective_meta_learning_v1 -
 ## 13. Executable v0.2 finite reference
 
 [RUNNER.md](RUNNER.md) documents the trained-table recurrent student and paired promotion broker, its exact finite task scores, the execution commands and its trust boundary. The runnable example completes two promotions using a fixed diagnostic heuristic. The scientific endpoint for a neural meta-learning claim remains prospectively specified in Sections 9–11.
+
+
+## SIML-01N: neural curriculum pilot
+
+[NEURAL_PROTOCOL.md](NEURAL_PROTOCOL.md) defines the tied-GRU student, task splits and matched-update comparison. [NEURAL_RESULTS.md](NEURAL_RESULTS.md) records the five-seed exploratory outcomes and the shuffled-diagnostic falsifier. The source files include an optional local 27B proposal-only adapter; it was not used to generate model output. The complete source-hashed five-seed receipt is in the downloadable neural artifact, with GitHub source verification pending its import. A separate optional CPU PyTorch workflow runs newly generated smoke checks. FAW/FRC remain deferred.
