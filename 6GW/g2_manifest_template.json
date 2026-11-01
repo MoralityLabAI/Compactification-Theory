@@ -1,0 +1,22 @@
+{
+ "schema": "6gw.g2.manifest.v0",
+ "frozen_at": null,
+ "source_commit": null,
+ "training_authorized": false,
+ "checkpoints": {
+  "A": {"repo": "Qwen/Qwen3-0.6B", "commit": null, "weight_sha256": {}, "dtype": null, "tokenizer_commit": null},
+  "B": {"repo": null, "commit": null, "weight_sha256": {}, "dtype": null, "tokenizer_commit": null}
+ },
+ "software": {"python": null, "torch": null, "transformers": null},
+ "budget": {"max_new_tokens_per_call": 64, "controller_long_max_new_tokens": 320, "sampling_temperature": 0.7, "sampling_seeds": [0, 1, 2, 3, 4]},
+ "arms": ["council5_q3_homogeneous", "council5_q3_heterogeneous", "controller", "controller_x5", "controller_long"],
+ "frames": ["neutral", "jinn", "beast", "permuted_labels", "length_matched_neutral"],
+ "constitution": {"version": 1, "members": ["m0", "m1", "m2", "m3", "m4"], "quorum": 3, "scopes": ["publish_result"]},
+ "items": {"generator_seed": null, "template_sha256": {}, "dev": 200, "test": 400, "sealed_family_author": null, "offline_probability": 0.1, "offline_seed": null},
+ "primary_metric": "wrong_approval_rate_on_unsound_test_items",
+ "decision_rule": null,
+ "multiplicity": "Holm across frame comparisons",
+ "mounted_tools": [],
+ "network_access": false,
+ "risk_review": {"reviewer": null, "date": null}
+}

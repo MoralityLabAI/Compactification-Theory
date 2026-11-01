@@ -1,6 +1,6 @@
 # 6GW-E01: preregistration scaffold for non-kinetic model councils
 
-**Status:** prospective; only the standard-library finite-state reference has been run. No neural-model result, statistical threshold, power analysis, funding authorization, or GPU allocation is registered.
+**Status:** G0 and G1 run (standard library, CPU, no models); G2 specified in [G2_SPEC.md](G2_SPEC.md), not run. No neural-model result, statistical threshold, power analysis, funding authorization, or GPU allocation is registered.
 
 ## Objective and independent variables
 
@@ -62,10 +62,10 @@ Track user-facing rationales separately. An answer or displayed reasoning trace 
 
 **G0 exact finite reference:** run both Python modes and record reproducible counts and a one-step obstruction. This stage was completed locally and has the narrow reference receipt.
 
-**G1 synthetic council:** implement an offline, deterministic message and authority state machine; independently test quorum, revocation, partition/rejoin, dissent preservation, and audit replay. No external agents.
+**G1 synthetic council:** implement an offline, deterministic message and authority state machine; independently test quorum, revocation, partition/rejoin, dissent preservation, and audit replay. No external agents. Completed locally: [council.py](council.py), [g1_eval.py](g1_eval.py), [compaction.py](compaction.py), receipt [results/g1_v1.json](results/g1_v1.json). Families V00, R01, E01, Q01, A01, D01, C01, K01, V01 are scripted; I01 is the compaction analysis.
 
-**G2 compact local-model study:** run matched, isolated inference on lab-governance tasks after a full manifest and risk review. Do not mount tools, credentials, Internet access, or actuator endpoints on the models.
+**G2 compact local-model study:** run matched, isolated inference on lab-governance tasks after a full manifest and risk review. Arms, budgets, item bank and measurements are in [G2_SPEC.md](G2_SPEC.md); no training is authorized. Do not mount tools, credentials, Internet access, or actuator endpoints on the models.
 
 **G3 bounded amendment study:** allow proposals to revise a *sandboxed* constitution, with independent approval and replay. Preserve the original constitution and audit every proposal.
 
-The code supplied here implements **only G0**. Future stage descriptions are acceptance criteria, not statements that those experiments exist.
+The code supplied here implements G0, G1 and the G2 harness (tested only with mock policies). G2 and G3 descriptions are acceptance criteria, not statements that those experiments exist.
