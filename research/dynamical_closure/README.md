@@ -1,5 +1,11 @@
 # Dynamical closure under coarse-graining: a finite-state math sprint
 
+## Task-preserving extension
+
+[TASK_CLOSURE.md](TASK_CLOSURE.md) gives the constructive finite-state companion to the existing EvalMath behavioral quotient. It proves a persistent fixed-target loss threshold, derives the minimum state-code bit budget, and supplies a nonconstant task-preserving reclosure counterexample. The implementation in [task_closure.py](task_closure.py) constructs minimal quotients and returns intervention words witnessing lost task distinctions.
+
+The extended suite has 14 tests. Its controlled-system audit covers 5,898 systems and 29,290 candidate partitions. [receipt.json](receipt.json) records the executed checks and source hashes. The original four tests below were rerun against their fetched GitHub blob hashes.
+
 ## Theorem 1: exact deterministic closure
 
 Let X be finite, F:X→X a deterministic transition and C:X→Z a surjective coarse-graining. There exists an autonomous macro transition G:Z→Z satisfying C∘F=G∘C **if and only if**
@@ -42,12 +48,13 @@ Consequently the first failure index t* is a **path-dependent threshold**, rathe
 
 Low prediction error on observational trajectories can hide failures under interventions and distribution shifts. A useful experimental extension should preregister (i) a coarse-graining path, (ii) a state distribution, (iii) a specified target observable, (iv) a causal intervention family, and (v) a fixed error tolerance. Restricting the macro-model class also changes the measured threshold.
 
-The constant A₂ example motivates a **nontriviality constraint**, such as task-relevant predictive information, to prevent trivial macrostates from being declared a successful interpretation.
+The constant A₂ example motivates a **nontriviality constraint**, such as task-relevant predictive information, to prevent trivial macrostates from being declared a successful interpretation. The extension shows that preserving a nonconstant task still permits reclosure; it treats behavioral loss and autonomous closure separately.
 
 For stochastic Markov chains, exact strong lumpability requires equality of total transition probability into each coarse fiber for every pair of microstates in the same fiber. The current executable tests concern deterministic finite-state systems only.
 
 ## Reproduce
 
     python -m unittest discover -s research/dynamical_closure -v
+    python -O -m unittest discover -s research/dynamical_closure -v
 
-Standard-library Python only. The tests exhaustively enumerate every deterministic transition and partition for 1–4 states. No GPU/model access required.
+Standard-library Python only. The baseline tests exhaust every deterministic transition and partition for 1–4 states. The controlled extension exhausts two-action systems with binary tasks for 1–3 states and fixed-target risk checks through four states. No GPU/model access required.
