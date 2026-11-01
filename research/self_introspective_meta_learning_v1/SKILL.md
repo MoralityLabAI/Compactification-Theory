@@ -5,7 +5,7 @@ description: Draft procedure for measured self-diagnosis, bounded candidate trai
 
 # Self-introspective task-graph learning
 
-Read [README.md](README.md) before the first run. This is a proposed operator skill. The task runner and model adapters remain implementation work. The accompanying Python module covers arithmetic only.
+Read [README.md](README.md) before the first run. This is a proposed operator skill. A finite tabular recurrent task runner and arithmetic promotion broker are now implemented; see [RUNNER.md](RUNNER.md). Neural adapters and a configured 27B proposer remain implementation work.
 
 ## Goal
 
@@ -47,4 +47,4 @@ A scorer change, pre-freeze look at promotion outcomes, overlapping batch or mis
 
 ## Scope
 
-This skill authorizes no job on publication. Actual execution requires a configured runtime and an explicit budget. FAW/FRC oversight belongs to a later version. Current statistical guarantees assume the acquisition conditions stated in the protocol. A fixed finite fixture result supports its specified domain; broader capability claims require the corresponding fresh task families.
+This skill authorizes no paid or neural job on publication. The CPU finite demonstration is opt-in. Actual execution requires a configured runtime and an explicit budget. FAW/FRC oversight belongs to a later version. Current statistical guarantees assume the acquisition conditions stated in the protocol. A fixed finite fixture result supports its specified domain; broader capability claims require the corresponding fresh task families.

@@ -8,7 +8,7 @@ The intended first proposer is a configured local 27B model. Smaller recurrent l
 
 **FAW and FRC are deferred.** This version covers capability learning and the validity of the measurements used to steer it. The evaluator assumes honest acquisition, a fixed task specification and access separation. Scalable oversight and adversarial evaluator compromise need a subsequent protocol.
 
-Status: design proposal with a small standard-library arithmetic reference. Model training and the task-graph runner remain to be implemented. [SKILL.md](SKILL.md) is the operator entrypoint. [gate_math.py](gate_math.py) checks selected formulas, while [test_gate_math.py](test_gate_math.py) supplies finite fixtures. The reference cannot establish whether evaluation data were acquired independently.
+Status: research proposal with an executable finite-state CPU reference under [RUNNER.md](RUNNER.md). [SKILL.md](SKILL.md) is the operator entrypoint. [microlearner.py](microlearner.py) fits a tiny recurrent transition-table student to supervised one-step data; [promotion.py](promotion.py) runs the bounded promotion/retention ledger. [gate_math.py](gate_math.py) provides arithmetic checks. Neural training, a 27B proposer and a separately credentialed evaluator remain future integrations. The reference cannot establish whether evaluation data were acquired independently.
 
 ## 1. The research question
 
@@ -360,3 +360,7 @@ python -O -m unittest discover -s research/self_introspective_meta_learning_v1 -
 ## Primary literature
 
 [Graves et al., Automated Curriculum Learning for Neural Networks](https://arxiv.org/abs/1704.03003) treats task selection through learning progress. [Dwork et al., Generalization in Adaptive Data Analysis and Holdout Reuse](https://arxiv.org/abs/1506.02629) supplies the wider context for adaptive evaluation. The present v0 uses fresh batches and a summable error budget; a reusable-holdout algorithm would need its own implementation and assumptions. The repository sources above identify the precedents behind causal abstraction, observability and predictive-state representations.
+
+## 13. Executable v0.2 finite reference
+
+[RUNNER.md](RUNNER.md) documents the trained-table recurrent student and paired promotion broker, its exact finite task scores, the execution commands and its trust boundary. The runnable example completes two promotions using a fixed diagnostic heuristic. The scientific endpoint for a neural meta-learning claim remains prospectively specified in Sections 9–11.
