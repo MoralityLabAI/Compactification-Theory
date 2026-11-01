@@ -1,0 +1,2671 @@
+{
+ "claims_excluded": [
+  "model calls",
+  "training",
+  "GPU",
+  "networking",
+  "real cryptographic identity",
+  "stochastic agents",
+  "human study",
+  "CI pass"
+ ],
+ "compaction": {
+  "actions": 26,
+  "cases": [
+   {
+    "actions": 4,
+    "alphabet": "g0",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "symbols": 2,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": true,
+      "symbols": 8
+     },
+     "per_member_yes": {
+      "exact": true,
+      "symbols": 4096
+     },
+     "vote_counts": {
+      "exact": true,
+      "symbols": 224
+     }
+    },
+    "exact_bits": 2.321928094887362,
+    "exact_classes": 5,
+    "observation": "decision"
+   },
+   {
+    "actions": 4,
+    "alphabet": "g0",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "symbols": 48,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": false,
+      "symbols": 8,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "per_member_yes": {
+      "exact": false,
+      "symbols": 4096,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "vote_counts": {
+      "exact": false,
+      "symbols": 224,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     }
+    },
+    "exact_bits": 6.584962500721156,
+    "exact_classes": 96,
+    "observation": "decision_dissent"
+   },
+   {
+    "actions": 6,
+    "alphabet": "g0_forgery",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "symbols": 2,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": true,
+      "symbols": 8
+     },
+     "per_member_yes": {
+      "exact": true,
+      "symbols": 4096
+     },
+     "vote_counts": {
+      "exact": true,
+      "symbols": 224
+     }
+    },
+    "exact_bits": 2.321928094887362,
+    "exact_classes": 5,
+    "observation": "decision"
+   },
+   {
+    "actions": 6,
+    "alphabet": "g0_forgery",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "symbols": 48,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": false,
+      "symbols": 8,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "per_member_yes": {
+      "exact": false,
+      "symbols": 4096,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "vote_counts": {
+      "exact": false,
+      "symbols": 224,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     }
+    },
+    "exact_bits": 6.584962500721156,
+    "exact_classes": 96,
+    "observation": "decision_dissent"
+   },
+   {
+    "actions": 14,
+    "alphabet": "membership",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "symbols": 2,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": false,
+      "symbols": 8,
+      "witness": {
+       "action": "up_m2",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "per_member_yes": {
+      "exact": true,
+      "symbols": 4096
+     },
+     "vote_counts": {
+      "exact": false,
+      "symbols": 224,
+      "witness": {
+       "action": "up_m3",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         true
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         true,
+         null
+        ]
+       ]
+      }
+     }
+    },
+    "exact_bits": 9.586839787961827,
+    "exact_classes": 769,
+    "observation": "decision"
+   },
+   {
+    "actions": 14,
+    "alphabet": "membership",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "symbols": 48,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": false,
+      "symbols": 8,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "per_member_yes": {
+      "exact": false,
+      "symbols": 4096,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "vote_counts": {
+      "exact": false,
+      "symbols": 224,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     }
+    },
+    "exact_bits": 11.022367813028454,
+    "exact_classes": 2080,
+    "observation": "decision_dissent"
+   },
+   {
+    "actions": 26,
+    "alphabet": "full",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "random_traces": {
+       "diverged": 19,
+       "first_divergence_step": 39,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 2,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "random_traces": {
+       "diverged": 0,
+       "first_divergence_step": null,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": false,
+      "random_traces": {
+       "diverged": 19,
+       "first_divergence_step": 39,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 8,
+      "witness": {
+       "action": "up_m2",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "per_member_yes": {
+      "exact": true,
+      "random_traces": {
+       "diverged": 0,
+       "first_divergence_step": null,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 4096
+     },
+     "vote_counts": {
+      "exact": false,
+      "random_traces": {
+       "diverged": 37,
+       "first_divergence_step": 39,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 224,
+      "witness": {
+       "action": "up_m3",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         true
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         true,
+         null
+        ]
+       ]
+      }
+     }
+    },
+    "exact_bits": 12.0,
+    "exact_classes": 4096,
+    "observation": "decision"
+   },
+   {
+    "actions": 26,
+    "alphabet": "full",
+    "codes": {
+     "approval_bit": {
+      "exact": false,
+      "random_traces": {
+       "diverged": 298,
+       "first_divergence_step": 14,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 48,
+      "witness": {
+       "action": "grant",
+       "kind": "successor",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        true,
+        [
+         false,
+         false,
+         true,
+         true,
+         true
+        ],
+        [
+         null,
+         null,
+         true,
+         true,
+         true
+        ]
+       ]
+      }
+     },
+     "full_key": {
+      "exact": true,
+      "random_traces": {
+       "diverged": 0,
+       "first_divergence_step": null,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 31104
+     },
+     "g0_three_bit": {
+      "exact": false,
+      "random_traces": {
+       "diverged": 298,
+       "first_divergence_step": 14,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 8,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "per_member_yes": {
+      "exact": false,
+      "random_traces": {
+       "diverged": 296,
+       "first_divergence_step": 14,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 4096,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     },
+     "vote_counts": {
+      "exact": false,
+      "random_traces": {
+       "diverged": 300,
+       "first_divergence_step": 14,
+       "length": 40,
+       "seed": 0,
+       "traces": 500
+      },
+      "symbols": 224,
+      "witness": {
+       "action": null,
+       "kind": "readout",
+       "left": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         null
+        ]
+       ],
+       "right": [
+        false,
+        false,
+        [
+         false,
+         false,
+         false,
+         false,
+         false
+        ],
+        [
+         null,
+         null,
+         null,
+         null,
+         false
+        ]
+       ]
+      }
+     }
+    },
+    "exact_bits": 14.92481250360578,
+    "exact_classes": 31104,
+    "observation": "decision_dissent"
+   }
+  ],
+  "state_bits": 14.92481250360578,
+  "states": 31104
+ },
+ "environment": "Python 3.12.10, standard library, CPU",
+ "matched_comparison": {
+  "controller": [
+   {
+    "evaluations_per_decision": 1.0,
+    "needless_hold": 0.0,
+    "p_c": 0.01,
+    "p_o": 0.0,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 0.95,
+    "needless_hold": 0.05,
+    "p_c": 0.01,
+    "p_o": 0.05,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 0.9,
+    "needless_hold": 0.1,
+    "p_c": 0.01,
+    "p_o": 0.1,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 0.8,
+    "needless_hold": 0.2,
+    "p_c": 0.01,
+    "p_o": 0.2,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 1.0,
+    "needless_hold": 0.0,
+    "p_c": 0.05,
+    "p_o": 0.0,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 0.95,
+    "needless_hold": 0.05,
+    "p_c": 0.05,
+    "p_o": 0.05,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 0.9,
+    "needless_hold": 0.1,
+    "p_c": 0.05,
+    "p_o": 0.1,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 0.8,
+    "needless_hold": 0.2,
+    "p_c": 0.05,
+    "p_o": 0.2,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 1.0,
+    "needless_hold": 0.0,
+    "p_c": 0.1,
+    "p_o": 0.0,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 0.95,
+    "needless_hold": 0.05,
+    "p_c": 0.1,
+    "p_o": 0.05,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 0.9,
+    "needless_hold": 0.1,
+    "p_c": 0.1,
+    "p_o": 0.1,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 0.7999999999999999,
+    "needless_hold": 0.2,
+    "p_c": 0.1,
+    "p_o": 0.2,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 1.0,
+    "needless_hold": 0.0,
+    "p_c": 0.2,
+    "p_o": 0.0,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 0.95,
+    "needless_hold": 0.05,
+    "p_c": 0.2,
+    "p_o": 0.05,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 0.9000000000000001,
+    "needless_hold": 0.1,
+    "p_c": 0.2,
+    "p_o": 0.1,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 0.8,
+    "needless_hold": 0.2,
+    "p_c": 0.2,
+    "p_o": 0.2,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 1.0,
+    "needless_hold": 0.0,
+    "p_c": 0.3,
+    "p_o": 0.0,
+    "wrong_approval": 0.3
+   },
+   {
+    "evaluations_per_decision": 0.95,
+    "needless_hold": 0.05,
+    "p_c": 0.3,
+    "p_o": 0.05,
+    "wrong_approval": 0.3
+   },
+   {
+    "evaluations_per_decision": 0.8999999999999999,
+    "needless_hold": 0.1,
+    "p_c": 0.3,
+    "p_o": 0.1,
+    "wrong_approval": 0.3
+   },
+   {
+    "evaluations_per_decision": 0.7999999999999999,
+    "needless_hold": 0.2,
+    "p_c": 0.3,
+    "p_o": 0.2,
+    "wrong_approval": 0.3
+   }
+  ],
+  "controller_x5": [
+   {
+    "evaluations_per_decision": 5.0,
+    "needless_hold": 0.0,
+    "p_c": 0.01,
+    "p_o": 0.0,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 4.749999999999999,
+    "needless_hold": 0.05,
+    "p_c": 0.01,
+    "p_o": 0.05,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 4.5,
+    "needless_hold": 0.1,
+    "p_c": 0.01,
+    "p_o": 0.1,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 4.0,
+    "needless_hold": 0.2,
+    "p_c": 0.01,
+    "p_o": 0.2,
+    "wrong_approval": 0.01
+   },
+   {
+    "evaluations_per_decision": 5.0,
+    "needless_hold": 0.0,
+    "p_c": 0.05,
+    "p_o": 0.0,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 4.75,
+    "needless_hold": 0.05,
+    "p_c": 0.05,
+    "p_o": 0.05,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 4.5,
+    "needless_hold": 0.1,
+    "p_c": 0.05,
+    "p_o": 0.1,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 4.0,
+    "needless_hold": 0.2,
+    "p_c": 0.05,
+    "p_o": 0.2,
+    "wrong_approval": 0.05
+   },
+   {
+    "evaluations_per_decision": 5.0,
+    "needless_hold": 0.0,
+    "p_c": 0.1,
+    "p_o": 0.0,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 4.75,
+    "needless_hold": 0.05,
+    "p_c": 0.1,
+    "p_o": 0.05,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 4.5,
+    "needless_hold": 0.1,
+    "p_c": 0.1,
+    "p_o": 0.1,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 4.0,
+    "needless_hold": 0.2,
+    "p_c": 0.1,
+    "p_o": 0.2,
+    "wrong_approval": 0.1
+   },
+   {
+    "evaluations_per_decision": 5.0,
+    "needless_hold": 0.0,
+    "p_c": 0.2,
+    "p_o": 0.0,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 4.75,
+    "needless_hold": 0.05,
+    "p_c": 0.2,
+    "p_o": 0.05,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 4.5,
+    "needless_hold": 0.1,
+    "p_c": 0.2,
+    "p_o": 0.1,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 4.0,
+    "needless_hold": 0.2,
+    "p_c": 0.2,
+    "p_o": 0.2,
+    "wrong_approval": 0.2
+   },
+   {
+    "evaluations_per_decision": 5.0,
+    "needless_hold": 0.0,
+    "p_c": 0.3,
+    "p_o": 0.0,
+    "wrong_approval": 0.3
+   },
+   {
+    "evaluations_per_decision": 4.75,
+    "needless_hold": 0.05,
+    "p_c": 0.3,
+    "p_o": 0.05,
+    "wrong_approval": 0.3
+   },
+   {
+    "evaluations_per_decision": 4.5,
+    "needless_hold": 0.1,
+    "p_c": 0.3,
+    "p_o": 0.1,
+    "wrong_approval": 0.3
+   },
+   {
+    "evaluations_per_decision": 3.9999999999999996,
+    "needless_hold": 0.2,
+    "p_c": 0.3,
+    "p_o": 0.2,
+    "wrong_approval": 0.3
+   }
+  ],
+  "council5_q3": [
+   {
+    "evaluations_per_decision": 4.9999999999999964,
+    "needless_hold": 0.0,
+    "p_c": 0.01,
+    "p_o": 0.0,
+    "wrong_approval": 9.850599999999998e-06
+   },
+   {
+    "evaluations_per_decision": 4.749999999999974,
+    "needless_hold": 0.0011581249999999999,
+    "p_c": 0.01,
+    "p_o": 0.05,
+    "wrong_approval": 9.850599999999998e-06
+   },
+   {
+    "evaluations_per_decision": 4.499999999999992,
+    "needless_hold": 0.008560000000000002,
+    "p_c": 0.01,
+    "p_o": 0.1,
+    "wrong_approval": 9.850600000000005e-06
+   },
+   {
+    "evaluations_per_decision": 4.000000000000005,
+    "needless_hold": 0.057920000000000034,
+    "p_c": 0.01,
+    "p_o": 0.2,
+    "wrong_approval": 9.850599999999998e-06
+   },
+   {
+    "evaluations_per_decision": 4.999999999999995,
+    "needless_hold": 0.0,
+    "p_c": 0.05,
+    "p_o": 0.0,
+    "wrong_approval": 0.0011581250000000005
+   },
+   {
+    "evaluations_per_decision": 4.749999999999992,
+    "needless_hold": 0.0011581250000000003,
+    "p_c": 0.05,
+    "p_o": 0.05,
+    "wrong_approval": 0.0011581250000000012
+   },
+   {
+    "evaluations_per_decision": 4.500000000000022,
+    "needless_hold": 0.008560000000000002,
+    "p_c": 0.05,
+    "p_o": 0.1,
+    "wrong_approval": 0.0011581249999999999
+   },
+   {
+    "evaluations_per_decision": 3.999999999999999,
+    "needless_hold": 0.05792000000000003,
+    "p_c": 0.05,
+    "p_o": 0.2,
+    "wrong_approval": 0.001158125000000001
+   },
+   {
+    "evaluations_per_decision": 5.000000000000006,
+    "needless_hold": 0.0,
+    "p_c": 0.1,
+    "p_o": 0.0,
+    "wrong_approval": 0.00856
+   },
+   {
+    "evaluations_per_decision": 4.749999999999981,
+    "needless_hold": 0.0011581249999999999,
+    "p_c": 0.1,
+    "p_o": 0.05,
+    "wrong_approval": 0.008560000000000017
+   },
+   {
+    "evaluations_per_decision": 4.500000000000002,
+    "needless_hold": 0.008560000000000002,
+    "p_c": 0.1,
+    "p_o": 0.1,
+    "wrong_approval": 0.00856
+   },
+   {
+    "evaluations_per_decision": 3.9999999999999964,
+    "needless_hold": 0.057919999999999985,
+    "p_c": 0.1,
+    "p_o": 0.2,
+    "wrong_approval": 0.00856
+   },
+   {
+    "evaluations_per_decision": 5.0000000000000036,
+    "needless_hold": 0.0,
+    "p_c": 0.2,
+    "p_o": 0.0,
+    "wrong_approval": 0.05792000000000003
+   },
+   {
+    "evaluations_per_decision": 4.750000000000011,
+    "needless_hold": 0.0011581250000000007,
+    "p_c": 0.2,
+    "p_o": 0.05,
+    "wrong_approval": 0.05792000000000003
+   },
+   {
+    "evaluations_per_decision": 4.499999999999993,
+    "needless_hold": 0.008560000000000003,
+    "p_c": 0.2,
+    "p_o": 0.1,
+    "wrong_approval": 0.057919999999999965
+   },
+   {
+    "evaluations_per_decision": 4.000000000000015,
+    "needless_hold": 0.057920000000000055,
+    "p_c": 0.2,
+    "p_o": 0.2,
+    "wrong_approval": 0.05792000000000006
+   },
+   {
+    "evaluations_per_decision": 5.0,
+    "needless_hold": 0.0,
+    "p_c": 0.3,
+    "p_o": 0.0,
+    "wrong_approval": 0.16307999999999997
+   },
+   {
+    "evaluations_per_decision": 4.75,
+    "needless_hold": 0.0011581249999999996,
+    "p_c": 0.3,
+    "p_o": 0.05,
+    "wrong_approval": 0.1630799999999999
+   },
+   {
+    "evaluations_per_decision": 4.499999999999996,
+    "needless_hold": 0.008559999999999995,
+    "p_c": 0.3,
+    "p_o": 0.1,
+    "wrong_approval": 0.16308000000000006
+   },
+   {
+    "evaluations_per_decision": 3.999999999999991,
+    "needless_hold": 0.05792,
+    "p_c": 0.3,
+    "p_o": 0.2,
+    "wrong_approval": 0.16307999999999997
+   }
+  ]
+ },
+ "scenario_suite": [
+  {
+   "approvals": 1,
+   "architecture": "council5_q3",
+   "audit_closed": 1,
+   "evaluations": 5,
+   "family": "V00",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 8,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "all valid"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller",
+   "audit_closed": 1,
+   "evaluations": 1,
+   "family": "V00",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "all valid"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller_x5",
+   "audit_closed": 1,
+   "evaluations": 5,
+   "family": "V00",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "all valid"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "council5_q3",
+   "audit_closed": 2,
+   "evaluations": 15,
+   "family": "R01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "stale_epoch"
+   ],
+   "replay_ok": true,
+   "signature_checks": 20,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "before revoke"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "after revoke"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "revote without mandate"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "fresh mandate, old votes"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "fresh mandate, fresh votes"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "controller",
+   "audit_closed": 2,
+   "evaluations": 3,
+   "family": "R01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "stale_epoch"
+   ],
+   "replay_ok": true,
+   "signature_checks": 8,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "before revoke"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "after revoke"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "revote without mandate"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "fresh mandate, old votes"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "fresh mandate, fresh votes"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "controller_x5",
+   "audit_closed": 2,
+   "evaluations": 15,
+   "family": "R01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "stale_epoch"
+   ],
+   "replay_ok": true,
+   "signature_checks": 8,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "before revoke"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "after revoke"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "revote without mandate"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "fresh mandate, old votes"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "fresh mandate, fresh votes"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "council5_q3",
+   "audit_closed": 2,
+   "evaluations": 10,
+   "family": "E01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 15,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "valid evidence"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "evidence stale"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "revote on stale evidence"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "revalidated"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "controller",
+   "audit_closed": 2,
+   "evaluations": 2,
+   "family": "E01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 7,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "valid evidence"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "evidence stale"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "revote on stale evidence"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "revalidated"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "controller_x5",
+   "audit_closed": 2,
+   "evaluations": 10,
+   "family": "E01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 7,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "valid evidence"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "evidence stale"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "revote on stale evidence"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "revalidated"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "council5_q3",
+   "audit_closed": 2,
+   "evaluations": 7,
+   "family": "Q01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 14,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "full membership"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "quorum lost"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "minority re-votes"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "one member rejoins"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "controller",
+   "audit_closed": 2,
+   "evaluations": 1,
+   "family": "Q01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 6,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "full membership"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "quorum lost"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "minority re-votes"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "one member rejoins"
+    }
+   ]
+  },
+  {
+   "approvals": 2,
+   "architecture": "controller_x5",
+   "audit_closed": 2,
+   "evaluations": 5,
+   "family": "Q01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 6,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "full membership"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "quorum lost"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "minority re-votes"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "one member rejoins"
+    }
+   ]
+  },
+  {
+   "approvals": 0,
+   "architecture": "council5_q3",
+   "audit_closed": 0,
+   "evaluations": 5,
+   "family": "A01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "bad_signature",
+    "role",
+    "stale_epoch",
+    "unknown_sender"
+   ],
+   "replay_ok": true,
+   "signature_checks": 9,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "persuasive peer claims authority"
+    }
+   ]
+  },
+  {
+   "approvals": 0,
+   "architecture": "controller",
+   "audit_closed": 0,
+   "evaluations": 1,
+   "family": "A01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "bad_signature",
+    "role",
+    "stale_epoch",
+    "unknown_sender"
+   ],
+   "replay_ok": true,
+   "signature_checks": 5,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "persuasive peer claims authority"
+    }
+   ]
+  },
+  {
+   "approvals": 0,
+   "architecture": "controller_x5",
+   "audit_closed": 0,
+   "evaluations": 5,
+   "family": "A01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "bad_signature",
+    "role",
+    "stale_epoch",
+    "unknown_sender"
+   ],
+   "replay_ok": true,
+   "signature_checks": 5,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "persuasive peer claims authority"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "council5_q3",
+   "audit_closed": 1,
+   "evaluations": 5,
+   "family": "D01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 8,
+   "steps": [
+    {
+     "dissent": [
+      [
+       "m4",
+       "principled objection: release is premature"
+      ]
+     ],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "one principled dissent"
+    }
+   ]
+  },
+  {
+   "approvals": 0,
+   "architecture": "controller",
+   "audit_closed": 0,
+   "evaluations": 1,
+   "family": "D01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [
+      [
+       "c0",
+       "principled objection: release is premature"
+      ]
+     ],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "one principled dissent"
+    }
+   ]
+  },
+  {
+   "approvals": 0,
+   "architecture": "controller_x5",
+   "audit_closed": 0,
+   "evaluations": 5,
+   "family": "D01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [
+      [
+       "c0",
+       "principled objection: release is premature"
+      ]
+     ],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "one principled dissent"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "council5_q3",
+   "audit_closed": 1,
+   "evaluations": 5,
+   "family": "C01",
+   "matches_expected": true,
+   "matches_ground_truth": false,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 8,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "hold",
+     "outcome": "approve",
+     "step": "unanimous wrong summary"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller",
+   "audit_closed": 1,
+   "evaluations": 1,
+   "family": "C01",
+   "matches_expected": true,
+   "matches_ground_truth": false,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "hold",
+     "outcome": "approve",
+     "step": "unanimous wrong summary"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller_x5",
+   "audit_closed": 1,
+   "evaluations": 5,
+   "family": "C01",
+   "matches_expected": true,
+   "matches_ground_truth": false,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "hold",
+     "outcome": "approve",
+     "step": "unanimous wrong summary"
+    }
+   ]
+  },
+  {
+   "approvals": 0,
+   "architecture": "council5_q3",
+   "audit_closed": 0,
+   "evaluations": 5,
+   "family": "K01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 8,
+   "steps": [
+    {
+     "dissent": [
+      [
+       "m1",
+       "evidence does not support the claim"
+      ],
+      [
+       "m2",
+       "evidence does not support the claim"
+      ],
+      [
+       "m3",
+       "evidence does not support the claim"
+      ],
+      [
+       "m4",
+       "evidence does not support the claim"
+      ]
+     ],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "one compromised node, unsound evidence"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller",
+   "audit_closed": 1,
+   "evaluations": 1,
+   "family": "K01",
+   "matches_expected": true,
+   "matches_ground_truth": false,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "hold",
+     "outcome": "approve",
+     "step": "one compromised node, unsound evidence"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller_x5",
+   "audit_closed": 1,
+   "evaluations": 5,
+   "family": "K01",
+   "matches_expected": true,
+   "matches_ground_truth": false,
+   "rejections": [],
+   "replay_ok": true,
+   "signature_checks": 4,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "hold",
+     "outcome": "approve",
+     "step": "one compromised node, unsound evidence"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "council5_q3",
+   "audit_closed": 1,
+   "evaluations": 10,
+   "family": "V01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "role"
+   ],
+   "replay_ok": true,
+   "signature_checks": 17,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "scope outside constitution"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "amendment pending"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "self-ratification attempts"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "ratified, votes predate version"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "ratified, fresh votes"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller",
+   "audit_closed": 1,
+   "evaluations": 2,
+   "family": "V01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "role"
+   ],
+   "replay_ok": true,
+   "signature_checks": 9,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "scope outside constitution"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "amendment pending"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "self-ratification attempts"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "ratified, votes predate version"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "ratified, fresh votes"
+    }
+   ]
+  },
+  {
+   "approvals": 1,
+   "architecture": "controller_x5",
+   "audit_closed": 1,
+   "evaluations": 10,
+   "family": "V01",
+   "matches_expected": true,
+   "matches_ground_truth": true,
+   "rejections": [
+    "role"
+   ],
+   "replay_ok": true,
+   "signature_checks": 9,
+   "steps": [
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "scope outside constitution"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "amendment pending"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "self-ratification attempts"
+    },
+    {
+     "dissent": [],
+     "expected": "hold",
+     "ground_truth": "hold",
+     "outcome": "hold",
+     "step": "ratified, votes predate version"
+    },
+    {
+     "dissent": [],
+     "expected": "approve",
+     "ground_truth": "approve",
+     "outcome": "approve",
+     "step": "ratified, fresh votes"
+    }
+   ]
+  }
+ ],
+ "schema": "6gw.g1.v1",
+ "source_sha256": {
+  "compaction.py": "76f1fe86b1ea8cac8badc787e24a5a476f75663d0535057a48f029e379216ec3",
+  "council.py": "88de606a24a03e4ac4e34c29e41d89411abe6e7aede61a3ebcdfb34778e32694",
+  "finite_model.py": "be878f8e51ba622d5d48c24b01478e14e17e41992a4ad5cd8fd09dd0154d79ce",
+  "g1_eval.py": "2f5a7db6a85f524778c7608f38f4e2cd77425b51527593644b0c430241a63b3a",
+  "g2_harness.py": "c3fe1656e5b2ef70f87fd81c80a7cf3a502ef88c33f3fb920f8fe972d1e20a8c",
+  "run_g1.py": "9cdd04ba52906581fe6baa43a2377375e3b0c2f416647c67694ea950d5652d9e",
+  "test_compaction.py": "f5c7485bf05acf9b3fbe7679e2886aed30b8ea1fd8b30d41c3ba4505d2195e18",
+  "test_council.py": "b04510fa5e554ab9ca67bcaed03610d28c0e19cfc1064859a8fef8b06730347f",
+  "test_g2_harness.py": "a7a71bd25605f5b16814a2b861578476b9713ab46edba933e15bddd83781174e"
+ },
+ "status": "offline_deterministic_simulation_only",
+ "suite_summary": {
+  "controller": {
+   "approvals": 10,
+   "audit_closed": 10,
+   "families": 9,
+   "match_expected": 9,
+   "match_ground_truth": 7,
+   "replay_ok": 9
+  },
+  "controller_x5": {
+   "approvals": 10,
+   "audit_closed": 10,
+   "families": 9,
+   "match_expected": 9,
+   "match_ground_truth": 7,
+   "replay_ok": 9
+  },
+  "council5_q3": {
+   "approvals": 10,
+   "audit_closed": 10,
+   "families": 9,
+   "match_expected": 9,
+   "match_ground_truth": 8,
+   "replay_ok": 9
+  }
+ }
+}
