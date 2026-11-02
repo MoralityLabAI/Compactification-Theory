@@ -1,0 +1,376 @@
+{
+  "builder": {
+    "path": "experiments/bonsai-gym/scripts/build_corpus.py",
+    "sha256": "7cadfdbe039a7dc41cc4f33972d8b0d8dbb9277fdfc962ed930f6042d555eb31"
+  },
+  "built_from_specs": 178,
+  "collapsed_as_near_duplicates": 0,
+  "collapsed_ids": [],
+  "counts": {
+    "heldout": {
+      "by_evidence_type": {
+        "hypothesis": 1,
+        "observed": 22
+      },
+      "by_family": {
+        "specialist_routing": 11,
+        "transfer_across_families": 12
+      },
+      "by_family_and_evidence_type": {
+        "specialist_routing/observed": 11,
+        "transfer_across_families/hypothesis": 1,
+        "transfer_across_families/observed": 11
+      },
+      "lineages": 12,
+      "records": 23
+    },
+    "total": {
+      "by_evidence_type": {
+        "hypothesis": 27,
+        "observed": 125,
+        "synthetic": 26
+      },
+      "by_family": {
+        "curriculum_selection": 16,
+        "experiment_design": 28,
+        "failure_diagnosis": 40,
+        "learning_gain_prediction": 35,
+        "quantization_aware_adaptation": 13,
+        "skill_composition": 10,
+        "specialist_routing": 11,
+        "task_graph_navigation": 13,
+        "transfer_across_families": 12
+      },
+      "by_family_and_evidence_type": {
+        "curriculum_selection/hypothesis": 1,
+        "curriculum_selection/observed": 3,
+        "curriculum_selection/synthetic": 12,
+        "experiment_design/hypothesis": 7,
+        "experiment_design/observed": 15,
+        "experiment_design/synthetic": 6,
+        "failure_diagnosis/hypothesis": 9,
+        "failure_diagnosis/observed": 31,
+        "learning_gain_prediction/hypothesis": 5,
+        "learning_gain_prediction/observed": 30,
+        "quantization_aware_adaptation/hypothesis": 1,
+        "quantization_aware_adaptation/observed": 12,
+        "skill_composition/observed": 10,
+        "specialist_routing/observed": 11,
+        "task_graph_navigation/hypothesis": 3,
+        "task_graph_navigation/observed": 2,
+        "task_graph_navigation/synthetic": 8,
+        "transfer_across_families/hypothesis": 1,
+        "transfer_across_families/observed": 11
+      },
+      "lineages": 94,
+      "records": 178
+    },
+    "train": {
+      "by_evidence_type": {
+        "hypothesis": 21,
+        "observed": 97,
+        "synthetic": 25
+      },
+      "by_family": {
+        "curriculum_selection": 15,
+        "experiment_design": 27,
+        "failure_diagnosis": 38,
+        "learning_gain_prediction": 32,
+        "quantization_aware_adaptation": 13,
+        "skill_composition": 9,
+        "task_graph_navigation": 9
+      },
+      "by_family_and_evidence_type": {
+        "curriculum_selection/hypothesis": 1,
+        "curriculum_selection/observed": 2,
+        "curriculum_selection/synthetic": 12,
+        "experiment_design/hypothesis": 7,
+        "experiment_design/observed": 15,
+        "experiment_design/synthetic": 5,
+        "failure_diagnosis/hypothesis": 9,
+        "failure_diagnosis/observed": 29,
+        "learning_gain_prediction/hypothesis": 3,
+        "learning_gain_prediction/observed": 29,
+        "quantization_aware_adaptation/hypothesis": 1,
+        "quantization_aware_adaptation/observed": 12,
+        "skill_composition/observed": 9,
+        "task_graph_navigation/observed": 1,
+        "task_graph_navigation/synthetic": 8
+      },
+      "lineages": 74,
+      "records": 143
+    },
+    "val": {
+      "by_evidence_type": {
+        "hypothesis": 5,
+        "observed": 6,
+        "synthetic": 1
+      },
+      "by_family": {
+        "curriculum_selection": 1,
+        "experiment_design": 1,
+        "failure_diagnosis": 2,
+        "learning_gain_prediction": 3,
+        "skill_composition": 1,
+        "task_graph_navigation": 4
+      },
+      "by_family_and_evidence_type": {
+        "curriculum_selection/observed": 1,
+        "experiment_design/synthetic": 1,
+        "failure_diagnosis/observed": 2,
+        "learning_gain_prediction/hypothesis": 2,
+        "learning_gain_prediction/observed": 1,
+        "skill_composition/observed": 1,
+        "task_graph_navigation/hypothesis": 3,
+        "task_graph_navigation/observed": 1
+      },
+      "lineages": 8,
+      "records": 12
+    }
+  },
+  "dataset": "meta_sft_v0_1",
+  "dedup_jaccard_threshold": 0.9,
+  "files": {
+    "heldout.jsonl": {
+      "bytes": 80570,
+      "records": 23,
+      "sha256": "37afbfd4da7aa631abbb60954c5dde64df2255d52fda2354fe561f6916e93de0"
+    },
+    "train.jsonl": {
+      "bytes": 524313,
+      "records": 143,
+      "sha256": "60cb661a091618d5d2e0fbc77f908e9ac6d111ad7b479c13481d19dbac7412f0"
+    },
+    "val.jsonl": {
+      "bytes": 42556,
+      "records": 12,
+      "sha256": "dc879408509c2677f8f33a61e43a05dd75985e2af150d2a501dd8c3bda19dbdb"
+    }
+  },
+  "gaps": [
+    {
+      "name": "LoopedTransformers",
+      "reason": "not requested as a source in this pass; covered indirectly through jev-qwen xbench and loop-capacity"
+    },
+    {
+      "name": "Hermes-Skills / hermes-lite TRM skill gates",
+      "reason": "not on disk under the named paths; only reported second-hand in jev-qwen xbench"
+    },
+    {
+      "name": "Control-Harness",
+      "reason": "not on disk under the named paths; only reported second-hand in jev-qwen xbench"
+    }
+  ],
+  "heldout_families": [
+    "transfer_across_families",
+    "specialist_routing"
+  ],
+  "heldout_lineages": [
+    "adapter-bits/cb02-lean-transfer",
+    "constitutional-alignment/hrm-v1-smoke",
+    "hybrid-trm-ldt/env-pointer-routing",
+    "jev-qwen/xbench-depth-extrapolation",
+    "jev-qwen/xbench-s2-commit-veto-gates",
+    "jev-qwen/xbench-s7-routing",
+    "loop-capacity/test-time-extrapolation",
+    "q1-adapters/bonsai-adapters-on-qwen3-q4",
+    "q1-adapters/community-adapters-on-bonsai",
+    "q1-adapters/cross-adapter-matrix",
+    "q1-adapters/gsm8k-adapter-on-math500",
+    "q1-adapters/routing"
+  ],
+  "max_synthetic_fraction": 0.3,
+  "quarantined_ids": [],
+  "quarantined_lineages": [],
+  "quarantined_records": 0,
+  "schema_version": "meta_sft/0.1",
+  "seed": 20261102,
+  "sources": [
+    {
+      "commit": "9f0783e90828e1c7f7670eced4eb1b6a311ad47a",
+      "files_used": [
+        "docs/followups.md",
+        "results/deep-2/report.md",
+        "results/deep-3/report.md",
+        "results/pilot-2/report.md"
+      ],
+      "key": "ab_main",
+      "ref_label": "main@9f0783e",
+      "repo": "Compactification-Theory"
+    },
+    {
+      "commit": "240491d9f70198660264af75191326b6b9578f56",
+      "files_used": [
+        "research/self_introspective_meta_learning_v1/NEURAL_PROGRESS.md",
+        "research/self_introspective_meta_learning_v1/NEURAL_PROTOCOL.md",
+        "research/self_introspective_meta_learning_v1/NEURAL_RESULTS.md",
+        "research/self_introspective_meta_learning_v1/README.md"
+      ],
+      "key": "ab_siml",
+      "ref_label": "research/siml01-task-graph-draft-20261102@240491d",
+      "repo": "Compactification-Theory"
+    },
+    {
+      "commit": "3906fea57b7fa9a86af3d5b6ed435970f24eb59f",
+      "files_used": [
+        "research/bgi_attractors_v1/results/behavioral_pilots_20261030.md",
+        "research/bgi_attractors_v1/results/bgi01d_direct_pilot_20261030.md",
+        "research/bgi_attractors_v1/results/bgi01e_scale_control_20261030.md",
+        "research/bgi_attractors_v1/results/bgi01f_verified_repair_20261030.md",
+        "research/bgi_attractors_v1/results/bgi01g_factored_policy_20261030.md",
+        "research/bgi_attractors_v1/results/bgi01h_progress_controller_20261030.md"
+      ],
+      "key": "ab_bgi",
+      "ref_label": "research/bgi01h-progress-certificate-20261030@3906fea",
+      "repo": "Compactification-Theory"
+    },
+    {
+      "commit": "94310002e4caeac532422622b6e63a4e23823f03",
+      "files_used": [
+        "research/canonization_bench_cb01/TRANSFER.md"
+      ],
+      "key": "ab_cb02",
+      "ref_label": "research/cb02-blind-evalmath-transfer-20261029@9431000",
+      "repo": "Compactification-Theory"
+    },
+    {
+      "commit": "eccd08b2f02d269681824a36986335e6c88f75e5",
+      "files_used": [
+        "research/recurrent_circuits_v1/results/run_report.md"
+      ],
+      "key": "ab_rc01",
+      "ref_label": "research/rc01-5080-experiments@eccd08b",
+      "repo": "Compactification-Theory"
+    },
+    {
+      "commit": "12439107fff24024d40992d0f439ee63404670da",
+      "files_used": [
+        "research/compression_trajectories_ct02/README.md"
+      ],
+      "key": "ab_ct02",
+      "ref_label": "research/ct02-compression-trajectories@1243910",
+      "repo": "Compactification-Theory"
+    },
+    {
+      "commit": "39c96fed8678a2f93cfdc5cf3fad6dd55890841e",
+      "files_used": [
+        "papers/learning_theory/CROSSWALK.md"
+      ],
+      "key": "ab_clt",
+      "ref_label": "docs/classical-learning-theory-20261102@39c96fe",
+      "repo": "Compactification-Theory"
+    },
+    {
+      "commit": "5b7a5752dd19313f3baf8e747f900786b8f0832d",
+      "files_used": [
+        "paper/q1_adapters.md"
+      ],
+      "key": "q1",
+      "ref_label": "main@5b7a575",
+      "repo": "q1-adapters"
+    },
+    {
+      "commit": "1cfe7e012dccd6da106ef29f9dacb77bfda3c5ee",
+      "files_used": [
+        "experiments/ternary-lora-5080/TERNARY_LORA_5080_RESULTS.md"
+      ],
+      "key": "ba",
+      "ref_label": "experiments/ternary-lora-5080@1cfe7e0",
+      "repo": "BitAgent"
+    },
+    {
+      "commit": "f162153f1c397a93d4750a4cce3edb1d5fa1cab7",
+      "files_used": [
+        "packages/fable_hybrid_architecture_space_20260716/V2_ABOVE_MAJORITY_RESULT.md",
+        "papers/hybrid_ldt_trm_draft.md"
+      ],
+      "key": "hy_master",
+      "ref_label": "master@f162153",
+      "repo": "HybridTRMLDT"
+    },
+    {
+      "commit": "1688515d1b29509ea1e0b11b51d93cb2eb9fb4c4",
+      "files_used": [
+        "research/sovereign_learning/s0_trainability/README.md",
+        "research/sovereign_learning/s0_trainability/gpu_baseline/README.md",
+        "research/sovereign_learning/s0_trainability/logit_parity/AMENDMENT_A1.md",
+        "research/sovereign_learning/s0_trainability/logit_parity/PREREG.md"
+      ],
+      "key": "hy_s0",
+      "ref_label": "research/s0-real-row-parity-20261031@1688515",
+      "repo": "HybridTRMLDT"
+    },
+    {
+      "commit": "a1a4141adb6401a21d322479a96cddfe858c8961",
+      "files_used": [
+        "AGENTS.md",
+        "mechinterp/CODEX_LOG.md",
+        "negotiation-storyworld/logs/trm_sw1_summary.json"
+      ],
+      "key": "trmsw",
+      "ref_label": "main@a1a4141",
+      "repo": "TRMStoryworld"
+    },
+    {
+      "commit": "b09b70d59e2eb213632e177371b72af37a178826",
+      "files_used": [
+        "experiments/constitutional_hrm_v1/RESULTS_20260721.md",
+        "experiments/frame_internalization_sft_v1/PROTOCOL_AMENDMENT_DIRECT_PROMPT_SFT_V1.md",
+        "experiments/frame_internalization_sft_v1/local_screen_v1/LOCAL_SCREEN_RESULT_V1.md"
+      ],
+      "key": "ca",
+      "ref_label": "mizan-reblind-20261008@b09b70d",
+      "repo": "ConstitutionalAlignment"
+    },
+    {
+      "commit": "424dc8bd83f9bcb5ce3a4a8715fe7f73cd49858e",
+      "files_used": [
+        "output/eval_reuse_toys/PREREG.md",
+        "output/eval_reuse_toys/PREREG_2.md",
+        "output/eval_reuse_toys/README.md",
+        "output/eval_reuse_toys/results.json",
+        "output/eval_reuse_toys/results2.json"
+      ],
+      "key": "em",
+      "ref_label": "main@424dc8b",
+      "repo": "EvalMath"
+    },
+    {
+      "commit": "19f2a47d44838944187168ea2ba88a4cd343b090",
+      "files_used": [
+        "PREREGISTRATION.md",
+        "REPORT.md"
+      ],
+      "key": "srs",
+      "ref_label": "main@19f2a47",
+      "repo": "StableRateStudy"
+    },
+    {
+      "commit": "313fea7518c508bda72d394e227a66920acb6ecb",
+      "files_used": [
+        "README.md",
+        "results/phase2/summary.md",
+        "results/phase3/summary.md"
+      ],
+      "key": "lc",
+      "ref_label": "main@313fea7",
+      "repo": "loop-capacity"
+    },
+    {
+      "commit": "2256b4b1ff0da794f32f78688d5f03d9a3e1c621",
+      "files_used": [
+        "reports/xbench/summary.md"
+      ],
+      "key": "jq",
+      "ref_label": "add/laco-lab-layer-compression@2256b4b",
+      "repo": "jev-qwen"
+    }
+  ],
+  "sources_config": {
+    "path": "experiments/bonsai-gym/configs/corpus_sources.json",
+    "sha256": "8ca637272befe155975eeda4516270c32905108f64e3b230932fda4fb69afc94"
+  },
+  "split_rule": "records of heldout families go to heldout; lineages that appear in heldout are removed from train/val (quarantined); remaining lineages ranked by sha256(seed|lineage_id) and the first round(0.10 * n) go to val, the rest to train",
+  "synthetic_fraction": 0.1461,
+  "val_fraction": 0.1
+}

@@ -38,14 +38,20 @@ class Example:
 
 
 def load_examples(path: str | Path, tok, max_len: int) -> tuple[list[Example], int]:
-    """JSONL rows with `messages` (system/user) and `target` (assistant text)."""
+    """JSONL rows with `messages` (system/user) and `target` (assistant text), or `messages`
+    ending in one assistant turn (the meta_sft corpus format)."""
     out, skipped = [], 0
     for line in Path(path).read_text(encoding="utf-8").split("\n"):
         if not line.strip():
             continue
         r = json.loads(line)
-        p = tok.encode(render_prompt(r["messages"]), add_special_tokens=False).ids
-        t = tok.encode(r["target"] + IM_END, add_special_tokens=False).ids
+        msgs, target = r["messages"], r.get("target")
+        if target is None:
+            if msgs[-1]["role"] != "assistant":
+                raise ValueError(f"{r.get('id')}: no target and no final assistant turn")
+            msgs, target = msgs[:-1], msgs[-1]["content"]
+        p = tok.encode(render_prompt(msgs), add_special_tokens=False).ids
+        t = tok.encode(target + IM_END, add_special_tokens=False).ids
         if len(p) + len(t) > max_len:
             skipped += 1
             continue

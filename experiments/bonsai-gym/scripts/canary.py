@@ -109,6 +109,8 @@ def main():
     train, sk_tr = load_examples(ROOT / cfg["train"], tok, cfg["max_len"])
     val, sk_va = load_examples(ROOT / cfg["val"], tok, cfg["max_len"])
     val = val[: cfg.get("n_val", len(val))]
+    # confirmatory split (held-out task families): scored at step 0 and once at the end, never during training
+    confirm = load_examples(ROOT / cfg["confirm"], tok, cfg["max_len"])[0] if cfg.get("confirm") else None
     gpu = GpuSampler()
     gpu.start()
 
@@ -152,6 +154,10 @@ def main():
         history["base_eval"] = ev
         (out / "eval_base_per_item.json").write_text(json.dumps(per), encoding="utf-8")
         log({"event": "eval", "step": 0, "frozen_base": True, **ev})
+        if confirm:
+            cev, cper = evaluate(model, confirm, pad_id, cfg.get("eval_batch", 4))
+            history["base_confirm"], history["base_confirm_per"] = cev, cper
+            log({"event": "confirm", "step": 0, "frozen_base": True, **cev})
 
     mb, accum = cfg["microbatch"], cfg["grad_accum"]
     torch.cuda.reset_peak_memory_stats()
@@ -214,6 +220,17 @@ def main():
     reloaded, per = evaluate(model, val, pad_id, cfg.get("eval_batch", 4))
     (out / "eval_final_per_item.json").write_text(json.dumps(per), encoding="utf-8")
     gg = write_gguf_lora(lora_state(model), out / "adapter.gguf", cfg["alpha"])
+    confirm_res = None
+    if confirm:
+        from bonsai_gym.gym import paired_gain
+        cev, cper = evaluate(model, confirm, pad_id, cfg.get("eval_batch", 4))
+        b = {r["id"]: r["nll"] / r["tokens"] for r in history["base_confirm_per"]}
+        a = {r["id"]: r["nll"] / r["tokens"] for r in cper}
+        ids = sorted(set(a) & set(b))
+        # gain = drop in per-item mean NLL (base - adapted), paired over items
+        confirm_res = {"base": history["base_confirm"], "final": cev,
+                       "nll_drop": paired_gain([a[i] for i in ids], [b[i] for i in ids])}
+        log({"event": "confirm", "step": total, **cev})
     gpu.stop.set()
     steps = history.get("steps", [])
     result = {
@@ -223,7 +240,7 @@ def main():
         "reload": {"modules_loaded": n_loaded, "zeroed_eval_8": zeroed, "reloaded_eval": reloaded,
                    "matches_final_loss": abs(reloaded["loss"] - final["loss"]) < 1e-6,
                    "matches_final_em": reloaded["tf_greedy_em"] == final["tf_greedy_em"]},
-        "adapter_safetensors": saved, "adapter_gguf": gg,
+        "adapter_safetensors": saved, "adapter_gguf": gg, "confirm": confirm_res,
         "train": {"wall_s": train_s, "target_tokens": train_tokens, "seq_tokens": seq_tokens,
                   "seq_tok_s": seq_tokens / train_s if train_s else None,
                   "target_tok_s": train_tokens / train_s if train_s else None,
