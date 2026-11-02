@@ -1,0 +1,43 @@
+{
+ "task": "reverse-text (primeintellect/reverse-text, via q1-adapters)",
+ "q1_adapters_commit": "5b7a5752dd19313f3baf8e747f900786b8f0832d",
+ "sources": {
+  "gold": {
+   "path": "C:\\Users\\patri\\OneDrive\\Documents\\GitHub\\q1-adapters\\runs\\sft\\reverse-text-gold.jsonl",
+   "sha256": "92de93e96ea5284c5edcb972cbab55cfb509cface7fb5ae45f10fd87545044c2"
+  },
+  "eval": {
+   "path": "C:\\Users\\patri\\OneDrive\\Documents\\GitHub\\q1-adapters\\results\\reverse-text\\q1-base.jsonl",
+   "sha256": "36253ed0e8b61e48ff53d07468cd58dbc1157886f36f7bea87b8a001fb156fb5"
+  }
+ },
+ "files": {
+  "train": {
+   "rows": 736,
+   "sha256": "a6897614457dcd03686b2a40c776672c9a663eff3136562f8e6f11455b76372f"
+  },
+  "val": {
+   "rows": 64,
+   "sha256": "33a56d04daa43a66fc4b37c20f2d0dd035a3a44ec11b67e71470bade9a7f3881"
+  },
+  "eval": {
+   "rows": 200,
+   "sha256": "9f26787b8cb4270d789b6c91a0a62c5c614359a9355e36bd0ee38ae4538acaf4"
+  }
+ },
+ "eval_prompt_overlap_with_gold": 0,
+ "scorer_check": {
+  "q1-base.jsonl": {
+   "rows": 200,
+   "exact": 200,
+   "max_abs_diff": 0.0,
+   "stored_mean": 0.11547322102239573
+  },
+  "q1+ours.jsonl": {
+   "rows": 200,
+   "exact": 200,
+   "max_abs_diff": 0.0,
+   "stored_mean": 0.8171459398828465
+  }
+ }
+}
