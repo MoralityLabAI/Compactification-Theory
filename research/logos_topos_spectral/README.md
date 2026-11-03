@@ -61,3 +61,46 @@ The symmetry obstruction in `Neoplatonic/LTR/MetricObstruction.lean` rules out d
     python3 research/logos_topos_spectral/spectral.py
 
 No theological predicates enter the construction or its tests.
+
+
+## v0.6: sentence projections and exact Dirac commutator norm
+
+The companion files nullary_projections.py and test_nullary_projections.py
+audit logical projection observables against finite Dirac blocks, with
+all values represented by fractions.Fraction.
+
+For a finite model space X and a Boolean truth locus U, its projection
+p_U is the 0/1 indicator, p_U^2=p_U, and the uniform norm satisfies
+
+    norm(p_U) = 0 if U is empty, and 1 otherwise.
+
+The norm of the refutation projection is zero iff the underlying
+sentence holds in every listed model. Across all 256 Boolean truth
+tables on an eight-state space, exact tests verify the full norm gap.
+
+For any unequal states x,y and mass m, the two-point Dirac block
+
+    D_xy = [[m, 1/d(x,y)], [1/d(x,y), -m]]
+
+has a commutator with diag(p_U(x),p_U(y)) of norm
+
+    abs(p_U(x)-p_U(y)) / d(x,y).
+
+The commutator vanishes iff the states agree on that sentence. This
+has been checked exhaustively across all pairs of eight states and
+all 256 Boolean truth tables.
+
+For all 32 five-bit states and each atomic predicate P_n, the exact
+finite Dirac direct-sum commutator seminorm is 2^n, with the same
+answer for mass zero and mass eight. The resulting implementation
+is a finite version of the Lean atomic-filtration theorem in
+OntologicalProofs PR #5.
+
+**Verification:** the expanded suite passed 30 tests in
+[GitHub Actions run 41571682988](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/41571682988).
+
+Mathlib kernel proofs for the continuous function algebra, norm gap,
+first-order syntactic pullback and the 2^n atomic grade are in
+OntologicalProofs. This exact finite prototype supplies concrete
+operator-norm audits. It is separate from the infinite direct-sum
+operator-domain formalization, which remains open.
