@@ -66,6 +66,22 @@ def dirac_sentence_commutator(
     return block_commutator(space.dist(i, j), mass, a, b)
 
 
+def dirac_sentence_seminorm(
+    space: MarkedSpace,
+    locus: TruthLocus,
+    mass: Q = Q(1),
+) -> Q:
+    """Finite direct-sum commutator operator norm, exactly in rationals.
+
+    Every real 2x2 commutator block [[0,t],[-t,0]] has operator norm
+    abs(t). The norm of a finite block direct sum is the maximum norm
+    of its summands.
+    """
+    return max((abs(dirac_sentence_commutator(space, locus, i, j, mass)[0][1])
+                for i, j in combinations(range(len(space.points)), 2)),
+               default=Q(0))
+
+
 def refutation_norm_gap(locus: TruthLocus) -> tuple[Q, bool]:
     """Norm zero exactly when the underlying sentence is entailed."""
     return locus.refutation().norm(), locus.entails()
