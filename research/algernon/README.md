@@ -1,5 +1,7 @@
 # Algernon: a neural-net processor, a learning computer
 
+**Algernon-02 executable experiment:** [Circuit Mirror](circuit_mirror/README.md) combines a typed pointer-machine transition, an exact BN254 R1CS-style checker, generated Circom source, a tiny trained recurrent readout, and retained CPU-only experiment receipts. [Experimental falsification criteria](circuit_mirror/EXPERIMENT.md).
+
 > **2026-11-03 execution pivot:** Start from reproducible external implementations. Legacy LoopedTransformers checkpoint recovery is archived and optional. See [PIVOT_EXTERNAL_BASELINES.md](PIVOT_EXTERNAL_BASELINES.md) for the active priorities: training-free Qwen3 recurrence, independently tested latent recurrence, Qwenputer and sparse repair.
 
 **Status: research scaffold, 2026-11-03.** This folder specifies a proposed experiment. It does not claim a working Qwen graft, a trained recurrent processor, or an independently reproduced weight edit.
