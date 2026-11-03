@@ -1,5 +1,7 @@
 # Compactification Theory
 
+**New research track:** [Algernon: a neural-net processor, a learning computer](research/algernon/README.md), joining compiled Qwenputer-style exact computation, recurrent CoT/LDT grafts, and sparse weight-space repair. [Experimental protocol](research/algernon/PROTOCOL.md) and [agent workorder](research/algernon/AGENT_WORKORDER.md).
+
 The new [Pluto-Gym research package](research/pluto_gym/README.md) adds a runnable
 interface-relative gym, a compact CPU student with bounded DRAM replay, and
 curriculum experiments with a configurable designer webhook. Its pinned
