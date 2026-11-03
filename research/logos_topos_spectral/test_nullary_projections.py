@@ -8,6 +8,7 @@ from nullary_projections import (
     TruthLocus,
     sentence_projection,
     dirac_sentence_commutator,
+    dirac_sentence_seminorm,
     refutation_norm_gap,
 )
 
@@ -77,6 +78,8 @@ class NullaryProjectionTests(unittest.TestCase):
                 for i, j in combinations(range(len(space.points)), 2)
             )
             self.assertEqual(seminorm, Q(2**n))
+            self.assertEqual(dirac_sentence_seminorm(space, locus, Q(8)), seminorm)
+            self.assertEqual(dirac_sentence_seminorm(space, locus, Q(0)), seminorm)
 
 
 if __name__ == "__main__":
