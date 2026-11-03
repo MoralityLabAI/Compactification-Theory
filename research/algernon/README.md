@@ -34,6 +34,7 @@ The repository's adapter-depth experiments found that intervention **placement**
 ## Files
 
 - [ARCHITECTURE.md](ARCHITECTURE.md): mathematical state model, integration interfaces and controls.
+- [CONTINUAL_LEARNING.md](CONTINUAL_LEARNING.md): proposed epistemic controller, research pruning and Pluto-Gym cross-reference (unrun).
 - [PROTOCOL.md](PROTOCOL.md): pre-registered tests, leakage constraints, metrics and decision gates.
 - [AGENT_WORKORDER.md](AGENT_WORKORDER.md): concrete build sequence for the next coding agent.
 - [experiment_register.json](experiment_register.json): machine-checkable hypotheses and source status.
