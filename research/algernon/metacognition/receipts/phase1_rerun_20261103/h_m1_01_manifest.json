@@ -1,0 +1,51 @@
+{
+  "budget": 3.2,
+  "cost_penalty": 0.028,
+  "device": "CPU",
+  "grammar": {
+    "compositions": [
+      "and",
+      "or",
+      "xor",
+      "xnor",
+      "nand",
+      "nor"
+    ],
+    "primitive": [
+      "false",
+      "true",
+      "x0",
+      "x1",
+      "not_x0",
+      "not_x1"
+    ]
+  },
+  "hypothesis": "H-M1 / framework revision",
+  "numpy": "2.5.3",
+  "parameter_count": 8534,
+  "project": "Algernon",
+  "python": "3.12.14",
+  "seconds": 114.44744940000237,
+  "seed": 20261103,
+  "seed_ranges": {
+    "confirmation": [
+      640000000,
+      640000999
+    ],
+    "test": [
+      630000000,
+      630001199
+    ],
+    "train": [
+      610000000,
+      610002399
+    ],
+    "validation": [
+      620000000,
+      620000349
+    ]
+  },
+  "source_sha256": "02e605ba8d28c8b11a9e830d2a9d51faaa7e6b1dedaa194a057d8d4e230f18c2",
+  "status": "CPU synthetic exploratory",
+  "torch": "2.11.0+cu128"
+}

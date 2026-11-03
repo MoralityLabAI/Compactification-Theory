@@ -1,0 +1,129 @@
+{
+  "status": "posthoc_comparator_preregistered_on_new_seed_range",
+  "n_fresh_worlds": 1000,
+  "seed_range": [
+    500000000,
+    500000999
+  ],
+  "mean": {
+    "random": {
+      "correct": 0.636,
+      "expected_correct": 0.6419179131139372,
+      "terminal_utility": 0.6229939131139371,
+      "brier": 0.4952405469478316,
+      "log_loss": 0.8898565326643129,
+      "cost": 4.731,
+      "decisions": 3.828
+    },
+    "bayes_ig": {
+      "correct": 0.699,
+      "expected_correct": 0.7199220451795915,
+      "terminal_utility": 0.7012460451795915,
+      "brier": 0.40119751361242756,
+      "log_loss": 0.7369782786542541,
+      "cost": 4.669,
+      "decisions": 4.003
+    },
+    "terminal_policy": {
+      "correct": 0.701,
+      "expected_correct": 0.7135707483257823,
+      "terminal_utility": 0.7023607483257821,
+      "brier": 0.4244977853583282,
+      "log_loss": 0.7813023970738702,
+      "cost": 2.8025,
+      "decisions": 2.76
+    },
+    "greedy_MAP_with_stop": {
+      "correct": 0.692,
+      "expected_correct": 0.7141044898199942,
+      "terminal_utility": 0.7037844898199942,
+      "brier": 0.45153745534432665,
+      "log_loss": 0.8327990946211358,
+      "cost": 2.58,
+      "decisions": 2.442
+    }
+  },
+  "comparisons": {
+    "random": {
+      "correct": {
+        "difference": 0.065,
+        "paired_95pct_CI": [
+          0.039,
+          0.093
+        ],
+        "n": 1000
+      },
+      "terminal_utility": {
+        "difference": 0.07936683521184495,
+        "paired_95pct_CI": [
+          0.06977127298953104,
+          0.08940213265935248
+        ],
+        "n": 1000
+      },
+      "cost": {
+        "difference": -1.9285,
+        "paired_95pct_CI": [
+          -2.0105,
+          -1.85
+        ],
+        "n": 1000
+      }
+    },
+    "bayes_ig": {
+      "correct": {
+        "difference": 0.002,
+        "paired_95pct_CI": [
+          -0.012,
+          0.016
+        ],
+        "n": 1000
+      },
+      "terminal_utility": {
+        "difference": 0.0011147031461905936,
+        "paired_95pct_CI": [
+          -0.005039052861323117,
+          0.00777597197544285
+        ],
+        "n": 1000
+      },
+      "cost": {
+        "difference": -1.8665,
+        "paired_95pct_CI": [
+          -1.9475125,
+          -1.7899875
+        ],
+        "n": 1000
+      }
+    },
+    "greedy_MAP_with_stop": {
+      "correct": {
+        "difference": 0.009,
+        "paired_95pct_CI": [
+          -0.008,
+          0.028
+        ],
+        "n": 1000
+      },
+      "terminal_utility": {
+        "difference": -0.0014237414942120635,
+        "paired_95pct_CI": [
+          -0.0076525403347639,
+          0.005031041401511776
+        ],
+        "n": 1000
+      },
+      "cost": {
+        "difference": 0.2225,
+        "paired_95pct_CI": [
+          0.1395,
+          0.3050124999999999
+        ],
+        "n": 1000
+      }
+    }
+  },
+  "wall_seconds": 10.787597499991534,
+  "interpretation": "myopic MAP baseline sees same known likelihoods and budget, and may stop at any time",
+  "note": "exact dynamic-programming expert omitted from this 1000-case comparator; it was measured on a separate 100-case subset in first evaluation"
+}

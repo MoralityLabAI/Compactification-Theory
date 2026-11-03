@@ -1,0 +1,106 @@
+{
+  "status": "exploratory_synthetic_cpu",
+  "means": {
+    "random": {
+      "correct": 0.629,
+      "brier": 0.5014380558017147,
+      "log_loss": 0.9066527230995735,
+      "cost": 4.7365
+    },
+    "cheapest": {
+      "correct": 0.637,
+      "brier": 0.4888613863464841,
+      "log_loss": 0.8792718001928647,
+      "cost": 4.3805
+    },
+    "fixed_heuristic": {
+      "correct": 0.67,
+      "brier": 0.4318248691516419,
+      "log_loss": 0.7693886430796977,
+      "cost": 4.6705
+    },
+    "bayes_ig": {
+      "correct": 0.679,
+      "brier": 0.42581384433541153,
+      "log_loss": 0.7691035569647888,
+      "cost": 4.666
+    },
+    "untrained": {
+      "correct": 0.627,
+      "brier": 0.4970041170188188,
+      "log_loss": 0.8880024971735198,
+      "cost": 4.7465
+    },
+    "learned_shuffled_state": {
+      "correct": 0.642,
+      "brier": 0.4790239300504647,
+      "log_loss": 0.8642931511949173,
+      "cost": 4.3795
+    },
+    "learned": {
+      "correct": 0.642,
+      "brier": 0.48449687681356085,
+      "log_loss": 0.8711768135477232,
+      "cost": 4.3775
+    }
+  },
+  "paired_correctness_deltas": {
+    "random": {
+      "delta": 0.013,
+      "paired_bootstrap_95pct": [
+        -0.016,
+        0.041
+      ]
+    },
+    "cheapest": {
+      "delta": 0.005,
+      "paired_bootstrap_95pct": [
+        -0.01,
+        0.02
+      ]
+    },
+    "fixed_heuristic": {
+      "delta": -0.028,
+      "paired_bootstrap_95pct": [
+        -0.053,
+        -0.003
+      ]
+    },
+    "bayes_ig": {
+      "delta": -0.037,
+      "paired_bootstrap_95pct": [
+        -0.063,
+        -0.011
+      ]
+    },
+    "untrained": {
+      "delta": 0.015,
+      "paired_bootstrap_95pct": [
+        -0.015024999999999998,
+        0.044
+      ]
+    },
+    "learned_shuffled_state": {
+      "delta": 0.0,
+      "paired_bootstrap_95pct": [
+        -0.006,
+        0.006
+      ]
+    }
+  },
+  "training": {
+    "n_train_states": 4000,
+    "n_train_probes": 17628,
+    "epochs": 18,
+    "train_mse": 0.0029855749011039735,
+    "policy_parameters": 1505
+  },
+  "wall_time_seconds": 14.701178000017535,
+  "total_probe_calls": 22242,
+  "notes": [
+    "Known likelihoods; exact Bayes posterior updates; learned only experiment selection",
+    "One-step IG is a greedy comparator, not an optimal long-horizon policy",
+    "Model, data and simulator authored for this sandbox run; no Qwen inference",
+    "Training states and test generator seeds use disjoint ranges"
+  ]
+}
