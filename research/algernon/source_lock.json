@@ -1,0 +1,59 @@
+{
+  "schema_version": "0.1.0",
+  "created_utc": "2026-11-03",
+  "status": "source_refs_pinned_no_cpu_upstream_run",
+  "sources": [
+    {
+      "id": "qwenputer",
+      "repository": "https://github.com/divagr18/qwenputer",
+      "commit": "bec1a0c9654ac8151b6f36ed0154a19c53141384",
+      "source": "GitHub refs/heads/main, read 2026-11-03",
+      "test_entrypoint": "experimental/riscv/tests/test_rv_ref.py",
+      "status": "source_pin_verified_tests_pending"
+    },
+    {
+      "id": "weightspace_logs",
+      "repository": "https://github.com/RikiyaT/lm_understand-logs",
+      "commit": "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f",
+      "source": "GitHub refs/heads/main, read 2026-11-03",
+      "status": "source_pin_verified_edit_gpu_pending"
+    },
+    {
+      "id": "checkpoint_inventory",
+      "repository": "https://github.com/MoralityLabAI/Compactification-Theory",
+      "commit": "319ce426ddb30b16a07ff4e5dae31590b95e2206",
+      "path": "research/algernon/inventory/checkpoint_inventory.json",
+      "source": "user-produced local inventory now committed to main",
+      "status": "metadata_verified_weights_not_loaded_in_this_environment"
+    }
+  ],
+  "models": [
+    {
+      "id": "qwen35_08b",
+      "hf_repo": "Qwen/Qwen3.5-0.8B",
+      "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "status": "published_model_revision_unloaded"
+    },
+    {
+      "id": "qwenputer_rv32_4b",
+      "hf_repo": "divagr1925/Qwen3.5-4B-Qwenputer",
+      "revision": null,
+      "status": "reported_model_not_locally_loaded"
+    }
+  ],
+  "local_checkpoints": {
+    "source_directory": "LoopedTransformers experiments",
+    "git_revision": null,
+    "files": 77,
+    "distinct_byte_hashes": 59,
+    "redundant_aliases": 18,
+    "performance_receipts_verified": 0,
+    "status": "source_experiment_logs_and_checkpoint_bytes_not_accessible_in_current_container"
+  },
+  "constraints": {
+    "qwenputer_rv32_test_command": "cd experimental/riscv && uv sync --extra hf && uv run pytest tests/test_rv_ref.py -q",
+    "source_available_in_container": false,
+    "model_gpu_runs_executed": false
+  },
+  "note": "Version/commit pins are verified GitHub ref observations. Source-code and checkpoint SHA checks must be executed on the actual experiment host before model results are claimed."
+}
