@@ -1,0 +1,143 @@
+{
+  "schema_version": "0.1.0",
+  "project": "Algernon-01",
+  "title": "Neural-net processor: a learning computer",
+  "registered_date": "2026-11-03",
+  "status": "registered_unrun",
+  "run_count": 0,
+  "observed_results": [],
+  "sources": [
+    {
+      "name": "Qwenputer RV32",
+      "repo": "https://github.com/divagr18/qwenputer",
+      "revision": null,
+      "role": "compiled_exact_kernel",
+      "status": "external_unpinned"
+    },
+    {
+      "name": "Qwen3.5-0.8B",
+      "repo": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+      "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "role": "frozen_recurrent_substrate",
+      "status": "revision_identified_not_downloaded"
+    },
+    {
+      "name": "Weightspace edit",
+      "repo": "https://github.com/RikiyaT/lm_understand-logs",
+      "revision": "4d09ba6d6a7e891dd8063974dfe81b3d78e3494f",
+      "role": "published_sparse_repair",
+      "status": "external_published"
+    },
+    {
+      "name": "HybridTRMLDT",
+      "repo": "https://github.com/MoralityLabAI/HybridTRMLDT/pull/5",
+      "revision": null,
+      "role": "replication_and_old_recurrent_candidates",
+      "status": "draft_pr"
+    },
+    {
+      "name": "Compactification Theory",
+      "repo": "https://github.com/MoralityLabAI/Compactification-Theory",
+      "revision": null,
+      "role": "adapter_bits_rank_precision",
+      "status": "present_repo"
+    }
+  ],
+  "reference_models": [
+    {
+      "id": "qwen35_08b",
+      "model": "Qwen/Qwen3.5-0.8B",
+      "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "device_target": "RTX 5080, WSL2",
+      "precision": "bf16",
+      "claim": "published base, unverified here"
+    },
+    {
+      "id": "qwenputer_rv32_4b",
+      "model": "divagr1925/Qwen3.5-4B-Qwenputer",
+      "revision": null,
+      "device_target": "CPU reference first; GPU feasibility required",
+      "precision": "bf16 published",
+      "claim": "externally reported; no local execution"
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H-C",
+      "name": "Compiled circuit matches reference",
+      "status": "unrun",
+      "primary_metric": "exact_state_and_output_match",
+      "required_controls": [
+        "independent_reference",
+        "corrupt_instruction"
+      ],
+      "decision_gate": "freeze source and trace cases before benchmark"
+    },
+    {
+      "id": "H-R",
+      "name": "Recurrence supplies causal held-out gain",
+      "status": "unrun",
+      "primary_metric": "paired_group_accuracy_delta_with_compute",
+      "required_controls": [
+        "base",
+        "zero_gate",
+        "shuffled_state",
+        "constant_state",
+        "equal_parameter_feedforward",
+        "equal_token_cot"
+      ],
+      "decision_gate": "freeze split, trained bridge, K and selected site before final test"
+    },
+    {
+      "id": "H-W",
+      "name": "Sparse receiver repair helps a proven graft",
+      "status": "unrun",
+      "primary_metric": "paired_accuracy_gain_vs_matched_random",
+      "required_controls": [
+        "base",
+        "published_fixed_patch",
+        "matched_random_patch"
+      ],
+      "decision_gate": "reproduce original patch first and freeze edit budget"
+    },
+    {
+      "id": "H-J",
+      "name": "Compiled+learned processor exhibits joint benefit",
+      "status": "unrun",
+      "primary_metric": "joint_gain_vs_best_single_component",
+      "required_controls": [
+        "compiled_only",
+        "recurrent_only",
+        "joint",
+        "shuffled_state",
+        "host_tool_oracle"
+      ],
+      "decision_gate": "pass individual component gates first"
+    }
+  ],
+  "site_candidates_08b": [
+    8,
+    12,
+    15,
+    19,
+    21
+  ],
+  "recurrence_depths": [
+    0,
+    1,
+    2,
+    4,
+    8
+  ],
+  "seed_for_roster_proposal": 20261103,
+  "dataset_splits_frozen": false,
+  "source_shas_frozen": false,
+  "quantization_validated": false,
+  "equipment_constraints": {
+    "gpu": "RTX 5080",
+    "gpu_vram_gb": 16,
+    "qwenputer_4b_rv32_bf16_reported_checkpoint_gb": 18.7,
+    "qwenputer_4b_rv32_reported_host_merge_ram_gb": 31
+  },
+  "known_architecture_limitation": "Qwenputer RV32 construction expects two value heads per key head; Qwen3.5-0.8B reportedly exposes one, so 4B's compiled core is not a drop-in 0.8B graft."
+}

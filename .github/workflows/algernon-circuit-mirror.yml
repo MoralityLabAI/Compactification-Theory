@@ -1,0 +1,32 @@
+name: Algernon-02 circuit mirror
+on:
+  pull_request:
+    paths:
+      - 'research/algernon/circuit_mirror/**'
+      - '.github/workflows/algernon-circuit-mirror.yml'
+  push:
+    paths:
+      - 'research/algernon/circuit_mirror/**'
+      - '.github/workflows/algernon-circuit-mirror.yml'
+
+jobs:
+  exact-cpu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Unit tests (torch tests skip if torch absent)
+        run: python -m unittest discover -s research/algernon/circuit_mirror/tests -v
+      - name: Reproducible exact reference receipt
+        run: |
+          python -m research.algernon.circuit_mirror.run --out /tmp/algernon02
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          reference = json.loads(Path('research/algernon/circuit_mirror/results/cpu_reference_4x8.json').read_text())
+          observed = json.loads(Path('/tmp/algernon02/cpu_reference.json').read_text())
+          assert reference == observed, 'CPU exactness receipt changed'
+          print('Verified frozen exact reference receipt')
+          PY
