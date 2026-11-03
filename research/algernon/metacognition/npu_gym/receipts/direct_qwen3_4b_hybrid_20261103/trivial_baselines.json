@@ -1,0 +1,44 @@
+{
+ "simple_only": {
+  "llm": 0.7159,
+  "zeros": 0.5548,
+  "ones": 0.4452,
+  "echo_else0": 0.8877,
+  "echo_else_prior": 0.8892,
+  "llm_parsed_only": 0.7535,
+  "bayes_same_parsed": 0.8589,
+  "llm_minus_echo_prior_mean": -0.1733,
+  "ci95": [
+   -0.2691,
+   -0.0894
+  ]
+ },
+ "myopic_expand": {
+  "llm": 0.7229,
+  "zeros": 0.5548,
+  "ones": 0.4452,
+  "echo_else0": 0.8358,
+  "echo_else_prior": 0.844,
+  "llm_parsed_only": 0.7609,
+  "bayes_same_parsed": 0.8935,
+  "llm_minus_echo_prior_mean": -0.1211,
+  "ci95": [
+   -0.2182,
+   -0.0258
+  ]
+ },
+ "always_expand": {
+  "llm": 0.6372,
+  "zeros": 0.5548,
+  "ones": 0.4452,
+  "echo_else0": 0.7779,
+  "echo_else_prior": 0.7995,
+  "llm_parsed_only": 0.6535,
+  "bayes_same_parsed": 0.8762,
+  "llm_minus_echo_prior_mean": -0.1623,
+  "ci95": [
+   -0.2788,
+   -0.0579
+  ]
+ }
+}
