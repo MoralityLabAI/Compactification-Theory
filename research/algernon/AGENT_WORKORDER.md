@@ -1,5 +1,7 @@
 # Agent workorder: Algernon-01
 
+> **2026-11-03 supersession:** [PIVOT_EXTERNAL_BASELINES.md](PIVOT_EXTERNAL_BASELINES.md) is now the active execution order. Checkpoint inventory and legacy training-log recovery below are optional retrospective work, not exit conditions for Phase A/B. Begin with pinned Training-Free Looped Transformers on supported Qwen3, independently replicate a baseline, then investigate ReLIT/retrofitted recurrence. Preserve original tasks as an archival workorder.
+
 **Mission:** turn the research scaffold into a minimal, independently tested graft experiment. Work in this folder, preserve upstream code ownership, and leave machine-readable receipts for every measurement.
 
 ## Phase A: inventory and freeze (CPU; first PR)
