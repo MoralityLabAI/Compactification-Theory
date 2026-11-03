@@ -1,0 +1,44 @@
+{
+ "model": "Qwen3-4B-Hybrid",
+ "start_seed": 700000000,
+ "worlds": 40,
+ "tool": true,
+ "summary": {
+  "simple_only": {
+   "parsed": 1.0,
+   "llm_acc": 0.7081605004956598,
+   "bayes_acc": 0.8580832601471199,
+   "llm_utility": 0.6301805004956599,
+   "bayes_utility": 0.78010326014712,
+   "cost": 2.785,
+   "agree_with_bayes": 0.325,
+   "seconds": 3.7910978853702546,
+   "completion_tokens": 12.0,
+   "n": 40
+  },
+  "myopic_expand": {
+   "parsed": 1.0,
+   "llm_acc": 0.697571673118062,
+   "bayes_acc": 0.8865962004689759,
+   "llm_utility": 0.639576673118062,
+   "bayes_utility": 0.8286012004689759,
+   "cost": 2.07125,
+   "agree_with_bayes": 0.35,
+   "seconds": 3.7728011310100555,
+   "completion_tokens": 12.0,
+   "n": 40
+  },
+  "always_expand": {
+   "parsed": 1.0,
+   "llm_acc": 0.7256500833741553,
+   "bayes_acc": 0.8792686776048738,
+   "llm_utility": 0.6500500833741553,
+   "bayes_utility": 0.8036686776048736,
+   "cost": 2.7,
+   "agree_with_bayes": 0.225,
+   "seconds": 4.709035956859589,
+   "completion_tokens": 12.0,
+   "n": 40
+  }
+ }
+}
