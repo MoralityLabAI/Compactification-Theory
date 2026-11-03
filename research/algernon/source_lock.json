@@ -25,6 +25,13 @@
       "path": "research/algernon/inventory/checkpoint_inventory.json",
       "source": "user-produced local inventory now committed to main",
       "status": "metadata_verified_weights_not_loaded_in_this_environment"
+    },
+    {
+      "id": "lotus",
+      "repository": "https://github.com/yingfan-bot/lotus",
+      "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
+      "source": "GitHub latest visible commit, checked 2026-11-03",
+      "status": "source_pin_identified_model_reproduction_pending"
     }
   ],
   "models": [
@@ -39,6 +46,12 @@
       "hf_repo": "divagr1925/Qwen3.5-4B-Qwenputer",
       "revision": null,
       "status": "reported_model_not_locally_loaded"
+    },
+    {
+      "id": "lotus_llama32_3b",
+      "hf_repo": "yingfanbot/gsm-lotus-llama3b",
+      "revision": null,
+      "status": "published_model_revision_unresolved_unloaded"
     }
   ],
   "local_checkpoints": {
