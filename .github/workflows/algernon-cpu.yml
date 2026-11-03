@@ -1,0 +1,54 @@
+name: Algernon CPU provenance and exact-reference checks
+
+on:
+  pull_request:
+    paths:
+      - "research/algernon/**"
+      - ".github/workflows/algernon-cpu.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  algebraic-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Compile Python
+        run: python -m compileall -q research/algernon
+      - name: Check registered unrun hypotheses
+        run: python -m research.algernon.validate_register
+      - name: Run CPU unit tests
+        run: python -m unittest discover -s research/algernon/tests -v
+      - name: Audit 77 checkpoint metadata records
+        run: |
+          python -m research.algernon.inventory.audit_inventory \
+            --inventory research/algernon/inventory/checkpoint_inventory.json \
+            --out runs/algernon/checkpoint_audit.json
+      - name: Run 250-case exact-reference workload
+        run: python -m research.algernon.exact_kernel --output runs/algernon/cpu_reference.json
+      - name: Check immutable reference and inventory receipts
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          path = Path("runs/algernon/cpu_reference.json")
+          result = json.loads(path.read_text())
+          receipt = json.loads(Path("research/algernon/cpu_reference_receipt.json").read_text())
+          inventory = json.loads(Path("runs/algernon/checkpoint_audit.json").read_text())
+          assert result["n"] == receipt["cases"] == 250
+          assert result["reference_mismatches"] == receipt["reference_mismatches"] == 0
+          assert result["split_sha256"] == receipt["split_sha256"]
+          assert hashlib.sha256(path.read_bytes()).hexdigest() == receipt["record_file_sha256"]
+          assert (inventory["inventory_files"], inventory["distinct_checkpoints"],
+                  inventory["duplicate_aliases"], inventory["source_verified_graft_candidates"]) == (77, 59, 18, 0)
+          print("Algernon CPU reference and provenance receipts confirmed")
+          PY
