@@ -1,0 +1,30 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "Algernon LDT exact reachability microkernel",
+  "execution_class": "cpu_python_reference_only",
+  "source": "research/algernon/exact_kernel.py",
+  "command": "python -m research.algernon.exact_kernel --cases-per-family 50 --output runs/algernon/cpu_reference.json",
+  "date": "2026-11-03",
+  "python": "3.13.5",
+  "platform": "linux-x86_64",
+  "seed": 20261103,
+  "cases_per_family": 50,
+  "graph_families": [
+    "path",
+    "branch",
+    "cycle",
+    "random",
+    "disconnected"
+  ],
+  "cases": 250,
+  "reference_mismatches": 0,
+  "unit_tests_passed": 10,
+  "graph_fuzz_cases_in_tests": 1000,
+  "record_file_sha256": "2866a67f293fe859e8496612566d4a14d41969dc50641b93d10eda3ff2fd9482",
+  "split_sha256": {
+    "train": "ab141325eaaaa1cedb257c7ab49b4806718d4798db658662791ec93c66428c73",
+    "calibration": "01e1274d575af1b5812bf6b1f2a9b5449e822fe856e27fca017b9d3c7428c5d2",
+    "test": "fa0e093f5d892893d9b8f089a6b36d2361d73ee121878e0702a9292c7dc22030"
+  },
+  "notes": "Generated from CPU-only Python code. No in-weight circuit was executed; no model checkpoint was loaded."
+}
