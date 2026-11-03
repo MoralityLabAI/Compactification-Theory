@@ -1,32 +1,24 @@
-# Recovered Algernon CPU experiment files
+# Algernon H-M0/H-M1: recovered CPU experiment implementation
 
-The first two executable files were recovered from the chat sandbox ZIP and pushed **byte-for-byte** to this GitHub branch.
+This folder contains byte-identical imports of the original ChatGPT sandbox's runnable H-M0/H-M1 experimental implementation and the CPU toy contracts. Every imported file has been checked against the archived Git blob hash. See [RECOVERY_STATUS.md](RECOVERY_STATUS.md) for SHA identities, split/seed commands, and exact local setup.
 
-| File | Verified Git blob SHA |
-| --- | --- |
-| `experiments/toy_contracts.py` | `16a92153570e943c4b2e4287bcd7f8ab66c309bb` |
-| `experiments/tests/test_toy_contracts.py` | `21805955f4ab283cc0501d608081b177fba57192` |
+**Now available:** the H-M0 information-gain pruner, terminal-utility controller, cost-aware stopping control, H-M1 bounded grammar revision controller, and all five associated test modules. The optional historical timing benchmark script is still missing.
 
-These files implement the small software-only RV32 subset and a reversible recurrent-graft gate; this is *not* Qwenputer's complete RV32 circuit. The original archive contains additional experiments (H-M0 and H-M1), reports, checkpoints, and raw records which have **not yet been transferred** to GitHub. H-M2 has no retained reproducible artifacts.
+**Evidence boundary:** these are synthetic CPU experiments. The original raw JSONL records and PyTorch checkpoint binaries remain in the chat sandbox archive and are not yet in this GitHub branch. They can be regenerated from the preserved scripts and seed ranges; independent reproduction should record the new environment and hashes. H-M2 still lacks its original implementation and receipts, so previously reported H-M2 numbers are unverified.
 
-## Run on a checkout
+## Run tests
 
-From the Compactification-Theory repo root (requires `numpy` and CPU `torch`):
+From the Compactification-Theory checkout root, with `numpy` and CPU `torch` installed:
 
 ```bash
-PYTHONPATH=research/algernon/metacognition python -m unittest discover -s research/algernon/metacognition/experiments/tests -p test_toy_contracts.py -v
-PYTHONPATH=research/algernon/metacognition python research/algernon/metacognition/experiments/toy_contracts.py
+PYTHONPATH=research/algernon/metacognition python -m unittest discover -s research/algernon/metacognition/experiments/tests -v
 ```
 
-PowerShell:
+On PowerShell:
 
 ```powershell
 $env:PYTHONPATH = "research/algernon/metacognition"
-python -m unittest discover -s research/algernon/metacognition/experiments/tests -p test_toy_contracts.py -v
+python -m unittest discover -s research/algernon/metacognition/experiments/tests -v
 ```
 
-## Recovery status
-
-The only verified complete sandbox ZIP is still at the conversation's container path `/mnt/data/algernon_claude_handoff.zip`, SHA256 `88d8e23581f0445aca9ac7b7b9a9c7f8d7df34f00bbc5126fced84511053f7b4`. The linked private Hugging Face dataset is a proposed destination; no round-trip upload was confirmed.
-
-Next: recover the remaining 9 Python files, their manifests, checkpoints, records, and logs, preserving original hash identities.
+The original extracted source suite passes 27/27 unit tests in the sandbox. Rerun the GitHub copy independently before treating its results as a reproduced observation. Training commands are in RECOVERY_STATUS.md.
