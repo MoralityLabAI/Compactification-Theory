@@ -19,7 +19,7 @@
     "--out",
     "armA"
   ],
-  "attempts": 6,
+  "attempts": 8,
   "base": {
     "model_id": "openai-community/gpt2",
     "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
@@ -238,6 +238,78 @@
         "8": 1.0
       },
       "val_n": 64
+    },
+    {
+      "epoch": 11,
+      "seconds": 50.4,
+      "stage": 8,
+      "train_loss_mean": 0.008380807930994447,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 12,
+      "seconds": 173.5,
+      "stage": 8,
+      "train_loss_mean": 0.009723118128325344,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 13,
+      "seconds": 1294.5,
+      "stage": 8,
+      "train_loss_mean": 0.008534320021943551,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 14,
+      "seconds": 1383.6,
+      "stage": 8,
+      "train_loss_mean": 0.021736145717183648,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
     }
   ],
   "faults": [
@@ -283,6 +355,14 @@
     {
       "at": "2026-11-05T01:35:07+0800",
       "reason": "epoch 10 step 50: GPU power-capped at 15 W"
+    },
+    {
+      "at": "2026-11-05T02:14:12+0800",
+      "reason": "epoch 11 step 149: GPU power-capped at 15 W"
+    },
+    {
+      "at": "2026-11-05T02:36:28+0800",
+      "reason": "epoch 12 step 132: GPU power-capped at 15 W"
     }
   ],
   "phase": "lotus",
