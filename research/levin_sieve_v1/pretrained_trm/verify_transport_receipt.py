@@ -14,8 +14,10 @@ HERE=Path(__file__).resolve().parent
 
 
 def verify(rec,source,limits,complete=False):
-    if rec.get('schema') != 'LSV-16/ambient-to-gauge-certified-transport-v1':
+    if rec.get('schema') not in ('LSV-16/ambient-to-gauge-certified-transport-v1',
+                                'LSV-16/ambient-to-gauge-certified-transport-v2'):
         raise ValueError('bad receipt schema')
+    version2=rec['schema'].endswith('-v2')
     if (rec['checkpoint_sha256']!=source['checkpoint_sha256'] or
         rec['checkpoint_sha256']!=limits['checkpoint_sha256'] or
         rec['source_revision']!=source['revision'] or
@@ -55,6 +57,11 @@ def verify(rec,source,limits,complete=False):
             b=Q(report)
             if b<0:
                 raise ValueError('invalid negative radius')
+            if version2:
+                transport=Q(z['transport_component_upper'])
+                drift=Q(z['reference_anchor_drift_upper'])
+                if transport<0 or drift<0 or transport+drift!=b:
+                    raise ValueError('invalid archived-reference drift accounting')
             if Q(z['LSV15_winner_threshold'])!=good1 or Q(z['LSV15_top2_threshold'])!=good2:
                 raise ValueError('threshold substitution')
             w=b<good1; two=b<good2
