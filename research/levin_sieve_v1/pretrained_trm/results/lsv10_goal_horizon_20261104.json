@@ -1,0 +1,107 @@
+{
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "measurements": {
+    "adjacent_grad_cosine_quantiles": {
+      "max": 0.99423575,
+      "median": 0.86504771,
+      "min": 0.27875639,
+      "p10": 0.3522505,
+      "p90": 0.98377483
+    },
+    "final_pair_gap_quantiles": {
+      "max": 9.25171887,
+      "median": 7.43740567,
+      "min": 0.53000737,
+      "p10": 1.77860848,
+      "p90": 8.61604946
+    },
+    "goal": "top-two final-step digit margin for the first missing cell, competitors frozen before differentiation",
+    "gradient_norm_quantiles_by_depth": {
+      "0": {
+        "max": 1.74533651,
+        "median": 1.67528959,
+        "min": 1.34455326,
+        "p10": 1.61340575,
+        "p90": 1.70898955
+      },
+      "1": {
+        "max": 7.40130899,
+        "median": 3.78134931,
+        "min": 0.62295562,
+        "p10": 1.82916666,
+        "p90": 6.20957551
+      },
+      "2": {
+        "max": 9.39473537,
+        "median": 3.26226591,
+        "min": 0.16059033,
+        "p10": 0.92433834,
+        "p90": 6.41314582
+      },
+      "3": {
+        "max": 12.35710689,
+        "median": 2.90921712,
+        "min": 0.08465026,
+        "p10": 0.68907063,
+        "p90": 7.76921887
+      }
+    },
+    "identity_recurrence_tangent_rank": 1,
+    "local_spatial_support_token_count_quantiles_by_depth": {
+      "0": {
+        "max": 1,
+        "median": 1,
+        "min": 1,
+        "p10": 1,
+        "p90": 1
+      },
+      "1": {
+        "max": 45,
+        "median": 41,
+        "min": 27,
+        "p10": 33,
+        "p90": 43
+      },
+      "2": {
+        "max": 32,
+        "median": 22,
+        "min": 13,
+        "p10": 17,
+        "p90": 28
+      },
+      "3": {
+        "max": 37,
+        "median": 28,
+        "min": 16,
+        "p10": 21.6,
+        "p90": 33.7
+      }
+    },
+    "mean_rank": 4,
+    "n_hidden_coordinates": 3888,
+    "n_puzzles": 64,
+    "n_steps_from_stage1": 3,
+    "notes": "local tangent-space observational rank only, not a nonlinear finite-region invariant or a finite-radius proof",
+    "rank_relative_singular_value_tolerance": 0.001,
+    "selected_goal_class_correct": 60,
+    "smallest_to_largest_singular_value_ratio_quantiles": {
+      "max": 0.11851834,
+      "median": 0.06544428,
+      "min": 0.03010108,
+      "p10": 0.04644023,
+      "p90": 0.08575203
+    },
+    "tangent_history_rank_distribution": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 64
+    }
+  },
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "schema": "LSV-10/goal-horizon-tangent-v1",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "status": "observational_point_autograd_not_global_certificate",
+  "torch_version": "2.7.1+cpu"
+}
