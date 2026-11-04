@@ -28,7 +28,7 @@ from research.ingression_dynamics_v1.certificate_reachability import (
 )
 from research.ingression_dynamics_v1.recurrent_teacher_data import (
     dataset,dataset_summary,TRAIN_RATES,TEST_RATES,TRAIN_SEEDS,TEST_SEEDS,
-    TAU,ALPHA,BITS,encode_cell_tokens,audit_fixed_split
+    TAU,ALPHA,BITS,encode_cell_tokens,audit_fixed_split,teacher_record
 )
 from research.ingression_dynamics_v1.recurrent_probe_student import (
     train_students,predict_q,evaluate_student_on_teacher,
@@ -74,11 +74,10 @@ def rollout(policy,case_index,rates,seed,checkpoint,model):
             chosen=choose_probe(ledger,1,"bottleneck")
             fallback_calls+=1
         elif policy=="oracle_h2":
-            exact=optimal_certificate_reachability(ledger,1,TAU,horizon=2)
-            teacher_calls+=exact["decision_gap_evaluations"]
-            teacher_candidates+=exact["bellman_candidates"]
-            root=exact["root_action_values"]
-            qa=float(root[(0,0)]);qb=float(root[(1,0)])
+            exact=teacher_record(ledger)
+            teacher_calls+=exact["teacher_gap_calls"]
+            teacher_candidates+=exact["teacher_bellman_candidates"]
+            qa=float(exact["q"][0]);qb=float(exact["q"][1])
             if max(qa,qb)>=VALUE_THRESHOLD and abs(qa-qb)>DECISION_MARGIN:
                 chosen=(int(qb>qa),0)
                 learned_choices+=1
