@@ -25,3 +25,5 @@ jobs:
         run: python3 research/levin_sieve_v1/small_gain.py
       - name: Proof-coverage matrix grid
         run: python3 research/levin_sieve_v1/benchmark.py
+      - name: Verify learned repair checkpoint receipt
+        run: python3 research/levin_sieve_v1/benchmark_neural.py --check research/levin_sieve_v1/results/repair_two_node_20261104.json

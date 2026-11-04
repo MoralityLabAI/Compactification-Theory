@@ -1,0 +1,40 @@
+{
+  "class": "cpu_trained_two_node_nonlinear_recurrent_proxy",
+  "input": "forcing b=(I-A_ref)x_star for |x_star|<=9/10",
+  "limitations": "toy CPU-trained proxy; rational update evaluated exactly; not pretrained TRM, neural language model, or floating-point execution certificate",
+  "reported_training_loss": 0.03869546171941937,
+  "schema": "LSV-04/rational-checkpoint-v1",
+  "target_gains": [
+    [
+      "0",
+      "9/5"
+    ],
+    [
+      "1/5",
+      "0"
+    ]
+  ],
+  "training": {
+    "initial_damage_bound": "3/2",
+    "initial_parameterization": "a=2.2*sigmoid(theta[0]), b=0.4*sigmoid(theta[1])",
+    "intermediate_cycles": [
+      1,
+      2,
+      4,
+      8,
+      12
+    ],
+    "optimizer": "Adam lr=0.045, full batch; no test labels seen",
+    "python": "3.13.5",
+    "samples": 512,
+    "seed": 20261104,
+    "torch_version": "2.10.0+cpu",
+    "updates": 500
+  },
+  "update": "x_i <- forcing_i + weight_i*clip(x_j,-1,1), asynchronous order 0 then 1",
+  "weights": {
+    "a01": "1.7320",
+    "a10": "0.1845"
+  },
+  "weights_sha256": "4854b2eb8ebaf51464bee325181a7fd958c2b94b1a5566bcfa8fd027fbf23ca0"
+}

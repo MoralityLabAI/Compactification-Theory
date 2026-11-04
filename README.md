@@ -128,3 +128,5 @@ src/adapter_bits_templates.py    prompt-template comparison by feature spread
 src/config.py, src/qwen_suffix.py model pin, paths, model loading, layer runner
 results/<run>/                   raw records and reports of the runs described above
 ```
+
+**LSV-04 learned recurrent repair:** [frozen-weight mathematical certificate, held-out CPU experiment, and delayed-state controls](research/levin_sieve_v1/NEURAL_REPAIR.md).

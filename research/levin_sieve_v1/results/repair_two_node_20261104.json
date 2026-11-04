@@ -1,0 +1,352 @@
+{
+  "baselines": {
+    "damage": {
+      "goal_le_0p1": 2,
+      "goal_le_0p2": 2,
+      "mean_absolute_error": 0.759176,
+      "mean_squared_error": 0.742128,
+      "n": 128
+    },
+    "forcing": {
+      "goal_le_0p1": 4,
+      "goal_le_0p2": 16,
+      "mean_absolute_error": 0.456685,
+      "mean_squared_error": 0.450566,
+      "n": 128
+    },
+    "oracle": {
+      "goal_le_0p1": 128,
+      "goal_le_0p2": 128,
+      "mean_absolute_error": 0.0,
+      "mean_squared_error": 0.0,
+      "n": 128
+    }
+  },
+  "cases": 128,
+  "certificate": {
+    "certified_first_cycles_for_abs_goal": {
+      "0": 8,
+      "2": 16
+    },
+    "eta": [
+      "153/2500",
+      "279/20000"
+    ],
+    "initial_error_bound_weighted": "3/2",
+    "max_weight": "3",
+    "radius_weighted": "153/3170",
+    "rho": "433/750",
+    "trajectory_audits": 256,
+    "weights": [
+      "3",
+      "1"
+    ]
+  },
+  "contract": {
+    "damage_bounds": "[-3/2,3/2] per coordinate",
+    "exact_arithmetic": true,
+    "goal_tolerance_absolute": "1/5",
+    "oracle": "exact inversion of known task generator",
+    "same_computation_controls": "untrained; swapped; zero coupling at each depth",
+    "schedule": "0,1 repeated; stale mode reads 2 steps back",
+    "target_bounds": "[-9/10,9/10] per coordinate",
+    "trained_checkpoint_is_pretrained_TRM": false
+  },
+  "methods": {
+    "learned_fresh": {
+      "0": {
+        "goal_le_0p1": 2,
+        "goal_le_0p2": 2,
+        "mean_absolute_error": 0.759176,
+        "mean_squared_error": 0.742128,
+        "n": 128
+      },
+      "1": {
+        "goal_le_0p1": 3,
+        "goal_le_0p2": 12,
+        "mean_absolute_error": 0.570157,
+        "mean_squared_error": 0.735348,
+        "n": 128
+      },
+      "12": {
+        "goal_le_0p1": 121,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.030063,
+        "mean_squared_error": 0.001719,
+        "n": 128
+      },
+      "16": {
+        "goal_le_0p1": 121,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.030062,
+        "mean_squared_error": 0.001719,
+        "n": 128
+      },
+      "2": {
+        "goal_le_0p1": 40,
+        "goal_le_0p2": 74,
+        "mean_absolute_error": 0.124567,
+        "mean_squared_error": 0.036846,
+        "n": 128
+      },
+      "24": {
+        "goal_le_0p1": 121,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.030062,
+        "mean_squared_error": 0.001719,
+        "n": 128
+      },
+      "4": {
+        "goal_le_0p1": 115,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.033985,
+        "mean_squared_error": 0.002352,
+        "n": 128
+      },
+      "8": {
+        "goal_le_0p1": 121,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.030092,
+        "mean_squared_error": 0.001722,
+        "n": 128
+      }
+    },
+    "learned_stale_D2": {
+      "0": {
+        "goal_le_0p1": 2,
+        "goal_le_0p2": 2,
+        "mean_absolute_error": 0.759176,
+        "mean_squared_error": 0.742128,
+        "n": 128
+      },
+      "1": {
+        "goal_le_0p1": 2,
+        "goal_le_0p2": 10,
+        "mean_absolute_error": 0.565471,
+        "mean_squared_error": 0.733197,
+        "n": 128
+      },
+      "12": {
+        "goal_le_0p1": 120,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.031383,
+        "mean_squared_error": 0.001834,
+        "n": 128
+      },
+      "16": {
+        "goal_le_0p1": 121,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.03034,
+        "mean_squared_error": 0.001752,
+        "n": 128
+      },
+      "2": {
+        "goal_le_0p1": 3,
+        "goal_le_0p2": 12,
+        "mean_absolute_error": 0.570157,
+        "mean_squared_error": 0.735348,
+        "n": 128
+      },
+      "24": {
+        "goal_le_0p1": 121,
+        "goal_le_0p2": 128,
+        "mean_absolute_error": 0.030073,
+        "mean_squared_error": 0.001719,
+        "n": 128
+      },
+      "4": {
+        "goal_le_0p1": 38,
+        "goal_le_0p2": 74,
+        "mean_absolute_error": 0.123608,
+        "mean_squared_error": 0.036575,
+        "n": 128
+      },
+      "8": {
+        "goal_le_0p1": 92,
+        "goal_le_0p2": 120,
+        "mean_absolute_error": 0.050166,
+        "mean_squared_error": 0.005938,
+        "n": 128
+      }
+    },
+    "no_coupling_fresh": {
+      "0": {
+        "goal_le_0p1": 2,
+        "goal_le_0p2": 2,
+        "mean_absolute_error": 0.759176,
+        "mean_squared_error": 0.742128,
+        "n": 128
+      },
+      "1": {
+        "goal_le_0p1": 4,
+        "goal_le_0p2": 16,
+        "mean_absolute_error": 0.456685,
+        "mean_squared_error": 0.450566,
+        "n": 128
+      },
+      "12": {
+        "goal_le_0p1": 4,
+        "goal_le_0p2": 16,
+        "mean_absolute_error": 0.456685,
+        "mean_squared_error": 0.450566,
+        "n": 128
+      },
+      "16": {
+        "goal_le_0p1": 4,
+        "goal_le_0p2": 16,
+        "mean_absolute_error": 0.456685,
+        "mean_squared_error": 0.450566,
+        "n": 128
+      },
+      "2": {
+        "goal_le_0p1": 4,
+        "goal_le_0p2": 16,
+        "mean_absolute_error": 0.456685,
+        "mean_squared_error": 0.450566,
+        "n": 128
+      },
+      "24": {
+        "goal_le_0p1": 4,
+        "goal_le_0p2": 16,
+        "mean_absolute_error": 0.456685,
+        "mean_squared_error": 0.450566,
+        "n": 128
+      },
+      "4": {
+        "goal_le_0p1": 4,
+        "goal_le_0p2": 16,
+        "mean_absolute_error": 0.456685,
+        "mean_squared_error": 0.450566,
+        "n": 128
+      },
+      "8": {
+        "goal_le_0p1": 4,
+        "goal_le_0p2": 16,
+        "mean_absolute_error": 0.456685,
+        "mean_squared_error": 0.450566,
+        "n": 128
+      }
+    },
+    "swapped_fresh": {
+      "0": {
+        "goal_le_0p1": 2,
+        "goal_le_0p2": 2,
+        "mean_absolute_error": 0.759176,
+        "mean_squared_error": 0.742128,
+        "n": 128
+      },
+      "1": {
+        "goal_le_0p1": 0,
+        "goal_le_0p2": 1,
+        "mean_absolute_error": 0.932379,
+        "mean_squared_error": 1.1466,
+        "n": 128
+      },
+      "12": {
+        "goal_le_0p1": 0,
+        "goal_le_0p2": 3,
+        "mean_absolute_error": 1.083603,
+        "mean_squared_error": 1.474097,
+        "n": 128
+      },
+      "16": {
+        "goal_le_0p1": 0,
+        "goal_le_0p2": 3,
+        "mean_absolute_error": 1.083603,
+        "mean_squared_error": 1.474098,
+        "n": 128
+      },
+      "2": {
+        "goal_le_0p1": 1,
+        "goal_le_0p2": 3,
+        "mean_absolute_error": 1.058428,
+        "mean_squared_error": 1.422172,
+        "n": 128
+      },
+      "24": {
+        "goal_le_0p1": 0,
+        "goal_le_0p2": 3,
+        "mean_absolute_error": 1.083603,
+        "mean_squared_error": 1.474098,
+        "n": 128
+      },
+      "4": {
+        "goal_le_0p1": 0,
+        "goal_le_0p2": 3,
+        "mean_absolute_error": 1.08198,
+        "mean_squared_error": 1.471016,
+        "n": 128
+      },
+      "8": {
+        "goal_le_0p1": 0,
+        "goal_le_0p2": 3,
+        "mean_absolute_error": 1.083586,
+        "mean_squared_error": 1.474066,
+        "n": 128
+      }
+    },
+    "untrained_fresh": {
+      "0": {
+        "goal_le_0p1": 2,
+        "goal_le_0p2": 2,
+        "mean_absolute_error": 0.759176,
+        "mean_squared_error": 0.742128,
+        "n": 128
+      },
+      "1": {
+        "goal_le_0p1": 11,
+        "goal_le_0p2": 26,
+        "mean_absolute_error": 0.400535,
+        "mean_squared_error": 0.416654,
+        "n": 128
+      },
+      "12": {
+        "goal_le_0p1": 19,
+        "goal_le_0p2": 33,
+        "mean_absolute_error": 0.216939,
+        "mean_squared_error": 0.096365,
+        "n": 128
+      },
+      "16": {
+        "goal_le_0p1": 19,
+        "goal_le_0p2": 33,
+        "mean_absolute_error": 0.216939,
+        "mean_squared_error": 0.096365,
+        "n": 128
+      },
+      "2": {
+        "goal_le_0p1": 13,
+        "goal_le_0p2": 29,
+        "mean_absolute_error": 0.219335,
+        "mean_squared_error": 0.099088,
+        "n": 128
+      },
+      "24": {
+        "goal_le_0p1": 19,
+        "goal_le_0p2": 33,
+        "mean_absolute_error": 0.216939,
+        "mean_squared_error": 0.096365,
+        "n": 128
+      },
+      "4": {
+        "goal_le_0p1": 19,
+        "goal_le_0p2": 33,
+        "mean_absolute_error": 0.216982,
+        "mean_squared_error": 0.096347,
+        "n": 128
+      },
+      "8": {
+        "goal_le_0p1": 19,
+        "goal_le_0p2": 33,
+        "mean_absolute_error": 0.216939,
+        "mean_squared_error": 0.096365,
+        "n": 128
+      }
+    }
+  },
+  "roster_sha256": "43553bcc4ac713a42384660a1596c1892dd0d8bbd31cfa3e8183c43f1deca501",
+  "schema": "LSV-04/exploratory-benchmark-v1",
+  "seed": 20268207,
+  "source": "cpu_exact_rational_evaluation_of_torch_trained_quantized_checkpoint",
+  "weights_sha256": "4854b2eb8ebaf51464bee325181a7fd958c2b94b1a5566bcfa8fd027fbf23ca0"
+}
