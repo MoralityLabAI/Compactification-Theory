@@ -10,3 +10,7 @@ The frozen checkpoint and numerical bounds were selected before running the exte
 - Exact mathematical claims must depend on globally valid derivatives/bounds and frozen weights, and be clearly separated from observation-derived metrics. An oversized bound is a failed practical certification gate.
 - CPU runtime is recorded only as a contextual measurement. It depends heavily on runner hardware and is not compared as a controlled latency benchmark.
 - Report any source-hash validation failures, numerical errors, invalid Sudoku outputs, run failure, or missing external weights. Checkpoint source remains upstream and is not copied into this repository.
+
+## 2026-11-04 analysis extension LSV-06
+
+After the first pinned LSV-05 execution, the observed latent-state errors motivated an additional **post-hoc** output-margin analysis. LSV-06 uses the frozen same model, roster and noise seeds; it introduces no new test cases or tuned threshold. For each of the six prerecorded perturbation streams, calculate exact rational clean logits, the affine decoder's maximum competing-row difference norm, and the observed per-cell final-state infinity-norm discrepancy. Report the fraction of cells certified to retain their clean argmax for every state within that discrepancy bound. Explicitly mark it as a post-hoc certificate of the readout over a measured radius, not a pre-execution recurrent damage guarantee. Preserve the original LSV-05 receipt and SHA pin.

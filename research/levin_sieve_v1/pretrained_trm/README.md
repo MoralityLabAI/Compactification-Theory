@@ -45,3 +45,7 @@ This analytic envelope is intentionally conservative. A large bound means the gl
 ## Evidence and limitations
 
 A successful CPU benchmark verifies the checkpoint's model and its behavior on this frozen roster. It does not establish globally convergent neural dynamics, performance on the original 7M TRM, faithful replication of upstream model accuracy, or numerical guarantees for arbitrary PyTorch backends. The Sudoku generator uses an extremely structured grid family; the independent test seed blocks prevent direct train/test seed reuse, while the broader source distribution remains similar.
+
+## First checkpoint run and goal-aware follow-up
+
+The [first checkpoint evaluation](RESULTS.md) passed CI on the frozen 64-puzzle roster: 20/64 clean exact solutions at four steps; 20/64 after BF16 weight storage conversion. The observed hidden-state discrepancy **grew** after most injected perturbations. This exposes a useful mismatch between latent-state contraction and preserving the task answer. [LSV-06](MARGIN_CERTIFICATE.md) adds an exact-rational, post-hoc readout-margin certificate for the task-level output under the measured final hidden-error envelope, while preserving the distinction from a predictive end-to-end recovery theorem.

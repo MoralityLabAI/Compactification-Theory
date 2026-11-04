@@ -9,6 +9,7 @@ from sudoku_generator import generate_puzzle, is_valid_solution
 from certify import (certified_bounds, infinity_tensor, row_sum_norm,
                      row_delta_norm, layernorm_envelope, block_norm_and_storage_delta)
 from run_checkpoint import blob_sha1, locked_bytes, load_pretrained, prepare_roster, evaluate
+from goal_margin import certify_paired_hidden_states, exact_head_label_and_margin, head_geometry
 
 HERE=Path(__file__).resolve().parent
 
@@ -80,7 +81,7 @@ class TestPretrainedTRM(unittest.TestCase):
     def test_weight_storage_roundoff_bound_on_random_architecture(self):
         m=TinyRecursiveModel().eval()
         cert=certified_bounds(m)
-        self.assertTrue(cert['strict_numerical_certificate'])
+        self.assertTrue(cert['global_storage_bound_constructed'])
         self.assertEqual(cert['max_block_gain_linf']['log10_upper_bound_integer']>0,True)
         self.assertFalse(cert['block_gain_strict_contraction'])
         self.assertIn('not runtime roundoff',cert['formal_scope'])
@@ -107,6 +108,7 @@ class TestPretrainedTRM(unittest.TestCase):
         self.assertEqual(q['quantized_storage']['n'],2)
         self.assertGreater(q['damage'][0]['observed_hidden_linf_after_steps'][0],0)
         self.assertIn('read_stage1_instead_of_stage2_once',q['stale_full_state'])
+        self.assertGreaterEqual(q['damage'][0]['posthoc_head_margin']['certified_fraction'],0)
 
     def test_no_hidden_target_used_during_recurrence(self):
         m=TinyRecursiveModel().eval()
@@ -116,6 +118,32 @@ class TestPretrainedTRM(unittest.TestCase):
         for step in (2,3,4):
             z=m.block(z)
             self.assertTrue(torch.equal(z,states[step]))
+
+    def test_exact_rational_head_margin_soundness(self):
+        torch.manual_seed(120)
+        m=TinyRecursiveModel().eval()
+        a=torch.randn(1,81,48)
+        clean=certify_paired_hidden_states(m,a,a)
+        self.assertEqual(clean['certified_unchanged_cells'],81)
+        b=a+torch.randn_like(a)*Q(1,20).__float__()
+        rec=certify_paired_hidden_states(m,a,b)
+        self.assertLessEqual(rec['certified_unchanged_cells'],rec['observed_exact_affine_same_label_cells'])
+        self.assertEqual(rec['n_cells'],81)
+
+    def test_head_margin_rejects_malformed_shapes(self):
+        m=TinyRecursiveModel()
+        with self.assertRaises(ValueError):
+            certify_paired_hidden_states(m,torch.zeros(2,48),torch.zeros(2,48))
+
+    def test_exact_head_margin_agrees_with_torch_on_random_values(self):
+        torch.manual_seed(5)
+        m=TinyRecursiveModel().eval()
+        z=torch.randn(48)
+        label,margin,lipschitz=exact_head_label_and_margin(z.tolist(),head_geometry(m))
+        with torch.no_grad(): pred=int(m.head(z).argmax())
+        self.assertEqual(pred,label)
+        self.assertGreater(margin,0)
+        self.assertGreater(lipschitz,0)
 
 
 if __name__=='__main__':unittest.main()

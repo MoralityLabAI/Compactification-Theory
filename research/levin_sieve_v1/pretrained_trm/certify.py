@@ -119,6 +119,8 @@ def certified_bounds(model):
       'final_hidden_error_linf_upper':fraction_description(e),
       'embeddings_storage_error_linf_upper':fraction_description(e0),
       'global_block_storage_error_linf_upper':fraction_description(storage_delta),
-      'strict_numerical_certificate':True,
+      'global_storage_bound_constructed':True,
+      'strict_recovery_contraction_proved':lip < 1,
+      'operationally_useful_BF16_bound':head_error < Q(1),
       'constants':{'GELU_derivative_bound':'5/4','LN_max_normalized_coordinate':'7','LN_input_linf_L_bound':'2853 * max_abs_ln_gamma','LN_eps':'1e-5'},
     }

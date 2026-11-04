@@ -13,6 +13,7 @@ sys.path.insert(0,str(HERE))
 from upstream_arch import TinyRecursiveModel
 from sudoku_generator import generate_puzzle, is_valid_solution
 from certify import certified_bounds
+from goal_margin import certify_paired_hidden_states
 
 
 def blob_sha1(data:bytes)->str:
@@ -121,6 +122,7 @@ def evaluate(model, inputs, targets, holes, lock):
                     z=model.block(z)
                     errors.append(float((z-states[k]).abs().amax().item()))
                 rec=summarize(model.head(z),targets,holes)
+                rec['posthoc_head_margin']=certify_paired_hidden_states(model, states[-1], z)
                 rec.update({'seed':seed,'damage_linf_limit':amp_string,
                     'observed_hidden_linf_after_steps':[round(v,8) for v in errors],
                     'final_output_cell_flip_fraction':round((model.head(z).argmax(-1)!=clean.argmax(-1)).float().mean().item(),8)})
