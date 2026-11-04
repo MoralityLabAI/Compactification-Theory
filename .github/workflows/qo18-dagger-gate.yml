@@ -1,0 +1,53 @@
+name: QO-18 DAgger occupancy selective-gate audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/qo18_frozen_contract.py'
+      - 'research/ingression_dynamics_v1/qo18_dagger_data.py'
+      - 'research/ingression_dynamics_v1/qo18_gate_calibration.py'
+      - 'research/ingression_dynamics_v1/qo18_dagger_pilot.py'
+      - 'research/ingression_dynamics_v1/test_qo18_dagger.py'
+      - 'research/ingression_dynamics_v1/QO18_DAGGER_SELECTIVE_PROTOCOL.md'
+      - 'research/ingression_dynamics_v1/QO18_DAGGER_SELECTIVE_RESULTS.md'
+      - 'scripts/verify_qo18_dagger.py'
+      - 'results/qo18_dagger/**'
+      - '.github/workflows/qo18-dagger-gate.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/qo18_frozen_contract.py'
+      - 'research/ingression_dynamics_v1/qo18_dagger_data.py'
+      - 'research/ingression_dynamics_v1/qo18_gate_calibration.py'
+      - 'research/ingression_dynamics_v1/qo18_dagger_pilot.py'
+      - 'research/ingression_dynamics_v1/test_qo18_dagger.py'
+      - 'research/ingression_dynamics_v1/QO18_DAGGER_SELECTIVE_PROTOCOL.md'
+      - 'research/ingression_dynamics_v1/QO18_DAGGER_SELECTIVE_RESULTS.md'
+      - 'scripts/verify_qo18_dagger.py'
+      - 'results/qo18_dagger/**'
+      - '.github/workflows/qo18-dagger-gate.yml'
+  workflow_dispatch:
+jobs:
+  retrain-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: QO-18 independently frozen rates, DAgger state lineage, gate and fallback integrity
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_qo18_dagger.py' -v
+      - name: Original QO-14 and QO-17 recurrent BPTT finite-difference checks
+        run: |
+          python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_certificate_student.py' -v
+          python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_qo17_occupancy.py' -v
+      - name: Unchanged QO-12 exact teacher and QO-07 confidence replay
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_gap_student.py' -v
+      - name: Source-bound full training and independent 160-query evaluation
+        run: |
+          if [ -f results/qo18_dagger/receipt.json ]; then
+            PYTHONPATH=. python scripts/verify_qo18_dagger.py --check
+          else
+            PYTHONPATH=. python scripts/verify_qo18_dagger.py --emit
+          fi
