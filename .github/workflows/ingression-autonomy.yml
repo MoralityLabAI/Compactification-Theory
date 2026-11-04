@@ -7,6 +7,8 @@ on:
     paths:
       - 'research/ingression_dynamics_v1/**'
       - '.github/workflows/ingression-autonomy.yml'
+      - 'scripts/verify_goal_aware_partition.py'
+      - 'results/goal_aware_quotient/**'
   pull_request:
     paths:
       - 'research/ingression_dynamics_v1/**'
@@ -21,5 +23,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Original IDQ-01 and new IDQ-02 finite rational audits
+      - name: IDQ-01–03 and QO-01 exact finite rational audits
         run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_*.py' -v
+      - name: Verify QO-01 source-bound rational receipt
+        run: python scripts/verify_goal_aware_partition.py --check
