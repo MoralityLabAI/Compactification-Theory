@@ -52,3 +52,29 @@ The frozen roster, exact input prompt, train/test boundaries and controls are in
 - The registered A2a probe scores 0.229 at step 16, below its own constant-stage control (0.250).
 
 Full receipts and the smallest next intervention are in [lotus_bridge/results/algernon-02b/report.md](lotus_bridge/results/algernon-02b/report.md). The one protocol change made after registration was operational: the job became resumable across power-cap restarts. Resumed captures were checked bitwise against same-process repeats and across restarts.
+
+## H-A2c: LOTUS's own recipe on the pointer task, loop-to-step tying (registered 2026-11-05, before any training)
+
+**Question.** With the pointer task in distribution and LOTUS's own training method, does the latent loop learn a transition that a frozen decoder reads as `pi(F(h)) = T(pi(h))` and that keeps working past the trained depth? Does supervising step k at loop k (rather than after the final loop, as published) decide it?
+
+**Why GPT-2.** It is upstream's smallest LOTUS recipe (`args/gsm8k_cot_gpt2.yaml`, `args/gsm8k_lotus_gpt2.yaml`). The 1B LoRA route named in the 02B report needs peft, and its looped backward pass does not fit the 5-minute windows the power-capped card allows. Base `openai-community/gpt2` @ `607a30d783dfa663caf39e06633721c8d4cfcd7e`, fp32 as upstream, LOTUS source `eb77e2f`. Training reuses upstream's `Lotus` class, `get_dataset`, `get_cot_latent_dataset`, `MyCollator` and single-GPU loss unchanged; only the loop around them (single GPU, step checkpoints, power-cap pause) is new (`lotus_bridge/train_lotus.py`).
+
+**Data** (`lotus_bridge/pointer_cot.py`). 20,000 train and 512 validation cases from the `random_function` generator (n = 6, generator seed 20261105), depth k uniform in 1..8. Every (map, start) pair in `frozen_roster_6x16.json` and `frozen_counterfactual_6x16.json` is excluded, and train and validation are disjoint. Question: `roster.prompt_for` without its final newline, so upstream's tokenization equals the 02B capture input exactly. Steps: `<<s->t>>`, 6 GPT-2 tokens with the newline. Answer: the final state.
+
+**Stage 1 (explicit CoT).** Upstream CoT objective; lr 1e-4, weight decay 0.01, batch 128, seed 0, 8 epochs. If validation answer accuracy at depths 1-8 is below 0.95, continue to at most 20 epochs. Report the epoch used.
+
+**Stage 2 (LOTUS curriculum)** from the stage-1 weights. c_thought 6, max_latent_stage 8, epochs_per_stage 1, 16 epochs (stages 0..8, then stage 8). intermediate_loss_weight 0.05, lr 1e-4, weight decay 0.01, batch 128, gradient clip 1.0, no optimizer reset, seed 0. Two arms, identical except one flag:
+- **A (published):** `intermediate_loss_after_loop: True`, so block b is supervised with step b from the final loop's logits.
+- **B (loop-tied):** `intermediate_loss_after_loop: False`, so block k-1 is supervised with step k at loop k. This is the 02B `diagonal` view.
+The commuting-penalty arm is not run in this pass.
+
+**Training validity.** An arm counts only if its validation answer accuracy at depths 1-8, with its trained 8 latent blocks and 8 loops, is at least 0.90. Otherwise it is reported as `training_failed`.
+
+**Evaluation**, the same for the stage-1 model and each arm:
+1. **Behavioural depth curve** on the frozen roster's calibration and held-out cases. For d = 1..16, ask for d steps and score the state at trace[d]. Each latent model runs L = max(8, d) blocks and loops. The CoT model generates freely, up to 160 tokens.
+2. **The 02B instrument, unchanged:** capture on the full frozen roster and counterfactual at 16 loops, with c_thought 6 and the same parity, repeat and drift checks; then `analysis.py` with the same views, decoder search, controls and Phase 4 gate. GSM8K reproduction is replaced by the validation check above.
+
+**Decision rules.**
+- *Loop-step tying matters* if arm B's held-out behavioural accuracy over d = 9..16 exceeds arm A's by at least 0.10, with a case-bootstrap 95% interval above 0.
+- *Reusable transition* for an arm if it passes the 02B gate (`recurrence_specific_state`) and its held-out behavioural accuracy over d = 9..16 beats the best trivial baseline from the 02B table on `long_cycle`, with an interval above 0.
+- Everything else is reported as measured. Each decision is made once, on these frozen sets. No arm is rerun with changed settings and reported as the same arm.
