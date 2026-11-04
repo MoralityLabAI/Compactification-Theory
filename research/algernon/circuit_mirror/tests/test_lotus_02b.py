@@ -96,14 +96,47 @@ class Gsm8kPlumbingTests(unittest.TestCase):
             (up / "scripts" / "eval.py").write_text(STUB_EVAL)
             run = Path(d) / "run"
             run.mkdir()
-            args = types.SimpleNamespace(upstream=up, seed=5, gsm8k_n=9, device="cpu")
+            args = types.SimpleNamespace(upstream=up, seed=5, gsm8k_n=9, device="cpu", hf_revision="r1",
+                                         checkpoint_files_sha256={"model.safetensors": "aa"})
             rec = gsm8k_repro(args, Path(d) / "snapshot", run)
             sample = json.loads((run / "gsm8k_sample.json").read_text())
             self.assertEqual([s["idx"] for s in sample], sorted(s["idx"] for s in sample))
             self.assertEqual((rec["n"], rec["scored_rows"]), (9, 9))
             self.assertEqual(rec["correct"], sum(int(s["answer"]) % 2 == 0 for s in sample))
             self.assertEqual(len(rec["upstream_peak_memory_line"]), 1)
-            self.assertEqual(rec, gsm8k_repro(args, Path(d) / "snapshot", run) | {"seconds": rec["seconds"]})
+            # A restart reuses the receipt; a changed revision or predictions file reruns eval.py.
+            self.assertEqual(gsm8k_repro(args, Path(d) / "snapshot", run), rec | {"reused_from_earlier_attempt": True})
+            args.hf_revision = "r2"
+            self.assertEqual(gsm8k_repro(args, Path(d) / "snapshot", run) | {"seconds": rec["seconds"]}, rec)
+            (run / "gsm8k_preds.json").write_text("{}")
+            self.assertNotIn("reused_from_earlier_attempt", gsm8k_repro(args, Path(d) / "snapshot", run))
+
+
+@unittest.skipIf(np is None, "optional numpy unavailable")
+class ResumePartsTests(unittest.TestCase):
+    def test_part_is_reused_only_under_its_key_and_hash(self):
+        import tempfile
+        from research.algernon.circuit_mirror.lotus_bridge.gpu_run import Parts
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d) / "parts"
+            arrays = {"blocks": np.random.default_rng(0).standard_normal((3, 2, 2, 4)).astype(np.float32),
+                      "readout": np.arange(6, dtype=np.int32)}
+            Parts(root, {"rev": 1}).save("full", "test/sink/0", {"input_sha256": "ab"}, arrays)
+            value, got = Parts(root, {"rev": 1}).load("full", "test/sink/0")
+            self.assertEqual(value, {"input_sha256": "ab"})
+            for k, v in arrays.items():
+                self.assertEqual(got[k].dtype, v.dtype)
+                self.assertTrue(np.array_equal(got[k], v))
+            self.assertIsNone(Parts(root, {"rev": 2}).load("full", "test/sink/0"))
+            self.assertIsNone(Parts(root, {"rev": 1}).load("full", "test/sink/1"))
+            self.assertIsNone(Parts(root, {"rev": 1}).load("cf", "test/sink/0"))
+            self.assertIsNone(Parts(None, {"rev": 1}).load("full", "test/sink/0"))
+            Parts(root, {"rev": 1}).save("behaviour_loops6", "test/sink/0", {"answer": "3"})
+            self.assertEqual(Parts(root, {"rev": 1}).load("behaviour_loops6", "test/sink/0"), ({"answer": "3"}, None))
+            self.assertEqual(sorted(p.name for p in (root / "full").iterdir()), ["test_sink_0.json", "test_sink_0.npz"])
+            npz = root / "full" / "test_sink_0.npz"
+            npz.write_bytes(npz.read_bytes()[:-8])
+            self.assertIsNone(Parts(root, {"rev": 1}).load("full", "test/sink/0"))
 
 
 @unittest.skipIf(torch is None, "optional torch/numpy unavailable")
