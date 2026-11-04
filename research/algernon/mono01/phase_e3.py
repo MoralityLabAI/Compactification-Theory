@@ -136,7 +136,22 @@ def generate(model, tok, items, out_file, max_new, bs, seed, keep_ids=False):
         am = torch.tensor([[0] * (L - len(e)) + [1] * len(e) for e in enc], device=0)
         torch.manual_seed(seed + b)
         t0 = time.time()
-        out = model.generate(input_ids=x, attention_mask=am, max_new_tokens=max_new, pad_token_id=pad, **SAMPLING)
+
+        def run(ix, depth=0):
+            """Generate for rows ix of this chunk; on CUDA OOM split the rows in half and retry (rows are independent)."""
+            try:
+                return model.generate(input_ids=x[ix], attention_mask=am[ix], max_new_tokens=max_new, pad_token_id=pad, **SAMPLING)
+            except (torch.cuda.OutOfMemoryError, RuntimeError) as e:
+                if "out of memory" not in str(e).lower() or len(ix) == 1:
+                    raise
+                print(f"  OOM at batch {len(ix)}: splitting", flush=True)
+                torch.cuda.empty_cache()
+                h = len(ix) // 2
+                a_, b_ = run(ix[:h], depth + 1), run(ix[h:], depth + 1)
+                W = max(a_.shape[1], b_.shape[1])
+                padf = lambda t: torch.nn.functional.pad(t, (0, W - t.shape[1]), value=pad)
+                return torch.cat([padf(a_), padf(b_)])
+        out = run(torch.arange(len(chunk), device=0))
         with open(out_file, "a", encoding="utf-8") as f:
             for it, e, row in zip(chunk, enc, out[:, L:].tolist()):
                 fin = eos in row
