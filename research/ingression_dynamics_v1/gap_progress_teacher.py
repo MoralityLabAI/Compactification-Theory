@@ -59,14 +59,6 @@ def gap_action_values(ledger):
         raise ValueError("QO-16 first prototype requires two addressable cells")
     start=planning_state(ledger)
     current=gap_bounds(start[0],1)[2]
-    decision=certification_status(start[0],1,TOLERANCE)[0]
-    if decision!="undetermined":
-        return (F(0),F(0)), {
-            "current_gap":str(current),"gap_evaluations":1,
-            "candidate_action_evaluations":0,
-            "invalid_branches":0,"unavailable_first_actions":2,
-            "already_certified":True,
-        }
     leaves={}
     count=1
     invalid=0
