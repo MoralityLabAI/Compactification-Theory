@@ -229,7 +229,7 @@ def main():
                                                         "lr", "weight_decay", "batch", "micro_batch", "tf32",
                                                         "cuda_fraction", "clip", "seed")},
                 "epochs_done": old.get("epochs_done", []), "attempts": old.get("attempts", 0) + 1,
-                "pauses": old.get("pauses", [])}
+                "pauses": old.get("pauses", []), "faults": old.get("faults", [])}
 
     def write(status=None):
         if status:
@@ -358,6 +358,23 @@ def main():
         manifest["pauses"].append({"at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "reason": str(e)})
         write("paused_power_cap")
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
+        sys.exit(PAUSE_EXIT)
+    except RuntimeError as e:
+        # 2026-11-04 23:20, arm A, stage 6: a raw "CUDA error: out of memory" in backward with 6.2 GB
+        # allocated, under the 9.6 GB cap, and nothing else on the card afterwards. Treated as a blocker
+        # outside the job: no save (the state may be torn), exit 75, and vramorama resumes from the last
+        # periodic checkpoint. A fault that recurs at the same place shows in "faults".
+        if "out of memory" not in str(e):
+            raise
+        try:
+            free, total = torch.cuda.mem_get_info()
+        except Exception:
+            free = total = None
+        manifest.setdefault("faults", []).append({"at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "epoch": epoch,
+                                                  "step": cur_step, "error": str(e).splitlines()[0],
+                                                  "cuda_free_bytes": free, "cuda_total_bytes": total})
+        write("paused_cuda_oom")
+        log(f"PAUSE: {str(e).splitlines()[0]} at epoch {epoch} step {cur_step}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
 
 
