@@ -67,3 +67,8 @@ The [LSV-10 theorem and protocol](GOAL_HORIZON.md) derive the smallest **linear*
 ## LSV-11: smooth compactification obstruction
 
 The [chain-rule obstruction theorem](TANGENT_OBSTRUCTION.md) states that an exact differentiable goal-history factorization through a `d`-dimensional macrostate must have a goal-history Jacobian of rank at most `d`. It gives mathematical meaning to the LSV-10 numerical rank profile: the reported `64/64` rank-four tangent matrices suggest that a smooth exact 1–3-coordinate statistic is insufficient for this four-stage goal history, subject to a numerical error certificate for the singular values. [Exact symbolic and SVD-control tests](test_tangent_obstruction.py) guard this distinction. The next numerical task is an error-validated lower bound on the smallest singular value at pinned checkpoint inputs.
+
+
+## LSV-12: sparse witnesses for a future rigorous rank certificate
+
+The [sparse rank-witness note](SPARSE_RANK_WITNESS.md) reduces the obligation for proving a four-row goal-history Jacobian full rank to checking **16 selected derivative entries** in a single `4x4` minor. The [greedy selector](sparse_minor.py) identifies promising columns from exploratory FP64 gradients, and the [pretrained runner](run_minor_witness.py) calculates how small the maximum independently verified entry error would need to be; [tests](test_sparse_minor.py) cover the bound with exact rational determinant witnesses. The measured minors remain **uncertified** until an independent high-precision/interval audit validates those derivative entries.

@@ -1,0 +1,37 @@
+name: LSV-12 sparse goal-rank minor audit
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/**'
+      - '.github/workflows/levin-sparse-rank.yml'
+  pull_request:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/**'
+      - '.github/workflows/levin-sparse-rank.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu-sparse-minor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: All mathematical and checkpoint-interface tests
+        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_*.py' -v
+      - name: Frozen pretrained sparse-minor diagnostic
+        run: |
+          mkdir -p runs/lsv12
+          python research/levin_sieve_v1/pretrained_trm/run_minor_witness.py --fetch --out runs/lsv12/minors.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lsv12-point-jacobian-sparse-minors-uncertified
+          path: runs/lsv12/minors.json
+          if-no-files-found: ignore
+          retention-days: 30
