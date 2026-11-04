@@ -1,0 +1,6011 @@
+{
+  "alpha": "1/20",
+  "bisection_bits": 10,
+  "checkpoints": [
+    24,
+    64,
+    128
+  ],
+  "contract": "QO-08 paired fixed-budget synthetic Bernoulli stream experiment",
+  "groups": [
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "749/768",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "9101/18432",
+      "mean_true_frozen_error": "24091/61440",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 6
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "489/512",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "35671/73728",
+      "mean_true_frozen_error": "70273/184320",
+      "n": 6,
+      "policy": "width",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 6
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "8861/9216",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "139/288",
+      "mean_true_frozen_error": "140801/368640",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "100829/122880",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "34639/81920",
+      "mean_true_frozen_error": "16943/53760",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "870281/1182720",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "82757/215040",
+      "mean_true_frozen_error": "4371811/15482880",
+      "n": 6,
+      "policy": "width",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "137347/184320",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "22819/60480",
+      "mean_true_frozen_error": "4287097/15482880",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 6
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 1,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "2839163/4193280",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "97875829/268369920",
+      "mean_true_frozen_error": "7956119/32440320",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 5
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 6,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "34687488643/62373003264",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "50482805761/164085841920",
+      "mean_true_frozen_error": "2073609749/10217799680",
+      "n": 6,
+      "policy": "width",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 0
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 6,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "1208831/2064384",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "8",
+      "mean_robust_upper": "29080021/97976320",
+      "mean_true_frozen_error": "741381/3768320",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "two_cluster_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/20",
+      "undetermined": 0
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "5777/6144",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 6
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "3379/3840",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "width",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 6
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "4549/4608",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "1782757/2211840",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "304116589/464375808",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "width",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 2,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "4549/4608",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 4
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 0,
+      "certified_infeasible": 6,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "15405923/24514560",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 0
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "58543630127/119729111040",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "width",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 6
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 0,
+      "certified_infeasible": 6,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "4549/4608",
+      "mean_partition_regret": "0",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1/2",
+      "mean_true_frozen_error": "1/2",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "separated_infeasible",
+      "true_feasible": false,
+      "true_optimum": "1/2",
+      "undetermined": 0
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "2909/3072",
+      "mean_partition_regret": "7/240",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "35935/73728",
+      "mean_true_frozen_error": "81781/737280",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "85831/92160",
+      "mean_partition_regret": "1/30",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "2773/5760",
+      "mean_true_frozen_error": "18763/184320",
+      "n": 6,
+      "policy": "width",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 24,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "17441/18432",
+      "mean_partition_regret": "7/240",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "61553/129024",
+      "mean_true_frozen_error": "5189/46080",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "2435107/3041280",
+      "mean_partition_regret": "1/48",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "20815111/48660480",
+      "mean_true_frozen_error": "42565/294912",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "54947/73728",
+      "mean_partition_regret": "1/48",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "258330071/632586240",
+      "mean_true_frozen_error": "1165523/7454720",
+      "n": 6,
+      "policy": "width",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 64,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "225527/276480",
+      "mean_partition_regret": "1/30",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "1005022747/2451271680",
+      "mean_true_frozen_error": "2367889/17571840",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "520346853/814972928",
+      "mean_partition_regret": "1/48",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "322153103/940972032",
+      "mean_true_frozen_error": "6934851523/50185175040",
+      "n": 6,
+      "policy": "round_robin",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 0,
+      "false_certificates": 0,
+      "mean_max_interval_width": "215032112803/356021452800",
+      "mean_partition_regret": "3/80",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "441951103/1250242560",
+      "mean_true_frozen_error": "10698329/75202560",
+      "n": 6,
+      "policy": "width",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    },
+    {
+      "budget": 128,
+      "certified_feasible": 0,
+      "certified_infeasible": 0,
+      "coverage_failures": 1,
+      "false_certificates": 0,
+      "mean_max_interval_width": "188509465/268849152",
+      "mean_partition_regret": "1/30",
+      "mean_queried_cells": "6",
+      "mean_robust_upper": "34485605747/98050867200",
+      "mean_true_frozen_error": "27414297401/204325355520",
+      "n": 6,
+      "policy": "bottleneck",
+      "scenario": "weak_margin_feasible",
+      "true_feasible": true,
+      "true_optimum": "1/40",
+      "undetermined": 6
+    }
+  ],
+  "interpretation": "No training or transfer evaluated. Paired differences are descriptive, not significance claims.",
+  "paired_deltas": [
+    {
+      "baseline": "round_robin",
+      "budget": 24,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "205/18432",
+      "paired_mean_true_error_improvement": "749/73728",
+      "paired_ties_true_error": 1,
+      "paired_wins_true_error": 5,
+      "scenario": "two_cluster_feasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 24,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "29/24576",
+      "paired_mean_true_error_improvement": "-17/24576",
+      "paired_ties_true_error": 4,
+      "paired_wins_true_error": 1,
+      "scenario": "two_cluster_feasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 64,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "705107/15482880",
+      "paired_mean_true_error_improvement": "84641/2211840",
+      "paired_ties_true_error": 0,
+      "paired_wins_true_error": 6,
+      "scenario": "two_cluster_feasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 64,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "2921/387072",
+      "paired_mean_true_error_improvement": "2017/368640",
+      "paired_ties_true_error": 2,
+      "paired_wins_true_error": 3,
+      "scenario": "two_cluster_feasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 128,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "52387843/771563520",
+      "paired_mean_true_error_improvement": "36197299/746127360",
+      "paired_ties_true_error": 0,
+      "paired_wins_true_error": 6,
+      "scenario": "two_cluster_feasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 128,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "1424832473/131268673536",
+      "paired_mean_true_error_improvement": "1101829/177700864",
+      "paired_ties_true_error": 2,
+      "paired_wins_true_error": 3,
+      "scenario": "two_cluster_feasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 24,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "0",
+      "paired_mean_true_error_improvement": "0",
+      "paired_ties_true_error": 6,
+      "paired_wins_true_error": 0,
+      "scenario": "separated_infeasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 24,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "0",
+      "paired_mean_true_error_improvement": "0",
+      "paired_ties_true_error": 6,
+      "paired_wins_true_error": 0,
+      "scenario": "separated_infeasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 64,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "0",
+      "paired_mean_true_error_improvement": "0",
+      "paired_ties_true_error": 6,
+      "paired_wins_true_error": 0,
+      "scenario": "separated_infeasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 64,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "0",
+      "paired_mean_true_error_improvement": "0",
+      "paired_ties_true_error": 6,
+      "paired_wins_true_error": 0,
+      "scenario": "separated_infeasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 128,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "0",
+      "paired_mean_true_error_improvement": "0",
+      "paired_ties_true_error": 6,
+      "paired_wins_true_error": 0,
+      "scenario": "separated_infeasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 128,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "0",
+      "paired_mean_true_error_improvement": "0",
+      "paired_ties_true_error": 6,
+      "paired_wins_true_error": 0,
+      "scenario": "separated_infeasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 24,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "5333/516096",
+      "paired_mean_true_error_improvement": "-1243/737280",
+      "paired_ties_true_error": 0,
+      "paired_wins_true_error": 3,
+      "scenario": "weak_margin_feasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 24,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "937/215040",
+      "paired_mean_true_error_improvement": "-1993/184320",
+      "paired_ties_true_error": 2,
+      "paired_wins_true_error": 2,
+      "scenario": "weak_margin_feasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 64,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "348307757/19610173440",
+      "paired_mean_true_error_improvement": "2019307/210862080",
+      "paired_ties_true_error": 0,
+      "paired_wins_true_error": 3,
+      "scenario": "weak_margin_feasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 64,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "-1655/1015808",
+      "paired_mean_true_error_improvement": "408601/18923520",
+      "paired_ties_true_error": 0,
+      "paired_wins_true_error": 6,
+      "scenario": "weak_margin_feasible"
+    },
+    {
+      "baseline": "round_robin",
+      "budget": 128,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "-9917146063/1060732108800",
+      "paired_mean_true_error_improvement": "883567169/220042690560",
+      "paired_ties_true_error": 1,
+      "paired_wins_true_error": 3,
+      "scenario": "weak_margin_feasible"
+    },
+    {
+      "baseline": "width",
+      "budget": 128,
+      "comparison": "bottleneck",
+      "paired_mean_robust_upper_improvement": "394814989993/221693010739200",
+      "paired_mean_true_error_improvement": "413265623/51081338880",
+      "paired_ties_true_error": 0,
+      "paired_wins_true_error": 4,
+      "scenario": "weak_margin_feasible"
+    }
+  ],
+  "policies": [
+    "round_robin",
+    "width",
+    "bottleneck"
+  ],
+  "run_counts": {
+    "matched_stream_prefix_verified": 54,
+    "policy_trajectories": 54,
+    "queries_all_trajectories": 6912,
+    "snapshots": 162
+  },
+  "scenarios": [
+    {
+      "id": "two_cluster_feasible",
+      "max_transient_classes": 2,
+      "rates": [
+        [
+          "1/10",
+          "3/20"
+        ],
+        [
+          "1/5",
+          "1/10"
+        ],
+        [
+          "4/5",
+          "17/20"
+        ],
+        [
+          "9/10",
+          "4/5"
+        ]
+      ],
+      "tolerance": "7/20"
+    },
+    {
+      "id": "separated_infeasible",
+      "max_transient_classes": 1,
+      "rates": [
+        [
+          "0",
+          "0"
+        ],
+        [
+          "1",
+          "1"
+        ],
+        [
+          "1/2",
+          "1/2"
+        ]
+      ],
+      "tolerance": "1/10"
+    },
+    {
+      "id": "weak_margin_feasible",
+      "max_transient_classes": 2,
+      "rates": [
+        [
+          "2/5",
+          "1/2"
+        ],
+        [
+          "1/2",
+          "11/20"
+        ],
+        [
+          "11/20",
+          "3/5"
+        ]
+      ],
+      "tolerance": "1/10"
+    }
+  ],
+  "scope": "small finite known-addressable-state hit/hold systems; no neural model",
+  "seeds": [
+    11,
+    19,
+    23,
+    37,
+    41,
+    53
+  ],
+  "source_sha256": {
+    "research/ingression_dynamics_v1/PAIRED_PROBE_PILOT.md": "264568cf29d306998d7c879126f72d5530a26be14afcff3c27bbf7a00913af4d",
+    "research/ingression_dynamics_v1/anytime_active_quotient.py": "f5d6f8b8a0a2e8ab062bac41c7973621afa731917ffec1b6acdcdc932504f46d",
+    "research/ingression_dynamics_v1/paired_probe_pilot.py": "e74ed8eff29b2f14812e34b44f3d35623c2684028d6d89806f13a98ff226af8c",
+    "research/ingression_dynamics_v1/test_paired_probe_pilot.py": "dd322ce44ff48f29cde59b88198a7bea99d129b5c1cf8f9183a0e58ef8585413",
+    "scripts/verify_paired_probe_pilot.py": "74d3b6069437c84b6c4a8c0a2f4ba73b09eac0d7da35986b28d1f26506a2c96e"
+  },
+  "trial_rows": [
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2993/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "1501/3072",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "3317/4096",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "3349/8192",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "12649/40960",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "82417/122880",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "2179/6144",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "7931/30720",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          6
+        ],
+        [
+          14,
+          6
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          6,
+          11
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "13855/19712",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "1327/3584",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "4843/17920",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          18,
+          10
+        ],
+        [
+          29,
+          14
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          10,
+          23
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "62983/118784",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "12023/40960",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "8071/40960",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          6
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          6,
+          11
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2969/4096",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "2969/8192",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "7877/30720",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          21,
+          9
+        ],
+        [
+          34,
+          12
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          9,
+          21
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "7151/12288",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "12023/40960",
+      "scenario": "two_cluster_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "8071/40960",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2993/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "1501/3072",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "5969/15360",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "785/1024",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "395/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "1463/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "8831/13312",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "149161/425984",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "35051/163840",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          9
+        ],
+        [
+          11,
+          6
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          6,
+          12
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "463/640",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "1517/4096",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "10749/40960",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          10,
+          14
+        ],
+        [
+          29,
+          10
+        ],
+        [
+          14,
+          18
+        ],
+        [
+          10,
+          23
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "8941/16384",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "9073/29696",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "30517/148480",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          8
+        ],
+        [
+          11,
+          6
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          6,
+          13
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2969/4096",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "2969/8192",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "10749/40960",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          13
+        ],
+        [
+          32,
+          9
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          9,
+          23
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "573/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "219083/753664",
+      "scenario": "two_cluster_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "7579/40960",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2999/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "2999/6144",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "11953/30720",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "3317/4096",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "3329/8192",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "12749/40960",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "36581/57344",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "9749/28672",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "11603/56320",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "3747/5120",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "943/2560",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "2773/10240",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          14,
+          17
+        ],
+        [
+          10,
+          17
+        ],
+        [
+          20,
+          26
+        ],
+        [
+          14,
+          10
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "19727/36608",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "3881/13312",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "15041/87040",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "3747/5120",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "943/2560",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "2773/10240",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          13,
+          16
+        ],
+        [
+          9,
+          16
+        ],
+        [
+          19,
+          31
+        ],
+        [
+          13,
+          11
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "573/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "9/32",
+      "scenario": "two_cluster_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "15013/81920",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2999/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "255/512",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "2043/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "48099/57344",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "561/1280",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "433/1280",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "40521/57344",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "6447/16384",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "24043/81920",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          6
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          14,
+          6
+        ],
+        [
+          8,
+          6
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "761/1024",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "411/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "1543/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          9,
+          16
+        ],
+        [
+          22,
+          18
+        ],
+        [
+          20,
+          9
+        ],
+        [
+          12,
+          22
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "45827/78336",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "459/1408",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "1591/7040",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "489/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          6,
+          5
+        ],
+        [
+          16,
+          5
+        ],
+        [
+          14,
+          5
+        ],
+        [
+          8,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "765/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "11379/28672",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "42699/143360",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          10,
+          8
+        ],
+        [
+          23,
+          16
+        ],
+        [
+          21,
+          9
+        ],
+        [
+          13,
+          28
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "70761/114688",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "3729/11776",
+      "scenario": "two_cluster_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "12757/58880",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2999/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "767/1536",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "4081/10240",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "34393/40960",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "3541/8192",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "23747/71680",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "10289/15360",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "10949/30720",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "7877/30720",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          2,
+          5
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "2019/4096",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "1933/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          12
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          8,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "785/1024",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "411/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "1543/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          18,
+          23
+        ],
+        [
+          15,
+          9
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          13,
+          19
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "1783/3072",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "3729/11776",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "12757/58880",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2993/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "6055/12288",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "5969/15360",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          13
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          7,
+          11
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2369/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "395/1024",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "1463/5120",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          18,
+          26
+        ],
+        [
+          15,
+          10
+        ],
+        [
+          11,
+          17
+        ],
+        [
+          12,
+          19
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "153/256",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "153/512",
+      "scenario": "two_cluster_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "509/2560",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2993/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "3071/6144",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "12283/30720",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "12309/14336",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "1907/4096",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "6463/20480",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "29243/40960",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "6447/16384",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "19947/81920",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "489/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "3071/6144",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "12283/30720",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          6
+        ],
+        [
+          10,
+          6
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          5,
+          14
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "765/1024",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "11393/28672",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "26539/92160",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          13,
+          10
+        ],
+        [
+          19,
+          13
+        ],
+        [
+          25,
+          10
+        ],
+        [
+          10,
+          28
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "6269/11264",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "4483/14336",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "511/2560",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2993/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 24,
+      "robust_upper": "2019/4096",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "8047/20480",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          5
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          6,
+          17
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2369/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 64,
+      "robust_upper": "7151/18432",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "13277/46080",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          12,
+          8
+        ],
+        [
+          15,
+          8
+        ],
+        [
+          25,
+          12
+        ],
+        [
+          9,
+          39
+        ]
+      ],
+      "decision": "certified-feasible",
+      "false_cert": false,
+      "interval_max_width": "153/256",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 8,
+      "queries": 128,
+      "robust_upper": "499/1664",
+      "scenario": "two_cluster_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "511/2560",
+      "true_optimum": "1/20",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2939/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "4091/5120",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "129995/204288",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "393/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          8,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "447/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          20,
+          16
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "106669/165376",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          43,
+          41
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "31/64",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          14
+        ],
+        [
+          14,
+          14
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "193/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          31,
+          30
+        ],
+        [
+          30,
+          30
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 11,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "269/1024",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "471/512",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "3683/4608",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "27173/43008",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "393/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "447/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          18,
+          18
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "17769/26624",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          12,
+          12
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          36,
+          44
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2953/6144",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "21/512",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          15
+        ],
+        [
+          14,
+          14
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "193/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          31,
+          31
+        ],
+        [
+          30,
+          30
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 19,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "269/1024",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "471/512",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "469/576",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "8147/12768",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "393/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          8,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "447/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          20,
+          16
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "339/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          43,
+          41
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "22703/46080",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          14
+        ],
+        [
+          14,
+          14
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "193/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          31,
+          30
+        ],
+        [
+          30,
+          30
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 23,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "269/1024",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2939/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "469/576",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "21361/34048",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "393/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          6,
+          6
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "9279/10240",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          19,
+          17
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "7111/10944",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          45,
+          39
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "27689/56320",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          15
+        ],
+        [
+          15,
+          14
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "53/512",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          31,
+          31
+        ],
+        [
+          31,
+          30
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 37,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "17/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "477/512",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "6513/8192",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1613/2560",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "393/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "447/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          17,
+          19
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "34285/52224",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          38,
+          46
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "147737/303104",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2911/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          15
+        ],
+        [
+          14,
+          14
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2911/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "193/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          31,
+          31
+        ],
+        [
+          30,
+          30
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "2911/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 41,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "269/1024",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2939/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "469/576",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "3263/5376",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "393/2048",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1805/2048",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          7
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          19,
+          17
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1183/1824",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          42,
+          42
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "203087/408576",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "1/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          15
+        ],
+        [
+          15,
+          15
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "53/512",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          31,
+          31
+        ],
+        [
+          31,
+          31
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "certified-infeasible",
+      "false_cert": false,
+      "interval_max_width": "1019/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1/2",
+      "scenario": "separated_infeasible",
+      "seed": 53,
+      "true_feasible": false,
+      "true_frozen_error": "1/2",
+      "true_optimum": "1/2",
+      "true_optimum_lower": "17/64",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "709/768",
+      "partition_regret": "1/40",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "3067/6144",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "239/3840",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "4091/5120",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "11467/25344",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "12151/112640",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "57377/90112",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "15755/43008",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "78917/696320",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "709/768",
+      "partition_regret": "1/40",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "3067/6144",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "239/3840",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          9
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          9,
+          12
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "102935/135168",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "11467/25344",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "4897/43008",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          26,
+          21
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          17,
+          24
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2629/4352",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "733/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "1439/10240",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          7
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1489/1536",
+      "partition_regret": "1/40",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "7055/14336",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "1331/15360",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          7,
+          20
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "6649/7680",
+      "partition_regret": "1/40",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "6649/15360",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "141/2048",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          18,
+          39
+        ],
+        [
+          15,
+          32
+        ],
+        [
+          11,
+          13
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "8269/11264",
+      "partition_regret": "1/40",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "66577/180224",
+      "scenario": "weak_margin_feasible",
+      "seed": 11,
+      "true_feasible": true,
+      "true_frozen_error": "16175/180224",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2939/3072",
+      "partition_regret": "1/20",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1495/3072",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "1741/15360",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "469/576",
+      "partition_regret": "1/20",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "13543/30720",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "859/6144",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "220211/344064",
+      "partition_regret": "1/20",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "47609/139776",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "219767/2129920",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2381/2560",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "1489/3072",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "1297/10240",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          13,
+          11
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          9,
+          13
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "581/768",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "2849/6656",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "10861/66560",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          25,
+          20
+        ],
+        [
+          23,
+          19
+        ],
+        [
+          17,
+          24
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "60527/100096",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "30097/87040",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "7997/87040",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          5
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "971/1024",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "971/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "1289/10240",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          11
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          11,
+          14
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2489/3072",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "120663/292864",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "215477/1464320",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          28,
+          18
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          24,
+          23
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "9445/14976",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "9445/29952",
+      "scenario": "weak_margin_feasible",
+      "seed": 19,
+      "true_feasible": true,
+      "true_frozen_error": "14681/149760",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "477/512",
+      "partition_regret": "1/20",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "971/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "3857/30720",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "923/1152",
+      "partition_regret": "1/40",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "7033/16384",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "12147/81920",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "262565/408576",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "59057/182784",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "114517/913920",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "477/512",
+      "partition_regret": "1/40",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "2911/6144",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "1277/10240",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          12,
+          10
+        ],
+        [
+          11,
+          10
+        ],
+        [
+          9,
+          12
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "197/256",
+      "partition_regret": "1/40",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "133/320",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "10109/61440",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          24,
+          22
+        ],
+        [
+          20,
+          23
+        ],
+        [
+          18,
+          21
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "241/384",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1515/4352",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "3271/21760",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "477/512",
+      "partition_regret": "1/40",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "2911/6144",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "1277/10240",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          14,
+          11
+        ],
+        [
+          13,
+          11
+        ],
+        [
+          4,
+          11
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "409/512",
+      "partition_regret": "1/40",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "409/1024",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "771/5120",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          27,
+          22
+        ],
+        [
+          23,
+          23
+        ],
+        [
+          14,
+          19
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "1387/2048",
+      "partition_regret": "1/40",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1387/4096",
+      "scenario": "weak_margin_feasible",
+      "seed": 23,
+      "true_feasible": true,
+      "true_frozen_error": "217061/1653760",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2939/3072",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "11957/24576",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "103/1024",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "469/576",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "53/128",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "2941/15360",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "27173/43008",
+      "partition_regret": "1/40",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "33361/101376",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "38791/245760",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "477/512",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "495/1024",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "211/2560",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          9,
+          5
+        ],
+        [
+          14,
+          10
+        ],
+        [
+          14,
+          12
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "9037/12288",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "6221/16384",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "2941/15360",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          18,
+          19
+        ],
+        [
+          21,
+          18
+        ],
+        [
+          26,
+          26
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "91363/155648",
+      "partition_regret": "1/40",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "15689/43776",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "38791/245760",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          2
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "971/1024",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "971/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "2287/30720",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          5
+        ],
+        [
+          14,
+          9
+        ],
+        [
+          16,
+          12
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "109/144",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "109/288",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "3483/20480",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          13,
+          7
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          31,
+          26
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2063/3072",
+      "partition_regret": "0",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "535107/1587200",
+      "scenario": "weak_margin_feasible",
+      "seed": 37,
+      "true_feasible": true,
+      "true_frozen_error": "383/2048",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2939/3072",
+      "partition_regret": "1/40",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "11957/24576",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "13913/122880",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "3049/3840",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "49477/112640",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "17329/112640",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "8147/12768",
+      "partition_regret": "0",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "15343/43008",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "39129/225280",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "971/1024",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "971/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "707/5120",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          12,
+          11
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          13,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "9037/12288",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "821/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "2621/15360",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          23,
+          20
+        ],
+        [
+          25,
+          24
+        ],
+        [
+          28,
+          8
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "15189/25600",
+      "partition_regret": "0",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "8009/21504",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "3159/20480",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          2
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "971/1024",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "971/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "707/5120",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          3,
+          35
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          4,
+          12
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2381/2560",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "1869/3968",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "707/5120",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          8,
+          56
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          9,
+          40
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "847/1024",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "1705/4096",
+      "scenario": "weak_margin_feasible",
+      "seed": 41,
+      "true_feasible": true,
+      "true_frozen_error": "2933/20480",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": false
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          4,
+          4
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "2939/3072",
+      "partition_regret": "1/40",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "3019/6144",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "771/5120",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          11
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          10,
+          10
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "39607/50688",
+      "partition_regret": "1/20",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "39607/101376",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "1277/10240",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          22,
+          22
+        ],
+        [
+          21,
+          21
+        ],
+        [
+          21,
+          21
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "44677/69632",
+      "partition_regret": "1/20",
+      "policy": "round_robin",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "2425/7168",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "319/2048",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          5,
+          4
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "709/768",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "4847/10240",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "157/2048",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          11,
+          12
+        ],
+        [
+          10,
+          15
+        ],
+        [
+          10,
+          6
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "8033/11264",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "765/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "1101/8192",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          24,
+          19
+        ],
+        [
+          22,
+          26
+        ],
+        [
+          23,
+          14
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "101043/166400",
+      "partition_regret": "1/20",
+      "policy": "width",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "2425/7168",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "1463/9216",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "477/512",
+      "partition_regret": "1/40",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 24,
+      "robust_upper": "971/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "1289/10240",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          15,
+          12
+        ],
+        [
+          5,
+          13
+        ],
+        [
+          14,
+          5
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "375/512",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 64,
+      "robust_upper": "375/1024",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "137/1024",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    },
+    {
+      "count_by_cell": [
+        [
+          26,
+          22
+        ],
+        [
+          17,
+          17
+        ],
+        [
+          27,
+          19
+        ]
+      ],
+      "decision": "undetermined",
+      "false_cert": false,
+      "interval_max_width": "11599/17408",
+      "partition_regret": "1/20",
+      "policy": "bottleneck",
+      "queried_cells": 6,
+      "queries": 128,
+      "robust_upper": "683/2048",
+      "scenario": "weak_margin_feasible",
+      "seed": 53,
+      "true_feasible": true,
+      "true_frozen_error": "319/2048",
+      "true_optimum": "1/40",
+      "true_optimum_lower": "0",
+      "true_rates_covered": true
+    }
+  ]
+}
