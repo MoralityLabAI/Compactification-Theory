@@ -1,0 +1,1257 @@
+{
+ "upstream_commit": "46f95e64dc9057e6d025b7141b607230905c04ee",
+ "base_sha256": "1ac3f4a0268e4ae96211a5c78e3f076afc08c1f412c0d4de521918fe9cc77df6",
+ "dev_seeds": [
+  50000,
+  50063
+ ],
+ "selection_seeds": [
+  60000,
+  60063
+ ],
+ "window": 8,
+ "stride": 16,
+ "margin": 0.5,
+ "dev_nominal_goal_rate": 0.875,
+ "dev_crosswind_goal_rate": 0.0625,
+ "reference_states": 24715,
+ "lambda": 6.50729836756362e-05,
+ "patch_candidates": 5828,
+ "patches": [
+  {
+   "episode": 47,
+   "t": 64,
+   "action": 1,
+   "delta_return": 340.16163120893003,
+   "goal": false,
+   "seed": 50047
+  },
+  {
+   "episode": 30,
+   "t": 64,
+   "action": 0,
+   "delta_return": 339.7772619382466,
+   "goal": false,
+   "seed": 50030
+  },
+  {
+   "episode": 19,
+   "t": 0,
+   "action": 2,
+   "delta_return": 320.3565268753443,
+   "goal": true,
+   "seed": 50019
+  },
+  {
+   "episode": 1,
+   "t": 32,
+   "action": 1,
+   "delta_return": 318.30799624983854,
+   "goal": true,
+   "seed": 50001
+  },
+  {
+   "episode": 2,
+   "t": 0,
+   "action": 2,
+   "delta_return": 311.16054516328546,
+   "goal": false,
+   "seed": 50002
+  },
+  {
+   "episode": 31,
+   "t": 176,
+   "action": 1,
+   "delta_return": 305.46606375730465,
+   "goal": false,
+   "seed": 50031
+  },
+  {
+   "episode": 45,
+   "t": 192,
+   "action": 1,
+   "delta_return": 297.56305001338785,
+   "goal": false,
+   "seed": 50045
+  },
+  {
+   "episode": 8,
+   "t": 64,
+   "action": 3,
+   "delta_return": 291.3406251885863,
+   "goal": false,
+   "seed": 50008
+  },
+  {
+   "episode": 55,
+   "t": 192,
+   "action": 1,
+   "delta_return": 283.73981339805425,
+   "goal": false,
+   "seed": 50055
+  },
+  {
+   "episode": 11,
+   "t": 0,
+   "action": 3,
+   "delta_return": 282.8126391056835,
+   "goal": false,
+   "seed": 50011
+  },
+  {
+   "episode": 21,
+   "t": 176,
+   "action": 1,
+   "delta_return": 281.6762643210962,
+   "goal": false,
+   "seed": 50021
+  },
+  {
+   "episode": 61,
+   "t": 112,
+   "action": 0,
+   "delta_return": 281.3154022739465,
+   "goal": true,
+   "seed": 50061
+  },
+  {
+   "episode": 46,
+   "t": 192,
+   "action": 1,
+   "delta_return": 280.4540848447268,
+   "goal": false,
+   "seed": 50046
+  },
+  {
+   "episode": 3,
+   "t": 192,
+   "action": 1,
+   "delta_return": 279.8474154481993,
+   "goal": true,
+   "seed": 50003
+  },
+  {
+   "episode": 32,
+   "t": 128,
+   "action": 1,
+   "delta_return": 275.55756793344796,
+   "goal": true,
+   "seed": 50032
+  },
+  {
+   "episode": 15,
+   "t": 208,
+   "action": 3,
+   "delta_return": 275.05778231074254,
+   "goal": false,
+   "seed": 50015
+  }
+ ],
+ "patches_goal_recovered": 29,
+ "patches_positive": 60,
+ "patches_used_pool": 57,
+ "rows": [
+  {
+   "name": "base",
+   "predicted_cost": 0.0,
+   "nominal_flip": 0.0,
+   "cw": {
+    "goal": 0.046969696969696974,
+    "return": 88.61227579537245,
+    "crashed": 0.45303030303030306
+   },
+   "nom": {
+    "goal": 0.8424242424242424,
+    "return": 248.23111208481373,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_analyticC",
+   "predicted_cost": 0.12752750753356043,
+   "fro": 11.809275183708465,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.15214145383104125,
+   "constraint_residual": 0.0,
+   "cw": {
+    "goal": 0.07575757575757576,
+    "return": 97.6507566976994,
+    "crashed": 0.4378787878787879
+   },
+   "nom": {
+    "goal": 0.8424242424242424,
+    "return": 247.1586763405585,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_analyticI",
+   "predicted_cost": 0.5387784724859123,
+   "fro": 0.7786667497976263,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.5147347740667977,
+   "constraint_residual": 1.9148722907811517e-16,
+   "cw": {
+    "goal": 0.06212121212121211,
+    "return": 109.45888194498212,
+    "crashed": 0.3606060606060606
+   },
+   "nom": {
+    "goal": 0.9681818181818183,
+    "return": 256.3553196797788,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_analyticCm",
+   "predicted_cost": 0.1332550241092066,
+   "fro": 14.699853424521379,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.1418467583497053,
+   "constraint_residual": 0.0,
+   "cw": {
+    "goal": 0.030303030303030304,
+    "return": 80.29048772619886,
+    "crashed": 0.5272727272727272
+   },
+   "nom": {
+    "goal": 0.8106060606060607,
+    "return": 244.44681171107177,
+    "crashed": 0.015151515151515152
+   }
+  },
+  {
+   "name": "m1_softC_rho1",
+   "predicted_cost": 0.10638994061649448,
+   "fro": 10.786277523542864,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.1413752455795678,
+   "constraint_residual": 0.08662662561814631,
+   "cw": {
+    "goal": 0.04545454545454545,
+    "return": 92.32725547082784,
+    "crashed": 0.4696969696969697
+   },
+   "nom": {
+    "goal": 0.8409090909090908,
+    "return": 249.59028387136277,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_softCm_rho1",
+   "predicted_cost": 0.10015233536706691,
+   "fro": 12.743882206645395,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.12715127701375245,
+   "constraint_residual": 0.13306059328585385,
+   "cw": {
+    "goal": 0.015151515151515152,
+    "return": 79.4049501427312,
+    "crashed": 0.5272727272727272
+   },
+   "nom": {
+    "goal": 0.7954545454545455,
+    "return": 242.80214803650412,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_softC_rho10",
+   "predicted_cost": 0.1251424852950096,
+   "fro": 11.698325327173825,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.15088408644400786,
+   "constraint_residual": 0.009395145327099407,
+   "cw": {
+    "goal": 0.07575757575757576,
+    "return": 107.57824941937308,
+    "crashed": 0.393939393939394
+   },
+   "nom": {
+    "goal": 0.8560606060606061,
+    "return": 249.11845143740834,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_softCm_rho10",
+   "predicted_cost": 0.12925682594978222,
+   "fro": 14.477645950203133,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.14027504911591357,
+   "constraint_residual": 0.015116305436754487,
+   "cw": {
+    "goal": 0.030303030303030304,
+    "return": 89.97869637964965,
+    "crashed": 0.4787878787878787
+   },
+   "nom": {
+    "goal": 0.8272727272727273,
+    "return": 246.65523606802472,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_softC_rho100",
+   "predicted_cost": 0.12728595064897513,
+   "fro": 11.798085582961356,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.15198428290766208,
+   "constraint_residual": 0.0009475264759530702,
+   "cw": {
+    "goal": 0.06060606060606061,
+    "return": 97.4873724371792,
+    "crashed": 0.4378787878787879
+   },
+   "nom": {
+    "goal": 0.8575757575757575,
+    "return": 247.39665672841693,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_softCm_rho100",
+   "predicted_cost": 0.13284691590337647,
+   "fro": 14.677326201577964,
+   "rank": 1,
+   "support": 65,
+   "nominal_flip": 0.1418467583497053,
+   "constraint_residual": 0.0015324793809565497,
+   "cw": {
+    "goal": 0.030303030303030304,
+    "return": 81.93831657317577,
+    "crashed": 0.5106060606060605
+   },
+   "nom": {
+    "goal": 0.8106060606060607,
+    "return": 244.51044416366474,
+    "crashed": 0.015151515151515152
+   }
+  },
+  {
+   "name": "m1_randnorm0",
+   "predicted_cost": 4.648686644156838,
+   "fro": 11.809275183708465,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.41406679764243615,
+   "constraint_residual": 1.54647341939719,
+   "cw": {
+    "goal": 0.0,
+    "return": -84.62998747251625,
+    "crashed": 0.7484848484848485
+   },
+   "nom": {
+    "goal": 0.8257575757575757,
+    "return": 242.43851830994353,
+    "crashed": 0.03181818181818182
+   }
+  },
+  {
+   "name": "m1_randnorm1",
+   "predicted_cost": 9.743974116216053,
+   "fro": 11.809275183708463,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.5755599214145383,
+   "constraint_residual": 1.5692632912046314,
+   "cw": {
+    "goal": 0.0,
+    "return": -383.31683132068974,
+    "crashed": 0.26515151515151514
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": 51.04115069641293,
+    "crashed": 0.03181818181818182
+   }
+  },
+  {
+   "name": "m1_randnorm2",
+   "predicted_cost": 10.065685108934382,
+   "fro": 11.809275183708461,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.47536345776031436,
+   "constraint_residual": 2.8445485500584695,
+   "cw": {
+    "goal": 0.0,
+    "return": -423.31624181830756,
+    "crashed": 0.3878787878787879
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -369.9599821930333,
+    "crashed": 0.40303030303030307
+   }
+  },
+  {
+   "name": "m1_s4_greedy",
+   "predicted_cost": 0.16894162416200423,
+   "fro": 2.422275144577833,
+   "rank": 1,
+   "support": 4,
+   "nominal_flip": 0.17076620825147348,
+   "constraint_residual": 0.0,
+   "cw": {
+    "goal": 0.030303030303030304,
+    "return": 88.22078765232304,
+    "crashed": 0.40606060606060607
+   },
+   "nom": {
+    "goal": 0.8439393939393939,
+    "return": 243.96823714619802,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s4_beam",
+   "predicted_cost": 0.15527317108900288,
+   "fro": 4.2763889544891525,
+   "rank": 1,
+   "support": 4,
+   "nominal_flip": 0.15842829076620826,
+   "constraint_residual": 0.0,
+   "cw": {
+    "goal": 0.0,
+    "return": 61.17521993568607,
+    "crashed": 0.4348484848484848
+   },
+   "nom": {
+    "goal": 0.8742424242424244,
+    "return": 246.9126532268252,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s4_randsupport",
+   "predicted_cost": 0.23515163090424468,
+   "fro": 3.561778008314013,
+   "rank": 1,
+   "support": 4,
+   "nominal_flip": 0.17359528487229864,
+   "constraint_residual": 0.0,
+   "cw": {
+    "goal": 0.015151515151515152,
+    "return": 96.60560130279418,
+    "crashed": 0.406060606060606
+   },
+   "nom": {
+    "goal": 0.8393939393939395,
+    "return": 248.29239662399428,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s8_greedy",
+   "predicted_cost": 0.1480432215241932,
+   "fro": 5.3319862340139235,
+   "rank": 1,
+   "support": 8,
+   "nominal_flip": 0.1644793713163065,
+   "constraint_residual": 1.9148722907811517e-16,
+   "cw": {
+    "goal": 0.06060606060606061,
+    "return": 106.87746671691451,
+    "crashed": 0.3878787878787879
+   },
+   "nom": {
+    "goal": 0.8560606060606061,
+    "return": 249.34915970910527,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s8_beam",
+   "predicted_cost": 0.14354902231648817,
+   "fro": 7.167274653452174,
+   "rank": 1,
+   "support": 8,
+   "nominal_flip": 0.1598428290766208,
+   "constraint_residual": 1.9148722907811517e-16,
+   "cw": {
+    "goal": 0.04545454545454545,
+    "return": 84.27916548215721,
+    "crashed": 0.4681818181818182
+   },
+   "nom": {
+    "goal": 0.9227272727272728,
+    "return": 252.4978605451291,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s8_randsupport",
+   "predicted_cost": 0.17881157163863662,
+   "fro": 4.158369572492134,
+   "rank": 1,
+   "support": 8,
+   "nominal_flip": 0.18923379174852653,
+   "constraint_residual": 1.9148722907811517e-16,
+   "cw": {
+    "goal": 0.04545454545454545,
+    "return": 44.10239654513199,
+    "crashed": 0.48484848484848486
+   },
+   "nom": {
+    "goal": 0.859090909090909,
+    "return": 247.69766289003766,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s16_greedy",
+   "predicted_cost": 0.13777481249626872,
+   "fro": 8.155302318194881,
+   "rank": 1,
+   "support": 16,
+   "nominal_flip": 0.1598428290766208,
+   "constraint_residual": 5.744616872343455e-16,
+   "cw": {
+    "goal": 0.06060606060606061,
+    "return": 107.09214937149788,
+    "crashed": 0.39090909090909093
+   },
+   "nom": {
+    "goal": 0.8863636363636364,
+    "return": 244.25415567140536,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s16_beam",
+   "predicted_cost": 0.13490204719584303,
+   "fro": 9.788443046558907,
+   "rank": 1,
+   "support": 16,
+   "nominal_flip": 0.1593713163064833,
+   "constraint_residual": 1.9148722907811517e-16,
+   "cw": {
+    "goal": 0.04545454545454545,
+    "return": 96.04145006284158,
+    "crashed": 0.41818181818181815
+   },
+   "nom": {
+    "goal": 0.9393939393939394,
+    "return": 248.64128285952322,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m1_s16_randsupport",
+   "predicted_cost": 0.1459837718231144,
+   "fro": 7.093582644236101,
+   "rank": 1,
+   "support": 16,
+   "nominal_flip": 0.16777996070726917,
+   "constraint_residual": 0.0,
+   "cw": {
+    "goal": 0.07727272727272727,
+    "return": 89.3822994646243,
+    "crashed": 0.40454545454545454
+   },
+   "nom": {
+    "goal": 0.8575757575757575,
+    "return": 245.60384634705565,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_analyticC",
+   "predicted_cost": 0.5175686154857168,
+   "fro": 46.605013435558504,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.2970530451866405,
+   "constraint_residual": 2.9228519876714496e-14,
+   "cw": {
+    "goal": 0.0,
+    "return": 38.3317725741124,
+    "crashed": 0.5606060606060606
+   },
+   "nom": {
+    "goal": 0.9075757575757576,
+    "return": 248.83738209206044,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_analyticI",
+   "predicted_cost": 4.411591204640631,
+   "fro": 2.4413981801039037,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.683614931237721,
+   "constraint_residual": 8.764574399624633e-16,
+   "cw": {
+    "goal": 0.0,
+    "return": -194.57349834499027,
+    "crashed": 0.7181818181818183
+   },
+   "nom": {
+    "goal": 0.015151515151515152,
+    "return": 60.92171769186285,
+    "crashed": 0.15757575757575756
+   }
+  },
+  {
+   "name": "m2_analyticCm",
+   "predicted_cost": 0.5670139509439505,
+   "fro": 52.671083000607844,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.2763064833005894,
+   "constraint_residual": 8.683211298500466e-16,
+   "cw": {
+    "goal": 0.030303030303030304,
+    "return": 8.413221995759097,
+    "crashed": 0.6712121212121213
+   },
+   "nom": {
+    "goal": 0.8454545454545456,
+    "return": 248.51937392497732,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_softC_rho1",
+   "predicted_cost": 0.3284266779646911,
+   "fro": 36.49348976148278,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.26459724950884084,
+   "constraint_residual": 0.15887365613344376,
+   "cw": {
+    "goal": 0.015151515151515152,
+    "return": 71.61389678291903,
+    "crashed": 0.48181818181818176
+   },
+   "nom": {
+    "goal": 0.8575757575757575,
+    "return": 249.73939511610374,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_softCm_rho1",
+   "predicted_cost": 0.31765850100837134,
+   "fro": 38.92047670469515,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.23402750491159136,
+   "constraint_residual": 0.19701588112109342,
+   "cw": {
+    "goal": 0.015151515151515152,
+    "return": 38.13700485244819,
+    "crashed": 0.5939393939393939
+   },
+   "nom": {
+    "goal": 0.8454545454545456,
+    "return": 249.66822419450133,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_softC_rho10",
+   "predicted_cost": 0.4911632930616044,
+   "fro": 45.326883993397225,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.29288801571709233,
+   "constraint_residual": 0.019948750734219287,
+   "cw": {
+    "goal": 0.03181818181818182,
+    "return": 75.78822765030058,
+    "crashed": 0.43636363636363634
+   },
+   "nom": {
+    "goal": 0.9242424242424243,
+    "return": 253.58458889910585,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_softCm_rho10",
+   "predicted_cost": 0.5288950446232907,
+   "fro": 50.808976545411625,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.27119842829076624,
+   "constraint_residual": 0.026384012120837803,
+   "cw": {
+    "goal": 0.0,
+    "return": 0.8869205583866945,
+    "crashed": 0.6878787878787879
+   },
+   "nom": {
+    "goal": 0.9227272727272728,
+    "return": 252.7386108138462,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_softC_rho100",
+   "predicted_cost": 0.5148231194522,
+   "fro": 46.4737392575974,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.2963457760314342,
+   "constraint_residual": 0.0020475344539451525,
+   "cw": {
+    "goal": 0.016666666666666666,
+    "return": 47.57913895720238,
+    "crashed": 0.5257575757575758
+   },
+   "nom": {
+    "goal": 0.9075757575757576,
+    "return": 248.74038012400612,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_softCm_rho100",
+   "predicted_cost": 0.5629987532957144,
+   "fro": 52.4780478794949,
+   "rank": 2,
+   "support": 65,
+   "nominal_flip": 0.27591355599214146,
+   "constraint_residual": 0.002731943971680826,
+   "cw": {
+    "goal": 0.015151515151515152,
+    "return": 12.622832090436892,
+    "crashed": 0.6575757575757576
+   },
+   "nom": {
+    "goal": 0.8909090909090911,
+    "return": 249.10198883429223,
+    "crashed": 0.0
+   }
+  },
+  {
+   "name": "m2_randnorm0",
+   "predicted_cost": 108.10042943248908,
+   "fro": 46.6050134355585,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.8616110019646366,
+   "constraint_residual": 9.347517660364716,
+   "cw": {
+    "goal": 0.0,
+    "return": -603.7513794289309,
+    "crashed": 0.5454545454545454
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -605.8952699809533,
+    "crashed": 0.45
+   }
+  },
+  {
+   "name": "m2_randnorm1",
+   "predicted_cost": 184.85741418178088,
+   "fro": 46.60501343555851,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.851630648330059,
+   "constraint_residual": 5.4054773544527075,
+   "cw": {
+    "goal": 0.0,
+    "return": -95.07509688235261,
+    "crashed": 0.9393939393939394
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -19.835193910735427,
+    "crashed": 1.0
+   }
+  },
+  {
+   "name": "m2_randnorm2",
+   "predicted_cost": 82.45904991314228,
+   "fro": 46.6050134355585,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.7273084479371317,
+   "constraint_residual": 5.392941777151311,
+   "cw": {
+    "goal": 0.0,
+    "return": -727.9676457643674,
+    "crashed": 0.1984848484848485
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -677.5441074659183,
+    "crashed": 0.1984848484848485
+   }
+  },
+  {
+   "name": "m4_analyticC",
+   "predicted_cost": 1.320606470684945,
+   "fro": 82.37954723295701,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.36392927308447937,
+   "constraint_residual": 5.553726845996532e-14,
+   "cw": {
+    "goal": 0.0,
+    "return": -229.0685602284655,
+    "crashed": 0.9060606060606061
+   },
+   "nom": {
+    "goal": 0.12575757575757576,
+    "return": -116.63271799253037,
+    "crashed": 0.796969696969697
+   }
+  },
+  {
+   "name": "m4_analyticI",
+   "predicted_cost": 19.99838435143893,
+   "fro": 6.952463673317266,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.667426326129666,
+   "constraint_residual": 1.912017331147833e-15,
+   "cw": {
+    "goal": 0.0,
+    "return": -543.1933957401303,
+    "crashed": 0.22272727272727275
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -532.0709215286558,
+    "crashed": 0.17575757575757578
+   }
+  },
+  {
+   "name": "m4_analyticCm",
+   "predicted_cost": 1.5913418413352476,
+   "fro": 82.6400205199481,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.3417681728880157,
+   "constraint_residual": 7.781308255369319e-15,
+   "cw": {
+    "goal": 0.0,
+    "return": -219.94021288115016,
+    "crashed": 0.8757575757575758
+   },
+   "nom": {
+    "goal": 0.07878787878787878,
+    "return": -155.76523686655784,
+    "crashed": 0.7454545454545455
+   }
+  },
+  {
+   "name": "m4_softC_rho1",
+   "predicted_cost": 0.9911283563355908,
+   "fro": 70.15809822656291,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.3185854616895874,
+   "constraint_residual": 0.02838064491465979,
+   "cw": {
+    "goal": 0.0,
+    "return": -191.99740064742525,
+    "crashed": 0.8424242424242424
+   },
+   "nom": {
+    "goal": 0.03181818181818182,
+    "return": -93.35223257573084,
+    "crashed": 0.7818181818181817
+   }
+  },
+  {
+   "name": "m4_softCm_rho1",
+   "predicted_cost": 1.1785340962509279,
+   "fro": 67.29719509304975,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.2888015717092338,
+   "constraint_residual": 0.0330895221561579,
+   "cw": {
+    "goal": 0.0,
+    "return": -167.16577584635664,
+    "crashed": 0.8106060606060606
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -136.72220139620003,
+    "crashed": 0.8742424242424244
+   }
+  },
+  {
+   "name": "m4_softC_rho10",
+   "predicted_cost": 1.2741708933411027,
+   "fro": 80.78478730882925,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.3599214145383104,
+   "constraint_residual": 0.0035858794502989333,
+   "cw": {
+    "goal": 0.0,
+    "return": -225.0521660327353,
+    "crashed": 0.8909090909090908
+   },
+   "nom": {
+    "goal": 0.1590909090909091,
+    "return": -96.5562023533425,
+    "crashed": 0.7318181818181818
+   }
+  },
+  {
+   "name": "m4_softCm_rho10",
+   "predicted_cost": 1.5283670015252766,
+   "fro": 80.50330072376825,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.33485265225933203,
+   "constraint_residual": 0.004446593320479293,
+   "cw": {
+    "goal": 0.0,
+    "return": -210.58023481604133,
+    "crashed": 0.8590909090909092
+   },
+   "nom": {
+    "goal": 0.09696969696969697,
+    "return": -144.1423506359731,
+    "crashed": 0.7454545454545455
+   }
+  },
+  {
+   "name": "m4_softC_rho100",
+   "predicted_cost": 1.3157701122269718,
+   "fro": 82.21509467889716,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.36345776031434185,
+   "constraint_residual": 0.00036847187285944986,
+   "cw": {
+    "goal": 0.0,
+    "return": -232.93598044039254,
+    "crashed": 0.9060606060606061
+   },
+   "nom": {
+    "goal": 0.14242424242424243,
+    "return": -114.98458964011608,
+    "crashed": 0.7651515151515151
+   }
+  },
+  {
+   "name": "m4_softCm_rho100",
+   "predicted_cost": 1.5847053846367456,
+   "fro": 82.41765692999937,
+   "rank": 3,
+   "support": 65,
+   "nominal_flip": 0.3412180746561886,
+   "constraint_residual": 0.00046084852075243106,
+   "cw": {
+    "goal": 0.0,
+    "return": -212.84025578118226,
+    "crashed": 0.859090909090909
+   },
+   "nom": {
+    "goal": 0.1106060606060606,
+    "return": -147.04181117158916,
+    "crashed": 0.7303030303030303
+   }
+  },
+  {
+   "name": "m4_randnorm0",
+   "predicted_cost": 456.4958929953019,
+   "fro": 82.37954723295702,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.758271119842829,
+   "constraint_residual": 3.8804475574518054,
+   "cw": {
+    "goal": 0.0,
+    "return": -467.7860790154447,
+    "crashed": 0.44242424242424244
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -390.80518451908733,
+    "crashed": 0.20454545454545456
+   }
+  },
+  {
+   "name": "m4_randnorm1",
+   "predicted_cost": 205.2362341973591,
+   "fro": 82.37954723295701,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.844557956777996,
+   "constraint_residual": 2.929305900742697,
+   "cw": {
+    "goal": 0.0,
+    "return": -538.6510105967321,
+    "crashed": 0.5136363636363636
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -589.5282321729418,
+    "crashed": 0.3878787878787879
+   }
+  },
+  {
+   "name": "m4_randnorm2",
+   "predicted_cost": 406.7677840294651,
+   "fro": 82.37954723295701,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.8249901768172888,
+   "constraint_residual": 4.2504236668727104,
+   "cw": {
+    "goal": 0.0,
+    "return": -536.841284392177,
+    "crashed": 0.8893939393939395
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -492.8546951179415,
+    "crashed": 0.9212121212121214
+   }
+  },
+  {
+   "name": "m8_analyticC",
+   "predicted_cost": 1.9791466936477766,
+   "fro": 105.6753351876951,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.40958742632612966,
+   "constraint_residual": 1.2693083600870458e-13,
+   "cw": {
+    "goal": 0.0,
+    "return": -314.79942543738485,
+    "crashed": 0.8136363636363638
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -285.4079373874223,
+    "crashed": 0.8742424242424244
+   }
+  },
+  {
+   "name": "m8_analyticI",
+   "predicted_cost": 20.130403167279855,
+   "fro": 15.586322564344513,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.7602357563850688,
+   "constraint_residual": 7.342614101451302e-15,
+   "cw": {
+    "goal": 0.0,
+    "return": -595.4103276494585,
+    "crashed": 0.3287878787878788
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -567.5707440986499,
+    "crashed": 0.30757575757575756
+   }
+  },
+  {
+   "name": "m8_analyticCm",
+   "predicted_cost": 2.234837404095053,
+   "fro": 104.70425001664053,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.3801178781925344,
+   "constraint_residual": 8.443051761822725e-14,
+   "cw": {
+    "goal": 0.0,
+    "return": -339.554301983596,
+    "crashed": 0.8454545454545456
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -327.5367678380748,
+    "crashed": 0.8439393939393941
+   }
+  },
+  {
+   "name": "m8_softC_rho1",
+   "predicted_cost": 1.5328593403675002,
+   "fro": 90.67904544207593,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.3610216110019646,
+   "constraint_residual": 0.02235197995138545,
+   "cw": {
+    "goal": 0.0,
+    "return": -296.07198275471274,
+    "crashed": 0.7666666666666666
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -258.65861588647425,
+    "crashed": 0.9060606060606062
+   }
+  },
+  {
+   "name": "m8_softCm_rho1",
+   "predicted_cost": 1.7031866452391229,
+   "fro": 86.35970431077666,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.3239292730844794,
+   "constraint_residual": 0.02554618811532818,
+   "cw": {
+    "goal": 0.0,
+    "return": -323.10537456113474,
+    "crashed": 0.8136363636363638
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -298.8805488760268,
+    "crashed": 0.8439393939393941
+   }
+  },
+  {
+   "name": "m8_softC_rho10",
+   "predicted_cost": 1.9153331304482437,
+   "fro": 103.69131130044536,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.40416502946954813,
+   "constraint_residual": 0.002852086797366509,
+   "cw": {
+    "goal": 0.0,
+    "return": -317.3737667325483,
+    "crashed": 0.796969696969697
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -283.99147084847345,
+    "crashed": 0.8742424242424244
+   }
+  },
+  {
+   "name": "m8_softCm_rho10",
+   "predicted_cost": 2.1527036341334473,
+   "fro": 102.11913472451546,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.3738310412573674,
+   "constraint_residual": 0.0034621614177830834,
+   "cw": {
+    "goal": 0.0,
+    "return": -337.3623309559928,
+    "crashed": 0.8454545454545456
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -320.4972110247688,
+    "crashed": 0.8439393939393941
+   }
+  },
+  {
+   "name": "m8_softC_rho100",
+   "predicted_cost": 1.9724849959767252,
+   "fro": 105.47032938359807,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.40927308447937133,
+   "constraint_residual": 0.0002935237271756868,
+   "cw": {
+    "goal": 0.0,
+    "return": -316.9832704257281,
+    "crashed": 0.8303030303030304
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -288.5739779716975,
+    "crashed": 0.8742424242424244
+   }
+  },
+  {
+   "name": "m8_softCm_rho100",
+   "predicted_cost": 2.22616152888092,
+   "fro": 104.43469320822089,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.3789390962671906,
+   "constraint_residual": 0.00035938877483457767,
+   "cw": {
+    "goal": 0.0,
+    "return": -339.05390333978283,
+    "crashed": 0.8454545454545456
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -324.74686414044226,
+    "crashed": 0.8439393939393941
+   }
+  },
+  {
+   "name": "m8_randnorm0",
+   "predicted_cost": 664.5269223443141,
+   "fro": 105.67533518769507,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.6644400785854617,
+   "constraint_residual": 4.797261264046908,
+   "cw": {
+    "goal": 0.0,
+    "return": -371.77379033954094,
+    "crashed": 0.9227272727272727
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -334.60052782823055,
+    "crashed": 1.0
+   }
+  },
+  {
+   "name": "m8_randnorm1",
+   "predicted_cost": 559.2988459538303,
+   "fro": 105.67533518769507,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.48840864440078585,
+   "constraint_residual": 6.569667670135535,
+   "cw": {
+    "goal": 0.0,
+    "return": -529.8337450042458,
+    "crashed": 0.9227272727272727
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -467.32437832294994,
+    "crashed": 0.9212121212121214
+   }
+  },
+  {
+   "name": "m8_randnorm2",
+   "predicted_cost": 815.7256240594168,
+   "fro": 105.67533518769508,
+   "rank": 4,
+   "support": 65,
+   "nominal_flip": 0.8857367387033399,
+   "constraint_residual": 5.72022350287707,
+   "cw": {
+    "goal": 0.0,
+    "return": -674.3119222273491,
+    "crashed": 0.7166666666666667
+   },
+   "nom": {
+    "goal": 0.0,
+    "return": -641.2571860481121,
+    "crashed": 0.743939393939394
+   }
+  }
+ ],
+ "spearman_predcost_vs_nominal_flip": 0.9612393051594504,
+ "spearman_predcost_vs_nominal_goal_loss": 0.7592688618096967,
+ "simulator_episodes": 13413,
+ "wall_seconds": 60.125057220458984
+}
