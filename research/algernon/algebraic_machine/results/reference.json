@@ -1,0 +1,64 @@
+{
+  "cyclic_sheaf": {
+    "examples": {
+      "consistent_affine_3cycle_F5": {
+        "obstruction": [
+          0
+        ],
+        "solvable": true,
+        "states": [
+          [
+            0
+          ],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "inconsistent_affine_3cycle_F5": {
+        "obstruction": [
+          3
+        ],
+        "solvable": false,
+        "states": null
+      }
+    },
+    "monodromy_dim_mismatches": 0,
+    "scalar_cycle_cases": 503
+  },
+  "depth_bound": {
+    "accumulated_step_bound": 0.19898263655761914,
+    "certified_bound": 0.19898263655761914,
+    "correct_argmax_guaranteed": true,
+    "initial_error": 0.0,
+    "n": 8,
+    "one_step_errors": [
+      0.026666666666666644,
+      0.026133333333333335,
+      0.02561066666666667,
+      0.02509845333333336,
+      0.024596484266666635,
+      0.024104554581333273,
+      0.02362246348970666,
+      0.023150014219912557
+    ],
+    "truth_error": 0.19898263655761914
+  },
+  "execution_class": "cpu_reference_only",
+  "monoid": {
+    "program_checks": 10206,
+    "program_violations": 0,
+    "target_maps": 27
+  },
+  "schema_version": "0.1.0",
+  "source_note": "No learned weights or LOTUS activations evaluated",
+  "sparse_intertwining": {
+    "orthogonal_support_exact": false,
+    "orthogonal_support_residual": 3.0,
+    "useful_support_exact": true,
+    "useful_support_residual": 0.0
+  }
+}

@@ -1,0 +1,53 @@
+name: Algernon algebraic machine
+on:
+  pull_request:
+    paths:
+      - 'research/algernon/algebraic_machine/**'
+      - '.github/workflows/algernon-algebraic-machine.yml'
+  push:
+    paths:
+      - 'research/algernon/algebraic_machine/**'
+      - '.github/workflows/algernon-algebraic-machine.yml'
+  workflow_dispatch:
+
+jobs:
+  cpu-algebra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install NumPy
+        run: python -m pip install -r research/algernon/algebraic_machine/requirements.txt
+      - name: Unit tests
+        run: python -m unittest discover -s research/algernon/algebraic_machine/tests -v
+      - name: Reproduce frozen finite-field and monoid receipt
+        run: |
+          python -m research.algernon.algebraic_machine.experiments --out /tmp/algernon-algebra-reference.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('research/algernon/algebraic_machine/results/reference.json').read_text())
+          observed=json.loads(Path('/tmp/algernon-algebra-reference.json').read_text())
+          assert observed==expected, 'algebraic reference experiment drifted'
+          assert observed['monoid']['program_violations']==0
+          assert observed['cyclic_sheaf']['monodromy_dim_mismatches']==0
+          print('Reproduced exact deterministic reference')
+          PY
+
+  lean-kernel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lean 4 standalone proofs
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: research/algernon/algebraic_machine/lean
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: false
+      - name: Print Lean theorem axiom dependencies
+        working-directory: research/algernon/algebraic_machine/lean
+        run: lake env lean Algernon/Semiconjugacy.lean
