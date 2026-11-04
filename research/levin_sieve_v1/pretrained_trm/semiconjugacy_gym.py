@@ -139,11 +139,33 @@ def nonclosure_witness(dataset):
         rows.append({"puzzle_id":p,"radius":k["radius"],"seed":k["seed"],
                      "max_future_logit_abs":float(delta.max()),
                      "horizon_max_abs":[float(delta[h].max()) for h in range(3)]})
+    # A goal-token-only predictor must output the same future logits for the
+    # clean source and all four off-site edits of a single puzzle. The
+    # squared-error minimizer for this alias class is its arithmetic mean.
+    # This gives a measurable lower bound independent of any student training.
+    group_floors,all_targets=[],[]
+    for pid,reference in sorted(indices.items()):
+        if dataset["splits"][reference]!="test":
+            continue
+        members=[reference]+[j for j,(p,k) in
+            enumerate(zip(dataset["puzzle_ids"],dataset["kinds"]))
+            if p==pid and k["site"]=="outside"]
+        targets=dataset["logits"][members,1:]
+        if len(members)!=5:
+            raise ValueError("expected clean and four off-site edits per puzzle")
+        floor=(targets-targets.mean(0,keepdim=True)).square().mean((0,2))
+        group_floors.append(floor)
+        all_targets.append(targets)
+    mean_floor=torch.stack(group_floors).mean(0) if group_floors else torch.zeros(3)
+    total=torch.cat(all_targets).var(dim=0,unbiased=False).mean(-1) if all_targets else torch.zeros(3)
     return {"pairs":len(rows),
             "different_future_1e-6":sum(r["max_future_logit_abs"]>1e-6 for r in rows),
             "max_future_logit_abs":max((r["max_future_logit_abs"] for r in rows),default=0),
+            "local_only_logit_mse_floor_by_horizon":[float(x) for x in mean_floor],
+            "floor_as_fraction_of_variance_by_horizon":[float(x/y.clamp_min(1e-12))
+                                                         for x,y in zip(mean_floor,total)],
             "rows":rows,
-            "interpretation":"finite floating-point witness to local nonclosure"}
+            "interpretation":"finite floating-point witness and within-alias squared-error floor"}
 
 class LatentModel(nn.Module):
     def __init__(self, input_dim: int, nonlinear: bool, width: int = WIDTH):
@@ -202,7 +224,7 @@ def metrics(model, x, y, norm, selected, truth, puzzle_ids):
         target = yy[:, 1:]
         next_latent = z[:, 1:]
         spread = (next_latent -
-                  next_latent.reshape(-1, next_latent.shape[-1]).mean(dim=(0,1))
+                  next_latent.reshape(-1, next_latent.shape[-1]).mean(dim=0)[None,None,:]
                   ).square().mean()
         dynamical = comm.square().mean()
         out = {
