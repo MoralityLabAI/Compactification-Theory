@@ -73,7 +73,9 @@ def run(*,radii=('1e-8',),max_cases=64,precision_bits=160,fetch=False,
                     b=Bound.from_arb(b)
                     if as_dyadic(a.lower())>b.hi or as_dyadic(a.upper())<b.lo:
                         raise AssertionError('computed clean reference disagrees with archived LSV15 Arb witness')
-                end_radius=upper_decimal(goal_cell_radius(pre,cell),28)
+                raw_radius=goal_cell_radius(pre,cell)
+                scale=10**28
+                end_radius=Q(-(-raw_radius.numerator*scale//raw_radius.denominator),scale)
                 winner=end_radius<top
                 both=end_radius<top2
                 record['ambient_radii'][r]={
