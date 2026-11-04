@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install numerical Hodge check dependency
+        run: python -m pip install numpy
       - name: Exact evidence and alpha-vector tests
         run: python -m unittest discover -s research/algernon/belief_geometry/tests -v
       - name: Reproduce locked rational reference

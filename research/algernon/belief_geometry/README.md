@@ -68,3 +68,17 @@ Let `theta` be a categorical natural-parameter vector. Its log-partition is `A(t
 For two fixed terminal policies with alpha vectors `alpha,beta`, their decision boundary in natural coordinates satisfies `sum_i (alpha_i-beta_i) exp(theta_i)=0`, after cancellation of the positive partition function. It is generally **curved** in log-odds coordinates, though affine in mixture belief coordinates. For three states and `alpha=(1,1,0), beta=(0,0,1)`, fix `theta_3=0`: the boundary `e^x+e^y=1` has `y(x)=log(1-e^x)` and `y''(x)=-e^x/(1-e^x)^2 < 0` for `x<0`.
 
 **Mechanistic implication:** a linear readout for additive log-likelihood updates and a nonlinear readout for action advantage can both be valid. A curved stopping feature in activation space alone does not falsify flat Bayesian evidence accumulation. Source model and exact activation site must be pinned before interpretability measurements.
+
+## 6. Sharp Hodge certificate: local curvature controls global evidence inconsistency
+
+On the filled n-dimensional Boolean cube, let `B` be the oriented vertex-edge incidence matrix, `C` the oriented edge-face incidence matrix, and `g` a real-valued observation increment on each directed positive edge. They obey `B C = 0`. The globally consistent fields are gradients `Bᵀ phi`. Define the closest global posterior potential by least squares, `phi* = argmin_phi ||g-Bᵀ phi||₂`, and set residual `r=g-Bᵀ phi*`. The face curvature is `curl(g)=Cᵀg`.
+
+For the **unweighted, oriented** standard cube and `n>=2`, the sharp bound is
+
+`||g-Bᵀ phi*||₂ <= (1/2) ||Cᵀg||₂`.
+
+**Spectral derivation.** The edge Hodge Laplacian is `L1=BᵀB+CCᵀ`. By the tensor decomposition of n interval cochain complexes, its eigenvalues are `2k` with multiplicities `n*binomial(n-1,k-1)`, for `1<=k<=n`. The gradient sector has the nonzero vertex-graph eigenvalue `2k` with multiplicity `binomial(n,k)`. Since the fully filled cube has trivial H¹, the orthogonal complement of gradients is `im(C)`, with strictly positive eigenvalues `2k` for `k>=2`. Thus `⟨r,CCᵀr⟩>=4||r||₂²`. Using `Cᵀr=Cᵀg`, the claimed factor `1/2` follows. It is sharp: a circulation on the (0,1) coordinate square repeated across other coordinates saturates it.
+
+This creates a **global consistency certificate from local face measurements**. It is specific to the full unweighted cube and additive decoded evidence increments; missing faces, dependent measurements, or nonlinear state evolution alter the complex and its spectral gap. It is distinct from proving Bayesian numerical correctness, which also needs an anchored prior and correct per-event likelihood increments.
+
+`hodge.py` numerically verifies the Hodge spectrum and sharpness for n=2..5 and tests random corrupted fields, using optional NumPy. Python unit tests are finite evidence for the implementation; the spectral derivation is a mathematical argument, not a Lean kernel proof here.

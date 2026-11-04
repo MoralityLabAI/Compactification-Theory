@@ -1,0 +1,102 @@
+{
+  "class": "numerical_CPU_spectral_check",
+  "data": [
+    {
+      "edges": 4,
+      "faces": 1,
+      "n": 2,
+      "sharp_bound_saturated": true,
+      "sharp_example_curl_norm": 4.0,
+      "sharp_example_gradient_error": 2.0,
+      "spectrum": [
+        {
+          "eigenvalue": 2,
+          "multiplicity": 2
+        },
+        {
+          "eigenvalue": 4,
+          "multiplicity": 2
+        }
+      ]
+    },
+    {
+      "edges": 12,
+      "faces": 6,
+      "n": 3,
+      "sharp_bound_saturated": true,
+      "sharp_example_curl_norm": 5.65685425,
+      "sharp_example_gradient_error": 2.82842712,
+      "spectrum": [
+        {
+          "eigenvalue": 2,
+          "multiplicity": 3
+        },
+        {
+          "eigenvalue": 4,
+          "multiplicity": 6
+        },
+        {
+          "eigenvalue": 6,
+          "multiplicity": 3
+        }
+      ]
+    },
+    {
+      "edges": 32,
+      "faces": 24,
+      "n": 4,
+      "sharp_bound_saturated": true,
+      "sharp_example_curl_norm": 8.0,
+      "sharp_example_gradient_error": 4.0,
+      "spectrum": [
+        {
+          "eigenvalue": 2,
+          "multiplicity": 4
+        },
+        {
+          "eigenvalue": 4,
+          "multiplicity": 12
+        },
+        {
+          "eigenvalue": 6,
+          "multiplicity": 12
+        },
+        {
+          "eigenvalue": 8,
+          "multiplicity": 4
+        }
+      ]
+    },
+    {
+      "edges": 80,
+      "faces": 80,
+      "n": 5,
+      "sharp_bound_saturated": true,
+      "sharp_example_curl_norm": 11.3137085,
+      "sharp_example_gradient_error": 5.65685425,
+      "spectrum": [
+        {
+          "eigenvalue": 2,
+          "multiplicity": 5
+        },
+        {
+          "eigenvalue": 4,
+          "multiplicity": 20
+        },
+        {
+          "eigenvalue": 6,
+          "multiplicity": 30
+        },
+        {
+          "eigenvalue": 8,
+          "multiplicity": 20
+        },
+        {
+          "eigenvalue": 10,
+          "multiplicity": 5
+        }
+      ]
+    }
+  ],
+  "schema_version": "0.1.0"
+}
