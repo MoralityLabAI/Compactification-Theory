@@ -1,0 +1,41 @@
+name: QO-15 frozen boundary student audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/CERTIFICATE_BOUNDARY_STUDENT.md'
+      - 'research/ingression_dynamics_v1/certificate_boundary_student.py'
+      - 'research/ingression_dynamics_v1/certificate_boundary_test_contract.py'
+      - 'research/ingression_dynamics_v1/test_certificate_boundary_student.py'
+      - 'scripts/verify_certificate_boundary.py'
+      - 'results/certificate_boundary/**'
+      - '.github/workflows/qo15-boundary-certificate.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/CERTIFICATE_BOUNDARY_STUDENT.md'
+      - 'research/ingression_dynamics_v1/certificate_boundary_student.py'
+      - 'research/ingression_dynamics_v1/certificate_boundary_test_contract.py'
+      - 'research/ingression_dynamics_v1/test_certificate_boundary_student.py'
+      - 'scripts/verify_certificate_boundary.py'
+      - 'results/certificate_boundary/**'
+      - '.github/workflows/qo15-boundary-certificate.yml'
+  workflow_dispatch:
+jobs:
+  retrain-and-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: QO-15 independent generator and frontier integrity tests
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_certificate_boundary_student.py' -v
+      - name: Retrain and produce or verify source-bound frozen evaluation
+        run: |
+          if [ -f results/certificate_boundary/receipt.json ]; then
+            PYTHONPATH=. python scripts/verify_certificate_boundary.py --check
+          else
+            PYTHONPATH=. python scripts/verify_certificate_boundary.py --emit
+          fi
