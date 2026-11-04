@@ -77,6 +77,11 @@ def linear_rates(latents, coefficient_rows, intercepts=None):
     intercepts = tuple(Q(b) for b in intercepts)
     if len(intercepts) != len(rows):
         raise ValueError("intercept dimension mismatch")
+    for a, row in enumerate(rows):
+        lower = intercepts[a] + sum((min(Q(0), v) for v in row), Q(0))
+        upper = intercepts[a] + sum((max(Q(0), v) for v in row), Q(0))
+        if lower < 0 or upper > 1:
+            raise ValueError("affine rate must stay in [0,1] on the entire latent cube")
     outputs = tuple(tuple(intercepts[a] +
                           sum((rows[a][j]*u[j] for j in range(dim)), Q(0))
                           for a in range(len(rows))) for u in latents)
@@ -127,6 +132,7 @@ def packing_bit_lower_bound(rate_points, tolerance):
 
 def metric_entropy_certificate(latents, coefficient_rows, tolerance, intercepts=None):
     """Exact finite sample demonstration plus analytic global affine L bound."""
+    latents = tuple(tuple(Q(v) for v in u) for u in latents)
     rate_points, L = linear_rates(latents, coefficient_rows, intercepts)
     labels, axis_cells, grid_signatures = latent_grid_partition(latents, L, tolerance)
     actual = rate_radius(rate_points, labels)
