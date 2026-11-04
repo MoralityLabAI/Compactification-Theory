@@ -1,6 +1,6 @@
 # Algernon-02C progress: LOTUS's own recipe on the pointer task
 
-Rendered 2026-11-05 00:40 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running armA 2026-11-04T23:27:39`.
+Rendered 2026-11-05 02:12 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running armA 2026-11-04T23:27:39`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `8cc8f97cfb6a`, validation `6fd9062d54a9`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -21,7 +21,7 @@ Status `complete`; process starts 1; power-cap pauses 0; out-of-memory pauses 0.
 
 ### Arm A: published (after-loop supervision)
 
-Status `paused_power_cap`; process starts 4; power-cap pauses 1; out-of-memory pauses 2.
+Status `running`; process starts 6; power-cap pauses 2; out-of-memory pauses 2.
 
 | epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -33,6 +33,9 @@ Status `paused_power_cap`; process starts 4; power-cap pauses 1; out-of-memory p
 | 5 | 5 | 0.0345 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 16.2 |
 | 6 | 6 | 0.0180 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 15.6 |
 | 7 | 7 | 0.2460 | 64 | 0.859 | 1.00 | 0.67 | 0.75 | 0.56 | 0.88 | 1.00 | 1.00 | 1.00 | 14.2 |
+| 8 | 8 | 0.0867 | 64 | 0.891 | 1.00 | 1.00 | 1.00 | 0.89 | 1.00 | 0.56 | 1.00 | 0.78 | 21.0 |
+| 9 | 8 | 0.1064 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 22.6 |
+| 10 | 8 | 0.0251 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 13.7 |
 
 Out-of-memory pauses (resumed from the last checkpoint): 23:50 epoch 7 step 30; 00:04 epoch 7 step 53.
 
