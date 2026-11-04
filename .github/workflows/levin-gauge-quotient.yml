@@ -1,0 +1,42 @@
+name: LSV-15 correlated gauge quotient and transverse robustness
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/gauge_quotient.py'
+      - 'research/levin_sieve_v1/pretrained_trm/run_gauge.py'
+      - 'research/levin_sieve_v1/pretrained_trm/verify_gauge_receipt.py'
+      - 'research/levin_sieve_v1/pretrained_trm/test_gauge*.py'
+      - 'research/levin_sieve_v1/pretrained_trm/GAUGE_QUOTIENT.md'
+      - '.github/workflows/levin-gauge-quotient.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install locked CPU model and interval runtime
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Pure rational quotient and independent replay tests
+        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_gauge_quotient.py' -v
+      - name: Arb model-interface and gauge integration tests
+        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_gauge_arb.py' -v
+      - name: Full frozen checkpoint first-missing-cell margins
+        run: |
+          mkdir -p runs/lsv15
+          python research/levin_sieve_v1/pretrained_trm/run_gauge.py --fetch --max-cases 64 --precision 160 --radii 1e-8,1e-5,1e-3,1e-2 --out runs/lsv15/gauge.json
+          python research/levin_sieve_v1/pretrained_trm/verify_gauge_receipt.py runs/lsv15/gauge.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lsv15-correlated-gauge-64-case
+          path: runs/lsv15/gauge.json
+          retention-days: 60
+          if-no-files-found: warn
