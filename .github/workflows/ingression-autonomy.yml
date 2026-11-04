@@ -10,6 +10,8 @@ on:
       - 'scripts/verify_goal_aware_partition.py'
       - 'scripts/verify_paired_probe_pilot.py'
       - 'results/paired_probe_pilot/**'
+      - 'scripts/verify_fractional_probe_pilot.py'
+      - 'results/fractional_probe_pilot/**'
       - 'results/goal_aware_quotient/**'
   pull_request:
     paths:
@@ -17,6 +19,8 @@ on:
       - '.github/workflows/ingression-autonomy.yml'
       - 'scripts/verify_paired_probe_pilot.py'
       - 'results/paired_probe_pilot/**'
+      - 'scripts/verify_fractional_probe_pilot.py'
+      - 'results/fractional_probe_pilot/**'
   workflow_dispatch:
 jobs:
   exact-cpu:
@@ -33,3 +37,5 @@ jobs:
         run: PYTHONPATH=. python scripts/verify_goal_aware_partition.py --check
       - name: Verify QO-08 paired fixed-budget source-hashed receipt
         run: PYTHONPATH=. python scripts/verify_paired_probe_pilot.py --check
+      - name: Verify QO-09 fixed fractional allocation paired source-bound receipt
+        run: PYTHONPATH=. python scripts/verify_fractional_probe_pilot.py --check
