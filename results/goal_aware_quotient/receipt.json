@@ -1,0 +1,115 @@
+{
+  "contract": "QO-01 synthetic five-state stochastic and six-state deterministic quotient; CPU only",
+  "deterministic": {
+    "micro_states": 6,
+    "mutable_bits": 2,
+    "quotient_labels": [
+      0,
+      0,
+      1,
+      1,
+      2,
+      3
+    ],
+    "strict_refinements": 2
+  },
+  "evidence": "exact finite arithmetic; no biological/neural model measurements",
+  "source_sha256": {
+    "research/ingression_dynamics_v1/GOAL_AWARE_RATE_DISTORTION.md": "b0fab8b2736257c84ed71de11337892bf1751ce371bf2d5b32190bcd40f5f2fe",
+    "research/ingression_dynamics_v1/goal_aware_partition.py": "7aee55db26314bb6c92e6d6a4ca44138ffdf4a9dcbd1b39f3e43eaccb0353f74",
+    "research/ingression_dynamics_v1/test_goal_aware_partition.py": "25c2772c7a621d61ef422d8cbc8e55bc4e3776665e31090dded936e2b131c74b",
+    "scripts/verify_goal_aware_partition.py": "40b77e69c44c053c6faefb37b82b490babce7806ab43cb5a4b08b96df3aabe62"
+  },
+  "stochastic": {
+    "goal_exact_rate_curve": {
+      "0": null,
+      "1": {
+        "partition": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "tv_defect": "3/10"
+      },
+      "2": {
+        "partition": [
+          0,
+          0,
+          1,
+          1,
+          2
+        ],
+        "tv_defect": "1/10"
+      },
+      "3": {
+        "partition": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "tv_defect": "0"
+      }
+    },
+    "goal_visible_partitions": 15,
+    "micro_states": 5,
+    "pareto_frontier": [
+      {
+        "abstract_states": 1,
+        "mean_goal_error": "1/5",
+        "mutable_bits": 0,
+        "partition": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "tv_defect": "0"
+      },
+      {
+        "abstract_states": 2,
+        "mean_goal_error": "0",
+        "mutable_bits": 1,
+        "partition": [
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "tv_defect": "3/10"
+      },
+      {
+        "abstract_states": 3,
+        "mean_goal_error": "0",
+        "mutable_bits": 2,
+        "partition": [
+          0,
+          0,
+          1,
+          1,
+          2
+        ],
+        "tv_defect": "1/10"
+      },
+      {
+        "abstract_states": 5,
+        "mean_goal_error": "0",
+        "mutable_bits": 3,
+        "partition": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "tv_defect": "0"
+      }
+    ],
+    "partitions_enumerated": 52
+  }
+}
