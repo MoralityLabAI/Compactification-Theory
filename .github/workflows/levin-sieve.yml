@@ -1,0 +1,27 @@
+name: LSV-01 exact repair certificates
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/**'
+      - '.github/workflows/levin-sieve.yml'
+  pull_request:
+    paths:
+      - 'research/levin_sieve_v1/**'
+      - '.github/workflows/levin-sieve.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu-exact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Contract tests, exact rationals
+        run: python3 -m unittest discover -s research/levin_sieve_v1 -p 'test_*.py' -v
+      - name: Demonstration receipt
+        run: python3 research/levin_sieve_v1/small_gain.py
+      - name: Proof-coverage matrix grid
+        run: python3 research/levin_sieve_v1/benchmark.py
