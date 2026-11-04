@@ -67,7 +67,10 @@ def main():
     encoded = (json.dumps(build_receipt(),indent=2,sort_keys=True)+'\n').encode('utf-8')
     if args.check:
         assert args.output.exists(),f'missing receipt: {args.output}'
-        assert args.output.read_bytes() == encoded, 'receipt differs from current sources/result'
+        if args.output.read_bytes() != encoded:
+            print('EXPECTED RECEIPT FOR CURRENT SOURCES:')
+            print(encoded.decode('utf-8'))
+            raise AssertionError('receipt differs from current sources/result')
         print(f'QO-01 verified: {args.output}')
     else:
         args.output.parent.mkdir(parents=True,exist_ok=True)
