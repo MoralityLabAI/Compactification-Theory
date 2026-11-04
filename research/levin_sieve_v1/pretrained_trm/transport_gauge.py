@@ -44,6 +44,7 @@ def abs_matrix_upper(mat):
 def as_dyadic(x):
     """Convert exact Arb binary endpoint to Python Fraction without rounding."""
     a,e = x.man_exp()
+    e = int(e)
     m = int(a)
     return Fraction(m*(2**e),1) if e>=0 else Fraction(m,2**(-e))
 
