@@ -92,13 +92,57 @@ def select_hidden(hidden, *, first_latent: int, last_latent: int,
     return torch.stack((last, mean), dim=0)
 
 
+def select_blocks(hidden, logits, *, first_latent: int, last_latent: int,
+                  loop_start: int, loop_end: int, c_thought: int):
+    """Every latent block of one pass, plus the static start token and readout ids.
+
+    Upstream supervises block b (latents first+b*c .. first+(b+1)*c-1) with CoT
+    step b after the final loop, so step k of a task lives in block k-1, not in
+    the last block. Returns CPU tensors: blocks [n_blocks, 2, H] float32 with
+    pools (last latent of block, block mean) in select_hidden's order; static
+    [H], the start-latent token, which attends only to the prompt and is never
+    re-injected; readout [loop_end-loop_start] int32, the argmax of upstream's
+    own logits over the loop region (position b*c predicts block b's first CoT
+    token), or None when logits were not computed.
+    """
+    import torch
+    if hidden.ndim != 3 or hidden.shape[0] != 1:
+        raise ValueError("LOTUS capture requires batch size one, [batch,sequence,hidden]")
+    if hidden.shape[1] == loop_end - loop_start:
+        offset = loop_start
+    elif hidden.shape[1] == loop_end:
+        offset = 0
+    else:
+        raise ValueError(f"unexpected LOTUS loop output length: {hidden.shape[1]}")
+    n_lat = last_latent - first_latent + 1
+    if n_lat <= 0 or n_lat % c_thought:
+        raise ValueError("latent span must be a positive multiple of c_thought")
+    lat = hidden[0, first_latent-offset:last_latent-offset+1, :]
+    if lat.shape[0] != n_lat:
+        raise ValueError("latent positions outside actual post-loop hidden states")
+    lat = lat.detach().reshape(n_lat // c_thought, c_thought, -1)
+    blocks = torch.stack((lat[:, -1, :].float(), lat.float().mean(1)), dim=1).cpu()
+    static = hidden[0, loop_start-offset, :].detach().float().cpu().clone()
+    if not (torch.isfinite(blocks).all() and torch.isfinite(static).all()):
+        raise ValueError("nonfinite LOTUS hidden features")
+    readout = None
+    if logits is not None and logits.shape[-1] > 1:
+        if logits.shape[1] != hidden.shape[1]:
+            raise ValueError("logits and hidden states cover different positions")
+        readout = logits[0, loop_start-offset:loop_end-offset, :].argmax(-1).to(torch.int32).cpu()
+    return blocks, static, readout
+
+
 @contextmanager
 def intercept_loop_states(lotus_module, *, first_latent: int,
-                          last_latent: int, c_thought: int, suppress_logits=True):
+                          last_latent: int, c_thought: int, suppress_logits=True,
+                          record_blocks=False):
     """Instrument only this model call. Unconditionally restore original code.
 
     capture contains one entry from the initial prefix pass and one entry per
-    refinement. It intentionally does not catch calls on other threads.
+    refinement. It intentionally does not catch calls on other threads. With
+    record_blocks each entry is a dict holding select_hidden's pools and
+    select_blocks' blocks, static token and readout ids.
     """
     captured = []
     original = lotus_module.efficient_forward
@@ -110,6 +154,12 @@ def intercept_loop_states(lotus_module, *, first_latent: int,
         value = select_hidden(out.last_hidden_state, first_latent=first_latent,
                               last_latent=last_latent, loop_start=loop_start,
                               loop_end=loop_end, c_thought=c_thought)
+        if record_blocks:
+            blocks, static, readout = select_blocks(
+                out.last_hidden_state, out.logits, first_latent=first_latent,
+                last_latent=last_latent, loop_start=loop_start, loop_end=loop_end,
+                c_thought=c_thought)
+            value = {"pools": value, "blocks": blocks, "static": static, "readout": readout}
         captured.append(value)
         # Upstream eval mode would retain full-vocabulary intermediate logits
         # for all 400 latent slots and every iteration. The neural recurrence
@@ -162,6 +212,64 @@ def capture_one(model, lotus_module, tokenizer, question: str, *, loops: int, c_
     return z, {"prompt_tokens": len(q_ids), "latent_tokens": latent_tokens,
                "passes_captured":len(captured), "hidden_dim":z.shape[2],
                "input_sha256":hashlib.sha256(input_ids.cpu().numpy().tobytes()).hexdigest()}
+
+
+def latent_input(model, tokenizer, question: str, *, loops: int, c_thought: int):
+    """Token ids exactly as upstream eval.py builds them, plus latent span bounds."""
+    if loops < 1 or not 1 <= c_thought <= 256:
+        raise ValueError("loops and c_thought must be positive")
+    q_ids = tokenizer.encode(question, add_special_tokens=True)
+    if not q_ids:
+        raise ValueError("question tokenized to empty prefix")
+    ids = (q_ids + [model.start_latent_id] + [model.latent_token_id]*(loops*c_thought)
+           + [model.end_latent_id])
+    first = len(q_ids)+1
+    return ids, first, first + loops*c_thought - 1, len(q_ids)
+
+
+def capture_case(model, lotus_module, tokenizer, question: str, *, loops: int, c_thought: int,
+                 max_new_tokens: int = 0, suppress_logits: bool = True):
+    """Every block of every pass, the static token, readout ids and optionally the answer.
+
+    With max_new_tokens > 0 this calls upstream Lotus.generate (CUDA only: it
+    calls torch.cuda.synchronize) inside the hook, so the captured states are
+    the ones the model's own answer is decoded from. Otherwise it calls forward
+    with all labels -100, as capture_one does.
+    """
+    import numpy as np
+    import torch
+    ids, first, last, n_prompt = latent_input(model, tokenizer, question,
+                                              loops=loops, c_thought=c_thought)
+    device = next(model.base_causallm.parameters()).device
+    input_ids = torch.tensor([ids], dtype=torch.long, device=device)
+    generated = None
+    with torch.inference_mode():
+        with intercept_loop_states(lotus_module, first_latent=first, last_latent=last,
+                                   c_thought=c_thought, suppress_logits=suppress_logits,
+                                   record_blocks=True) as captured:
+            if max_new_tokens:
+                out = model.generate(input_ids, torch.ones_like(input_ids),
+                                     max_new_tokens=max_new_tokens, n_looped_iters=loops)
+                generated = out[0, len(ids):].tolist()
+            else:
+                model.forward(input_ids, torch.ones_like(input_ids),
+                              torch.full_like(input_ids, -100),
+                              torch.arange(len(ids), device=device)[None],
+                              n_looped_iters=loops)
+    if len(captured) != loops + 1:
+        raise AssertionError(f"expected initial + {loops} loops; got {len(captured)} calls")
+    result = {"pools": torch.stack([c["pools"] for c in captured]).numpy(),
+              "blocks": torch.stack([c["blocks"] for c in captured]).numpy(),
+              "static": torch.stack([c["static"] for c in captured]).numpy(),
+              "readout": torch.stack([c["readout"] for c in captured]).numpy()
+              if all(c["readout"] is not None for c in captured) else None,
+              "generated": generated}
+    if result["blocks"].shape[:3] != (loops+1, loops, 2) or not np.isfinite(result["blocks"]).all():
+        raise AssertionError("invalid captured block features")
+    return result, {"prompt_tokens": n_prompt, "latent_tokens": loops*c_thought,
+                    "passes_captured": len(captured), "hidden_dim": result["blocks"].shape[-1],
+                    "sequence_tokens": len(ids),
+                    "input_sha256": hashlib.sha256(input_ids.cpu().numpy().tobytes()).hexdigest()}
 
 
 def resolve_revision(model_id: str, revision: str | None, *, local_only: bool) -> str:

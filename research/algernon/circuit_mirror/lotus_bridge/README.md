@@ -8,6 +8,33 @@ Upstream [LOTUS](https://github.com/yingfan-bot/lotus/tree/eb77e2f7909c5006f58ff
 
 This is instrumentation of the published network's internal activations. No new loop is implemented in Algernon, no LOTUS weights are altered, and the exact pointer-machine constraints are used only for *post hoc evaluation*. The capture path discards full-vocabulary intermediate logits, which the LOTUS forward uses for optional visualization and losses. A short two-loop parity check compares hidden vectors with and without this optimization before collecting the roster.
 
+### A2b: block-aligned capture (registered in [EXPERIMENT.md](../EXPERIMENT.md#h-a2b-block-aligned-capture-causal-controls-and-the-phase-4-gate-registered-2026-11-04-before-any-lotus-gpu-run))
+
+Every loop refines *all* latent blocks, and the published configuration supervises block *b* with CoT step *b* after the final loop, so a reasoning step lives in a block rather than in a loop iteration. `capture.capture_case` therefore records, for every pass, every 25-token block (last latent and mean), the start-latent token (prompt-only, never re-injected) and upstream's own intermediate-logit argmax over the loop region. With generation on, these are the states the model's own answer is decoded from.
+
+| Module | Role |
+| --- | --- |
+| `counterfactual.py` | Frozen relabelled copies of the 48 held-out cases (`frozen_counterfactual_6x16.json`): map conjugated by a fixed derangement, trace relabelled. Never equal to a train or calibration instance; sink duplicates of other held-out cases are listed. |
+| `gpu_run.py` | One gated GPU job: unmodified upstream `eval.py` on 200 GSM8K test items, weight fingerprint, full-depth hook parity (bitwise), two-case smoke, 16-case calibration subset, full roster, relabelled roster, answers at 6 loops and with no latents, drift recapture. |
+| `analysis.py` | CPU decoders for the `diagonal`, `final`, `lastblock`, `pass0` and `static` views, the registered controls and symbolic baselines, the Phase 4 gate, `metrics.json` and `records.jsonl`. |
+
+Upstream pins `transformers==4.46.2`; its `_clone_kv_cache` uses `DynamicCache.key_cache`, which later transformers releases removed, so run LOTUS in an environment with that version (torch 2.7.0+cu128 here).
+
+```bash
+python -m research.algernon.circuit_mirror.lotus_bridge.gpu_run \
+  --upstream ../lotus \
+  --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json \
+  --counterfactual research/algernon/circuit_mirror/lotus_bridge/frozen_counterfactual_6x16.json \
+  --hf-revision b392d2cb7aaa73475b93028221523c47f49f66a2 --run-dir runs/algernon/lotus-02b
+python -m research.algernon.circuit_mirror.lotus_bridge.analysis \
+  --run-dir runs/algernon/lotus-02b \
+  --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json \
+  --counterfactual research/algernon/circuit_mirror/lotus_bridge/frozen_counterfactual_6x16.json \
+  --out runs/algernon/lotus-02b/analysis
+```
+
+`gpu_run.py` never downloads: the pinned snapshot must already be in the Hugging Face cache, and `HF_HUB_OFFLINE=1` is set for the upstream evaluation subprocess. The upstream GSM8K test file comes from `preprocessing/gsm_icot.bash` (convert with UTF-8 I/O on Windows).
+
 ### Scientific question
 
 Can a **single linear decoder** trained on actual LOTUS post-loop activations for transition depths 1–8 recover machine states at unseen depths 9–16, on held-out graph-generator families? We measure:
