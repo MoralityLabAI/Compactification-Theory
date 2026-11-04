@@ -24,3 +24,18 @@
 **Provable unconditional state bound.** Every exact-real post-LN2 coordinate is bounded in magnitude by `8.828797` under original stored FP32 weights or `8.820313` under BF16-stored weights. This follows from the LayerNorm architecture for arbitrary inputs. The independent proof certifies bounded state magnitude, with a separate output-goal readout stability test in [LSV-06](MARGIN_CERTIFICATE.md).
 
 The follow-up CI run using the fully pinned SHA-256 and margin checker is tracked separately. This first record remains unchanged so the analysis is traceable.
+
+## LSV-06 exact rational post-hoc readout certificates
+
+**Second successfully completed [CI run 41788844627](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/41788844627)** rechecked the locked upstream checkpoint SHA-256 and passed **13/13 CPU tests**. The [immutable run artifact](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/41788844627/artifacts/13302457818) and [committed receipt](results/pretrained_trm_lsv06_20261104.json) contain every evaluated noise stream, including the raw certificate counts.
+
+| Hidden damage (after first recurrence) | Noise seed | Exact Sudoku solved / 64 | Readout-stable cells certified / 5,184 | Observed same exact affine label / 5,184 |
+|---:|---:|---:|---:|---:|
+| 0.02 | 34 | 20 | 5,176 | 5,181 |
+| 0.02 | 89 | 20 | 5,174 | 5,180 |
+| 0.10 | 34 | 19 | **5,124** | 5,174 |
+| 0.10 | 89 | 21 | **5,124** | 5,173 |
+| 0.50 | 34 | 15 | 4,860 | 5,129 |
+| 0.50 | 89 | 17 | 4,874 | 5,127 |
+
+All numbers are on the *same* frozen 64-puzzle roster and hash-verified model. The post-hoc bound uses the final hidden error measured per cell. It proves stability of that fixed affine decoder inside the measured error ball; it gives **no ex-ante bound on what hidden error the recurrent model will produce**. The global recurrence-Lipschitz estimate is far too conservative for that. Hidden-state error after 0.5 damage reached a maximum close to 2 after the remaining passes, while the overwhelming majority of cell predictions retained their clean labels. This motivates quotient-/goal-aware certification of the network instead of requiring strict hidden-space contraction.

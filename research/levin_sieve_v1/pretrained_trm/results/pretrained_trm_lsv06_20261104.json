@@ -1,0 +1,283 @@
+{
+  "batch_cases": 64,
+  "checkpoint_bytes": 181147,
+  "checkpoint_git_blob_sha1": "dfbe8ffbeb52f2c32f0c44fd326cd26c96272c54",
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "claim_scope": "weight-only real arithmetic bound, measured torch FP32; no global recovery contraction verified",
+  "classification": "independently_pretrained_third_party_TRM_inspired_CPU",
+  "cpu_threads": 1,
+  "holes_per_case": 30,
+  "inference_seconds_excluding_loading_and_generation": 97.257,
+  "mathematical_certificate": {
+    "absolute_post_LN2_state_bound_bfloat16_linf": {
+      "log10_upper_bound_integer": 1,
+      "value_float_approx": 8.8203125
+    },
+    "absolute_post_LN2_state_bound_original_linf": {
+      "log10_upper_bound_integer": 1,
+      "value_float_approx": 8.828796431422234
+    },
+    "block_gain_strict_contraction": false,
+    "constants": {
+      "GELU_derivative_bound": "5/4",
+      "LN_eps": "1e-5",
+      "LN_input_linf_L_bound": "2853 * max_abs_ln_gamma",
+      "LN_max_normalized_coordinate": "7"
+    },
+    "embeddings_storage_error_linf_upper": {
+      "log10_upper_bound_integer": -1,
+      "value_float_approx": 0.015290975570678711
+    },
+    "final_hidden_error_linf_upper": {
+      "log10_upper_bound_integer": 43,
+      "value_float_approx": 1.41279555204939e+42
+    },
+    "formal_scope": "ideal real arithmetic with quantized stored weights, not runtime roundoff",
+    "full_model_BF16_storage_logit_error_linf_upper": {
+      "log10_upper_bound_integer": 44,
+      "value_float_approx": 1.077702629251531e+43
+    },
+    "global_block_storage_error_linf_upper": {
+      "log10_upper_bound_integer": 10,
+      "value_float_approx": 1860072194.4758263
+    },
+    "global_storage_bound_constructed": true,
+    "max_block_gain_linf": {
+      "log10_upper_bound_integer": 11,
+      "value_float_approx": 77424708355.16255
+    },
+    "operationally_useful_BF16_bound": false,
+    "strict_recovery_contraction_proved": false
+  },
+  "measured": {
+    "damage": [
+      {
+        "all_cell_accuracy": 0.983218,
+        "damage_linf_limit": "0.02",
+        "final_output_cell_flip_fraction": 0.0005787,
+        "full_grid_accuracy": 0.3125,
+        "full_grid_correct_count": 20,
+        "missing_cell_accuracy": 0.954688,
+        "n": 64,
+        "observed_hidden_linf_after_steps": [
+          0.01999998,
+          0.08027267,
+          0.09203255,
+          0.12592006
+        ],
+        "posthoc_head_margin": {
+          "certified_fraction": 0.998457,
+          "certified_unchanged_cells": 5176,
+          "n_cells": 5184,
+          "observed_exact_affine_same_label_cells": 5181,
+          "observed_exact_affine_stability_fraction": 0.999421,
+          "positive_clean_margin_cells": 5184,
+          "scope": "real-arithmetic final affine head, measured per-cell hidden delta; not end-to-end perturbation guarantee"
+        },
+        "seed": 34,
+        "valid_sudoku_count": 20,
+        "valid_sudoku_rate": 0.3125
+      },
+      {
+        "all_cell_accuracy": 0.98341,
+        "damage_linf_limit": "0.10",
+        "final_output_cell_flip_fraction": 0.00192901,
+        "full_grid_accuracy": 0.296875,
+        "full_grid_correct_count": 19,
+        "missing_cell_accuracy": 0.955208,
+        "n": 64,
+        "observed_hidden_linf_after_steps": [
+          0.09999967,
+          0.38455367,
+          0.4401893,
+          0.55510151
+        ],
+        "posthoc_head_margin": {
+          "certified_fraction": 0.988426,
+          "certified_unchanged_cells": 5124,
+          "n_cells": 5184,
+          "observed_exact_affine_same_label_cells": 5174,
+          "observed_exact_affine_stability_fraction": 0.998071,
+          "positive_clean_margin_cells": 5184,
+          "scope": "real-arithmetic final affine head, measured per-cell hidden delta; not end-to-end perturbation guarantee"
+        },
+        "seed": 34,
+        "valid_sudoku_count": 19,
+        "valid_sudoku_rate": 0.296875
+      },
+      {
+        "all_cell_accuracy": 0.977816,
+        "damage_linf_limit": "0.50",
+        "final_output_cell_flip_fraction": 0.01060957,
+        "full_grid_accuracy": 0.234375,
+        "full_grid_correct_count": 15,
+        "missing_cell_accuracy": 0.940104,
+        "n": 64,
+        "observed_hidden_linf_after_steps": [
+          0.49999785,
+          1.93054843,
+          1.68639398,
+          1.99177456
+        ],
+        "posthoc_head_margin": {
+          "certified_fraction": 0.9375,
+          "certified_unchanged_cells": 4860,
+          "n_cells": 5184,
+          "observed_exact_affine_same_label_cells": 5129,
+          "observed_exact_affine_stability_fraction": 0.98939,
+          "positive_clean_margin_cells": 5184,
+          "scope": "real-arithmetic final affine head, measured per-cell hidden delta; not end-to-end perturbation guarantee"
+        },
+        "seed": 34,
+        "valid_sudoku_count": 15,
+        "valid_sudoku_rate": 0.234375
+      },
+      {
+        "all_cell_accuracy": 0.98341,
+        "damage_linf_limit": "0.02",
+        "final_output_cell_flip_fraction": 0.0007716,
+        "full_grid_accuracy": 0.3125,
+        "full_grid_correct_count": 20,
+        "missing_cell_accuracy": 0.955208,
+        "n": 64,
+        "observed_hidden_linf_after_steps": [
+          0.01999986,
+          0.07105082,
+          0.07435322,
+          0.08703437
+        ],
+        "posthoc_head_margin": {
+          "certified_fraction": 0.998071,
+          "certified_unchanged_cells": 5174,
+          "n_cells": 5184,
+          "observed_exact_affine_same_label_cells": 5180,
+          "observed_exact_affine_stability_fraction": 0.999228,
+          "positive_clean_margin_cells": 5184,
+          "scope": "real-arithmetic final affine head, measured per-cell hidden delta; not end-to-end perturbation guarantee"
+        },
+        "seed": 89,
+        "valid_sudoku_count": 20,
+        "valid_sudoku_rate": 0.3125
+      },
+      {
+        "all_cell_accuracy": 0.983989,
+        "damage_linf_limit": "0.10",
+        "final_output_cell_flip_fraction": 0.00212191,
+        "full_grid_accuracy": 0.328125,
+        "full_grid_correct_count": 21,
+        "missing_cell_accuracy": 0.956771,
+        "n": 64,
+        "observed_hidden_linf_after_steps": [
+          0.09999919,
+          0.36674109,
+          0.36399248,
+          0.44283661
+        ],
+        "posthoc_head_margin": {
+          "certified_fraction": 0.988426,
+          "certified_unchanged_cells": 5124,
+          "n_cells": 5184,
+          "observed_exact_affine_same_label_cells": 5173,
+          "observed_exact_affine_stability_fraction": 0.997878,
+          "positive_clean_margin_cells": 5184,
+          "scope": "real-arithmetic final affine head, measured per-cell hidden delta; not end-to-end perturbation guarantee"
+        },
+        "seed": 89,
+        "valid_sudoku_count": 21,
+        "valid_sudoku_rate": 0.328125
+      },
+      {
+        "all_cell_accuracy": 0.980324,
+        "damage_linf_limit": "0.50",
+        "final_output_cell_flip_fraction": 0.01099537,
+        "full_grid_accuracy": 0.265625,
+        "full_grid_correct_count": 17,
+        "missing_cell_accuracy": 0.946875,
+        "n": 64,
+        "observed_hidden_linf_after_steps": [
+          0.49999619,
+          1.85285223,
+          1.80864763,
+          1.95496345
+        ],
+        "posthoc_head_margin": {
+          "certified_fraction": 0.940201,
+          "certified_unchanged_cells": 4874,
+          "n_cells": 5184,
+          "observed_exact_affine_same_label_cells": 5127,
+          "observed_exact_affine_stability_fraction": 0.989005,
+          "positive_clean_margin_cells": 5184,
+          "scope": "real-arithmetic final affine head, measured per-cell hidden delta; not end-to-end perturbation guarantee"
+        },
+        "seed": 89,
+        "valid_sudoku_count": 17,
+        "valid_sudoku_rate": 0.265625
+      }
+    ],
+    "quantized_storage": {
+      "all_cell_accuracy": 0.983025,
+      "final_output_cell_flip_fraction": 0.0003858,
+      "full_grid_accuracy": 0.3125,
+      "full_grid_correct_count": 20,
+      "max_logit_abs_delta_fp32": 0.16162586,
+      "missing_cell_accuracy": 0.954167,
+      "n": 64,
+      "storage_dtype": "bfloat16 weights cast back to fp32; FP32 operator arithmetic",
+      "valid_sudoku_count": 20,
+      "valid_sudoku_rate": 0.3125
+    },
+    "stages": {
+      "clean_depth_1": {
+        "all_cell_accuracy": 0.933256,
+        "full_grid_accuracy": 0,
+        "full_grid_correct_count": 0,
+        "missing_cell_accuracy": 0.819792,
+        "n": 64,
+        "valid_sudoku_count": 0,
+        "valid_sudoku_rate": 0
+      },
+      "clean_depth_2": {
+        "all_cell_accuracy": 0.968943,
+        "full_grid_accuracy": 0.03125,
+        "full_grid_correct_count": 2,
+        "missing_cell_accuracy": 0.916146,
+        "n": 64,
+        "valid_sudoku_count": 2,
+        "valid_sudoku_rate": 0.03125
+      },
+      "clean_depth_3": {
+        "all_cell_accuracy": 0.978781,
+        "full_grid_accuracy": 0.203125,
+        "full_grid_correct_count": 13,
+        "missing_cell_accuracy": 0.942708,
+        "n": 64,
+        "valid_sudoku_count": 13,
+        "valid_sudoku_rate": 0.203125
+      },
+      "clean_depth_4": {
+        "all_cell_accuracy": 0.982639,
+        "full_grid_accuracy": 0.3125,
+        "full_grid_correct_count": 20,
+        "missing_cell_accuracy": 0.953125,
+        "n": 64,
+        "valid_sudoku_count": 20,
+        "valid_sudoku_rate": 0.3125
+      }
+    },
+    "stale_full_state": {
+      "read_stage1_instead_of_stage2_once": {
+        "all_cell_accuracy": 0.978781,
+        "full_grid_accuracy": 0.203125,
+        "full_grid_correct_count": 13,
+        "missing_cell_accuracy": 0.942708,
+        "n": 64,
+        "valid_sudoku_count": 13,
+        "valid_sudoku_rate": 0.203125
+      }
+    }
+  },
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "schema": "LSV-05/pretrained-trm-eval-v1",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "torch_version": "2.7.1+cpu"
+}
