@@ -105,16 +105,43 @@ def encode_cell_tokens(ledger,tau=TAU):
 
 
 def teacher_record(ledger):
-    """Full exact horizon-two teacher with first-action Q-values."""
+    """Distill exact two-probe root Q-values without modifying QO-13's frozen source.
+
+    The original QO-13 horizon-two optimum is independently evaluated.
+    For each possible first cell, replay a candidate hit/hold from the
+    PUBLIC current confidence/count state into an isolated copy, then
+    evaluate QO-13's original horizon-one optimal recourse. The full
+    root value must equal the maximum of these action values.
+    """
     out=optimal_certificate_reachability(
         ledger,1,TAU,horizon=TEACHER_HORIZON)
-    roots=out["root_action_values"]
+    gap_calls=out["decision_gap_evaluations"]
+    candidates=out["bellman_candidates"]
     if out["current_decision"]=="undetermined":
-        if set(roots)!={(0,0),(1,0)}:
-            raise AssertionError("teacher missing first-action Q-values")
-        q=(roots[(0,0)],roots[(1,0)])
+        values=[]
+        for i in (0,1):
+            p=Q(ledger.hits[i][0]+1,ledger.counts[i][0]+2)
+            outcomes=[]
+            for hit in (0,1):
+                successor=ProbeLedger(2,1,ledger.alpha,ledger.bits)
+                successor.counts=[list(row) for row in ledger.counts]
+                successor.hits=[list(row) for row in ledger.hits]
+                successor.bounds=[list(row) for row in ledger.bounds]
+                try:
+                    successor.observe(i,0,hit)
+                except ValueError:
+                    outcomes.append(Q(0))
+                else:
+                    child=optimal_certificate_reachability(
+                        successor,1,TAU,horizon=1)
+                    outcomes.append(child["predicted_certificate_probability"])
+                    gap_calls+=child["decision_gap_evaluations"]
+                    candidates+=child["bellman_candidates"]
+            values.append((1-p)*outcomes[0]+p*outcomes[1])
+        q=tuple(values)
         if max(q)!=out["predicted_certificate_probability"]:
-            raise AssertionError("inconsistent exact Bellman root")
+            raise AssertionError(
+                "QO-14 root-Q adapter disagrees with unchanged QO-13 teacher")
     else:
         q=(Q(1),Q(1))
     return {
@@ -126,10 +153,9 @@ def teacher_record(ledger):
         "certified":out["current_decision"]!="undetermined",
         "counts":tuple(row[0] for row in ledger.counts),
         "successes":tuple(row[0] for row in ledger.hits),
-        "teacher_gap_calls":out["decision_gap_evaluations"],
-        "teacher_bellman_candidates":out["bellman_candidates"],
+        "teacher_gap_calls":gap_calls,
+        "teacher_bellman_candidates":candidates,
     }
-
 
 def dataset(split,rate_pairs=None,seeds=None,count_pairs=None):
     """Deterministic case families, optionally reduced for cheap smoke tests."""
