@@ -81,6 +81,14 @@ def main():
         if not DEST.exists():
             raise FileNotFoundError("QO-14 receipt not yet committed")
         if DEST.read_bytes()!=payload:
+            # Emit the reviewed replacement receipt while preserving the
+            # prior invalidated source-bound record for audit.
+            print("QO-14 current source-bound replacement follows.",flush=True)
+            print("__QO14_B64_BEGIN__",flush=True)
+            encoded=base64.b64encode(payload).decode("ascii")
+            for i in range(0,len(encoded),4096):
+                print(encoded[i:i+4096],flush=True)
+            print("__QO14_B64_END__",flush=True)
             print("observed:",hashlib.sha256(DEST.read_bytes()).hexdigest())
             print("expected:",hashlib.sha256(payload).hexdigest())
             raise AssertionError("QO-14 trained checkpoint or report no longer matches sources")
