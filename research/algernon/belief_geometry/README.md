@@ -58,3 +58,13 @@ Source model: [Qwen/Qwen3.5-27B](https://huggingface.co/Qwen/Qwen3.5-27B), 64 la
 ## Scientific boundaries
 
 This module establishes mathematical properties of a known finite Bayesian model. It makes **no empirical claim** about Qwen, neural circuit existence, SAE sparsity, transfer to the Ryzen NPU, or terminal utility improvements. Mathematical continuation value and information-gain objectives are different quantities. A 27B activation experiment would test whether the model approximates these structures and whether they causally matter.
+
+## 5. Information geometry: flat evidence increments, curved decision surfaces
+
+Let `theta` be a categorical natural-parameter vector. Its log-partition is `A(theta)=log sum_i exp(theta_i)`, with gradient `softmax(theta)` and Hessian `diag(p)-p p^T`, the Fisher information of the categorical family. The Hessian has a zero mode along the all-ones vector because adding a common scalar to every logit leaves probabilities unchanged. In the dimension `n-1` reference-gauge log-odds coordinates the Fisher metric becomes positive definite for strictly positive posteriors.
+
+**KL identity:** `KL(p_theta||p_eta)=A(eta)-A(theta)-∇A(theta)·(eta-theta)`, a Bregman divergence. Thus the additive evidence translations in natural coordinates coexist with a generally non-Euclidean Fisher metric. Tests in `tests/test_info_geometry.py` check the gradient, Hessian, gauge invariance and KL identity numerically.
+
+For two fixed terminal policies with alpha vectors `alpha,beta`, their decision boundary in natural coordinates satisfies `sum_i (alpha_i-beta_i) exp(theta_i)=0`, after cancellation of the positive partition function. It is generally **curved** in log-odds coordinates, though affine in mixture belief coordinates. For three states and `alpha=(1,1,0), beta=(0,0,1)`, fix `theta_3=0`: the boundary `e^x+e^y=1` has `y(x)=log(1-e^x)` and `y''(x)=-e^x/(1-e^x)^2 < 0` for `x<0`.
+
+**Mechanistic implication:** a linear readout for additive log-likelihood updates and a nonlinear readout for action advantage can both be valid. A curved stopping feature in activation space alone does not falsify flat Bayesian evidence accumulation. Source model and exact activation site must be pinned before interpretability measurements.
