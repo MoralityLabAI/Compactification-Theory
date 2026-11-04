@@ -1,0 +1,34 @@
+name: QO-10 decision-aware paired probe receipt
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/decision_boundary_probe.py'
+      - 'research/ingression_dynamics_v1/test_decision_boundary_probe.py'
+      - 'research/ingression_dynamics_v1/DECISION_BOUNDARY_PILOT.md'
+      - 'scripts/verify_decision_boundary_probe.py'
+      - 'results/decision_boundary_probe/**'
+      - '.github/workflows/qo10-decision-boundary.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/decision_boundary_probe.py'
+      - 'research/ingression_dynamics_v1/test_decision_boundary_probe.py'
+      - 'research/ingression_dynamics_v1/DECISION_BOUNDARY_PILOT.md'
+      - 'scripts/verify_decision_boundary_probe.py'
+      - 'results/decision_boundary_probe/**'
+      - '.github/workflows/qo10-decision-boundary.yml'
+  workflow_dispatch:
+jobs:
+  paired-source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact primal dual and paired-runner unit tests
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_decision_boundary_probe.py' -v
+      - name: Regenerate every matched stream and verify canonical source-hashed result
+        run: PYTHONPATH=. python scripts/verify_decision_boundary_probe.py --check
