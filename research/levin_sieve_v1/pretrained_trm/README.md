@@ -76,3 +76,7 @@ The [sparse rank-witness note](SPARSE_RANK_WITNESS.md) reduces the obligation fo
 ## LSV-13: rigorously validated local goal-history rank
 
 [LSV-13 proof and numerical trust boundary](VALIDATED_MINOR.md), [research results](LSV13_RESULTS.md), [full 64-case permanent proof receipt](results/lsv13_arb_validated_64_20261104.json), [Arb forward differentiator](validated_minor.py), and [standalone exact-rational witness checker](verify_serialized_minors.py). At 64 frozen states of the independently trained 44K Sudoku recurrence, the selected 4x4 minor determinant excludes zero with rigorous Arb enclosures. An independent Fraction-only replay checked 64/64 determinants and all 1,024 saved autograd derivative error bounds against the earlier LSV-12 budgets. These are local exact-real network rank statements rather than trained task or floating-hardware robustness certificates.
+
+## LSV-16: certified transport of stage-one damage to the goal readout
+
+[LSV-16](AMBIENT_TO_GAUGE.md) propagates independent coordinatewise perturbation bounds through the recurrent token/channel mixers and centering-aware LayerNorm estimates. The [permanent 64-case result](LSV16_RESULTS.md) proves top-digit invariance on all 64 frozen Sudoku cases for a full stage-one infinity radius 1e-14 (57/64 also preserve the top-two order); at 1e-16 both orders hold in 64/64. The independent [rational verifier](verify_transport_receipt.py) checks the committed receipts; larger 1e-8 and 1e-10 attempts remain negative certification controls. No hardware-rounding or new Sudoku-skill claim follows.
