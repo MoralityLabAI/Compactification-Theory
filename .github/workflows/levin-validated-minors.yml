@@ -41,9 +41,11 @@ jobs:
       - name: Verify exact-real pretrained goal-rank minor
         run: |
           mkdir -p runs/lsv13
-          python research/levin_sieve_v1/pretrained_trm/run_validated_minor.py --fetch --max-cases 1 --precision 128 --out runs/lsv13/verified.json
+          python research/levin_sieve_v1/pretrained_trm/run_validated_minor.py --fetch --max-cases 64 --precision 128 --out runs/lsv13/verified.json
       - name: Independent exact-rational proof replay of all 1024 entries
-        run: python research/levin_sieve_v1/pretrained_trm/verify_serialized_minors.py runs/lsv13/verified.json
+        run: |
+          python research/levin_sieve_v1/pretrained_trm/verify_serialized_minors.py runs/lsv13/verified.json
+          python -c "import json; r=json.load(open('runs/lsv13/verified.json')); assert r['cases_checked']==64 and r['rigorously_verified_rank_four_cases']==64 and r['cases_discharge_original_lsv12_entry_error_budget']==64 and r['total_rigorously_checked_autograd_derivative_entries']==1024"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
