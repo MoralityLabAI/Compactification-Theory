@@ -1,0 +1,37 @@
+name: LSV-16 stage-one ambient to gauge certificate
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/transport_gauge.py'
+      - 'research/levin_sieve_v1/pretrained_trm/test_transport_gauge.py'
+      - 'research/levin_sieve_v1/pretrained_trm/run_transport_gauge.py'
+      - 'research/levin_sieve_v1/pretrained_trm/AMBIENT_TO_GAUGE.md'
+      - '.github/workflows/levin-ambient-gauge.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  interval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned CPU and rigorous interval arithmetic
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Validate rigorous transport reference invariants
+        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_transport_gauge.py' -v
+      - name: Frozen checkpoint 4-case smoke, two radii
+        run: |
+          python research/levin_sieve_v1/pretrained_trm/run_transport_gauge.py --fetch --radii 1e-8,1e-10 --max-cases 4 --out runs/lsv16/smoke.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lsv16-ambient-to-gauge-smoke
+          path: runs/lsv16/*.json
+          if-no-files-found: warn
+          retention-days: 60
