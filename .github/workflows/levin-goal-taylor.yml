@@ -27,7 +27,8 @@ jobs:
       - name: Independent rational replay
         run: python research/levin_sieve_v1/goal_taylor_v1/replay.py runs/lsv17/projected.json --complete
       - name: Retain compatible validated arithmetic wheel for offline reproduction
-        run: python -m pip download python-flint==0.9.0 --only-binary=:all: --no-deps --python-version 313 --implementation cp --abi cp313 --platform manylinux_2_17_x86_64 --platform manylinux2014_x86_64 -d runs/lsv17/runtime
+        run: |
+          python -m pip download python-flint==0.9.0 --only-binary=:all: --no-deps --python-version 313 --implementation cp --abi cp313 --platform manylinux_2_17_x86_64 --platform manylinux2014_x86_64 -d runs/lsv17/runtime
       - uses: actions/upload-artifact@v4
         if: always()
         with:
