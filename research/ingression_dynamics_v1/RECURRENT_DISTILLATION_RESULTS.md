@@ -4,7 +4,7 @@
 
 ## Teacher/holdout distribution
 
-Training examples: **864** from 8 Bernoulli rate pairs and 12 source seeds. Held-out examples: **378** from 6 *disjoint* rate pairs and 7 disjoint seeds, with identical evidence-count schedules. The exact horizon-two QO-13 teacher generated these first-action Q labels under the unchanged QO-07 evidence contract.
+Training examples: **864** from 8 Bernoulli rate pairs and 12 source seeds. Held-out examples: **378** from 6 *disjoint* rate pairs and 7 disjoint seeds, with identical evidence-count schedules. The QO-14 teacher adapter obtained first-action Q labels by replaying hypothetical first observations into the original unchanged QO-13 horizon-one solver, and checked their maximum against QO-13's horizon-two optimum. This preserves QO-13's previously committed source-hash and confidence-evidence contract.
 
 The teacher revealed a major structural issue:
 
