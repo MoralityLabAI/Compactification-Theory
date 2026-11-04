@@ -1,0 +1,37 @@
+name: LSV-14 independent rational replay of stored uniform rank witness
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/results/lsv14_robust_rank_1e14_20261104.json'
+      - 'research/levin_sieve_v1/pretrained_trm/LSV14_RESULTS.md'
+      - 'research/levin_sieve_v1/pretrained_trm/robust_inverse.py'
+      - 'research/levin_sieve_v1/pretrained_trm/verify_robust_receipt.py'
+      - '.github/workflows/levin-robust-replay.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact rational inverse and tampering tests
+        run: |
+          python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_robust_inverse.py' -v
+          python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_robust_receipt.py' -v
+      - name: Independent replay of all 64 archived finite-radius witnesses
+        run: |
+          python research/levin_sieve_v1/pretrained_trm/verify_robust_receipt.py research/levin_sieve_v1/pretrained_trm/results/lsv14_robust_rank_1e14_20261104.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('research/levin_sieve_v1/pretrained_trm/results/lsv14_robust_rank_1e14_20261104.json')
+          x=json.loads(p.read_text())
+          assert x['radius']=='1e-14' and x['cases_checked']==64
+          assert x['replay']['positive_radius_rank_four_cases']==64
+          assert x['neumann_certified_cases']==64
+          assert x['top1_stable_cases']==64 and x['top2_stable_cases']==63
+          PY
