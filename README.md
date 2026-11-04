@@ -130,3 +130,8 @@ results/<run>/                   raw records and reports of the runs described a
 ```
 
 **LSV-04 learned recurrent repair:** [frozen-weight mathematical certificate, held-out CPU experiment, and delayed-state controls](research/levin_sieve_v1/NEURAL_REPAIR.md).
+
+
+## LSV-15: certified LayerNorm gauge quotients
+
+The [LSV-15 math and checkpoint protocol](research/levin_sieve_v1/pretrained_trm/GAUGE_QUOTIENT.md) formalizes the 81 per-token shared-shift directions erased by the final LayerNorm of a frozen 44K-parameter TRM-inspired Sudoku model. A complete source-locked Arb and exact-rational evaluation certifies all 64 selected top-one predictions for transverse radius 0.01, plus arbitrary shared shifts at the final pre-normalization bus. A closed-form sufficient inequality certifies every selected top-one for all radii below 0.07546051515573275. See [LSV-15 results and permanent reproducibility](research/levin_sieve_v1/pretrained_trm/LSV15_RESULTS.md). This intervention contract is distinct from the earlier 3888-dimensional initial-state ball in LSV-14.

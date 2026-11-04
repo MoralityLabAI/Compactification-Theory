@@ -86,3 +86,37 @@ python research/levin_sieve_v1/pretrained_trm/verify_gauge_receipt.py runs/lsv15
 ```
 
 The initial first-missing-cell pair and test roster were fixed in LSV-13. Independent novel mathematical discovery is evaluated separately by the philosophy-sieve protocol.
+
+## Theorem GQ-02: Exact quotient dimension with positive epsilon
+
+Assume every entry of `gamma` is nonzero. Then LayerNorm identifies **precisely** the equivalence classes `y ~ y'` iff `y-y'` is a multiple of the all-ones vector. In particular, its Jacobian has rank exactly `d-1` at every input; its kernel is `span{1}`.
+
+**Proof.** Set `v=(N(y)-beta)/gamma=u/s`, and `q=||v||_2^2/d`. Then `q=t/(epsilon+t)` where `t=||u||_2^2/d`, so `0<=q<1` and
+
+\[
+  u=v\sqrt{\frac{\epsilon}{1-q}}.
+\]
+
+Thus the normalized output uniquely recovers the centered input `u`. Two inputs have the same normalized output exactly when their centered inputs agree. The kernel of the projection `P` consists of shared translations.
+
+Differentiating `u/s` on the centered subspace gives `I/s - uu^T/(d s^3)`. Its eigenvalues are `1/s` in the `d-2` centered directions perpendicular to `u`, and `epsilon/s^3>0` in the direction of `u` (or `1/s` when `u=0`). Multiplication by invertible diagonal `gamma` preserves rank. The missing one dimension is the translation direction. QED.
+
+The frozen checkpoint has **48/48 nonzero gamma parameters** in its last LayerNorm. Its complete 81-token LayerNorm therefore has an exact **81-dimensional gauge kernel**, with rank `81*(48-1)=3807` on the 3888-dimensional pre-normalization state. This is a known consequence of LayerNorm geometry with positive epsilon, now confirmed for the specified learned weights.
+
+## Theorem GQ-03: Direct radius optimization for the certified bound
+
+Let `S>0` be the rational lower bound on the clean `s0`, let `U_j` bound the absolute centered input, and let `m_ak>0` be a rational lower bound on the clean winner-versus-competitor logit margin. Set
+
+\[
+B_{ak}=\sum_j|W_{aj}-W_{kj}|\,|\gamma_j|(1+U_j/S).
+\]
+
+The transverse proof above has sufficient condition `m_ak > B_ak*r/(S-r)`. Its **largest sufficient open radius for this particular inequality** is
+
+\[
+\boxed{T_{ak}=\frac{S\,m_{ak}}{m_{ak}+B_{ak}}.}
+\]
+
+Indeed, rearranging the inequality with `0<=r<S` gives exactly `r<T_ak`. A winner remains certified for `0<=r< min_{k!=a}T_ak`. To preserve the designated runner-up as well, take the minimum with `min_{k notin {a,b}} T_bk`. If `B_ak=0`, the formula gives `T_ak=S`, although the true shift-invariant margin can hold at any radius. These thresholds optimize the *chosen analytic sufficient bound*, not the actual adversarial radius.
+
+The independent exact-rational [threshold verifier](gauge_threshold.py) recomputes these inequalities from the archived source-locked Arb enclosures and hex-exact weights. The [64-case threshold record](results/lsv15_exact_thresholds_64_20261104.json) proves that **every selected top digit is stable for transverse radius strictly less than `0.07546051515`**, plus arbitrary common-mode shifts. For the designated top two digits, the corresponding all-case strict radius is `0.00140648959`. The original grid experiment also certified all 64 winners at radius 0.01 and 58/64 second-ranked digits there. The exact rational thresholds have been retained without rounding in the JSON record.
