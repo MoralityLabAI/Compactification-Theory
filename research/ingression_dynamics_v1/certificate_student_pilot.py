@@ -23,7 +23,7 @@ import json
 from research.ingression_dynamics_v1.certificate_student_data import (
     ALPHA, BISECTION_BITS, TOLERANCE, TEST_RATES, TEST_SEEDS,
     TRAIN_RATES, VALIDATION_RATES, TRAIN_SEEDS, VALIDATION_SEEDS,
-    generate_split, teacher_q_values, split_signature
+    generate_split, teacher_q_values, split_signature, evidence_features
 )
 from research.ingression_dynamics_v1.tiny_recurrent_certificate_student import (
     create_linear,create_rnn,fit,forward,from_receipt,
@@ -139,10 +139,7 @@ def student_choice(ledger,policy,models,counters):
         counters["teacher_q_labels"]+=1
     else:
         model=models[policy]
-        q=forward(model,tuple(
-            tuple(row) for row in __import__(
-                "research.ingression_dynamics_v1.certificate_student_data",
-                fromlist=["evidence_features"]).evidence_features(ledger)))
+        q=forward(model,evidence_features(ledger))
         counters["student_inferences"]+=1
         counters["student_multiply_accumulates"]+=inference_multiplies(model)
     if max(q)<MIN_PREDICTED_VALUE:
