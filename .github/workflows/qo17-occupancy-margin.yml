@@ -1,0 +1,51 @@
+name: QO-17 occupancy margin and gate calibration audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/qo17_frozen_contract.py'
+      - 'research/ingression_dynamics_v1/qo17_margin_gate_loss.py'
+      - 'research/ingression_dynamics_v1/qo17_occupancy_data.py'
+      - 'research/ingression_dynamics_v1/qo17_occupancy_pilot.py'
+      - 'research/ingression_dynamics_v1/test_qo17_occupancy.py'
+      - 'research/ingression_dynamics_v1/QO17_OCCUPANCY_MARGIN_PROTOCOL.md'
+      - 'research/ingression_dynamics_v1/QO17_OCCUPANCY_MARGIN_RESULTS.md'
+      - 'scripts/verify_qo17_occupancy.py'
+      - 'results/qo17_occupancy/**'
+      - '.github/workflows/qo17-occupancy-margin.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/qo17_frozen_contract.py'
+      - 'research/ingression_dynamics_v1/qo17_margin_gate_loss.py'
+      - 'research/ingression_dynamics_v1/qo17_occupancy_data.py'
+      - 'research/ingression_dynamics_v1/qo17_occupancy_pilot.py'
+      - 'research/ingression_dynamics_v1/test_qo17_occupancy.py'
+      - 'research/ingression_dynamics_v1/QO17_OCCUPANCY_MARGIN_PROTOCOL.md'
+      - 'research/ingression_dynamics_v1/QO17_OCCUPANCY_MARGIN_RESULTS.md'
+      - 'scripts/verify_qo17_occupancy.py'
+      - 'results/qo17_occupancy/**'
+      - '.github/workflows/qo17-occupancy-margin.yml'
+  workflow_dispatch:
+jobs:
+  train-and-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: QO-17 frozen splits, source-policy replay and finite-difference BPTT tests
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_qo17_occupancy.py' -v
+      - name: Check unchanged original QO-14 BPTT gradient contracts
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_certificate_student.py' -v
+      - name: Check unchanged QO-16 exact QO-12 parity and QO-07 replay
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_gap_student.py' -v
+      - name: Retrain all ablations and emit or check full frozen paired result
+        run: |
+          if [ -f results/qo17_occupancy/receipt.json ]; then
+            PYTHONPATH=. python scripts/verify_qo17_occupancy.py --check
+          else
+            PYTHONPATH=. python scripts/verify_qo17_occupancy.py --emit
+          fi
