@@ -1,6 +1,6 @@
 # Algernon-02C progress: LOTUS's own recipe on the pointer task
 
-Rendered 2026-11-05 03:44 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running armA 2026-11-04T23:27:39`.
+Rendered 2026-11-05 03:57 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running armB 2026-11-05T03:55:59`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `8cc8f97cfb6a`, validation `6fd9062d54a9`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -21,7 +21,7 @@ Status `complete`; process starts 1; power-cap pauses 0; out-of-memory pauses 0.
 
 ### Arm A: published (after-loop supervision)
 
-Status `running`; process starts 8; power-cap pauses 4; out-of-memory pauses 2.
+Status `complete`; process starts 9; power-cap pauses 5; out-of-memory pauses 2. Final weights `0be1a42ce3a2` after 16 epochs.
 
 | epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -40,6 +40,7 @@ Status `running`; process starts 8; power-cap pauses 4; out-of-memory pauses 2.
 | 12 | 8 | 0.0097 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.9 |
 | 13 | 8 | 0.0085 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 21.6 |
 | 14 | 8 | 0.0217 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 23.1 |
+| 15 | 8 | 0.0059 | 512 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 5.9 |
 
 Out-of-memory pauses (resumed from the last checkpoint): 23:50 epoch 7 step 30; 00:04 epoch 7 step 53.
 

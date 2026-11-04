@@ -19,7 +19,7 @@
     "--out",
     "armA"
   ],
-  "attempts": 8,
+  "attempts": 9,
   "base": {
     "model_id": "openai-community/gpt2",
     "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
@@ -310,8 +310,27 @@
         "8": 1.0
       },
       "val_n": 64
+    },
+    {
+      "epoch": 15,
+      "seconds": 354.2,
+      "stage": 8,
+      "train_loss_mean": 0.005923565053618321,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 512
     }
   ],
+  "epochs_trained": 16,
   "faults": [
     {
       "at": "2026-11-04T23:50:10+0800",
@@ -330,6 +349,7 @@
       "step": 53
     }
   ],
+  "final_sha256": "0be1a42ce3a2eb5bd6848af4b0afd921fa05d7037a9ddc572d64651f3b717b5b",
   "hyper": {
     "batch": 128,
     "clip": 1.0,
@@ -363,11 +383,15 @@
     {
       "at": "2026-11-05T02:36:28+0800",
       "reason": "epoch 12 step 132: GPU power-capped at 15 W"
+    },
+    {
+      "at": "2026-11-05T03:45:32+0800",
+      "reason": "epoch 15 step 112: GPU power-capped at 15 W"
     }
   ],
   "phase": "lotus",
   "schema_version": "algernon-02c-train-v1",
-  "status": "running",
+  "status": "complete",
   "upstream": {
     "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
     "dataset_py_sha256": "77fb76df548da929a5a5d950f2036c69d10e0d422a0201dbcd7b50e53850b702",
