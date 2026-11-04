@@ -35,6 +35,8 @@ jobs:
         run: |
           python research/levin_sieve_v1/pretrained_trm/verify_transport_receipt.py research/levin_sieve_v1/pretrained_trm/results/lsv16_ambient_64_20261104.json --complete
           python research/levin_sieve_v1/pretrained_trm/verify_transport_receipt.py research/levin_sieve_v1/pretrained_trm/results/lsv16_ambient_negative_controls_20261104.json
+          python research/levin_sieve_v1/pretrained_trm/verify_transport_receipt.py research/levin_sieve_v1/pretrained_trm/results/lsv16_ambient_64_anchor_v2_20261104.json --complete
+          python research/levin_sieve_v1/pretrained_trm/verify_transport_receipt.py research/levin_sieve_v1/pretrained_trm/results/lsv16_ambient_negative_controls_anchor_v2_20261104.json
       - name: Frozen checkpoint four-case larger-radius negative controls
         run: |
           python research/levin_sieve_v1/pretrained_trm/run_transport_gauge.py --fetch --radii 1e-8,1e-10 --max-cases 4 --out runs/lsv16/smoke.json

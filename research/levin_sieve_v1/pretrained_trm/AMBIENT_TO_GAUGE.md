@@ -29,3 +29,7 @@ Then `|P e|_j<=c_j` and `||P e||_2/sqrt(d)<=R`. If `R<s`, the exact-real LayerNo
 ## Falsification and limitations
 
 An observed larger radius may result from a stronger proof bound or a different intervention location. A failure to certify means the enclosure is inconclusive. The theorem uses globally valid GELU bounds and a variance-dependent LayerNorm inequality; its radius may grow substantially through token mixing, so `1e-8` is an *experimental target*, not a guaranteed outcome. This approach is simpler than affine/Taylor arithmetic but preserves the task-relevant LayerNorm centering structure that plain interval boxes lose.
+
+## Source anchor portability
+
+The source, checkpoint and task hashes do not require bitwise equality of every CPU forward activation on different runner architectures. [LSV-16a](ANCHOR_DRIFT.md) proves and checks an additional clean-reference drift term when transporting a second run's stage-one state to the archived LSV-15 margin radius. The archived original v1 results remain attached to their original binary32 CPU stage-one state, while the v2 results include this separately verified drift.

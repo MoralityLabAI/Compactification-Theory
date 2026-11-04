@@ -1,0 +1,115 @@
+{
+  "cases": [
+    {
+      "ambient_radii": {
+        "1e-10": {
+          "LSV15_top2_threshold": "19014747810241941550449865903149988004218936475379722928341042857825440830636122341599723786319985990857080182312953019/140542539742287513377053840635571778300998454854117860395058976709565630016599562027595093000000000000000000000000000000",
+          "LSV15_winner_threshold": "10416489245565882297812917761980390377981220888514959085360152386137922955941800130832734469942776490532316011677620519/12384041348750720886735688188246263205385801625926226081051030150005258576119817825792529000000000000000000000000000000",
+          "reference_anchor_drift_upper": "494779804043201052687/1250000000000000000000000000",
+          "top_two_certificate": false,
+          "transport_component_upper": "3597888558219130290639789399/16000000000000000000000000",
+          "verified_final_transverse_radius_upper": "2248680352845194863995476795871/10000000000000000000000000000",
+          "winner_certificate": false
+        },
+        "1e-8": {
+          "reason": "local LayerNorm denominator floor not positive: shrink input box",
+          "top_two_certificate": false,
+          "verified_final_transverse_radius_upper": null,
+          "winner_certificate": false
+        }
+      },
+      "case_index": 0,
+      "goal_cell": 1
+    },
+    {
+      "ambient_radii": {
+        "1e-10": {
+          "LSV15_top2_threshold": "5908258520360412482132870571918493365873543500256982955634331279681448620220270320270283887502302280121920325119291/179674308520076454846104409437704216979751582046083531075418607810917172321830397171194600000000000000000000000000000",
+          "LSV15_winner_threshold": "285493390430869463677214850435732055706066235450704195636243706544712242158920818037239609398541268381867058891083609/332252785152312508168732779004364633888659397242533233489799579078169470663093167478453850000000000000000000000000000",
+          "reference_anchor_drift_upper": "13856588239015490004159/10000000000000000000000000000",
+          "top_two_certificate": false,
+          "transport_component_upper": "3010565634669929975233652762981/10000000000000000000000000000",
+          "verified_final_transverse_radius_upper": "150528282426325910712457138357/500000000000000000000000000",
+          "winner_certificate": false
+        },
+        "1e-8": {
+          "reason": "local LayerNorm denominator floor not positive: shrink input box",
+          "top_two_certificate": false,
+          "verified_final_transverse_radius_upper": null,
+          "winner_certificate": false
+        }
+      },
+      "case_index": 1,
+      "goal_cell": 1
+    },
+    {
+      "ambient_radii": {
+        "1e-10": {
+          "LSV15_top2_threshold": "5088088448323403902850738168380222101689135146801019000744237120825460723991712130523676215776618302592530859887319/291300146442965763408975239862057772675111431928284348997579625561154779616871088827757600000000000000000000000000000",
+          "LSV15_winner_threshold": "568872523822352218570201704860206525260460315920053507365117160370320762686225776981511007621615110409786832744750987/633126837920999839662565473045266229736633964851221307703956171977362892740125812725569300000000000000000000000000000",
+          "reference_anchor_drift_upper": "1476397120597043718387/5000000000000000000000000000",
+          "top_two_certificate": false,
+          "transport_component_upper": "42332593507055507140328835053/200000000000000000000000000",
+          "verified_final_transverse_radius_upper": "132289354894098099888158074339/625000000000000000000000000",
+          "winner_certificate": false
+        },
+        "1e-8": {
+          "reason": "local LayerNorm denominator floor not positive: shrink input box",
+          "top_two_certificate": false,
+          "verified_final_transverse_radius_upper": null,
+          "winner_certificate": false
+        }
+      },
+      "case_index": 2,
+      "goal_cell": 0
+    },
+    {
+      "ambient_radii": {
+        "1e-10": {
+          "LSV15_top2_threshold": "47653262891128186745304791019991507198507262078570748125958783310278808202051170007459232274880330957442436412803247229/218710896464426987939580896192037815607071895675272375979471032547513312071458722656445858250000000000000000000000000000",
+          "LSV15_winner_threshold": "47653262891128186745304791019991507198507262078570748125958783310278808202051170007459232274880330957442436412803247229/218710896464426987939580896192037815607071895675272375979471032547513312071458722656445858250000000000000000000000000000",
+          "reference_anchor_drift_upper": "8426846302455055068431/5000000000000000000000000000",
+          "top_two_certificate": false,
+          "transport_component_upper": "2174368751340071667721832296451/10000000000000000000000000000",
+          "verified_final_transverse_radius_upper": "2174368768193764272631942433313/10000000000000000000000000000",
+          "winner_certificate": false
+        },
+        "1e-8": {
+          "reason": "local LayerNorm denominator floor not positive: shrink input box",
+          "top_two_certificate": false,
+          "verified_final_transverse_radius_upper": null,
+          "winner_certificate": false
+        }
+      },
+      "case_index": 3,
+      "goal_cell": 0
+    }
+  ],
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "counts": {
+    "1e-10": {
+      "certified_top2": 0,
+      "certified_winner": 0,
+      "could_not_bound": 0
+    },
+    "1e-8": {
+      "certified_top2": 0,
+      "certified_winner": 0,
+      "could_not_bound": 4
+    }
+  },
+  "intervention_geometry": "independent ambient l-infinity perturbation on all 3888 stage1 coordinates",
+  "limits": "No machine-code FP32 or BF16 rounding guarantee; finite region and model/source locks apply.",
+  "model_arithmetic": "exact-real erf-GELU and layernorm with exact binary checkpoint weights; Arb outward enclosures",
+  "precision_bits": 160,
+  "radii": [
+    "1e-8",
+    "1e-10"
+  ],
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "schema": "LSV-16/ambient-to-gauge-certified-transport-v2",
+  "source_revision": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "stage1_input_contract": "exact binary32 forward state from this CPU run embedded in reals; archived LSV15 anchor drift bounded separately",
+  "status": "rigorous_arb_transport_plus_verified_archived_center_drift_and_rational_margin_check",
+  "wall_seconds": 7.604
+}
