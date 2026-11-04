@@ -1,0 +1,13 @@
+# QO-13 paired results: certification reachability and its planning cost
+
+**Post-hoc result, November 4, 2026.** The registered [QO-13 protocol](CERTIFICATE_REACHABILITY.md) and complete [machine-readable source-bound receipt](../../results/certificate_reachability/receipt.json) document four synthetic cases, three fixed seeds, and three policies at budgets 24/64/96. Every case-seed-policy uses identical per-cell Bernoulli stream prefixes, with **36 complete trajectories, 108 checkpoint records and 3,456 queries**.
+
+At 96 queries, each policy achieved exactly **1 correctly certified case-seed combination out of 12**, all in the two-cell infeasible plateau case. Across every case, the certificate_h2, certificate_h3 and unchanged QO-08 bottleneck policies produced identical final decisions, mean certification gaps, and mean actual one-step frozen prediction errors. Every other case remained unresolved for all three policies. There were **zero false certificates and zero confidence-coverage failures**.
+
+The new policies paid additional work. In the two-cell infeasible case, the mean number of **extra QO-07 gap optimizations per trajectory** was about 234 for h2 and 529 for h3. They had the same certificate count and prediction error as bottleneck, which did not evaluate a Bellman tree. On the two-cell feasible case, the respective extra calls were about 62 and 126. In the near-margin infeasible case, the readiness/threshold gate avoided all deep calls, so all policies matched bottleneck exactly.
+
+The result preserves a valuable mathematical distinction. The exact QO-07 **two-probe witness** with 18 all-holds from one cell and 18 all-hits from the other has U1=0 and U2=19/21 under Beta predictive planning. This proves finite delayed certification value in that artificial evidence state. It does **not** imply that a gated horizon-two or horizon-three policy will improve fixed-budget performance on the registered stochastic cases.
+
+The model's Beta(1,1) predictive is used only for action selection; the correctness certificate is unchanged QO-07's anytime mixture e-process. The experiment is synthetic, with publicly fixed states and interventions. The next meaningful target is a **decision-specific multi-step policy that amortizes planning cost** or approximates the Bellman values with a cheap recurrent controller under a separately generated, sealed evaluation family.
+
+**Reproduce:** `python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_certificate_reachability*.py' -v` and `PYTHONPATH=. python scripts/verify_certificate_reachability.py --check`. Every report result and source hash is verified bytewise in CI.
