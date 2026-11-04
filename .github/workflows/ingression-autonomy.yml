@@ -26,4 +26,4 @@ jobs:
       - name: IDQ-01–03 and QO-01 exact finite rational audits
         run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_*.py' -v
       - name: Verify QO-01 source-bound rational receipt
-        run: python scripts/verify_goal_aware_partition.py --check
+        run: PYTHONPATH=. python scripts/verify_goal_aware_partition.py --check
