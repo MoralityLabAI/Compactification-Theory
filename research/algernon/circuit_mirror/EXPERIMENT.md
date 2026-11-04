@@ -22,3 +22,9 @@ Primary metric: average per-step exact transition correctness across *independen
 ## Hardware and training boundaries
 
 The CPU toy does not require models or GPU. LOTUS's own Llama-3.2-3B model is the first larger neural reference. Qwenputer is a separate 4B compiled-execution baseline and does not yet expose a LOTUS-compatible hidden-state bus. The proposed common IR has explicit inputs, state variables, transition relation, output, and a witness encoding; bridge/decoder training and Qwen deployment are separate future experiments.
+
+## H-A2a: observational LOTUS hidden-state probe (2026-11-04, pre-GPU run)
+
+The first model-based stage uses the **published, frozen** LOTUS 3B checkpoint as a feature generator. With 400 latent slots and sixteen refinement iterations, the extraction captures a representation before recurrence and after each recurrence. A linear readout trained solely on train-family states from depths 1–8 predicts a discrete pointer-machine state. The pooling method is selected on calibration-family depth 1–8. The held-out generator families and depths 9–16 are scored once after selection. Whole-trace R1CS-validity and the decoded commuting-square defect are evaluated without feeding any violation signal into the model.
+
+The frozen roster, exact input prompt, train/test boundaries and controls are in [lotus_bridge/README.md](lotus_bridge/README.md), with source pin and code. The probe may show a correlation from reading graph/input features rather than an algorithmic recurrent computation; same-stage controls are included, and any strong causal claim requires an input-only model and equal-compute explicit-CoT baseline. This protocol extends the earlier toy CPU evidence and does not modify its published receipts. **Actual model inference unrun.**

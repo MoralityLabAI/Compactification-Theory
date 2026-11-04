@@ -44,6 +44,13 @@ This setup is **strongly biased toward the correct algorithm**: the supplied qua
 
 The current CPU run with N=4, steps=8, seed=20261103 and 48 cases per generator family exports a full receipt. The optional pilot used N=6, 300 updates with batch 128, and 40 cases per family per evaluated recurrence depth. Both are local CPU runs. Exact reference and neural pilot results remain separately labelled.
 
+
+## Actual LOTUS hidden-state bridge (implemented; GPU evaluation pending)
+
+[lotus_bridge/](lotus_bridge/README.md) now provides a frozen 152-case pointer roster, a pinned upstream LOTUS hidden-state capture hook, and an exact constraint-mirror readout evaluation. The capture records the initial latent state and all sixteen post-refinement states, while the linear probe trains on stages 1–8 and is evaluated on held-out generator families at stages 9–16. A short on-device instrumentation parity check runs before extraction.
+
+The CPU tests run without loading a pretrained model. None of the published LOTUS weights or their post-loop activations has yet been executed in our environment. Start with the two-item smoke extraction in the linked README.
+
 ## Next experiments, frozen before GPU spending
 
 1. **LOTUS replication:** Pin `yingfan-bot/lotus` source and the published pretrained 3B model. Run its existing evaluation against the upstream instructions and retain a clean reference score, question roster, intermediate-state readouts and profiling. All source locks must include licenses and full resolved model revision. The 3B checkpoint is not claimed to fit within the 5080 VRAM until measured.
