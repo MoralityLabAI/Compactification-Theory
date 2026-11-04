@@ -5,7 +5,11 @@ on:
       - 'research/levin_sieve_v1/pretrained_trm/transport_gauge.py'
       - 'research/levin_sieve_v1/pretrained_trm/test_transport_gauge.py'
       - 'research/levin_sieve_v1/pretrained_trm/run_transport_gauge.py'
+      - 'research/levin_sieve_v1/pretrained_trm/verify_transport_receipt.py'
+      - 'research/levin_sieve_v1/pretrained_trm/test_transport_receipt.py'
       - 'research/levin_sieve_v1/pretrained_trm/AMBIENT_TO_GAUGE.md'
+      - 'research/levin_sieve_v1/pretrained_trm/LSV16_RESULTS.md'
+      - 'research/levin_sieve_v1/pretrained_trm/results/lsv16*'
       - '.github/workflows/levin-ambient-gauge.yml'
   workflow_dispatch:
 permissions:
@@ -24,14 +28,21 @@ jobs:
           python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
           python -m pip install python-flint==0.9.0
       - name: Validate rigorous transport reference invariants
-        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_transport_gauge.py' -v
-      - name: Frozen checkpoint 4-case smoke, two radii
+        run: |
+          python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_transport_gauge.py' -v
+          python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_transport_receipt.py' -v
+      - name: Frozen checkpoint four-case larger-radius negative controls
         run: |
           python research/levin_sieve_v1/pretrained_trm/run_transport_gauge.py --fetch --radii 1e-8,1e-10 --max-cases 4 --out runs/lsv16/smoke.json
+          python research/levin_sieve_v1/pretrained_trm/verify_transport_receipt.py runs/lsv16/smoke.json
+      - name: Frozen checkpoint complete 64-case small-radius positive certification
+        run: |
+          python research/levin_sieve_v1/pretrained_trm/run_transport_gauge.py --fetch --radii 1e-14,1e-16 --max-cases 64 --out runs/lsv16/complete.json
+          python research/levin_sieve_v1/pretrained_trm/verify_transport_receipt.py runs/lsv16/complete.json --complete
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lsv16-ambient-to-gauge-smoke
+          name: lsv16-ambient-to-gauge-64-case
           path: runs/lsv16/*.json
           if-no-files-found: warn
           retention-days: 60
