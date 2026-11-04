@@ -92,7 +92,7 @@ def run(*,radii=('1e-8',),max_cases=64,precision_bits=160,fetch=False,
                     'reason':str(exc)}
                 counts[r]['could_not_bound']+=1
         all_records.append(record)
-        print('LSV16_CASE',i,{r:record['ambient_radii'][r].get('verified_final_transverse_radius_upper'
+        print('LSV16_CASE',i,{r:record['ambient_radii'][r].get('verified_final_transverse_radius_upper')
                                    for r in radii},flush=True)
     return {'schema':'LSV-16/ambient-to-gauge-certified-transport-v1',
             'status':'rigorous_arb_transport_and_exact_rational_LSV15_margin_check',
