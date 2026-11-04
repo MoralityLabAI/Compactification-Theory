@@ -6,7 +6,7 @@ min_{s in B} p[a,s]). This module supplies explicit graph encodings,
 witnesses, and independent small-instance decision oracles.
 """
 from fractions import Fraction
-from itertools import product
+from itertools import combinations, product
 
 HALF = Fraction(1, 2)
 QUARTER = Fraction(1, 4)
@@ -102,3 +102,42 @@ def joint_action_obstruction():
         "x": tuple(Fraction(p) for p in (0, 0, 1, 1)),
         "y": tuple(Fraction(p) for p in (0, 1, 0, 1)),
     }
+
+
+def conflict_edges_for_tolerance(rates, radius):
+    """Graph edges mark microstate pairs impossible to combine at this TV error."""
+    radius = Fraction(radius)
+    if radius < 0 or not rates:
+        raise ValueError("nonnegative radius and nonempty actions required")
+    n = len(next(iter(rates.values())))
+    if any(len(row) != n for row in rates.values()):
+        raise ValueError("all actions must share the same microstates")
+    return tuple((i, j) for i, j in combinations(range(n), 2)
+                 if any(abs(row[i]-row[j]) > 2*radius
+                        for row in rates.values()))
+
+
+def coloring_witness_for_tolerance(rates, groups, radius):
+    """Exact feasible assignment using the conflict graph equivalence."""
+    if groups < 1:
+        raise ValueError("at least one transient macrostate required")
+    n = len(next(iter(rates.values())))
+    conflicts = conflict_edges_for_tolerance(rates, radius)
+    for assignment in product(range(groups), repeat=n):
+        if all(assignment[u] != assignment[v] for u, v in conflicts):
+            assert maximum_rate_radius(rates, assignment) <= Fraction(radius)
+            return assignment
+    return None
+
+
+def optimal_radius_by_conflict_graph(rates, groups):
+    """Exact finite threshold scan plus exponential graph coloring oracle."""
+    n = len(next(iter(rates.values())))
+    candidates = {Fraction(0)}
+    for i, j in combinations(range(n), 2):
+        candidates.add(max(abs(row[i]-row[j]) for row in rates.values())/2)
+    for radius in sorted(candidates):
+        assignment = coloring_witness_for_tolerance(rates, groups, radius)
+        if assignment is not None:
+            return radius, assignment
+    raise AssertionError("at least one legal coloring exists with enough groups")
