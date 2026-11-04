@@ -2,7 +2,7 @@
 
 **Date:** November 4, 2026. **Status:** completed real pretrained CPU experiment. GitHub Actions run [41852747448](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/41852747448) passed the source-locked pilot and complete 64-case jobs. Full raw receipt artifact ID [13335732498](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/41852747448/artifacts/13335732498). No Goodfire or GPU allocation took place.
 
-Source-locked external TRM-inspired Sudoku model: 44,001 parameters; checkpoint SHA256 3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1. Frozen 64-puzzle roster SHA256 eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611. Eighty? No: the evaluation contains exactly 64 puzzle IDs, with 32 training, 16 validation, and 16 held-out test IDs. Each of the 16 test puzzles contributes 16 correlated clean/perturbation states, for 256 test samples in supervised probe fitting. The causal comparisons below have **16 independent puzzle clusters**.
+Source-locked external TRM-inspired Sudoku model: 44,001 parameters; checkpoint SHA256 3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1. Frozen 64-puzzle roster SHA256 eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611. The evaluation contains 64 puzzle IDs, with 32 training, 16 validation, and 16 held-out test IDs. Each of the 16 test puzzles contributes 16 correlated clean/perturbation states, for 256 test samples in supervised probe fitting. The causal comparisons below have **16 independent puzzle clusters**.
 
 ## Observed future distribution displacement
 
