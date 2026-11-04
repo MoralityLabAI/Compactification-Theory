@@ -1,0 +1,38 @@
+name: QO-13 finite certificate reachability audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/certificate_reachability.py'
+      - 'research/ingression_dynamics_v1/test_certificate_reachability.py'
+      - 'research/ingression_dynamics_v1/certificate_reachability_pilot.py'
+      - 'research/ingression_dynamics_v1/test_certificate_reachability_pilot.py'
+      - 'research/ingression_dynamics_v1/CERTIFICATE_REACHABILITY.md'
+      - 'scripts/verify_certificate_reachability.py'
+      - 'results/certificate_reachability/**'
+      - '.github/workflows/qo13-certificate-reachability.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/certificate_reachability.py'
+      - 'research/ingression_dynamics_v1/test_certificate_reachability.py'
+      - 'research/ingression_dynamics_v1/certificate_reachability_pilot.py'
+      - 'research/ingression_dynamics_v1/test_certificate_reachability_pilot.py'
+      - 'research/ingression_dynamics_v1/CERTIFICATE_REACHABILITY.md'
+      - 'scripts/verify_certificate_reachability.py'
+      - 'results/certificate_reachability/**'
+      - '.github/workflows/qo13-certificate-reachability.yml'
+  workflow_dispatch:
+jobs:
+  exact-certificate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Full independent decision tree and paired stream tests
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_certificate_reachability*.py' -v
+      - name: Regenerate source-bound complete pilot
+        run: PYTHONPATH=. python scripts/verify_certificate_reachability.py --check
