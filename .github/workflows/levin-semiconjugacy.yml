@@ -1,0 +1,62 @@
+name: LSV-18 learned semiconjugacy and remote-state aliasing
+
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/semiconjugacy_gym.py'
+      - 'research/levin_sieve_v1/pretrained_trm/test_semiconjugacy_gym.py'
+      - 'research/levin_sieve_v1/pretrained_trm/LSV18_*'
+      - '.github/workflows/levin-semiconjugacy.yml'
+  pull_request:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/semiconjugacy_gym.py'
+      - 'research/levin_sieve_v1/pretrained_trm/test_semiconjugacy_gym.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible CPU torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Algebraic semiconjugacy and grouped-observation tests
+        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_semiconjugacy_gym.py' -v
+      - name: Source-locked 16-puzzle pilot
+        run: python research/levin_sieve_v1/pretrained_trm/semiconjugacy_gym.py --fetch --max-cases 16 --max-epochs 120 --out runs/lsv18/pilot.json
+      - name: Archive pilot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lsv18-locked-pilot
+          path: runs/lsv18/pilot.json
+          retention-days: 60
+          if-no-files-found: warn
+
+  full-roster:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible CPU torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Source-locked 64-puzzle semiconjugacy test
+        run: python research/levin_sieve_v1/pretrained_trm/semiconjugacy_gym.py --fetch --max-cases 64 --max-epochs 200 --out runs/lsv18/full.json
+      - name: Archive full receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lsv18-locked-64-puzzle
+          path: runs/lsv18/full.json
+          retention-days: 60
+          if-no-files-found: warn
