@@ -63,3 +63,7 @@ python research/levin_sieve_v1/pretrained_trm/run_validated_minor.py --fetch --m
 ```
 
 The first gate is one selected case to validate runtime and enclosure tightness. Further cases must retain all source locks, frozen column selections and the complete failed-case ledger. A nonzero numerical FP64 determinant with a ball containing zero remains **unproved**.
+
+## LSV-12 error-budget closure (follow-up)
+
+The validated runner also computes the original `4x3888` point-autograd Jacobian and, for each frozen 4-column selection, takes the *rigorous upper bound* on the absolute difference between the binary64 point-autograd entry and its Arb-enclosed exact-real derivative. The maximum of sixteen such error bounds per case must be strictly less than the originally recorded `sigma_min/4` threshold (stored as a conservative 12-decimal number). This closes LSV-12's original singular-value-perturbation proof obligation if and only if all 64 cases pass, independently of the determinant test. The receipt records both checks separately.

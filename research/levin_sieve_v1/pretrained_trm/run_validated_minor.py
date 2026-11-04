@@ -21,6 +21,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from run_checkpoint import locked_bytes,load_pretrained,prepare_roster
 from validated_minor import validated_minor
+from run_minor_witness import gradient_history
 
 
 def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
@@ -45,6 +46,9 @@ def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
         cell=inputs.eq(0).long().argmax(-1)
         ar=torch.arange(len(inputs))
         pairs=model.head(s)[ar,cell].topk(2,dim=1).indices
+    # Independent point-autograd matrix. It is only a numerical approximation;
+    # ball differences below certify its absolute error against exact derivatives.
+    J=gradient_history(model,z1[:max_cases],inputs[:max_cases])
     records=[]
     start=time.perf_counter()
     for case in minor['cases'][:max_cases]:
@@ -54,6 +58,16 @@ def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
         winner,rival=(int(pairs[idx,0]),int(pairs[idx,1]))
         pred=validated_minor(model,z1[idx],indices,int(cell[idx]),winner,rival,precision)
         det=pred['det']
+        observed=J[idx,:,indices]
+        entry_errors=[]
+        for row in range(4):
+            for col in range(4):
+                approx=arb(float(observed[row,col]))
+                validated_value=pred['rows'][row][col]
+                entry_errors.append((validated_value-approx).abs_upper())
+        worst=max(entry_errors)
+        previous_budget=arb(str(case['required_verified_abs_entry_error_lt']))
+        budget_proved=bool(worst < previous_budget)
         record={
           'case_index':idx,'columns':indices,'selected_goal_cell':int(cell[idx]),
           'winner_digit':winner,'rival_digit':rival,
@@ -61,6 +75,8 @@ def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
           'previous_required_entry_error_lt':case['required_verified_abs_entry_error_lt'],
           'determinant_enclosure':det.str(26),
           'determinant_excludes_zero':pred['rank_four_proved'],
+          'max_rigorous_autograd_entry_error_upper':worst.str(18,radius=False),
+          'strict_lsv12_entrywise_budget_proved':budget_proved,
           'winner_verified_in_exact_real_model':pred['winning_class_verified'],
           'rival_verified_in_exact_real_model':pred['runner_up_verified'],
           'verified_jacobian_entry_enclosures':[[v.str(20) for v in row] for row in pred['rows']],
@@ -71,7 +87,7 @@ def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
         records.append(record)
         print('CASE',idx,'rank4',record['determinant_excludes_zero'],
               'winner',record['winner_verified_in_exact_real_model'],
-              'rival',record['rival_verified_in_exact_real_model'],
+              'rival',record['rival_verified_in_exact_real_model'],'autograd_budget',budget_proved,
               'det',det.str(12),'elapsed',record['elapsed_seconds'],flush=True)
     certificate_count=sum(v['determinant_excludes_zero'] for v in records)
     return {
@@ -84,6 +100,8 @@ def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
       'not_certified':'machine-code FP32/FP64 rounding, finite-radius robustness, correct Sudoku answers, or semantic 4D latent quotient',
       'arb_precision_bits':precision,'cases_checked':len(records),
       'rigorously_verified_rank_four_cases':certificate_count,
+      'cases_discharge_original_lsv12_entry_error_budget':sum(v['strict_lsv12_entrywise_budget_proved'] for v in records),
+      'total_rigorously_checked_autograd_derivative_entries':16*len(records),
       'all_exact_real_top1_verified':all(v['winner_verified_in_exact_real_model'] for v in records),
       'all_exact_real_top2_verified':all(v['rival_verified_in_exact_real_model'] for v in records),
       'wall_seconds':round(time.perf_counter()-start,3),
@@ -102,8 +120,8 @@ def main():
     r=run(max_cases=args.max_cases,precision=args.precision,fetch=args.fetch,checkpoint_path=args.checkpoint)
     args.out.parent.mkdir(parents=True,exist_ok=True)
     args.out.write_text(json.dumps(r,indent=2,sort_keys=True)+'\n')
-    print('RESULT',json.dumps({k:r[k] for k in ('cases_checked','rigorously_verified_rank_four_cases','all_exact_real_top1_verified','all_exact_real_top2_verified','wall_seconds')}),flush=True)
-    if r['rigorously_verified_rank_four_cases']!=r['cases_checked']:
-        raise SystemExit('some determinant intervals contain zero; see receipt')
+    print('RESULT',json.dumps({k:r[k] for k in ('cases_checked','rigorously_verified_rank_four_cases','cases_discharge_original_lsv12_entry_error_budget','all_exact_real_top1_verified','all_exact_real_top2_verified','wall_seconds')}),flush=True)
+    if r['rigorously_verified_rank_four_cases']!=r['cases_checked'] or r['cases_discharge_original_lsv12_entry_error_budget']!=r['cases_checked']:
+        raise SystemExit('some determinant intervals or derivative error budgets were not certified; see receipt')
 
 if __name__=='__main__':main()
