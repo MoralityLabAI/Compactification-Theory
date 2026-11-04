@@ -1,0 +1,49 @@
+name: QO-16 dense exact gap progress audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/gap_student_frozen_test.py'
+      - 'research/ingression_dynamics_v1/gap_progress_teacher.py'
+      - 'research/ingression_dynamics_v1/gap_student_data.py'
+      - 'research/ingression_dynamics_v1/gap_student_pilot.py'
+      - 'research/ingression_dynamics_v1/test_gap_student.py'
+      - 'research/ingression_dynamics_v1/DENSE_GAP_STUDENT_PROTOCOL.md'
+      - 'research/ingression_dynamics_v1/DENSE_GAP_STUDENT_RESULTS.md'
+      - 'scripts/verify_gap_student.py'
+      - 'results/gap_student/**'
+      - '.github/workflows/qo16-gap-student.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/gap_student_frozen_test.py'
+      - 'research/ingression_dynamics_v1/gap_progress_teacher.py'
+      - 'research/ingression_dynamics_v1/gap_student_data.py'
+      - 'research/ingression_dynamics_v1/gap_student_pilot.py'
+      - 'research/ingression_dynamics_v1/test_gap_student.py'
+      - 'research/ingression_dynamics_v1/DENSE_GAP_STUDENT_PROTOCOL.md'
+      - 'research/ingression_dynamics_v1/DENSE_GAP_STUDENT_RESULTS.md'
+      - 'scripts/verify_gap_student.py'
+      - 'results/gap_student/**'
+      - '.github/workflows/qo16-gap-student.yml'
+  workflow_dispatch:
+jobs:
+  train-and-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: QO-16 QO-12 exact parity, frozen separation and paired replay
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_gap_student.py' -v
+      - name: QO-14 unchanged full-BPTT gradient regression tests
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_certificate_student.py' -v
+      - name: Retrain both students and emit or check complete frozen outcome
+        run: |
+          if [ -f results/gap_student/receipt.json ]; then
+            PYTHONPATH=. python scripts/verify_gap_student.py --check
+          else
+            PYTHONPATH=. python scripts/verify_gap_student.py --emit
+          fi
