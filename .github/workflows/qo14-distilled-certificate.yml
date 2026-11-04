@@ -1,0 +1,40 @@
+name: QO-14 distilled certificate student audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/certificate_student_data.py'
+      - 'research/ingression_dynamics_v1/tiny_recurrent_certificate_student.py'
+      - 'research/ingression_dynamics_v1/certificate_student_pilot.py'
+      - 'research/ingression_dynamics_v1/test_certificate_student.py'
+      - 'research/ingression_dynamics_v1/CERTIFICATE_DISTILLATION.md'
+      - 'research/ingression_dynamics_v1/CERTIFICATE_DISTILLATION_RESULTS.md'
+      - 'scripts/verify_certificate_student.py'
+      - 'results/certificate_student/**'
+      - '.github/workflows/qo14-distilled-certificate.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/certificate_student_data.py'
+      - 'research/ingression_dynamics_v1/tiny_recurrent_certificate_student.py'
+      - 'research/ingression_dynamics_v1/certificate_student_pilot.py'
+      - 'research/ingression_dynamics_v1/test_certificate_student.py'
+      - 'research/ingression_dynamics_v1/CERTIFICATE_DISTILLATION.md'
+      - 'research/ingression_dynamics_v1/CERTIFICATE_DISTILLATION_RESULTS.md'
+      - 'scripts/verify_certificate_student.py'
+      - 'results/certificate_student/**'
+      - '.github/workflows/qo14-distilled-certificate.yml'
+  workflow_dispatch:
+jobs:
+  train-and-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent exact teacher, gradient and paired policy tests
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_certificate_student.py' -v
+      - name: Retrain both models and verify complete source-bound paired result
+        run: PYTHONPATH=. python scripts/verify_certificate_student.py --check
