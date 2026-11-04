@@ -1,0 +1,36 @@
+name: QO-08 Paired Digital Probe Pilot
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/sampler_policy_pilot.py'
+      - 'research/ingression_dynamics_v1/test_sampler_policy_pilot.py'
+      - 'research/ingression_dynamics_v1/SAMPLER_POLICY_PILOT.md'
+      - '.github/workflows/qo08-sampler-pilot.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/sampler_policy_pilot.py'
+      - 'research/ingression_dynamics_v1/test_sampler_policy_pilot.py'
+      - 'research/ingression_dynamics_v1/SAMPLER_POLICY_PILOT.md'
+      - '.github/workflows/qo08-sampler-pilot.yml'
+  workflow_dispatch:
+jobs:
+  finite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Frozen protocol / pairing smoke
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_sampler_policy_pilot.py' -v
+      - name: Exact rational 12-seed paired study
+        run: python -m research.ingression_dynamics_v1.sampler_policy_pilot --out results/qo08_pilot.json
+      - name: Export immutable run receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: qo08-paired-digital
+          path: results/qo08_pilot.json
+          if-no-files-found: error
