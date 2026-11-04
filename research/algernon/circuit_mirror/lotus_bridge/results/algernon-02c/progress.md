@@ -1,6 +1,6 @@
 # Algernon-02C progress: LOTUS's own recipe on the pointer task
 
-Rendered 2026-11-05 03:57 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running armB 2026-11-05T03:55:59`.
+Rendered 2026-11-05 05:29 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running armB 2026-11-05T03:55:59`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `8cc8f97cfb6a`, validation `6fd9062d54a9`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -46,7 +46,17 @@ Out-of-memory pauses (resumed from the last checkpoint): 23:50 epoch 7 step 30; 
 
 ### Arm B: loop-tied (supervision at loop k)
 
-Not started.
+Status `running`; process starts 2; power-cap pauses 1; out-of-memory pauses 0.
+
+| epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 0 | 0.0002 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.1 |
+| 1 | 1 | 0.0756 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 6.5 |
+| 2 | 2 | 0.0856 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 8.6 |
+| 3 | 3 | 0.0235 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 10.4 |
+| 4 | 4 | 0.0460 | 64 | 0.969 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 0.89 | 1.00 | 0.89 | 10.9 |
+| 5 | 5 | 0.0398 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 12.3 |
+| 6 | 6 | 0.0539 | 64 | 0.953 | 1.00 | 1.00 | 1.00 | 0.67 | 1.00 | 1.00 | 1.00 | 1.00 | 15.5 |
 
 ### Behavioural depth curve
 
