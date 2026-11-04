@@ -1,6 +1,6 @@
 # Algernon-02B: LOTUS post-loop circuit mirror
 
-**Execution status:** the Python adapters and CPU tests have run. The published 3B LOTUS checkpoint, actual GPU hidden states, training of a readout on those states, and any Circom/RV32 execution **have not run** in this environment. The separate 222-parameter toy pilot used privileged multiplicative features, not LOTUS representations.
+**Execution status (2026-11-04):** the A2b GPU run on the published 3B checkpoint is done: [results/algernon-02b/report.md](results/algernon-02b/report.md). It reproduced GSM8K (0.650 on 200 items) and passed bitwise hook parity, and the registered Phase 4 gate failed (`no_iterative_state_signal`). Held-out decodability at depths 9-16 is 0.185 for the primary recurrent view against 0.341 for the prompt-only start token, and LOTUS's own pointer answers are at chance. Constraint-guided correction and any Circom/RV32 execution **have not run**. The separate 222-parameter toy pilot used privileged multiplicative features, not LOTUS representations.
 
 ## What this instrument actually captures
 

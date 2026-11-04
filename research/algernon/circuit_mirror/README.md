@@ -1,6 +1,6 @@
 # Algernon-02: Circuit Mirror
 
-**Status (2026-11-03): CPU prototype executed. No Qwenputer, LOTUS, Circom binary or SNARK proof was executed here.**
+**Status (2026-11-04): CPU prototype executed. The LOTUS 3B bridge ran on GPU and failed its registered gate (`no_iterative_state_signal`; [lotus_bridge/results/algernon-02b/report.md](lotus_bridge/results/algernon-02b/report.md)). No Qwenputer, Circom binary or SNARK proof was executed here.**
 
 ## Hypothesis
 

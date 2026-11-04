@@ -1,0 +1,187 @@
+{
+  "calibration_cases": 24,
+  "calibration_pool_accuracy_1_8": {
+    "last_latent": 0.16145833333333331,
+    "mean_last_block": 0.203125
+  },
+  "controls_note": "constant-stage and shuffled-stage replace representations at evaluation only; heldout truth never enters training",
+  "feature_sha256": "015b647d2053db19b1a862f3b3f568c1e5bcfe860e41c697bd54073cb4f93f27",
+  "final_train_loss": 0.19858671724796295,
+  "heldout_cases": 48,
+  "linear_parameters": 18438,
+  "lr": 0.008,
+  "metrics": {
+    "all_test": {
+      "accuracy_by_step": [
+        0.1875,
+        0.541667,
+        0.4375,
+        0.4375,
+        0.4375,
+        0.5625,
+        0.5,
+        0.3125,
+        0.25,
+        0.3125,
+        0.25,
+        0.25,
+        0.291667,
+        0.083333,
+        0.0625,
+        0.1875,
+        0.229167
+      ],
+      "accuracy_step_16": 0.22916666666666666,
+      "commuting_square_defect_rate": 0.73046875,
+      "exact_trace_valid_1_8_rate": 0.0625,
+      "exact_trace_valid_full_rate": 0.0,
+      "heldout_steps_9_16_accuracy": 0.20833333333333334,
+      "n": 48,
+      "step16_wilson_95": [
+        0.13307691028989044,
+        0.36539535908451154
+      ],
+      "trained_steps_1_8_accuracy": 0.4348958333333333
+    },
+    "constant_stage0_control": {
+      "accuracy_by_step": [
+        0.1875,
+        0.333333,
+        0.291667,
+        0.208333,
+        0.25,
+        0.354167,
+        0.3125,
+        0.333333,
+        0.291667,
+        0.208333,
+        0.25,
+        0.354167,
+        0.3125,
+        0.333333,
+        0.291667,
+        0.208333,
+        0.25
+      ],
+      "accuracy_step_16": 0.25,
+      "commuting_square_defect_rate": 0.7916666666666666,
+      "exact_trace_valid_1_8_rate": 0.0625,
+      "exact_trace_valid_full_rate": 0.0625,
+      "heldout_steps_9_16_accuracy": 0.2760416666666667,
+      "n": 48,
+      "step16_wilson_95": [
+        0.1492048880971003,
+        0.3878464374792707
+      ],
+      "trained_steps_1_8_accuracy": 0.296875
+    },
+    "long_cycle": {
+      "accuracy_by_step": [
+        0.208333,
+        0.291667,
+        0.166667,
+        0.083333,
+        0.166667,
+        0.291667,
+        0.333333,
+        0.208333,
+        0.041667,
+        0.291667,
+        0.208333,
+        0.166667,
+        0.208333,
+        0.083333,
+        0.041667,
+        0.125,
+        0.25
+      ],
+      "accuracy_step_16": 0.25,
+      "commuting_square_defect_rate": 0.9192708333333334,
+      "exact_trace_valid_1_8_rate": 0.0,
+      "exact_trace_valid_full_rate": 0.0,
+      "heldout_steps_9_16_accuracy": 0.171875,
+      "n": 24,
+      "step16_wilson_95": [
+        0.1199920347934233,
+        0.4489982531210644
+      ],
+      "trained_steps_1_8_accuracy": 0.19791666666666669
+    },
+    "shuffled_stage_control": {
+      "accuracy_by_step": [
+        0.1875,
+        0.333333,
+        0.25,
+        0.291667,
+        0.375,
+        0.333333,
+        0.333333,
+        0.354167,
+        0.25,
+        0.333333,
+        0.3125,
+        0.3125,
+        0.4375,
+        0.270833,
+        0.1875,
+        0.229167,
+        0.354167
+      ],
+      "accuracy_step_16": 0.3541666666666667,
+      "commuting_square_defect_rate": 0.69140625,
+      "exact_trace_valid_1_8_rate": 0.0,
+      "exact_trace_valid_full_rate": 0.0,
+      "heldout_steps_9_16_accuracy": 0.3046875,
+      "n": 48,
+      "step16_wilson_95": [
+        0.23433457112685735,
+        0.4956120354593591
+      ],
+      "trained_steps_1_8_accuracy": 0.3151041666666667
+    },
+    "sink": {
+      "accuracy_by_step": [
+        0.166667,
+        0.791667,
+        0.708333,
+        0.791667,
+        0.708333,
+        0.833333,
+        0.666667,
+        0.416667,
+        0.458333,
+        0.333333,
+        0.291667,
+        0.333333,
+        0.375,
+        0.083333,
+        0.083333,
+        0.25,
+        0.208333
+      ],
+      "accuracy_step_16": 0.20833333333333334,
+      "commuting_square_defect_rate": 0.5416666666666666,
+      "exact_trace_valid_1_8_rate": 0.125,
+      "exact_trace_valid_full_rate": 0.0,
+      "heldout_steps_9_16_accuracy": 0.24479166666666666,
+      "n": 24,
+      "step16_wilson_95": [
+        0.0924468910478809,
+        0.40470844485235474
+      ],
+      "trained_steps_1_8_accuracy": 0.671875
+    }
+  },
+  "probe_file_sha256": "9bc22e27ed63f439ebfcb284aced09be4ef93901ca9fef8c6661f2e9b8e34999",
+  "probe_sha256": "0a7e270632395229310c156a1b1e9e97ae1a535ccf759ce918c2828a447ec1ae",
+  "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+  "seed": 20261104,
+  "selected_pool": "mean_last_block",
+  "source_manifest_sha256": "3994ebd08585788e73f88856b4fe3263ba31bb76fff7ffdad6428668e5ef14b6",
+  "source_model_revision": "b392d2cb7aaa73475b93028221523c47f49f66a2",
+  "status": "executed_on_captured_lotus_hidden_states",
+  "train_cases": 80,
+  "training_procedure": "frozen LOTUS features; train only linear readout on train stages 1..8",
+  "updates": 250,
+  "weight_decay": 0.01
+}

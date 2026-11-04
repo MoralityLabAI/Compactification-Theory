@@ -1,0 +1,56 @@
+{
+  "key": {
+    "checkpoint_files_sha256": {
+      ".gitattributes": "c5aad8181facf10958324218a05963bb7ea74a6067750f8e5a72d8ab4334fddb",
+      "README.md": "424225657eb05d691ad27a844bc8548a0aabe5391e835c1dc777b951e6f934ba",
+      "config.json": "0d04658795e1765943379ee441b777db960ad8e58905116fc311848423b67bbc",
+      "generation_config.json": "64b5104d9c477768fe5563636f100053a4e8e240a495435748cb9ef0b78080e1",
+      "model-00001-of-00002.safetensors": "3f1584a6c78ba8d1a3913c2c69b76821af9159bd555f9c8a4a8bb5a4e3ffb346",
+      "model-00002-of-00002.safetensors": "e120a6207fcf88e80ae3f269dd49716966aedd2a51db2522b4013c89d1ad75b4",
+      "model.safetensors.index.json": "c45f8bf95f63774ca2c4faf2435795014838e8795c341d53c115e79e867d1d0a",
+      "special_tokens_map.json": "1b1835caa5b4d70acaa210fa222b0036f1882f9525c4660fd4810fb3e1e40ff8",
+      "tokenizer.json": "33b6804858a48cd76783fcefe02ce74635cfca73d6154610484193e4b7a8441a",
+      "tokenizer_config.json": "ae10efcbfe64e7d542a25b7bea0fe748d6ea2196abe7323bbc8ba7273dee2cf9"
+    },
+    "model_revision": "b392d2cb7aaa73475b93028221523c47f49f66a2",
+    "sample_sha256": "898a4b58b8e91b7652be1eba95c5cacca2445bab2fd79acb82043377b957d02a"
+  },
+  "preds_sha256": "aeec01f47e7f914a211930bbf6e947398a5bcc4344290322cc4b559b54a082e9",
+  "record": {
+    "accuracy": 0.65,
+    "command": [
+      "python",
+      "eval.py",
+      "--model_id",
+      "b392d2cb7aaa73475b93028221523c47f49f66a2",
+      "--datasets",
+      "gsm8k_sample.json",
+      "--n_looped_iters",
+      "6",
+      "--c_thought",
+      "25",
+      "--bf16",
+      "--device",
+      "cuda:0",
+      "--save_preds",
+      "gsm8k_preds.json"
+    ],
+    "correct": 130,
+    "n": 200,
+    "paper_accuracy": 0.7005,
+    "paper_inside_wilson_95": true,
+    "sample_seed": 20261104,
+    "sample_sha256": "c1ad41fe37fca7d42761762daaf2f15d41ce94727172ecfca397139a71ed06f4",
+    "scored_rows": 200,
+    "seconds": 151.33,
+    "source_file_sha256": "46ce5b0c44fde0bfc8cf1e7492aa640b96111d9dcb80a54340d9911141a9caa9",
+    "upstream_peak_memory_line": [
+      "peak GPU mem:  allocated=6.576 GB, reserved=6.740 GB"
+    ],
+    "wilson_95": [
+      0.5816333576186576,
+      0.712712840605846
+    ]
+  },
+  "written_from": "attempt started 2026-11-04T18:26:54+0800: its run_manifest.json stages.gsm8k (eval.py ran in that attempt)"
+}

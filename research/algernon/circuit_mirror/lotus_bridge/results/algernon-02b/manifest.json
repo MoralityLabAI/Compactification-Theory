@@ -1,0 +1,248 @@
+{
+ "analysis_code_commit": "04636864c2c3b364af142e3fdfc7bbae05bdcd5c",
+ "behaviour_seconds": {
+  "explicit_from_parts": 0,
+  "explicit_seconds": 137.6,
+  "file_sha256": "05592b0281d568ff1c1726d8679613db36daa97103395e71bf63f1a9eb3fd54e",
+  "loops6_from_parts": 0,
+  "loops6_seconds": 72.83
+ },
+ "commands": {
+  "analysis": [
+   "analysis.py",
+   "--run-dir",
+   "algernon-02b",
+   "--roster",
+   "frozen_roster_6x16.json",
+   "--counterfactual",
+   "frozen_counterfactual_6x16.json",
+   "--out",
+   "analysis"
+  ],
+  "gpu_run": [
+   "gpu_run.py",
+   "--upstream",
+   "lotus",
+   "--roster",
+   "frozen_roster_6x16.json",
+   "--counterfactual",
+   "frozen_counterfactual_6x16.json",
+   "--hf-revision",
+   "b392d2cb7aaa73475b93028221523c47f49f66a2",
+   "--run-dir",
+   "algernon-02b"
+  ],
+  "upstream_eval": [
+   "python",
+   "eval.py",
+   "--model_id",
+   "b392d2cb7aaa73475b93028221523c47f49f66a2",
+   "--datasets",
+   "gsm8k_sample.json",
+   "--n_looped_iters",
+   "6",
+   "--c_thought",
+   "25",
+   "--bf16",
+   "--device",
+   "cuda:0",
+   "--save_preds",
+   "gsm8k_preds.json"
+  ]
+ },
+ "device": "cuda:0",
+ "drift": {
+  "case0_bitwise_equal": true,
+  "weights_unchanged": true
+ },
+ "environment": {
+  "code": {
+   "circuit_mirror_dirty": false,
+   "commit": "04636864c2c3b364af142e3fdfc7bbae05bdcd5c",
+   "repo": "MoralityLabAI/Compactification-Theory"
+  },
+  "numpy": "2.1.3",
+  "nvidia_smi": {
+   "driver_version": "577.05",
+   "enforced.power.limit": "150.00 W",
+   "memory.total": "16303 MiB",
+   "memory.used": "0 MiB",
+   "name": "NVIDIA GeForce RTX 5080 Laptop GPU",
+   "pstate": "P0"
+  },
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "torch": "2.7.0+cu128",
+  "torch_cuda": "12.8",
+  "transformers": "4.46.2"
+ },
+ "finished": "2026-11-04T19:22:50+0800",
+ "full_roster_bitwise_repeat": true,
+ "gsm8k": {
+  "accuracy": 0.65,
+  "correct": 130,
+  "n": 200,
+  "paper_accuracy": 0.7005,
+  "paper_inside_wilson_95": true,
+  "reused_from_earlier_attempt": true,
+  "sample_seed": 20261104,
+  "sample_sha256": "c1ad41fe37fca7d42761762daaf2f15d41ce94727172ecfca397139a71ed06f4",
+  "scored_rows": 200,
+  "seconds": 151.33,
+  "source_file_sha256": "46ce5b0c44fde0bfc8cf1e7492aa640b96111d9dcb80a54340d9911141a9caa9",
+  "upstream_peak_memory_line": [
+   "peak GPU mem:  allocated=6.576 GB, reserved=6.740 GB"
+  ],
+  "wilson_95": [
+   0.5816333576186576,
+   0.712712840605846
+  ]
+ },
+ "inputs": {
+  "counterfactual_file_sha256": "97c1ea1511d26fbdedb78ed09e1e457df70da86eeb2e6ad13eaf440c30bfacc7",
+  "counterfactual_sha256": "ddb5216f14b63c27b21af6aa8062e672d1e444be7f469159123318a31410bc2b",
+  "roster_file_sha256": "8fa9808f486eb821df25217abf7e04f8d22cffb86c27a9331255f90fdc6d06d2",
+  "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466"
+ },
+ "model": {
+  "allocated_after_load_bytes": 6426038784,
+  "latent_token_ids": [
+   128256,
+   128258,
+   128257
+  ],
+  "load_seconds": 20.55,
+  "tokenizer_len": 128259,
+  "unique_parameters": 3212759040,
+  "weights_fingerprint_end": "ddae3a13e061760c673c9ebb1f03664c44e43f0f3d429945fdf17f489163b449",
+  "weights_fingerprint_start": "ddae3a13e061760c673c9ebb1f03664c44e43f0f3d429945fdf17f489163b449"
+ },
+ "outputs_outside_git_sha256": {
+  "behaviour.jsonl": "05592b0281d568ff1c1726d8679613db36daa97103395e71bf63f1a9eb3fd54e",
+  "cf_blocks.npz": "fb22b32a4facb7262cf99286c983a198d903a01f36e1ded139a99f16f366d670",
+  "full.npz": "015b647d2053db19b1a862f3b3f568c1e5bcfe860e41c697bd54073cb4f93f27",
+  "full_blocks.npz": "997f8bf1be375cfc4db519ec89578c28a53c137d08fafe81bf12a77a9d0fcf4a",
+  "gsm8k_preds.json": "aeec01f47e7f914a211930bbf6e947398a5bcc4344290322cc4b559b54a082e9",
+  "gsm8k_sample.json": "c1ad41fe37fca7d42761762daaf2f15d41ce94727172ecfca397139a71ed06f4",
+  "parity.json": "aa3872a1c0e7b7148545ef7c62d63674b83f8670c5fe276e08e6cb8b79f90b22",
+  "probe_registered.probe.npz": "9bc22e27ed63f439ebfcb284aced09be4ef93901ca9fef8c6661f2e9b8e34999",
+  "smoke.npz": "7349400060a0314218ff02cf4069693b6307e972133b37581a4db0941303fafb",
+  "smoke_blocks.npz": "a7465a2a12bd1d0ccc6f09af7448ccbcad77f400177cc9c14f4853c789a942c8"
+ },
+ "parity": {
+  "c_thought": 25,
+  "checks": {
+   "captured_passes_equal_loops_plus_one": true,
+   "hook_installed_outputs_bitwise_identical": true,
+   "hook_removed_and_outputs_bitwise_identical": true,
+   "lm_head_on_captured_vectors_argmax_agreement_ge_0.98": true,
+   "lm_head_on_captured_vectors_max_abs_diff_lt_1": true,
+   "logit_suppression_keeps_final_logits_bitwise": true,
+   "logit_suppression_keeps_hidden_bitwise": true,
+   "readout_ids_equal_upstream_intermediate_argmax": true,
+   "upstream_intermediate_logits_one_per_loop": true
+  },
+  "lm_head_argmax_agreement": 1.0,
+  "lm_head_max_abs_diff": 0.0625,
+  "loops": 16,
+  "passed": true,
+  "static_token_max_drift_across_passes": 0.0
+ },
+ "peak_cuda_allocated_bytes": 8285663744,
+ "peak_cuda_reserved_bytes": 8399093760,
+ "precision": "bf16",
+ "run_status": "complete",
+ "schema_version": "algernon-02b-manifest-v1",
+ "seeds": {
+  "analysis": 20261104,
+  "counterfactual": 20261104,
+  "gsm8k_sample": 20261104,
+  "roster": 20261104
+ },
+ "source": {
+  "checkpoint_files_sha256": {
+   ".gitattributes": "c5aad8181facf10958324218a05963bb7ea74a6067750f8e5a72d8ab4334fddb",
+   "README.md": "424225657eb05d691ad27a844bc8548a0aabe5391e835c1dc777b951e6f934ba",
+   "config.json": "0d04658795e1765943379ee441b777db960ad8e58905116fc311848423b67bbc",
+   "generation_config.json": "64b5104d9c477768fe5563636f100053a4e8e240a495435748cb9ef0b78080e1",
+   "model-00001-of-00002.safetensors": "3f1584a6c78ba8d1a3913c2c69b76821af9159bd555f9c8a4a8bb5a4e3ffb346",
+   "model-00002-of-00002.safetensors": "e120a6207fcf88e80ae3f269dd49716966aedd2a51db2522b4013c89d1ad75b4",
+   "model.safetensors.index.json": "c45f8bf95f63774ca2c4faf2435795014838e8795c341d53c115e79e867d1d0a",
+   "special_tokens_map.json": "1b1835caa5b4d70acaa210fa222b0036f1882f9525c4660fd4810fb3e1e40ff8",
+   "tokenizer.json": "33b6804858a48cd76783fcefe02ce74635cfca73d6154610484193e4b7a8441a",
+   "tokenizer_config.json": "ae10efcbfe64e7d542a25b7bea0fe748d6ea2196abe7323bbc8ba7273dee2cf9"
+  },
+  "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
+  "lotus_py_sha256": "64db7d12218e246814d1e072ffa8a0deff7b9bd8c1211aae3530c6c875a92188",
+  "model_id": "yingfanbot/gsm-lotus-llama3b",
+  "model_revision": "b392d2cb7aaa73475b93028221523c47f49f66a2",
+  "repo": "https://github.com/yingfan-bot/lotus"
+ },
+ "stages": {
+  "calibration_subset": {
+   "allocated_after_case_bytes": [
+    6489592832,
+    6490335232
+   ],
+   "approx_tflop_per_case_mean": 44.276,
+   "cases": 16,
+   "peak_allocated_bytes_max": 8285663744,
+   "seconds_per_case": {
+    "max": 1.4093,
+    "mean": 1.3607,
+    "min": 1.2969
+   },
+   "seconds_total": 21.77,
+   "tokens_through_stack_per_case_mean": 6890.6
+  },
+  "counterfactual": {
+   "allocated_after_case_bytes": [
+    6489592832,
+    6490335232
+   ],
+   "approx_tflop_per_case_mean": 44.277,
+   "cases": 48,
+   "peak_allocated_bytes_max": 8285663744,
+   "seconds_per_case": {
+    "max": 1.4628,
+    "mean": 1.3739,
+    "min": 1.2952
+   },
+   "seconds_total": 65.95,
+   "tokens_through_stack_per_case_mean": 6890.8
+  },
+  "full": {
+   "allocated_after_case_bytes": [
+    6489592832,
+    6490335232
+   ],
+   "approx_tflop_per_case_mean": 44.276,
+   "cases": 152,
+   "peak_allocated_bytes_max": 8285663744,
+   "seconds_per_case": {
+    "max": 15.9629,
+    "mean": 1.5582,
+    "min": 1.3209
+   },
+   "seconds_total": 236.85,
+   "tokens_through_stack_per_case_mean": 6890.7
+  },
+  "smoke": {
+   "allocated_after_case_bytes": [
+    6488691200,
+    6488691200
+   ],
+   "approx_tflop_per_case_mean": 44.259,
+   "cases": 2,
+   "peak_allocated_bytes_max": 8285663744,
+   "seconds_per_case": {
+    "max": 1.2813,
+    "mean": 1.2692,
+    "min": 1.2572
+   },
+   "seconds_total": 2.54,
+   "tokens_through_stack_per_case_mean": 6888
+  }
+ },
+ "started": "2026-11-04T19:16:57+0800"
+}

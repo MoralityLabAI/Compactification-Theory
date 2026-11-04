@@ -1,0 +1,67 @@
+{
+  "attempts": [
+    {
+      "attempt": 1,
+      "ended": "power guard kill at full 88/152 (~18:22)",
+      "gsm8k_accuracy": 0.65,
+      "parity_passed": true,
+      "started": "2026-11-04T18:14:28+0800"
+    },
+    {
+      "attempt": 2,
+      "ended": "power guard kill at full 72/152 (18:34:23); Windows logged nvlddmkm 153 at 18:34:24",
+      "gsm8k_accuracy": 0.65,
+      "parity_passed": true,
+      "stages_written": [
+        "calibration_subset",
+        "gsm8k",
+        "parity",
+        "smoke"
+      ],
+      "started": "2026-11-04T18:26:54+0800",
+      "status_at_exit": "running"
+    },
+    {
+      "attempt": "3a",
+      "paused_reason": "full:test/sink/19: GPU power-capped at 15 W",
+      "stages_written": [
+        "calibration_subset",
+        "gsm8k",
+        "parity",
+        "smoke"
+      ],
+      "started": "2026-11-04T19:07:49+0800",
+      "status_at_exit": "paused_power_cap"
+    },
+    {
+      "attempt": "3b",
+      "behaviour_from_parts": {
+        "explicit": 0,
+        "loops6": 0
+      },
+      "cases_from_parts": {
+        "calibration_subset": 16,
+        "counterfactual": 0,
+        "full": 147,
+        "smoke": 2
+      },
+      "drift": {
+        "case0_bitwise_equal": true,
+        "weights_unchanged": true
+      },
+      "finished": "2026-11-04T19:22:50+0800",
+      "gsm8k_reused": true,
+      "parity_digests_equal_earlier_attempts": true,
+      "parity_earlier_attempts_compared": 2,
+      "smoke_and_subset_bitwise_equal_full": true,
+      "started": "2026-11-04T19:16:57+0800",
+      "status": "complete"
+    }
+  ],
+  "gsm8k_preds_committed_copy": "top-level key scrubbed from the local sample path to gsm8k_sample.json",
+  "gsm8k_preds_original_sha256": "aeec01f47e7f914a211930bbf6e947398a5bcc4344290322cc4b559b54a082e9",
+  "launcher": "vramorama 0.14.0 run --vram 11G --pause-exit 75 --guard-power 90 --restart 12",
+  "note": "Attempts 1-2 ran before the job checkpointed: the power guard killed each one partway through the full capture when the card fell to its 15 W cap, and nothing past calibration_subset was kept. Attempt 1's manifest was overwritten by attempt 2; its log is job.attempts-1-2.log outside git. Attempts 3a/3b are one launch: 3a paused itself (exit 75) at the cap and vramorama restarted it; 3b resumed from per-case parts.",
+  "run_manifest_sha256_outside_git": "08c556c19676817f3c30a42017d5840338a8d0654fb379aafd569c3cc2fc2fed",
+  "schema_version": "algernon-02b-attempts-v1"
+}
