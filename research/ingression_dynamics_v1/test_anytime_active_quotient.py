@@ -101,10 +101,10 @@ class RobustQuotientTests(unittest.TestCase):
                 radius, lower, centers = partition_interval_bounds(bounds, labels)
                 direct = max(
                     min(
-                        max(abs(lo - Q(j,16)), abs(hi - Q(j,16))
-                            for i,(row,) in enumerate(bounds)
+                        max(max(abs(lo - Q(j,16)), abs(hi - Q(j,16)))
+                            for i, row in enumerate(bounds)
                             if labels[i] == group
-                            for lo,hi in (row,))
+                            for lo,hi in row)
                         for j in range(17))
                     for group in set(labels))
                 self.assertEqual(radius, direct)
