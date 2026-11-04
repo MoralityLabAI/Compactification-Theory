@@ -138,7 +138,7 @@ class QO17Tests(unittest.TestCase):
         self.assertGreater(len(rows),144)
         self.assertEqual(meta["fixed_source"]["used_examples_with_swap_augmentation"],144)
         self.assertEqual(meta["occupancy"]["occupancy_eligible_examples"],
-                         len(meta["occupancy"]["occupancy_examples"]))
+                         len(meta["occupancy_examples"]))
         self.assertTrue(all(e["seed"] in VALIDATION_OCCUPANCY_SEEDS
                             for e in rows if e["split"]=="validation_occupancy"))
 
