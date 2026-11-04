@@ -28,6 +28,17 @@ jobs:
         run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_sampler_policy_pilot.py' -v
       - name: Exact rational 12-seed paired study
         run: python -m research.ingression_dynamics_v1.sampler_policy_pilot --out results/qo08_pilot.json
+      - name: Display paired pilot metrics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('results/qo08_pilot.json').read_text())
+          for row in report['summaries']:
+              print('POLICY', json.dumps(row, sort_keys=True))
+          for row in report['comparisons']:
+              print('PAIRED_DELTA', json.dumps(row, sort_keys=True))
+          PY
       - name: Export immutable run receipt
         uses: actions/upload-artifact@v4
         with:
