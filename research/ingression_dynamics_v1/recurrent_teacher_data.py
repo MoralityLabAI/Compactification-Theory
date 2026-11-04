@@ -131,17 +131,22 @@ def teacher_record(ledger):
     }
 
 
-def dataset(split):
-    """Deterministic independent case families and seed lists."""
+def dataset(split,rate_pairs=None,seeds=None,count_pairs=None):
+    """Deterministic case families, optionally reduced for cheap smoke tests."""
     if split not in ("train","test"):
         raise ValueError("train/test split required")
-    pairs=TRAIN_RATES if split=="train" else TEST_RATES
-    seeds=TRAIN_SEEDS if split=="train" else TEST_SEEDS
+    pairs=tuple(rate_pairs) if rate_pairs is not None else (
+        TRAIN_RATES if split=="train" else TEST_RATES)
+    seeds=tuple(seeds) if seeds is not None else (
+        TRAIN_SEEDS if split=="train" else TEST_SEEDS)
+    counts_list=tuple(count_pairs) if count_pairs is not None else COUNTS
+    if not pairs or not seeds or not counts_list:
+        raise ValueError("nonempty frozen rates/seeds/evidence counts required")
     rows=[]
     for rates in pairs:
         for seed in seeds:
-            streams=source_events(rates,seed,max(max(x) for x in COUNTS))
-            for counts in COUNTS:
+            streams=source_events(rates,seed,max(max(x) for x in counts_list))
+            for counts in counts_list:
                 ledger=evidence_from_prefixes(streams,counts)
                 item=teacher_record(ledger)
                 item["family"]=tuple(str(p) for p in rates)
