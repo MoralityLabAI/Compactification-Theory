@@ -260,9 +260,14 @@ def metrics(model, x, y, norm, selected, truth, puzzle_ids):
             pid = puzzle_ids[i]
             err=float((rr[j]-target[j]).square().mean())
             tv=float((rr[j,-1].softmax(-1)-target[j,-1].softmax(-1)).abs().sum()/2)
-            per_case.setdefault(pid,[]).append((err,tv))
-        out["per_puzzle"]=[{"case":pid,"mean_rollout_mse":sum(a for a,b in vals)/len(vals),
-                            "mean_final_tv":sum(b for a,b in vals)/len(vals)}
+            agrees=int(rr[j,-1].argmax()==target[j,-1].argmax())
+            correct=int(rr[j,-1].argmax()==labels[j])
+            per_case.setdefault(pid,[]).append((err,tv,agrees,correct))
+        out["per_puzzle"]=[{"case":pid,
+                            "mean_rollout_mse":sum(v[0] for v in vals)/len(vals),
+                            "mean_final_tv":sum(v[1] for v in vals)/len(vals),
+                            "teacher_agreement_final":sum(v[2] for v in vals)/len(vals),
+                            "sudoku_correct_final":sum(v[3] for v in vals)/len(vals)}
                            for pid,vals in sorted(per_case.items())]
         return out
 
@@ -330,6 +335,12 @@ def baselines(dataset):
     constant=means.expand(len(selected),-1,-1)
     truth=dataset["answers"][selected]
     def report(pred):
+        per_case={}
+        for j,i in enumerate(selected.tolist()):
+            pid=dataset["puzzle_ids"][i]
+            agree=int(pred[j,-1].argmax()==teacher[j,-1].argmax())
+            correct=int(pred[j,-1].argmax()==truth[j])
+            per_case.setdefault(pid,[]).append((agree,correct))
         return {"rolled_logit_mse":float((pred-teacher).square().mean()),
                 "future_teacher_label_agreement":[float((pred[:,h].argmax(-1)==
                        teacher[:,h].argmax(-1)).float().mean()) for h in range(3)],
@@ -337,7 +348,11 @@ def baselines(dataset):
                        truth).float().mean()) for h in range(3)],
                 "future_mean_tv":[float((pred[:,h].softmax(-1)-
                        teacher[:,h].softmax(-1)).abs().sum(-1).mean()/2)
-                       for h in range(3)]}
+                       for h in range(3)],
+                "per_puzzle":[{"case":pid,
+                    "teacher_agreement_final":sum(a for a,b in vals)/len(vals),
+                    "sudoku_correct_final":sum(b for a,b in vals)/len(vals)}
+                    for pid,vals in sorted(per_case.items())]}
     return {"persistence":report(last),"train_mean_only":report(constant)}
 
 def run(model,inputs,answers,sha,roster,*,max_cases=64,max_epochs=200):
