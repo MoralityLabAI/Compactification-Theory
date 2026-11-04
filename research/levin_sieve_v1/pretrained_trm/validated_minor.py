@@ -193,3 +193,19 @@ def validated_minor(model,stage1,columns,first_missing,winner,rival,precision=12
             'rank_four_proved':not determinant.contains(0),
             'winning_class_verified':top_two_locked,
             'runner_up_verified':rival_is_second}
+
+
+def serialized_ball_contains_original(ball, rendered):
+    """Independently verify that a printable decimal ball encloses its Arb ball.
+
+    This checks the *serialization* contract with exact Python rationals, not
+    the numerical correctness of the Arb operation graph itself.
+    """
+    from fractions import Fraction
+    from verify_serialized_minors import parse_ball
+    lo,hi=parse_ball(rendered)
+    def exact_binary_endpoint(endpoint):
+        mantissa, exponent=endpoint.man_exp()
+        m=int(mantissa)
+        return Fraction(m*(2**exponent),1) if exponent>=0 else Fraction(m,2**(-exponent))
+    return lo<=exact_binary_endpoint(ball.lower()) and exact_binary_endpoint(ball.upper())<=hi

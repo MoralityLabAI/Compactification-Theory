@@ -20,7 +20,7 @@ from flint import arb, ctx
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from run_checkpoint import locked_bytes,load_pretrained,prepare_roster
-from validated_minor import validated_minor
+from validated_minor import validated_minor, serialized_ball_contains_original
 from run_minor_witness import gradient_history
 
 
@@ -58,6 +58,14 @@ def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
         winner,rival=(int(pairs[idx,0]),int(pairs[idx,1]))
         pred=validated_minor(model,z1[idx],indices,int(cell[idx]),winner,rival,precision)
         det=pred['det']
+        # Require every serialized decimal interval to contain the original
+        # Arb ball, before an independent exact-rational checker reads it.
+        for row in pred['rows']:
+            for v in row:
+                if not serialized_ball_contains_original(v, v.str(20)):
+                    raise AssertionError('decimal certificate truncated a true Arb enclosure')
+        if not serialized_ball_contains_original(det,det.str(26)):
+            raise AssertionError('determinant serialization lost its enclosure')
         observed=J[idx,:,indices]
         entry_errors=[]
         for row in range(4):
@@ -80,6 +88,7 @@ def run(max_cases=1,precision=128,fetch=False,checkpoint_path=None,
           'winner_verified_in_exact_real_model':pred['winning_class_verified'],
           'rival_verified_in_exact_real_model':pred['runner_up_verified'],
           'verified_jacobian_entry_enclosures':[[v.str(20) for v in row] for row in pred['rows']],
+          'observed_autograd_binary64_hex':[[float(observed[row,col]).hex() for col in range(4)] for row in range(4)],
           'elapsed_seconds':round(time.perf_counter()-start,3),
         }
         if not all(v.is_finite() for row in pred['rows'] for v in row) or not det.is_finite():

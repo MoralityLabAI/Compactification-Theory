@@ -67,3 +67,15 @@ The first gate is one selected case to validate runtime and enclosure tightness.
 ## LSV-12 error-budget closure (follow-up)
 
 The validated runner also computes the original `4x3888` point-autograd Jacobian and, for each frozen 4-column selection, takes the *rigorous upper bound* on the absolute difference between the binary64 point-autograd entry and its Arb-enclosed exact-real derivative. The maximum of sixteen such error bounds per case must be strictly less than the originally recorded `sigma_min/4` threshold (stored as a conservative 12-decimal number). This closes LSV-12's original singular-value-perturbation proof obligation if and only if all 64 cases pass, independently of the determinant test. The receipt records both checks separately.
+
+## Independent, dependency-free proof replay
+
+For every frozen case the runner serializes the Arb enclosures of all 16 minor entries as decimal endpoints with conservative radii, and independently checks with exact Python fractions that each printed enclosure actually contains the underlying Arb ball. It also serializes the observed PyTorch binary64 derivatives using exact hexadecimal float representations. The standard-library-only [verification script](verify_serialized_minors.py) reads this receipt, reconstructs exact rational intervals from the decimal strings, computes the 4x4 determinant using its 24-term Leibniz expansion, and independently verifies that the interval excludes zero. It bounds the distance from each saved binary64 autograd entry to its enclosed exact-real derivative and checks the frozen strict per-case LSV-12 threshold.
+
+This is an independent audit of the **finite serialized witness**. Its soundness as a proof of the model still relies on the FLINT Arb enclosure semantics, the checked transformation code, and the locked checkpoint/input interpretation. The standalone rational checker uses no floating-point matrix determinant, PyTorch, Arb, network connection, or additional dependencies. Negative tests corrupt a determinant and a measured derivative and require rejection.
+
+Run after producing the receipt:
+
+```sh
+python research/levin_sieve_v1/pretrained_trm/verify_serialized_minors.py runs/lsv13/verified.json
+```

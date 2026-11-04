@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 import torch
 from flint import arb, arb_mat, ctx
 from validated_minor import (State, exact_matrix, initial_state, _jet_layernorm,
-                            _jet_gelu, _jet_linear, head_pair_margin, validated_minor)
+                            _jet_gelu, _jet_linear, head_pair_margin, validated_minor, serialized_ball_contains_original)
 from upstream_arch import TinyRecursiveModel
 
 
@@ -60,6 +60,11 @@ class ValidatedMinor(unittest.TestCase):
         with self.assertRaises(ValueError):initial_state(x,(0,0,2,3))
         with self.assertRaises(ValueError):initial_state(x,(0,1,2,3888))
         with self.assertRaises(ValueError):initial_state(x,(0,1,2))
+
+    def test_decimal_ball_serialization_preserves_interval(self):
+        v=arb(1)/3
+        self.assertTrue(serialized_ball_contains_original(v,v.str(20)))
+        self.assertFalse(serialized_ball_contains_original(v,'0.333333333333333333333'))
 
     def test_rank_certificate_rejects_exact_singular(self):
         m=arb_mat([[1,1,1,1],[2,2,2,2],[0,0,0,0],[4,4,4,4]])
