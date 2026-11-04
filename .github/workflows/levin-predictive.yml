@@ -1,0 +1,37 @@
+name: LSV-07 predictive pretrained goal regions
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/**'
+      - '.github/workflows/levin-predictive.yml'
+  pull_request:
+    paths:
+      - 'research/levin_sieve_v1/pretrained_trm/**'
+      - '.github/workflows/levin-predictive.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  conditional-fp64-reachability:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned PyTorch CPU
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Unit tests for interval bounds and negative controls
+        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p 'test_*.py' -v
+      - name: Checkpoint-locked predictive interval experiment
+        run: |
+          mkdir -p runs/lsv07
+          python research/levin_sieve_v1/pretrained_trm/run_predictive.py --fetch --out runs/lsv07/predictive.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lsv07-predictive-conditional-interval-raw
+          path: runs/lsv07/predictive.json
+          if-no-files-found: ignore
+          retention-days: 30
