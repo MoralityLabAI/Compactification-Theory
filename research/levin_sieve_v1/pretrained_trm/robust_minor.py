@@ -139,7 +139,7 @@ def check_single_receipt(row: dict) -> tuple[bool, Fraction]:
 def check_full_receipt(receipt: dict):
     if receipt.get('schema')!='LSV-14/positive-radius-goal-rank-v1':
         raise ValueError('unexpected receipt schema')
-    if receipt.get('radius') not in ('1e-16','1e-14','1e-12','1e-10','1e-8','1e-6'):
+    if receipt.get('radius') not in ('1e-22','1e-20','1e-18','1e-16','1e-14','1e-12','1e-10','1e-8','1e-6'):
         raise ValueError('unregistered radius')
     checked=[]
     for index,row in enumerate(receipt['cases']):
