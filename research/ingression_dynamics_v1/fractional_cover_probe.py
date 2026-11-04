@@ -15,6 +15,8 @@ and two newly fixed synthetic transfer cases; neither is neural evidence.
 """
 
 from collections import defaultdict
+from hashlib import sha256
+import json
 from fractions import Fraction as Q
 from itertools import product
 from math import ceil
@@ -275,7 +277,12 @@ def build_pilot_report(scenarios=SCENARIOS, seeds=SEEDS,
                 if len(receipts) != checkpoints[-1]:
                     raise AssertionError("query budget discrepancy")
                 rows.extend(checkpoints_rows)
-                trajectories.append((case["id"], seed, policy, len(receipts)))
+                trajectories.append({
+                    "scenario":case["id"],"seed":seed,"policy":policy,
+                    "queries":len(receipts),
+                    "receipt_sha256":sha256(json.dumps(
+                        receipts,separators=(",",":")).encode("ascii")).hexdigest()
+                })
     groups=[]
     for case in scenarios:
         for budget in checkpoints:
@@ -352,12 +359,13 @@ def build_pilot_report(scenarios=SCENARIOS, seeds=SEEDS,
                 "normalized_shares":[str(z) for z in p["normalized_shares"]],
             }for name,p in value.items()}for key,value in designs.items()},
         "trial_rows":rows,
+        "trajectory_receipt_hashes":trajectories,
         "groups":groups,
         "paired_comparisons":paired,
         "run_counts":{
             "trajectories":len(trajectories),
             "snapshots":len(rows),
-            "queries":sum(x[-1] for x in trajectories),
+            "queries":sum(x["queries"] for x in trajectories),
             "paired_stream_verifications":len(trajectories),
         },
         "limitations":"Static alternative-family information lower bound is unrelated to true QO-08 class decision. Allocation weights are a heuristic; no neural transfer or proven policy optimality.",
