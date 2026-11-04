@@ -481,6 +481,10 @@ def main():
     ap.add_argument("--counterfactual", type=Path, required=True)
     ap.add_argument("--run-dir", type=Path, required=True)
     ap.add_argument("--model-id", default=DEFAULT_MODEL)
+    ap.add_argument("--local-checkpoint", type=Path,
+                    help="H-A2c: a lotus-phase final.pt from train_lotus.py, loaded on the --model-id snapshot")
+    ap.add_argument("--local-base", type=Path, help="base model directory for --local-checkpoint (default: the snapshot)")
+    ap.add_argument("--behaviour-loops", type=int, default=6, help="latent loops for the answer stage (published: 6)")
     ap.add_argument("--hf-revision", required=True)
     ap.add_argument("--device", default="cuda:0")
     ap.add_argument("--precision", choices=("bf16", "fp32"), default="bf16")
@@ -544,6 +548,19 @@ def main():
                               "checkpoint_files_sha256": {p.name: file_sha256(p) for p in sorted(snapshot.iterdir())
                                                           if p.is_file()}}
         args.checkpoint_files_sha256 = manifest["source"]["checkpoint_files_sha256"]
+        if args.local_checkpoint:
+            # H-A2c: a checkpoint train_lotus.py wrote on top of this base snapshot. No GSM8K stage.
+            train_meta = args.local_checkpoint.with_name("train_manifest.json")
+            meta = json.loads(train_meta.read_text(encoding="utf-8"))
+            if meta.get("status") != "complete" or meta.get("final_sha256") != file_sha256(args.local_checkpoint):
+                raise Abort("local checkpoint is not the complete final.pt its train_manifest.json records")
+            if meta["phase"] != "lotus" or meta["c_thought"] != args.c_thought or args.precision != "fp32":
+                raise Abort("local checkpoint needs a lotus-phase final.pt, matching --c-thought and --precision fp32")
+            manifest["source"]["local_checkpoint"] = {"file": args.local_checkpoint.name,
+                                                      "sha256": meta["final_sha256"],
+                                                      "train_manifest_sha256": file_sha256(train_meta),
+                                                      "after_loop": meta["after_loop"]}
+            args.gsm8k_n = 0
         manifest["inputs"] = {"roster_sha256": roster["roster_sha256"], "roster_file_sha256": file_sha256(args.roster),
                               "counterfactual_sha256": cf["counterfactual_sha256"],
                               "counterfactual_file_sha256": file_sha256(args.counterfactual)}
@@ -563,9 +580,14 @@ def main():
             if manifest["stages"]["gsm8k"]["accuracy"] < GSM8K_FLOOR:
                 raise Abort(f"upstream GSM8K reproduction below {GSM8K_FLOOR}; environment suspect")
         t0 = time.perf_counter()
-        model, module, tok = load_model(args.upstream, model_id=args.model_id, revision=args.hf_revision,
-                                        device=args.device, dtype=args.precision, local_only=True,
-                                        c_thought=args.c_thought)
+        if args.local_checkpoint:
+            from .train_lotus import load_trained
+            model, module, tok = load_trained(args.upstream, args.local_base or snapshot, args.local_checkpoint,
+                                              device=args.device)
+        else:
+            model, module, tok = load_model(args.upstream, model_id=args.model_id, revision=args.hf_revision,
+                                            device=args.device, dtype=args.precision, local_only=True,
+                                            c_thought=args.c_thought)
         fp0 = weights_fingerprint(model.base_causallm)
         if any(a.get("weights_fingerprint_start") not in (None, fp0) for a in attempts):
             raise Abort("weights fingerprint differs from an earlier attempt")
@@ -652,7 +674,8 @@ def main():
                                                 "capture": save_capture(args.run_dir / "cf_blocks.npz", cfa,
                                                                         [r["id"] for r in cf["cases"]])}
         write()
-        b6, s6, n6 = behaviour(roster["cases"], model, tok, args, extract, loops=6, parts=parts, watch=watch)
+        b6, s6, n6 = behaviour(roster["cases"], model, tok, args, extract, loops=args.behaviour_loops, parts=parts,
+                               watch=watch)
         b0, s0, n0 = behaviour(roster["cases"], model, tok, args, extract, loops=0, parts=parts, watch=watch)
         rec.check("behaviour")
         with (args.run_dir / "behaviour.jsonl").open("w", encoding="utf-8") as fh:

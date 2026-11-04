@@ -53,7 +53,7 @@ The frozen roster, exact input prompt, train/test boundaries and controls are in
 
 Full receipts and the smallest next intervention are in [lotus_bridge/results/algernon-02b/report.md](lotus_bridge/results/algernon-02b/report.md). The one protocol change made after registration was operational: the job became resumable across power-cap restarts. Resumed captures were checked bitwise against same-process repeats and across restarts.
 
-## H-A2c: LOTUS's own recipe on the pointer task, loop-to-step tying (registered 2026-11-05, before any training)
+## H-A2c: LOTUS's own recipe on the pointer task, loop-to-step tying (registered 2026-11-04, before any training)
 
 **Question.** With the pointer task in distribution and LOTUS's own training method, does the latent loop learn a transition that a frozen decoder reads as `pi(F(h)) = T(pi(h))` and that keeps working past the trained depth? Does supervising step k at loop k (rather than after the final loop, as published) decide it?
 

@@ -415,7 +415,7 @@ def analyze(roster, cf, cap, cf_cap, *, per_case=None, cf_per_case=None, behavio
             native[kind] = readout_metrics(p, test_rows)
         answers = {"loops16_capture": [{"id": m["id"], "answer": m.get("answer")} for m in per_case]}
         for it in behaviour:
-            answers.setdefault("loops6" if it["loops"] == 6 else "explicit_no_latents", []).append(it)
+            answers.setdefault(f"loops{it['loops']}" if it["loops"] else "explicit_no_latents", []).append(it)
         results["behaviour"] = {k: answer_accuracy(v, rows_by_id) for k, v in answers.items()}
         for k, items in answers.items():
             for it in items:
