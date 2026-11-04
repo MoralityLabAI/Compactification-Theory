@@ -18,3 +18,15 @@ For each selected frozen stage-one state, the exact-real shared block has goal-h
 This result concerns the **exact-real lift of checkpoint weights and observed binary32 stage-one states**. It does not certify the floating-point hardware's forward passes, a finite perturbation radius, general task-level reasoning, convergence, or a global finite-dimensional invariant quotient. The 4-row goal-history rank is at its maximal possible value and is not, by itself, evidence of surprising cognitive competence. The reusable applied technique is the inexpensive discovery of small numerical witnesses followed by exact-ball differentiation and independent rational proof replay.
 
 See [theorem and provenance](VALIDATED_MINOR.md), [Arb verifier](validated_minor.py), [source-locked runner](run_validated_minor.py), and [standalone rational verifier](verify_serialized_minors.py).
+
+## Final independently replayable proof package
+
+The [full 64-case JSON proof witness](results/lsv13_arb_validated_64_20261104.json) is committed permanently. Its source is [successful full-roster GitHub Actions run 41819375284](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/41819375284), where the checkpoint-locked Arb verifier and an independently implemented **standard-library-only exact rational checker** both passed. The CI gate explicitly requires 64 cases, 64 rank certificates, 64 strict autograd entrywise budgets and all 1,024 derivatives. The decimal serialization is checked against the original Arb balls, and the independent verifier recomputes determinant intervals by the 24-term Leibniz formula from saved entries without trusting the recorded determinant or status booleans.
+
+Recheck the saved proof witness from the repository root with:
+
+```bash
+python research/levin_sieve_v1/pretrained_trm/verify_serialized_minors.py research/levin_sieve_v1/pretrained_trm/results/lsv13_arb_validated_64_20261104.json
+```
+
+The guarantee uses the exact-real network and source-locked stage-one binary32 observations. No finite-radius robustness, model-wide minimal dimension, or performance on the official TRM checkpoints is inferred.
