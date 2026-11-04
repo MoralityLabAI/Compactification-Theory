@@ -1,0 +1,22 @@
+name: Morphospace autonomy exact audit
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/**'
+      - '.github/workflows/ingression-autonomy.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/**'
+      - '.github/workflows/ingression-autonomy.yml'
+  workflow_dispatch:
+jobs:
+  exact-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Original IDQ-01 and new IDQ-02 finite rational audits
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_*.py' -v
