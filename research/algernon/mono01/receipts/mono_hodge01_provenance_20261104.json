@@ -1,0 +1,28 @@
+{
+  "research_program": "MONO-HODGE-01",
+  "date": "2026-11-04",
+  "archive_retrieval": "not_available_in_current_runtime",
+  "real_27b_gpu_runs": 0,
+  "hf_repos": [
+    {
+      "id": "AlephFunk/alg-hodge-27b-01",
+      "revision": "09b4e483d9a7bb0f4f36871a2c9523a45623d05a",
+      "authoritative_subfolder": "repaired_v2"
+    },
+    {
+      "id": "AlephFunk/m-voi-01-qwen3-8-27b",
+      "revision": "906399c2b7934ca8316498d86ba0a8f4058cd204"
+    }
+  ],
+  "test_command": "python -m unittest discover -s research/algernon/mono01/tests -p test_hodge01.py -v",
+  "unit_test_count": 15,
+  "status": "synthetic_cpu_unit_tests_only",
+  "files_sha256": {
+    "hodge01.py": "2709a75024895f771d61f8a2109f16e6035ff32e0920ab0b214c0f915267cdcb",
+    "hodge01_analyze.py": "1d4aea024664a8c777de6ae5d732a4a4e1c721aabf8a4e31a72ccd3a4d0bfbca",
+    "tests/test_hodge01.py": "68a42719b47e54202961f20ebbea76bd9d9eb2eed7b37389fbd7814b32323367",
+    "MONO_HODGE01.md": "2a36e7e6b77827c101aed4fefd506757077440a942d400e1de92022e055ee06e",
+    "receipts/mono_hodge01_cpu_toy_20261104.json": "a0d1b5b7db017ca7c8cfb0373eb78b8bf76de1db7f15d765b4750ed357866755"
+  },
+  "hash_contract": "SHA256 of GitHub-file UTF-8 content after Files text transfer; final newline removed by parser"
+}

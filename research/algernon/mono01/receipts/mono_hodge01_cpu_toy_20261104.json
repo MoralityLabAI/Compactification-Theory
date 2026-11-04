@@ -1,0 +1,28 @@
+{
+  "evidence": "synthetic_affine_evidence_operator_only",
+  "seed": 20261104,
+  "calibration_cases": 48,
+  "untouched_test_cases": 128,
+  "pre_test_commutator_l2_mean": 0.44944290761978056,
+  "post_test_commutator_l2_mean": 1.1600751360724107e-12,
+  "reduction_fraction": 0.9999999999974188,
+  "random_matched_fro_median_test_gap": 0.5083416800489069,
+  "fraction_random_worse_than_edit": 1.0,
+  "edit_rank": 1,
+  "edit_fro": 0.22001623804203713,
+  "distance_to_planted_commuting_target_before": 0.22,
+  "distance_to_planted_commuting_target_after": 0.00267301373363546,
+  "calibration_diagnostics": {
+    "evidence": "finite_difference_operator_replay_synthetic_or_real_requires_model",
+    "support": [
+      0,
+      1
+    ],
+    "rank": 1,
+    "pre_l2": 3.5554924138118222,
+    "post_l2": 9.177175843130096e-12,
+    "edit_fro": 0.22001623804203713,
+    "reference_quadratic_cost": 0.0020605265452710037
+  },
+  "real_qwen_or_hf_data_loaded": false
+}
