@@ -1,0 +1,36 @@
+name: QO-12 exact two-step certification audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ingression_dynamics_v1/two_step_gap_probe.py'
+      - 'research/ingression_dynamics_v1/two_step_gap_pilot.py'
+      - 'research/ingression_dynamics_v1/test_two_step_gap_probe.py'
+      - 'research/ingression_dynamics_v1/TWO_STEP_CERTIFICATION.md'
+      - 'scripts/verify_two_step_gap.py'
+      - 'results/two_step_gap/**'
+      - '.github/workflows/qo12-two-step.yml'
+  pull_request:
+    paths:
+      - 'research/ingression_dynamics_v1/two_step_gap_probe.py'
+      - 'research/ingression_dynamics_v1/two_step_gap_pilot.py'
+      - 'research/ingression_dynamics_v1/test_two_step_gap_probe.py'
+      - 'research/ingression_dynamics_v1/TWO_STEP_CERTIFICATION.md'
+      - 'scripts/verify_two_step_gap.py'
+      - 'results/two_step_gap/**'
+      - '.github/workflows/qo12-two-step.yml'
+  workflow_dispatch:
+jobs:
+  two-step-finite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent exact two-step Bellman and plateau oracle
+        run: python -m unittest discover -s research/ingression_dynamics_v1 -p 'test_two_step_gap_probe.py' -v
+      - name: Reproduce paired synthetic study and source-bound receipt
+        run: PYTHONPATH=. python scripts/verify_two_step_gap.py --check
