@@ -45,7 +45,7 @@ For each held-out puzzle group consisting of its clean state plus four remote ed
 
 As fractions of overall held-out future-logit variance these are only 0.00583%, 0.00465%, and 0.00568%. Thus exact local factorization is ruled out by the finite witness, while practical approximate local prediction remains plausible.
 
-The universal theorem that two states with the same observation and future-output gap D force a worst-case prediction error at least D/2 is an elementary norm inequality. Its Lean companion in OntologicalProofs is audited separately.
+The universal theorem that two states with the same observation and future-output gap D force a worst-case prediction error at least D/2 is an elementary norm inequality. Its Lean companion is kernel-checked in [OntologicalProofs LTR-UG-03](https://github.com/patrickdugan/OntologicalProofs/blob/main/Neoplatonic/LTR/GoalQuotientAliasing.lean); the [full Lean and axiom audit passed](https://github.com/patrickdugan/OntologicalProofs/actions/runs/41855990227).
 
 ## Limits and next test
 
