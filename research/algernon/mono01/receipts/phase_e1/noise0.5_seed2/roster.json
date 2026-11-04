@@ -1,0 +1,36 @@
+{
+ "cfg": {
+  "nin": 2,
+  "hidden": 48,
+  "noise": 0.5,
+  "T_train": 40,
+  "T_long": 160,
+  "steps": 2500,
+  "batch": 128,
+  "lr": 0.003,
+  "model_seed": 2
+ },
+ "splits": {
+  "train": {
+   "lo": 10000,
+   "hi": 19999
+  },
+  "calib": {
+   "lo": 20000,
+   "hi": 20999,
+   "chunks": 4,
+   "per": 250
+  },
+  "test": {
+   "lo": 30000,
+   "hi": 30999,
+   "chunks": 8,
+   "per": 250
+  }
+ },
+ "train_seeds_used": [
+  10000,
+  12499
+ ],
+ "sha256": "3c8d3a6d20d2655b0df3c68f875e596c49ab32dcae9b9815196d7f76faddf9d1"
+}

@@ -1,0 +1,44 @@
+train 35.2s loss 0.2995 -> 0.0008
+[noise0.5_seed2] calib MSE40 0.00211 MSE160 0.02004 (mean-predictor MSE 0.3333)
+calib baseline mse40 0.00211 mse160 0.02004 mu 0.9960 kappa 1.26 rho 0.9960 transient 1.29 lyap40/160 -0.0637/-0.0189
+  cand J:x0.95  fro 0.0636 mu 0.9960->0.9462 meas 0.9524 alpha 1.000 mse40 0.24373 mse160 0.34042 lyap160 -0.0619
+  cand J:x0.90  fro 0.1272 mu 0.9960->0.8964 meas 0.9033 alpha 1.000 mse40 0.32784 mse160 0.34082 lyap160 -0.1157
+  cand J:unit   fro 0.0051 mu 0.9960->1.0000 meas 0.9987 alpha 1.000 mse40 0.00894 mse160 0.11392 lyap160 -0.0197
+  cand W:x0.95  fro 0.0636 mu 1.0109->0.9603 meas 0.9524 alpha 1.000 mse40 0.24374 mse160 0.34042 lyap160 -0.0619
+  cand W:x0.90  fro 0.1271 mu 1.0109->0.9098 meas 0.9033 alpha 1.000 mse40 0.32785 mse160 0.34082 lyap160 -0.1157
+  cand W:unit   fro 0.0137 mu 1.0109->1.0000 meas 0.9879 alpha 1.000 mse40 0.03380 mse160 0.17306 lyap160 -0.0238
+  cand Jc:x0.95 fro 0.0636 mu 0.9960->0.9462 meas 0.9524 alpha 6.473 mse40 0.00030 mse160 0.33829 lyap160 -0.0619
+  cand Jc:x0.90 fro 0.1272 mu 0.9960->0.8964 meas 0.9033 alpha 51.142 mse40 0.00581 mse160 0.34642 lyap160 -0.1157
+  cand Jc:unit  fro 0.0051 mu 0.9960->1.0000 meas 0.9987 alpha 0.880 mse40 0.00268 mse160 0.06554 lyap160 -0.0197
+  grid -0.12 fro 0.1533 meas 0.8829 mse40 0.33548 mse160 0.34082 lyap160 -0.1386
+  grid -0.09 fro 0.1149 meas 0.9128 mse40 0.32131 mse160 0.34082 lyap160 -0.1051
+  grid -0.06 fro 0.0766 meas 0.9424 mse40 0.27484 mse160 0.34074 lyap160 -0.0726
+  grid -0.03 fro 0.0383 meas 0.9711 mse40 0.14998 mse160 0.33085 lyap160 -0.0416
+  grid -0.01 fro 0.0128 meas 0.9885 mse40 0.03018 mse160 0.15875 lyap160 -0.0232
+  grid +0.01 fro 0.0128 meas 1.0022 mse40 0.04974 mse160 0.47739 lyap160 -0.0239
+  grid +0.03 fro 0.0383 meas 1.0088 mse40 0.59919 mse160 2.18718 lyap160 -0.0530
+  grid +0.06 fro 0.0766 meas 1.0001 mse40 2.82278 mse160 4.56579 lyap160 -0.1065
+  grid +0.09 fro 0.1149 meas 0.9730 mse40 5.74603 mse160 6.78993 lyap160 -0.1618
+  grid +0.12 fro 0.1533 meas 0.9372 mse40 8.36332 mse160 8.85470 lyap160 -0.2176
+selected {'name': 'Jc:x0.95', 'comp': True, 'feasible': True, 'beats_baseline_160': False}
+  arm Jc:x0.95: fro 0.0636 support energy 0.33
+    ctrl dense: d_mse40 +0.00053 d_mse160 +0.01047 (min -0.00405) d_mu +0.0003 +- 0.0009
+    ctrl support: d_mse40 +0.00086 d_mse160 +0.01565 (min -0.00425) d_mu +0.0003 +- 0.0016
+    ctrl grad_full: d_mse40 +0.16832 d_mse160 +0.40980 d_mu -0.0750
+    ctrl grad_rank1: d_mse40 +0.16861 d_mse160 +0.40979 d_mu -0.0750
+    ctrl zero_edit: d_mse40 -0.00000 d_mse160 +0.00014 d_mu +0.0000
+    ctrl grad_ls: d_mse40 -0.00018 d_mse160 -0.00515 d_mu -0.0011
+    grad line search best scale 0.02: 1.0:0.4298, 0.5:0.3454, 0.25:0.2502, 0.1:0.0704, 0.05:0.0227, 0.02:0.0149, 0.01:0.0165
+  arm Jc:unit: fro 0.0051 support energy 0.33
+    ctrl dense: d_mse40 +0.00001 d_mse160 +0.00040 (min -0.00047) d_mu +0.0000 +- 0.0001
+    ctrl support: d_mse40 +0.00001 d_mse160 +0.00051 (min -0.00162) d_mu +0.0000 +- 0.0001
+    ctrl grad_full: d_mse40 -0.00060 d_mse160 +0.02764 d_mu -0.0047
+    ctrl grad_rank1: d_mse40 -0.00060 d_mse160 +0.02764 d_mu -0.0047
+    ctrl zero_edit: d_mse40 -0.00000 d_mse160 +0.00014 d_mu +0.0000
+    ctrl grad_ls: d_mse40 -0.00018 d_mse160 -0.00516 d_mu -0.0011
+    grad line search best scale 0.25: 1.0:0.0477, 0.5:0.0181, 0.25:0.0149, 0.1:0.0171, 0.05:0.0185, 0.02:0.0195, 0.01:0.0198
+  amplitude diagnostic (baseline): [{"abs_s": [0.0, 0.33], "n": 327, "gain40": 1.1742929220199585, "gain160": 1.7675131559371948, "mu_late": 1.0019618571522333, "mean_d_late": 0.9939143707354864}, {"abs_s": [0.33, 0.67], "n": 328, "gain40": 1.0826717615127563, "gain160": 1.265307903289795, "mu_late": 0.9946461252932973, "mean_d_late": 0.9886398464441299}, {"abs_s": [0.67, 1.0], "n": 345, "gain40": 0.9498430490493774, "gain160": 0.8920743465423584, "mu_late": 0.9899315209820524, "mean_d_late": 0.9852158538997173}]
+calib done 19.5s
+test Jc:x0.95: base mse40 0.00201 mse160 0.01969; eigen mse40 0.00030 mse160 0.32835
+test Jc:unit: base mse40 0.00201 mse160 0.01969; eigen mse40 0.00256 mse160 0.06551
+[noise0.5_seed2] total wall 79.5s

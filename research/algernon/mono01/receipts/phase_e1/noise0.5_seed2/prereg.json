@@ -1,0 +1,66 @@
+{
+ "mode": "leading real eigenvalue (largest value) of the mean Jacobian diag(mean_{b,t=1..39}(1-h_t^2)) W_hh, calibration T=40 trajectories",
+ "rules": {
+  "x0.95": [
+   "scale",
+   0.95
+  ],
+  "x0.90": [
+   "scale",
+   0.9
+  ],
+  "unit": [
+   "fixed",
+   1.0
+  ]
+ },
+ "spaces": {
+  "J": "edit W so the mean Jacobian eigenvalue moves: dW = diag(1/Dbar) dJ",
+  "W": "edit the eigenvalue of W_hh itself"
+ },
+ "variants": [
+  [
+   "J",
+   false
+  ],
+  [
+   "W",
+   false
+  ],
+  [
+   "J",
+   true
+  ]
+ ],
+ "ls_scales": [
+  1.0,
+  0.5,
+  0.25,
+  0.1,
+  0.05,
+  0.02,
+  0.01
+ ],
+ "extra_arms": [
+  "Jc:unit"
+ ],
+ "extension_note": "J+comp variants (one scalar readout gain refit on calibration t=40), the gradient line search, the zero_edit control and the extra test arm Jc:unit (the principled slow-mode fix) were added after the first 6 candidates of the noise-0.5 model failed preservation on calibration; the test roster had not been touched",
+ "selection": "argmin calibration MSE@160 over the 9 candidates (3 rules x variants J, W, J+comp) with MSE@40 <= 1.10*base+1e-4; if none feasible, argmin MSE@40; test runs the selected candidate even if it does not beat baseline on calibration",
+ "controls": "rho=||dW_sel||_F; 20 dense random rank-one; 20 random rank-one on the top-12 rows x top-12 cols of dW_sel; one-step gradient (full rank, top singular component, calibration line search over step scales) of calibration T=160 MSE; zero edit (readout refit only); best-on-calibration dense draw; controls get the same readout refit as the selected candidate",
+ "n_draws": 20,
+ "support_k": 12,
+ "boot": 4000,
+ "grid": [
+  -0.12,
+  -0.09,
+  -0.06,
+  -0.03,
+  -0.01,
+  0.01,
+  0.03,
+  0.06,
+  0.09,
+  0.12
+ ],
+ "rel_tol": 0.1
+}
