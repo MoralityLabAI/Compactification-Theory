@@ -1,0 +1,25 @@
+name: Algernon belief-geometry exact CPU
+on:
+  push:
+    paths:
+      - 'research/algernon/belief_geometry/**'
+      - '.github/workflows/algernon-belief-geometry.yml'
+  pull_request:
+    paths:
+      - 'research/algernon/belief_geometry/**'
+      - '.github/workflows/algernon-belief-geometry.yml'
+  workflow_dispatch:
+jobs:
+  exact-cpu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact evidence and alpha-vector tests
+        run: python -m unittest discover -s research/algernon/belief_geometry/tests -v
+      - name: Reproduce locked rational reference
+        run: |
+          python -m research.algernon.belief_geometry.run_reference --out /tmp/belief_geometry_reference.json
+          cmp research/algernon/belief_geometry/results/reference.json /tmp/belief_geometry_reference.json

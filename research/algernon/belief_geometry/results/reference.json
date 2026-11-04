@@ -1,0 +1,29 @@
+{
+  "binary_decision_example": {
+    "continuation_advantage": "1/5",
+    "decision": "NOISY_X",
+    "noisy_X_mutual_information_bits": 0.188721876,
+    "noisy_relevant_X": "7/10",
+    "reveal_Y_mutual_information_bits": 1.0,
+    "reveal_irrelevant_Y": "9/20",
+    "stop": "1/2"
+  },
+  "computational_limitations": [
+    "No Qwen3.5-27B or other model was evaluated.",
+    "No Silico or GPU resources used.",
+    "Hypercube integrability applies to additive decoded edge increments over fixed evidence sets.",
+    "Alpha-vector planner uses known likelihoods and payoff structure.",
+    "Empirical activation geometry requires separate held-out causal tests."
+  ],
+  "evidence_class": "exact_rational_CPU_reference",
+  "evidence_orders_checked": 65,
+  "exact_bayes_order_defects": 0,
+  "flat_hypercube_max_curvature": "0",
+  "model_inference": false,
+  "nonflat_example_max_curvature": "7",
+  "random_noncircular_path_bound_checks": 1600,
+  "rank_of_log_likelihood_increments": 3,
+  "schema_version": "0.1.0",
+  "source_model": "research.algernon.belief_geometry",
+  "square_faces_checked": 24
+}
