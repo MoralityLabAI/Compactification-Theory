@@ -1,0 +1,31 @@
+diff --git a/policy_surgery/io.py b/policy_surgery/io.py
+index 79020f4..7c9284d 100644
+--- a/policy_surgery/io.py
++++ b/policy_surgery/io.py
+@@ -1,7 +1,7 @@
+ """Artifact IO and portable paths for frozen experimental records."""
+ 
+ import json
+-from pathlib import Path
++from pathlib import Path, PurePosixPath
+ 
+ ROOT = Path(__file__).resolve().parents[1]
+ 
+@@ -23,12 +23,11 @@ def checkpoint_path(value):
+ 
+ def acquisition_entry(name):
+     """Map an original manifest key to the portable source-archive entry."""
+-    path = Path(name)
+-    if path.is_absolute():
+-        marker = "/self-editing-agents/"
+-        if marker not in str(path):
+-            raise ValueError("Unknown acquisition source path")
+-        path = Path(str(path).split(marker, 1)[1])
++    text = str(name).replace("\\", "/")
++    marker = "/self-editing-agents/"
++    if marker in text:
++        text = text.split(marker, 1)[1]
++    path = PurePosixPath(text)
+     if path.is_absolute() or ".." in path.parts:
+         raise ValueError("Unsafe acquisition source path")
+     return str(path)

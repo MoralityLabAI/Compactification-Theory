@@ -1,0 +1,13 @@
+# MONO-01 Phase B: Policy Surgery reproduction on Windows (2026-11-04)
+
+Upstream: https://github.com/latentpaths/policy-surgery pinned at `46f95e64dc9057e6d025b7141b607230905c04ee`, dependencies from its `uv.lock` (`uv sync --frozen --extra weights`), Python 3.12.10, Windows 11. Upstream measurements are kept separate from ours; nothing upstream was rewritten.
+
+## Observations
+- `policy-surgery verify` and `reproduce` pass offline after two environment fixes, neither touching records: (1) `core.autocrlf=true` rewrote the retained JSON with CRLF and broke the recorded SHA-256 locks, so the clone must be checked out with LF; (2) `acquisition_entry` fails on the recorded Windows-style manifest keys under Windows Path semantics (patch in `policy_surgery_windows_acquisition_entry.patch`), and `PYTHONUTF8=1` is needed for `reproduce` to write its report. Result: 36 runs, 18 LLM runs, 384 valid candidates, 261 transcript turns, 4 accepted policies, reversal 226/256; the reproduced table equals the README table.
+- `policy-surgery weights` fetched the pinned SB3 actor; base tensor SHA-256 `1ac3f4a0...77df6` matches NOTICE.md. 483 of 486 recorded candidates reconstruct bit-exactly. 3 do not (all compound-condition runs: `compound-llm-completion-seed0` id 10, `compound-llm-reward-seed0` ids 1 and 9), so upstream's `weights` command aborts at the first and stops. We skip those 3 and report them.
+- `verify --replay` fails on this machine: of 381 development-episode replays, 0 are bit-identical to the recorded episodes (returns differ ~1e-2, observations ~1e-4), 318 agree on all discrete fields, 63 differ in `steps`, and 5 differ in `goal_success`. The Box2D simulator is not bit-reproducible across platforms. Consequence for this work: all arms are compared on this machine with paired seeds, never against upstream's recorded episode outcomes.
+- Algebra (`policy_surgery_audit.py`, receipts in `policy_surgery_algebra/`):
+  - Reversed thrusters is exactly rank one on the augmented output layer [W3 | b3]: (I - d d^T)[W3|b3] with d = e1 - e3, 2 rows changed, 130 nonzero entries, bit-equal to upstream's permutation op.
+  - Accepted crosswind completion seed0: layer-1 rank 3 (192 nonzero), output rank 3 (195 nonzero). Reward seed1: layer-1 rank 2, output untouched. Reward seed2: layer-1 rank 2, output rank 1 (2 entries). Weak-main completion seed1: layer-1 rank 2, output rank 1 (65 entries). Layer 2 is unchanged in all four.
+  - Across 483 reconstructed candidates the maximum per-layer delta rank is mostly 6; 36 have rank 64 (full).
+  - bf16 storage adds at most 1.3% relative error to these deltas; all nonzero changes remain effective in bf16.

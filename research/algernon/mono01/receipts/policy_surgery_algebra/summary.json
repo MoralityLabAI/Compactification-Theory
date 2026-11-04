@@ -1,0 +1,163 @@
+{
+ "upstream_commit": "46f95e64dc9057e6d025b7141b607230905c04ee",
+ "base_actor_sha256": "1ac3f4a0268e4ae96211a5c78e3f076afc08c1f412c0d4de521918fe9cc77df6",
+ "reversal_rank_one": {
+  "rank_of_delta": 1,
+  "matches_upstream_permutation_float64": true,
+  "rows_changed": 2,
+  "nonzero_entries": 130,
+  "entries_in_augmented_output_layer": 260,
+  "nonzero_in_bf16_effective": 130
+ },
+ "accepted_policies": {
+  "crosswind-llm-completion-seed0": {
+   "candidate_id": 5,
+   "ops": [
+    "input_affine",
+    "output_affine"
+   ],
+   "layers": {
+    "layer1": {
+     "entries": 576,
+     "nonzero": 192,
+     "rank": 3,
+     "bf16_changed": 192,
+     "bf16_rel_delta_error": 0.003803708319815444
+    },
+    "layer2": {
+     "entries": 4160,
+     "nonzero": 0,
+     "rank": 0,
+     "bf16_changed": 0,
+     "bf16_rel_delta_error": 0.0
+    },
+    "output": {
+     "entries": 260,
+     "nonzero": 195,
+     "rank": 3,
+     "bf16_changed": 195,
+     "bf16_rel_delta_error": 0.007286919908398051
+    }
+   },
+   "changed_float32_entries": 387
+  },
+  "crosswind-llm-reward-seed1": {
+   "candidate_id": 0,
+   "ops": [
+    "input_affine"
+   ],
+   "layers": {
+    "layer1": {
+     "entries": 576,
+     "nonzero": 128,
+     "rank": 2,
+     "bf16_changed": 128,
+     "bf16_rel_delta_error": 0.0017479972957808244
+    },
+    "layer2": {
+     "entries": 4160,
+     "nonzero": 0,
+     "rank": 0,
+     "bf16_changed": 0,
+     "bf16_rel_delta_error": 0.0
+    },
+    "output": {
+     "entries": 260,
+     "nonzero": 0,
+     "rank": 0,
+     "bf16_changed": 0,
+     "bf16_rel_delta_error": 0.0
+    }
+   },
+   "changed_float32_entries": 128
+  },
+  "crosswind-llm-reward-seed2": {
+   "candidate_id": 1,
+   "ops": [
+    "input_affine",
+    "output_affine"
+   ],
+   "layers": {
+    "layer1": {
+     "entries": 576,
+     "nonzero": 128,
+     "rank": 2,
+     "bf16_changed": 128,
+     "bf16_rel_delta_error": 0.0017479972957808244
+    },
+    "layer2": {
+     "entries": 4160,
+     "nonzero": 0,
+     "rank": 0,
+     "bf16_changed": 0,
+     "bf16_rel_delta_error": 0.0
+    },
+    "output": {
+     "entries": 260,
+     "nonzero": 2,
+     "rank": 1,
+     "bf16_changed": 2,
+     "bf16_rel_delta_error": 0.0008379802187804327
+    }
+   },
+   "changed_float32_entries": 130
+  },
+  "weak_main-llm-completion-seed1": {
+   "candidate_id": 0,
+   "ops": [
+    "input_affine",
+    "output_affine",
+    "set"
+   ],
+   "layers": {
+    "layer1": {
+     "entries": 576,
+     "nonzero": 128,
+     "rank": 2,
+     "bf16_changed": 128,
+     "bf16_rel_delta_error": 0.012945389866005892
+    },
+    "layer2": {
+     "entries": 4160,
+     "nonzero": 0,
+     "rank": 0,
+     "bf16_changed": 0,
+     "bf16_rel_delta_error": 0.0
+    },
+    "output": {
+     "entries": 260,
+     "nonzero": 65,
+     "rank": 1,
+     "bf16_changed": 65,
+     "bf16_rel_delta_error": 0.007317467125709881
+    }
+   },
+   "changed_float32_entries": 193
+  }
+ },
+ "reconstructed_candidates": 483,
+ "hash_mismatch_candidates": [
+  {
+   "run": "compound-llm-completion-seed0",
+   "id": 10
+  },
+  {
+   "run": "compound-llm-reward-seed0",
+   "id": 1
+  },
+  {
+   "run": "compound-llm-reward-seed0",
+   "id": 9
+  }
+ ],
+ "rank_histogram_max_layer": {
+  "1": 37,
+  "2": 38,
+  "3": 36,
+  "4": 30,
+  "5": 28,
+  "6": 275,
+  "9": 3,
+  "64": 36
+ }
+}
