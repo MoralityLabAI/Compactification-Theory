@@ -189,7 +189,9 @@ def main():
     ap.add_argument("--lr", type=float, default=1e-4)
     ap.add_argument("--weight-decay", type=float, default=0.01)
     ap.add_argument("--batch", type=int, default=128, help="rows per optimizer step")
-    ap.add_argument("--micro-batch", type=int, default=16, help="rows per forward/backward (gradient accumulation)")
+    ap.add_argument("--micro-batch", type=int, default=8, help="rows per forward/backward (gradient accumulation)")
+    ap.add_argument("--cuda-fraction", type=float, default=0.60,
+                    help="torch per-process cap, so Windows cannot silently spill past the lease")
     ap.add_argument("--tf32", choices=("on", "off"), default="on", help="TF32 matmuls on CUDA")
     ap.add_argument("--clip", type=float, default=1.0)
     ap.add_argument("--seed", type=int, default=0)
@@ -225,7 +227,7 @@ def main():
                 "max_latent_stage": 0 if cot else args.max_latent_stage,
                 "hyper": {k: getattr(args, k) for k in ("epochs", "extend_to", "extend_below", "epochs_per_stage",
                                                         "lr", "weight_decay", "batch", "micro_batch", "tf32",
-                                                        "clip", "seed")},
+                                                        "cuda_fraction", "clip", "seed")},
                 "epochs_done": old.get("epochs_done", []), "attempts": old.get("attempts", 0) + 1,
                 "pauses": old.get("pauses", [])}
 
@@ -238,6 +240,7 @@ def main():
     torch.manual_seed(args.seed)
     if str(args.device).startswith("cuda"):
         torch.backends.cuda.matmul.allow_tf32 = torch.backends.cudnn.allow_tf32 = args.tf32 == "on"
+        torch.cuda.set_per_process_memory_fraction(args.cuda_fraction, 0)
     single_process_map()
     ds = import_upstream_dataset(args.upstream)
     lm = import_lotus_module(args.upstream)
