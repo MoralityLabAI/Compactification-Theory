@@ -1,0 +1,238 @@
+{
+  "after_loop": true,
+  "argv": [
+    "train_lotus.py",
+    "--upstream",
+    "lotus",
+    "--base",
+    "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+    "--data-dir",
+    "data",
+    "--phase",
+    "lotus",
+    "--init",
+    "final.pt",
+    "--after-loop",
+    "true",
+    "--epochs",
+    "16",
+    "--out",
+    "armA"
+  ],
+  "attempts": 4,
+  "base": {
+    "model_id": "openai-community/gpt2",
+    "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+  },
+  "c_thought": 6,
+  "data": {
+    "parameters": {
+      "counterfactual_sha256": "ddb5216f14b63c27b21af6aa8062e672d1e444be7f469159123318a31410bc2b",
+      "family": "random_function",
+      "generator_calls": 21346,
+      "max_depth": 8,
+      "n": 6,
+      "n_train": 20000,
+      "n_val": 512,
+      "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+      "seed": 20261105
+    },
+    "train_sha256": "8cc8f97cfb6a29207858c88fe3d34cc55d951eba235c929e4243f06c565d62ea",
+    "val_sha256": "6fd9062d54a9777b159aa99a1eaf08458155432191ac59c962be5e3c628731de"
+  },
+  "epochs_done": [
+    {
+      "epoch": 0,
+      "seconds": 133.8,
+      "stage": 0,
+      "train_loss_mean": 0.03463326355418417,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 1,
+      "seconds": 299.7,
+      "stage": 1,
+      "train_loss_mean": 0.07706971667162996,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 2,
+      "seconds": 370.6,
+      "stage": 2,
+      "train_loss_mean": 0.09751573851147628,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 3,
+      "seconds": 571.9,
+      "stage": 3,
+      "train_loss_mean": 0.024134495067079487,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 4,
+      "seconds": 705.9,
+      "stage": 4,
+      "train_loss_mean": 0.026821306209069754,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 5,
+      "seconds": 974.1,
+      "stage": 5,
+      "train_loss_mean": 0.03448309645244034,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 6,
+      "seconds": 936.9,
+      "stage": 6,
+      "train_loss_mean": 0.01800003907734414,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 7,
+      "seconds": 852.5,
+      "stage": 7,
+      "train_loss_mean": 0.24596457297817986,
+      "val_accuracy": 0.859375,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 0.6666666666666666,
+        "3": 0.75,
+        "4": 0.5555555555555556,
+        "5": 0.875,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    }
+  ],
+  "faults": [
+    {
+      "at": "2026-11-04T23:50:10+0800",
+      "cuda_free_bytes": null,
+      "cuda_total_bytes": null,
+      "epoch": 7,
+      "error": "CUDA error: out of memory",
+      "step": 30
+    },
+    {
+      "at": "2026-11-05T00:04:39+0800",
+      "cuda_free_bytes": null,
+      "cuda_total_bytes": null,
+      "epoch": 7,
+      "error": "CUDA error: out of memory",
+      "step": 53
+    }
+  ],
+  "hyper": {
+    "batch": 128,
+    "clip": 1.0,
+    "cuda_fraction": 0.6,
+    "epochs": 16,
+    "epochs_per_stage": 1,
+    "extend_below": 0.95,
+    "extend_to": 0,
+    "lr": 0.0001,
+    "micro_batch": 8,
+    "seed": 0,
+    "tf32": "on",
+    "weight_decay": 0.01
+  },
+  "init_sha256": "1bc71aa4ce96b7099584372eef216875099ccdcf0acb1b83361b2df6dbd68c47",
+  "intermediate_loss_weight": 0.05,
+  "max_latent_stage": 8,
+  "pauses": [
+    {
+      "at": "2026-11-05T00:40:01+0800",
+      "reason": "epoch 8 step 28: GPU power-capped at 15 W"
+    }
+  ],
+  "phase": "lotus",
+  "schema_version": "algernon-02c-train-v1",
+  "status": "paused_power_cap",
+  "upstream": {
+    "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
+    "dataset_py_sha256": "77fb76df548da929a5a5d950f2036c69d10e0d422a0201dbcd7b50e53850b702",
+    "lotus_py_sha256": "64db7d12218e246814d1e072ffa8a0deff7b9bd8c1211aae3530c6c875a92188"
+  }
+}

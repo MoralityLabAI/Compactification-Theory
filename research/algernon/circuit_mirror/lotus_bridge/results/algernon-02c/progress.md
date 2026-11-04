@@ -1,0 +1,49 @@
+# Algernon-02C progress: LOTUS's own recipe on the pointer task
+
+Rendered 2026-11-05 00:40 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running armA 2026-11-04T23:27:39`.
+
+Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `8cc8f97cfb6a`, validation `6fd9062d54a9`. Validation accuracy is the model's final answer with its trained blocks and loops.
+
+### Stage 1: explicit CoT
+
+Status `complete`; process starts 1; power-cap pauses 0; out-of-memory pauses 0. Final weights `1bc71aa4ce96` after 8 epochs.
+
+| epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 0 | 0.0949 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.1 |
+| 1 | 0 | 0.0017 | 64 | 0.953 | 1.00 | 1.00 | 1.00 | 0.89 | 0.75 | 1.00 | 1.00 | 1.00 | 2.1 |
+| 2 | 0 | 0.0021 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.1 |
+| 3 | 0 | 0.0005 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.2 |
+| 4 | 0 | 0.0009 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.1 |
+| 5 | 0 | 0.0001 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.1 |
+| 6 | 0 | 0.0001 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.1 |
+| 7 | 0 | 0.0017 | 512 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 3.8 |
+
+### Arm A: published (after-loop supervision)
+
+Status `paused_power_cap`; process starts 4; power-cap pauses 1; out-of-memory pauses 2.
+
+| epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 0 | 0 | 0.0346 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 2.2 |
+| 1 | 1 | 0.0771 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 5.0 |
+| 2 | 2 | 0.0975 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 6.2 |
+| 3 | 3 | 0.0241 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 9.5 |
+| 4 | 4 | 0.0268 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 11.8 |
+| 5 | 5 | 0.0345 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 16.2 |
+| 6 | 6 | 0.0180 | 64 | 1.000 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 15.6 |
+| 7 | 7 | 0.2460 | 64 | 0.859 | 1.00 | 0.67 | 0.75 | 0.56 | 0.88 | 1.00 | 1.00 | 1.00 | 14.2 |
+
+Out-of-memory pauses (resumed from the last checkpoint): 23:50 epoch 7 step 30; 00:04 epoch 7 step 53.
+
+### Arm B: loop-tied (supervision at loop k)
+
+Not started.
+
+### Behavioural depth curve
+
+Not run yet.
+
+### 02B instrument on the trained arms
+
+Not run yet.
