@@ -112,6 +112,29 @@ class Gsm8kPlumbingTests(unittest.TestCase):
             self.assertNotIn("reused_from_earlier_attempt", gsm8k_repro(args, Path(d) / "snapshot", run))
 
 
+class PowerWatchTests(unittest.TestCase):
+    def test_pauses_only_when_capped_and_reads_at_most_every_interval(self):
+        from research.algernon.circuit_mirror.lotus_bridge.gpu_run import Paused, PowerWatch
+        readings = iter([150.0, 15.0, None])
+        calls = []
+
+        def read():
+            calls.append(1)
+            return next(readings)
+        w = PowerWatch(50, active=True, every=0.0, read=read)
+        w.check("load")
+        with self.assertRaises(Paused):
+            w.check("full:test/sink/3")
+        w.check("full:test/sink/4")  # nvidia-smi unreadable: carry on, --guard-power is the backstop
+        self.assertEqual(len(calls), 3)
+        slow = PowerWatch(50, active=True, every=3600, read=lambda: calls.append(1) or 15.0)
+        with self.assertRaises(Paused):
+            slow.check("a")
+        slow.check("b")
+        self.assertEqual(len(calls), 4, "a second check inside the interval reads nothing")
+        PowerWatch(50, active=False, read=lambda: 1 / 0).check("cpu run")
+
+
 @unittest.skipIf(np is None, "optional numpy unavailable")
 class ResumePartsTests(unittest.TestCase):
     def test_part_is_reused_only_under_its_key_and_hash(self):

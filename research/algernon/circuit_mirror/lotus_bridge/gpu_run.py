@@ -21,9 +21,12 @@ allocated memory growing past --growth-mib over the first case, peak memory
 over --vram-budget-gib, drift, or a weight change. Never downloads: needs the
 pinned snapshot in the local Hugging Face cache.
 
-Resumable. vramorama's power guard stops the job when the card drops to its
-15 W cap and restarts it once the cap clears, so every case result is written
-to <run-dir>/parts as it finishes and the GSM8K receipt to gsm8k.json. A
+Resumable. The card drops to a 15 W cap after a few minutes of full load. The
+job reads the enforced power limit between cases and, when it is under
+--min-power-w, writes the manifest and exits 75 (status "paused_power_cap");
+`vramorama run --pause-exit 75 --restart N` starts it again once the cap has
+cleared, and --guard-power stays as the backstop for a hang. Every case result
+is written to <run-dir>/parts as it finishes and the GSM8K receipt to gsm8k.json. A
 restart reruns the environment check, model load, fingerprint and the full
 parity suite (whose digests must equal every earlier attempt's), then reuses a
 part only when its key (checkpoint revision, weights fingerprint, upstream and
@@ -56,8 +59,15 @@ GSM8K_FLOOR = 0.55    # 200 items: the 95% interval around 0.70 is about +-0.065
 SUBSET_PER_FAMILY = 4
 
 
+PAUSE_EXIT = 75  # vramorama run --pause-exit 75 restarts the job like a power-guard stop
+
+
 class Abort(RuntimeError):
     pass
+
+
+class Paused(RuntimeError):
+    """The card is power-capped; every finished case is saved, so stop here and resume later."""
 
 
 def scrub(arg) -> str:
@@ -104,6 +114,35 @@ def nvidia_smi():
     except (OSError, subprocess.SubprocessError) as e:
         return {"error": str(e)}
     return dict(zip(q.split(","), [x.strip() for x in out.split(",")]))
+
+
+def enforced_power_limit():
+    """Watts, or None when nvidia-smi cannot say."""
+    try:
+        out = subprocess.run(["nvidia-smi", "--query-gpu=enforced.power.limit", "--format=csv,noheader,nounits"],
+                             capture_output=True, text=True, timeout=10).stdout.split()
+        return float(out[0])
+    except (OSError, subprocess.SubprocessError, ValueError, IndexError):
+        return None
+
+
+class PowerWatch:
+    """Reads the enforced power limit between cases, at most every `every` seconds, and raises Paused
+    once the card is capped, so the job exits at a checkpoint instead of being killed mid-kernel."""
+
+    def __init__(self, min_w, *, active, every=10.0, read=enforced_power_limit):
+        self.min_w, self.active, self.every, self.read, self.last = min_w, active, every, read, None
+
+    def check(self, where):
+        if not self.active:
+            return
+        now = time.monotonic()
+        if self.last is not None and now - self.last < self.every:
+            return
+        self.last = now
+        watts = self.read()
+        if watts is not None and watts < self.min_w:
+            raise Paused(f"{where}: GPU power-capped at {watts:.0f} W")
 
 
 def environment():
@@ -319,7 +358,7 @@ def input_sha(model, tok, row, args):
     return hashlib.sha256(np.array([ids], dtype=np.int64).tobytes()).hexdigest()
 
 
-def run_cases(rows, label, model, module, tok, args, rec, extract, *, generate, parts=None):
+def run_cases(rows, label, model, module, tok, args, rec, extract, *, generate, parts=None, watch=None):
     """Returns stacked arrays, per-case meta, seconds spent here, and how many cases came from parts."""
     import numpy as np
     keep = {"pools": [], "blocks": [], "static": [], "readout": []}
@@ -335,6 +374,8 @@ def run_cases(rows, label, model, module, tok, args, rec, extract, *, generate, 
             per_case.append({**meta, "from_part": True})
             reused += 1
             continue
+        if watch:
+            watch.check(f"{label}:{row['id']}")
         t0 = time.perf_counter()
         res, meta = capture_case(model, module, tok, prompt_for(row), loops=args.loops,
                                  c_thought=args.c_thought,
@@ -393,7 +434,7 @@ def save_legacy(path: Path, pools, ids, roster, args, revision, src_hash, per_ca
                                                   encoding="utf-8")
 
 
-def behaviour(rows, model, tok, args, extract, *, loops, parts=None):
+def behaviour(rows, model, tok, args, extract, *, loops, parts=None, watch=None):
     """Answers with `loops` latent loops via upstream Lotus.generate, or with loops=0
     greedy decoding of the bare causal LM on the question alone, as upstream
     eval.py --cot does. (Lotus.generate without latents cannot follow a latent
@@ -409,6 +450,8 @@ def behaviour(rows, model, tok, args, extract, *, loops, parts=None):
             out.append(hit[0])
             reused += 1
             continue
+        if watch:
+            watch.check(f"{label}:{row['id']}")
         if loops:
             ids = latent_input(model, tok, prompt_for(row), loops=loops, c_thought=args.c_thought)[0]
         else:
@@ -469,6 +512,7 @@ def main():
         old = json.loads(manifest_path.read_text(encoding="utf-8"))
         attempts = old.get("attempts", []) + [{
             "started": old.get("started"), "status": old.get("status"), "abort_reason": old.get("abort_reason"),
+            "paused_reason": old.get("paused_reason"),
             "stages_written": sorted(old.get("stages", {})),
             "parity_reference_digests": old.get("stages", {}).get("parity", {}).get("reference_digests"),
             "weights_fingerprint_start": old.get("model", {}).get("weights_fingerprint_start")}]
@@ -504,10 +548,11 @@ def main():
                               "counterfactual_sha256": cf["counterfactual_sha256"],
                               "counterfactual_file_sha256": file_sha256(args.counterfactual)}
         cuda = args.device.startswith("cuda")
+        watch = PowerWatch(args.min_power_w, active=cuda)
         if cuda:
             power = manifest["environment"]["nvidia_smi"].get("enforced.power.limit", "0 W")
             if float(power.split()[0]) < args.min_power_w:
-                raise Abort(f"GPU power-capped at {power}; refusing to start")
+                raise Paused(f"start: GPU power-capped at {power}")
             torch.cuda.set_per_process_memory_fraction(args.cuda_fraction, 0)
         write()
         if cuda and args.gsm8k_n:
@@ -541,6 +586,7 @@ def main():
             torch.cuda.reset_peak_memory_stats()
             manifest["model"]["allocated_after_load_bytes"] = torch.cuda.memory_allocated()
         write()
+        watch.check("load")
         log("stage parity")
         parity = parity_suite(model, module, tok, prompt_for(roster["cases"][0]), loops=args.loops,
                               c_thought=args.c_thought)
@@ -555,11 +601,13 @@ def main():
             raise Abort(f"parity failed: {[k for k, v in parity['checks'].items() if not v]}")
         if not parity["digests_equal_earlier_attempts"]:
             raise Abort("parity digests differ from an earlier attempt: captures are not reproducible across restarts")
+        watch.check("parity")
         rec = Recorder(args.device, args.vram_budget_gib, args.growth_mib)
         extract = upstream_extract_answer(args.upstream)
         smoke_rows = roster["cases"][:1 if args.dry_run else 2]
         smoke, smoke_meta, sec, smoke_reused = run_cases(smoke_rows, "smoke", model, module, tok, args, rec,
-                                                         extract, generate=False, parts=parts)
+                                                         extract, generate=False, parts=parts,
+                                                         watch=watch)
         save_legacy(args.run_dir / "smoke.npz", smoke["pools"], [r["id"] for r in smoke_rows], roster,
                     args, args.hf_revision, src_hash, smoke_meta, parity, False)
         manifest["stages"]["smoke"] = {"seconds": round(sec, 2), "per_case": smoke_meta,
@@ -578,13 +626,13 @@ def main():
             families.setdefault(r["family"], []).append(r)
         subset_rows = [r for fam in families.values() for r in fam[:SUBSET_PER_FAMILY]]
         sub, sub_meta, sec, n = run_cases(subset_rows, "calibration_subset", model, module, tok, args, rec,
-                                          extract, generate=True, parts=parts)
+                                          extract, generate=True, parts=parts, watch=watch)
         manifest["stages"]["calibration_subset"] = {"ids": [r["id"] for r in subset_rows],
                                                     "seconds": round(sec, 2), "per_case": sub_meta,
                                                     "cases_from_parts": n}
         write()
         full, full_meta, sec, n = run_cases(roster["cases"], "full", model, module, tok, args, rec, extract,
-                                            generate=True, parts=parts)
+                                            generate=True, parts=parts, watch=watch)
         ids = [r["id"] for r in roster["cases"]]
         pos = {i: n for n, i in enumerate(ids)}
         same = all(np.array_equal(smoke["blocks"][j], full["blocks"][pos[r["id"]]]) for j, r in enumerate(smoke_rows))
@@ -598,14 +646,14 @@ def main():
         if not same:
             raise Abort("repeated captures differ (smoke/subset vs full)")
         cfa, cf_meta, sec, n = run_cases(cf["cases"], "counterfactual", model, module, tok, args, rec, extract,
-                                         generate=True, parts=parts)
+                                         generate=True, parts=parts, watch=watch)
         manifest["stages"]["counterfactual"] = {"seconds": round(sec, 2), "per_case": cf_meta,
                                                 "cases_from_parts": n,
                                                 "capture": save_capture(args.run_dir / "cf_blocks.npz", cfa,
                                                                         [r["id"] for r in cf["cases"]])}
         write()
-        b6, s6, n6 = behaviour(roster["cases"], model, tok, args, extract, loops=6, parts=parts)
-        b0, s0, n0 = behaviour(roster["cases"], model, tok, args, extract, loops=0, parts=parts)
+        b6, s6, n6 = behaviour(roster["cases"], model, tok, args, extract, loops=6, parts=parts, watch=watch)
+        b0, s0, n0 = behaviour(roster["cases"], model, tok, args, extract, loops=0, parts=parts, watch=watch)
         rec.check("behaviour")
         with (args.run_dir / "behaviour.jsonl").open("w", encoding="utf-8") as fh:
             for row in b6 + b0:
@@ -614,7 +662,7 @@ def main():
                                            "loops6_from_parts": n6, "explicit_from_parts": n0,
                                            "file_sha256": file_sha256(args.run_dir / "behaviour.jsonl")}
         again, _, _, _ = run_cases(roster["cases"][:1], "drift", model, module, tok, args, rec, extract,
-                                   generate=True)
+                                   generate=True, watch=watch)
         fp1 = weights_fingerprint(model.base_causallm)
         manifest["model"]["weights_fingerprint_end"] = fp1
         manifest["stages"]["drift"] = {"case0_bitwise_equal": bool(np.array_equal(again["blocks"][0], full["blocks"][0])),
@@ -626,6 +674,11 @@ def main():
         manifest["finished"] = time.strftime("%Y-%m-%dT%H:%M:%S%z")
         write("complete" if ok else "aborted")
         log(f"done: {manifest['status']}")
+    except Paused as e:
+        manifest["paused_reason"] = str(e)
+        write("paused_power_cap")
+        log(f"PAUSE: {e}; exit {PAUSE_EXIT} (vramorama --pause-exit restarts it once the cap clears)")
+        sys.exit(PAUSE_EXIT)
     except Abort as e:
         manifest["abort_reason"] = str(e)
         write("aborted")
