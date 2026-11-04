@@ -39,7 +39,7 @@ class Bound:
 
     @classmethod
     def from_arb(cls, s):
-        if isinstance(s, str) and "/" in s:
+        if isinstance(s, str) and "/" in s and "+/-" not in s:
             # Exact-rational test fixtures; production Arb uses decimal balls.
             return cls.exact(Q(s))
         a, b = parse_ball(s)
