@@ -69,17 +69,27 @@ def run(*,radii=('1e-8',),max_cases=64,precision_bits=160,fetch=False,
                 row=pre.center.tolist()[cell]
                 mean=sum(row)/48
                 clean_centered=[z-mean for z in row]
+                # The FP32 stage-one state can vary slightly across CPU runtimes.
+                # Enclose the clean new/reference difference instead of requiring
+                # their extremely narrow Arb intervals to overlap.
+                anchor_drift=Q(0)
                 for a,b in zip(clean_centered,ref['u_intervals']):
-                    b=Bound.from_arb(b)
-                    if as_dyadic(a.lower())>b.hi or as_dyadic(a.upper())<b.lo:
-                        raise AssertionError('computed clean reference disagrees with archived LSV15 Arb witness')
+                    oldb=Bound.from_arb(b)
+                    newlo,newhi=as_dyadic(a.lower()),as_dyadic(a.upper())
+                    anchor_drift=max(anchor_drift,
+                        abs(newlo-oldb.hi),abs(newhi-oldb.lo))
                 raw_radius=goal_cell_radius(pre,cell)
                 scale=10**28
-                end_radius=Q(-(-raw_radius.numerator*scale//raw_radius.denominator),scale)
+                ceil_q=lambda q: Q(-(-q.numerator*scale//q.denominator),scale)
+                transport_upper=ceil_q(raw_radius)
+                drift_upper=ceil_q(anchor_drift)
+                end_radius=transport_upper+drift_upper
                 winner=end_radius<top
                 both=end_radius<top2
                 record['ambient_radii'][r]={
                     'verified_final_transverse_radius_upper':str(end_radius),
+                    'transport_component_upper':str(transport_upper),
+                    'reference_anchor_drift_upper':str(drift_upper),
                     'winner_certificate':winner,'top_two_certificate':both,
                     'LSV15_winner_threshold':str(top),
                     'LSV15_top2_threshold':str(top2),
@@ -94,11 +104,11 @@ def run(*,radii=('1e-8',),max_cases=64,precision_bits=160,fetch=False,
         all_records.append(record)
         print('LSV16_CASE',i,{r:record['ambient_radii'][r].get('verified_final_transverse_radius_upper')
                                    for r in radii},flush=True)
-    return {'schema':'LSV-16/ambient-to-gauge-certified-transport-v1',
-            'status':'rigorous_arb_transport_and_exact_rational_LSV15_margin_check',
+    return {'schema':'LSV-16/ambient-to-gauge-certified-transport-v2',
+            'status':'rigorous_arb_transport_plus_verified_archived_center_drift_and_rational_margin_check',
             'source_revision':lock['revision'],
             'checkpoint_sha256':sha,'roster_sha256':roster,
-            'stage1_input_contract':'exact FP32 forward hidden-state array embedded into reals',
+            'stage1_input_contract':'exact binary32 forward state from this CPU run embedded in reals; archived LSV15 anchor drift bounded separately',
             'intervention_geometry':'independent ambient l-infinity perturbation on all 3888 stage1 coordinates',
             'model_arithmetic':'exact-real erf-GELU and layernorm with exact binary checkpoint weights; Arb outward enclosures',
             'radii':list(radii),'precision_bits':precision_bits,
