@@ -207,5 +207,6 @@ def serialized_ball_contains_original(ball, rendered):
     def exact_binary_endpoint(endpoint):
         mantissa, exponent=endpoint.man_exp()
         m=int(mantissa)
+        exponent=int(exponent)
         return Fraction(m*(2**exponent),1) if exponent>=0 else Fraction(m,2**(-exponent))
     return lo<=exact_binary_endpoint(ball.lower()) and exact_binary_endpoint(ball.upper())<=hi
