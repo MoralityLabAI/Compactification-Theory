@@ -93,8 +93,10 @@ class GeometryAudit(unittest.TestCase):
         new, scaled = normalize_cover_instance(raw, width)
         self.assertTrue(all(0 <= v <= 1 for p in new for v in p))
         for k in range(1, 5):
-            self.assertEqual(cover_with_k(raw, width, k) is not None,
-                             cover_with_k(new, scaled, k) is not None)
+            original = any(
+                independent_assignment_radius(raw, labels) <= width/2
+                for labels in product(range(k), repeat=len(raw)))
+            self.assertEqual(original, cover_with_k(new, scaled, k) is not None)
 
     def test_bit_budget_padding_exact_equivalence(self):
         rng = random.Random(2468)
