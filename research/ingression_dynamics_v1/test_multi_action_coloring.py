@@ -8,6 +8,8 @@ from research.ingression_dynamics_v1.multi_action_coloring import (
     exact_three_colorings, best_radius_with_three_transient_classes,
     witness_from_coloring, actual_macro_kernels_from_rates,
     joint_action_obstruction, QUARTER,
+    conflict_edges_for_tolerance, coloring_witness_for_tolerance,
+    optimal_radius_by_conflict_graph,
 )
 
 
@@ -88,6 +90,36 @@ class MultiActionTests(unittest.TestCase):
         for n, edges in ((0, ()), (3, ((0, 0),)), (3, ((0, 3),))):
             with self.assertRaises(ValueError):
                 edge_hit_rates(n, edges)
+
+
+class ConflictGraphTests(unittest.TestCase):
+    def test_threshold_characterization_all_three_state_rate_vectors(self):
+        values = (Fraction(0), Fraction(1, 2), Fraction(1))
+        n = 3
+        cases = 0
+        for flat in product(values, repeat=6):
+            rates = {"a": flat[:n], "b": flat[n:]}
+            for k in (1, 2, 3):
+                exact = min(maximum_rate_radius(rates, labels)
+                            for labels in product(range(k), repeat=n))
+                computed, assignment = optimal_radius_by_conflict_graph(rates, k)
+                self.assertEqual(exact, computed)
+                self.assertLessEqual(maximum_rate_radius(rates, assignment),
+                                     computed)
+                for eps in (Fraction(0), Fraction(1, 4), Fraction(1, 2)):
+                    witness = coloring_witness_for_tolerance(rates, k, eps)
+                    self.assertEqual(witness is not None, exact <= eps)
+                cases += 1
+        self.assertEqual(cases, 2187)
+
+    def test_conflict_graph_edge_exactness(self):
+        rates = edge_hit_rates(4, ((0, 1), (2, 3)))
+        self.assertEqual(set(conflict_edges_for_tolerance(rates, QUARTER)),
+                         {(0, 1), (2, 3)})
+
+    def test_negative_tolerance_is_invalid(self):
+        with self.assertRaises(ValueError):
+            conflict_edges_for_tolerance({"a": (Fraction(0),)}, -1)
 
 
 if __name__ == "__main__":
