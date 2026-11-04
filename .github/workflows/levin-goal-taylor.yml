@@ -1,0 +1,33 @@
+name: LSV-17 signed adjoint Taylor certification
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/goal_taylor_v1/**'
+      - '.github/workflows/levin-goal-taylor.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  rigorous:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned CPU arithmetic
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Exact algebra and independent numerical checks
+        run: python -m unittest discover -s research/levin_sieve_v1/goal_taylor_v1 -p 'test_*.py' -v
+      - name: Complete frozen checkpoint roster
+        run: python research/levin_sieve_v1/goal_taylor_v1/run.py --fetch --cases 64 --out runs/lsv17/complete.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lsv17-signed-adjoint-taylor
+          path: runs/lsv17/*.json
+          if-no-files-found: warn
+          retention-days: 60
