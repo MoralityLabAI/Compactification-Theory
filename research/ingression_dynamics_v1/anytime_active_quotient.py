@@ -10,8 +10,7 @@ States must be separately addressable and resettable. Hidden-state POMDP
 identification is outside this contract.
 """
 from fractions import Fraction as Q
-from itertools import product
-from math import comb
+from math import comb, prod
 from random import Random
 
 from research.ingression_dynamics_v1.goal_aware_partition import partitions
@@ -307,4 +306,4 @@ def hidden_alias_word_probability(rates, outcomes):
     if not rates or any(type(o) is not int or o not in (0,1) for o in outcomes):
         raise ValueError("valid rates and observed hit bits required")
     marginal = sum(rates, Q(0))/len(rates)
-    return product((marginal if x else 1-marginal for x in outcomes), start=Q(1))
+    return prod((marginal if x else 1-marginal for x in outcomes), start=Q(1))
