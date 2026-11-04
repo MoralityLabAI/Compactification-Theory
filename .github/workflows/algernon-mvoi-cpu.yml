@@ -1,0 +1,22 @@
+name: Algernon M-VOI-01 CPU math
+on:
+  push:
+    paths:
+      - 'research/algernon/metacognition/decision_margin.py'
+      - 'research/algernon/metacognition/tests_mvoi/**'
+      - '.github/workflows/algernon-mvoi-cpu.yml'
+  pull_request:
+    paths:
+      - 'research/algernon/metacognition/decision_margin.py'
+      - 'research/algernon/metacognition/tests_mvoi/**'
+      - '.github/workflows/algernon-mvoi-cpu.yml'
+jobs:
+  bound-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check finite-horizon action-value bounds
+        run: python -m unittest discover -s research/algernon/metacognition/tests_mvoi -v
