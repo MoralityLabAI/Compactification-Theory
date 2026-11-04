@@ -219,6 +219,9 @@ class AnalysisGateTests(unittest.TestCase):
         self.assertFalse(gate["passed"], gate)
         self.assertNotEqual(gate["classification"], "recurrence_specific_state")
         self.assertLess(summary["results"][f"view:{gate['primary_view']}"]["long_cycle"]["heldout_steps_9_16_accuracy"], 0.5)
+        probes = summary["results"]["input_encoding"]["static_token"]
+        self.assertGreater(probes["start"]["heldout_accuracy"], probes["start"]["train_majority_accuracy"] + 0.4)
+        self.assertGreater(probes["successor[0]"]["heldout_accuracy"], probes["successor[0]"]["train_majority_accuracy"])
 
 
 @unittest.skipUnless(UPSTREAM and torch is not None and _transformers_446(),

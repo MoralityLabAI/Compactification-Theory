@@ -196,6 +196,34 @@ def select_decoder(X, truth, train, cal, rows, n_states, seed, extra=None):
     return best[2], best[1], trials
 
 
+def input_probes(S, cases, train, cal, test, n_states, seed):
+    """Linear readout of one vector per case for the prompt's own inputs and the answer.
+
+    Targets: start state, each successor entry f(i), and the final state. Fit on
+    train cases, L2 chosen on calibration cases, scored on held-out cases; the
+    train-majority label is the reference. (The step count is 16 in every
+    prompt, so it cannot be probed.)
+    """
+    import numpy as np
+    n = len(cases[0]["successors"])
+    targets = {"start": [r["initial"] for r in cases], "final_state": [r["trace"][-1] for r in cases]}
+    targets.update({f"successor[{i}]": [r["successors"][i] for r in cases] for i in range(n)})
+    out = {}
+    for name, y in targets.items():
+        y = np.asarray(y)
+        best = None
+        for lam in LINEAR_L2:
+            dec = Decoder("linear", lam, seed).fit(S[train], y[train], n_states)
+            acc = float((dec.predict(S[cal]) == y[cal]).mean())
+            if best is None or acc > best[0]:
+                best = (acc, lam, dec)
+        majority = np.bincount(y[train], minlength=n_states).argmax()
+        out[name] = {"heldout_accuracy": float((best[2].predict(S[test]) == y[test]).mean()),
+                     "train_majority_accuracy": float((y[test] == majority).mean()),
+                     "calibration_accuracy": best[0], "l2": best[1]}
+    return out
+
+
 def stepwise_baseline(roster, n_states, seed):
     """Learned one-step transition on the symbolic map (same task info), iterated."""
     import numpy as np
@@ -312,6 +340,9 @@ def analyze(roster, cf, cap, cf_cap, *, per_case=None, cf_per_case=None, behavio
         selection[v] = {"pool": ["last_latent", "block_mean"][pool], "decoder": f"{dec.kind}:{dec.param}",
                         "parameters": dec.parameters, "trials": trials}
         add(f"view:{v}", decode_all(dec, feats[v][pool][test], test_rows))
+    results["input_encoding"] = {
+        "static_token": input_probes(cap["static"][:, 0], cases, train, cal, test, n_states, seed),
+        "pass0_block0_mean": input_probes(cap["blocks"][:, 0, 0, 1], cases, train, cal, test, n_states, seed)}
     primary = max(("diagonal", "final"), key=lambda v: max(t["calibration_acc_1_8"] for t in selection[v]["trials"]))
     dec, pool = decoders[primary]
     X = feats[primary][pool]
@@ -502,6 +533,14 @@ def render_tables(summary):
                          f" [{ci[0]:.2f}, {ci[1]:.2f}] | {m['commuting_square_defect_rate']:.3f}"
                          f" | {m['exact_trace_valid_full_rate']:.3f} |")
         lines.append("")
+    if res.get("input_encoding"):
+        targets = list(next(iter(res["input_encoding"].values())))
+        lines += ["### Do the prompt representations carry the task inputs? (held-out cases, linear readout)", "",
+                  "| representation | " + " | ".join(targets) + " |", "| --- |" + " ---: |" * len(targets)]
+        for rep, v in res["input_encoding"].items():
+            lines.append(f"| {rep} | " + " | ".join(f"{v[t]['heldout_accuracy']:.2f} ({v[t]['train_majority_accuracy']:.2f})"
+                                                    for t in targets) + " |")
+        lines += ["", "Parenthesised: train-majority label on the same cases.", ""]
     if res.get("behaviour"):
         lines += ["### LOTUS answers (final state after 16 steps)", "",
                   "| condition | all | long_cycle | sink | random_function | permutation | answer is a state id |",
