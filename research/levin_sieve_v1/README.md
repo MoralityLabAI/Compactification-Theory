@@ -55,3 +55,7 @@ The 12 other cases have ab>=1 and fail strict weighted small gain. These counts 
 **LSV-04, recurrent neural repair:** bound Jacobians on a declared invariant region around a frozen TRM checkpoint, perturb hidden states and test predicted recovery/abstention against actual task utility.
 
 **LSV-05, embodiment transfer:** test whether an exact goal-visible quotient lets a certificate found in one simulated morphology transfer to another under matched disturbances.
+
+## LSV-02: certified delayed observation
+
+The [bounded-staleness theorem](DELAYED_REPAIR.md) extends the fair asynchronous repair guarantee to messages delayed by at most D steps. An aligned B-fair schedule has certified superblock length L=B*(1+ceil(D/B)); the usual small-gain contraction applies at each complete superblock. The [delayed checker](delayed.py) audits individual stale reads and the finite-time bound using exact rational arithmetic; [tests](test_delayed.py) cover a sharp scalar witness and a changing-delay network. The theorem is a written proof with finite CPU tests, awaiting any Lean formalization or neural validation.
