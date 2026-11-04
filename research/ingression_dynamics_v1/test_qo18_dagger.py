@@ -40,7 +40,7 @@ from research.ingression_dynamics_v1.gap_progress_teacher import (
     assert_qo12_reference_parity,
 )
 from research.ingression_dynamics_v1.certificate_student_data import (
-    make_ledger,
+    make_ledger,evidence_features,
 )
 
 class QO18Tests(unittest.TestCase):
@@ -148,10 +148,8 @@ class QO18Tests(unittest.TestCase):
         self.assertEqual(len(h),64)
         _,_,old=assert_qo12_reference_parity(make_ledger(18,0,18,18))
         self.assertIsNotNone(old)
-        self.assertEqual(len(forward(model,make_ledger(16,1,16,15)
-                  and __import__("research.ingression_dynamics_v1.certificate_student_data",
-                  fromlist=["evidence_features"]).evidence_features(
-                  make_ledger(16,1,16,15)))),2)
+        self.assertEqual(len(forward(model,
+            evidence_features(make_ledger(16,1,16,15)))),2)
 
 if __name__=="__main__":
     unittest.main()
