@@ -7,6 +7,8 @@ on:
       - 'research/levin_sieve_v1/pretrained_trm/test_robust_minor.py'
       - 'research/levin_sieve_v1/pretrained_trm/verify_robust_receipt.py'
       - 'research/levin_sieve_v1/pretrained_trm/test_robust_receipt.py'
+      - 'research/levin_sieve_v1/pretrained_trm/robust_inverse.py'
+      - 'research/levin_sieve_v1/pretrained_trm/test_robust_inverse.py'
       - 'research/levin_sieve_v1/pretrained_trm/ROBUST_RANK_REGION.md'
       - '.github/workflows/levin-robust-rank.yml'
   workflow_dispatch:
@@ -29,18 +31,20 @@ jobs:
         run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p test_robust_minor.py -v
       - name: Independent standard-library witness tests
         run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p test_robust_receipt.py -v
+      - name: Exact rational inverse-perturbation tests
+        run: python -m unittest discover -s research/levin_sieve_v1/pretrained_trm -p test_robust_inverse.py -v
       - name: Full-coordinate interval radius ladder on frozen roster
         run: |
           mkdir -p runs/lsv14
-          for R in 1e-18 1e-20; do
+          for R in 1e-14 1e-16; do
             python research/levin_sieve_v1/pretrained_trm/run_robust_minor.py --fetch --radius "$R" --max-cases 64 --precision 160 --out "runs/lsv14/$R.json"
             python research/levin_sieve_v1/pretrained_trm/verify_robust_receipt.py "runs/lsv14/$R.json"
           done
           python - <<'PY'
           import json
-          for r in ('1e-18','1e-20'):
+          for r in ('1e-14','1e-16'):
               p=json.load(open(f'runs/lsv14/{r}.json'))
-              print('CERTIFIED_COUNT',r,p['replay']['positive_radius_rank_four_cases'],'/',p['cases_checked'])
+              print('CERTIFIED_COUNT',r,p['replay']['positive_radius_rank_four_cases'],p['neumann_certified_cases'], '/',p['cases_checked'])
               assert p['cases_checked']==64
           PY
       - uses: actions/upload-artifact@v4

@@ -44,3 +44,19 @@ Every result stores sixteen serialized Arb derivative enclosures, a rigorous Arb
 The first `64`-case full-state-ball scan at `r=1e-12` completed on [GitHub Actions 41825389885](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/41825389885), passing six implementation tests and all runtime-integrity checks. **0/64** determinants excluded zero under natural interval dependency propagation. Separately, the exact-real class-order bound preserved top-1 for **62/64** cases and preserved both top classes for **29/64**. This is a negative certification result for that method/radius, not evidence that true Jacobian rank dropped. The interval enclosure for the first case's determinant included zero despite a nonzero center point certificate. We therefore test smaller radii with the identical source, case roster, and selection. The original failed receipt is retained as a CI artifact rather than replaced.
 
 The standalone [rational proof replay](verify_robust_receipt.py) uses the 16 serialized derivative intervals per case and matches every selected goal pair and coordinate column to the immutable LSV-13 receipt; it rejects tampering with a determinant, column selection, radius, or source hash. Its checks remain conditional on the intervals having been constructed by the trusted Arb execution.
+
+## Theorem RR-03: Interval inverse certificate (tighter than determinant expansion)
+
+Choose any **exact rational** invertible 4-by-4 reference matrix `C`, possibly constructed by interpreting the exploratory FP64 autograd entries as binary rationals. For each rigorous Jacobian interval `B_ij`, define the exact rational row error bound
+
+`d_i = sum_j max(|lower(B_ij)-C_ij|, |upper(B_ij)-C_ij|)`.
+
+Let `V=C^{-1}` be computed with exact rational Gaussian elimination. Define
+
+`q = max_k sum_i |V_ki| d_i`.
+
+**If `q<1`, every Jacobian minor `M(z) in B` is invertible**, hence goal-history rank is four throughout the entire input ball. **Proof:** `M=C(I+V(M-C))`, and the induced infinity norm `||V(M-C)||_infty` is bounded by `q` using the given row error bounds. The Neumann series proves invertibility of `I+V(M-C)` for `q<1`; multiplying by invertible `C` finishes. QED.
+
+The reference `C` is only an algebraic preconditioner. Even if its entries are inaccurate relative to the true derivatives, the interval error computation measures the full discrepancy against the true Jacobian enclosures. A numerical singular-value estimate or an assumption of correct PyTorch differentiation is unnecessary. The certificate is checked independently using Python `Fraction` arithmetic and the saved decimal intervals. Negative tests corrupt matrix intervals and source metadata.
+
+On the original `r=1e-12` negative receipt, this criterion also certifies **0/64** cases. Its exact Neumann norm upper bounds range from approximately 7.49 to 74.99 across the roster, which motivates a new fixed-radius test near `1e-14`. These are *pilot diagnostics* from the previously published negative receipt, rather than certified positive results.

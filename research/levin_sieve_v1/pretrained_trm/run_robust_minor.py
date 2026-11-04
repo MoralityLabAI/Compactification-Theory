@@ -13,6 +13,7 @@ HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from run_checkpoint import locked_bytes,load_pretrained,prepare_roster
 from robust_minor import robust_minor,check_full_receipt
+from robust_inverse import inverse_perturbation_witness
 
 
 def run(radius='1e-12',max_cases=64,precision=160,fetch=False,
@@ -43,6 +44,8 @@ def run(radius='1e-12',max_cases=64,precision=160,fetch=False,
         result=robust_minor(model,z1[index],case['columns'],case['selected_goal_cell'],
                             case['winner_digit'],case['rival_digit'],radius,precision)
         result['case_index']=index
+        result['neumann_certificate']=inverse_perturbation_witness(
+            result['entry_intervals'],case['observed_autograd_binary64_hex'])
         records.append(result)
         print('CASE',index,'radius',radius,'rank4',result['independent_rational_det_excludes_zero'],
               'top1',result['top1_stable_across_box'],
@@ -58,6 +61,10 @@ def run(radius='1e-12',max_cases=64,precision=160,fetch=False,
         'disclaimer':'does not certify hardware rounding, task correctness, future trajectory convergence, or class stability unless separately reported'
     }
     rec['replay']=check_full_receipt(rec)
+    rec['neumann_certified_cases']=sum(c['neumann_certificate']['rank_four_by_neumann'] for c in records)
+    rec['rank_four_cases_by_either_method']=sum(
+        c['neumann_certificate']['rank_four_by_neumann'] or c['independent_rational_det_excludes_zero']
+        for c in records)
     rec['top1_stable_cases']=sum(c['top1_stable_across_box'] for c in records)
     rec['top2_stable_cases']=sum(c['top2_stable_across_box'] for c in records)
     return rec
@@ -75,6 +82,6 @@ def main():
     result=run(radius=args.radius,max_cases=args.max_cases,precision=args.precision,fetch=args.fetch,checkpoint=args.checkpoint)
     args.out.parent.mkdir(parents=True,exist_ok=True)
     args.out.write_text(json.dumps(result,indent=2,sort_keys=True)+'\n')
-    print('RESULT',json.dumps({k:result[k] for k in ('radius','cases_checked','replay','top1_stable_cases','top2_stable_cases','wall_seconds')}))
+    print('RESULT',json.dumps({k:result[k] for k in ('radius','cases_checked','replay','neumann_certified_cases','rank_four_cases_by_either_method','top1_stable_cases','top2_stable_cases','wall_seconds')}))
 
 if __name__=='__main__':main()
