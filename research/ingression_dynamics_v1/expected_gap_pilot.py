@@ -173,7 +173,7 @@ def gap_policy_runner(case_index,case,seed,policy,checkpoints=CHECKPOINTS):
         "positive_steps":positive_steps,
         "initial_gap":str(history_gaps[0]),
         "final_gap":str(history_gaps[-1]),
-        "sum_predicted_gap_gain":str(sum(next_planning_scores,Q(0))),
+        "sum_predicted_gap_gain":str(sum((Q(gain) for gain in next_planning_scores),Q(0))),
         "actual_gap_reduction":str(history_gaps[0]-history_gaps[-1]),
         "gap_nonincreasing":True,
     }
