@@ -21,7 +21,7 @@ Mathematical roles:
 
 For each instruction `a`, let `Fₐ : H → H` be the hidden machine and `Tₐ : S → S` its exact semantics. A decoder π should obey `π ∘ Fₐ = Tₐ ∘ π` on every *reachable* hidden state.
 
-By induction on word length, the property extends to every program composed from those instructions. This is a **semiconjugacy** (a factor map when π is surjective); injectivity and complete state reconstruction are extra conditions. The kernel proof in `Semiconjugacy.lean` includes word compositionality, quotient congruence, invariant-subset iteration, and semantic periodic returns. It assumes the generator property; finite training examples alone do not prove it.
+By induction on word length, the property extends to every program composed from those instructions. This is a **semiconjugacy** (a factor map when π is surjective); injectivity and complete state reconstruction are extra conditions. The kernel proof in `Semiconjugacy.lean` includes word compositionality, quotient congruence, invariant-subset iteration, semantic periodic returns, and a three-edge cycle's equivalence with a fixed point of its monodromy. It assumes the generator property; finite training examples alone do not prove it.
 
 `machine.py` exhaustively checks 27 deterministic three-state transitions lifted to six explicitly constructed hidden states and all words over two instructions of length 0–5. Corrupting one hidden transition creates a measurable defect. The finite tests are controls for a future learned neural decoder.
 
