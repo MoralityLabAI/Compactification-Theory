@@ -34,8 +34,8 @@ class ValidatedMinor(unittest.TestCase):
         with torch.no_grad():
             norm.weight.copy_(torch.tensor([0.5,1.,1.5,2.]))
             norm.bias.copy_(torch.tensor([0.1,-.2,.3,-.4]))
-        x=torch.tensor([[2.,-1.,0.5,4.],[.3,.2,-.3,-.1]],requires_grad=True)
-        v=torch.tensor([[0.1,0.2,-.4,.3],[-.1,.3,.2,.2]])
+        x=torch.tensor([[2.,-1.,0.5,4.],[.3,.2,-.3,-.1]],dtype=torch.float64,requires_grad=True)
+        v=torch.tensor([[0.1,0.2,-.4,.3],[-.1,.3,.2,.2]],dtype=torch.float64)
         y=_jet_layernorm(State(exact_matrix(x), (exact_matrix(v),)),norm)
         expected,grad=torch.func.jvp(norm,(x.detach(),),(v,))
         for i in range(2):
