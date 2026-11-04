@@ -328,10 +328,16 @@ def baselines(dataset):
     train=torch.tensor([i for i,s in enumerate(dataset["splits"]) if s=="train"])
     means=logits[train,1:].mean(0,keepdim=True)
     constant=means.expand(len(selected),-1,-1)
+    truth=dataset["answers"][selected]
     def report(pred):
         return {"rolled_logit_mse":float((pred-teacher).square().mean()),
                 "future_teacher_label_agreement":[float((pred[:,h].argmax(-1)==
-                       teacher[:,h].argmax(-1)).float().mean()) for h in range(3)]}
+                       teacher[:,h].argmax(-1)).float().mean()) for h in range(3)],
+                "future_sudoku_correct_fraction":[float((pred[:,h].argmax(-1)==
+                       truth).float().mean()) for h in range(3)],
+                "future_mean_tv":[float((pred[:,h].softmax(-1)-
+                       teacher[:,h].softmax(-1)).abs().sum(-1).mean()/2)
+                       for h in range(3)]}
     return {"persistence":report(last),"train_mean_only":report(constant)}
 
 def run(model,inputs,answers,sha,roster,*,max_cases=64,max_epochs=200):
