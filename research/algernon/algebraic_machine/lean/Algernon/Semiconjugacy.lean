@@ -51,6 +51,24 @@ theorem latent_period_projects {H : Type u} {S : Type v}
       (semiconjugacy_iterate F T π commutes m h).symm
     _ = π h := congrArg π periodic
 
+/-- A consistent three-edge trajectory is a fixed point of its monodromy. -/
+theorem three_cycle_closes {S : Type u}
+    (A₀ A₁ A₂ : S → S) (s₀ s₁ s₂ : S)
+    (h₀ : s₁ = A₀ s₀) (h₁ : s₂ = A₁ s₁)
+    (h₂ : s₀ = A₂ s₂) :
+    s₀ = A₂ (A₁ (A₀ s₀)) := by
+  calc
+    s₀ = A₂ s₂ := h₂
+    _ = A₂ (A₁ s₁) := congrArg A₂ h₁
+    _ = A₂ (A₁ (A₀ s₀)) := congrArg (fun x => A₂ (A₁ x)) h₀
+
+/-- Conversely a monodromy fixed point determines a consistent three-edge trace. -/
+theorem monodromy_fixed_yields_three_cycle {S : Type u}
+    (A₀ A₁ A₂ : S → S) (s₀ : S)
+    (h : s₀ = A₂ (A₁ (A₀ s₀))) :
+    ∃ s₁ s₂, s₁ = A₀ s₀ ∧ s₂ = A₁ s₁ ∧ s₀ = A₂ s₂ := by
+  exact ⟨A₀ s₀, A₁ (A₀ s₀), rfl, rfl, h⟩
+
 /-- A finite instruction word is executed left-to-right. -/
 def execute {Instr : Type w} {H : Type u}
     (act : Instr → H → H) : List Instr → H → H
@@ -104,5 +122,7 @@ theorem invariant_semiconjugacy {H : Type u} {S : Type v}
 #print axioms instruction_word_semiconjugacy
 #print axioms latent_period_projects
 #print axioms invariant_semiconjugacy
+#print axioms three_cycle_closes
+#print axioms monodromy_fixed_yields_three_cycle
 
 end AlgernonAlgebra
