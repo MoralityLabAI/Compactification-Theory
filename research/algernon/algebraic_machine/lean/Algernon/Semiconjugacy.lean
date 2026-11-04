@@ -52,16 +52,16 @@ theorem latent_period_projects {H : Type u} {S : Type v}
     _ = π h := congrArg π periodic
 
 /-- A finite instruction word is executed left-to-right. -/
-def execute {Σ : Type w} {H : Type u}
-    (act : Σ → H → H) : List Σ → H → H
+def execute {Instr : Type w} {H : Type u}
+    (act : Instr → H → H) : List Instr → H → H
   | [], h => h
   | a :: rest, h => execute act rest (act a h)
 
 /-- Generator-level semiconjugacy extends to *every instruction word*. -/
-theorem instruction_word_semiconjugacy {Σ : Type w} {H : Type u} {S : Type v}
-    (F : Σ → H → H) (T : Σ → S → S) (π : H → S)
+theorem instruction_word_semiconjugacy {Instr : Type w} {H : Type u} {S : Type v}
+    (F : Instr → H → H) (T : Instr → S → S) (π : H → S)
     (commutes : ∀ a h, π (F a h) = T a (π h))
-    (word : List Σ) (h : H) :
+    (word : List Instr) (h : H) :
     π (execute F word h) = execute T word (π h) := by
   induction word generalizing h with
   | nil => rfl
