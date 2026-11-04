@@ -48,4 +48,16 @@ class Audit(unittest.TestCase):
         r['counts']['1e-14']={'certified_winner':0,'certified_top2':0,'could_not_bound':1}
         self.assertEqual(verify(r,SRC,REF)['1e-14']['could_not_bound'],1)
 
+
+    def test_v2_replay_includes_archived_anchor_drift(self):
+        r=copy.deepcopy(REC)
+        r['schema']='LSV-16/ambient-to-gauge-certified-transport-v2'
+        r['cases'][0]['ambient_radii']['1e-14'].update(
+            transport_component_upper='1/500',
+            reference_anchor_drift_upper='3/1000')
+        self.assertEqual(verify(r,SRC,REF)['1e-14']['certified_winner'],1)
+        r['cases'][0]['ambient_radii']['1e-14']['reference_anchor_drift_upper']='1/1000'
+        with self.assertRaisesRegex(ValueError,'drift accounting'):
+            verify(r,SRC,REF)
+
 if __name__=='__main__':unittest.main()
