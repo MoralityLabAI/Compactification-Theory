@@ -32,7 +32,7 @@ class QO10Tests(unittest.TestCase):
                                 in plan["alternative_errors"]))
             self.assertTrue(all(optimum_for_k(make_training_world(mask),1)[0]
                                 >TOLERANCE for mask in plan["alternative_masks"]))
-            self.assertEqual(sum(plan["normalized_shares"],Q(1)))
+            self.assertEqual(sum(plan["normalized_shares"],Q(0)),Q(1))
 
     def test_exact_independent_half_grid_lp_and_rotated_certificate(self):
         for rotated,expected in (
