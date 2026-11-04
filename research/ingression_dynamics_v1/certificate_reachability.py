@@ -85,7 +85,6 @@ def optimal_certificate_reachability(
     cells=tuple((i,a) for i in range(ledger.n) for a in range(ledger.d))
     cache={}
     certificate_cache={}
-    root_action_values={}
     counters={
         "decision_gap_evaluations":0,
         "decision_gap_cache_hits":0,
@@ -138,8 +137,6 @@ def optimal_certificate_reachability(
                 else:
                     children.append(recurse(successor,remaining-1))
             prob=(1-p)*children[0][0]+p*children[1][0]
-            if state==start and remaining==horizon:
-                root_action_values[cell]=prob
             low,high=state[0][cell[0]][cell[1]]
             tie=(-prob,-(high-low),state[1][cell[0]][cell[1]],cell)
             if best is None or tie<best[0]:
@@ -164,7 +161,6 @@ def optimal_certificate_reachability(
     return {
         "horizon":horizon,
         "current_decision":before,
-        "root_action_values":root_action_values,
         "predicted_certificate_probability":chance,
         "first_cell":None if tree is None else tree["cell"],
         "after_hold_cell":None if tree is None or tree["after_hold"] is None
