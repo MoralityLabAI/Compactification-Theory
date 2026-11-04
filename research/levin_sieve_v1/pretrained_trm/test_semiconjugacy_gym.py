@@ -66,7 +66,9 @@ class SemiconjugacyGymTests(unittest.TestCase):
         self.assertEqual(tuple(data["states"].shape),(72,4,81,48))
         self.assertEqual(tuple(data["logits"].shape),(72,4,10))
         alias=nonclosure_witness(data)
-        self.assertEqual(alias["pairs"],16)
+        self.assertEqual(alias["pairs"],8)
+        self.assertEqual(len(alias["local_only_logit_mse_floor_by_horizon"]),3)
+        self.assertTrue(all(x>=0 for x in alias["local_only_logit_mse_floor_by_horizon"]))
         self.assertGreater(alias["max_future_logit_abs"],0.)
         self.assertEqual(len(baselines(data)),2)
 
