@@ -1,6 +1,6 @@
 # Algernon-02C progress: LOTUS's own recipe on the pointer task
 
-Rendered 2026-11-05 08:33 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running depthCot 2026-11-05T08:32:23`.
+Rendered 2026-11-05 08:40 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running depthA 2026-11-05T08:39:23`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `8cc8f97cfb6a`, validation `6fd9062d54a9`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -67,9 +67,13 @@ Status `complete`; process starts 2; power-cap pauses 1; out-of-memory pauses 0.
 | 14 | 8 | 0.0078 | 64 | 0.984 | 1.00 | 1.00 | 1.00 | 1.00 | 0.88 | 1.00 | 1.00 | 1.00 | 22.7 |
 | 15 | 8 | 0.0200 | 512 | 0.998 | 1.00 | 1.00 | 1.00 | 1.00 | 0.98 | 1.00 | 1.00 | 1.00 | 20.8 |
 
-### Behavioural depth curve
+### Behavioural depth curve (frozen roster, held-out families, d steps asked)
 
-Not run yet.
+| model | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | held-out 9-16 [95% CI] | long_cycle 9-16 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| stage-1 CoT | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 0.50 | 0.50 | 0.50 | 1.00 | 0.50 | 0.50 | 0.50 | 0.50 | 0.562 [0.43, 0.69] | 0.125 |
+
+Latent models run max(8, d) blocks and loops; the CoT model decodes freely.
 
 ### 02B instrument on the trained arms
 
