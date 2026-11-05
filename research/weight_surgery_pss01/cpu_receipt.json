@@ -1,0 +1,84 @@
+{
+  "experiment": "PSS-01",
+  "evidence": "synthetic CPU only",
+  "seed": 20261104,
+  "python": "3.13.5",
+  "numpy": "2.3.5",
+  "matrix_shape": [
+    96,
+    160
+  ],
+  "baseline_storage": "BF16",
+  "sink_example": {
+    "naive_protected_output_change": 0.77,
+    "protected_output_change": 0.0,
+    "retained_failure_energy": 0.4071000000000001
+  },
+  "tests": {
+    "passed": 24,
+    "failed": 0,
+    "multiseed_property_cases": 25,
+    "scope": "PSS-01 new files only"
+  },
+  "bf16_pytorch_crosscheck": {
+    "torch": "2.10.0+cpu",
+    "values": 32768,
+    "equal": true,
+    "seed": 9
+  },
+  "sweep": {
+    "cases": 12,
+    "requested_ranks": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "strengths": [
+      0.25,
+      0.5,
+      1.0
+    ],
+    "float64_passed": 12,
+    "bf16_exact_tolerance_passed": 0
+  },
+  "rank4_full_strength": {
+    "requested_rank": 4,
+    "strength": 1.0,
+    "float64": {
+      "protected_output_error_fro": 1.0768480510206457e-16,
+      "protected_input_error_fro": 2.7197215953978063e-16,
+      "target_constraint_error_fro": 4.281194492141634e-16,
+      "within_tolerance": true,
+      "tolerance": 6.235598194768593e-10,
+      "delta_fro": 1.2510665917259551,
+      "merge_deviation_fro": 2.9236789967829033e-16,
+      "remaining_q_output_fro": 0.2861328884558181,
+      "protected_input_residual_floor_fro": 0.28613288845581814,
+      "retained_failure_energy": 0.1547831655557086,
+      "factor_rank_bound": 4,
+      "changed_entries": 15360,
+      "total_entries": 15360,
+      "source_sha256": "2bc48fb025c74da0f601a50c7acf73cd62a9e338268f73d28f4f46656fa5daa0",
+      "candidate_sha256": "33380f916e6c12e780b1efdae8a57bccec0dfc36fffebea3a2fca7c14132e79a"
+    },
+    "bf16_storage": {
+      "protected_output_error_fro": 0.0020424897765716618,
+      "protected_input_error_fro": 0.002376640390514585,
+      "target_constraint_error_fro": 0.002065256916457653,
+      "within_tolerance": false,
+      "tolerance": 6.235598194768593e-10,
+      "delta_fro": 1.2512683803310687,
+      "merge_deviation_fro": 0.01013187563738037,
+      "remaining_q_output_fro": 0.28608216945506265,
+      "protected_input_residual_floor_fro": 0.28613288845581814,
+      "retained_failure_energy": 0.1547831655557086,
+      "factor_rank_bound": 4,
+      "changed_entries": 15168,
+      "total_entries": 15360,
+      "source_sha256": "2bc48fb025c74da0f601a50c7acf73cd62a9e338268f73d28f4f46656fa5daa0",
+      "candidate_sha256": "e973f10c60119f81a2cbfb8779786156aa562527a3816ae57753b1770e957b34"
+    }
+  },
+  "full_receipt_command": "OPENBLAS_NUM_THREADS=1 python research/weight_surgery_pss01/demo.py"
+}
