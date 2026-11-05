@@ -1,0 +1,47 @@
+{
+  "historical_receipt": "receipt.json unchanged; all five historical source SHA-256 values reverified",
+  "limits": "Exact rational Bayes risks for realized integer partitions over all 961 states; float64 phase/projection and dyadic bin assignments are not interval-certified; no GPU, model API, or network training.",
+  "numpy": "2.3.4",
+  "pr28_base_commit": "01fa566e3072bac0d4ce88a965f0121243d2a7ed",
+  "python": "3.12.10",
+  "schema": "shear-exact-cpu/v1",
+  "source_and_output_sha256": {
+    "SHEAR_CLOSURE.md": "2c060799048d7a1e61fee01a4892f124674ac1a6b03a1902cc9980274673c94a",
+    "shear_control_test.py": "0ad144e9db2a27e9e2eb45060cd7847a465b51787c47c2a5e114dd28af94e7e3",
+    "shear_controls.py": "7a131333e69c300f4ba04c1d5d68b32cc84f1e257a500ffa63440eba63364350",
+    "shear_exact.py": "78f79c1a9d5d6580b34cf7f2f360855c06e481cf3a3ffb4ef87f113c1dc3187c",
+    "shear_results.json": "d2b956bf7b8944f4477bfd3db6a8f5d16cca2f02d147dc93bddeb14a53b0eedc",
+    "test_shear_exact.py": "17200ea0e3985b4127f7a1b923f5e285cd225018a0f4f000e2ff3d54b7822774"
+  },
+  "verification": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s research/dynamical_closure -q",
+      "exit_code": 0,
+      "tests": 26
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -O -m unittest discover -s research/dynamical_closure -q",
+      "exit_code": 0,
+      "tests": 26
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 apy -m unittest discover -s research/dynamical_closure -p shear_control_test.py -q",
+      "exit_code": 0,
+      "tests": 2
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 apy -m unittest discover -s research/dynamical_closure -p modular_test.py -q",
+      "exit_code": 0,
+      "tests": 4
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 apy -m unittest discover -s research/dynamical_closure -p neural_test.py -q",
+      "exit_code": 0,
+      "tests": 3
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 apy research/dynamical_closure/shear_controls.py --output /tmp/shear-replay.json; cmp research/dynamical_closure/shear_results.json /tmp/shear-replay.json",
+      "exit_code": 0
+    }
+  ]
+}
