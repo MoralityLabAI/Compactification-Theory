@@ -256,9 +256,83 @@
         "8": 1.0
       },
       "val_n": 64
+    },
+    {
+      "epoch": 12,
+      "seconds": 1324.0,
+      "stage": 8,
+      "train_loss_mean": 0.0022676553529823906,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 13,
+      "seconds": 1368.8,
+      "stage": 8,
+      "train_loss_mean": 0.0012926249122069923,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 14,
+      "seconds": 1361.2,
+      "stage": 8,
+      "train_loss_mean": 0.007781072771594976,
+      "val_accuracy": 0.984375,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 0.875,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 15,
+      "seconds": 1245.8,
+      "stage": 8,
+      "train_loss_mean": 0.019953244143951637,
+      "val_accuracy": 0.998046875,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 0.9836065573770492,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 512
     }
   ],
+  "epochs_trained": 16,
   "faults": [],
+  "final_sha256": "6279c30224eeb1439e39f32f39aae4c5601b22a09871d91ab023f1a4251a06ef",
   "hyper": {
     "batch": 128,
     "clip": 1.0,
@@ -284,7 +358,7 @@
   ],
   "phase": "lotus",
   "schema_version": "algernon-02c-train-v1",
-  "status": "running",
+  "status": "complete",
   "upstream": {
     "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
     "dataset_py_sha256": "77fb76df548da929a5a5d950f2036c69d10e0d422a0201dbcd7b50e53850b702",
