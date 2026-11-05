@@ -89,3 +89,34 @@ The commuting-penalty arm is not run in this pass.
 - Past d = 8 every model collapses to the `sink` family, except arm A at d = 9. The CoT model writes 5-7 correct steps and stops.
 
 The one deviation from this registration is gradient accumulation: each 128-row step was summed over 8-row micro-batches, because a full stage-8 batch does not fit the card. TF32 matmuls and out-of-memory pauses that resumed from checkpoints are also recorded in the training manifests. Report: [lotus_bridge/results/algernon-02c/report.md](lotus_bridge/results/algernon-02c/report.md).
+
+## H-A2d: loop count as the only depth signal, one fixed set of latent slots (registered 2026-11-06, before any training)
+
+**Why.** In 02C the prompt stated the step count, and the latent models wrote each step into a new block at a new position. Past the trained count of 8, every model failed, the explicit-CoT model included; it wrote 5-7 correct steps and stopped. That failure mixes two things: reusing a transition, and reading a step count never seen in training. 02D removes the count and the new positions. The only depth signal is the number of loops, and the only state is one fixed set of latent slots, refined once per loop.
+
+**Model and change.**
+- GPT-2 small as in 02C, initialised from the 02C stage-1 CoT weights (`1bc71aa4ce96`), fp32, upstream LOTUS `eb77e2f`.
+- Every input carries c_thought = 6 latent slots, whatever the depth (upstream's `fixed_latent_tokens`). A depth-k case runs k loops.
+- One change to upstream's loss, applied at import time to a copy of `scripts/lotus.py` (the file on disk is unchanged; the patched source hash is recorded). In per-loop supervision, `block_start = loop_idx * c_thought` becomes `block_start = 0` when the model's `fixed_slot_supervision` flag is set, so loop k's logits over the same six slots are supervised with step k. Inference is untouched.
+
+**Data.**
+- The 02C pairs: the same 20,000 train and 512 validation maps, starts and traces, depth 1..8.
+- Question: `pointer_loop.prompt_nocount`, which is `roster.prompt_for` with the step count removed: "Starting at state s, follow the successor once per loop. Which state is reached?"
+- Steps `<<s->t>>`; answer: the final state. Batches hold a single depth (bucketed, shuffled, seed 0), because one batch runs one loop count.
+
+**Training.** No curriculum: without a count in the prompt, explicit trailing steps would have no way to know when to stop, so every step is latent from the start. lr 1e-4, weight decay 0.01, 128 rows per step as 8-row micro-batches, gradient clip 1.0, 16 epochs, seed 0. Two arms, identical except the intermediate loss weight:
+- **D1:** 0.05 (upstream's value), so loop k is supervised with step k.
+- **D0:** 0.0, so only the answer after k loops is supervised.
+
+**Training validity.** An arm counts only if its validation answer accuracy at depths 1-8, with loops = depth, is at least 0.90. Otherwise it is `training_failed`.
+
+**Evaluation.**
+1. **Behavioural depth curve** on the frozen roster's calibration and held-out cases: d = 1..16, the no-count question, 6 slots, d loops.
+2. **The 02B instrument** on the frozen roster and counterfactual at 16 loops, with the no-count prompt and 6 slots; the same parity, repeat and drift checks.
+   - The capture stores the one slot block for every stage, so `diagonal` and `lastblock` read the slots after k loops and `pass0` reads them before any loop.
+   - `analysis.py` runs unchanged, with the same decoder search, controls and gate.
+
+**Decision rules.**
+- *Per-loop supervision matters:* D1's held-out behavioural accuracy over d = 9..16 exceeds D0's by at least 0.10, with a case-bootstrap 95% interval above 0.
+- *Reusable transition* for an arm: it passes the 02B gate (`recurrence_specific_state`), and its `long_cycle` behavioural accuracy over d = 9..16 beats the best trivial 02B baseline with an interval above 0.
+- Both are decided once, on these frozen sets. The 02C arm A (0.630 held-out over 9..16) is reported alongside as context, not as a test.
