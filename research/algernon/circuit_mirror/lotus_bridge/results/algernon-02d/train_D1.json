@@ -21,7 +21,7 @@
     "--out",
     "D1"
   ],
-  "attempts": 3,
+  "attempts": 4,
   "base": {
     "model_id": "openai-community/gpt2",
     "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
@@ -79,6 +79,150 @@
         "8": 0.6666666666666666
       },
       "val_n": 64
+    },
+    {
+      "epoch": 2,
+      "seconds": 74.7,
+      "stage": "loop",
+      "train_loss_mean": 0.2701134419379135,
+      "val_accuracy": 0.6875,
+      "val_accuracy_by_depth": {
+        "1": 0.5714285714285714,
+        "2": 1.0,
+        "3": 0.625,
+        "4": 0.7777777777777778,
+        "5": 0.625,
+        "6": 0.5555555555555556,
+        "7": 0.75,
+        "8": 0.6666666666666666
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 3,
+      "seconds": 720.1,
+      "stage": "loop",
+      "train_loss_mean": 0.23509087726530484,
+      "val_accuracy": 0.6875,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 0.6666666666666666,
+        "3": 0.5,
+        "4": 0.8888888888888888,
+        "5": 0.5,
+        "6": 0.5555555555555556,
+        "7": 0.875,
+        "8": 0.5555555555555556
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 4,
+      "seconds": 705.8,
+      "stage": "loop",
+      "train_loss_mean": 0.09528141280931154,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 5,
+      "seconds": 732.4,
+      "stage": "loop",
+      "train_loss_mean": 0.015300484423937931,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 6,
+      "seconds": 653.6,
+      "stage": "loop",
+      "train_loss_mean": 0.0020011369061861436,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 7,
+      "seconds": 706.2,
+      "stage": "loop",
+      "train_loss_mean": 0.011472488309628284,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 8,
+      "seconds": 692.8,
+      "stage": "loop",
+      "train_loss_mean": 0.005482976791155561,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 9,
+      "seconds": 708.0,
+      "stage": "loop",
+      "train_loss_mean": 0.0001183413820561366,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
     }
   ],
   "faults": [],
@@ -113,6 +257,10 @@
     {
       "at": "2026-11-06T06:22:16+0800",
       "reason": "epoch 2 step 140: GPU power-capped at 15 W"
+    },
+    {
+      "at": "2026-11-06T07:53:45+0800",
+      "reason": "epoch 10 step 38: GPU power-capped at 15 W"
     }
   ],
   "phase": "loop",
