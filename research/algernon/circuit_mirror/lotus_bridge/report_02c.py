@@ -1,4 +1,4 @@
-"""Render the H-A2c run directory into results/algernon-02c: progress.md plus compact receipts.
+"""Render the H-A2c or H-A2d run directory into results/algernon-02c or -02d: progress.md plus receipts.
 
 Reads only what the run wrote: the data manifest, each phase's train_manifest.json, depth_curve.json
 summaries and the 02B-instrument manifests and metrics when they exist. Copies the small JSON receipts
@@ -12,10 +12,26 @@ import shutil
 import time
 from pathlib import Path
 
-PHASES = (("cot", "Stage 1: explicit CoT"), ("armA", "Arm A: published (after-loop supervision)"),
-          ("armB", "Arm B: loop-tied (supervision at loop k)"))
-DEPTHS = (("depth_cot", "stage-1 CoT"), ("depth_armA", "arm A"), ("depth_armB", "arm B"))
-CAPS = (("cap_armA", "arm A"), ("cap_armB", "arm B"))
+EXPERIMENTS = {
+    "02c": {"title": "Algernon-02C progress: LOTUS's own recipe on the pointer task",
+            "anchor": "h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training",
+            "label": "H-A2c",
+            "phases": (("cot", "Stage 1: explicit CoT"), ("armA", "Arm A: published (after-loop supervision)"),
+                       ("armB", "Arm B: loop-tied (supervision at loop k)")),
+            "depths": (("depth_cot", "stage-1 CoT"), ("depth_armA", "arm A"), ("depth_armB", "arm B")),
+            "caps": (("cap_armA", "arm A"), ("cap_armB", "arm B")),
+            "decision": ("does loop-to-step tying matter?", "Arm B minus arm A"),
+            "loops_note": "Latent models run max(8, d) blocks and loops; the CoT model decodes freely."},
+    "02d": {"title": "Algernon-02D progress: loop count as the only depth signal, fixed latent slots",
+            "anchor": "h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training",
+            "label": "H-A2d",
+            "phases": (("D1", "Arm D1: per-loop supervision of the fixed slots (weight 0.05)"),
+                       ("D0", "Arm D0: answer only (weight 0)")),
+            "depths": (("depth_D1", "D1"), ("depth_D0", "D0")),
+            "caps": (("cap_D1", "D1"), ("cap_D0", "D0")),
+            "decision": ("does per-loop supervision matter?", "D1 minus D0"),
+            "loops_note": "No step count in the question; one block of 6 fixed slots and exactly d loops."},
+}
 
 
 def ci(v):
@@ -47,7 +63,7 @@ def phase_section(name, title, m):
     return lines + [""]
 
 
-def depth_section(curves):
+def depth_section(curves, note):
     rows = [(label, c) for label, c in curves if c]
     if not rows:
         return ["### Behavioural depth curve", "", "Not run yet.", ""]
@@ -60,7 +76,7 @@ def depth_section(curves):
         lines.append(f"| {label} | " + " | ".join(f"{h[str(d)]:.2f}" for d in range(1, 17))
                      + f" | {s['heldout_9_16']['accuracy']:.3f} [{s['heldout_9_16']['ci95'][0]:.2f}, "
                        f"{s['heldout_9_16']['ci95'][1]:.2f}] | {s['long_cycle_9_16']['accuracy']:.3f} |")
-    return lines + ["", "Latent models run max(8, d) blocks and loops; the CoT model decodes freely.", ""]
+    return lines + ["", note, ""]
 
 
 def cap_section(caps):
@@ -88,41 +104,44 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--run-root", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--experiment", choices=sorted(EXPERIMENTS), default="02c")
     a = ap.parse_args()
+    X = EXPERIMENTS[a.experiment]
     a.out.mkdir(parents=True, exist_ok=True)
     root = a.run_root
     data = load(root / "data" / "pointer_data.json")
     status = (root / "chain.status").read_text(encoding="utf-8-sig").strip() if (root / "chain.status").exists() else "?"
-    lines = ["# Algernon-02C progress: LOTUS's own recipe on the pointer task", "",
+    lines = [f"# {X['title']}", "",
              f"Rendered {time.strftime('%Y-%m-%d %H:%M %z')} from the run directory by `report_02c.py`. Protocol: "
-             "[EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). "
+             f"[EXPERIMENT.md, {X['label']}](../../../EXPERIMENT.md#{X['anchor']}). "
              f"Chain status: `{status}`.", ""]
     if data:
         p = data["parameters"]
         lines += [f"Data: {p['n_train']} train / {p['n_val']} validation `{p['family']}` cases, depth 1-{p['max_depth']}, "
                   f"seed {p['seed']}; train `{data['train_sha256'][:12]}`, validation `{data['val_sha256'][:12]}`. "
                   "Validation accuracy is the model's final answer with its trained blocks and loops.", ""]
-    for name, title in PHASES:
+    for name, title in X["phases"]:
         m = load(root / name / "train_manifest.json")
         lines += phase_section(name, title, m)
         if m:
             shutil.copyfile(root / name / "train_manifest.json", a.out / f"train_{name}.json")
-    curves = [(label, load(root / d / "depth_curve.json")) for d, label in DEPTHS]
-    lines += depth_section(curves)
-    for (d, _), (_, c) in zip(DEPTHS, curves):
+    curves = [(label, load(root / d / "depth_curve.json")) for d, label in X["depths"]]
+    lines += depth_section(curves, X["loops_note"])
+    for (d, _), (_, c) in zip(X["depths"], curves):
         if c:
             (a.out / f"{d}.json").write_text(json.dumps({k: v for k, v in c.items() if k != "records"}, indent=1,
                                                          sort_keys=True) + "\n", encoding="utf-8")
-    caps = [(label, load(root / d / "run_manifest.json"), load(root / d / "analysis" / "metrics.json")) for d, label in CAPS]
+    caps = [(label, load(root / d / "run_manifest.json"), load(root / d / "analysis" / "metrics.json"))
+            for d, label in X["caps"]]
     lines += cap_section(caps)
     cmp_ = load(root / "compare.json")
     if cmp_ and "loop_step_tying" in cmp_:
         t = cmp_["loop_step_tying"]
-        lines += ["### Registered decision: does loop-to-step tying matter?", "",
-                  f"Arm B minus arm A, held-out behavioural accuracy over d = 9..16: {t['b_minus_a_heldout_9_16']:+.3f} "
+        lines += [f"### Registered decision: {X['decision'][0]}", "",
+                  f"{X['decision'][1]}, held-out behavioural accuracy over d = 9..16: {t['b_minus_a_heldout_9_16']:+.3f} "
                   f"{ci(t['ci95'])} (required >= 0.10 with the lower bound > 0): "
                   f"**{'matters' if t['matters'] else 'not shown'}**.", ""]
-        rows = [(label, cmp_[d]["long_cycle_9_16_vs_best_trivial"]) for d, label in DEPTHS
+        rows = [(label, cmp_[d]["long_cycle_9_16_vs_best_trivial"]) for d, label in X["depths"]
                 if "long_cycle_9_16_vs_best_trivial" in cmp_.get(d, {})]
         if rows:
             lines += ["`long_cycle` behavioural accuracy over d = 9..16 minus the best trivial 02B baseline "

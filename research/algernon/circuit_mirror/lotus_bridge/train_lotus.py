@@ -1,5 +1,10 @@
 """H-A2c trainer: upstream LOTUS objects in a single-GPU loop that survives power-cap pauses.
 
+`--phase loop` (H-A2d) has no curriculum: every step is latent from the start, the
+question carries no step count, every input has c_thought fixed latent slots, a
+depth-k batch runs k loops (batches hold one depth), and per-loop supervision
+targets the same slots on every loop (`pointer_loop.patched_lotus_module`).
+
 `--phase cot` is upstream's stage-1 objective on a plain causal LM: question,
 steps and answer, with the question masked. `--phase lotus` wraps the stage-1
 weights in upstream `Lotus` and runs the curriculum:
@@ -30,6 +35,7 @@ from pathlib import Path
 
 from .capture import UPSTREAM_SHA, file_sha256, import_lotus_module, verify_upstream
 from .gpu_run import PAUSE_EXIT, Paused, PowerWatch, log, upstream_extract_answer, write_atomic
+from .pointer_loop import patched_lotus_module
 
 LATENT_TOKENS = ("<|start-latent|>", "<|end-latent|>", "<|latent|>")  # run.py adds them in this order
 GPT2_REVISION = "607a30d783dfa663caf39e06633721c8d4cfcd7e"
@@ -176,7 +182,7 @@ def main():
     ap.add_argument("--base", required=True, help="GPT-2 snapshot directory")
     ap.add_argument("--data-dir", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
-    ap.add_argument("--phase", choices=("cot", "lotus"), required=True)
+    ap.add_argument("--phase", choices=("cot", "lotus", "loop"), required=True)
     ap.add_argument("--init", type=Path, help="lotus phase: stage-1 final.pt")
     ap.add_argument("--after-loop", choices=("true", "false"), help="lotus phase: intermediate_loss_after_loop")
     ap.add_argument("--epochs", type=int, default=8)
@@ -204,9 +210,13 @@ def main():
     import torch
     from torch.utils.data import DataLoader
 
-    cot = args.phase == "cot"
-    if not cot and (args.init is None or args.after_loop is None):
+    cot, loop = args.phase == "cot", args.phase == "loop"
+    if args.phase == "lotus" and (args.init is None or args.after_loop is None):
         ap.error("--phase lotus needs --init and --after-loop")
+    if loop and args.init is None:
+        ap.error("--phase loop needs --init")
+    if loop:
+        args.after_loop = "false"
     args.out.mkdir(parents=True, exist_ok=True)
     manifest_path, ckpt_path, log_path = (args.out / n for n in ("train_manifest.json", "ckpt.pt", "train_log.jsonl"))
     old = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {}
@@ -225,6 +235,7 @@ def main():
                 "c_thought": 0 if cot else args.c_thought, "after_loop": None if cot else args.after_loop == "true",
                 "intermediate_loss_weight": 0.0 if cot else args.intermediate_loss_weight,
                 "max_latent_stage": 0 if cot else args.max_latent_stage,
+                "fixed_slots": args.c_thought if loop else None,
                 "hyper": {k: getattr(args, k) for k in ("epochs", "extend_to", "extend_below", "epochs_per_stage",
                                                         "lr", "weight_decay", "batch", "micro_batch", "tf32",
                                                         "cuda_fraction", "clip", "seed")},
@@ -243,7 +254,10 @@ def main():
         torch.cuda.set_per_process_memory_fraction(args.cuda_fraction, 0)
     single_process_map()
     ds = import_upstream_dataset(args.upstream)
-    lm = import_lotus_module(args.upstream)
+    if loop:
+        lm, manifest["patched_lotus_sha256"] = patched_lotus_module(args.upstream)
+    else:
+        lm = import_lotus_module(args.upstream)
     extract = upstream_extract_answer(args.upstream)
     tok, base = tokenizer_and_base(args.base)
     ids = latent_ids(tok)
@@ -254,6 +268,7 @@ def main():
         init_latent_rows(base, tok)
         model = wrap_lotus(lm, tok, base, c_thought=args.c_thought, after_loop=args.after_loop == "true",
                            inter_weight=args.intermediate_loss_weight)
+        model.fixed_slot_supervision = loop
     model.to(args.device)
     opt = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
     start_epoch, start_step, last_epoch = 0, 0, args.epochs - 1
@@ -270,12 +285,18 @@ def main():
     collate = ds.MyCollator(tok, latent_id=ids["<|latent|>"], label_pad_token_id=-100)
     watch = PowerWatch(args.min_power_w, active=str(args.device).startswith("cuda"))
     keys = ("input_ids", "attention_mask", "labels", "position_ids") if cot else None
-    last_ckpt, total_steps = time.monotonic(), 0
-    epoch, cur_step = start_epoch, start_step
-    try:
-        watch.check("start")
-        while epoch <= last_epoch:
-            stage = 0 if cot else min(epoch // args.epochs_per_stage, args.max_latent_stage)
+    if loop:
+        # One upstream dataset per depth: all k steps replaced, c_thought fixed slots, k loops.
+        depths = [r["depth"] for r in json.loads((args.data_dir / "pointer_train.json").read_text(encoding="utf-8"))]
+        lcfg = types.SimpleNamespace(pad_latent_to_max=True, max_latent_stage=max(depths), c_thought=args.c_thought,
+                                     uniform_prob=0.0, no_cot=False, fixed_latent_tokens=args.c_thought)
+        buckets = {k: ds.get_cot_latent_dataset(k, base_train.select([i for i, d in enumerate(depths) if d == k]), lcfg,
+                                                ids["<|start-latent|>"], ids["<|latent|>"], ids["<|end-latent|>"])
+                   for k in sorted(set(depths))}
+
+    def epoch_batches(epoch, stage):
+        """(loops, collated batch) in a fixed order for the epoch, so a resume can skip to a step."""
+        if not loop:
             data = ds.get_cot_latent_dataset(stage, base_train, cfg, ids["<|start-latent|>"], ids["<|latent|>"],
                                              ids["<|end-latent|>"], no_special_marker=cot, shuffle=True,
                                              shuffle_seed=args.seed + 100003 * epoch)
@@ -283,9 +304,26 @@ def main():
             # would shift every later dropout mask after a mid-epoch resume.
             loader = DataLoader(data, batch_size=args.batch, shuffle=False, collate_fn=collate, drop_last=True,
                                 generator=torch.Generator().manual_seed(args.seed + epoch))
+            for b in loader:
+                yield stage, b
+            return
+        import numpy as np
+        plan = []
+        for k, dk in buckets.items():
+            order = np.random.RandomState(args.seed + 1000 * epoch + k).permutation(len(dk)).tolist()
+            plan += [(k, order[i:i + args.batch]) for i in range(0, len(order) - args.batch + 1, args.batch)]
+        random.Random(args.seed + 100003 * epoch).shuffle(plan)
+        for k, idx in plan:
+            yield k, collate([dk_row for dk_row in buckets[k].select(idx)])
+    last_ckpt, total_steps = time.monotonic(), 0
+    epoch, cur_step = start_epoch, start_step
+    try:
+        watch.check("start")
+        while epoch <= last_epoch:
+            stage = 0 if cot else ("loop" if loop else min(epoch // args.epochs_per_stage, args.max_latent_stage))
             model.train()
             t_epoch, losses = time.perf_counter(), []
-            for step, batch in enumerate(loader):
+            for step, (n_loops, batch) in enumerate(epoch_batches(epoch, stage)):
                 if epoch == start_epoch and step < start_step:
                     continue
                 cur_step = step
@@ -300,7 +338,7 @@ def main():
                 for i in range(0, n, mb):
                     sub = {k: v[i:i + mb] for k, v in batch.items()}
                     if not cot:
-                        sub["n_looped_iters"] = stage
+                        sub["n_looped_iters"] = n_loops
                     out = model(**sub)
                     w = sub["input_ids"].shape[0] / n
                     (out.loss * w).backward()
@@ -314,7 +352,8 @@ def main():
                 total_steps += 1
                 losses.append(stat["loss"])
                 if step % 25 == 0:
-                    rec = {"epoch": epoch, "stage": stage, "step": step, "loss": stat["loss"], "grad_norm": float(gn),
+                    rec = {"epoch": epoch, "stage": n_loops if loop else stage, "step": step, "loss": stat["loss"],
+                           "grad_norm": float(gn),
                            "seconds": round(time.perf_counter() - t_epoch, 1)}
                     if not cot:
                         rec |= {k: stat[k] for k in ("main_loss", "intermediate_loss")}
@@ -333,12 +372,21 @@ def main():
                     return
             model.eval()
             n_val = len(val_rows) if epoch >= args.epochs - 1 else args.val_every_epoch
-            res = answers(model, tok, val_rows[:n_val], kind="cot" if cot else "lotus", blocks=stage, loops=stage,
-                          c_thought=args.c_thought, max_new_tokens=8 * 8 + 16, extract=extract)
+            if loop:
+                # One fixed slot block and as many loops as the case has steps.
+                pairs = []
+                for d in range(1, 9):
+                    sel = [v for v in val_rows[:n_val] if v["depth"] == d]
+                    pairs += list(zip(sel, answers(model, tok, sel, kind="lotus", blocks=1, loops=d,
+                                                   c_thought=args.c_thought, max_new_tokens=16, extract=extract)))
+            else:
+                pairs = list(zip(val_rows[:n_val], answers(model, tok, val_rows[:n_val], kind="cot" if cot else "lotus",
+                                                           blocks=stage, loops=stage, c_thought=args.c_thought,
+                                                           max_new_tokens=8 * 8 + 16, extract=extract)))
             ep = {"epoch": epoch, "stage": stage, "train_loss_mean": sum(losses) / max(len(losses), 1),
-                  "seconds": round(time.perf_counter() - t_epoch, 1), "val_n": n_val, "val_accuracy": accuracy(res),
-                  "val_accuracy_by_depth": {d: accuracy([r for r, v in zip(res, val_rows) if v["depth"] == d])
-                                            for d in range(1, 9)}}
+                  "seconds": round(time.perf_counter() - t_epoch, 1), "val_n": n_val,
+                  "val_accuracy": accuracy([r for _, r in pairs]),
+                  "val_accuracy_by_depth": {d: accuracy([r for v, r in pairs if v["depth"] == d]) for d in range(1, 9)}}
             manifest["epochs_done"] = [e for e in manifest["epochs_done"] if e["epoch"] != epoch] + [ep]
             log(f"epoch {epoch} stage {stage}: loss {ep['train_loss_mean']:.4f}, val {ep['val_accuracy']:.3f} on {n_val}")
             epoch, cur_step = epoch + 1, 0

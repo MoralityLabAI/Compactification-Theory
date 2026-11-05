@@ -52,6 +52,7 @@ from pathlib import Path
 from .capture import (UPSTREAM_SHA, DEFAULT_MODEL, capture_case, file_sha256, import_lotus_module,
                       intercept_loop_states, latent_input, load_model, verify_upstream)
 from .counterfactual import validate_counterfactual
+from .pointer_loop import prompt_nocount
 from .roster import prompt_for, validate_roster
 
 PAPER_GSM8K = 0.7005  # upstream README, yingfanbot/gsm-lotus-llama3b on GSM8k-Aug test
@@ -158,10 +159,10 @@ def environment():
     return env
 
 
-def parity_suite(model, module, tok, question, *, loops, c_thought):
+def parity_suite(model, module, tok, question, *, loops, c_thought, slots=None):
     """Bitwise checks that capturing changes nothing upstream computes."""
     import torch
-    ids, first, last, _ = latent_input(model, tok, question, loops=loops, c_thought=c_thought)
+    ids, first, last, _ = latent_input(model, tok, question, loops=loops, c_thought=c_thought, slots=slots)
     device = next(model.base_causallm.parameters()).device
     x = torch.tensor([ids], dtype=torch.long, device=device)
     args = (x, torch.ones_like(x), torch.full_like(x, -100), torch.arange(len(ids), device=device)[None])
@@ -178,7 +179,7 @@ def parity_suite(model, module, tok, question, *, loops, c_thought):
     ref = digests(a)
     n_inter = len(a.intermediate_logits)
     ref_argmax = [t[0].argmax(-1).to(torch.int32).cpu() for t in a.intermediate_logits]
-    last_pos = [(b + 1) * c_thought for b in range(loops)]  # loop-region index of each block's last latent
+    last_pos = [(b + 1) * c_thought for b in range((last - first + 1) // c_thought)]  # each block's last latent
     ref_rows = [t[0, last_pos, :].float().cpu() for t in a.intermediate_logits]
     del a
     kw = dict(first_latent=first, last_latent=last, c_thought=c_thought, record_blocks=True)
@@ -354,7 +355,7 @@ class Parts:
 
 def input_sha(model, tok, row, args):
     import numpy as np
-    ids = latent_input(model, tok, prompt_for(row), loops=args.loops, c_thought=args.c_thought)[0]
+    ids = latent_input(model, tok, args.prompt(row), loops=args.loops, c_thought=args.c_thought, slots=args.slots)[0]
     return hashlib.sha256(np.array([ids], dtype=np.int64).tobytes()).hexdigest()
 
 
@@ -377,9 +378,13 @@ def run_cases(rows, label, model, module, tok, args, rec, extract, *, generate, 
         if watch:
             watch.check(f"{label}:{row['id']}")
         t0 = time.perf_counter()
-        res, meta = capture_case(model, module, tok, prompt_for(row), loops=args.loops,
-                                 c_thought=args.c_thought,
+        res, meta = capture_case(model, module, tok, args.prompt(row), loops=args.loops,
+                                 c_thought=args.c_thought, slots=args.slots,
                                  max_new_tokens=args.max_new_tokens if generate else 0)
+        if args.slots:
+            # H-A2d: one fixed slot block; store it at every stage index, so the 02B views read the slots
+            # after k loops (diagonal, lastblock), after all loops (final) or before any loop (pass0).
+            res["blocks"] = np.repeat(res["blocks"], args.loops, axis=1)
         mem = rec.check(f"{label}:{row['id']}")
         meta.update(mem, id=row["id"], split=row["split"], family=row["family"],
                     seconds=round(time.perf_counter() - t0, 4))
@@ -387,8 +392,8 @@ def run_cases(rows, label, model, module, tok, args, rec, extract, *, generate, 
             text = tok.decode(res["generated"], skip_special_tokens=True)
             meta.update(answer_text=text, answer=extract(text), generated_tokens=len(res["generated"]))
         meta["readout_text"] = {
-            kind: [tok.decode(res["readout"][p, b*args.c_thought:(b+1)*args.c_thought].tolist(),
-                              skip_special_tokens=False) for b, p in blocks]
+            kind: [tok.decode(res["readout"][p, s*args.c_thought:(s+1)*args.c_thought].tolist(),
+                              skip_special_tokens=False) for s, p in ((0 if args.slots else b, p) for b, p in blocks)]
             for kind, blocks in (("final_pass", [(b, args.loops) for b in range(args.loops)]),
                                  ("diagonal", [(b, b + 1) for b in range(args.loops)]),
                                  ("pass0", [(b, 0) for b in range(args.loops)]))}
@@ -453,9 +458,9 @@ def behaviour(rows, model, tok, args, extract, *, loops, parts=None, watch=None)
         if watch:
             watch.check(f"{label}:{row['id']}")
         if loops:
-            ids = latent_input(model, tok, prompt_for(row), loops=loops, c_thought=args.c_thought)[0]
+            ids = latent_input(model, tok, args.prompt(row), loops=loops, c_thought=args.c_thought, slots=args.slots)[0]
         else:
-            ids = tok.encode(prompt_for(row), add_special_tokens=True)
+            ids = tok.encode(args.prompt(row), add_special_tokens=True)
         x = torch.tensor([ids], dtype=torch.long, device=device)
         with torch.inference_mode():
             if loops:
@@ -485,6 +490,10 @@ def main():
                     help="H-A2c: a lotus-phase final.pt from train_lotus.py, loaded on the --model-id snapshot")
     ap.add_argument("--local-base", type=Path, help="base model directory for --local-checkpoint (default: the snapshot)")
     ap.add_argument("--behaviour-loops", type=int, default=6, help="latent loops for the answer stage (published: 6)")
+    ap.add_argument("--prompt-style", choices=("count", "nocount"), default="count",
+                    help="H-A2d: nocount drops the step count from the question")
+    ap.add_argument("--fixed-slots", type=int, default=0,
+                    help="H-A2d: this many latent tokens whatever the loop count (0: loops x c_thought)")
     ap.add_argument("--hf-revision", required=True)
     ap.add_argument("--device", default="cuda:0")
     ap.add_argument("--precision", choices=("bf16", "fp32"), default="bf16")
@@ -502,6 +511,8 @@ def main():
     ap.add_argument("--dry-run", action="store_true",
                     help="CPU plumbing check: tiny loops, parity + one case, no GSM8K, no generate")
     args = ap.parse_args()
+    args.prompt = prompt_nocount if args.prompt_style == "nocount" else prompt_for
+    args.slots = args.fixed_slots or None
     import numpy as np
     import torch
     from huggingface_hub import snapshot_download
@@ -554,7 +565,7 @@ def main():
             meta = json.loads(train_meta.read_text(encoding="utf-8"))
             if meta.get("status") != "complete" or meta.get("final_sha256") != file_sha256(args.local_checkpoint):
                 raise Abort("local checkpoint is not the complete final.pt its train_manifest.json records")
-            if meta["phase"] != "lotus" or meta["c_thought"] != args.c_thought or args.precision != "fp32":
+            if meta["phase"] not in ("lotus", "loop") or meta["c_thought"] != args.c_thought or args.precision != "fp32":
                 raise Abort("local checkpoint needs a lotus-phase final.pt, matching --c-thought and --precision fp32")
             manifest["source"]["local_checkpoint"] = {"file": args.local_checkpoint.name,
                                                       "sha256": meta["final_sha256"],
@@ -598,7 +609,7 @@ def main():
             "counterfactual_file_sha256": manifest["inputs"]["counterfactual_file_sha256"],
             "device": args.device, "precision": args.precision, "loops": args.loops,
             "c_thought": args.c_thought, "max_new_tokens": args.max_new_tokens,
-            "explicit_tokens": args.explicit_tokens})
+            "explicit_tokens": args.explicit_tokens, "prompt_style": args.prompt_style, "fixed_slots": args.fixed_slots})
         manifest["model"] = {"load_seconds": round(time.perf_counter() - t0, 2),
                              "unique_parameters": unique_params(model.base_causallm),
                              "weights_fingerprint_start": fp0,
@@ -610,8 +621,8 @@ def main():
         write()
         watch.check("load")
         log("stage parity")
-        parity = parity_suite(model, module, tok, prompt_for(roster["cases"][0]), loops=args.loops,
-                              c_thought=args.c_thought)
+        parity = parity_suite(model, module, tok, args.prompt(roster["cases"][0]), loops=args.loops,
+                              c_thought=args.c_thought, slots=args.slots)
         earlier = [a["parity_reference_digests"] for a in attempts if a.get("parity_reference_digests")]
         parity["digests_equal_earlier_attempts"] = all(d == parity["reference_digests"] for d in earlier)
         parity["earlier_attempts_compared"] = len(earlier)

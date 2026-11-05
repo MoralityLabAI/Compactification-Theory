@@ -7,6 +7,9 @@ its trained count); the stage-1 CoT model decodes freely. Answers are saved
 per case, so a power-cap pause (exit 75) resumes where it stopped.
 
 `compare`: the H-A2c decision rules from two or more depth_curve.json files.
+
+H-A2d (`--prompt-style nocount --fixed-slots 6`): the question carries no step
+count, the model gets one block of fixed slots and exactly d loops.
 """
 from __future__ import annotations
 
@@ -17,13 +20,14 @@ import time
 from pathlib import Path
 
 from .gpu_run import PAUSE_EXIT, Parts, Paused, PowerWatch, log, upstream_extract_answer, write_atomic
+from .pointer_loop import prompt_nocount
 from .roster import prompt_for
 
 DEPTHS = range(1, 17)
 TRAINED_BLOCKS = 8
 
 
-def depth_rows(roster):
+def depth_rows(roster, prompt=prompt_for):
     rows = []
     for c in roster["cases"]:
         if c["split"] == "train":
@@ -31,7 +35,7 @@ def depth_rows(roster):
         for d in DEPTHS:
             sub = {"successors": c["successors"], "initial": c["initial"], "trace": c["trace"][:d + 1]}
             rows.append({"id": f"{c['id']}@{d}", "case": c["id"], "family": c["family"], "split": c["split"],
-                         "depth": d, "question": prompt_for(sub).rstrip("\n"), "answer": str(c["trace"][d])})
+                         "depth": d, "question": prompt(sub).rstrip("\n"), "answer": str(c["trace"][d])})
     return rows
 
 
@@ -68,14 +72,15 @@ def run(args):
     import torch
     from .train_lotus import answers, load_trained
     roster = json.loads(args.roster.read_text(encoding="utf-8"))
-    rows = depth_rows(roster)
+    rows = depth_rows(roster, prompt_nocount if args.prompt_style == "nocount" else prompt_for)
     args.out.mkdir(parents=True, exist_ok=True)
     meta = json.loads(args.checkpoint.with_name("train_manifest.json").read_text(encoding="utf-8"))
     kind = "cot" if meta["phase"] == "cot" else "lotus"
     model, _, tok = load_trained(args.upstream, args.base, args.checkpoint, device=args.device)
     extract = upstream_extract_answer(args.upstream)
     parts = Parts(args.out / "parts", {"checkpoint_sha256": meta["final_sha256"], "roster": roster["roster_sha256"],
-                                       "max_new_tokens": args.cot_tokens if kind == "cot" else 16})
+                                       "max_new_tokens": args.cot_tokens if kind == "cot" else 16,
+                                       "prompt_style": args.prompt_style, "fixed_slots": args.fixed_slots})
     watch = PowerWatch(args.min_power_w, active=str(args.device).startswith("cuda"))
     if args.device.startswith("cuda"):
         torch.cuda.set_per_process_memory_fraction(args.cuda_fraction, 0)
@@ -85,8 +90,9 @@ def run(args):
             hit = parts.load("depth", row["id"])
             if hit is None:
                 watch.check(row["id"])
-                loops = max(TRAINED_BLOCKS, row["depth"])
-                res = answers(model, tok, [row], kind=kind, blocks=loops, loops=loops, c_thought=meta["c_thought"],
+                loops = row["depth"] if args.fixed_slots else max(TRAINED_BLOCKS, row["depth"])
+                blocks = 1 if args.fixed_slots else loops
+                res = answers(model, tok, [row], kind=kind, blocks=blocks, loops=loops, c_thought=meta["c_thought"],
                               max_new_tokens=args.cot_tokens if kind == "cot" else 16, extract=extract)[0]
                 rec = {k: row[k] for k in ("id", "case", "family", "split", "depth", "answer")}
                 rec |= {"predicted": res["answer"], "text": res["answer_text"], "correct": res["answer"] == row["answer"],
@@ -102,7 +108,9 @@ def run(args):
         sys.exit(PAUSE_EXIT)
     out = {"schema_version": "algernon-02c-depth-v1", "checkpoint": args.checkpoint.name, "phase": meta["phase"],
            "after_loop": meta.get("after_loop"), "checkpoint_sha256": meta["final_sha256"],
-           "roster_sha256": roster["roster_sha256"], "rule": "latent blocks = loops = max(8, d); CoT decodes freely",
+           "roster_sha256": roster["roster_sha256"],
+           "rule": ("one block of fixed slots, d loops, no step count in the question" if args.fixed_slots
+                    else "latent blocks = loops = max(8, d); CoT decodes freely"),
            "summary": summarize(records), "records": records}
     write_atomic(args.out / "depth_curve.json", json.dumps(out, indent=1, sort_keys=True) + "\n")
     s = out["summary"]
@@ -163,6 +171,8 @@ def main():
     r.add_argument("--out", type=Path, required=True)
     r.add_argument("--device", default="cuda:0")
     r.add_argument("--cot-tokens", type=int, default=160)
+    r.add_argument("--prompt-style", choices=("count", "nocount"), default="count")
+    r.add_argument("--fixed-slots", type=int, default=0, help="H-A2d: one block of this many slots, d loops")
     r.add_argument("--min-power-w", type=float, default=50)
     r.add_argument("--cuda-fraction", type=float, default=0.70)
     c = sub.add_parser("compare")

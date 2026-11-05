@@ -214,21 +214,23 @@ def capture_one(model, lotus_module, tokenizer, question: str, *, loops: int, c_
                "input_sha256":hashlib.sha256(input_ids.cpu().numpy().tobytes()).hexdigest()}
 
 
-def latent_input(model, tokenizer, question: str, *, loops: int, c_thought: int):
-    """Token ids exactly as upstream eval.py builds them, plus latent span bounds."""
+def latent_input(model, tokenizer, question: str, *, loops: int, c_thought: int, slots: int | None = None):
+    """Token ids exactly as upstream eval.py builds them, plus latent span bounds.
+    `slots` (H-A2d): that many latent tokens whatever the loop count, instead of loops*c_thought."""
     if loops < 1 or not 1 <= c_thought <= 256:
         raise ValueError("loops and c_thought must be positive")
     q_ids = tokenizer.encode(question, add_special_tokens=True)
     if not q_ids:
         raise ValueError("question tokenized to empty prefix")
-    ids = (q_ids + [model.start_latent_id] + [model.latent_token_id]*(loops*c_thought)
+    n = slots if slots else loops*c_thought
+    ids = (q_ids + [model.start_latent_id] + [model.latent_token_id]*n
            + [model.end_latent_id])
     first = len(q_ids)+1
-    return ids, first, first + loops*c_thought - 1, len(q_ids)
+    return ids, first, first + n - 1, len(q_ids)
 
 
 def capture_case(model, lotus_module, tokenizer, question: str, *, loops: int, c_thought: int,
-                 max_new_tokens: int = 0, suppress_logits: bool = True):
+                 max_new_tokens: int = 0, suppress_logits: bool = True, slots: int | None = None):
     """Every block of every pass, the static token, readout ids and optionally the answer.
 
     With max_new_tokens > 0 this calls upstream Lotus.generate (CUDA only: it
@@ -239,7 +241,8 @@ def capture_case(model, lotus_module, tokenizer, question: str, *, loops: int, c
     import numpy as np
     import torch
     ids, first, last, n_prompt = latent_input(model, tokenizer, question,
-                                              loops=loops, c_thought=c_thought)
+                                              loops=loops, c_thought=c_thought, slots=slots)
+    n_blocks = (last - first + 1) // c_thought
     device = next(model.base_causallm.parameters()).device
     input_ids = torch.tensor([ids], dtype=torch.long, device=device)
     generated = None
@@ -264,9 +267,9 @@ def capture_case(model, lotus_module, tokenizer, question: str, *, loops: int, c
               "readout": torch.stack([c["readout"] for c in captured]).numpy()
               if all(c["readout"] is not None for c in captured) else None,
               "generated": generated}
-    if result["blocks"].shape[:3] != (loops+1, loops, 2) or not np.isfinite(result["blocks"]).all():
+    if result["blocks"].shape[:3] != (loops+1, n_blocks, 2) or not np.isfinite(result["blocks"]).all():
         raise AssertionError("invalid captured block features")
-    return result, {"prompt_tokens": n_prompt, "latent_tokens": loops*c_thought,
+    return result, {"prompt_tokens": n_prompt, "latent_tokens": last - first + 1,
                     "passes_captured": len(captured), "hidden_dim": result["blocks"].shape[-1],
                     "sequence_tokens": len(ids),
                     "input_sha256": hashlib.sha256(input_ids.cpu().numpy().tobytes()).hexdigest()}
