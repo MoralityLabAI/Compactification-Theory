@@ -1,0 +1,50 @@
+{
+  "schema": "siml01.draft.arithmetic.v1",
+  "status": "draft_protocol_arithmetic_checks_only",
+  "python": "3.13.5",
+  "verification": [
+    {
+      "mode": "normal",
+      "command": "python -m unittest discover -s research/self_introspective_meta_learning_v1 -p test_*.py -v",
+      "tests_run": 15,
+      "passed": 15,
+      "returncode": 0
+    },
+    {
+      "mode": "optimized",
+      "command": "python -O -m unittest discover -s research/self_introspective_meta_learning_v1 -p test_*.py -v",
+      "tests_run": 15,
+      "passed": 15,
+      "returncode": 0
+    }
+  ],
+  "source_sha256": {
+    "README.md": "9277326f356fcb43036d28747e29a8ce9b709963ea91e2c4eb161f3a30eecde1",
+    "SKILL.md": "be4b05c83b7551df4d34fb7cb3edb0b905d0083f99b2c925e9f4255f80c9cb0f",
+    "gate_math.py": "df08e9a882b79d4a21f91189d517620e1d575317cd9837ab0001db19de85e213",
+    "test_gate_math.py": "a26a8ab94235c6a5819e950e9b1589fd8861854d742e1c05bf1cbd4cfbb57a5f"
+  },
+  "finite_shear_fixture": {
+    "modulus": 31,
+    "present_classes": 31,
+    "joint_classes": 961,
+    "present_bits": 5,
+    "joint_bits": 10,
+    "post_shear_one_hot_risk_given_present_sum": "30/31"
+  },
+  "evidence_limits": {
+    "model_training": false,
+    "model_calls": false,
+    "paid_compute": false,
+    "task_graph_runner_implemented": false,
+    "broker_implemented": false,
+    "lean_compiled": false,
+    "full_repository_tests_run": false,
+    "statistical_acquisition_assumptions_verified": false
+  },
+  "source_pins": {
+    "compactification_main": "bd1aabd2d58d074f1ea4c2f35ecee151b093abf7",
+    "compactification_pr28": "6594586c74b38ce6cd410c56e4e087a8742d801c",
+    "evalmath": "957ab08d87c28792f8bea1770156ea14511b3182"
+  }
+}

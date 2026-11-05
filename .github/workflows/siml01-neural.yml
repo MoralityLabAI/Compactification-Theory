@@ -1,0 +1,32 @@
+name: SIML-01N optional neural CPU
+on:
+  pull_request:
+    paths:
+      - 'research/self_introspective_meta_learning_v1/**'
+      - '.github/workflows/siml01-neural.yml'
+  push:
+    paths:
+      - 'research/self_introspective_meta_learning_v1/**'
+      - '.github/workflows/siml01-neural.yml'
+  workflow_dispatch:
+jobs:
+  neural_reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned CPU PyTorch
+        run: python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0 numpy==2.3.5
+      - name: Unit tests, normal and optimized Python
+        run: |
+          python -m unittest discover -s research/self_introspective_meta_learning_v1 -p 'test_*.py' -q
+          python -O -m unittest discover -s research/self_introspective_meta_learning_v1 -p 'test_*.py' -q
+      - name: Recorded pilot is archived separately
+        run: echo 'Five-seed source-hashed receipt is provided in the SIML-01N neural artifact package; CI validates a newly generated neural smoke run below.'
+      - name: Fresh neural smoke at fixed work budget
+        run: |
+          python research/self_introspective_meta_learning_v1/neural_curriculum.py --seeds 2 --steps 16 --batch 8 --width 16 --interval 4 --arms fixed,introspective --output "$RUNNER_TEMP/neural-smoke.json"
+          python research/self_introspective_meta_learning_v1/verify_neural_receipt.py --receipt "$RUNNER_TEMP/neural-smoke.json"
