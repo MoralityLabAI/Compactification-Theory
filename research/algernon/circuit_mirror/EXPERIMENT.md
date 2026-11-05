@@ -78,3 +78,14 @@ The commuting-penalty arm is not run in this pass.
 - *Loop-step tying matters* if arm B's held-out behavioural accuracy over d = 9..16 exceeds arm A's by at least 0.10, with a case-bootstrap 95% interval above 0.
 - *Reusable transition* for an arm if it passes the 02B gate (`recurrence_specific_state`) and its held-out behavioural accuracy over d = 9..16 beats the best trivial baseline from the 02B table on `long_cycle`, with an interval above 0.
 - Everything else is reported as measured. Each decision is made once, on these frozen sets. No arm is rerun with changed settings and reported as the same arm.
+
+**Result (2026-11-05, code `443d93f`): both decisions negative.**
+
+- Stage-1 CoT and both arms passed training validity: final validation 1.000, 1.000 and 0.998 on 512 cases.
+- *Loop-step tying matters*: not shown. On held-out behaviour over d = 9..16, B minus A is -0.099 [-0.133, -0.070]. Arm A scores 0.630, arm B 0.531 and the CoT model 0.562; every model gets 1.00 at d = 1..8.
+- *Reusable transition*: no for both arms. Both fail the 02B gate, `no_iterative_state_signal`.
+  - The primary `diagonal` view decodes 0.836 (A) and 0.885 (B) at stages 1-8, but at 9-16 it scores 0.516 vs the shuffled-stage control's 0.539 (A) and 0.464 vs the start token's 0.573 (B).
+  - On the behavioural `long_cycle` condition against the best trivial baseline, arm A is +0.073 [+0.005, +0.135] and arm B -0.125.
+- Past d = 8 every model collapses to the `sink` family, except arm A at d = 9. The CoT model writes 5-7 correct steps and stops.
+
+The one deviation from this registration is gradient accumulation: each 128-row step was summed over 8-row micro-batches, because a full stage-8 batch does not fit the card. TF32 matmuls and out-of-memory pauses that resumed from checkpoints are also recorded in the training manifests. Report: [lotus_bridge/results/algernon-02c/report.md](lotus_bridge/results/algernon-02c/report.md).

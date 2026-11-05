@@ -18,6 +18,10 @@ DEPTHS = (("depth_cot", "stage-1 CoT"), ("depth_armA", "arm A"), ("depth_armB", 
 CAPS = (("cap_armA", "arm A"), ("cap_armB", "arm B"))
 
 
+def ci(v):
+    return f"[{v[0]:+.3f}, {v[1]:+.3f}]"
+
+
 def load(p: Path):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
@@ -73,8 +77,8 @@ def cap_section(caps):
             g = metrics["gate"]
             lines.append(f"  gate `{g['classification']}`: primary `{g['primary_view']}` {g['primary_acc_9_16']:.3f} vs "
                          f"`{g['strongest_no_recurrence_control']}` {g['control_acc_9_16']:.3f} "
-                         f"(diff {g['vs_strongest_control']['diff']:+.3f} {g['vs_strongest_control']['ci95']}); "
-                         f"long_cycle vs pass0 {g['long_cycle_vs_pass0']['diff']:+.3f} {g['long_cycle_vs_pass0']['ci95']}")
+                         f"(diff {g['vs_strongest_control']['diff']:+.3f} {ci(g['vs_strongest_control']['ci95'])}); "
+                         f"long_cycle vs pass0 {g['long_cycle_vs_pass0']['diff']:+.3f} {ci(g['long_cycle_vs_pass0']['ci95'])}")
     if not any_:
         lines.append("Not run yet.")
     return lines + [""]
@@ -116,7 +120,14 @@ def main():
         t = cmp_["loop_step_tying"]
         lines += ["### Registered decision: does loop-to-step tying matter?", "",
                   f"Arm B minus arm A, held-out behavioural accuracy over d = 9..16: {t['b_minus_a_heldout_9_16']:+.3f} "
-                  f"{t['ci95']} (required >= 0.10 with the lower bound > 0): **{'matters' if t['matters'] else 'not shown'}**.", ""]
+                  f"{ci(t['ci95'])} (required >= 0.10 with the lower bound > 0): "
+                  f"**{'matters' if t['matters'] else 'not shown'}**.", ""]
+        rows = [(label, cmp_[d]["long_cycle_9_16_vs_best_trivial"]) for d, label in DEPTHS
+                if "long_cycle_9_16_vs_best_trivial" in cmp_.get(d, {})]
+        if rows:
+            lines += ["`long_cycle` behavioural accuracy over d = 9..16 minus the best trivial 02B baseline "
+                      "(train majority by depth), per case: "
+                      + "; ".join(f"{label} {v['diff']:+.3f} {ci(v['ci95'])}" for label, v in rows) + ".", ""]
         shutil.copyfile(root / "compare.json", a.out / "compare.json")
     (a.out / "progress.md").write_text("\n".join(lines), encoding="utf-8")
     print(a.out / "progress.md")

@@ -1,6 +1,6 @@
 # Algernon-02C progress: LOTUS's own recipe on the pointer task
 
-Rendered 2026-11-05 08:47 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `running capA 2026-11-05T08:46:27`.
+Rendered 2026-11-05 08:58 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2c](../../../EXPERIMENT.md#h-a2c-lotuss-own-recipe-on-the-pointer-task-loop-to-step-tying-registered-2026-11-04-before-any-training). Chain status: `complete 2026-11-05T08:51:25`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `8cc8f97cfb6a`, validation `6fd9062d54a9`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -79,8 +79,13 @@ Latent models run max(8, d) blocks and loops; the CoT model decodes freely.
 
 ### 02B instrument on the trained arms
 
-- arm A: capture `running`, parity passed
+- arm A: capture `complete`, parity passed
+  gate `no_iterative_state_signal`: primary `diagonal` 0.516 vs `control:shuffled_stage` 0.539 (diff -0.023 [-0.076, +0.021]); long_cycle vs pass0 +0.057 [+0.026, +0.089]
+- arm B: capture `complete`, parity passed
+  gate `no_iterative_state_signal`: primary `diagonal` 0.464 vs `view:static` 0.573 (diff -0.109 [-0.195, -0.031]); long_cycle vs pass0 -0.036 [-0.078, +0.000]
 
 ### Registered decision: does loop-to-step tying matter?
 
-Arm B minus arm A, held-out behavioural accuracy over d = 9..16: -0.099 [-0.1328125, -0.0703125] (required >= 0.10 with the lower bound > 0): **not shown**.
+Arm B minus arm A, held-out behavioural accuracy over d = 9..16: -0.099 [-0.133, -0.070] (required >= 0.10 with the lower bound > 0): **not shown**.
+
+`long_cycle` behavioural accuracy over d = 9..16 minus the best trivial 02B baseline (train majority by depth), per case: stage-1 CoT -0.062 [-0.130, +0.000]; arm A +0.073 [+0.005, +0.135]; arm B -0.125 [-0.203, -0.052].

@@ -1,6 +1,6 @@
 # Algernon-02: Circuit Mirror
 
-**Status (2026-11-04): CPU prototype executed. The LOTUS 3B bridge ran on GPU and failed its registered gate (`no_iterative_state_signal`; [lotus_bridge/results/algernon-02b/report.md](lotus_bridge/results/algernon-02b/report.md)). No Qwenputer, Circom binary or SNARK proof was executed here.**
+**Status (2026-11-05): CPU prototype executed. The LOTUS bridge ran on GPU twice and failed its registered gate both times (`no_iterative_state_signal`): once on the published 3B checkpoint (02B), and once on GPT-2 trained with LOTUS's own recipe on the pointer task (02C). Reports are indexed in [lotus_bridge/results/README.md](lotus_bridge/results/README.md). No Qwenputer, Circom binary or SNARK proof was executed here.**
 
 ## Hypothesis
 
