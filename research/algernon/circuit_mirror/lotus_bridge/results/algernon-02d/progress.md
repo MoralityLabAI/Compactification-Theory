@@ -1,6 +1,6 @@
 # Algernon-02D progress: loop count as the only depth signal, fixed latent slots
 
-Rendered 2026-11-06 21:45 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `running depthD0 2026-11-06T21:44:30`.
+Rendered 2026-11-06 21:55 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `running capD1 2026-11-06T21:54:28`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `2dbe58737c7a`, validation `c97512fbb461`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -55,9 +55,10 @@ Status `complete`; process starts 2; power-cap pauses 0; out-of-memory pauses 0.
 | model | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | held-out 9-16 [95% CI] | long_cycle 9-16 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | D1 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.000 [1.00, 1.00] | 1.000 |
+| D0 | 0.90 | 0.79 | 0.52 | 0.58 | 0.50 | 0.50 | 0.77 | 0.67 | 0.56 | 0.60 | 0.54 | 0.50 | 0.71 | 0.67 | 0.60 | 0.60 | 0.599 [0.48, 0.71] | 0.198 |
 
 No step count in the question; one block of 6 fixed slots and exactly d loops.
 
 ### 02B instrument on the trained arms
 
-Not run yet.
+- D1: capture `running`, parity passed
