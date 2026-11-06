@@ -100,6 +100,31 @@ class ArmTests(unittest.TestCase):
         self.assertTrue(all(torch.equal(a, b) for a, b in zip(runs[0][:2], runs[1][:2])), "loops before j untouched")
         self.assertFalse(torch.equal(runs[0][2], runs[1][2]), "the noise changes loop j")
 
+    def test_output_scale_multiplies_the_correction(self):
+        """H-A3b: kappa = 0 reproduces the plain run; a nonzero kappa moves pi after the first loop."""
+        from research.algernon.circuit_mirror.lotus_bridge.correct import Recurrence, corrector, layout
+        from research.algernon.circuit_mirror.lotus_bridge.pointer_loop import prompt_nocount
+        ids, first, last = layout(self.model, self.tok, prompt_nocount(self.row).rstrip("\n"))
+        x = torch.tensor([ids])
+        G = corrector("I", 32)
+        with torch.no_grad():
+            G.weight.copy_(torch.randn(G.weight.shape, generator=torch.Generator().manual_seed(0)))
+        runs = []
+        for arm, g, scale in (("P", None, 1.0), ("I", G, 0.0), ("I", G, 5.0)):
+            rec = Recurrence(self.model, self.lm, self.digits, self.row["successors"], 0, arm=arm, G=g, scale=scale)
+            with torch.inference_mode(), rec.hooked(first, last):
+                self.model.generate(x, torch.ones_like(x), max_new_tokens=4, n_looped_iters=5)
+            runs.append(rec.probs)
+        self.assertTrue(all(torch.equal(a, b) for a, b in zip(runs[0], runs[1])))
+        self.assertFalse(torch.equal(runs[0][1], runs[2][1]))
+
+    def test_slot_rms_is_recorded_per_loop_and_deterministic(self):
+        from research.algernon.circuit_mirror.lotus_bridge.correct import slot_rms
+        a = slot_rms(self.model, self.lm, self.tok, self.digits, self.row, loops=5)
+        self.assertEqual(len(a), 5)
+        self.assertTrue(all(v > 0 for v in a))
+        self.assertEqual(a, slot_rms(self.model, self.lm, self.tok, self.digits, self.row, loops=5))
+
     def test_the_local_loss_reaches_the_corrector_through_f(self):
         from research.algernon.circuit_mirror.lotus_bridge.correct import corrector, eps_for, train_step_loss
         G = corrector("C", 32)

@@ -17,8 +17,12 @@ after loop j + 1, against the true states. Evaluation scores the answer and, sep
 under the exact BN254 R1CS checker in `spec.py`.
 
     calibrate: plain accuracy on generated cases for each sigma in the grid; sigma* is the one closest to 0.5
+    scale:     (H-A3b) mean clean slot RMS r on the calibration cases; kappa = sigma* x r
     train:     one corrector per arm at sigma*
     eval:      every arm on the frozen roster's 72 calibration and held-out cases
+
+With `--out-scale noise` (H-A3b) every corrector's output is multiplied by kappa, so a weight of 1 moves a slot
+element by about one noise std. The default, `unit`, is H-A3 as registered.
 """
 from __future__ import annotations
 
@@ -84,9 +88,11 @@ class Recurrence:
     """Noise and correction inside upstream's loop, through its efficient_forward. Call 0 is the initial pass and
     call k the pass of loop k. Records pi's distribution after each loop (after noise and correction)."""
 
-    def __init__(self, model, lm, digits, successors, start, *, arm="P", G=None, noise=None):
+    def __init__(self, model, lm, digits, successors, start, *, arm="P", G=None, noise=None, scale=1.0,
+                 record_rms=False):
         import torch
         self.model, self.lm, self.arm, self.G, self.noise = model, lm, arm, G, noise
+        self.scale, self.record_rms, self.rms = scale, record_rms, []
         dev = next(model.parameters()).device
         self.head = model.base_causallm.lm_head.weight[digits]  # [6, H]
         self.M = torch.zeros(N_STATES, N_STATES, device=dev)
@@ -111,12 +117,16 @@ class Recurrence:
             h = out.last_hidden_state
             offset = first - 1 if h.shape[1] == last + 2 - first else 0
             slots = h[0, first - offset:last - offset + 1]
+            if self.record_rms:
+                self.rms.append(float(slots.float().pow(2).mean().sqrt()))
             if self.noise is not None and k == self.noise["j"]:
                 rms = slots.float().pow(2).mean().sqrt()
                 slots = slots + (self.noise["sigma"] * rms * self.noise["eps"].to(slots.device)).to(slots.dtype)
             if self.G is not None:
                 p = self.pi(slots)
                 delta = self.G(features(self.arm, p_prev[0] @ self.M, p)).view(SLOTS, -1)
+                if self.scale != 1.0:
+                    delta = delta * self.scale
                 slots = slots + delta.to(slots.dtype)
             p = self.pi(slots)
             self.probs.append(p)
@@ -138,12 +148,12 @@ def layout(model, tok, question):
     return q + [model.start_latent_id] + [model.latent_token_id] * SLOTS + [model.end_latent_id], len(q) + 1, len(q) + SLOTS
 
 
-def answer(model, lm, tok, digits, row, *, loops, extract, arm="P", G=None, noise=None):
+def answer(model, lm, tok, digits, row, *, loops, extract, arm="P", G=None, noise=None, scale=1.0):
     """Generate the answer with noise and correction; returns the answer and the decoded trace."""
     import torch
     ids, first, last = layout(model, tok, prompt_nocount(row).rstrip("\n"))
     x = torch.tensor([ids], device=next(model.parameters()).device)
-    rec = Recurrence(model, lm, digits, row["successors"], row["initial"], arm=arm, G=G, noise=noise)
+    rec = Recurrence(model, lm, digits, row["successors"], row["initial"], arm=arm, G=G, noise=noise, scale=scale)
     with torch.inference_mode(), rec.hooked(first, last) as calls:
         gen = model.generate(x, torch.ones_like(x), max_new_tokens=16, n_looped_iters=loops)
     if calls[0] != loops + 1:
@@ -152,17 +162,33 @@ def answer(model, lm, tok, digits, row, *, loops, extract, arm="P", G=None, nois
     return extract(text), text, [row["initial"]] + [int(p.argmax()) for p in rec.probs]
 
 
-_CIRCUITS = {}
+def slot_rms(model, lm, tok, digits, row, *, loops):
+    """Slot RMS after each loop of a clean plain run (before any noise or correction)."""
+    import torch
+    ids, first, last = layout(model, tok, prompt_nocount(row).rstrip("\n"))
+    x = torch.tensor([ids], device=next(model.parameters()).device)
+    rec = Recurrence(model, lm, digits, row["successors"], row["initial"], record_rms=True)
+    with torch.inference_mode(), rec.hooked(first, last):
+        model.generate(x, torch.ones_like(x), max_new_tokens=1, n_looped_iters=loops)
+    return rec.rms
+
+
+_CIRCUITS, _VALID = {}, {}
 
 
 def trace_valid(row, trace):
-    """Exact finite-field check of a decoded trace against the public machine (spec.build)."""
+    """Exact finite-field check of a decoded trace against the public machine (spec.build). Memoised on
+    (map, start, trace): the check is deterministic, and identical decodes recur across arms and conditions."""
+    key = (tuple(row["successors"]), row["initial"], tuple(trace))
+    if key in _VALID:
+        return _VALID[key]
     steps = len(trace) - 1
     if steps not in _CIRCUITS:
         _CIRCUITS[steps] = build(PointerTask(tuple(range(N_STATES)), 0, steps))
     task = PointerTask(tuple(row["successors"]), row["initial"], steps)
     w, public = witness_for_trace(task, _CIRCUITS[steps], trace)
-    return bool(_CIRCUITS[steps].check(w, public)["valid"])
+    _VALID[key] = bool(_CIRCUITS[steps].check(w, public)["valid"])
+    return _VALID[key]
 
 
 def eps_for(rid, hidden):
@@ -171,13 +197,13 @@ def eps_for(rid, hidden):
     return torch.randn(SLOTS, hidden, generator=g)
 
 
-def train_step_loss(model, lm, tok, digits, row, j, *, arm, G, noise):
+def train_step_loss(model, lm, tok, digits, row, j, *, arm, G, noise, scale=1.0):
     """Local loss through F: pi on the corrected slots after loop j and after loop j + 1."""
     import torch
     ids, first, last = layout(model, tok, prompt_nocount(row).rstrip("\n"))
     dev = next(model.parameters()).device
     x = torch.tensor([ids], device=dev)
-    rec = Recurrence(model, lm, digits, row["successors"], row["initial"], arm=arm, G=G, noise=noise)
+    rec = Recurrence(model, lm, digits, row["successors"], row["initial"], arm=arm, G=G, noise=noise, scale=scale)
     with rec.hooked(first, last):
         model.forward(x, torch.ones_like(x), torch.full_like(x, -100), torch.arange(len(ids), device=dev)[None],
                       n_looped_iters=j + 1)
@@ -220,6 +246,19 @@ def calibrate(args, model, lm, tok, digits, extract, parts, watch, hidden):
     return {"plain_accuracy_by_sigma": results, "sigma_star": star, "cases": len(rows), "seed": args.calib_seed}
 
 
+def measure_scale(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma):
+    """H-A3b: r = mean clean slot RMS over the calibration cases and loops 1..depth; kappa = sigma* x r."""
+    rows, per_case = generated(args.calib_seed, args.calib_cases, args.depth), {}
+    for r in rows:
+        watch.check(f"scale {r['id']}")
+        per_case[r["id"]] = slot_rms(model, lm, tok, digits, r, loops=args.depth)
+    vals = [v for rms in per_case.values() for v in rms]
+    mean = sum(vals) / len(vals)
+    log(f"scale: mean clean slot RMS {mean:.4f} over {len(vals)} loops; kappa {sigma * mean:.4f}")
+    return {"slot_rms_mean": mean, "slot_rms_min": min(vals), "slot_rms_max": max(vals), "kappa": sigma * mean,
+            "sigma_star": sigma, "cases": len(rows), "seed": args.calib_seed, "per_case": per_case}
+
+
 def train(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma):
     import torch
     out = {}
@@ -245,7 +284,8 @@ def train(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma):
                 j = rng.randint(1, args.max_train_loop)
                 noise = None if rng.random() < args.clean_share else {
                     "j": j, "sigma": sigma, "eps": eps_for(f"train:{row['id']}:{j}", hidden)}
-                loss = train_step_loss(model, lm, tok, digits, row, j, arm=arm, G=G, noise=noise) / args.batch
+                loss = train_step_loss(model, lm, tok, digits, row, j, arm=arm, G=G, noise=noise,
+                                       scale=args.kappa) / args.batch
                 loss.backward()
                 total += float(loss)
             opt.step()
@@ -283,7 +323,7 @@ def evaluate(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma)
                     noise = None if j is None else {"j": j, "sigma": sg,
                                                     "eps": eps_for(f"{r['id']}:{tag}:j{j}:s{seed}", hidden)}
                     ans, text, trace = answer(model, lm, tok, digits, r, loops=args.depth, extract=extract,
-                                              arm=arm, G=Gs[arm], noise=noise)
+                                              arm=arm, G=Gs[arm], noise=noise, scale=args.kappa)
                     rec = {"arm": arm, "case": r["id"], "family": r["family"], "split": r["split"], "condition": tag,
                            "j": j, "sigma": sg, "seed": seed, "answer": truth, "predicted": ans, "text": text,
                            "correct": ans == truth, "decoded_trace": trace, "trace_valid": trace_valid(r, trace)}
@@ -337,7 +377,7 @@ def summarize(records, noise_loops):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("cmd", choices=("calibrate", "train", "eval"))
+    ap.add_argument("cmd", choices=("calibrate", "scale", "train", "eval"))
     ap.add_argument("--upstream", type=Path, required=True)
     ap.add_argument("--base", required=True)
     ap.add_argument("--checkpoint", type=Path, required=True)
@@ -357,6 +397,8 @@ def main():
     ap.add_argument("--seeds", type=int, default=4)
     ap.add_argument("--min-power-w", type=float, default=50)
     ap.add_argument("--cuda-fraction", type=float, default=0.70)
+    ap.add_argument("--out-scale", choices=("unit", "noise"), default="unit",
+                    help="corrector output scale: unit (H-A3) or kappa = sigma* x clean slot RMS from scale.json (H-A3b)")
     args = ap.parse_args()
     meta, model, lm, tok, digits = load(args)
     hidden = model.base_causallm.config.hidden_size
@@ -365,25 +407,33 @@ def main():
     sigma = None
     if args.cmd != "calibrate":
         sigma = json.loads((args.out / "calibrate.json").read_text(encoding="utf-8"))["result"]["sigma_star"]
-    parts = Parts(args.out / "parts", {"checkpoint_sha256": meta["final_sha256"], "roster": roster_sha,
-                                       "depth": args.depth, "sigma_star": sigma, "cmd": args.cmd,
-                                       "G": [file_sha256(args.out / f"G_{a}.pt") for a in ARMS[1:]] if args.cmd == "eval" else None})
+    args.kappa = 1.0
+    if args.out_scale == "noise" and args.cmd in ("train", "eval"):
+        args.kappa = json.loads((args.out / "scale.json").read_text(encoding="utf-8"))["result"]["kappa"]
+    key = {"checkpoint_sha256": meta["final_sha256"], "roster": roster_sha, "depth": args.depth, "sigma_star": sigma,
+           "cmd": args.cmd, "G": [file_sha256(args.out / f"G_{a}.pt") for a in ARMS[1:]] if args.cmd == "eval" else None}
+    if args.out_scale == "noise":
+        key["kappa"] = args.kappa
+    parts = Parts(args.out / "parts", key)
     watch = PowerWatch(args.min_power_w, active=str(args.device).startswith("cuda"))
     extract = upstream_extract_answer(args.upstream)
-    fn = {"calibrate": calibrate, "train": train, "eval": evaluate}[args.cmd]
+    fn = {"calibrate": calibrate, "scale": measure_scale, "train": train, "eval": evaluate}[args.cmd]
     try:
         res = fn(args, model, lm, tok, digits, extract, parts, watch, hidden,
                  *(() if args.cmd == "calibrate" else (sigma,)))
     except Paused as e:
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
-    out = {"schema_version": "algernon-03-v1", "experiment": "H-A3", "cmd": args.cmd,
-           "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
+    out = {"schema_version": "algernon-03-v1", "experiment": "H-A3b" if args.out_scale == "noise" else "H-A3",
+           "cmd": args.cmd, "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
+           "kappa": args.kappa,
            "args": {k: v for k, v in vars(args).items() if k not in ("upstream", "base", "checkpoint", "roster", "out")}
            | {"device": args.device}, "result": res}
     write_atomic(args.out / f"{args.cmd}.json", json.dumps(out, indent=1, sort_keys=True, default=str) + "\n")
     if args.cmd == "calibrate":
         log(json.dumps(res))
+    elif args.cmd == "scale":
+        log(json.dumps({k: v for k, v in res.items() if k != "per_case"}))
     elif args.cmd == "eval":
         log(json.dumps({k: res["summary"][k] for k in ("accuracy", "decisions", "clean_damage")}))
 
