@@ -120,3 +120,14 @@ The one deviation from this registration is gradient accumulation: each 128-row 
 - *Per-loop supervision matters:* D1's held-out behavioural accuracy over d = 9..16 exceeds D0's by at least 0.10, with a case-bootstrap 95% interval above 0.
 - *Reusable transition* for an arm: it passes the 02B gate (`recurrence_specific_state`), and its `long_cycle` behavioural accuracy over d = 9..16 beats the best trivial 02B baseline with an interval above 0.
 - Both are decided once, on these frozen sets. The 02C arm A (0.630 held-out over 9..16) is reported alongside as context, not as a test.
+
+**Result (2026-11-06, code `5578566`): reusable transition shown for D1; D0 `training_failed`, so the supervision comparison is not decided as registered.**
+
+- *Training validity*: D1 1.000 on 512 validation cases at depths 1-8 (valid); D0 0.639 (`training_failed`).
+- *Reusable transition*:
+  - D1: yes. It passes the 02B gate (`recurrence_specific_state`): `diagonal` decodes 1.000 at stages 9-16 against 0.583 for the shuffled-stage control, +0.417 [+0.297, +0.534], and on `long_cycle` it beats `pass0` by +0.875. Its behavioural `long_cycle` accuracy over d = 9..16 beats the best trivial baseline by +0.812 [+0.745, +0.875].
+  - D0: no. It fails the gate (`no_iterative_state_signal`), and its `long_cycle` behaviour is +0.010 [-0.052, +0.078] over the trivial baseline.
+- *Per-loop supervision matters*: D1 minus D0 on held-out behaviour over d = 9..16 is +0.401 [+0.286, +0.521]. That clears the margin, but D0 never learned the task in range, so the comparison measures learnability within 16 epochs, not depth generalization between equally trained arms. Reported, not decided.
+- D1 answers all 1,152 roster cases correctly at every depth 1-16 with d loops; the 02C arm A context figure is 0.630 held-out over 9-16.
+
+D0 was stopped at its epoch-4 checkpoint for a hardware upgrade and resumed; the first resumed step matched the logged loss and gradient norm exactly. `analysis.py` ran unchanged. Its native-readout row scores the first integer of `<<s->t>>` (the state before the step) as the state after it; the whole-step re-scoring is the post-hoc diagnostic `readout_shift.py` and enters no decision. Report: [lotus_bridge/results/algernon-02d/report.md](lotus_bridge/results/algernon-02d/report.md).

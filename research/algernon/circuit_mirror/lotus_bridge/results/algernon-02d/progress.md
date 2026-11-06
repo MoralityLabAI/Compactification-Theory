@@ -1,6 +1,6 @@
 # Algernon-02D progress: loop count as the only depth signal, fixed latent slots
 
-Rendered 2026-11-06 21:55 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `running capD1 2026-11-06T21:54:28`.
+Rendered 2026-11-06 22:09 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `complete 2026-11-06T22:02:56`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `2dbe58737c7a`, validation `c97512fbb461`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -61,4 +61,13 @@ No step count in the question; one block of 6 fixed slots and exactly d loops.
 
 ### 02B instrument on the trained arms
 
-- D1: capture `running`, parity passed
+- D1: capture `complete`, parity passed
+  gate `recurrence_specific_state`: primary `diagonal` 1.000 vs `control:shuffled_stage` 0.583 (diff +0.417 [+0.297, +0.534]); long_cycle vs pass0 +0.875 [+0.875, +0.875]
+- D0: capture `complete`, parity passed
+  gate `no_iterative_state_signal`: primary `diagonal` 0.591 vs `view:pass0` 0.581 (diff +0.010 [-0.008, +0.031]); long_cycle vs pass0 +0.021 [-0.016, +0.062]
+
+### Registered decision: does per-loop supervision matter?
+
+D1 minus D0, held-out behavioural accuracy over d = 9..16: +0.401 [+0.286, +0.521] (required >= 0.10 with the lower bound > 0): criterion met, but **not decided**: D0 is `training_failed`, so the arms are not equally trained.
+
+`long_cycle` behavioural accuracy over d = 9..16 minus the best trivial 02B baseline (train majority by depth), per case: D1 +0.812 [+0.745, +0.875]; D0 +0.010 [-0.052, +0.078].

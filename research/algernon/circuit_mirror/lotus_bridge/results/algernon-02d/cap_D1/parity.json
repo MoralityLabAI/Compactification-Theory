@@ -1,0 +1,43 @@
+{
+  "c_thought": 6,
+  "checks": {
+    "captured_passes_equal_loops_plus_one": true,
+    "hook_installed_outputs_bitwise_identical": true,
+    "hook_removed_and_outputs_bitwise_identical": true,
+    "lm_head_on_captured_vectors_argmax_agreement_ge_0.98": true,
+    "lm_head_on_captured_vectors_max_abs_diff_lt_1": true,
+    "logit_suppression_keeps_final_logits_bitwise": true,
+    "logit_suppression_keeps_hidden_bitwise": true,
+    "readout_ids_equal_upstream_intermediate_argmax": true,
+    "upstream_intermediate_logits_one_per_loop": true
+  },
+  "digests_equal_earlier_attempts": true,
+  "earlier_attempts_compared": 0,
+  "lm_head_argmax_agreement": 1.0,
+  "lm_head_max_abs_diff": 4.57763671875e-05,
+  "loops": 16,
+  "passed": true,
+  "reference_digests": {
+    "final": "9650ce4b787ea5ce3d4c08e9f60b0f37e220962572eaa08d5f0132df57b3bdcf",
+    "inter": [
+      "d384efb4bff68a185354ec2cae401cb04e1809f042939db19ada4e04a2905c53",
+      "67ed7d4df650303720576b9b80c97fdc2bcf101f00dd4e4cadeea41340e2c93f",
+      "2fad0d0f7c3e476b25e5298a83ed5d89fef7f0d9868d0d12428671e00d9f0544",
+      "ac3fc466e55a8ae1199db956a18af5d5c212506b24a8fda1696aa13fd95b88e5",
+      "ef7a9a5b06cd3724935267e67f36764ba85e4ddaf726fe000f89612531dbc55e",
+      "8c760d1ff6449345abff7bcf55539fbcf448f439fb65cbc644a91ae679099ab6",
+      "185c33780042372c7328a278be2dca77494e7dd30a5bf23ce2528b54a36e4920",
+      "7db10eb9d67e16f44a22cba4ea28965bc87b0edbbc8fcf572f46f700b38fabb9",
+      "78fe0a07f6202c89ae4e4a1e6c0058db612208798cbf7ab124301efbe0f7a017",
+      "2a5049d033b8a3eb8aa0b8743708d09ef1f35aa26eace6811d97ea22d916e0af",
+      "f1e122a07f4e47bbc43a020ccdf75eed96f750b50e416258e1027a3ee366a954",
+      "f3997f14a6649263bf026d6ed8f4349a7735f430905a0ce201db75d6b3cfea52",
+      "885170c3d14ba3acbec46fe63c6927621e3f9c970f3b92d8d73341b8f4cab3e2",
+      "2cc50e14ed564346b0dcaa6b8ad7ffedc3f3762c52952b3e9eb7c280dba39203",
+      "d2b5112b923a0c5261557243653bffd393419e4893262e4496dba34f5db3b3d3",
+      "87cf1e8b999a9bcc9c6f0c2726760fa0532a594b7c2d1a6df4f721351ced3330"
+    ]
+  },
+  "sequence_tokens": 67,
+  "static_token_max_drift_across_passes": 0.0
+}

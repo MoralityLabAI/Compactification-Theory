@@ -1,0 +1,58 @@
+{
+ "run_dir": "cap_D1",
+ "cases": 152,
+ "diagonal_9_16": {
+  "readout": "diagonal",
+  "steps": [
+   9,
+   16
+  ],
+  "all_test": {
+   "cases_x_steps": 384,
+   "first_int_is_state_after_k_minus_1": 1.0,
+   "first_int_is_state_after_k": 0.5,
+   "whole_step_correct": 1.0
+  },
+  "by_family": {
+   "long_cycle": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 1.0,
+    "first_int_is_state_after_k": 0.0,
+    "whole_step_correct": 1.0
+   },
+   "sink": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 1.0,
+    "first_int_is_state_after_k": 1.0,
+    "whole_step_correct": 1.0
+   }
+  }
+ },
+ "diagonal_1_8": {
+  "readout": "diagonal",
+  "steps": [
+   1,
+   8
+  ],
+  "all_test": {
+   "cases_x_steps": 384,
+   "first_int_is_state_after_k_minus_1": 1.0,
+   "first_int_is_state_after_k": 0.4479166666666667,
+   "whole_step_correct": 1.0
+  },
+  "by_family": {
+   "long_cycle": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 1.0,
+    "first_int_is_state_after_k": 0.0,
+    "whole_step_correct": 1.0
+   },
+   "sink": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 1.0,
+    "first_int_is_state_after_k": 0.8958333333333334,
+    "whole_step_correct": 1.0
+   }
+  }
+ }
+}

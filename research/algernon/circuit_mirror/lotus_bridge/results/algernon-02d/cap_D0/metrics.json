@@ -1,0 +1,4082 @@
+{
+ "analysis_cpu_seconds": 81.6,
+ "decoder_parameters": {
+  "diagonal": 4614,
+  "final": 4614,
+  "lastblock": 4614,
+  "pass0": 4614,
+  "static": 4614
+ },
+ "gate": {
+  "classification": "no_iterative_state_signal",
+  "control_acc_9_16": 0.5807291666666667,
+  "long_cycle_vs_best_trivial": {
+   "baseline": "baseline:train_majority_by_depth",
+   "ci95": [
+    -0.08333333333333333,
+    0.06770833333333333
+   ],
+   "diff": -0.005208333333333343
+  },
+  "long_cycle_vs_pass0": {
+   "ci95": [
+    -0.015625,
+    0.0625
+   ],
+   "diff": 0.020833333333333315
+  },
+  "margin_required": 0.1,
+  "passed": false,
+  "primary_acc_9_16": 0.5911458333333334,
+  "primary_view": "diagonal",
+  "strongest_no_recurrence_control": "view:pass0",
+  "vs_strongest_control": {
+   "ci95": [
+    -0.0078125,
+    0.03125
+   ],
+   "diff": 0.01041666666666674
+  }
+ },
+ "inputs": {
+  "cf_blocks_sha256": "de0cdf67af3907b1cebdb725d3bc99a592fdd997e0177245a497c556897d1c98",
+  "counterfactual_sha256": "ddb5216f14b63c27b21af6aa8062e672d1e444be7f469159123318a31410bc2b",
+  "full_blocks_sha256": "638c9f2e3ff557d74227efa300b2e10ea30f651a2820a2d159daaf7bef390706",
+  "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+  "run_manifest_sha256": "c65aebedcd27226b50d1739973616d3d0d2fd36a05ba2dcd8df400035ac75dfb"
+ },
+ "primary_view": "diagonal",
+ "results": {
+  "baseline:copy_start": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.583333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.583333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333
+    ],
+    "accuracy_step_16": 0.08333333333333333,
+    "commuting_square_defect_rate": 0.9166666666666666,
+    "defect_by_step": [
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667
+    ],
+    "exact_trace_valid_1_8_rate": 0.08333333333333333,
+    "exact_trace_valid_full_rate": 0.08333333333333333,
+    "heldout_9_16_case_bootstrap_95": [
+     0.078125,
+     0.22402343749999995
+    ],
+    "heldout_steps_9_16_accuracy": 0.14583333333333334,
+    "n": 48,
+    "step16_wilson_95": [
+     0.03288322434995555,
+     0.19553565161066291
+    ],
+    "trained_steps_1_8_accuracy": 0.14583333333333334,
+    "transition_accuracy": 0.41025641025641024
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "accuracy_step_16": 0.0,
+    "commuting_square_defect_rate": 1.0,
+    "defect_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.125,
+     0.125
+    ],
+    "heldout_steps_9_16_accuracy": 0.125,
+    "n": 24,
+    "step16_wilson_95": [
+     0,
+     0.13798057582897535
+    ],
+    "trained_steps_1_8_accuracy": 0.125,
+    "transition_accuracy": 0.0
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.8333333333333334,
+    "defect_by_step": [
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333
+    ],
+    "exact_trace_valid_1_8_rate": 0.16666666666666666,
+    "exact_trace_valid_full_rate": 0.16666666666666666,
+    "heldout_9_16_case_bootstrap_95": [
+     0.041666666666666664,
+     0.3333333333333333
+    ],
+    "heldout_steps_9_16_accuracy": 0.16666666666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.06678568000728924,
+     0.3585347038786943
+    ],
+    "trained_steps_1_8_accuracy": 0.16666666666666666,
+    "transition_accuracy": 0.7619047619047619
+   }
+  },
+  "baseline:exact_solver": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 48,
+    "step16_wilson_95": [
+     0.9258973488472576,
+     0.9999999999999999
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   }
+  },
+  "baseline:learned_stepwise_symbolic": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 48,
+    "step16_wilson_95": [
+     0.9258973488472576,
+     0.9999999999999999
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   },
+   "note": "bilinear one-step model on the explicit map, 222 parameters, iterated 16 times",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   }
+  },
+  "baseline:max_indegree": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.625,
+     0.625,
+     0.5,
+     0.5625,
+     0.645833,
+     0.541667,
+     0.625,
+     0.625,
+     0.5,
+     0.5625,
+     0.645833,
+     0.541667,
+     0.625,
+     0.625,
+     0.5,
+     0.5625
+    ],
+    "accuracy_step_16": 0.5625,
+    "commuting_square_defect_rate": 0.4921875,
+    "defect_by_step": [
+     0.375,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "exact_trace_valid_1_8_rate": 0.5,
+    "exact_trace_valid_full_rate": 0.5,
+    "heldout_9_16_case_bootstrap_95": [
+     0.453125,
+     0.6953125
+    ],
+    "heldout_steps_9_16_accuracy": 0.5703125,
+    "n": 48,
+    "step16_wilson_95": [
+     0.4227477150100165,
+     0.6929894535958907
+    ],
+    "trained_steps_1_8_accuracy": 0.59375,
+    "transition_accuracy": 0.8333333333333334
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.25,
+     0.25,
+     0.0,
+     0.125,
+     0.291667,
+     0.083333,
+     0.25,
+     0.25,
+     0.0,
+     0.125,
+     0.291667,
+     0.083333,
+     0.25,
+     0.25,
+     0.0,
+     0.125
+    ],
+    "accuracy_step_16": 0.125,
+    "commuting_square_defect_rate": 0.984375,
+    "defect_by_step": [
+     0.75,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13020833333333334,
+     0.15625
+    ],
+    "heldout_steps_9_16_accuracy": 0.140625,
+    "n": 24,
+    "step16_wilson_95": [
+     0.04344255039315584,
+     0.3100428814785757
+    ],
+    "trained_steps_1_8_accuracy": 0.1875,
+    "transition_accuracy": 0.07142857142857142
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   }
+  },
+  "baseline:train_majority_by_depth": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.125,
+     0.229167,
+     0.208333,
+     0.166667,
+     0.166667,
+     0.145833,
+     0.125,
+     0.229167,
+     0.208333,
+     0.166667,
+     0.166667,
+     0.145833,
+     0.125,
+     0.229167,
+     0.208333,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.8424479166666666,
+    "defect_by_step": [
+     0.875,
+     0.916667,
+     0.791667,
+     0.8125,
+     0.770833,
+     0.833333,
+     0.916667,
+     0.916667,
+     0.791667,
+     0.8125,
+     0.770833,
+     0.833333,
+     0.916667,
+     0.916667,
+     0.791667,
+     0.8125
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.12760416666666666,
+     0.22916666666666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.17708333333333331,
+    "n": 48,
+    "step16_wilson_95": [
+     0.08695410039453222,
+     0.29578100037396254
+    ],
+    "trained_steps_1_8_accuracy": 0.17447916666666666,
+    "transition_accuracy": 0.2571428571428571
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.083333,
+     0.291667,
+     0.25,
+     0.166667,
+     0.166667,
+     0.125,
+     0.083333,
+     0.291667,
+     0.25,
+     0.166667,
+     0.166667,
+     0.125,
+     0.083333,
+     0.291667,
+     0.25,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.8515625,
+    "defect_by_step": [
+     0.916667,
+     1.0,
+     0.75,
+     0.791667,
+     0.708333,
+     0.833333,
+     1.0,
+     1.0,
+     0.75,
+     0.791667,
+     0.708333,
+     0.833333,
+     1.0,
+     1.0,
+     0.75,
+     0.791667
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.125,
+     0.2501302083333332
+    ],
+    "heldout_steps_9_16_accuracy": 0.1875,
+    "n": 24,
+    "step16_wilson_95": [
+     0.06678568000728924,
+     0.3585347038786943
+    ],
+    "trained_steps_1_8_accuracy": 0.18229166666666666,
+    "transition_accuracy": 0.23076923076923078
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.8333333333333334,
+    "defect_by_step": [
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.08854166666666667,
+     0.2605468749999999
+    ],
+    "heldout_steps_9_16_accuracy": 0.16666666666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.06678568000728924,
+     0.3585347038786943
+    ],
+    "trained_steps_1_8_accuracy": 0.16666666666666666,
+    "transition_accuracy": 0.2857142857142857
+   }
+  },
+  "behaviour": {
+   "explicit_no_latents": {
+    "all": {
+     "accuracy": 0.5921052631578947,
+     "answer_in_state_range": 0.9736842105263158,
+     "correct": 90,
+     "n": 152,
+     "wilson_95": [
+      0.5126421793158427,
+      0.6670274339324811
+     ]
+    },
+    "long_cycle": {
+     "accuracy": 0.25,
+     "answer_in_state_range": 1.0,
+     "correct": 6,
+     "n": 24,
+     "wilson_95": [
+      0.1199920347934233,
+      0.4489982531210644
+     ]
+    },
+    "permutation": {
+     "accuracy": 0.375,
+     "answer_in_state_range": 1.0,
+     "correct": 9,
+     "n": 24,
+     "wilson_95": [
+      0.21159133433631458,
+      0.5729038096209293
+     ]
+    },
+    "random_function": {
+     "accuracy": 0.6375,
+     "answer_in_state_range": 0.95,
+     "correct": 51,
+     "n": 80,
+     "wilson_95": [
+      0.5281059097698362,
+      0.7342936627574055
+     ]
+    },
+    "sink": {
+     "accuracy": 1.0,
+     "answer_in_state_range": 1.0,
+     "correct": 24,
+     "n": 24,
+     "wilson_95": [
+      0.8620194241710247,
+      1
+     ]
+    }
+   },
+   "loops16": {
+    "all": {
+     "accuracy": 0.5855263157894737,
+     "answer_in_state_range": 1.0,
+     "correct": 89,
+     "n": 152,
+     "wilson_95": [
+      0.5060436263488485,
+      0.6607924430960238
+     ]
+    },
+    "long_cycle": {
+     "accuracy": 0.20833333333333334,
+     "answer_in_state_range": 1.0,
+     "correct": 5,
+     "n": 24,
+     "wilson_95": [
+      0.0924468910478809,
+      0.40470844485235474
+     ]
+    },
+    "permutation": {
+     "accuracy": 0.375,
+     "answer_in_state_range": 1.0,
+     "correct": 9,
+     "n": 24,
+     "wilson_95": [
+      0.21159133433631458,
+      0.5729038096209293
+     ]
+    },
+    "random_function": {
+     "accuracy": 0.6375,
+     "answer_in_state_range": 1.0,
+     "correct": 51,
+     "n": 80,
+     "wilson_95": [
+      0.5281059097698362,
+      0.7342936627574055
+     ]
+    },
+    "sink": {
+     "accuracy": 1.0,
+     "answer_in_state_range": 1.0,
+     "correct": 24,
+     "n": 24,
+     "wilson_95": [
+      0.8620194241710247,
+      1
+     ]
+    }
+   },
+   "loops16_capture": {
+    "all": {
+     "accuracy": 0.5855263157894737,
+     "answer_in_state_range": 1.0,
+     "correct": 89,
+     "n": 152,
+     "wilson_95": [
+      0.5060436263488485,
+      0.6607924430960238
+     ]
+    },
+    "long_cycle": {
+     "accuracy": 0.20833333333333334,
+     "answer_in_state_range": 1.0,
+     "correct": 5,
+     "n": 24,
+     "wilson_95": [
+      0.0924468910478809,
+      0.40470844485235474
+     ]
+    },
+    "permutation": {
+     "accuracy": 0.375,
+     "answer_in_state_range": 1.0,
+     "correct": 9,
+     "n": 24,
+     "wilson_95": [
+      0.21159133433631458,
+      0.5729038096209293
+     ]
+    },
+    "random_function": {
+     "accuracy": 0.6375,
+     "answer_in_state_range": 1.0,
+     "correct": 51,
+     "n": 80,
+     "wilson_95": [
+      0.5281059097698362,
+      0.7342936627574055
+     ]
+    },
+    "sink": {
+     "accuracy": 1.0,
+     "answer_in_state_range": 1.0,
+     "correct": 24,
+     "n": 24,
+     "wilson_95": [
+      0.8620194241710247,
+      1
+     ]
+    }
+   }
+  },
+  "control:constant_state": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.979167,
+     0.520833,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.979167,
+     0.520833,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.979167,
+     0.520833,
+     0.5,
+     0.5
+    ],
+    "accuracy_step_16": 0.5,
+    "commuting_square_defect_rate": 0.4700520833333333,
+    "defect_by_step": [
+     0.020833,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "exact_trace_valid_1_8_rate": 0.5,
+    "exact_trace_valid_full_rate": 0.5,
+    "heldout_9_16_case_bootstrap_95": [
+     0.453125,
+     0.6901041666666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.5625,
+    "n": 48,
+    "step16_wilson_95": [
+     0.36389098932037767,
+     0.6361090106796223
+    ],
+    "trained_steps_1_8_accuracy": 0.625,
+    "transition_accuracy": 0.8479166666666667
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.958333,
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.958333,
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.958333,
+     0.041667,
+     0.0,
+     0.0
+    ],
+    "accuracy_step_16": 0.0,
+    "commuting_square_defect_rate": 0.9401041666666666,
+    "defect_by_step": [
+     0.041667,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.125,
+     0.125
+    ],
+    "heldout_steps_9_16_accuracy": 0.125,
+    "n": 24,
+    "step16_wilson_95": [
+     0,
+     0.13798057582897535
+    ],
+    "trained_steps_1_8_accuracy": 0.25,
+    "transition_accuracy": 0.23958333333333334
+   },
+   "note": "primary decoder; stage-1 features repeated",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   }
+  },
+  "control:label_shuffled_probe": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.166667,
+     0.270833,
+     0.291667,
+     0.208333,
+     0.229167,
+     0.1875,
+     0.166667,
+     0.145833,
+     0.166667,
+     0.104167,
+     0.104167,
+     0.104167,
+     0.125,
+     0.104167,
+     0.1875,
+     0.125
+    ],
+    "accuracy_step_16": 0.125,
+    "commuting_square_defect_rate": 0.8619791666666666,
+    "defect_by_step": [
+     0.833333,
+     0.708333,
+     0.854167,
+     0.75,
+     0.75,
+     0.791667,
+     0.854167,
+     0.854167,
+     0.9375,
+     0.895833,
+     0.9375,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.958333,
+     0.916667
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.07552083333333333,
+     0.1953776041666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.12760416666666669,
+    "n": 48,
+    "step16_wilson_95": [
+     0.05856971750400844,
+     0.24700727086054822
+    ],
+    "trained_steps_1_8_accuracy": 0.20833333333333331,
+    "transition_accuracy": 0.22807017543859648
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.083333,
+     0.166667,
+     0.416667,
+     0.041667,
+     0.041667,
+     0.083333,
+     0.166667,
+     0.125,
+     0.25,
+     0.125,
+     0.125,
+     0.125,
+     0.166667,
+     0.125,
+     0.291667,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.9036458333333334,
+    "defect_by_step": [
+     0.916667,
+     0.791667,
+     0.875,
+     0.875,
+     0.916667,
+     0.875,
+     0.875,
+     0.875,
+     0.958333,
+     0.875,
+     0.958333,
+     0.916667,
+     0.916667,
+     0.916667,
+     1.0,
+     0.916667
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13541666666666666,
+     0.20833333333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.171875,
+    "n": 24,
+    "step16_wilson_95": [
+     0.06678568000728924,
+     0.3585347038786943
+    ],
+    "trained_steps_1_8_accuracy": 0.140625,
+    "transition_accuracy": 0.05
+   },
+   "note": "same decoder class, train labels permuted",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.25,
+     0.375,
+     0.166667,
+     0.375,
+     0.416667,
+     0.291667,
+     0.166667,
+     0.166667,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333
+    ],
+    "accuracy_step_16": 0.08333333333333333,
+    "commuting_square_defect_rate": 0.8203125,
+    "defect_by_step": [
+     0.75,
+     0.625,
+     0.833333,
+     0.625,
+     0.583333,
+     0.708333,
+     0.833333,
+     0.833333,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.0,
+     0.20833333333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.08333333333333333,
+    "n": 24,
+    "step16_wilson_95": [
+     0.023158327842973503,
+     0.258492152014506
+    ],
+    "trained_steps_1_8_accuracy": 0.27604166666666663,
+    "transition_accuracy": 0.38461538461538464
+   }
+  },
+  "control:param_matched_feedforward": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.75,
+     0.583333,
+     0.520833,
+     0.520833,
+     0.5625,
+     0.541667,
+     0.75,
+     0.625,
+     0.5625,
+     0.541667,
+     0.583333,
+     0.541667,
+     0.6875,
+     0.583333,
+     0.5625,
+     0.541667
+    ],
+    "accuracy_step_16": 0.5416666666666666,
+    "commuting_square_defect_rate": 0.4700520833333333,
+    "defect_by_step": [
+     0.25,
+     0.458333,
+     0.5,
+     0.479167,
+     0.479167,
+     0.520833,
+     0.458333,
+     0.416667,
+     0.458333,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "exact_trace_valid_1_8_rate": 0.4791666666666667,
+    "exact_trace_valid_full_rate": 0.4791666666666667,
+    "heldout_9_16_case_bootstrap_95": [
+     0.4609375,
+     0.6927734375
+    ],
+    "heldout_steps_9_16_accuracy": 0.5755208333333333,
+    "n": 48,
+    "step16_wilson_95": [
+     0.4029083309494732,
+     0.6742497814544648
+    ],
+    "trained_steps_1_8_accuracy": 0.6067708333333333,
+    "transition_accuracy": 0.8340336134453782
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.5,
+     0.166667,
+     0.083333,
+     0.041667,
+     0.125,
+     0.125,
+     0.5,
+     0.25,
+     0.125,
+     0.083333,
+     0.166667,
+     0.083333,
+     0.375,
+     0.166667,
+     0.125,
+     0.083333
+    ],
+    "accuracy_step_16": 0.08333333333333333,
+    "commuting_square_defect_rate": 0.9348958333333334,
+    "defect_by_step": [
+     0.5,
+     0.916667,
+     0.958333,
+     0.958333,
+     0.958333,
+     1.0,
+     0.916667,
+     0.833333,
+     0.916667,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13020833333333334,
+     0.171875
+    ],
+    "heldout_steps_9_16_accuracy": 0.15104166666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.023158327842973503,
+     0.258492152014506
+    ],
+    "trained_steps_1_8_accuracy": 0.22395833333333331,
+    "transition_accuracy": 0.18085106382978725
+   },
+   "note": "MLP on static token + one-hot depth; 4752 parameters vs 4614 linear",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     0.958333,
+     1.0,
+     1.0,
+     0.958333,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.005208333333333333,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.041667,
+     0.0,
+     0.0,
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.9583333333333334,
+    "exact_trace_valid_full_rate": 0.9583333333333334,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 0.9895833333333334,
+    "transition_accuracy": 0.9947643979057592
+   }
+  },
+  "control:random_direction": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.354167,
+     0.229167,
+     0.145833,
+     0.25,
+     0.1875,
+     0.145833,
+     0.229167,
+     0.145833,
+     0.208333,
+     0.145833,
+     0.1875,
+     0.1875,
+     0.145833,
+     0.083333,
+     0.145833,
+     0.208333
+    ],
+    "accuracy_step_16": 0.20833333333333334,
+    "commuting_square_defect_rate": 0.8229166666666666,
+    "defect_by_step": [
+     0.645833,
+     0.791667,
+     0.895833,
+     0.770833,
+     0.854167,
+     0.854167,
+     0.6875,
+     0.854167,
+     0.854167,
+     0.833333,
+     0.854167,
+     0.875,
+     0.854167,
+     0.8125,
+     0.833333,
+     0.895833
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13020833333333334,
+     0.2031901041666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.1640625,
+    "n": 48,
+    "step16_wilson_95": [
+     0.11730147795889813,
+     0.3425917352135348
+    ],
+    "trained_steps_1_8_accuracy": 0.2109375,
+    "transition_accuracy": 0.23626373626373626
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.333333,
+     0.291667,
+     0.208333,
+     0.208333,
+     0.208333,
+     0.125,
+     0.125,
+     0.125,
+     0.291667,
+     0.125,
+     0.208333,
+     0.166667,
+     0.166667,
+     0.0,
+     0.166667,
+     0.291667
+    ],
+    "accuracy_step_16": 0.2916666666666667,
+    "commuting_square_defect_rate": 0.8307291666666666,
+    "defect_by_step": [
+     0.666667,
+     0.75,
+     0.875,
+     0.833333,
+     0.875,
+     0.875,
+     0.708333,
+     0.875,
+     0.833333,
+     0.833333,
+     0.875,
+     0.958333,
+     0.833333,
+     0.791667,
+     0.791667,
+     0.916667
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13020833333333334,
+     0.22395833333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.17708333333333334,
+    "n": 24,
+    "step16_wilson_95": [
+     0.14914460334164278,
+     0.49168063658709704
+    ],
+    "trained_steps_1_8_accuracy": 0.203125,
+    "transition_accuracy": 0.23333333333333334
+   },
+   "note": "pass-0 block plus a random direction with the norm of the recurrent update",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.375,
+     0.166667,
+     0.083333,
+     0.291667,
+     0.166667,
+     0.166667,
+     0.333333,
+     0.166667,
+     0.125,
+     0.166667,
+     0.166667,
+     0.208333,
+     0.125,
+     0.166667,
+     0.125,
+     0.125
+    ],
+    "accuracy_step_16": 0.125,
+    "commuting_square_defect_rate": 0.8151041666666666,
+    "defect_by_step": [
+     0.625,
+     0.833333,
+     0.916667,
+     0.708333,
+     0.833333,
+     0.833333,
+     0.666667,
+     0.833333,
+     0.875,
+     0.833333,
+     0.833333,
+     0.791667,
+     0.875,
+     0.833333,
+     0.875,
+     0.875
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.10416666666666667,
+     0.203125
+    ],
+    "heldout_steps_9_16_accuracy": 0.15104166666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.04344255039315584,
+     0.3100428814785757
+    ],
+    "trained_steps_1_8_accuracy": 0.21875,
+    "transition_accuracy": 0.2391304347826087
+   }
+  },
+  "control:random_probe": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.125,
+     0.270833,
+     0.229167,
+     0.25,
+     0.145833,
+     0.291667,
+     0.166667,
+     0.270833,
+     0.145833,
+     0.166667,
+     0.1875,
+     0.229167,
+     0.166667,
+     0.270833,
+     0.104167,
+     0.1875
+    ],
+    "accuracy_step_16": 0.1875,
+    "commuting_square_defect_rate": 0.8385416666666666,
+    "defect_by_step": [
+     0.875,
+     0.75,
+     0.833333,
+     0.729167,
+     0.854167,
+     0.770833,
+     0.854167,
+     0.833333,
+     0.875,
+     0.854167,
+     0.875,
+     0.833333,
+     0.875,
+     0.875,
+     0.875,
+     0.854167
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.10677083333333333,
+     0.2630208333333333
+    ],
+    "heldout_steps_9_16_accuracy": 0.18229166666666669,
+    "n": 48,
+    "step16_wilson_95": [
+     0.10191276348200173,
+     0.31940139348846214
+    ],
+    "trained_steps_1_8_accuracy": 0.21875,
+    "transition_accuracy": 0.3316062176165803
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.083333,
+     0.208333,
+     0.291667,
+     0.166667,
+     0.083333,
+     0.25,
+     0.125,
+     0.291667,
+     0.125,
+     0.083333,
+     0.208333,
+     0.208333,
+     0.166667,
+     0.291667,
+     0.041667,
+     0.125
+    ],
+    "accuracy_step_16": 0.125,
+    "commuting_square_defect_rate": 0.90625,
+    "defect_by_step": [
+     0.916667,
+     0.833333,
+     0.833333,
+     0.791667,
+     0.916667,
+     0.875,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.958333,
+     0.916667,
+     0.916667,
+     0.916667,
+     1.0,
+     0.916667,
+     0.958333
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.125,
+     0.1875
+    ],
+    "heldout_steps_9_16_accuracy": 0.15625,
+    "n": 24,
+    "step16_wilson_95": [
+     0.04344255039315584,
+     0.3100428814785757
+    ],
+    "trained_steps_1_8_accuracy": 0.1875,
+    "transition_accuracy": 0.09195402298850575
+   },
+   "note": "random weights, trained norms",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.166667,
+     0.333333,
+     0.166667,
+     0.333333,
+     0.208333,
+     0.333333,
+     0.208333,
+     0.25,
+     0.166667,
+     0.25,
+     0.166667,
+     0.25,
+     0.166667,
+     0.25,
+     0.166667,
+     0.25
+    ],
+    "accuracy_step_16": 0.25,
+    "commuting_square_defect_rate": 0.7708333333333334,
+    "defect_by_step": [
+     0.833333,
+     0.666667,
+     0.833333,
+     0.666667,
+     0.791667,
+     0.666667,
+     0.791667,
+     0.75,
+     0.833333,
+     0.75,
+     0.833333,
+     0.75,
+     0.833333,
+     0.75,
+     0.833333,
+     0.75
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.0625,
+     0.35468749999999954
+    ],
+    "heldout_steps_9_16_accuracy": 0.20833333333333331,
+    "n": 24,
+    "step16_wilson_95": [
+     0.1199920347934233,
+     0.4489982531210644
+    ],
+    "trained_steps_1_8_accuracy": 0.25,
+    "transition_accuracy": 0.5283018867924528
+   }
+  },
+  "control:recurrence_removed": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.541667,
+     0.625,
+     0.541667,
+     0.5,
+     0.5,
+     0.541667,
+     0.541667,
+     0.625,
+     0.541667,
+     0.5,
+     0.5,
+     0.541667,
+     0.541667,
+     0.625,
+     0.541667,
+     0.5
+    ],
+    "accuracy_step_16": 0.5,
+    "commuting_square_defect_rate": 0.5364583333333334,
+    "defect_by_step": [
+     0.458333,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667,
+     0.541667
+    ],
+    "exact_trace_valid_1_8_rate": 0.4583333333333333,
+    "exact_trace_valid_full_rate": 0.4583333333333333,
+    "heldout_9_16_case_bootstrap_95": [
+     0.4244140625,
+     0.6615234375
+    ],
+    "heldout_steps_9_16_accuracy": 0.5364583333333333,
+    "n": 48,
+    "step16_wilson_95": [
+     0.36389098932037767,
+     0.6361090106796223
+    ],
+    "trained_steps_1_8_accuracy": 0.5520833333333333,
+    "transition_accuracy": 0.8054298642533937
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.166667,
+     0.333333,
+     0.166667,
+     0.083333,
+     0.083333,
+     0.166667,
+     0.166667,
+     0.333333,
+     0.166667,
+     0.083333,
+     0.083333,
+     0.166667,
+     0.166667,
+     0.333333,
+     0.166667,
+     0.083333
+    ],
+    "accuracy_step_16": 0.08333333333333333,
+    "commuting_square_defect_rate": 0.9895833333333334,
+    "defect_by_step": [
+     0.833333,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13541666666666666,
+     0.17708333333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.15625,
+    "n": 24,
+    "step16_wilson_95": [
+     0.023158327842973503,
+     0.258492152014506
+    ],
+    "trained_steps_1_8_accuracy": 0.1875,
+    "transition_accuracy": 0.045454545454545456
+   },
+   "note": "primary decoder on the same blocks before any refinement",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667,
+     0.916667
+    ],
+    "accuracy_step_16": 0.9166666666666666,
+    "commuting_square_defect_rate": 0.08333333333333333,
+    "defect_by_step": [
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333,
+     0.083333
+    ],
+    "exact_trace_valid_1_8_rate": 0.9166666666666666,
+    "exact_trace_valid_full_rate": 0.9166666666666666,
+    "heldout_9_16_case_bootstrap_95": [
+     0.7916666666666666,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 0.9166666666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.741507847985494,
+     0.9768416721570266
+    ],
+    "trained_steps_1_8_accuracy": 0.9166666666666666,
+    "transition_accuracy": 0.9943502824858758
+   }
+  },
+  "control:shuffled_stage": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.770833,
+     0.604167,
+     0.5625,
+     0.5625,
+     0.520833,
+     0.520833,
+     0.729167,
+     0.583333,
+     0.520833,
+     0.5625,
+     0.541667,
+     0.5625,
+     0.729167,
+     0.625,
+     0.5625,
+     0.541667
+    ],
+    "accuracy_step_16": 0.5416666666666666,
+    "commuting_square_defect_rate": 0.4192708333333333,
+    "defect_by_step": [
+     0.229167,
+     0.4375,
+     0.4375,
+     0.458333,
+     0.4375,
+     0.416667,
+     0.4375,
+     0.458333,
+     0.395833,
+     0.4375,
+     0.395833,
+     0.4375,
+     0.4375,
+     0.4375,
+     0.479167,
+     0.375
+    ],
+    "exact_trace_valid_1_8_rate": 0.4583333333333333,
+    "exact_trace_valid_full_rate": 0.4375,
+    "heldout_9_16_case_bootstrap_95": [
+     0.46875,
+     0.6953776041666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.5807291666666666,
+    "n": 48,
+    "step16_wilson_95": [
+     0.4029083309494732,
+     0.6742497814544648
+    ],
+    "trained_steps_1_8_accuracy": 0.6067708333333334,
+    "transition_accuracy": 0.8410041841004184
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.583333,
+     0.208333,
+     0.125,
+     0.125,
+     0.041667,
+     0.083333,
+     0.458333,
+     0.166667,
+     0.041667,
+     0.125,
+     0.083333,
+     0.125,
+     0.458333,
+     0.25,
+     0.125,
+     0.125
+    ],
+    "accuracy_step_16": 0.125,
+    "commuting_square_defect_rate": 0.8307291666666666,
+    "defect_by_step": [
+     0.416667,
+     0.875,
+     0.875,
+     0.916667,
+     0.875,
+     0.791667,
+     0.875,
+     0.916667,
+     0.791667,
+     0.875,
+     0.791667,
+     0.875,
+     0.875,
+     0.875,
+     0.958333,
+     0.708333
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.11979166666666667,
+     0.21354166666666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.16666666666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.04344255039315584,
+     0.3100428814785757
+    ],
+    "trained_steps_1_8_accuracy": 0.22395833333333334,
+    "transition_accuracy": 0.23958333333333334
+   },
+   "note": "primary decoder; stages permuted per case",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.958333,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.958333,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.958333
+    ],
+    "accuracy_step_16": 0.9583333333333334,
+    "commuting_square_defect_rate": 0.0078125,
+    "defect_by_step": [
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.041667
+    ],
+    "exact_trace_valid_1_8_rate": 0.9166666666666666,
+    "exact_trace_valid_full_rate": 0.875,
+    "heldout_9_16_case_bootstrap_95": [
+     0.984375,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 0.9947916666666667,
+    "n": 24,
+    "step16_wilson_95": [
+     0.7975777375115778,
+     0.992606734645195
+    ],
+    "trained_steps_1_8_accuracy": 0.9895833333333334,
+    "transition_accuracy": 0.9921465968586387
+   }
+  },
+  "control:wrong_map_scoring": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.1875,
+     0.229167,
+     0.229167,
+     0.229167,
+     0.208333,
+     0.145833,
+     0.208333,
+     0.229167,
+     0.1875,
+     0.229167,
+     0.125,
+     0.1875,
+     0.208333,
+     0.1875,
+     0.125,
+     0.25
+    ],
+    "accuracy_step_16": 0.25,
+    "commuting_square_defect_rate": 0.8359375,
+    "defect_by_step": [
+     0.8125,
+     0.8125,
+     0.833333,
+     0.854167,
+     0.770833,
+     0.833333,
+     0.8125,
+     0.791667,
+     0.8125,
+     0.875,
+     0.833333,
+     0.895833,
+     0.8125,
+     0.895833,
+     0.833333,
+     0.895833
+    ],
+    "exact_trace_valid_1_8_rate": 0.08333333333333333,
+    "exact_trace_valid_full_rate": 0.08333333333333333,
+    "heldout_9_16_case_bootstrap_95": [
+     0.11197916666666667,
+     0.2734375
+    ],
+    "heldout_steps_9_16_accuracy": 0.1875,
+    "n": 48,
+    "step16_wilson_95": [
+     0.1492048880971003,
+     0.3878464374792707
+    ],
+    "trained_steps_1_8_accuracy": 0.20833333333333334,
+    "transition_accuracy": 0.46808510638297873
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.208333,
+     0.291667,
+     0.291667,
+     0.291667,
+     0.25,
+     0.083333,
+     0.25,
+     0.291667,
+     0.208333,
+     0.291667,
+     0.083333,
+     0.208333,
+     0.25,
+     0.208333,
+     0.083333,
+     0.333333
+    ],
+    "accuracy_step_16": 0.3333333333333333,
+    "commuting_square_defect_rate": 0.8411458333333334,
+    "defect_by_step": [
+     0.791667,
+     0.791667,
+     0.833333,
+     0.875,
+     0.708333,
+     0.875,
+     0.791667,
+     0.75,
+     0.791667,
+     0.916667,
+     0.833333,
+     0.958333,
+     0.791667,
+     0.958333,
+     0.833333,
+     0.958333
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.16666666666666666,
+     0.25
+    ],
+    "heldout_steps_9_16_accuracy": 0.20833333333333334,
+    "n": 24,
+    "step16_wilson_95": [
+     0.17971978688379642,
+     0.5329404050591954
+    ],
+    "trained_steps_1_8_accuracy": 0.24479166666666669,
+    "transition_accuracy": 0.23300970873786409
+   },
+   "note": "primary predictions scored against another same-family map from the same start",
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.208333,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.8307291666666666,
+    "defect_by_step": [
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.791667,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.833333
+    ],
+    "exact_trace_valid_1_8_rate": 0.16666666666666666,
+    "exact_trace_valid_full_rate": 0.16666666666666666,
+    "heldout_9_16_case_bootstrap_95": [
+     0.041666666666666664,
+     0.3333333333333333
+    ],
+    "heldout_steps_9_16_accuracy": 0.16666666666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.06678568000728924,
+     0.3585347038786943
+    ],
+    "trained_steps_1_8_accuracy": 0.171875,
+    "transition_accuracy": 0.7529411764705882
+   }
+  },
+  "counterfactual:parent_labels": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.0,
+     0.0,
+     0.125,
+     0.0625,
+     0.1875,
+     0.145833,
+     0.0625,
+     0.0625,
+     0.083333,
+     0.041667,
+     0.166667,
+     0.1875,
+     0.0625,
+     0.104167,
+     0.104167,
+     0.041667
+    ],
+    "accuracy_step_16": 0.041666666666666664,
+    "heldout_steps_9_16_accuracy": 0.09895833333333333,
+    "parsable_state_rate": 1.0
+   },
+   "note": "relabelled-prompt predictions scored against the parent's unrelabelled states (label-prior check)"
+  },
+  "counterfactual:relabelled_truth": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.979167,
+     0.666667,
+     0.541667,
+     0.5,
+     0.458333,
+     0.604167,
+     0.833333,
+     0.625,
+     0.541667,
+     0.5,
+     0.5,
+     0.6875,
+     0.770833,
+     0.604167,
+     0.520833,
+     0.479167
+    ],
+    "accuracy_step_16": 0.4791666666666667,
+    "commuting_square_defect_rate": 0.3802083333333333,
+    "defect_by_step": [
+     0.020833,
+     0.333333,
+     0.416667,
+     0.416667,
+     0.416667,
+     0.479167,
+     0.354167,
+     0.458333,
+     0.3125,
+     0.4375,
+     0.291667,
+     0.458333,
+     0.375,
+     0.458333,
+     0.395833,
+     0.458333
+    ],
+    "exact_trace_valid_1_8_rate": 0.4166666666666667,
+    "exact_trace_valid_full_rate": 0.3958333333333333,
+    "heldout_9_16_case_bootstrap_95": [
+     0.4634765625,
+     0.6927083333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.5755208333333333,
+    "n": 48,
+    "step16_wilson_95": [
+     0.34471090015787464,
+     0.6167100436401562
+    ],
+    "trained_steps_1_8_accuracy": 0.6510416666666667,
+    "transition_accuracy": 0.8528225806451613
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.958333,
+     0.333333,
+     0.083333,
+     0.0,
+     0.0,
+     0.25,
+     0.708333,
+     0.25,
+     0.083333,
+     0.0,
+     0.0,
+     0.375,
+     0.583333,
+     0.25,
+     0.083333,
+     0.0
+    ],
+    "accuracy_step_16": 0.0,
+    "commuting_square_defect_rate": 0.7395833333333334,
+    "defect_by_step": [
+     0.041667,
+     0.666667,
+     0.833333,
+     0.833333,
+     0.75,
+     0.916667,
+     0.666667,
+     0.916667,
+     0.625,
+     0.875,
+     0.583333,
+     0.916667,
+     0.708333,
+     0.875,
+     0.75,
+     0.875
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13541666666666666,
+     0.20833333333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.171875,
+    "n": 24,
+    "step16_wilson_95": [
+     0,
+     0.13798057582897535
+    ],
+    "trained_steps_1_8_accuracy": 0.3229166666666667,
+    "transition_accuracy": 0.42857142857142855
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.916667,
+     0.958333,
+     0.958333,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.958333,
+     0.958333,
+     0.958333,
+     0.958333
+    ],
+    "accuracy_step_16": 0.9583333333333334,
+    "commuting_square_defect_rate": 0.020833333333333332,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.083333,
+     0.041667,
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.041667,
+     0.041667,
+     0.041667,
+     0.041667
+    ],
+    "exact_trace_valid_1_8_rate": 0.8333333333333334,
+    "exact_trace_valid_full_rate": 0.7916666666666666,
+    "heldout_9_16_case_bootstrap_95": [
+     0.9375,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 0.9791666666666667,
+    "n": 24,
+    "step16_wilson_95": [
+     0.7975777375115778,
+     0.992606734645195
+    ],
+    "trained_steps_1_8_accuracy": 0.9791666666666667,
+    "transition_accuracy": 0.986737400530504
+   }
+  },
+  "input_encoding": {
+   "pass0_block0_mean": {
+    "final_state": {
+     "calibration_accuracy": 0.4166666666666667,
+     "heldout_accuracy": 0.5208333333333334,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.16666666666666666
+    },
+    "start": {
+     "calibration_accuracy": 1.0,
+     "heldout_accuracy": 1.0,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.1875
+    },
+    "successor[0]": {
+     "calibration_accuracy": 0.625,
+     "heldout_accuracy": 0.5625,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.1875
+    },
+    "successor[1]": {
+     "calibration_accuracy": 0.25,
+     "heldout_accuracy": 0.6458333333333334,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.1875
+    },
+    "successor[2]": {
+     "calibration_accuracy": 0.4583333333333333,
+     "heldout_accuracy": 0.3958333333333333,
+     "l2": 0.1,
+     "train_majority_accuracy": 0.16666666666666666
+    },
+    "successor[3]": {
+     "calibration_accuracy": 0.2916666666666667,
+     "heldout_accuracy": 0.3125,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.22916666666666666
+    },
+    "successor[4]": {
+     "calibration_accuracy": 0.2916666666666667,
+     "heldout_accuracy": 0.4791666666666667,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.10416666666666667
+    },
+    "successor[5]": {
+     "calibration_accuracy": 0.4583333333333333,
+     "heldout_accuracy": 0.6041666666666666,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.22916666666666666
+    }
+   },
+   "static_token": {
+    "final_state": {
+     "calibration_accuracy": 0.4166666666666667,
+     "heldout_accuracy": 0.5416666666666666,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.16666666666666666
+    },
+    "start": {
+     "calibration_accuracy": 1.0,
+     "heldout_accuracy": 1.0,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.1875
+    },
+    "successor[0]": {
+     "calibration_accuracy": 0.625,
+     "heldout_accuracy": 0.5416666666666666,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.1875
+    },
+    "successor[1]": {
+     "calibration_accuracy": 0.2916666666666667,
+     "heldout_accuracy": 0.625,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.1875
+    },
+    "successor[2]": {
+     "calibration_accuracy": 0.4583333333333333,
+     "heldout_accuracy": 0.4166666666666667,
+     "l2": 0.1,
+     "train_majority_accuracy": 0.16666666666666666
+    },
+    "successor[3]": {
+     "calibration_accuracy": 0.2916666666666667,
+     "heldout_accuracy": 0.22916666666666666,
+     "l2": 0.001,
+     "train_majority_accuracy": 0.22916666666666666
+    },
+    "successor[4]": {
+     "calibration_accuracy": 0.2916666666666667,
+     "heldout_accuracy": 0.4791666666666667,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.10416666666666667
+    },
+    "successor[5]": {
+     "calibration_accuracy": 0.4583333333333333,
+     "heldout_accuracy": 0.625,
+     "l2": 0.0001,
+     "train_majority_accuracy": 0.22916666666666666
+    }
+   }
+  },
+  "lotus_native_readout": {
+   "diagonal": {
+    "accuracy_by_step": [
+     1.0,
+     0.166667,
+     0.0,
+     0.520833,
+     0.0,
+     0.166667,
+     0.0,
+     0.0625,
+     0.0,
+     0.0625,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.041667,
+     0.0
+    ],
+    "accuracy_step_16": 0.0,
+    "heldout_steps_9_16_accuracy": 0.013020833333333334,
+    "parsable_state_rate": 0.11067708333333333
+   },
+   "final_pass": {
+    "accuracy_by_step": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "accuracy_step_16": 0.0,
+    "heldout_steps_9_16_accuracy": 0.0,
+    "parsable_state_rate": 0.0
+   },
+   "pass0": {
+    "accuracy_by_step": [
+     1.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "accuracy_step_16": 0.0,
+    "heldout_steps_9_16_accuracy": 0.0,
+    "parsable_state_rate": 0.0
+   }
+  },
+  "view:diagonal": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.979167,
+     0.708333,
+     0.520833,
+     0.5625,
+     0.479167,
+     0.520833,
+     0.854167,
+     0.645833,
+     0.5,
+     0.583333,
+     0.5,
+     0.604167,
+     0.791667,
+     0.645833,
+     0.520833,
+     0.583333
+    ],
+    "accuracy_step_16": 0.5833333333333334,
+    "commuting_square_defect_rate": 0.40234375,
+    "defect_by_step": [
+     0.020833,
+     0.3125,
+     0.479167,
+     0.333333,
+     0.458333,
+     0.375,
+     0.479167,
+     0.416667,
+     0.416667,
+     0.416667,
+     0.479167,
+     0.4375,
+     0.458333,
+     0.4375,
+     0.458333,
+     0.458333
+    ],
+    "exact_trace_valid_1_8_rate": 0.4375,
+    "exact_trace_valid_full_rate": 0.4375,
+    "heldout_9_16_case_bootstrap_95": [
+     0.4791666666666667,
+     0.7057942708333332
+    ],
+    "heldout_steps_9_16_accuracy": 0.5911458333333334,
+    "n": 48,
+    "step16_wilson_95": [
+     0.44281082215364653,
+     0.7115054026542299
+    ],
+    "trained_steps_1_8_accuracy": 0.6588541666666667,
+    "transition_accuracy": 0.844
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.958333,
+     0.416667,
+     0.041667,
+     0.125,
+     0.0,
+     0.083333,
+     0.75,
+     0.291667,
+     0.0,
+     0.166667,
+     0.0,
+     0.208333,
+     0.583333,
+     0.291667,
+     0.041667,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.796875,
+    "defect_by_step": [
+     0.041667,
+     0.625,
+     0.958333,
+     0.666667,
+     0.875,
+     0.708333,
+     0.916667,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.958333,
+     0.875,
+     0.916667,
+     0.875,
+     0.916667,
+     0.916667
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.15104166666666666,
+     0.21354166666666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.18229166666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.06678568000728924,
+     0.3585347038786943
+    ],
+    "trained_steps_1_8_accuracy": 0.33333333333333337,
+    "transition_accuracy": 0.3697478991596639
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.958333,
+     0.958333,
+     0.958333,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0078125,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.041667,
+     0.041667,
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.875,
+    "exact_trace_valid_full_rate": 0.875,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 0.984375,
+    "transition_accuracy": 0.9921259842519685
+   }
+  },
+  "view:final": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.8125,
+     0.583333,
+     0.5625,
+     0.520833,
+     0.520833,
+     0.5,
+     0.8125,
+     0.583333,
+     0.5625,
+     0.520833,
+     0.520833,
+     0.5,
+     0.8125,
+     0.583333,
+     0.5625,
+     0.520833
+    ],
+    "accuracy_step_16": 0.5208333333333334,
+    "commuting_square_defect_rate": 0.48046875,
+    "defect_by_step": [
+     0.1875,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "exact_trace_valid_1_8_rate": 0.5,
+    "exact_trace_valid_full_rate": 0.5,
+    "heldout_9_16_case_bootstrap_95": [
+     0.46087239583333334,
+     0.6927734375
+    ],
+    "heldout_steps_9_16_accuracy": 0.5729166666666667,
+    "n": 48,
+    "step16_wilson_95": [
+     0.3832899563598438,
+     0.6552890998421255
+    ],
+    "trained_steps_1_8_accuracy": 0.6119791666666667,
+    "transition_accuracy": 0.8347280334728033
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.625,
+     0.166667,
+     0.125,
+     0.041667,
+     0.041667,
+     0.0,
+     0.625,
+     0.166667,
+     0.125,
+     0.041667,
+     0.041667,
+     0.0,
+     0.625,
+     0.166667,
+     0.125,
+     0.041667
+    ],
+    "accuracy_step_16": 0.041666666666666664,
+    "commuting_square_defect_rate": 0.9609375,
+    "defect_by_step": [
+     0.375,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.13020833333333334,
+     0.16666666666666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.14583333333333331,
+    "n": 24,
+    "step16_wilson_95": [
+     0.007393265354805126,
+     0.20242226248842232
+    ],
+    "trained_steps_1_8_accuracy": 0.22395833333333331,
+    "transition_accuracy": 0.1595744680851064
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   }
+  },
+  "view:lastblock": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.979167,
+     0.708333,
+     0.520833,
+     0.5625,
+     0.479167,
+     0.520833,
+     0.854167,
+     0.645833,
+     0.5,
+     0.583333,
+     0.5,
+     0.604167,
+     0.791667,
+     0.645833,
+     0.520833,
+     0.583333
+    ],
+    "accuracy_step_16": 0.5833333333333334,
+    "commuting_square_defect_rate": 0.40234375,
+    "defect_by_step": [
+     0.020833,
+     0.3125,
+     0.479167,
+     0.333333,
+     0.458333,
+     0.375,
+     0.479167,
+     0.416667,
+     0.416667,
+     0.416667,
+     0.479167,
+     0.4375,
+     0.458333,
+     0.4375,
+     0.458333,
+     0.458333
+    ],
+    "exact_trace_valid_1_8_rate": 0.4375,
+    "exact_trace_valid_full_rate": 0.4375,
+    "heldout_9_16_case_bootstrap_95": [
+     0.4791666666666667,
+     0.7057942708333332
+    ],
+    "heldout_steps_9_16_accuracy": 0.5911458333333334,
+    "n": 48,
+    "step16_wilson_95": [
+     0.44281082215364653,
+     0.7115054026542299
+    ],
+    "trained_steps_1_8_accuracy": 0.6588541666666667,
+    "transition_accuracy": 0.844
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.958333,
+     0.416667,
+     0.041667,
+     0.125,
+     0.0,
+     0.083333,
+     0.75,
+     0.291667,
+     0.0,
+     0.166667,
+     0.0,
+     0.208333,
+     0.583333,
+     0.291667,
+     0.041667,
+     0.166667
+    ],
+    "accuracy_step_16": 0.16666666666666666,
+    "commuting_square_defect_rate": 0.796875,
+    "defect_by_step": [
+     0.041667,
+     0.625,
+     0.958333,
+     0.666667,
+     0.875,
+     0.708333,
+     0.916667,
+     0.833333,
+     0.833333,
+     0.833333,
+     0.958333,
+     0.875,
+     0.916667,
+     0.875,
+     0.916667,
+     0.916667
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.15104166666666666,
+     0.21354166666666666
+    ],
+    "heldout_steps_9_16_accuracy": 0.18229166666666666,
+    "n": 24,
+    "step16_wilson_95": [
+     0.06678568000728924,
+     0.3585347038786943
+    ],
+    "trained_steps_1_8_accuracy": 0.33333333333333337,
+    "transition_accuracy": 0.3697478991596639
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     0.958333,
+     0.958333,
+     0.958333,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0078125,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.041667,
+     0.041667,
+     0.041667,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.875,
+    "exact_trace_valid_full_rate": 0.875,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 0.984375,
+    "transition_accuracy": 0.9921259842519685
+   }
+  },
+  "view:pass0": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.6875,
+     0.666667,
+     0.625,
+     0.520833,
+     0.5,
+     0.5,
+     0.6875,
+     0.666667,
+     0.625,
+     0.520833,
+     0.5,
+     0.5,
+     0.6875,
+     0.666667,
+     0.625,
+     0.520833
+    ],
+    "accuracy_step_16": 0.5208333333333334,
+    "commuting_square_defect_rate": 0.48828125,
+    "defect_by_step": [
+     0.3125,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "exact_trace_valid_1_8_rate": 0.5,
+    "exact_trace_valid_full_rate": 0.5,
+    "heldout_9_16_case_bootstrap_95": [
+     0.4661458333333333,
+     0.7005208333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.5807291666666667,
+    "n": 48,
+    "step16_wilson_95": [
+     0.3832899563598438,
+     0.6552890998421255
+    ],
+    "trained_steps_1_8_accuracy": 0.6067708333333333,
+    "transition_accuracy": 0.8204592901878914
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.375,
+     0.333333,
+     0.25,
+     0.041667,
+     0.0,
+     0.0,
+     0.375,
+     0.333333,
+     0.25,
+     0.041667,
+     0.0,
+     0.0,
+     0.375,
+     0.333333,
+     0.25,
+     0.041667
+    ],
+    "accuracy_step_16": 0.041666666666666664,
+    "commuting_square_defect_rate": 0.9765625,
+    "defect_by_step": [
+     0.625,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.140625,
+     0.1875
+    ],
+    "heldout_steps_9_16_accuracy": 0.16145833333333334,
+    "n": 24,
+    "step16_wilson_95": [
+     0.007393265354805126,
+     0.20242226248842232
+    ],
+    "trained_steps_1_8_accuracy": 0.21354166666666666,
+    "transition_accuracy": 0.09473684210526316
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   }
+  },
+  "view:static": {
+   "all_test": {
+    "accuracy_by_step": [
+     1.0,
+     0.666667,
+     0.645833,
+     0.604167,
+     0.541667,
+     0.520833,
+     0.520833,
+     0.666667,
+     0.645833,
+     0.604167,
+     0.541667,
+     0.520833,
+     0.520833,
+     0.666667,
+     0.645833,
+     0.604167,
+     0.541667
+    ],
+    "accuracy_step_16": 0.5416666666666666,
+    "commuting_square_defect_rate": 0.4895833333333333,
+    "defect_by_step": [
+     0.333333,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ],
+    "exact_trace_valid_1_8_rate": 0.5,
+    "exact_trace_valid_full_rate": 0.5,
+    "heldout_9_16_case_bootstrap_95": [
+     0.4661458333333333,
+     0.7005208333333334
+    ],
+    "heldout_steps_9_16_accuracy": 0.5807291666666666,
+    "n": 48,
+    "step16_wilson_95": [
+     0.4029083309494732,
+     0.6742497814544648
+    ],
+    "trained_steps_1_8_accuracy": 0.6015625,
+    "transition_accuracy": 0.8235294117647058
+   },
+   "long_cycle": {
+    "accuracy_by_step": [
+     1.0,
+     0.333333,
+     0.291667,
+     0.208333,
+     0.083333,
+     0.041667,
+     0.041667,
+     0.333333,
+     0.291667,
+     0.208333,
+     0.083333,
+     0.041667,
+     0.041667,
+     0.333333,
+     0.291667,
+     0.208333,
+     0.083333
+    ],
+    "accuracy_step_16": 0.08333333333333333,
+    "commuting_square_defect_rate": 0.9791666666666666,
+    "defect_by_step": [
+     0.666667,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "exact_trace_valid_1_8_rate": 0.0,
+    "exact_trace_valid_full_rate": 0.0,
+    "heldout_9_16_case_bootstrap_95": [
+     0.140625,
+     0.1875
+    ],
+    "heldout_steps_9_16_accuracy": 0.16145833333333334,
+    "n": 24,
+    "step16_wilson_95": [
+     0.023158327842973503,
+     0.258492152014506
+    ],
+    "trained_steps_1_8_accuracy": 0.203125,
+    "transition_accuracy": 0.08695652173913043
+   },
+   "sink": {
+    "accuracy_by_step": [
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "accuracy_step_16": 1.0,
+    "commuting_square_defect_rate": 0.0,
+    "defect_by_step": [
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "exact_trace_valid_1_8_rate": 1.0,
+    "exact_trace_valid_full_rate": 1.0,
+    "heldout_9_16_case_bootstrap_95": [
+     1.0,
+     1.0
+    ],
+    "heldout_steps_9_16_accuracy": 1.0,
+    "n": 24,
+    "step16_wilson_95": [
+     0.8620194241710247,
+     1
+    ],
+    "trained_steps_1_8_accuracy": 1.0,
+    "transition_accuracy": 1.0
+   }
+  }
+ },
+ "selection": {
+  "diagonal": {
+   "decoder": "linear:0.01",
+   "parameters": 4614,
+   "pool": "block_mean",
+   "trials": [
+    {
+     "calibration_acc_1_8": 0.453125,
+     "cpu_seconds": 4.781,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.946875
+    },
+    {
+     "calibration_acc_1_8": 0.5052083333333334,
+     "cpu_seconds": 1.413,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.9046875
+    },
+    {
+     "calibration_acc_1_8": 0.4947916666666667,
+     "cpu_seconds": 0.464,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.8546875
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.241,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.7921875
+    },
+    {
+     "calibration_acc_1_8": 0.390625,
+     "cpu_seconds": 1.948,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 0,
+     "train_acc_1_8": 0.95625
+    },
+    {
+     "calibration_acc_1_8": 0.4739583333333333,
+     "cpu_seconds": 1.527,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.9484375
+    },
+    {
+     "calibration_acc_1_8": 0.5208333333333334,
+     "cpu_seconds": 1.187,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.9
+    },
+    {
+     "calibration_acc_1_8": 0.5260416666666666,
+     "cpu_seconds": 0.451,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.846875
+    },
+    {
+     "calibration_acc_1_8": 0.4583333333333333,
+     "cpu_seconds": 0.248,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.796875
+    },
+    {
+     "calibration_acc_1_8": 0.4427083333333333,
+     "cpu_seconds": 2.103,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 1,
+     "train_acc_1_8": 0.9671875
+    }
+   ]
+  },
+  "final": {
+   "decoder": "linear:0.0001",
+   "parameters": 4614,
+   "pool": "block_mean",
+   "trials": [
+    {
+     "calibration_acc_1_8": 0.3697916666666667,
+     "cpu_seconds": 1.389,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4166666666666667,
+     "cpu_seconds": 1.438,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4114583333333333,
+     "cpu_seconds": 0.563,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6625
+    },
+    {
+     "calibration_acc_1_8": 0.3333333333333333,
+     "cpu_seconds": 0.268,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6453125
+    },
+    {
+     "calibration_acc_1_8": 0.3385416666666667,
+     "cpu_seconds": 1.781,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.421875,
+     "cpu_seconds": 1.548,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.421875,
+     "cpu_seconds": 1.503,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.421875,
+     "cpu_seconds": 0.742,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6625
+    },
+    {
+     "calibration_acc_1_8": 0.3385416666666667,
+     "cpu_seconds": 0.284,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6453125
+    },
+    {
+     "calibration_acc_1_8": 0.4166666666666667,
+     "cpu_seconds": 2.372,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    }
+   ]
+  },
+  "lastblock": {
+   "decoder": "linear:0.01",
+   "parameters": 4614,
+   "pool": "block_mean",
+   "trials": [
+    {
+     "calibration_acc_1_8": 0.453125,
+     "cpu_seconds": 1.487,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.946875
+    },
+    {
+     "calibration_acc_1_8": 0.5052083333333334,
+     "cpu_seconds": 1.364,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.9046875
+    },
+    {
+     "calibration_acc_1_8": 0.4947916666666667,
+     "cpu_seconds": 0.409,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.8546875
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.236,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.7921875
+    },
+    {
+     "calibration_acc_1_8": 0.390625,
+     "cpu_seconds": 1.737,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 0,
+     "train_acc_1_8": 0.95625
+    },
+    {
+     "calibration_acc_1_8": 0.4739583333333333,
+     "cpu_seconds": 1.461,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.9484375
+    },
+    {
+     "calibration_acc_1_8": 0.5208333333333334,
+     "cpu_seconds": 1.045,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.9
+    },
+    {
+     "calibration_acc_1_8": 0.5260416666666666,
+     "cpu_seconds": 0.431,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.846875
+    },
+    {
+     "calibration_acc_1_8": 0.4583333333333333,
+     "cpu_seconds": 0.254,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.796875
+    },
+    {
+     "calibration_acc_1_8": 0.4427083333333333,
+     "cpu_seconds": 2.093,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 1,
+     "train_acc_1_8": 0.9671875
+    }
+   ]
+  },
+  "pass0": {
+   "decoder": "linear:0.0001",
+   "parameters": 4614,
+   "pool": "last_latent",
+   "trials": [
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.786,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 1.095,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.39,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.187,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.421875,
+     "cpu_seconds": 1.884,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.681,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 1.172,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.376,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.205,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6625
+    },
+    {
+     "calibration_acc_1_8": 0.421875,
+     "cpu_seconds": 1.995,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    }
+   ]
+  },
+  "static": {
+   "decoder": "linear:0.0001",
+   "parameters": 4614,
+   "pool": "last_latent",
+   "trials": [
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.499,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.971,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.383,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.199,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 0,
+     "train_acc_1_8": 0.6625
+    },
+    {
+     "calibration_acc_1_8": 0.421875,
+     "cpu_seconds": 1.764,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 0,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.565,
+     "kind": "linear",
+     "param": 0.0001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 1.058,
+     "kind": "linear",
+     "param": 0.001,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.416,
+     "kind": "linear",
+     "param": 0.01,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    },
+    {
+     "calibration_acc_1_8": 0.4270833333333333,
+     "cpu_seconds": 0.219,
+     "kind": "linear",
+     "param": 0.1,
+     "parameters": 4614,
+     "pool": 1,
+     "train_acc_1_8": 0.6625
+    },
+    {
+     "calibration_acc_1_8": 0.421875,
+     "cpu_seconds": 1.972,
+     "kind": "mlp",
+     "param": 64,
+     "parameters": 49606,
+     "pool": 1,
+     "train_acc_1_8": 0.6640625
+    }
+   ]
+  }
+ },
+ "stepwise_parameters": 222
+}

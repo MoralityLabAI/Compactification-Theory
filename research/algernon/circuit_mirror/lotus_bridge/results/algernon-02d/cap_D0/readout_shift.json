@@ -1,0 +1,58 @@
+{
+ "run_dir": "cap_D0",
+ "cases": 152,
+ "diagonal_9_16": {
+  "readout": "diagonal",
+  "steps": [
+   9,
+   16
+  ],
+  "all_test": {
+   "cases_x_steps": 384,
+   "first_int_is_state_after_k_minus_1": 0.0078125,
+   "first_int_is_state_after_k": 0.013020833333333334,
+   "whole_step_correct": 0.0
+  },
+  "by_family": {
+   "long_cycle": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 0.015625,
+    "first_int_is_state_after_k": 0.026041666666666668,
+    "whole_step_correct": 0.0
+   },
+   "sink": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 0.0,
+    "first_int_is_state_after_k": 0.0,
+    "whole_step_correct": 0.0
+   }
+  }
+ },
+ "diagonal_1_8": {
+  "readout": "diagonal",
+  "steps": [
+   1,
+   8
+  ],
+  "all_test": {
+   "cases_x_steps": 384,
+   "first_int_is_state_after_k_minus_1": 0.09375,
+   "first_int_is_state_after_k": 0.11458333333333333,
+   "whole_step_correct": 0.07552083333333333
+  },
+  "by_family": {
+   "long_cycle": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 0.020833333333333332,
+    "first_int_is_state_after_k": 0.03125,
+    "whole_step_correct": 0.0
+   },
+   "sink": {
+    "cases_x_steps": 192,
+    "first_int_is_state_after_k_minus_1": 0.16666666666666666,
+    "first_int_is_state_after_k": 0.19791666666666666,
+    "whole_step_correct": 0.15104166666666666
+   }
+  }
+ }
+}
