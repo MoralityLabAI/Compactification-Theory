@@ -223,3 +223,50 @@ Phase 4 is still not run: D1 makes no errors up to depth 64, so a corrector has 
   - P must be correct on all 72 clean cases, with every clean pi-decoded trace accepted by the exact checker; otherwise the run is void.
   - A corrector arm under 0.97 clean accuracy is reported as damaging clean runs.
 - **Reported alongside:** trace acceptance per arm, accuracy by j and by family, and the sigma\*/2 and 2 sigma\* conditions.
+
+### H-A3 training diagnostic (recorded 2026-11-07, after training, before any evaluation record was read)
+
+- **The correctors cannot reach the noise.** Measured on D1 on CPU, four calibration cases, loops 1-8:
+  - clean slot RMS is 5.9-7.3, slot 2's norm is 166-207, and the digit rows of the LM head have norms 2.85-3.11;
+  - the clean top-minus-median digit logit is 11.8-15.7;
+  - at sigma\* = 16, the noise has a per-element std of about 105, a slot-2 norm of about 2,900, and about 300 std on each digit logit.
+- **Trained G_C.**
+  - Weights: |w| at most 0.223. Adam at lr 1e-3 for 600 steps bounds each weight's movement at 0.6.
+  - Column norms over all six slots are 3.0-3.6, so the most it can move a digit logit at slot 2 is about 4, two orders of magnitude below the noise at loop j.
+  - The noise at loop j wipes the previous decode. After that, e = p M no longer holds the right successor, so a correction at a later loop cannot recover the state either.
+- **Training loss shows no trend.**
+  - C: mean 13.63 over steps 1-100, 13.64 over the last 100.
+  - I: 13.64 and 13.14.
+  - The batches are identical across arms, and the same-step C - I gap is 0.28 on average.
+- H-A3 is evaluated and reported as registered. H-A3b changes only the corrector's output scale.
+
+## H-A3b: H-A3 with the corrector's output in units of the noise (registered 2026-11-07, before H-A3's evaluation was read)
+
+**Why.** By the diagnostic above, no arm in H-A3 can move pi, so H-A3 cannot test whether the constraint repairs the state. H-A3b asks the same question with correctors that can reach the noise.
+
+**One change.** Every corrector's output is multiplied by a fixed kappa = sigma\* x r, applied at every loop:
+- r is the mean slot RMS of clean D1 runs on the 48 calibration cases (seed 20261108), over loops 1-16;
+- `correct.py scale` measures r before training and writes it to `scale.json`;
+- a corrector weight of 1 then moves a slot element by about one noise std.
+
+**Everything else is H-A3 unchanged:**
+- F and pi;
+- sigma\* = 16, reusing H-A3's calibration: same code, cases and seed;
+- the arms and their inputs, the zero initialisation, and Adam at lr 1e-3 for 600 steps of 8;
+- the training cases, loops and noise;
+- the local loss;
+- the evaluation conditions, the exact checker, the decision rules R1-R3 and the instrument.
+
+The runs go to a new output directory.
+
+**Predictions.**
+- **C repairs: C - P >= 0.10 (R1).** At loop j, e = p_{j-1} M is the true successor, and C's residual is near zero on clean loops.
+- **R2 is not met.**
+  - I can represent C's map exactly (W_e = -W_p).
+  - Writing e alone also suffices on clean loops, because there e = p.
+- **N stays at P.** N sees only the post-noise decode.
+
+**Why the outcome is not settled in advance.**
+- A correction big enough to override the noise inflates the slots' scale. F's residual stream then carries the corrector's vector almost unchanged through the next loop, so the repaired state may stall rather than advance.
+- I and N are nonzero on clean loops and can damage clean runs, which the 0.97 clean floor reports.
+- If R1 fails here too, the conclusion is that, under this recipe, an additive linear corrector on D1's slots cannot use the constraint residual to repair a state wiped at sigma\*.
