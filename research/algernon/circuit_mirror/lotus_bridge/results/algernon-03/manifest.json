@@ -1,0 +1,70 @@
+{
+ "args": {
+  "batch": 8,
+  "calib_cases": 48,
+  "calib_seed": 20261108,
+  "clean_share": 0.25,
+  "cmd": "eval",
+  "cuda_fraction": 0.7,
+  "depth": 16,
+  "device": "cuda:0",
+  "lr": 0.001,
+  "max_train_loop": 7,
+  "min_power_w": 50,
+  "noise_loops": [
+   4,
+   8,
+   12
+  ],
+  "seeds": 4,
+  "steps": 600,
+  "train_seed": 20261107
+ },
+ "code_commit": "f525c9a",
+ "commands": [
+  "python -m research.algernon.circuit_mirror.lotus_bridge.correct calibrate --upstream lotus --base <gpt2 snapshot> --checkpoint D1/final.pt --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json --out run",
+  "python -m research.algernon.circuit_mirror.lotus_bridge.correct train --upstream lotus --base <gpt2 snapshot> --checkpoint D1/final.pt --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json --out run",
+  "python -m research.algernon.circuit_mirror.lotus_bridge.correct eval --upstream lotus --base <gpt2 snapshot> --checkpoint D1/final.pt --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json --out run"
+ ],
+ "correctors_sha256 (kept outside git)": {
+  "G_C.pt": "0747bd25b0962103e4c0b1211361078b89a2aaac578e221af2555f3f76f697b8",
+  "G_I.pt": "286d0245ad562dff73a95e622292771cb17c05e4ad4d14f5baafec74f8f82c7e",
+  "G_N.pt": "d9376dfa8bac6d4f4bf3e0046a434bfb39a09c87d7a3e961cffd04b4a1b33c13"
+ },
+ "environment": {
+  "cuda": "12.8",
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "torch": "2.7.0+cu128",
+  "transformers": "4.46.2"
+ },
+ "experiment": "H-A3",
+ "hardware": {
+  "driver": "577.05",
+  "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+  "vramorama_lease_mib": 4096
+ },
+ "kappa": 1.0,
+ "model": {
+  "F": "02D arm D1 final.pt, frozen",
+  "base": "openai-community/gpt2@607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "fixed_slots": 6,
+  "precision": "fp32",
+  "sha256": "80eda0824cff5ca6133213d47105b6f506cfa16b93abe42e7f842a70ec0253fb",
+  "upstream_lotus": "yingfan-bot/lotus@eb77e2f7909c5006f58ff0ad7cd6629b942caa9e"
+ },
+ "module": "research/algernon/circuit_mirror/lotus_bridge/correct.py",
+ "registered_in": "EXPERIMENT.md, commit f525c9a (before any run)",
+ "repo_receipts_sha256": {
+  "calibrate.json": "7b9f894be5324cddb0390145a6ba3f41275b37284c059b228f3fd6ac79262aa0",
+  "eval.json": "272f2b7e8c30ff431021ad6c93b245b1bb8a6507096998577e0eb87073ae9d0c",
+  "train.json": "07128506c51daab1fe890733fe7520ff28f908cb3b8072a0b3a4d1f10be9cb2c"
+ },
+ "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+ "run_dir_receipts_sha256": {
+  "calibrate.json": "8c1d1762c8761ff5d51b6ad9d8fd09ae1da98cf2c46bd2414cf4570cad4ec26f",
+  "eval.json": "dfbadc92505001262841613204a1076039eb98b0cf7bac6643d0c03aefa0ec7e",
+  "train.json": "d050d07f4abde599a6bb19deabcf4b8ebcbf9ede12b8a6309b910f8d34663929"
+ },
+ "sigma_star": 16.0
+}

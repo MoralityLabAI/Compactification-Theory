@@ -240,6 +240,19 @@ Phase 4 is still not run: D1 makes no errors up to depth 64, so a corrector has 
   - The batches are identical across arms, and the same-step C - I gap is 0.28 on average.
 - H-A3 is evaluated and reported as registered. H-A3b changes only the corrector's output scale.
 
+**H-A3 Result (2026-11-07, code `f525c9a`, weights `80eda0824cff`, sigma\* = 16): R1, R2 and R3 not met; instrument valid.**
+
+- *Primary condition* (864 runs per arm): P 0.494, C 0.487, I 0.505, N 0.500.
+  - C - P = -0.007 [-0.028, +0.016]
+  - C - I = -0.017 [-0.043, +0.008]
+  - C - N = -0.013 [-0.031, +0.006]
+- *Clean:* every arm answers 72 of 72. P's clean decoded traces are all accepted by the exact checker; I's clean trace acceptance is 0.958, with three rejected traces whose answers are still correct.
+- *Trace acceptance under the primary condition:* P 0.073, C 0.104, I 0.101, N 0.014.
+- *By family:* `sink` is 1.000 in every arm and condition; `long_cycle` is 0.13-0.16.
+- By the diagnostic above, no corrector reaches the noise, so H-A3 does not test the constraint. H-A3b does.
+
+Report: [lotus_bridge/results/algernon-03/report.md](lotus_bridge/results/algernon-03/report.md).
+
 ## H-A3b: H-A3 with the corrector's output in units of the noise (registered 2026-11-07, before H-A3's evaluation was read)
 
 **Why.** By the diagnostic above, no arm in H-A3 can move pi, so H-A3 cannot test whether the constraint repairs the state. H-A3b asks the same question with correctors that can reach the noise.
