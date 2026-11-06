@@ -131,3 +131,31 @@ The one deviation from this registration is gradient accumulation: each 128-row 
 - D1 answers all 1,152 roster cases correctly at every depth 1-16 with d loops; the 02C arm A context figure is 0.630 held-out over 9-16.
 
 D0 was stopped at its epoch-4 checkpoint for a hardware upgrade and resumed; the first resumed step matched the logged loss and gradient norm exactly. `analysis.py` ran unchanged. Its native-readout row scores the first integer of `<<s->t>>` (the state before the step) as the state after it; the whole-step re-scoring is the post-hoc diagnostic `readout_shift.py` and enters no decision. Report: [lotus_bridge/results/algernon-02d/report.md](lotus_bridge/results/algernon-02d/report.md).
+
+## H-A2e: how far D1's transition runs, and whether its slots carry the state (registered 2026-11-06, before any run)
+
+**Why.**
+- 02D's arm D1 answers every roster case at every depth 1-16.
+- Phase 4 of the original brief (constraint-guided correction, compared with plain recurrence at matched compute) needs a regime where the plain recurrence fails. At depth 16 there is none.
+- The 02B gate is a readout. It shows the state is decodable from the slots after every loop, not that the answer depends on it.
+
+**Model.** The 02D D1 weights (`80eda0824cff`), fp32, no training. Code: `lotus_bridge/slot_patch.py`.
+
+**1. Depth beyond 16.**
+- Setup: the no-count question, one block of 6 slots and d loops, for d in {16, 20, 24, 32, 48, 64}, on the 72 calibration and held-out roster cases.
+- The truth is the map iterated d times from the start.
+- The largest absolute slot activation after the last loop is recorded per prompt.
+- Reported: accuracy by family and depth, and "holds to depth D", the largest tested D with `long_cycle` accuracy at least 0.95 at every tested depth up to D. This part is descriptive; it has no pass/fail.
+
+**2. Causal slot patching**, at d = 16 and k in {4, 8, 12}.
+- **Recipients:** the 48 cases with bijective maps (24 `permutation` calibration, 24 `long_cycle` held-out). On these, different states stay different under the map.
+- **Donors:** for each recipient A and each k, the donor B is the first case, in a seeded order over all 72 non-train cases (`random.Random(f"20261106:{A}:{k}")`), for which three states are pairwise different:
+  - "follow": A's map iterated 16 - k times from B's state after k steps;
+  - A's own answer;
+  - B's own answer.
+- **Intervention:** the hidden states of A's six slots after loop k are replaced by B's after loop k, both taken from unpatched 16-loop runs. A then runs on to 16 loops.
+- **Instrument check:** a self-patch (A's own states after loop k) must reproduce A's unpatched answer in every pair; otherwise the patching result is void.
+- **Decision, "the slots carry the pointer state":** answers equal "follow" in at least 0.80 of the (A, k) pairs, with a Wilson 95% lower bound above 0.5, and equal A's own answer in at most 0.10.
+- **Reported alongside:** the rate equal to B's own answer, and the rates by k.
+
+Phase 4 itself is not registered here. It needs a depth or input regime from part 1 where the plain recurrence fails.
