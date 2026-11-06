@@ -159,3 +159,16 @@ D0 was stopped at its epoch-4 checkpoint for a hardware upgrade and resumed; the
 - **Reported alongside:** the rate equal to B's own answer, and the rates by k.
 
 Phase 4 itself is not registered here. It needs a depth or input regime from part 1 where the plain recurrence fails.
+
+**Result (2026-11-06, code `2c8589a`, weights `80eda0824cff`): the slots carry the pointer state.**
+
+- *Depth*: all 432 prompts correct, the 72 calibration and held-out cases at d = 16, 20, 24, 32, 48 and 64, so the transition holds to depth 64. The largest slot activation after the last loop is 197.55 at every depth.
+- *Patching at d = 16, k in {4, 8, 12}, 144 (recipient, k) pairs, every pair with a donor*:
+  - answer = "follow" in 141, 0.979 [0.941, 0.993];
+  - answer = the recipient's own in 3, 0.021;
+  - answer = the donor's own in 0;
+  - self-patch reproduces the unpatched answer in 144 of 144.
+  - The registered decision, `slots_carry_state`, is positive.
+- Post hoc: all three misses are recipients whose start state maps to itself. The 132 pairs without a fixed-point start follow in 132.
+
+Phase 4 is still not run: D1 makes no errors up to depth 64, so a corrector has nothing to correct in this regime. Report: [lotus_bridge/results/algernon-02e/report.md](lotus_bridge/results/algernon-02e/report.md).

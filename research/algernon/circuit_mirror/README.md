@@ -1,6 +1,6 @@
 # Algernon-02: Circuit Mirror
 
-**Status (2026-11-06): CPU prototype executed. The LOTUS bridge failed its registered gate (`no_iterative_state_signal`) on the published 3B checkpoint (02B) and on GPT-2 trained with LOTUS's own recipe (02C). It passed (`recurrence_specific_state`) in 02D, where the step count was removed from the question and GPT-2 refined one fixed set of latent slots once per loop with per-loop supervision: that model answers every roster case at every depth 1-16 after training to depth 8. Reports are indexed in [lotus_bridge/results/README.md](lotus_bridge/results/README.md). No Qwenputer, Circom binary or SNARK proof was executed here.**
+**Status (2026-11-06): CPU prototype executed. The LOTUS bridge failed its registered gate (`no_iterative_state_signal`) on the published 3B checkpoint (02B) and on GPT-2 trained with LOTUS's own recipe (02C). It passed (`recurrence_specific_state`) in 02D, where the step count was removed from the question and GPT-2 refined one fixed set of latent slots once per loop with per-loop supervision: that model answers every roster case at every depth 1-16 after training to depth 8, stays correct to 64 loops, and its slots are causal: patching in another case's slot state redirects the answer along the question's map (02E). Reports are indexed in [lotus_bridge/results/README.md](lotus_bridge/results/README.md). No Qwenputer, Circom binary or SNARK proof was executed here.**
 
 ## Hypothesis
 

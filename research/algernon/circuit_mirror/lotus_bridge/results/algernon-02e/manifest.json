@@ -1,0 +1,62 @@
+{
+ "experiment": "H-A2e",
+ "registered_in": "EXPERIMENT.md, commit 2c8589a (before any run)",
+ "code_commit": "2c8589a",
+ "module": "research/algernon/circuit_mirror/lotus_bridge/slot_patch.py",
+ "model": {
+  "weights": "02D arm D1 final.pt",
+  "sha256": "80eda0824cff5ca6133213d47105b6f506cfa16b93abe42e7f842a70ec0253fb",
+  "base": "openai-community/gpt2@607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "upstream_lotus": "yingfan-bot/lotus@eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
+  "precision": "fp32",
+  "fixed_slots": 6
+ },
+ "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+ "seed": 20261106,
+ "depths": [
+  16,
+  20,
+  24,
+  32,
+  48,
+  64
+ ],
+ "patch_depth": 16,
+ "patch_loops": [
+  4,
+  8,
+  12
+ ],
+ "hardware": {
+  "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+  "driver": "577.05",
+  "vramorama_lease_mib": 4096
+ },
+ "environment": {
+  "python": "3.12.10",
+  "torch": "2.7.0+cu128",
+  "cuda": "12.8",
+  "transformers": "4.46.2",
+  "os": "Windows-11-10.0.26200"
+ },
+ "runs": {
+  "depth": {
+   "started": "2026-11-06T22:23",
+   "finished": "2026-11-06T22:29:15",
+   "prompts": 432
+  },
+  "patch": {
+   "started": "2026-11-06T22:29:33",
+   "finished": "2026-11-06T22:31:25",
+   "runs": "48 unpatched recipients, 144 donor patches, 144 self-patches"
+  }
+ },
+ "commands": [
+  "python -m research.algernon.circuit_mirror.lotus_bridge.slot_patch depth --upstream lotus --base <gpt2 snapshot> --checkpoint D1/final.pt --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json --out depth",
+  "python -m research.algernon.circuit_mirror.lotus_bridge.slot_patch patch --upstream lotus --base <gpt2 snapshot> --checkpoint D1/final.pt --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json --out patch"
+ ],
+ "receipts_sha256": {
+  "depth.json": "3b262f1368cdd314eb71281b1aeead3066c8c44bbb5cc45208d8135a7f19e3d8",
+  "patch.json": "4caa9cf7f847ee0de43d833595ce61ee7efaf414b7af30470f64866ec7b51bb4"
+ }
+}
