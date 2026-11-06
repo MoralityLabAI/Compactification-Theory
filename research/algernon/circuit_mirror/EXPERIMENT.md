@@ -283,3 +283,46 @@ The runs go to a new output directory.
 - A correction big enough to override the noise inflates the slots' scale. F's residual stream then carries the corrector's vector almost unchanged through the next loop, so the repaired state may stall rather than advance.
 - I and N are nonzero on clean loops and can damage clean runs, which the 0.97 clean floor reports.
 - If R1 fails here too, the conclusion is that, under this recipe, an additive linear corrector on D1's slots cannot use the constraint residual to repair a state wiped at sigma\*.
+
+### H-A3b training diagnostic (recorded 2026-11-07, after C finished training, before any H-A3b evaluation)
+
+- **Scale:** kappa = 110.78. The mean clean slot RMS is 6.92, over 768 loops of the 48 calibration cases.
+- **C's training loss rose.** On batches identical to H-A3's, mean loss per 100 steps (steps 1-100, then each later hundred):
+
+  | | 1-100 | 101-200 | 201-300 | 301-400 | 401-500 | 501-600 |
+  | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+  | H-A3b C | 17.3 | 25.7 | 28.3 | 29.3 | 29.3 | 27.3 |
+  | H-A3 C | 13.6 | 14.2 | 14.1 | 14.7 | 13.9 | 13.6 |
+
+- **The trained G_C.** |w| is at most 0.084 and the column norms are 1.33-1.70. The bias has norm 1.79, which kappa turns into a constant push of norm about 198 added to the slots after every loop, whatever the input.
+- **Post-hoc CPU check, six calibration cases, not the eval roster.** With C, pi's decoded trace collapses onto one digit on clean runs, for example `2222...` where the truth is `2052052...`. The generated answer is still right in three of the six.
+  - On clean loops, C's input e - p is near zero, so the bias is its only active term.
+  - The registered corrector therefore breaks the defining property of correction from a constraint residual: a satisfied constraint should produce no correction.
+- H-A3b runs to completion and is reported as registered.
+
+## H-A3c: H-A3b with bias-free correctors (registered 2026-11-07, before H-A3b's evaluation ran)
+
+**Why.** The diagnostic above shows that H-A3b's correctors add a constant push of norm about 198 to the slots on every loop. For C, that makes the correction nonzero even when the constraint holds. H-A3c asks H-A3b's question with correctors that map zero input to zero output.
+
+**One change.** Every corrector is a linear map with no bias term: C, I and N alike, with zero initialisation as before.
+- C, I and N then have 36, 72 and 36 parameters per slot element: 27,648, 55,296 and 27,648 parameters in all.
+- C's correction now vanishes when e = p, up to the softmax residue of a sharp decode.
+
+**Everything else is H-A3b unchanged:**
+- F and pi;
+- sigma\* = 16;
+- kappa = 110.78, reusing H-A3b's `scale.json`;
+- the arms' inputs, Adam at lr 1e-3, 600 steps of 8;
+- the training cases, loops and noise;
+- the local loss;
+- the evaluation conditions, the exact checker, R1-R3 and the instrument.
+
+The runs go to a new output directory.
+
+**Predictions.**
+- **C does not damage clean runs.**
+- **R1 C - P >= 0.10:** open.
+  - The scale is now within reach: C's trained H-A3b weights, at column norms of about 1.5, already move slot 2 by roughly the noise's projection on the digit logits.
+  - Whether F continues correctly from a corrected but inflated slot state is the open part.
+- **R2 is not met.** I can represent C's map.
+- **N stays at or below P.**
