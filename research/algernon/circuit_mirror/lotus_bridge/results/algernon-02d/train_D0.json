@@ -1,0 +1,149 @@
+{
+  "after_loop": false,
+  "argv": [
+    "train_lotus.py",
+    "--upstream",
+    "lotus",
+    "--base",
+    "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+    "--data-dir",
+    "data",
+    "--phase",
+    "loop",
+    "--init",
+    "final.pt",
+    "--epochs",
+    "16",
+    "--c-thought",
+    "6",
+    "--intermediate-loss-weight",
+    "0",
+    "--out",
+    "D0"
+  ],
+  "attempts": 1,
+  "base": {
+    "model_id": "openai-community/gpt2",
+    "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
+  },
+  "c_thought": 6,
+  "data": {
+    "parameters": {
+      "counterfactual_sha256": "ddb5216f14b63c27b21af6aa8062e672d1e444be7f469159123318a31410bc2b",
+      "family": "random_function",
+      "generator_calls": 21346,
+      "max_depth": 8,
+      "n": 6,
+      "n_train": 20000,
+      "n_val": 512,
+      "prompt": "nocount",
+      "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+      "seed": 20261105
+    },
+    "train_sha256": "2dbe58737c7a56c352e124ecc38466b1acdd05ad595f077d27cddb4c464e27fb",
+    "val_sha256": "c97512fbb4619866897ac5969f623f11a302f2964c2d2ce0c1d200b2d1ab7e3d"
+  },
+  "epochs_done": [
+    {
+      "epoch": 0,
+      "seconds": 868.3,
+      "stage": "loop",
+      "train_loss_mean": 0.49533457274236226,
+      "val_accuracy": 0.625,
+      "val_accuracy_by_depth": {
+        "1": 0.5714285714285714,
+        "2": 0.6666666666666666,
+        "3": 0.625,
+        "4": 0.6666666666666666,
+        "5": 0.5,
+        "6": 0.5555555555555556,
+        "7": 0.875,
+        "8": 0.5555555555555556
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 1,
+      "seconds": 959.9,
+      "stage": "loop",
+      "train_loss_mean": 0.28653044257187404,
+      "val_accuracy": 0.546875,
+      "val_accuracy_by_depth": {
+        "1": 0.7142857142857143,
+        "2": 0.6666666666666666,
+        "3": 0.375,
+        "4": 0.6666666666666666,
+        "5": 0.625,
+        "6": 0.4444444444444444,
+        "7": 0.375,
+        "8": 0.5555555555555556
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 2,
+      "seconds": 935.4,
+      "stage": "loop",
+      "train_loss_mean": 0.2265542114427693,
+      "val_accuracy": 0.65625,
+      "val_accuracy_by_depth": {
+        "1": 0.8571428571428571,
+        "2": 1.0,
+        "3": 0.5,
+        "4": 0.7777777777777778,
+        "5": 0.5,
+        "6": 0.4444444444444444,
+        "7": 0.75,
+        "8": 0.5555555555555556
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 3,
+      "seconds": 924.0,
+      "stage": "loop",
+      "train_loss_mean": 0.18997763124292383,
+      "val_accuracy": 0.734375,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 0.8333333333333334,
+        "3": 0.75,
+        "4": 0.6666666666666666,
+        "5": 0.625,
+        "6": 0.7777777777777778,
+        "7": 0.75,
+        "8": 0.5555555555555556
+      },
+      "val_n": 64
+    }
+  ],
+  "faults": [],
+  "fixed_slots": 6,
+  "hyper": {
+    "batch": 128,
+    "clip": 1.0,
+    "cuda_fraction": 0.6,
+    "epochs": 16,
+    "epochs_per_stage": 1,
+    "extend_below": 0.95,
+    "extend_to": 0,
+    "lr": 0.0001,
+    "micro_batch": 8,
+    "seed": 0,
+    "tf32": "on",
+    "weight_decay": 0.01
+  },
+  "init_sha256": "1bc71aa4ce96b7099584372eef216875099ccdcf0acb1b83361b2df6dbd68c47",
+  "intermediate_loss_weight": 0.0,
+  "max_latent_stage": 8,
+  "patched_lotus_sha256": "ffd4e4ef6138a324c51028089ab36ec1ad432c2ab565686ace52c9205d9f4afe",
+  "pauses": [],
+  "phase": "loop",
+  "schema_version": "algernon-02c-train-v1",
+  "status": "running",
+  "upstream": {
+    "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
+    "dataset_py_sha256": "77fb76df548da929a5a5d950f2036c69d10e0d422a0201dbcd7b50e53850b702",
+    "lotus_py_sha256": "64db7d12218e246814d1e072ffa8a0deff7b9bd8c1211aae3530c6c875a92188"
+  }
+}
