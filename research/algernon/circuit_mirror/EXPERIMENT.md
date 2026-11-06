@@ -172,3 +172,54 @@ Phase 4 itself is not registered here. It needs a depth or input regime from par
 - Post hoc: all three misses are recipients whose start state maps to itself. The 132 pairs without a fixed-point start follow in 132.
 
 Phase 4 is still not run: D1 makes no errors up to depth 64, so a corrector has nothing to correct in this regime. Report: [lotus_bridge/results/algernon-02e/report.md](lotus_bridge/results/algernon-02e/report.md).
+
+## H-A3 (Phase 4): constraint-guided correction of D1's slot state under noise (registered 2026-11-06, before any run)
+
+**Why.** H-A2e showed that D1's six slots carry the pointer state and that its plain recurrence makes no errors up to 64 loops. Phase 4 of the brief compares plain recurrence with constraint-guided recurrence at matched compute. It needs a regime where the plain recurrence fails, so this experiment corrupts the slot state and asks whether an exact transition constraint, fed back into the loop, repairs it. The control arms get the same information without the constraint.
+
+**Model.**
+- F is the 02D D1 weights (`80eda0824cff`), frozen, fp32.
+- pi is D1's own LM head on slot 2. That slot spells the state after the step (`<<s->t>>`), so pi takes the logits over the digit tokens 0-5 and normalises them; there is no trained probe.
+- Code: `lotus_bridge/correct.py`.
+
+**Corruption.** After loop j, Gaussian noise of scale sigma times the slots' RMS is added to the six slots. The noise is seeded per case, condition, loop and seed, and is identical across arms.
+
+**Arms.** After every loop k, before the next loop reads the slots, each corrector arm adds G(x) to them. G is one linear map to 6 x 768, initialised at zero. Notation: e_k = p_{k-1} M is the map applied to the previous decoded distribution (p_0 is the question's start state), and p_k = pi(slots after loop k, after the noise).
+
+| arm | G input x | what it has |
+| --- | --- | --- |
+| P | no corrector | plain recurrence |
+| C | e_k - p_k | the soft residual of the trace constraint s_k = f(s_{k-1}) |
+| I | [e_k, p_k] | the same two vectors unsubtracted: every bit of information C has, without the constraint's form |
+| N | p_k | the decoded state only, no map |
+
+- **Matched compute.** Every arm runs the same 16 loops of F. A corrector adds a 6-way readout and one small linear map per loop. C and N have 32,256 parameters and I has 59,904.
+- **The violation signal and the gold successor.** C's residual exposes f of the previous decoded state, and I receives exactly that vector too.
+
+**Training.**
+- One G per corrector arm, all with the same recipe.
+- Data: `random_function` maps on 6 nodes from `spec.case`, seed 20261107, excluding the frozen roster and counterfactual.
+- Schedule: 600 steps of 8 cases, Adam at lr 1e-3. j is uniform in 1..7, and 25% of cases get no noise.
+- Loss: cross-entropy of pi on the corrected slots after loop j and after loop j + 1 against the true states, backpropagated through F's loops into G only.
+- This loss is the differentiable surrogate. The exact finite-field check is used only in evaluation.
+
+**sigma\*.** Plain recurrence is run on 48 generated `random_function` cases (seed 20261108, not the roster) at d = 16 with j in {4, 8, 12}, for each sigma in {0.25, 0.5, 1, 2, 4, 8, 16}. sigma\* is the sigma whose plain answer accuracy is closest to 0.5, the smaller on a tie. It is fixed before training.
+
+**Evaluation.**
+- Cases: the frozen roster's 72 calibration and held-out cases, at d = 16.
+- Conditions, every arm:
+  - clean (no noise);
+  - primary: sigma\* with j in {4, 8, 12} and 4 noise seeds, 864 runs per arm;
+  - sigma\*/2 and 2 sigma\* with one seed each.
+- Scored:
+  - the answer;
+  - whole-trace acceptance: the pi-decoded 16-step trace checked against the public machine by the exact BN254 R1CS checker in `spec.py`.
+
+**Decision rules,** on the primary condition. Each difference is an arm's mean answer accuracy per case, differenced across arms, with a case-bootstrap 95% interval over the 72 cases.
+- **R1 Constraint-guided correction repairs the state:** C - P >= 0.10, lower bound > 0.
+- **R2 The constraint's form adds beyond its information:** C - I >= 0.05, lower bound > 0.
+- **R3 Repair needs the map:** C - N >= 0.10, lower bound > 0.
+- **Instrument:**
+  - P must be correct on all 72 clean cases, with every clean pi-decoded trace accepted by the exact checker; otherwise the run is void.
+  - A corrector arm under 0.97 clean accuracy is reported as damaging clean runs.
+- **Reported alongside:** trace acceptance per arm, accuracy by j and by family, and the sigma\*/2 and 2 sigma\* conditions.
