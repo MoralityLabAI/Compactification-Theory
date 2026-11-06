@@ -1,6 +1,6 @@
 # Algernon-02D progress: loop count as the only depth signal, fixed latent slots
 
-Rendered 2026-11-06 21:34 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `running depthD1 2026-11-06T21:32:50`.
+Rendered 2026-11-06 21:45 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `running depthD0 2026-11-06T21:44:30`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `2dbe58737c7a`, validation `c97512fbb461`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
@@ -50,9 +50,13 @@ Status `complete`; process starts 2; power-cap pauses 0; out-of-memory pauses 0.
 | 14 | loop | 0.1616 | 64 | 0.672 | 0.57 | 1.00 | 0.62 | 0.89 | 0.75 | 0.44 | 0.62 | 0.56 | 35.1 |
 | 15 | loop | 0.2185 | 512 | 0.639 | 0.69 | 0.62 | 0.48 | 0.70 | 0.70 | 0.62 | 0.69 | 0.60 | 36.7 |
 
-### Behavioural depth curve
+### Behavioural depth curve (frozen roster, held-out families, depth d)
 
-Not run yet.
+| model | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | held-out 9-16 [95% CI] | long_cycle 9-16 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| D1 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.00 | 1.000 [1.00, 1.00] | 1.000 |
+
+No step count in the question; one block of 6 fixed slots and exactly d loops.
 
 ### 02B instrument on the trained arms
 
