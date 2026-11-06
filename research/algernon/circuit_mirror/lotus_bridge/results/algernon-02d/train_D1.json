@@ -21,7 +21,7 @@
     "--out",
     "D1"
   ],
-  "attempts": 4,
+  "attempts": 7,
   "base": {
     "model_id": "openai-community/gpt2",
     "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e"
@@ -223,6 +223,78 @@
         "8": 1.0
       },
       "val_n": 64
+    },
+    {
+      "epoch": 10,
+      "seconds": 559.1,
+      "stage": "loop",
+      "train_loss_mean": 3.936599408417538e-05,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 11,
+      "seconds": 157.6,
+      "stage": "loop",
+      "train_loss_mean": 2.4714648315674973e-05,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 12,
+      "seconds": 855.2,
+      "stage": "loop",
+      "train_loss_mean": 2.1395413951957582e-05,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 13,
+      "seconds": 860.5,
+      "stage": "loop",
+      "train_loss_mean": 1.971923795349016e-05,
+      "val_accuracy": 1.0,
+      "val_accuracy_by_depth": {
+        "1": 1.0,
+        "2": 1.0,
+        "3": 1.0,
+        "4": 1.0,
+        "5": 1.0,
+        "6": 1.0,
+        "7": 1.0,
+        "8": 1.0
+      },
+      "val_n": 64
     }
   ],
   "faults": [],
@@ -261,11 +333,19 @@
     {
       "at": "2026-11-06T07:53:45+0800",
       "reason": "epoch 10 step 38: GPU power-capped at 15 W"
+    },
+    {
+      "at": "2026-11-06T08:28:15+0800",
+      "reason": "epoch 11 step 64: GPU power-capped at 15 W"
+    },
+    {
+      "at": "2026-11-06T08:38:09+0800",
+      "reason": "epoch 11 step 122: GPU power-capped at 15 W"
     }
   ],
   "phase": "loop",
   "schema_version": "algernon-02c-train-v1",
-  "status": "paused_power_cap",
+  "status": "running",
   "upstream": {
     "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
     "dataset_py_sha256": "77fb76df548da929a5a5d950f2036c69d10e0d422a0201dbcd7b50e53850b702",
