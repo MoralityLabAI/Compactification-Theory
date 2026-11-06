@@ -1,12 +1,12 @@
 # Algernon-02D progress: loop count as the only depth signal, fixed latent slots
 
-Rendered 2026-11-06 20:26 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `running D0 2026-11-06T17:19:09`.
+Rendered 2026-11-06 21:34 +0800 from the run directory by `report_02c.py`. Protocol: [EXPERIMENT.md, H-A2d](../../../EXPERIMENT.md#h-a2d-loop-count-as-the-only-depth-signal-one-fixed-set-of-latent-slots-registered-2026-11-06-before-any-training). Chain status: `running depthD1 2026-11-06T21:32:50`.
 
 Data: 20000 train / 512 validation `random_function` cases, depth 1-8, seed 20261105; train `2dbe58737c7a`, validation `c97512fbb461`. Validation accuracy is the model's final answer with its trained blocks and loops.
 
 ### Arm D1: per-loop supervision of the fixed slots (weight 0.05)
 
-Status `complete`; process starts 9; power-cap pauses 7; out-of-memory pauses 0. Final weights `80eda0824cff` after 16 epochs.
+Status `complete`; process starts 9; power-cap pauses 7; out-of-memory pauses 0. Final weights `80eda0824cff` after 16 epochs. Training validity (registered: final validation at depths 1-8 at least 0.90): 1.000 on 512, valid.
 
 | epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -29,7 +29,7 @@ Status `complete`; process starts 9; power-cap pauses 7; out-of-memory pauses 0.
 
 ### Arm D0: answer only (weight 0)
 
-Status `running`; process starts 2; power-cap pauses 0; out-of-memory pauses 0.
+Status `complete`; process starts 2; power-cap pauses 0; out-of-memory pauses 0. Final weights `ec9650544ab6` after 16 epochs. Training validity (registered: final validation at depths 1-8 at least 0.90): 0.639 on 512, `training_failed`.
 
 | epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |
 | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -47,6 +47,8 @@ Status `running`; process starts 2; power-cap pauses 0; out-of-memory pauses 0.
 | 11 | loop | 0.1288 | 64 | 0.766 | 1.00 | 1.00 | 0.62 | 0.67 | 0.75 | 0.89 | 0.62 | 0.67 | 14.5 |
 | 12 | loop | 0.1343 | 64 | 0.766 | 1.00 | 1.00 | 0.88 | 0.56 | 0.62 | 0.67 | 0.75 | 0.78 | 21.6 |
 | 13 | loop | 0.1304 | 64 | 0.781 | 1.00 | 1.00 | 0.88 | 0.67 | 0.50 | 0.67 | 0.88 | 0.78 | 35.4 |
+| 14 | loop | 0.1616 | 64 | 0.672 | 0.57 | 1.00 | 0.62 | 0.89 | 0.75 | 0.44 | 0.62 | 0.56 | 35.1 |
+| 15 | loop | 0.2185 | 512 | 0.639 | 0.69 | 0.62 | 0.48 | 0.70 | 0.70 | 0.62 | 0.69 | 0.60 | 36.7 |
 
 ### Behavioural depth curve
 

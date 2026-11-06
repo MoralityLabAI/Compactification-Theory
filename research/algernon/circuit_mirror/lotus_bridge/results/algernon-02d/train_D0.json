@@ -295,9 +295,47 @@
         "8": 0.7777777777777778
       },
       "val_n": 64
+    },
+    {
+      "epoch": 14,
+      "seconds": 2108.7,
+      "stage": "loop",
+      "train_loss_mean": 0.161598981013046,
+      "val_accuracy": 0.671875,
+      "val_accuracy_by_depth": {
+        "1": 0.5714285714285714,
+        "2": 1.0,
+        "3": 0.625,
+        "4": 0.8888888888888888,
+        "5": 0.75,
+        "6": 0.4444444444444444,
+        "7": 0.625,
+        "8": 0.5555555555555556
+      },
+      "val_n": 64
+    },
+    {
+      "epoch": 15,
+      "seconds": 2201.1,
+      "stage": "loop",
+      "train_loss_mean": 0.21845768101918925,
+      "val_accuracy": 0.638671875,
+      "val_accuracy_by_depth": {
+        "1": 0.6865671641791045,
+        "2": 0.625,
+        "3": 0.47540983606557374,
+        "4": 0.696969696969697,
+        "5": 0.7049180327868853,
+        "6": 0.6212121212121212,
+        "7": 0.6935483870967742,
+        "8": 0.6
+      },
+      "val_n": 512
     }
   ],
+  "epochs_trained": 16,
   "faults": [],
+  "final_sha256": "ec9650544ab6b31e645ed1d7249c1e82477b5608f59ad1231d34c516b2354ea7",
   "fixed_slots": 6,
   "hyper": {
     "batch": 128,
@@ -320,7 +358,7 @@
   "pauses": [],
   "phase": "loop",
   "schema_version": "algernon-02c-train-v1",
-  "status": "running",
+  "status": "complete",
   "upstream": {
     "commit": "eb77e2f7909c5006f58ff0ad7cd6629b942caa9e",
     "dataset_py_sha256": "77fb76df548da929a5a5d950f2036c69d10e0d422a0201dbcd7b50e53850b702",

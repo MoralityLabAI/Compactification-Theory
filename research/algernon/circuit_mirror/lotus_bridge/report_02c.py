@@ -30,7 +30,8 @@ EXPERIMENTS = {
             "depths": (("depth_D1", "D1"), ("depth_D0", "D0")),
             "caps": (("cap_D1", "D1"), ("cap_D0", "D0")),
             "decision": ("does per-loop supervision matter?", "D1 minus D0"),
-            "loops_note": "No step count in the question; one block of 6 fixed slots and exactly d loops."},
+            "loops_note": "No step count in the question; one block of 6 fixed slots and exactly d loops.",
+            "validity_min": 0.90},
 }
 
 
@@ -42,7 +43,7 @@ def load(p: Path):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
-def phase_section(name, title, m):
+def phase_section(name, title, m, validity_min=None):
     if m is None:
         return [f"### {title}", "", "Not started.", ""]
     lines = [f"### {title}", "",
@@ -50,6 +51,11 @@ def phase_section(name, title, m):
              f"out-of-memory pauses {len(m.get('faults', []))}."]
     if m.get("final_sha256"):
         lines[-1] += f" Final weights `{m['final_sha256'][:12]}` after {m['epochs_trained']} epochs."
+    if validity_min is not None and m["status"] == "complete" and m["epochs_done"]:
+        last = max(m["epochs_done"], key=lambda e: e["epoch"])
+        ok = last["val_accuracy"] >= validity_min
+        lines[-1] += (f" Training validity (registered: final validation at depths 1-8 at least {validity_min:.2f}): "
+                      f"{last['val_accuracy']:.3f} on {last['val_n']}, " + ("valid." if ok else "`training_failed`."))
     lines += ["", "| epoch | stage | train loss | val n | val acc | depth 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | minutes (last process) |",
               "| ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |"]
     for e in sorted(m["epochs_done"], key=lambda e: e["epoch"]):
@@ -67,7 +73,7 @@ def depth_section(curves, note):
     rows = [(label, c) for label, c in curves if c]
     if not rows:
         return ["### Behavioural depth curve", "", "Not run yet.", ""]
-    lines = ["### Behavioural depth curve (frozen roster, held-out families, d steps asked)", "",
+    lines = ["### Behavioural depth curve (frozen roster, held-out families, depth d)", "",
              "| model | " + " | ".join(str(d) for d in range(1, 17)) + " | held-out 9-16 [95% CI] | long_cycle 9-16 |",
              "| --- |" + " ---: |" * 18]
     for label, c in rows:
@@ -122,7 +128,7 @@ def main():
                   "Validation accuracy is the model's final answer with its trained blocks and loops.", ""]
     for name, title in X["phases"]:
         m = load(root / name / "train_manifest.json")
-        lines += phase_section(name, title, m)
+        lines += phase_section(name, title, m, X.get("validity_min"))
         if m:
             shutil.copyfile(root / name / "train_manifest.json", a.out / f"train_{name}.json")
     curves = [(label, load(root / d / "depth_curve.json")) for d, label in X["depths"]]
