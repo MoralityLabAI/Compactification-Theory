@@ -38,6 +38,8 @@ class PromptTests(unittest.TestCase):
         new = patched_source(Path(UPSTREAM))
         diff = [(a, b) for a, b in zip(orig.splitlines(), new.splitlines()) if a != b]
         self.assertEqual(diff, [(PATCH_FROM.rstrip("\n"), PATCH_TO.rstrip("\n"))])
+        if torch is None:
+            self.skipTest("importing the patched module needs torch")
         module, sha = patched_lotus_module(Path(UPSTREAM))
         self.assertTrue(hasattr(module, "Lotus") and len(sha) == 64)
 

@@ -43,6 +43,13 @@ def load(p: Path):
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
+def training_failed(m, validity_min):
+    """True when a finished arm's final validation is under the registered threshold."""
+    if validity_min is None or not m or m["status"] != "complete" or not m["epochs_done"]:
+        return False
+    return max(m["epochs_done"], key=lambda e: e["epoch"])["val_accuracy"] < validity_min
+
+
 def phase_section(name, title, m, validity_min=None):
     if m is None:
         return [f"### {title}", "", "Not started.", ""]
@@ -126,9 +133,12 @@ def main():
         lines += [f"Data: {p['n_train']} train / {p['n_val']} validation `{p['family']}` cases, depth 1-{p['max_depth']}, "
                   f"seed {p['seed']}; train `{data['train_sha256'][:12]}`, validation `{data['val_sha256'][:12]}`. "
                   "Validation accuracy is the model's final answer with its trained blocks and loops.", ""]
+    failed = []
     for name, title in X["phases"]:
         m = load(root / name / "train_manifest.json")
         lines += phase_section(name, title, m, X.get("validity_min"))
+        if training_failed(m, X.get("validity_min")):
+            failed.append(name)
         if m:
             shutil.copyfile(root / name / "train_manifest.json", a.out / f"train_{name}.json")
     curves = [(label, load(root / d / "depth_curve.json")) for d, label in X["depths"]]
@@ -146,7 +156,10 @@ def main():
         lines += [f"### Registered decision: {X['decision'][0]}", "",
                   f"{X['decision'][1]}, held-out behavioural accuracy over d = 9..16: {t['b_minus_a_heldout_9_16']:+.3f} "
                   f"{ci(t['ci95'])} (required >= 0.10 with the lower bound > 0): "
-                  f"**{'matters' if t['matters'] else 'not shown'}**.", ""]
+                  + (f"criterion met, but **not decided**: {', '.join(failed)} is `training_failed`, so the arms are "
+                     "not equally trained." if failed and t["matters"] else
+                     f"**{'matters' if t['matters'] else 'not shown'}**" + (f" ({', '.join(failed)} is `training_failed`)"
+                                                                            if failed else "") + "."), ""]
         rows = [(label, cmp_[d]["long_cycle_9_16_vs_best_trivial"]) for d, label in X["depths"]
                 if "long_cycle_9_16_vs_best_trivial" in cmp_.get(d, {})]
         if rows:
