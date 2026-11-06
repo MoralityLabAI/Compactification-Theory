@@ -305,7 +305,7 @@ The runs go to a new output directory.
 **Why.** The diagnostic above shows that H-A3b's correctors add a constant push of norm about 198 to the slots on every loop. For C, that makes the correction nonzero even when the constraint holds. H-A3c asks H-A3b's question with correctors that map zero input to zero output.
 
 **One change.** Every corrector is a linear map with no bias term: C, I and N alike, with zero initialisation as before.
-- C, I and N then have 36, 72 and 36 parameters per slot element: 27,648, 55,296 and 27,648 parameters in all.
+- C, I and N then have 6, 12 and 6 weights per output element: 27,648, 55,296 and 27,648 parameters in all.
 - C's correction now vanishes when e = p, up to the softmax residue of a sharp decode.
 
 **Everything else is H-A3b unchanged:**
