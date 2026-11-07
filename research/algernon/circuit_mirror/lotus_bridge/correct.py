@@ -22,7 +22,8 @@ under the exact BN254 R1CS checker in `spec.py`.
     eval:      every arm on the frozen roster's 72 calibration and held-out cases
 
 With `--out-scale noise` (H-A3b) every corrector's output is multiplied by kappa, so a weight of 1 moves a slot
-element by about one noise std. The default, `unit`, is H-A3 as registered.
+element by about one noise std. The default, `unit`, is H-A3 as registered. With `--corrector-bias off` (H-A3c)
+the correctors have no bias, so C's correction is zero whenever the decoded state satisfies the constraint.
 """
 from __future__ import annotations
 
@@ -54,13 +55,14 @@ def digit_ids(tok):
     return [i[0] for i in ids]
 
 
-def corrector(arm, hidden):
+def corrector(arm, hidden, bias=True):
     import torch
     if arm == "P":
         return None
-    lin = torch.nn.Linear(2 * N_STATES if arm == "I" else N_STATES, SLOTS * hidden)
+    lin = torch.nn.Linear(2 * N_STATES if arm == "I" else N_STATES, SLOTS * hidden, bias=bias)
     torch.nn.init.zeros_(lin.weight)
-    torch.nn.init.zeros_(lin.bias)
+    if lin.bias is not None:
+        torch.nn.init.zeros_(lin.bias)
     return lin
 
 
@@ -264,7 +266,7 @@ def train(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma):
     out = {}
     for arm in ARMS[1:]:
         ck = args.out / f"G_{arm}.pt"
-        G = corrector(arm, hidden).to(args.device)
+        G = corrector(arm, hidden, bias=args.bias).to(args.device)
         opt = torch.optim.Adam(G.parameters(), lr=args.lr)
         step, log_rows = 0, []
         state = args.out / f"G_{arm}.state.pt"
@@ -306,7 +308,7 @@ def evaluate(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma)
     rows = [c for c in roster["cases"] if c["split"] != "train"]
     Gs = {"P": None}
     for arm in ARMS[1:]:
-        G = corrector(arm, hidden).to(args.device)
+        G = corrector(arm, hidden, bias=args.bias).to(args.device)
         G.load_state_dict(torch.load(args.out / f"G_{arm}.pt", map_location=args.device, weights_only=True))
         Gs[arm] = G.eval()
     conds = [("clean", None, None, 0)] + [("primary", j, sigma, s) for j in args.noise_loops for s in range(args.seeds)] + \
@@ -399,7 +401,10 @@ def main():
     ap.add_argument("--cuda-fraction", type=float, default=0.70)
     ap.add_argument("--out-scale", choices=("unit", "noise"), default="unit",
                     help="corrector output scale: unit (H-A3) or kappa = sigma* x clean slot RMS from scale.json (H-A3b)")
+    ap.add_argument("--corrector-bias", choices=("on", "off"), default="on",
+                    help="off (H-A3c): correctors have no bias, so a zero input gives no correction")
     args = ap.parse_args()
+    args.bias = args.corrector_bias == "on"
     meta, model, lm, tok, digits = load(args)
     hidden = model.base_causallm.config.hidden_size
     args.out.mkdir(parents=True, exist_ok=True)
@@ -414,6 +419,8 @@ def main():
            "cmd": args.cmd, "G": [file_sha256(args.out / f"G_{a}.pt") for a in ARMS[1:]] if args.cmd == "eval" else None}
     if args.out_scale == "noise":
         key["kappa"] = args.kappa
+    if not args.bias:
+        key["bias"] = False
     parts = Parts(args.out / "parts", key)
     watch = PowerWatch(args.min_power_w, active=str(args.device).startswith("cuda"))
     extract = upstream_extract_answer(args.upstream)
@@ -424,8 +431,8 @@ def main():
     except Paused as e:
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
-    out = {"schema_version": "algernon-03-v1", "experiment": "H-A3b" if args.out_scale == "noise" else "H-A3",
-           "cmd": args.cmd, "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
+    experiment = "H-A3c" if not args.bias else "H-A3b" if args.out_scale == "noise" else "H-A3"
+    out = {"schema_version": "algernon-03-v1", "experiment": experiment, "cmd": args.cmd, "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
            "kappa": args.kappa,
            "args": {k: v for k, v in vars(args).items() if k not in ("upstream", "base", "checkpoint", "roster", "out")}
            | {"device": args.device}, "result": res}

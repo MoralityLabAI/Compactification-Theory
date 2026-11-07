@@ -45,6 +45,24 @@ class PureTests(unittest.TestCase):
             self.assertFalse(corrector(arm, 8)(x).any())
         self.assertIsNone(corrector("P", 8))
 
+    @unittest.skipIf(torch is None, "needs torch")
+    def test_bias_free_correctors_map_zero_to_zero(self):
+        """H-A3c: without a bias, a satisfied constraint (e = p, so C's input is 0) gives no correction."""
+        from research.algernon.circuit_mirror.lotus_bridge.correct import corrector, features
+        for arm, width in (("C", 6), ("I", 12), ("N", 6)):
+            G = corrector(arm, 8, bias=False)
+            self.assertIsNone(G.bias)
+            self.assertEqual(sum(p.numel() for p in G.parameters()), width * 6 * 8)
+            with torch.no_grad():
+                G.weight.normal_()
+            self.assertFalse(G(torch.zeros(width)).any())
+        p = torch.softmax(torch.randn(6), -1)
+        with torch.no_grad():
+            G = corrector("C", 8, bias=False)
+            G.weight.normal_()
+            self.assertFalse(G(features("C", p, p)).any())
+        self.assertIsNotNone(corrector("C", 8).bias, "the default keeps H-A3's and H-A3b's bias")
+
 
 @unittest.skipIf(torch is None or not UPSTREAM or _gpt2_snapshot() is None,
                  "needs torch, ALGERNON_LOTUS_UPSTREAM and the pinned GPT-2 snapshot")
