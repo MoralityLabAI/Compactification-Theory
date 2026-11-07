@@ -74,6 +74,8 @@ What the registered comparison measured is therefore:
 
 [H-A3d](../../../EXPERIMENT.md#h-a3d-h-a3c-with-one-fixed-noise-scale-for-every-arm-registered-2026-11-07-after-h-a3cs-evaluation-was-read-before-any-h-a3d-run) fixes the noise scale for every arm.
 
+**Note added 2026-11-08, after H-A3d.** At one fixed noise scale, I's primary accuracy is 0.455, below P's 0.500, and its trace acceptance is 0.139 ([03d report](../algernon-03d/report.md)). The I result above is attributed to the noise-scale interaction.
+
 ## Evaluation
 
 **Answer accuracy** (72 cases; primary 864 runs per arm, sigma\*/2 and 2 sigma\* 216 each):

@@ -402,3 +402,19 @@ The runs go to a new output directory. P is evaluated again, because its noise s
 **What it settles.**
 - If R4 is met, the map's prediction written into the slots repairs the state at matched corruption. H-A3c's gap between I and C then reflects the residual's form rather than the noise interaction.
 - If R4 is not met, H-A3c's I result is attributed to the noise-scale interaction, and no arm under this recipe repairs D1's slot state at sigma\*.
+
+**H-A3d Result (2026-11-08):** R1, R2, R3 and R4 not met. The instrument is valid. C and I keep clean runs intact; N does not. Every registered prediction held.
+- Run details: code `b0202d6` (train and eval); weights `80eda0824cff`; sigma\* = 16; kappa = 110.78; noise std 16 x 6.92 for every arm. No crash.
+- *Primary condition* (864 runs per arm): P 0.500, C 0.487, I 0.455, N 0.506.
+  - C - P = -0.013 [-0.052, +0.027]
+  - C - I = +0.032 [+0.002, +0.061] (under the 0.05 margin)
+  - C - N = -0.019 [-0.057, +0.022]
+  - I - P = -0.045 [-0.087, -0.005]
+- *Clean:* P 1.000, C 1.000, I 1.000 (every clean trace accepted for all three), N 0.917 (9 of 72 clean traces accepted).
+- *Settled as registered:* H-A3c's I result (0.888) is attributed to the noise-scale interaction. No arm under this recipe repairs D1's slot state at sigma\*. I's training loss no longer falls (15.5-21.1 per 100 steps, against 13.0 to 2.4 in H-A3c).
+- *Post-hoc, not registered:*
+  - Trace acceptance, primary: P 0.075, C 0.156, I 0.139, N 0.000. C - P = +0.081 [+0.059, +0.105]; on `long_cycle`, C 38 of 288 and P 1.
+  - C's repaired traces do not carry the answer: right in 86% of C's valid-trace runs, and 0.418 against P's 0.459 on invalid ones.
+  - CPU check on 12 generated cases, j = 4: no arm shrinks the slots now (RMS 6.85-7.02 before the noise). C's and I's pushes at the noise loop move the margin by +21 and +46 against a noise cost of about 240. N's correction moves the clean-loop margin from +6 to -1, which is its clean damage.
+
+Report: [lotus_bridge/results/algernon-03d/report.md](lotus_bridge/results/algernon-03d/report.md).
