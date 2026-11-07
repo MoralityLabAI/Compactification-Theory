@@ -300,6 +300,26 @@ The runs go to a new output directory.
   - The registered corrector therefore breaks the defining property of correction from a constraint residual: a satisfied constraint should produce no correction.
 - H-A3b runs to completion and is reported as registered.
 
+**H-A3b Result (2026-11-07):** R1, R2 and R3 not met. The instrument is valid, and C, I and N damage clean runs.
+- Run details: code `29be916` (scale, train) and `1ce6afd` (eval; default `--corrector-bias on`, the same code path); weights `80eda0824cff`; sigma\* = 16; kappa = 110.78.
+
+- *Primary condition* (864 runs per arm): P 0.494, C 0.527, I 0.528, N 0.501.
+  - C - P = +0.032 [-0.028, +0.095]
+  - C - I = -0.001 [-0.073, +0.073]
+  - C - N = +0.025 [-0.084, +0.141]
+- *Clean:* P 1.000 (every decoded trace accepted, records identical to H-A3's), C 0.556, I 0.556, N 0.681. All three corrector arms are below the 0.97 floor.
+- *C's gain is noise-insensitivity, not repair.*
+  - C's accuracy is 0.52-0.56 in every condition, clean included.
+  - Its primary answer equals its own clean answer in 85.0% of runs (P 49.4%).
+  - pi's final clean decode is the digit 2 in 69 of 72 runs, the collapse the diagnostic above predicted.
+- *Trace acceptance under the primary condition:* P 0.073, C 0.044, I 0.227, N 0.399.
+- *Exploratory, not registered: N cleans the decoded trace but breaks the answer text.*
+  - N's trace acceptance beats P's: N - P = +0.326 [+0.287, +0.367] (primary) and +0.681 [+0.620, +0.741] (sigma\*/2), both case bootstrap.
+  - 30% of N's generated answers are malformed, which caps its accuracy.
+  - Where N's answer is a well-formed digit, it equals pi's final decode in 99.5% of primary runs.
+
+Report: [lotus_bridge/results/algernon-03b/report.md](lotus_bridge/results/algernon-03b/report.md).
+
 ## H-A3c: H-A3b with bias-free correctors (registered 2026-11-07, before H-A3b's evaluation ran)
 
 **Why.** The diagnostic above shows that H-A3b's correctors add a constant push of norm about 198 to the slots on every loop. For C, that makes the correction nonzero even when the constraint holds. H-A3c asks H-A3b's question with correctors that map zero input to zero output.
@@ -326,3 +346,8 @@ The runs go to a new output directory.
   - Whether F continues correctly from a corrected but inflated slot state is the open part.
 - **R2 is not met.** I can represent C's map.
 - **N stays at or below P.**
+
+**Note (recorded 2026-11-07 after H-A3b's evaluation was read, while H-A3c trains; it changes nothing in H-A3c's procedure).**
+- p and e are distributions, so N's and I's inputs always sum to 1. A bias therefore folds into their weights (W p + b = (W + b 1ᵀ) p), and removing it leaves their function class unchanged. Only their parametrisation, and so their training path, differs from H-A3b.
+- C's input e - p sums to 0, so C is the only arm whose function class changes. A constant push is no longer expressible.
+- "Maps zero to zero" therefore constrains C alone, because N's and I's inputs are never zero.
