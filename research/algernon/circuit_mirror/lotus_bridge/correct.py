@@ -23,7 +23,9 @@ under the exact BN254 R1CS checker in `spec.py`.
 
 With `--out-scale noise` (H-A3b) every corrector's output is multiplied by kappa, so a weight of 1 moves a slot
 element by about one noise std. The default, `unit`, is H-A3 as registered. With `--corrector-bias off` (H-A3c)
-the correctors have no bias, so C's correction is zero whenever the decoded state satisfies the constraint.
+the correctors have no bias, so C's correction is zero whenever the decoded state satisfies the constraint. With
+`--noise-ref fixed` (H-A3d) the noise std is sigma times the mean clean slot RMS from `scale.json` rather than the
+run's own slot RMS at loop j, so an arm that rescales the slots on clean loops no longer rescales its noise.
 """
 from __future__ import annotations
 
@@ -86,6 +88,14 @@ def generated(seed, count, steps):
     return out
 
 
+def noise_delta(slots, noise):
+    """The noise added after loop j: sigma x scale x eps. The scale is the slots' own RMS (H-A3 to H-A3c) or, when
+    the noise carries a `ref` (H-A3d), that fixed RMS, so the absolute noise is the same whatever the slots hold."""
+    ref = noise.get("ref")
+    rms = slots.float().pow(2).mean().sqrt() if ref is None else ref
+    return (noise["sigma"] * rms * noise["eps"].to(slots.device)).to(slots.dtype)
+
+
 class Recurrence:
     """Noise and correction inside upstream's loop, through its efficient_forward. Call 0 is the initial pass and
     call k the pass of loop k. Records pi's distribution after each loop (after noise and correction)."""
@@ -122,8 +132,7 @@ class Recurrence:
             if self.record_rms:
                 self.rms.append(float(slots.float().pow(2).mean().sqrt()))
             if self.noise is not None and k == self.noise["j"]:
-                rms = slots.float().pow(2).mean().sqrt()
-                slots = slots + (self.noise["sigma"] * rms * self.noise["eps"].to(slots.device)).to(slots.dtype)
+                slots = slots + noise_delta(slots, self.noise)
             if self.G is not None:
                 p = self.pi(slots)
                 delta = self.G(features(self.arm, p_prev[0] @ self.M, p)).view(SLOTS, -1)
@@ -285,7 +294,7 @@ def train(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma):
                 row = rows[step * args.batch + i]
                 j = rng.randint(1, args.max_train_loop)
                 noise = None if rng.random() < args.clean_share else {
-                    "j": j, "sigma": sigma, "eps": eps_for(f"train:{row['id']}:{j}", hidden)}
+                    "j": j, "sigma": sigma, "eps": eps_for(f"train:{row['id']}:{j}", hidden), "ref": args.noise_ref_rms}
                 loss = train_step_loss(model, lm, tok, digits, row, j, arm=arm, G=G, noise=noise,
                                        scale=args.kappa) / args.batch
                 loss.backward()
@@ -323,7 +332,8 @@ def evaluate(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma)
                 if hit is None:
                     watch.check(rid)
                     noise = None if j is None else {"j": j, "sigma": sg,
-                                                    "eps": eps_for(f"{r['id']}:{tag}:j{j}:s{seed}", hidden)}
+                                                    "eps": eps_for(f"{r['id']}:{tag}:j{j}:s{seed}", hidden),
+                                                    "ref": args.noise_ref_rms}
                     ans, text, trace = answer(model, lm, tok, digits, r, loops=args.depth, extract=extract,
                                               arm=arm, G=Gs[arm], noise=noise, scale=args.kappa)
                     rec = {"arm": arm, "case": r["id"], "family": r["family"], "split": r["split"], "condition": tag,
@@ -367,7 +377,7 @@ def summarize(records, noise_loops):
         out["by_family"][arm] = {f: sum(r["correct"] for r in prim if r["family"] == f) / sum(r["family"] == f for r in prim)
                                  for f in fams}
     for name, a, b, margin in (("R1_C_minus_P", "C", "P", 0.10), ("R2_C_minus_I", "C", "I", 0.05),
-                               ("R3_C_minus_N", "C", "N", 0.10)):
+                               ("R3_C_minus_N", "C", "N", 0.10), ("R4_I_minus_P", "I", "P", 0.10)):
         pa, pb = per_case(a, "primary"), per_case(b, "primary")
         diff = [pa[c] - pb[c] for c in pa]
         ci = case_bootstrap(diff)
@@ -403,6 +413,9 @@ def main():
                     help="corrector output scale: unit (H-A3) or kappa = sigma* x clean slot RMS from scale.json (H-A3b)")
     ap.add_argument("--corrector-bias", choices=("on", "off"), default="on",
                     help="off (H-A3c): correctors have no bias, so a zero input gives no correction")
+    ap.add_argument("--noise-ref", choices=("slots", "fixed"), default="slots",
+                    help="noise scale: the slots' own RMS at loop j (H-A3 to H-A3c) or fixed (H-A3d): the mean clean "
+                         "slot RMS from scale.json, the same absolute noise for every arm and case")
     args = ap.parse_args()
     args.bias = args.corrector_bias == "on"
     meta, model, lm, tok, digits = load(args)
@@ -415,12 +428,17 @@ def main():
     args.kappa = 1.0
     if args.out_scale == "noise" and args.cmd in ("train", "eval"):
         args.kappa = json.loads((args.out / "scale.json").read_text(encoding="utf-8"))["result"]["kappa"]
+    args.noise_ref_rms = None
+    if args.noise_ref == "fixed" and args.cmd in ("train", "eval"):
+        args.noise_ref_rms = json.loads((args.out / "scale.json").read_text(encoding="utf-8"))["result"]["slot_rms_mean"]
     key = {"checkpoint_sha256": meta["final_sha256"], "roster": roster_sha, "depth": args.depth, "sigma_star": sigma,
            "cmd": args.cmd, "G": [file_sha256(args.out / f"G_{a}.pt") for a in ARMS[1:]] if args.cmd == "eval" else None}
     if args.out_scale == "noise":
         key["kappa"] = args.kappa
     if not args.bias:
         key["bias"] = False
+    if args.noise_ref_rms is not None:
+        key["noise_ref_rms"] = args.noise_ref_rms
     parts = Parts(args.out / "parts", key)
     watch = PowerWatch(args.min_power_w, active=str(args.device).startswith("cuda"))
     extract = upstream_extract_answer(args.upstream)
@@ -431,7 +449,8 @@ def main():
     except Paused as e:
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
-    experiment = "H-A3c" if not args.bias else "H-A3b" if args.out_scale == "noise" else "H-A3"
+    experiment = ("H-A3d" if args.noise_ref == "fixed" else "H-A3c" if not args.bias
+                  else "H-A3b" if args.out_scale == "noise" else "H-A3")
     out = {"schema_version": "algernon-03-v1", "experiment": experiment, "cmd": args.cmd, "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
            "kappa": args.kappa,
            "args": {k: v for k, v in vars(args).items() if k not in ("upstream", "base", "checkpoint", "roster", "out")}

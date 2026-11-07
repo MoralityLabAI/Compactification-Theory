@@ -1,0 +1,43 @@
+{
+ "args": {
+  "batch": 8,
+  "calib_cases": 48,
+  "calib_seed": 20261108,
+  "clean_share": 0.25,
+  "cmd": "calibrate",
+  "cuda_fraction": 0.7,
+  "depth": 16,
+  "device": "cuda:0",
+  "lr": 0.001,
+  "max_train_loop": 7,
+  "min_power_w": 50,
+  "noise_loops": [
+   4,
+   8,
+   12
+  ],
+  "seeds": 4,
+  "steps": 600,
+  "train_seed": 20261107
+ },
+ "checkpoint_sha256": "80eda0824cff5ca6133213d47105b6f506cfa16b93abe42e7f842a70ec0253fb",
+ "cmd": "calibrate",
+ "experiment": "H-A3",
+ "result": {
+  "cases": 48,
+  "plain_accuracy_by_sigma": {
+   "0.25": 1.0,
+   "0.5": 0.9444444444444444,
+   "1.0": 0.7708333333333334,
+   "16.0": 0.5694444444444444,
+   "2.0": 0.6805555555555556,
+   "4.0": 0.6458333333333334,
+   "8.0": 0.6527777777777778
+  },
+  "seed": 20261108,
+  "sigma_star": 16.0
+ },
+ "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+ "schema_version": "algernon-03-v1",
+ "sigma_star": null
+}

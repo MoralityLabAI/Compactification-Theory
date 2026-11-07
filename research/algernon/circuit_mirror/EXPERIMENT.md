@@ -351,3 +351,54 @@ The runs go to a new output directory.
 - p and e are distributions, so N's and I's inputs always sum to 1. A bias therefore folds into their weights (W p + b = (W + b 1ᵀ) p), and removing it leaves their function class unchanged. Only their parametrisation, and so their training path, differs from H-A3b.
 - C's input e - p sums to 0, so C is the only arm whose function class changes. A constant push is no longer expressible.
 - "Maps zero to zero" therefore constrains C alone, because N's and I's inputs are never zero.
+
+**H-A3c Result (2026-11-07):** R1, R2 and R3 not met. The instrument is valid. C no longer damages clean runs; I and N do.
+- Run details: code `1ce6afd` (train and eval); weights `80eda0824cff`; sigma\* = 16; kappa = 110.78. The evaluation hit a CUDA `unknown error` at 23:02 and resumed from its per-run records.
+- *Primary condition* (864 runs per arm): P 0.494, C 0.461, I 0.888, N 0.499.
+  - C - P = -0.034 [-0.068, -0.000]
+  - C - I = -0.427 [-0.531, -0.317]
+  - C - N = -0.038 [-0.091, +0.010]
+- *Clean:* P 1.000 (records identical to H-A3b's), C 1.000 (every clean trace accepted), I 0.889, N 0.722.
+- *Predictions:* C does not damage clean runs (held). R1 was open: not met. R2 not met (held, reversed). N at or below P (held: N - P = +0.005).
+- *Trace acceptance, primary:* P 0.073, C 0.156, I 0.999, N 0.075. I's decode is right at the noise loop in 0.999 of runs; C's in 0.207, P's in 0.199.
+- *Post-hoc, not registered: the I result is confounded by the noise definition.*
+  - CPU check on 12 generated cases, j = 4: I's corrections shrink F's slot RMS before the noise from 6.95 to 0.92 (N: 0.66). The noise is sigma times that RMS, so I's absolute noise is about 7 times smaller than P's and C's.
+  - I's code for e = (previous decode) x M then outweighs F's own slot-2 signal on every loop: clean-loop margin +10 from F, +58 after I's correction. I runs the public map on its own decode.
+  - C, zero on clean loops, faces the full noise. Its push moves the margin at loop j by +11 against a noise cost of about 240, and its training loss never fell.
+  - H-A3b's biased correctors shrank the slot RMS too (C 2.70, I 1.74, N 0.49), which qualifies H-A3b's exploratory N result.
+
+Report: [lotus_bridge/results/algernon-03c/report.md](lotus_bridge/results/algernon-03c/report.md).
+
+## H-A3d: H-A3c with one fixed noise scale for every arm (registered 2026-11-07, after H-A3c's evaluation was read, before any H-A3d run)
+
+**Why.** From H-A3 to H-A3c, the noise after loop j is sigma times the run's own slot RMS at loop j. H-A3c's post-hoc check found that arms correcting on every loop shrink F's slot RMS before the noise arrives, by up to 14 times. That applies to I and N, and to all of H-A3b's arms. The shrink shrinks their absolute noise with it, while C, which is zero on clean loops, faces the full noise. H-A3d compares the arms under the same absolute corruption.
+
+**One change.** The noise std is sigma x r for every arm, case and loop, in training and in evaluation.
+- r = 6.92 is the mean clean slot RMS in H-A3b's `scale.json`, so at sigma\* the std is 110.78 per slot element, equal to kappa.
+- `correct.py --noise-ref fixed`.
+
+**Everything else is H-A3c unchanged:**
+- F and pi;
+- sigma\* = 16, not recalibrated;
+- kappa = 110.78;
+- the bias-free correctors and the arms' inputs;
+- the training recipe, batches and noise draws;
+- the local loss;
+- the evaluation conditions, the exact checker, R1-R3, the instrument and the 0.97 clean floor.
+
+The runs go to a new output directory. P is evaluated again, because its noise scale changes from its own per-run RMS to r.
+
+**Added secondary rule, about the control rather than C:**
+- **R4 The map's information repairs at matched corruption:** I - P >= 0.10 on primary accuracy, with a case-bootstrap lower bound > 0, computed as R1-R3 are.
+
+**Predictions.**
+- **P's primary accuracy stays within 0.05 of 0.494.** Its own slot RMS at loop j is 6.4-7.0, close to r.
+- **C stays at P, and R1 is not met.** C's slots keep F's scale, so its noise barely changes.
+- **R4 is not met, and I's primary accuracy falls below 0.65.**
+  - At the full noise, a margin shift of about +90 against a noise spread of about 240 rarely fixes the decode at loop j.
+  - A wrong decode at loop j makes every later e wrong.
+- **R2 and R3 are not met.**
+
+**What it settles.**
+- If R4 is met, the map's prediction written into the slots repairs the state at matched corruption. H-A3c's gap between I and C then reflects the residual's form rather than the noise interaction.
+- If R4 is not met, H-A3c's I result is attributed to the noise-scale interaction, and no arm under this recipe repairs D1's slot state at sigma\*.

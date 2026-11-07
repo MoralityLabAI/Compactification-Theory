@@ -52,6 +52,9 @@ This section is a post-hoc reading. None of it is a registered test.
 - **N is a cleanup memory, so the gain needs no map.** Re-encoding the decoded state works whenever the decode right after the noise is still correct, which is more often at sigma\*/2.
   - This is the comparison R3 was built for: the decode-only arm beats the constraint arm at keeping the trace on the machine.
   - The registered R3 compares answers, not traces, and is not met.
+- **Note added 2026-11-07, after H-A3c.** The noise is sigma times the run's own slot RMS at loop j, and N faced a much smaller noise than P.
+  - A post-hoc CPU check of these correctors on 12 generated cases ([03c report](../algernon-03c/report.md#post-hoc-check-how-i-repairs-and-why-c-cannot)) found that N's corrections on clean loops shrink F's slot RMS before the noise from 6.95 to 0.49, so its absolute noise was about 14 times smaller than P's. For C and I the RMS was 2.70 and 1.74.
+  - N's trace-acceptance gain over P is therefore not measured at matched corruption. [H-A3d](../../../EXPERIMENT.md#h-a3d-h-a3c-with-one-fixed-noise-scale-for-every-arm-registered-2026-11-07-after-h-a3cs-evaluation-was-read-before-any-h-a3d-run) fixes the noise scale.
 
 ## Evaluation
 

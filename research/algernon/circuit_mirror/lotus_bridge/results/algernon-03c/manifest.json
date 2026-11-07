@@ -1,0 +1,79 @@
+{
+ "args": {
+  "batch": 8,
+  "bias": false,
+  "calib_cases": 48,
+  "calib_seed": 20261108,
+  "clean_share": 0.25,
+  "cmd": "eval",
+  "corrector_bias": "off",
+  "cuda_fraction": 0.7,
+  "depth": 16,
+  "device": "cuda:0",
+  "kappa": 110.7762609521548,
+  "lr": 0.001,
+  "max_train_loop": 7,
+  "min_power_w": 50,
+  "noise_loops": [
+   4,
+   8,
+   12
+  ],
+  "out_scale": "noise",
+  "seeds": 4,
+  "steps": 600,
+  "train_seed": 20261107
+ },
+ "code_commit": "1ce6afd",
+ "commands": [
+  "python -m research.algernon.circuit_mirror.lotus_bridge.correct train --upstream lotus --base <gpt2 snapshot> --checkpoint D1/final.pt --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json --out run --out-scale noise --corrector-bias off",
+  "python -m research.algernon.circuit_mirror.lotus_bridge.correct eval --upstream lotus --base <gpt2 snapshot> --checkpoint D1/final.pt --roster research/algernon/circuit_mirror/lotus_bridge/frozen_roster_6x16.json --out run --out-scale noise --corrector-bias off"
+ ],
+ "correctors_sha256 (kept outside git)": {
+  "G_C.pt": "e63cf7e121ee3efc83f1eecb2c5f1881d11fffb065bfcbc8d47968c4de609421",
+  "G_I.pt": "92d54d4130acf68b8f8efa0983093eab97302ec9515299d0603c371458fb4a78",
+  "G_N.pt": "8431305f703e16be0eb1886349c5958e0b0c56b02bbf1e1d3c66b20e33c54874"
+ },
+ "environment": {
+  "cuda": "12.8",
+  "os": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "torch": "2.7.0+cu128",
+  "transformers": "4.46.2"
+ },
+ "experiment": "H-A3c",
+ "hardware": {
+  "driver": "577.05",
+  "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
+  "vramorama_lease_mib": 4096
+ },
+ "kappa": 110.7762609521548,
+ "model": {
+  "F": "02D arm D1 final.pt, frozen",
+  "base": "openai-community/gpt2@607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "fixed_slots": 6,
+  "precision": "fp32",
+  "sha256": "80eda0824cff5ca6133213d47105b6f506cfa16b93abe42e7f842a70ec0253fb",
+  "upstream_lotus": "yingfan-bot/lotus@eb77e2f7909c5006f58ff0ad7cd6629b942caa9e"
+ },
+ "module": "research/algernon/circuit_mirror/lotus_bridge/correct.py",
+ "registered_in": "EXPERIMENT.md, commit 3da47a3 (count corrected 3e91afc) (before any run)",
+ "repo_receipts_sha256": {
+  "calibrate.json": "7b9f894be5324cddb0390145a6ba3f41275b37284c059b228f3fd6ac79262aa0",
+  "eval.json": "4fe66a271aa4ea8dd3d3b8d7a2bb42f76a576713d3aaa053034c6f90c4de9fa7",
+  "scale.json": "7e3dabb262baa8f9fb42aeedc1a12dd5584b016d99046dd8d819809b054ebc50",
+  "train.json": "cdf57a6ae62810cfc22f7620d0692371378d93c889519ea77b636494026a8f5f"
+ },
+ "roster_sha256": "be3857c9ec8306b8e8ad5a9c5f45b1567952b5c37483bc14f3bcee4c79704466",
+ "run_dir_receipts_sha256": {
+  "calibrate.json": "8c1d1762c8761ff5d51b6ad9d8fd09ae1da98cf2c46bd2414cf4570cad4ec26f",
+  "eval.json": "20bcbb68778588ec9a54dd5266168ab850308b1c31421cca8a6ade81ce1afa06",
+  "scale.json": "50f88b2fc5f094c093b9212db751bb951b6cc7c9cc20d1b151f094460491518c",
+  "train.json": "d932321f61f4dd8ab86ff249d973c676633b061b72078520b647fdcff6c79511"
+ },
+ "run_notes": [
+  "Training 20:14-22:01 and evaluation from 22:02, one vramorama lease chain (--restart 200).",
+  "At 23:02 the evaluation died during arm N with 'RuntimeError: CUDA error: unknown error' while NVML's power reading was unreadable for 2 s. vramorama restarted it; the restart reloaded every finished per-run record from parts/ (P, C, I and N's finished runs) and computed only N's missing runs. The run finished at 23:13."
+ ],
+ "sigma_star": 16.0
+}

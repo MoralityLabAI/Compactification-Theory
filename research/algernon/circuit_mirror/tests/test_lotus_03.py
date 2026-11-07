@@ -63,6 +63,40 @@ class PureTests(unittest.TestCase):
             self.assertFalse(G(features("C", p, p)).any())
         self.assertIsNotNone(corrector("C", 8).bias, "the default keeps H-A3's and H-A3b's bias")
 
+    def test_summary_scores_r1_to_r4_on_the_primary_condition(self):
+        """R4 (H-A3d) is I - P with R1's margin; every rule needs the margin and a positive lower bound."""
+        try:
+            import numpy  # noqa: F401
+        except ImportError:
+            self.skipTest("needs numpy")
+        from research.algernon.circuit_mirror.lotus_bridge.correct import summarize
+        recs = []
+        for i in range(20):
+            for arm, ok in (("P", i < 10), ("C", i < 10), ("I", True), ("N", i < 10)):
+                for cond in ("clean", "primary", "half", "double"):
+                    recs.append({"arm": arm, "case": f"c{i}", "condition": cond, "family": "f", "j": 4,
+                                 "correct": ok or cond == "clean", "trace_valid": ok})
+        d = summarize(recs, [4])["decisions"]
+        self.assertEqual(sorted(d), ["R1_C_minus_P", "R2_C_minus_I", "R3_C_minus_N", "R4_I_minus_P"])
+        self.assertAlmostEqual(d["R4_I_minus_P"]["diff"], 0.5)
+        self.assertTrue(d["R4_I_minus_P"]["met"])
+        self.assertFalse(d["R1_C_minus_P"]["met"])
+
+    @unittest.skipIf(torch is None, "needs torch")
+    def test_fixed_noise_reference_ignores_the_slot_scale(self):
+        """H-A3d: with a ref the absolute noise is the same for any slot scale; without one it follows the slots."""
+        from research.algernon.circuit_mirror.lotus_bridge.correct import eps_for, noise_delta
+        slots = torch.randn(6, 8, generator=torch.Generator().manual_seed(1))
+        eps = eps_for("t", 8)
+        own = {"j": 1, "sigma": 2.0, "eps": eps}
+        fixed = dict(own, ref=3.0)
+        self.assertTrue(torch.allclose(noise_delta(10 * slots, own), 10 * noise_delta(slots, own)))
+        self.assertTrue(torch.equal(noise_delta(10 * slots, fixed), noise_delta(slots, fixed)))
+        self.assertTrue(torch.allclose(noise_delta(slots, fixed), 2.0 * 3.0 * eps))
+        rms = slots.pow(2).mean().sqrt()
+        self.assertTrue(torch.equal(noise_delta(slots, dict(own, ref=None)), noise_delta(slots, own)))
+        self.assertTrue(torch.allclose(noise_delta(slots, own), 2.0 * rms * eps))
+
 
 @unittest.skipIf(torch is None or not UPSTREAM or _gpt2_snapshot() is None,
                  "needs torch, ALGERNON_LOTUS_UPSTREAM and the pinned GPT-2 snapshot")
