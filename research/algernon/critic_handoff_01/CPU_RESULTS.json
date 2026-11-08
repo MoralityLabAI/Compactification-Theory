@@ -1,0 +1,55 @@
+{
+  "status": "exact_finite_state_reference_only",
+  "model_training": false,
+  "histogram_progress_example": {
+    "true_expected_progress": 0.25,
+    "progress_of_mean_count": 0.3333333333333333
+  },
+  "exact_transport_identity": true,
+  "matched_bellman_sweep_budget": 4,
+  "factorial_cells": [
+    {
+      "policy_shift": false,
+      "reward_shift": false,
+      "reset_initial_error": 1.1545293072824157,
+      "inherited_initial_error": 0.0,
+      "reset_after_four_sweeps_error": 0.33714916305506215,
+      "inherited_after_four_sweeps_error": 0.0,
+      "inherited_residual_error_upper_bound": 0.0
+    },
+    {
+      "policy_shift": false,
+      "reward_shift": true,
+      "reset_initial_error": 1.1900532859680284,
+      "inherited_initial_error": 0.3685612788632327,
+      "reset_after_four_sweeps_error": 0.45535554191829486,
+      "inherited_after_four_sweeps_error": 0.11820637886323268,
+      "inherited_residual_error_upper_bound": 1.0
+    },
+    {
+      "policy_shift": true,
+      "reward_shift": false,
+      "reset_initial_error": 0.7761194029850746,
+      "inherited_initial_error": 0.378409904297341,
+      "reset_after_four_sweeps_error": 0.14919665037313432,
+      "inherited_after_four_sweeps_error": 0.05660381278183903,
+      "inherited_residual_error_upper_bound": 2.0222024866785078
+    },
+    {
+      "policy_shift": true,
+      "reward_shift": true,
+      "reset_initial_error": 0.7771487390633042,
+      "inherited_initial_error": 0.45458077408632713,
+      "reset_after_four_sweeps_error": 0.15865622031330417,
+      "inherited_after_four_sweeps_error": 0.04714424284166919,
+      "inherited_residual_error_upper_bound": 2.5222024866785078
+    }
+  ],
+  "negative_control": {
+    "old_reward": 1,
+    "new_reward": 0,
+    "inherited_value": 10,
+    "reset_value": 0,
+    "new_true_value": 0
+  }
+}

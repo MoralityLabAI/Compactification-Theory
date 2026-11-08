@@ -1,0 +1,76 @@
+{
+  "schema": "trsi-bonsai-model-inventory-v1",
+  "status": "unresolved_pins_and_compatibility",
+  "paper": "https://arxiv.org/abs/2610.22192",
+  "candidate_names_unverified": {
+    "teacher": "Terminal-RSI-27B",
+    "original_base": "Qwen3.8-27B",
+    "student": "Bonsai/Bonsai 2 27B"
+  },
+  "models": {
+    "teacher": {
+      "repository": null,
+      "revision": null,
+      "weights_sha256": null,
+      "tokenizer_sha256": null,
+      "architecture": null,
+      "quantization": null,
+      "license_reviewed": false
+    },
+    "original_base": {
+      "repository": null,
+      "revision": null,
+      "weights_sha256": null,
+      "tokenizer_sha256": null,
+      "architecture": null,
+      "quantization": null,
+      "license_reviewed": false
+    },
+    "student": {
+      "repository": null,
+      "revision": null,
+      "weights_sha256": null,
+      "tokenizer_sha256": null,
+      "architecture": null,
+      "quantization": null,
+      "license_reviewed": false
+    }
+  },
+  "evidence": {
+    "forward": {
+      "path": null,
+      "sha256": null,
+      "passed": false
+    },
+    "adapter_backward": {
+      "path": null,
+      "sha256": null,
+      "passed": false
+    },
+    "save_reload": {
+      "path": null,
+      "sha256": null,
+      "passed": false
+    },
+    "export_parity": {
+      "path": null,
+      "sha256": null,
+      "passed": false
+    },
+    "tokenizer_mapping": {
+      "path": null,
+      "sha256": null,
+      "passed": false
+    },
+    "tensor_mapping": {
+      "path": null,
+      "sha256": null,
+      "passed": false
+    }
+  },
+  "launch_authorized": false,
+  "authorized_gpu_seconds": 0,
+  "authorized_paid_calls": 0,
+  "authorized_optimizer_steps": 0,
+  "funded_execution_allowed": false
+}
