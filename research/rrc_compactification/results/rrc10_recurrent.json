@@ -1,0 +1,27 @@
+{
+  "compilation_threshold": "absolute error <= 1/8; signed weights <= 2",
+  "compiled_integer_weights": [
+    1,
+    -1
+  ],
+  "degree_supervised": 24,
+  "kind": "causal_recurrent",
+  "primitive10_sha256": "01df009171033ed3df41ecb474ce762b9a344b53ad9e2a6427422a5c1c1a5ee9",
+  "raw_fraction_weights": [
+    [
+      1,
+      1
+    ],
+    [
+      -1,
+      1
+    ]
+  ],
+  "samples": 128,
+  "schema": "rrc10.weights.v1",
+  "supervised_rows": 6144,
+  "train10_sha256": "d8df591ebb2faf61daa9c7e666f71f14b70753864da5fa2b4ea6357d476c3722",
+  "training_input_sha256": "60ef166486da6d7a7abeb88e7c69671f0f2f26983f55918393b64676bc84c6ef",
+  "uses_teacher_at_inference": false,
+  "uses_teacher_traces_during_training": true
+}

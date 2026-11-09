@@ -1,0 +1,40 @@
+name: RRC-10 few-shot hidden multiplier CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/primitive10.py'
+      - 'research/rrc_compactification/train10.py'
+      - 'research/rrc_compactification/bench10.py'
+      - 'research/rrc_compactification/test_primitive10.py'
+      - 'research/rrc_compactification/RRC10_*.md'
+      - 'research/rrc_compactification/results/rrc10_*.json'
+      - '.github/workflows/rrc-10.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/primitive10.py'
+      - 'research/rrc_compactification/train10.py'
+      - 'research/rrc_compactification/bench10.py'
+      - 'research/rrc_compactification/test_primitive10.py'
+      - 'research/rrc_compactification/RRC10_*.md'
+      - 'research/rrc_compactification/results/rrc10_*.json'
+      - '.github/workflows/rrc-10.yml'
+  workflow_dispatch:
+jobs:
+  exact-few-shot-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact algebra, hidden-template isolation, paired collisions
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_primitive10.py' -v
+      - name: Source-hashed frozen receipt
+        run: python research/rrc_compactification/bench10.py --check
+      - name: Earlier exact Euler and bounded synthesis regressions
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_rrc.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_rrc05.py' -v
