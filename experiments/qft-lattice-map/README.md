@@ -109,3 +109,35 @@ python experiments/qft-lattice-map/run_infinite_resolvent.py --verify \
 The proof of the mathematical inequality appears in `THEORY.md`; the numeric
 checker is exact-integer Python, with a separate formal Lean bridge tracking
 the abstract Schur and residual norm steps.
+
+## Adaptive infinite-resolvent tolerance gate
+
+The infinite-flavor certificate can drive a **finite-flavor selection** with an
+exact rational threshold. The scan enumerates an explicit list of even mode
+counts and validates each witness by integer interval arithmetic plus an
+analytic infinite tail. It reports the **first passing mode count in this
+candidate grid**, without assuming monotonic errors or global minimality.
+
+```bash
+python experiments/qft-lattice-map/adaptive_certificate.py \
+  --target 1/1000 --cutoff 1024 \
+  --output /tmp/qft-adaptive-receipt.json
+python experiments/qft-lattice-map/adaptive_certificate.py \
+  --verify /tmp/qft-adaptive-receipt.json
+```
+
+At (k=\pi/2), (z=2i), and source modes (n=-1,0), the validated upper
+bounds for this grid and cutoff include:
+
+| Flavors M | Infinity-certified error upper |
+|--:|--:|
+| 30 | 0.003498405 |
+| 38 | 0.002444086 |
+| 54 | 0.001443057 |
+| 70 | 0.000981997 |
+
+Therefore 70 is the first grid entry that passes the exact threshold
+(1/1000), among the entries evaluated. Replay validates the embedded witness
+bytes without numerical inversion; GitHub Actions saves the complete
+run receipt as an artifact. The error applies to the two chosen source columns,
+rather than to the full compressed-resolvent operator norm.
