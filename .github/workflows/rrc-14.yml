@@ -1,0 +1,55 @@
+name: RRC-14 reversible graph-edit exact CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/graph14.py'
+      - 'research/rrc_compactification/policy14.py'
+      - 'research/rrc_compactification/train14.py'
+      - 'research/rrc_compactification/bench14.py'
+      - 'research/rrc_compactification/test_graph14.py'
+      - 'research/rrc_compactification/RRC14_*.md'
+      - 'research/rrc_compactification/README_RRC14.md'
+      - 'research/rrc_compactification/results/rrc14_*.json'
+      - 'research/rrc_compactification/results/rrc13_active.json'
+      - 'research/rrc_compactification/graph11.py'
+      - 'research/rrc_compactification/graph12.py'
+      - 'research/rrc_compactification/graph13.py'
+      - 'research/rrc_compactification/policy13.py'
+      - '.github/workflows/rrc-14.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/graph14.py'
+      - 'research/rrc_compactification/policy14.py'
+      - 'research/rrc_compactification/train14.py'
+      - 'research/rrc_compactification/bench14.py'
+      - 'research/rrc_compactification/test_graph14.py'
+      - 'research/rrc_compactification/RRC14_*.md'
+      - 'research/rrc_compactification/README_RRC14.md'
+      - 'research/rrc_compactification/results/rrc14_*.json'
+      - 'research/rrc_compactification/results/rrc13_active.json'
+      - 'research/rrc_compactification/graph11.py'
+      - 'research/rrc_compactification/graph12.py'
+      - 'research/rrc_compactification/graph13.py'
+      - 'research/rrc_compactification/policy13.py'
+      - '.github/workflows/rrc-14.yml'
+  workflow_dispatch:
+jobs:
+  reversible-edit-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reversible graph edges, inference isolation, exact budgets and collision tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_graph14.py' -v
+      - name: Verify complete frozen source and checkpoint receipt
+        run: python research/rrc_compactification/bench14.py --check
+      - name: Retain RRC-11/12/13 graph regression coverage
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_graph11.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_graph12.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_graph13.py' -v
