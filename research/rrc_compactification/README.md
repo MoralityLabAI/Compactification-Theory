@@ -95,3 +95,8 @@ The [RRC-07 CPU report](RRC07_REPORT.md), [frozen protocol](RRC07_PROTOCOL.md), 
 ## RRC-08: learned algebraic operator synthesis (CPU pilot)
 
 [RRC-08 report](RRC08_REPORT.md), [mathematics](RRC08_THEORY.md), [protocol](RRC08_PROTOCOL.md), and [frozen source-bound receipt](results/rrc08_pilot.json). Eight supervised FP64 coefficients were compiled into an exact integer Euler-inversion recurrence with a hand-provided convolution/divisor basis. On 155 held-out series, its exact traces reach 155/155 and restricted product-program predictions reach 69/155, including six unavoidable future-collision errors. The identically exact symbolic solver is the stronger computational baseline; this result is operator-coefficient identification, not primitive discovery.
+
+
+## RRC-09: withheld-primitive algebraic program synthesis (2026-11-09)
+
+[Protocol](RRC09_PROTOCOL.md), [finite proof and resource contract](RRC09_THEORY.md), [measured CPU results](RRC09_REPORT.md), [source-bound replay](results/rrc09_pilot.json). Trained 1,692-parameter recurrent and 1,695-parameter feedforward decoders on 900 input/output examples using only sign twist, formal reciprocal, and degree substitution. Both recover 0/128 held-out convolution/divisor programs; interpreter-assisted rankers and a 31-program exact search recover 128/128, with tool cost accounted separately. On 216 held-out cases the exact solver verifies 192 programs and predicts 184 futures; eight late collisions expose the finite-prefix limitation. Seventeen exact/guard tests and CPU-only CI keep the negative neural-transfer finding reproducible.
