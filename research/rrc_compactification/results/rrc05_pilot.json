@@ -1,0 +1,3382 @@
+{
+  "algebraic_preprocessor": "O(N^2) exact integer log-derivative b; divisor adjacency wired",
+  "alias_with_train": {
+    "collision": 0,
+    "dev": 0,
+    "local_gap": 1,
+    "nonperiodic": 0,
+    "out_of_grammar": 0,
+    "unseen_modulus": 0
+  },
+  "case_sha256": {
+    "centered_hexagonal-cap0": "f8a86a12c99fe65cad761e9c0e5834636a2aa8819766d1d38e3c66a891cdca67",
+    "centered_hexagonal-cap1": "16e644fd000724918c2a402863348ae75e3e24cc1b7250093880aefa32128096",
+    "centered_hexagonal-cap2": "e392b7720f9a21fc06ea7db79bbe72491d7f308c693b072e3297df53a31c082f",
+    "cubes-cap0": "f48b1229d744aab6d04e48429db538933863ad25d721b818f9b14e4f4b291929",
+    "cubes-cap1": "bda448377fd7b5265e3bfac30a4887f1d8fdc99fa0f7d01872babaafe31eecea",
+    "cubes-cap2": "c5dde831cf4093c8db5a70dd27ab00a3c82dd321ffc81f33141321039c2c05c2",
+    "dev-0000": "9a9683814ecfd5504a96a52b1f3c29789909a8bef1b7d7e0102b5fcffdc55e7a",
+    "dev-0001": "4603c631f68411a2f709a92dd3cd7e7eb4a11daa94f5a4096eae389ee56eb1be",
+    "dev-0002": "e603c2e83c390aa8e8dc2f67f1261e714e2c9a8b081bb2f8aa88460e7b9ca48d",
+    "dev-0003": "7d4204922844d5ee3335fae1fbe6d681cf4be6bdeac79c780908c60eb0ba87f4",
+    "dev-0004": "8d0b9949adbce3bde6374b29eac284f3e8f9f9146f547e4393d84550aa2437e7",
+    "dev-0005": "1c8993a4125af21d194a57c6112376a1118a689e6163b8e90042de479bc0d984",
+    "dev-0006": "1f5ee8357694cc292eec3d7b69d744d6b7c1421dcb7d0140aa2e6bce804b6950",
+    "dev-0007": "dff6691887e1935ee265d78a6f1487bb77ccbfde4496e427029349e546f07464",
+    "dev-0008": "b3da2b4f71d5fc4f28b59a8b56992967448f5104a90f28178478c75c34098787",
+    "dev-0009": "e4c07c628735e98bea94cd69fd55c282a1b9f82084a7469fae926f46ad0fb9ae",
+    "dev-0010": "3982896f2e428c84958315d2960d13dd95c1eabc3c374129bfe8ef72fac2f4ef",
+    "dev-0011": "2bcefb04b6ba214f6d89619c863abd28ede264ab7e8b671b3ef5aecdbc571670",
+    "dev-0012": "626539d7b65607a3ccacadc3b4fc413d3e524557effc9b729f29b0aa3ac8156e",
+    "dev-0013": "4406d3b000db602d9c5ca9279010ff98450d75f26e4467fa975a6fa5e5df53c7",
+    "dev-0014": "6e74075898db22339534bb2fb44b3bec1a098a50840d3f609cd0b90ffb623af2",
+    "dev-0015": "f63a765da17709b44bb3eac41035fb73f3f35ff2b438670644fa8892f3574064",
+    "dev-0016": "e9726ac2ddc8ee038e442ac915cf211f6d01d6bbbb7c0dc8986de799658121a7",
+    "dev-0017": "6be8f7fc3653ab43169e837b46b81ade3908f9ce3b3ac2e069f975291dc48f38",
+    "dev-0018": "33c4d0566efbc709ec18a18f20e6384223f43f82ff2b6f06b326d2aec7c35c8b",
+    "dev-0019": "d23a7aa866702e89b35c3f0a1f2cd736bdceb6acef49701d62a077401aade747",
+    "dev-0020": "1193431db9f29a67bed2ba42a8a73d1bc18650194f23e381efc39571b0de1535",
+    "dev-0021": "9d32ca735f0b1ae8146209af2e39e92ee24deae97d8f47ad1bd892b42aac681d",
+    "dev-0022": "0d5c0117916215e7a6e75310225b731f02ef0c4b88835edbb9aa7b83075408e7",
+    "dev-0023": "837bc06753d8184b6b8e3fdb2c0d66dc8ca4c9937d94dd2994f7e2fe0625e19b",
+    "dev-0024": "5d7043f1a76d94aeda19a8f176f55acf7dac1498f788fcba010f49f37a69f02f",
+    "dev-0025": "d7300e87a817566cab6ed148da8dbb0fb7e90819da3119e3817c38f32a3be452",
+    "dev-0026": "af33dd8ac89e0681066b2262b4aa3613674c195f07e628990d8b9c2c968b3603",
+    "dev-0027": "6f9e3b59cce167e556ad94ebd4a0edcfa25ea102e47e19160d3f4d54bc688d50",
+    "dev-0028": "07aef7f44fa2c0e9fec3ff1f359eb4ee3cecb2e65f187c77ebb3f528cf7a15ed",
+    "dev-0029": "cd55432159f2e290b88e5a76be02e96a15e8a5e717ff6572605e5b09a1882189",
+    "dev-0030": "5b5637dc26e93c3787e18bdf780ee1d85f481472376ab041eef70dfce1b65e1d",
+    "dev-0031": "95a32da38cb31baee41b5c06e9f0ba8c189040b773599b53bc5757c5d864e5a4",
+    "dev-0032": "024b08f61ca52f12690b321486f8a0313044780cdf159f02687245f6be16eac0",
+    "dev-0033": "cd57a75b34e1dd7a7254b4a18bb5bc12c84f97ece465559f168836d97186e47e",
+    "dev-0034": "554900bc6583d5b1af6b73180fc480c82d1d2a747b35ae61d780b94aaf214298",
+    "dev-0035": "437060f6a012666ec2129233b85f3f3d2717dee830eaa0efd1ffb7b8e8c4bcf0",
+    "dev-0036": "fcd283219c0f5840cc82134ada9b3722a8c4a1d1e1ce0d23f4d7f5d6a620cdd4",
+    "dev-0037": "a35aa255b789f21fba24858bf50688cd7821aab4b0251d5fcf341dad9e56998d",
+    "dev-0038": "0168e74f279dc72b5111b43750716d886f750822bb321b95959d292aa43e4bfc",
+    "dev-0039": "8d991615d4259dbecec41a5e6aca56d628e4f84be748f512ef8c86029480fb6a",
+    "dev-0040": "0f1bdc9b655a40ad3ffa60ca271b217db0b3d976054d66a2fd623129840a5832",
+    "dev-0041": "63c8d23e8e4bdc26502ab6f8c67befce2afcaf6ae56b0632c1225d4ca5e48758",
+    "dev-0042": "71d3a3a94a1a131ba7002a257e3d4d1ee379336d75e4255c8d761c894fd0d81c",
+    "dev-0043": "68b2595ea2f67c680ee069bd7cd5bf8d0b92e05f9b7b82af9481fe233e2602b0",
+    "dev-0044": "8f88bf5d457f79a9c73c9912d6481f0d0b78ec5f3ddf7e2ef1d3fa6ff3c0b8b6",
+    "dev-0045": "f29dc295ac67f569920bfe931ecf86e462dc7d784cd2750acda8a0ace11ad7bb",
+    "dev-0046": "2d0bc689aefb9d023fb89439c3d0626d5eaa4d76e6ef103fa06bc4733fb2e543",
+    "dev-0047": "645d0100e23fbf3bfba6b67e76ae9fdac563e3600ef32982666d967bee9dd0c9",
+    "dev-0048": "0ea061d928d3bc39a82a28d8bd2548e2fb4e5ee23da0f4de91b40aeb9d8075eb",
+    "dev-0049": "414a3bf3e9bc9d1935e30adf50482d6d61d930b3ed588d757247d824ba57c785",
+    "dev-0050": "4a671f2cf7c9983bd6815e0a04c41880818de384de41ca543aa709d2c27ced64",
+    "dev-0051": "1078151c999d6aecb235779469a6d0effc4e9677ef45343f1ce3e7cd804d7161",
+    "dev-0052": "2a9b0fcaf6356c9c965ee0af5d0ff97bcd88485c226ce7a6b198709af16b316a",
+    "dev-0053": "ef014606d3b38a57a783109607890e85966d841753be416ca93b9bf171cb26fa",
+    "dev-0054": "899a6c11e0326746c414e3e731d08f5704b718d17e735bc3f9d0101b97430f40",
+    "dev-0055": "e503e01b08d29f2abd48f4576c81f558a7b789c6241d8e25f12c184e8a894152",
+    "dev-0056": "41a09fdd64bea360732648649324fd9f0ecb96fc129d4a653bb3fa510df96c39",
+    "dev-0057": "d207c5b7bba5151b7ec6eda83b9f30c37a959a56013a4ba6e0e73d70599356cf",
+    "dev-0058": "279f341fbd276e62ccd644198f2cea6379c2a2b7d2880bc7d08a20872a41057a",
+    "dev-0059": "fedab1c5d0412c4c61175d892e882693f63e3e5bf6194a483ea2a0c4cbcd2a06",
+    "dev-0060": "defb5bdddd8fe2965f2212a3c8636ad90b4ca7a6b0f56a78732cb550fc83ae16",
+    "dev-0061": "48af9590a9f6970e2642542b974459b0bb5f68ad6c8f5f29b3f823f8504a5d38",
+    "dev-0062": "396b5929fcc07c2016d782565de1bb4b1adc3ebabf468cd0b20d54845a91c5d2",
+    "dev-0063": "60a25630c137795f536dbd7a75cfaaa16928c0115e96df64119f9ffedae70176",
+    "dev-0064": "2dba36f85441f68c6e431cc45ff8add886969cb2070b69b0193d3c2ebc7ce0a2",
+    "dev-0065": "5d9fdf8798621cb27c90d43480565552a13d2f19b41b715fd802e24a389e02bc",
+    "dev-0066": "e22367a73d950e75b1b89bc0fce9bb611313a0a9f03a7523d458ce30ef20bd06",
+    "dev-0067": "9b0b03694b2d3c610f296565ed82dd77d707370c988bed8467fef3141b85017e",
+    "dev-0068": "fd33af55622fdbb6e2a4b7938df93319094e2ca21f31767bf57c2d6765af56ce",
+    "dev-0069": "ff514120ffbe66f8ce75c7c1a0ac13b54bb2ec702abb232b3ddebdc859f2bca5",
+    "dev-0070": "797e99249d8067f1ef1af244e1ac03c463c9b94312f8a8a7cec11182c0a50818",
+    "dev-0071": "7f83ce83b5a0345d3bc91c0787d1730e822987e7161d276a5594c557b6f8ca48",
+    "dev-0072": "9c48d583807abeff5022006099d1e1ae6ec62146d3a38da98688571193cda43c",
+    "dev-0073": "e69b92ba7b90a8a18170095378f45ca0aac9f323a4454e8df40f9231b93f982c",
+    "dev-0074": "49dd6f82df53864cc4565ee044c4ca670420c4a4f9d36aa76b0cdb3bcbe28cff",
+    "dev-0075": "3e49b579ac32cb1d88b4889383b5789570972d81d152a1df36c7a27d7635aa61",
+    "dev-0076": "32a016481fdb8402622b4de7cb97c6f09795ff69c6681f5280a99e3f65e9d3b7",
+    "dev-0077": "5e0e83f1c27c6bb7a65e192f9397e905ea1ebd55976bdb9b1fa9e9101c3d03fd",
+    "dev-0078": "996b5ed0319a79aa2421f6edf417b9fc31107554c4715742419a3d1e5bcb7179",
+    "dev-0079": "b38c3eb61ed310d0a501421ad7e8f1d69795f85ff7e08099e962e02e074cdbba",
+    "dev-0080": "e52161a955c9c78aa1afa555b7aa39d33d24e3ca9fb9d167e51ffe11d4ffed86",
+    "dev-0081": "37d8d594b3b63d20cd557992063ef9e983e2b35da70ed9bec0e471758c800f32",
+    "dev-0082": "d791866f5a1731b855b2271e109435e8f1f0c9da881ebbb04d80e4da14a4300f",
+    "dev-0083": "047d85f2ab0c7197ab5a80517098e2efef476bdb6533a2c7f6e8cd90b1031644",
+    "dev-0084": "60f4d9fa15ffc67a39d4fbf2380e8aa8842927cf246f513f2d978e4ad15941d2",
+    "dev-0085": "064d5546a8549fcdd0d446a6cbbda59cf9d7d9937ee58e0172302e24a403ac5d",
+    "dev-0086": "f5bdaaf208d2777527bfe8f22975257d8f601fc7004aa6af08b75009a6d2433e",
+    "dev-0087": "d79a114d9a9a2687fa6186a212533f1e32d8e5823181f263aa7dd03ea7a0b2fb",
+    "dev-0088": "0124d7b59039ef33658e9ee3f37903528f1b971bc62dfd06e9fafee6d9116556",
+    "dev-0089": "6097de87e6af5555a716b209820a4b8e8fad4af1e3325f356e5f531070919953",
+    "dev-0090": "25b41ecf385d856c91649185032105aa8e5140efb6c35a9b408e250a4b17607b",
+    "dev-0091": "e06971fb10da56aa51fbdb3d19f063f2f7529b09e6bb29797f6c5c34d531d18b",
+    "dev-0092": "c2c7b739ffd1942d113e117e8bb1d7c04f0ac275bfe861faa7505c278f6bf139",
+    "dev-0093": "5d6d5a3de8a19d62e4e2e94ca541827ce114d1fd70ff44c7a41f3c33e6aa8549",
+    "dev-0094": "b767c863c58b1594669c6dde4dd0588f9fef44d1f7d51f994dae9b261e1dd263",
+    "dev-0095": "95e2ca3227fd72d8847726378643425953a22e522aab2453c3a7d4c46516d135",
+    "gap1-min1": "b39257dbe324e1001fc95c39bcfd139a778216e82cb65cb5a092e47e5fee27d4",
+    "gap1-min2": "61fb1112ada757b7a70d1a1b62cb96d9015cf0fa2917bb8750a34844df2db372",
+    "gap1-min3": "910ff62251209b18cc038497f9cf683371d6595897ca80d114387b88ffa315a0",
+    "gap1-min4": "ffe89e48f74634acec5519ab5952adb3686c4c674433645e4352ae6a37bfdb3b",
+    "gap1-min5": "5b2f9ffd501291881b38d58a5d57dcb724a01e35e962c03643884f80dc48d2aa",
+    "gap1-min6": "c6e68861f91c34594eea7a2de31d3feb4d472c8aef0ca4711f77cc436b13716d",
+    "gap1-min7": "85793b10079ff75a0e5f58b052bf3e6229c654ce70f550e87168c6569cc3e4df",
+    "gap1-min8": "0ec9061573a87ad2d534ac34aabc640b53825dea04cbd256b2604c4ecd5371af",
+    "gap2-min1": "21a9ad8f91ecd4899d63d3465b8b79b4898fc8470e89311688bb276edecbddc5",
+    "gap2-min2": "a0a94ddf2b472559ca7759882053c3ab71128d4c05e59eabb7da34e44866f34c",
+    "gap2-min3": "6e16051f5a924220402249c469534880237921239613eba20fc3b8da2164b3ea",
+    "gap2-min4": "d2577fb015b82a049e5dc35fff88c624a39d5c21c4d1aacda8406908b56a655b",
+    "gap2-min5": "252a24bb59cc143dfec86819765b7be50444fe274f311903a573f3c9a5f4f964",
+    "gap2-min6": "294bc202fdec42601187b80a1370365e4562d021a2c8fe78f56b804ceb7a9427",
+    "gap2-min7": "064ffa2913421a093aa3b980904644962b9d7aea0048a1f33cb777996cdad610",
+    "gap2-min8": "87d2d0d699a228faed829f880a83a5b793a04fd6290e4d77c06a825862a7c8c6",
+    "gap3-min1": "f4456a206760373f9942893299ed113e0b3fa3b57f2a619245ff87358a2563f9",
+    "gap3-min2": "9113f6cf6e30bbecc3f16137d29179d9fc41976229ea87cee42bc2f10a0082c7",
+    "gap3-min3": "400d82d9b8cab964f7d695b167b86cf08f366ae1da60d5edb4fb74c33fd3b229",
+    "gap3-min4": "681990b4ea2ea668af422174fadde7c2b4f174b9b56f35e3bfc78451cf1f9145",
+    "gap3-min5": "cb67ec45c3a14ad46009c9191f29c8a5ecaa4990787d239b44083192c4814086",
+    "gap3-min6": "b6172d03946d54d0c206196192266c0c70ad324ae56b1250c7ca845b1cf44abb",
+    "gap3-min7": "7ae07fbf1926e3ad407b9bd17b2b6aee4453f354e1eed11a67172f2e7782a91b",
+    "gap3-min8": "c1fc37e16b2db27fd2c4633e32e05b4b0862bc60b3791dccff20d76dcf33e71a",
+    "gap4-min1": "d24a1a7e358f65d349e41374fb536f6d71efbc8715da1722291c54ab0e00966c",
+    "gap4-min2": "0beaf32d461827123978bc56fff04428b67d97ff12104c1c9021e4fde3e65db2",
+    "gap4-min3": "881b2c75c6610bb9750ad8c2f30fcbf7e3abbca4f23b1578dd3c3a4423a09d34",
+    "gap4-min4": "b15fc70180731e41347dfdc4266108fbff588dc2093de980ae002c87147c5fd3",
+    "gap4-min5": "10ea1c38a710439635be76cf7857bcc2f0d5395ab0e29a0bac9104d921919a2b",
+    "gap4-min6": "c97812d4a701ba4a656708988e5d5f27fe230d752d53b7b4391204641586fa1f",
+    "gap4-min7": "65dbe154414ea4f2e3f01bdc8be97871c8885769c67a120092d1721ccccc0d3f",
+    "gap4-min8": "08b954df1a353a527da69085f5dbbabc0e4e62e2e52ad5b2a1d5cb354f645a68",
+    "gap5-min1": "37bfbe11398fb50a861503c0d32d785ba4c03a24e3601415d3b974f876940529",
+    "gap5-min2": "c79e806956b29ffa9ff7a114aa376796ab32b33cbc2dae13f8d8938155392eff",
+    "gap5-min3": "1a4f645d0b6c3108694727738f18c79321b261492474379d5e3ed1aeb5b0abf2",
+    "gap5-min4": "f1d4784be9da20e04b2de7b4b9f76f1b095ac5847d02318a7bef126995ba9028",
+    "gap5-min5": "16b76c4366ca56f614debc21d02cd2d4ce9b56cb593971a03f331d6f0dcc99cb",
+    "gap5-min6": "9b6d20bceff16fab351d115ff5e4e500b8fe5bf4d6e1c3a16fc5a4012668aa36",
+    "gap5-min7": "af3d9e2fa204af4f6eaec7971449f397e09dbd513b6059479b6f2b78a0651d71",
+    "gap5-min8": "c6e792021c4f53992bd872036b7b39e954e878762e98e269ebe813bff0a6e6c4",
+    "out-000": "9a41601eee90d737947baac0c887f236f46803666d8aebdc415681e35be542bf",
+    "out-001": "572f0bce1edc9954f5807021308421709cf8d2a63a0947d2fd6e38d3a8a610a2",
+    "out-002": "3636326de941945b0b9243f37b01f42afd4df1d63c4b1a1d1e5768250acf8327",
+    "out-003": "b3231d267cac6e49d21b6c46fc45a88bd3ac3b293cc738deb85f6143add37478",
+    "out-004": "7e481ae0b7d0685a25607babec2d5b4829ab11768311132d89e04003d127c090",
+    "out-005": "8ac2a75ab96ef422bc0b7ecb8dd18bb2cc3244bf363acc0063c7bb917fcf7db7",
+    "out-006": "2242fd046a3a114a423f62c8baa0bcd05fbbb7f60c8dc626cebdfd7453325dc3",
+    "out-007": "830b4af8538e4a8be1d41a050c4b634754306b1cfb18c0b642ea9522812d7918",
+    "out-008": "f44c1aa8decf015f4df6490f776378a3d03e4bf7597d1347ec6fe7dca55753c9",
+    "out-009": "bf36939d936ee78c2f22c03e2b9863b5c158f3c587f7c8c4c0299b92081b6351",
+    "out-010": "4c659ebd5028ce7a96d3967f0a110c88627a7b3ff59b4cd762a98c79553c7bdd",
+    "out-011": "b5ec5dd41ad87ca362bb3956668290466201e29b2955038b69344778a583051b",
+    "out-012": "979d5da5b18a50e65233882cc77ed6d51c7ad53f1acddce427e6637390f4f88d",
+    "out-013": "1551a2d9e9abff72bc5094fd5a14e801224f9a32dbe297c02fee1ea403230175",
+    "out-014": "6ba6cf5d300c5598c3de421325911dd71718d0bdd4324d7fea579a72785d2354",
+    "out-015": "4e5dd69f23366bbbd2e1674b22eced99d46a713af83bfb52d0df980f9c4d244c",
+    "out-016": "40fc1842c9aa26f56e462ab6e5d89f825bdc04e0c6b3a6c152590340ae5d493a",
+    "out-017": "819deeaaf0fd6747835e5b489c73b0ee4e1990b14a0c624a8eaac2f298efb9e4",
+    "pair0-base": "007ef4bb5715ebe5ae15e5bf76be5907f56987e7bc7a076758b36ce5c13a1b2e",
+    "pair0-mutant": "10c9472d9468215f9faaefc335ad94c057d61262c912a10d2e41c9d7eae82fe8",
+    "pair1-base": "24f7247e91f3d9b1c99023ae36a33810a7bf612f7baa29d8a38f80c3c2d42eda",
+    "pair1-mutant": "449124fbf629e5894a9e961008c21f65a2df41f5c3d34fe93e2498da88505db0",
+    "pair2-base": "479961eeb7922094de5236b62b74aa8c9940493a22c7394b899928eaf8416ed6",
+    "pair2-mutant": "670edfa226e2f063be06b970b50055c6d62f5a3c86ee248d517479759c37fc77",
+    "pair3-base": "43ffd390f84a478ec4182e9321c85cfdf3a226fbbc94567f1b7373a08ddd4706",
+    "pair3-mutant": "b35e57b99c5a6c78a8d0ed538f51c81c194012864f812668ebe615ffb433bfb8",
+    "pair4-base": "546fbf6edc52e20825c5f7e3368b94ceea84248d7d7b2f607c86dae2210e4678",
+    "pair4-mutant": "f03d9107f6aecd2f8b2f25d4b0ff20d882462306d1f033dcbbbb288f276583cd",
+    "pair5-base": "ac36d3d65fb151aa2718be22483e958b140977d0d3c951b304aab59fd193fa50",
+    "pair5-mutant": "bf0b0471d6b5996f16e458a272ec42df8eea6a6bb380f812382073faa367ccbd",
+    "pentagonal-cap0": "7f1df19ef4ff7bef5a3e11d999de26cdfd791772aa10c3e75ca79a20f2d6a991",
+    "pentagonal-cap1": "8cf267b272ce2cd1c41dff0b0f18b1dc9dc617ea88a9a5a1403444aad9d45dfa",
+    "pentagonal-cap2": "fbc14badee9b643eddb879b732aef5a0e9e170e052dfe633b2db16d52117478a",
+    "primes_1_mod4-cap0": "59971cd9fd79a6d62c0470d2d1104600780673160a9371de8bccb0054c5b2f38",
+    "primes_1_mod4-cap1": "6bd460003e08b45b9854c15458e40377df1c1c85cb81faa09f89eed112a46058",
+    "primes_1_mod4-cap2": "a7c2d18d2385dbb993f80610be228c0f29c2145f42a4c213e257af24e551d007",
+    "semiprimes-cap0": "7128b8a737649eab47cc4d87c70d7ad0b2aae0454f2c4d8deaa443639a2a0332",
+    "semiprimes-cap1": "ea110f6852324fb3465c3a4690b5f90e15125e91b81719ac31fd4521000e535f",
+    "semiprimes-cap2": "3cedca7aec8a091c8f853e75fbe9557f2e46c6ea757624a7edde911330873552",
+    "unseen_modulus-0000": "225d43626e2cc80db663fdf1901241dd135ba1ab5d0094a05e8e17ff884bf5d8",
+    "unseen_modulus-0001": "de1172ed70f39db07690e9ff2252628b46b589b36173762ab7b178d8da9f3ae1",
+    "unseen_modulus-0002": "f12d95499f3e6b9ba64819254aa7bbf3d021bfa346a79b72fb7a6d8d50dd13b6",
+    "unseen_modulus-0003": "b5127a3ad8e7cc8caa809761317b472f40cbc5c89fa58cde374a61cfb20a66f5",
+    "unseen_modulus-0004": "4d1b5b384e499c1c98006e3c0ccd7c8311ba739afe1ee5950f7696038424f919",
+    "unseen_modulus-0005": "4543a55f938c9e575efd9ccdfc705705b7e5e917b8b8a8aa06f9399edf06eb8c",
+    "unseen_modulus-0006": "88795dec479ba2c2953d0dc5964087576f539a6150b2634207ae624ddd439193",
+    "unseen_modulus-0007": "1e160e699bc02777950229b357ad73a6a6a56beb2e5370e721ab3f5624dfa520",
+    "unseen_modulus-0008": "a81724449c252e657bccb5ce98be9e3af9cc9e1f9306adc9c16591eaf5de479b",
+    "unseen_modulus-0009": "826b0676e35e35f2235a65b87decfe01b2a5ad056867f52940a9752c3ca27f2d",
+    "unseen_modulus-0010": "b09d89179d4a3695536c29570f18325e6b0644a3f4e9266c89f261e451b1b090",
+    "unseen_modulus-0011": "b291b31578dea8b4c669258cbf615d697dc57cd0a0e8befe988ccfebac14fd91",
+    "unseen_modulus-0012": "964b708bf70c650bc38b6d531f2bec65008d02c8baaa265faf6894859be1241f",
+    "unseen_modulus-0013": "c8ee54dc0f6fab3fbad0d4333f28c15154b00813e210f1d8b3ed8e78d8db06ae",
+    "unseen_modulus-0014": "b831bf52d7f7a3ed3c66af028ce76703fc5a6762618130c15ec37abc7734abc3",
+    "unseen_modulus-0015": "ebf2da2097572dbf1795b1db0bd389f7ec285df8b0ec2b9dfe19eb6fd55e234a",
+    "unseen_modulus-0016": "fb5dbfd9ebe2cb0cb8116322e175e13916d757019a6a60cce96a8e0f8ed708af",
+    "unseen_modulus-0017": "f0bb150d3b8d47f5c8059b8f3352917024c72b313fb50f9adee04ccbccbdc97e",
+    "unseen_modulus-0018": "723fc328cbf2ef20007c1408fd5f93eafbf98437640d71b0038841f1c4298597",
+    "unseen_modulus-0019": "82427e03a106b8d71c597456a63860024ab592eb0e5285b6c1bd0d367b7394e6",
+    "unseen_modulus-0020": "e5771435f6614772ab16d9fde3b71e2d437410c7cf24ad4b993225bf64e5f6d6",
+    "unseen_modulus-0021": "63e5b09ed77846ac5bf38595994a3ca54f9da0ce734d38c2ab48a8f8c962fe12",
+    "unseen_modulus-0022": "6e0db3908e36760b5f8e0115a7411172601bd3fc2dae4daa52091dfceaa30bba",
+    "unseen_modulus-0023": "f3b52668a54debc9bcd9b8fde9d110076b9e86336cac59718985fa89c0b44550",
+    "unseen_modulus-0024": "631bdb4504f9a95f8bb5a30d9a3ffebad014c1d6284130e13f9b24f3990fe2cb",
+    "unseen_modulus-0025": "d1d82bb339602cc0a2af0888817611ade0e82822373065ef532f1af08248cc1b",
+    "unseen_modulus-0026": "5721c036dc5a355eaf3c16ac85d63dc9b4faf474cdb8792dd37ebc7a1ca1220d",
+    "unseen_modulus-0027": "56c26fb98067a0b1f4dfea18b532700767a4f012ee8d4b0fad0431014ae66b26",
+    "unseen_modulus-0028": "ac6f793af1c3f1633ff5a7d97411bf0b655a9b8ef79b57f8111b29940e92b5bd",
+    "unseen_modulus-0029": "6508d926c4129a545baf37b05658d07c8b798680e765f88146f8a9dd4822f4ba",
+    "unseen_modulus-0030": "55b5ef0354223ddab0488ee350529c8347065b9b0e0c3e3c7fae4a891b6d1cbb",
+    "unseen_modulus-0031": "59b55b20ac3db810f13390bf4294bdbf61e76b85b395bdf2c66d3ab6e34e3f42",
+    "unseen_modulus-0032": "ce41a60124fabbbc3c4f772a6c841fa798e6efcca8f22f087064110f983dbd14",
+    "unseen_modulus-0033": "cce150e54d6fb9d2ef955d9888bb1ddfbe5a6001467fdd24b0a5edc995b1a782",
+    "unseen_modulus-0034": "c3e14f988bc32b5136d3216bbaa8d372289a850fccf58287a3f747a248789b99",
+    "unseen_modulus-0035": "7b4ae00a4a75047a1eba76c5ec0d0e9013daa4d93e309e51f7effb003bd07f23",
+    "unseen_modulus-0036": "203446d4c5623e607ce92f85dbe523747bc6e320d4d739f0d9b9cd101abb0d01",
+    "unseen_modulus-0037": "50430230b4a10ff57969313ed1051773b012703724d6ab7a808c2f59879c3a8f",
+    "unseen_modulus-0038": "7b29e244c68a302faeb18a756a7d21a3fed91accd1c0ef40cc4d35c78d659347",
+    "unseen_modulus-0039": "48185da3b0c1fa20d7c76546cd11854afa9d0c25376f3db2da3bd77ec8b29d51",
+    "unseen_modulus-0040": "c61941fe79c9370fac66eb907d46340edd217980ef9ccb655106e55f466ab8b8",
+    "unseen_modulus-0041": "dd31aa0d7655f81ee30615917a82d1ddf5516923ed28175a4e52a8ad5c16da7d",
+    "unseen_modulus-0042": "fffb8637de56205025d9aa425fe7dc7e88cd455cae65f2ce1c1c8c5e01361707",
+    "unseen_modulus-0043": "78d7e1b215dba1a24e0a24664f373f0870ed83322b09fb474d357e48c6092e08",
+    "unseen_modulus-0044": "80482778b0ec433a5b2e8d94b8d603976413b66717ebb272e2a7200413b8ebe7",
+    "unseen_modulus-0045": "6aee4fd47d1cdb4289ee0e08cb40218583c8f3a62324a7489a0bb6b660cadbb1",
+    "unseen_modulus-0046": "f959fb48dc40a415cd8ecbd09b393b1f12d766c9d1ad0e61d930c7ec6877c2f0",
+    "unseen_modulus-0047": "ad2159105e2d2ae479a2b04f75a3347fb9a6edc7e680b5cf76add430bfeaf0c8",
+    "unseen_modulus-0048": "5bf9f16f6261c0f3ed29382e010c7706ff41dd286eea593799e563ea6770a75d",
+    "unseen_modulus-0049": "81fc5804d24616b7b3b965d0aaa8f8ec4658b4bfb25115d83bfa9b8d8ad2045f",
+    "unseen_modulus-0050": "80a9c69e84dd64dc2487bf43bf2c7459164a95d4169529db9a32932f56c67dc2",
+    "unseen_modulus-0051": "9edce767e0324e4377f3e601eff19c1239d966b08176788bdbb6c56462aa5851",
+    "unseen_modulus-0052": "37acf47f13053cf8bebc401d4a23b1a96b8cbec61e62c23a280f013dbbc27758",
+    "unseen_modulus-0053": "2719b0a10469c2c0d410a17c92d93eac9284ce7fd4166cd0ba1b81e87da86ac9",
+    "unseen_modulus-0054": "6c924090236f10e57a09d98f97d92e807e70d0d7a85f7ceab8a1c7c6c7d20eb2",
+    "unseen_modulus-0055": "55f55f57af6cbc743572d0912bfac850c8547b7f14b23d81ff77bdd7cce2e68e",
+    "unseen_modulus-0056": "e6f1220764d6059e98e7db3c2e3405751a50f828351594f184156e4afde09268",
+    "unseen_modulus-0057": "fb24f140668e200c3f612adfae316a3bb621a845ad34f1c9965bbe00f6a0be67",
+    "unseen_modulus-0058": "42a829cd47f4e99c27d4905daa65226fe1a3209afee6c897116e554edf19b170",
+    "unseen_modulus-0059": "e5d880dcae68df01d957c0b72aef62d95ead1b778cebd8fb6049ee8f6adda1de",
+    "unseen_modulus-0060": "4576ad4d5435d0eed7f6633d7f75b18ebdb15918c96023178105aa7a6fd70981",
+    "unseen_modulus-0061": "b526cb7854af1923b4fe99cbdd71d7c3a5c23ab7cd1443e8c7364e6667a8a6b6",
+    "unseen_modulus-0062": "060e84b3fe5178721c7a3e6a8bd1719f2adedbd879658acd73500fa57427fecf",
+    "unseen_modulus-0063": "214df8d6feae8e418d9f37fb37e5fa939f957b24f6dd3c8aa28ed520985e700c",
+    "unseen_modulus-0064": "1cebf233fd2033d4a65422846681ea0470872bd56c1daa329a6d174bb51319f3",
+    "unseen_modulus-0065": "17090ef7dc077275e7f47f918ada3a2e5b31b7acf1669f44000c4b9a56aedd7f",
+    "unseen_modulus-0066": "01ac2e9cffe51ba6343ad633be2c81c04ace35fd58ef1bce0e0e22398f6ea3e2",
+    "unseen_modulus-0067": "a1bb65698330b5ef8aa148f7b46ea46eec314dda459dd4382639f7f1ba0ee600",
+    "unseen_modulus-0068": "6bf01319159fd927e342db3cd2f075031649b459e09917e3880ae998c1602608",
+    "unseen_modulus-0069": "370aa65710a418cccda4d9dc1c2f1ff2d3dd99713213b65de0d5679a4eba8f56",
+    "unseen_modulus-0070": "8d9253a6949fddefc5833b822cb7ca5d9bb3c197c203e1c88ac3c78e3f8cd005",
+    "unseen_modulus-0071": "b60fca895edadb191f18721c77f4d99205c5239187f62fa988ef87a9dd2a9496",
+    "unseen_modulus-0072": "0ec213fc3a6bbb275f3de517b723c65d8c31d06b21fa7455d71aee977150d221",
+    "unseen_modulus-0073": "d6956d3e15d7fe6f25fa22a419659cd059e2cb5d5a290be669df75df94e482fe",
+    "unseen_modulus-0074": "1020baff9e61bca0f842de3c46e7bfb31c9d4dfda0dd5021c1081c801488d2b1",
+    "unseen_modulus-0075": "97c7cd1bf3eb5fc04c93de9a9661c0699f8daabfaf14b0d2ef6db382c0874287",
+    "unseen_modulus-0076": "7507b2c08cc47864af610bcf1784bf26d3915b1518d8a8bd9404c9f35f0ca0e7",
+    "unseen_modulus-0077": "bfe444a7953100d9c208b4c8bb8a8dffbd5a5eb2f3e0c6637696e01b78433114",
+    "unseen_modulus-0078": "afba9adf1fb95f31be1419bb3e4b37b46a6641828a8314a0499245743f0a8a87",
+    "unseen_modulus-0079": "68aedf63d21866be1c3e597c2616af6fd66bd2069e85eeff34ad8f40d690ace7",
+    "unseen_modulus-0080": "6f0ed3f0461900648aa031b48fda77962c423a47330fa2877ba2e050f1a0338f",
+    "unseen_modulus-0081": "f8a36f05f499ddd76d4de2c2fa9d5447311b3ad58656576de078d0b8a1b9ab2e",
+    "unseen_modulus-0082": "627c41c8e1e33f4e99f95438b0c1f43e2232406cc542a73f57628d1a591d0193",
+    "unseen_modulus-0083": "bdfd92a62e6b4ad40ad80d9108eae2aac8a4e548c4825c513922521c51be4af6",
+    "unseen_modulus-0084": "e3151c83cde4d8b5f11334476f414eedd49b1f8d8a63791f3f3380ebed99a250",
+    "unseen_modulus-0085": "e7126c4e029c60807f53c39b509ab920fe6b4367b1626905bdfd0817e87d7aa4",
+    "unseen_modulus-0086": "aac2e24a67819d726b011f63f82174a68b28c628f1c30484a63f4285d5e1e399",
+    "unseen_modulus-0087": "a214123f35cc8bb3208a3ea7ca38d3d6a4550046eec4dd9e40ee79e215f6940c",
+    "unseen_modulus-0088": "1068a57f354f8c074a80df0b483c4366e4f9b6920875cb6e9e0e57df40e90e5a",
+    "unseen_modulus-0089": "91d469d5d53ab3dc2e57379f07f3b8996732f47d53ebf72a1473c3d74402c171",
+    "unseen_modulus-0090": "f063bb5ed4a1a45ef164748cd6d6d50d6b8506009556368d999b0a00290a19aa",
+    "unseen_modulus-0091": "bd2ecc51b21eea69839cee681062388dc1c7c8a40cd9b3386b2eede4f2ac34c7",
+    "unseen_modulus-0092": "076c739c3fed1f781a5d76913f46f407f6a5438260754b0df93d5719e65609ba",
+    "unseen_modulus-0093": "b41ec682ec21a2e3c35ecc517e47cb239bc41e9d5d3a0405bf972a4c614d06e1",
+    "unseen_modulus-0094": "19b21780e9f787c269bb767f0f063a883f81e629df1bb5e07db05e300183851d",
+    "unseen_modulus-0095": "12df6dfd718b1973acd99a19b10d0ef0193f16d4be5db59207577baed9365e94",
+    "unseen_modulus-0096": "6f4f8b7187329870218cd70161e37e71cd7d0c0cda0a2e1480b5b8acd934e955",
+    "unseen_modulus-0097": "71dd3c7871eb05a9b50c40dddd66732c3df665258ade811acfdd2f5dea7e0568",
+    "unseen_modulus-0098": "3d1d983ac285f4b35b7dd94425b5170b59f5d673e2fb7e92f4e05f9d5e23557b",
+    "unseen_modulus-0099": "d5bc5f43eaa66144d7b827b4fa37a872d7430d788aa2050e4a186b35b12e72ed",
+    "unseen_modulus-0100": "caf13378b6a95c3f7e8b58b9c9da6db263386880592af5b1c4173149ab104060",
+    "unseen_modulus-0101": "3298008b487b6dda375a2ea93d0145757ed609cc3a13094fe4eabc47e81c2caf",
+    "unseen_modulus-0102": "cb845d68ac156393aa044e52bcb3ae36b19091b021530299a35839024963315e",
+    "unseen_modulus-0103": "dfcb401210a0c1c2959460d68e4a623982b1a0c1817374bb625ece029e651cf3",
+    "unseen_modulus-0104": "e4ecc173f8fb9afeda7ea876d79848431cc4ae67a38d95420f182e8b2343daab",
+    "unseen_modulus-0105": "ffb38beda5c15ae2b64b39195d560bfe902aa4ae990da85c34eb5ad5b25d31ee",
+    "unseen_modulus-0106": "6b8924a4148c8682b5b973c491861d10825134ac44edf41c8300ea09c6c80246",
+    "unseen_modulus-0107": "010433928aeebebec2af2551c9129a574c6f28baa86eabf96ba21c924bebd26d",
+    "unseen_modulus-0108": "d37e19117c00d8e44be3e371c17d9c725e3530ce4d997a88f62463c2ddd9d9e2",
+    "unseen_modulus-0109": "8ccb97e708d076fac7871dfdba9ad8ed4488ce394433a17dd7df172a3915e77b",
+    "unseen_modulus-0110": "0b6fd15e9668372333bfc90beb582b8d6fcb538c4d57ae74a64dfc28e925c5f0",
+    "unseen_modulus-0111": "88a3b759a95c2220fa0b4ea574185fa2e20677095e8f1f4b88c4323e714e9295",
+    "unseen_modulus-0112": "59bbd5a49f1334e27aeae3849d1097822b399c8dbc4b8554ff2322c92944ed6a",
+    "unseen_modulus-0113": "44417effcfc6dc2688c9060b4c2b181032b0334642d1b7dcabd20e751cffb7a4",
+    "unseen_modulus-0114": "2d8221e8db82cf21d3a8f2bbbcffe1eceb1742529d1d1bbd36b7f13bd576ee36",
+    "unseen_modulus-0115": "e7eb7fcaccda413cee04aeaed12ba12df821d3acd84e2d986ee55d71598b4f20",
+    "unseen_modulus-0116": "b0a26e3259df98861129d64b1a52b2efd40dbfc0883ddd7fa05d94f982318886",
+    "unseen_modulus-0117": "48a7e72d6158a78a34d16c39863f7357c40abb29b45015fb8d909d1469ac2703",
+    "unseen_modulus-0118": "17016248b35bc81288e2e8d6e834baa49fc287ac0b0f9bcc4e526ef496c71663",
+    "unseen_modulus-0119": "ff73abdadbb179c4babf7f6bcc02aa01708583b36e7ef168ca4353230edd9592"
+  },
+  "checkpoint_sha256": {
+    "rrc04_feedforward.json": "2fba17d0c81ecf89872ccc5a34c5ebcde0f876b208d767e562dd2496bf3d2f5b",
+    "rrc04_recurrent.json": "c4b259c774215f0ea52f596cac45eaff945b73b2f50cb9c2f72bb2775958dc35",
+    "rrc05_feedforward.json": "05d1ea30fdcb4a00db4403e64a5cfbc196ca8c962d1769fb804570c7da2bbf83",
+    "rrc05_recurrent.json": "7594534f683a82488e38d43589036610805cd82f556420242345e53a99c22b52",
+    "rrc05_shuffled_recurrent.json": "a6aa0b1b3a23f390fed4e9e90dc82fb9e296cd2a9be22285fdd6f426ee3f1618"
+  },
+  "collision_pairs": 6,
+  "forecast_degree": 128,
+  "gains": {
+    "rrc05_feedforward.json": {
+      "alpha": 0.3090599775314331,
+      "beta": 0.5673363208770752
+    },
+    "rrc05_recurrent.json": {
+      "alpha": 0.9987553358078003,
+      "beta": 0.9999978542327881
+    },
+    "rrc05_shuffled_recurrent.json": {
+      "alpha": 0.04610077291727066,
+      "beta": 0.9359089136123657
+    }
+  },
+  "learned_parameter_count": 2,
+  "metrics": {
+    "divisor_erased": {
+      "collision": {
+        "abstentions": 12,
+        "cases": 12,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "dev": {
+        "abstentions": 91,
+        "cases": 96,
+        "correct_future": 5,
+        "false_accepts": 0,
+        "intermediate_exact": 5,
+        "mean_grammar_bits_accepted": 17.4,
+        "prefix_verified": 5
+      },
+      "local_gap": {
+        "abstentions": 40,
+        "cases": 40,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "nonperiodic": {
+        "abstentions": 15,
+        "cases": 15,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 2,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "out_of_grammar": {
+        "abstentions": 18,
+        "cases": 18,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "unseen_modulus": {
+        "abstentions": 119,
+        "cases": 120,
+        "correct_future": 1,
+        "false_accepts": 0,
+        "intermediate_exact": 1,
+        "mean_grammar_bits_accepted": 14.0,
+        "prefix_verified": 1
+      }
+    },
+    "exact_symbolic": {
+      "collision": {
+        "abstentions": 0,
+        "cases": 12,
+        "correct_future": 6,
+        "false_accepts": 6,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": 22.0,
+        "prefix_verified": 12
+      },
+      "dev": {
+        "abstentions": 0,
+        "cases": 96,
+        "correct_future": 96,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": 17.6042,
+        "prefix_verified": 96
+      },
+      "local_gap": {
+        "abstentions": 37,
+        "cases": 40,
+        "correct_future": 3,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": 9.3333,
+        "prefix_verified": 3
+      },
+      "nonperiodic": {
+        "abstentions": 15,
+        "cases": 15,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "out_of_grammar": {
+        "abstentions": 18,
+        "cases": 18,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "unseen_modulus": {
+        "abstentions": 0,
+        "cases": 120,
+        "correct_future": 120,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": 20.45,
+        "prefix_verified": 120
+      }
+    },
+    "learned_recurrent": {
+      "0": {
+        "collision": {
+          "abstentions": 12,
+          "cases": 12,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "dev": {
+          "abstentions": 96,
+          "cases": 96,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "local_gap": {
+          "abstentions": 40,
+          "cases": 40,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 120,
+          "cases": 120,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        }
+      },
+      "1": {
+        "collision": {
+          "abstentions": 12,
+          "cases": 12,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "dev": {
+          "abstentions": 91,
+          "cases": 96,
+          "correct_future": 5,
+          "false_accepts": 0,
+          "intermediate_exact": 5,
+          "mean_grammar_bits_accepted": 17.4,
+          "prefix_verified": 5
+        },
+        "local_gap": {
+          "abstentions": 40,
+          "cases": 40,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 2,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 119,
+          "cases": 120,
+          "correct_future": 1,
+          "false_accepts": 0,
+          "intermediate_exact": 1,
+          "mean_grammar_bits_accepted": 14.0,
+          "prefix_verified": 1
+        }
+      },
+      "2": {
+        "collision": {
+          "abstentions": 12,
+          "cases": 12,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "dev": {
+          "abstentions": 73,
+          "cases": 96,
+          "correct_future": 23,
+          "false_accepts": 0,
+          "intermediate_exact": 23,
+          "mean_grammar_bits_accepted": 17.3043,
+          "prefix_verified": 23
+        },
+        "local_gap": {
+          "abstentions": 40,
+          "cases": 40,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 1,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 11,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 3,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 98,
+          "cases": 120,
+          "correct_future": 22,
+          "false_accepts": 0,
+          "intermediate_exact": 22,
+          "mean_grammar_bits_accepted": 20.9091,
+          "prefix_verified": 22
+        }
+      },
+      "4": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 7,
+          "cases": 96,
+          "correct_future": 89,
+          "false_accepts": 0,
+          "intermediate_exact": 89,
+          "mean_grammar_bits_accepted": 17.6067,
+          "prefix_verified": 89
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 7,
+          "cases": 120,
+          "correct_future": 113,
+          "false_accepts": 0,
+          "intermediate_exact": 113,
+          "mean_grammar_bits_accepted": 20.3717,
+          "prefix_verified": 113
+        }
+      },
+      "6": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 0,
+          "cases": 96,
+          "correct_future": 96,
+          "false_accepts": 0,
+          "intermediate_exact": 96,
+          "mean_grammar_bits_accepted": 17.6042,
+          "prefix_verified": 96
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 0,
+          "cases": 120,
+          "correct_future": 120,
+          "false_accepts": 0,
+          "intermediate_exact": 120,
+          "mean_grammar_bits_accepted": 20.45,
+          "prefix_verified": 120
+        }
+      },
+      "7": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 0,
+          "cases": 96,
+          "correct_future": 96,
+          "false_accepts": 0,
+          "intermediate_exact": 96,
+          "mean_grammar_bits_accepted": 17.6042,
+          "prefix_verified": 96
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 0,
+          "cases": 120,
+          "correct_future": 120,
+          "false_accepts": 0,
+          "intermediate_exact": 120,
+          "mean_grammar_bits_accepted": 20.45,
+          "prefix_verified": 120
+        }
+      },
+      "8": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 0,
+          "cases": 96,
+          "correct_future": 96,
+          "false_accepts": 0,
+          "intermediate_exact": 96,
+          "mean_grammar_bits_accepted": 17.6042,
+          "prefix_verified": 96
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 0,
+          "cases": 120,
+          "correct_future": 120,
+          "false_accepts": 0,
+          "intermediate_exact": 120,
+          "mean_grammar_bits_accepted": 20.45,
+          "prefix_verified": 120
+        }
+      }
+    },
+    "one_pass_feedforward": {
+      "collision": {
+        "abstentions": 12,
+        "cases": 12,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "dev": {
+        "abstentions": 77,
+        "cases": 96,
+        "correct_future": 19,
+        "false_accepts": 0,
+        "intermediate_exact": 19,
+        "mean_grammar_bits_accepted": 16.6842,
+        "prefix_verified": 19
+      },
+      "local_gap": {
+        "abstentions": 40,
+        "cases": 40,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "nonperiodic": {
+        "abstentions": 15,
+        "cases": 15,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 8,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "out_of_grammar": {
+        "abstentions": 18,
+        "cases": 18,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 1,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "unseen_modulus": {
+        "abstentions": 115,
+        "cases": 120,
+        "correct_future": 5,
+        "false_accepts": 0,
+        "intermediate_exact": 5,
+        "mean_grammar_bits_accepted": 20.8,
+        "prefix_verified": 5
+      }
+    },
+    "raw_rrc04_feedforward": {
+      "collision": {
+        "abstentions": 12,
+        "cases": 12,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "dev": {
+        "abstentions": 89,
+        "cases": 96,
+        "correct_future": 7,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": 18.1429,
+        "prefix_verified": 7
+      },
+      "local_gap": {
+        "abstentions": 40,
+        "cases": 40,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "nonperiodic": {
+        "abstentions": 15,
+        "cases": 15,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "out_of_grammar": {
+        "abstentions": 18,
+        "cases": 18,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "unseen_modulus": {
+        "abstentions": 120,
+        "cases": 120,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      }
+    },
+    "raw_rrc04_recurrent": {
+      "collision": {
+        "abstentions": 12,
+        "cases": 12,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "dev": {
+        "abstentions": 96,
+        "cases": 96,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "local_gap": {
+        "abstentions": 40,
+        "cases": 40,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "nonperiodic": {
+        "abstentions": 15,
+        "cases": 15,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "out_of_grammar": {
+        "abstentions": 18,
+        "cases": 18,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "unseen_modulus": {
+        "abstentions": 120,
+        "cases": 120,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      }
+    },
+    "shuffled_labels": {
+      "collision": {
+        "abstentions": 12,
+        "cases": 12,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "dev": {
+        "abstentions": 96,
+        "cases": 96,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "local_gap": {
+        "abstentions": 40,
+        "cases": 40,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "nonperiodic": {
+        "abstentions": 15,
+        "cases": 15,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "out_of_grammar": {
+        "abstentions": 18,
+        "cases": 18,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      },
+      "unseen_modulus": {
+        "abstentions": 120,
+        "cases": 120,
+        "correct_future": 0,
+        "false_accepts": 0,
+        "intermediate_exact": 0,
+        "mean_grammar_bits_accepted": null,
+        "prefix_verified": 0
+      }
+    },
+    "structural_jacobi": {
+      "0": {
+        "collision": {
+          "abstentions": 12,
+          "cases": 12,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "dev": {
+          "abstentions": 96,
+          "cases": 96,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "local_gap": {
+          "abstentions": 40,
+          "cases": 40,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 120,
+          "cases": 120,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        }
+      },
+      "1": {
+        "collision": {
+          "abstentions": 12,
+          "cases": 12,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "dev": {
+          "abstentions": 91,
+          "cases": 96,
+          "correct_future": 5,
+          "false_accepts": 0,
+          "intermediate_exact": 5,
+          "mean_grammar_bits_accepted": 17.4,
+          "prefix_verified": 5
+        },
+        "local_gap": {
+          "abstentions": 40,
+          "cases": 40,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 2,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 119,
+          "cases": 120,
+          "correct_future": 1,
+          "false_accepts": 0,
+          "intermediate_exact": 1,
+          "mean_grammar_bits_accepted": 14.0,
+          "prefix_verified": 1
+        }
+      },
+      "2": {
+        "collision": {
+          "abstentions": 12,
+          "cases": 12,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 0,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "dev": {
+          "abstentions": 74,
+          "cases": 96,
+          "correct_future": 22,
+          "false_accepts": 0,
+          "intermediate_exact": 22,
+          "mean_grammar_bits_accepted": 17.3182,
+          "prefix_verified": 22
+        },
+        "local_gap": {
+          "abstentions": 40,
+          "cases": 40,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 1,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 11,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 3,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 99,
+          "cases": 120,
+          "correct_future": 21,
+          "false_accepts": 0,
+          "intermediate_exact": 21,
+          "mean_grammar_bits_accepted": 20.8571,
+          "prefix_verified": 21
+        }
+      },
+      "4": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 10,
+          "cases": 96,
+          "correct_future": 86,
+          "false_accepts": 0,
+          "intermediate_exact": 86,
+          "mean_grammar_bits_accepted": 17.593,
+          "prefix_verified": 86
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 12,
+          "cases": 120,
+          "correct_future": 108,
+          "false_accepts": 0,
+          "intermediate_exact": 108,
+          "mean_grammar_bits_accepted": 20.3889,
+          "prefix_verified": 108
+        }
+      },
+      "6": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 0,
+          "cases": 96,
+          "correct_future": 96,
+          "false_accepts": 0,
+          "intermediate_exact": 96,
+          "mean_grammar_bits_accepted": 17.6042,
+          "prefix_verified": 96
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 0,
+          "cases": 120,
+          "correct_future": 120,
+          "false_accepts": 0,
+          "intermediate_exact": 120,
+          "mean_grammar_bits_accepted": 20.45,
+          "prefix_verified": 120
+        }
+      },
+      "7": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 0,
+          "cases": 96,
+          "correct_future": 96,
+          "false_accepts": 0,
+          "intermediate_exact": 96,
+          "mean_grammar_bits_accepted": 17.6042,
+          "prefix_verified": 96
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 0,
+          "cases": 120,
+          "correct_future": 120,
+          "false_accepts": 0,
+          "intermediate_exact": 120,
+          "mean_grammar_bits_accepted": 20.45,
+          "prefix_verified": 120
+        }
+      },
+      "8": {
+        "collision": {
+          "abstentions": 0,
+          "cases": 12,
+          "correct_future": 6,
+          "false_accepts": 6,
+          "intermediate_exact": 12,
+          "mean_grammar_bits_accepted": 22.0,
+          "prefix_verified": 12
+        },
+        "dev": {
+          "abstentions": 0,
+          "cases": 96,
+          "correct_future": 96,
+          "false_accepts": 0,
+          "intermediate_exact": 96,
+          "mean_grammar_bits_accepted": 17.6042,
+          "prefix_verified": 96
+        },
+        "local_gap": {
+          "abstentions": 37,
+          "cases": 40,
+          "correct_future": 3,
+          "false_accepts": 0,
+          "intermediate_exact": 40,
+          "mean_grammar_bits_accepted": 9.3333,
+          "prefix_verified": 3
+        },
+        "nonperiodic": {
+          "abstentions": 15,
+          "cases": 15,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 15,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 18,
+          "cases": 18,
+          "correct_future": 0,
+          "false_accepts": 0,
+          "intermediate_exact": 18,
+          "mean_grammar_bits_accepted": null,
+          "prefix_verified": 0
+        },
+        "unseen_modulus": {
+          "abstentions": 0,
+          "cases": 120,
+          "correct_future": 120,
+          "false_accepts": 0,
+          "intermediate_exact": 120,
+          "mean_grammar_bits_accepted": 20.45,
+          "prefix_verified": 120
+        }
+      }
+    }
+  },
+  "prefix_degree": 64,
+  "proper_divisor_edges": 216,
+  "roster_digest": {
+    "collision": "6a49c5c83f0f4facd72b21981933da2989f06ef86b99eea25bf8512959467f97",
+    "dev": "d10410f38e33119878ac402c15b539c6615fa6a9f49f1bb111f24e8d77d24d45",
+    "local_gap": "90d9ba6f93442bca5e8c12962cc647c521cece528c7dff4ad7ac8f65a21ae3ed",
+    "nonperiodic": "38cee3ebfc758b67d2c1537b930b4862c327e0bc0207739ff44e94fe984a1cb5",
+    "out_of_grammar": "bb7fa6f31e85efca02a006b66c2c286d747eb3d5f9c90d978ceaeb0a617608de",
+    "train": "1cced52f86019cb00e87a6dda8e5b06c7795c554ea6d2a91117b5de3ce999b9c",
+    "unseen_modulus": "bd9dce742aa0c49736b01361bf10045c670f1a8d10a8897bb239c7e6081eaed8"
+  },
+  "schema": "rrc05.cpu_replay.v1",
+  "scope": "Finite exact prefix certificates; gains trained with exact algebraic b_n/n and wired divisor graph; no new infinite theorem or raw-input neural advantage",
+  "selected_cases": [
+    {
+      "collision_group": null,
+      "family": "periodic_product",
+      "group": "unseen_modulus",
+      "id": "unseen_modulus-0000",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 2,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 2,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 1,
+            "period": 5,
+            "residues": [
+              2,
+              3,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 2,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "bdc4e309da03797697638743650699bbce2809b9b12dc646e35373f8d28b76e5"
+    },
+    {
+      "collision_group": null,
+      "family": "local_gap",
+      "group": "local_gap",
+      "id": "gap2-min1",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 24,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 24,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "7464f596d1c2e134a64fb7818f10cf6e03843375374c8cc80317d25d04babe3a"
+    },
+    {
+      "collision_group": null,
+      "family": "local_gap",
+      "group": "local_gap",
+      "id": "gap2-min2",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 2,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "jacobi_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 2,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "learned_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 5,
+            "residues": [
+              2,
+              3
+            ],
+            "syntax_bits": 12
+          },
+          "syntax_bits": 12
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 2,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "5a259a4d523d17bb8ff357487522487480a5fa4ba04d47dd994697fba45b9f2c"
+    },
+    {
+      "collision_group": null,
+      "family": "local_gap",
+      "group": "local_gap",
+      "id": "gap3-min1",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 10,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 10,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 30,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_6": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_7": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_8": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 10,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 30,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_6": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_7": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_8": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 10,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "2058660d88b30acd0abc62ae25de3bd6212d1eb96c530411d1eafdef63bd2802"
+    },
+    {
+      "collision_group": null,
+      "family": "nonperiodic",
+      "group": "nonperiodic",
+      "id": "pentagonal-cap0",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 10,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 10,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 30,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_6": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_7": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_8": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 10,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 30,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_6": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_7": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_8": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "5b215124692e0298e4dbf4bbe4947b0e53ba45b1472db03e180be4ac8542daba"
+    },
+    {
+      "collision_group": null,
+      "family": "out_of_grammar",
+      "group": "out_of_grammar",
+      "id": "out-000",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_6": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_7": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_8": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_6": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_7": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_8": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": null,
+          "syntax_bits": null
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 12,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 6,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "eb7d4808dd0d456d83f833f16637605126376ddbf7b262c3a2847e3d540511d8"
+    },
+    {
+      "collision_group": "pair0",
+      "family": "collision",
+      "group": "collision",
+      "id": "pair0-base",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 24,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 24,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_6": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_7": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_8": {
+          "accepted": true,
+          "correct_future": true,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "09190209e5613919841daa1288053e366f463c4eb8f39e748f321dd22fe881f2"
+    },
+    {
+      "collision_group": "pair0",
+      "family": "collision",
+      "group": "collision",
+      "id": "pair0-mutant",
+      "predictions": {
+        "divisor_erased": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "exact_symbolic": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 24,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "jacobi_4": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_6": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_7": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "jacobi_8": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_0": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_1": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_2": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 24,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "learned_4": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_6": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_7": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "learned_8": {
+          "accepted": true,
+          "correct_future": false,
+          "first_future_mismatch": 65,
+          "first_residual": null,
+          "intermediate_exact": true,
+          "program": {
+            "cap": 0,
+            "period": 13,
+            "residues": [
+              1,
+              4
+            ],
+            "syntax_bits": 22
+          },
+          "syntax_bits": 22
+        },
+        "one_pass_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 8,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_feedforward": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "raw_rrc04_recurrent": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": null,
+          "intermediate_exact": null,
+          "program": null,
+          "syntax_bits": null
+        },
+        "shuffled_labels": {
+          "accepted": false,
+          "correct_future": false,
+          "first_future_mismatch": null,
+          "first_residual": 1,
+          "intermediate_exact": false,
+          "program": null,
+          "syntax_bits": null
+        }
+      },
+      "prefix_sha256": "09190209e5613919841daa1288053e366f463c4eb8f39e748f321dd22fe881f2"
+    }
+  ],
+  "source_sha256": {
+    "RRC05_PROTOCOL.md": "f3546b69640176972b88d35ded5cf1be747bc6552abc26bcab46e957bdc9a3e2",
+    "RRC05_THEORY.md": "2c4e4725a4bf3702e2d371e28f306c39885db55cdf359b36d80988f93d52ae07",
+    "bench05.py": "485b691118b00f8899380b9d34891d8060355d45a569c9f365cdd277dae097f8",
+    "program04.py": "4aa1f6b0a0a874d8c9637998236be9b99ffff6125f542fe9fa441df59874ba03",
+    "rrc.py": "c99a6b7fb01c8c8d84aadf86cee9af8d379641eadd2ea6477b4359b1a8430f01",
+    "rrc05.py": "c2fcac4e9fcb51f5d9418fc01b7d87bc7b3d0223b841a62f68ef691fcb3a6dbe",
+    "student04.py": "42de06b0506378098e0660d429f8689657cf4b2f3056dad327d3a7b96d616754",
+    "test_rrc05.py": "e720e187ceaa3f27068cb94136de971f25f7391f66d0d947833906b7bcd30a3b",
+    "train05.py": "f11dc5594fe3ea4a779e70470ecc8c12c1e73a41439a0f12abc813ed1b63d16a"
+  },
+  "split_sizes": {
+    "collision": 12,
+    "dev": 96,
+    "local_gap": 40,
+    "nonperiodic": 15,
+    "out_of_grammar": 18,
+    "train": 384,
+    "unseen_modulus": 120
+  },
+  "trace_sha256": "5e2d49e951b1db2e3f533ba15e1e0c4a2f0b35c4358824f7e59871de72447c9c",
+  "weight_bits_fp32": 64
+}
