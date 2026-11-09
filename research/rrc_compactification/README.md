@@ -85,3 +85,7 @@ The [RRC-02 run report](RRC02_REPORT.md) records a 363-parameter trained recurre
 ## RRC-04: raw coefficient to executable grammar (negative model pilot)
 
 [Results](RRC04_REPORT.md), [registered protocol](RRC04_PROTOCOL.md), [exact theorems](RRC04_THEORY.md), [source-bound replay](results/rrc04_pilot.json). Three 2026-11-09 CPU-trained models consume only raw counts through degree 64; the exact cap/period/residue synthesizer and 171 held-out generator-family tests preserve eight provable late-defect collisions. The direct recurrent student fails to emit a verified complete program on the held-out set. Use a fresh roster for any subsequent model tuning.
+
+## RRC-07: learned first-fault improvement with exact-feedback control (2026-11-09)
+
+The [RRC-07 report](RRC07_REPORT.md), [protocol](RRC07_PROTOCOL.md), [theory](RRC07_THEORY.md) and [frozen receipt](results/rrc07_pilot.json) compare a 4,227-parameter recurrent corrector with a 4,297-parameter feedforward control on 72 newly sampled product instances. Recurrent refinement shifts the average first exact Euler fault from degree 4.75 to 6.76, while producing zero complete verified programs. The full exact residual-feedback control repairs each coordinate through a separately charged arithmetic oracle; a one-shot exact symbolic solver remains stronger. NumPy CPU replay and scalar parity are checked in [CI](../../.github/workflows/rrc-07.yml).
