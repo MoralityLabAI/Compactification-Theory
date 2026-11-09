@@ -1,0 +1,532 @@
+{
+  "checkpoint_sha256": {
+    "local": "838592d227bfe89780771a4046b8c0851ddfc29f8a2509a73847effe2fbb20e7",
+    "operator": "ff6910a62b5cc7baf27eedc5c24140a9e1bde3fafefff39859fa1245ec78be4d",
+    "shuffled": "67734a34179e224b9c6170118501d2e490edd9cd971457ec9727641734ec9eb9"
+  },
+  "claims_boundary": "Exactness requires the supplied convolution/divisor feature basis, local teacher traces and integer DSL interpreter; no claim of end-to-end neural symbolic discovery or novel Rogers-Ramanujan proof.",
+  "collision_pairs": {
+    "late-111": {
+      "diverges_future": true,
+      "same_candidate": true,
+      "same_visible_input": true
+    },
+    "late-127": {
+      "diverges_future": true,
+      "same_candidate": true,
+      "same_visible_input": true
+    },
+    "late-65": {
+      "diverges_future": true,
+      "same_candidate": true,
+      "same_visible_input": true
+    },
+    "late-73": {
+      "diverges_future": true,
+      "same_candidate": true,
+      "same_visible_input": true
+    },
+    "late-87": {
+      "diverges_future": true,
+      "same_candidate": true,
+      "same_visible_input": true
+    },
+    "late-99": {
+      "diverges_future": true,
+      "same_candidate": true,
+      "same_visible_input": true
+    }
+  },
+  "learned_program": {
+    "a_terms": [
+      1,
+      -1,
+      0,
+      0
+    ],
+    "b_terms": [
+      1,
+      -1,
+      0,
+      0
+    ],
+    "syntax_bits_excluding_basis_interpreter": 24
+  },
+  "parallel_depth": {
+    "0": {
+      "complete_traces": 0,
+      "euler_coordinates_correct": 1881,
+      "max_first_error_degree": 9,
+      "total": 3840
+    },
+    "1": {
+      "complete_traces": 0,
+      "euler_coordinates_correct": 1881,
+      "max_first_error_degree": 9,
+      "total": 3840
+    },
+    "16": {
+      "complete_traces": 4,
+      "euler_coordinates_correct": 1713,
+      "max_first_error_degree": 65,
+      "total": 3840
+    },
+    "2": {
+      "complete_traces": 0,
+      "euler_coordinates_correct": 322,
+      "max_first_error_degree": 18,
+      "total": 3840
+    },
+    "32": {
+      "complete_traces": 17,
+      "euler_coordinates_correct": 2677,
+      "max_first_error_degree": 65,
+      "total": 3840
+    },
+    "4": {
+      "complete_traces": 0,
+      "euler_coordinates_correct": 479,
+      "max_first_error_degree": 36,
+      "total": 3840
+    },
+    "65": {
+      "complete_traces": 60,
+      "euler_coordinates_correct": 3840,
+      "max_first_error_degree": 65,
+      "total": 3840
+    },
+    "8": {
+      "complete_traces": 1,
+      "euler_coordinates_correct": 930,
+      "max_first_error_degree": 65,
+      "total": 3840
+    }
+  },
+  "parameters": {
+    "compiled_operator_syntax_bits_excluding_decoder": 24,
+    "feedforward_parameter_count": 8,
+    "fixed_public_basis": [
+      "n*f[n]",
+      "convolution_of_prior_b_and_f",
+      "previous_b",
+      "constant",
+      "b[n]/n",
+      "proper_divisor_sum_of_prior_a_over_n",
+      "previous_a",
+      "constant"
+    ],
+    "heldout_degree": 128,
+    "operator_parameter_count": 8,
+    "prefix_degree": 64,
+    "seed": 2026110908,
+    "supervised_training_degree": 16
+  },
+  "previous_training_prefix_aliases": {
+    "RRC06": {
+      "collision": 0,
+      "dev": 12,
+      "gap": 2,
+      "inverse": 0,
+      "irregular": 0,
+      "out_of_grammar": 0,
+      "power": 0,
+      "signed_twist": 0,
+      "unseen_period": 1
+    },
+    "RRC07": {
+      "collision": 0,
+      "dev": 8,
+      "gap": 2,
+      "inverse": 0,
+      "irregular": 0,
+      "out_of_grammar": 0,
+      "power": 0,
+      "signed_twist": 0,
+      "unseen_period": 1
+    }
+  },
+  "roster_sha256": {
+    "collision": "c963d164a698d93459a569cc6e329ff7aaa4e7fa8c643ca0ee471d7b9396c5df",
+    "dev": "653f4ad7747cc763c053cc1549926dde7e2225037efd95564302a6789471d10f",
+    "gap": "8695d93bce4aa4f72ffe0a698ce676cdb17944d6fc8c11c4623dc6d8aae83291",
+    "inverse": "718a702b66de4e8372f3b3db8b89df941398a7eb736230d6f0025b0b7364215b",
+    "irregular": "75f5effe34afdf37a73c6d5c499d2b4f5cb377d5130e493d5dcd1ec433689fe9",
+    "out_of_grammar": "41c0709be788528681a84d1a67e3677b6cf10f0ca674fdf161e0980cb5377c23",
+    "power": "020696997ab728175051d4128be8b502aab6b9363959be8672a704514fad552b",
+    "signed_twist": "255c6235d9ed4cd3f62faae130fa92e8ddc4c312930032a461098dde56353a40",
+    "train": "ff4daae18ddd29b3f3b861b2a06bfa9bda8dc7c2d8efda14798120cf449b537d",
+    "unseen_period": "9bf65ccc69e13079b093ca0500feab1f72c99345e6cfb99f3aeb5995fd707348"
+  },
+  "schema": "rrc08.receipt.v1",
+  "scores": {
+    "compiled_recurrent_operator": {
+      "aggregate": {
+        "accepted_program": 115,
+        "cases": 195,
+        "correct_future": 109,
+        "exact_euler_coordinates": 12480,
+        "false_accept": 6,
+        "first_error_mean_weighted": 65.0,
+        "nonintegral": 0,
+        "total_euler_coordinates": 12480,
+        "verified_trace": 195
+      },
+      "splits": {
+        "collision": {
+          "accepted_program": 12,
+          "cases": 12,
+          "correct_future": 6,
+          "exact_euler_coordinates": 768,
+          "false_accept": 6,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "dev": {
+          "accepted_program": 40,
+          "cases": 40,
+          "correct_future": 40,
+          "exact_euler_coordinates": 2560,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 2560,
+          "verified_trace": 40
+        },
+        "gap": {
+          "accepted_program": 3,
+          "cases": 20,
+          "correct_future": 3,
+          "exact_euler_coordinates": 1280,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 1280,
+          "verified_trace": 20
+        },
+        "inverse": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "irregular": {
+          "accepted_program": 0,
+          "cases": 15,
+          "correct_future": 0,
+          "exact_euler_coordinates": 960,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 960,
+          "verified_trace": 15
+        },
+        "out_of_grammar": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "power": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "signed_twist": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "unseen_period": {
+          "accepted_program": 60,
+          "cases": 60,
+          "correct_future": 60,
+          "exact_euler_coordinates": 3840,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 3840,
+          "verified_trace": 60
+        }
+      }
+    },
+    "raw_local_feedforward": {
+      "aggregate": {
+        "accepted_program": 0,
+        "cases": 195,
+        "correct_future": 0,
+        "exact_euler_coordinates": 2807,
+        "false_accept": 0,
+        "first_error_mean_weighted": 5.082051282051282,
+        "nonintegral": 0,
+        "total_euler_coordinates": 12480,
+        "verified_trace": 0
+      },
+      "splits": {
+        "collision": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 164,
+          "false_accept": 0,
+          "first_error_mean": 4.666666666666667,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 0
+        },
+        "dev": {
+          "accepted_program": 0,
+          "cases": 40,
+          "correct_future": 0,
+          "exact_euler_coordinates": 653,
+          "false_accept": 0,
+          "first_error_mean": 5.5,
+          "nonintegral": 0,
+          "total_euler_coordinates": 2560,
+          "verified_trace": 0
+        },
+        "gap": {
+          "accepted_program": 0,
+          "cases": 20,
+          "correct_future": 0,
+          "exact_euler_coordinates": 292,
+          "false_accept": 0,
+          "first_error_mean": 5.75,
+          "nonintegral": 0,
+          "total_euler_coordinates": 1280,
+          "verified_trace": 0
+        },
+        "inverse": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 124,
+          "false_accept": 0,
+          "first_error_mean": 2.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 0
+        },
+        "irregular": {
+          "accepted_program": 0,
+          "cases": 15,
+          "correct_future": 0,
+          "exact_euler_coordinates": 336,
+          "false_accept": 0,
+          "first_error_mean": 8.2,
+          "nonintegral": 0,
+          "total_euler_coordinates": 960,
+          "verified_trace": 0
+        },
+        "out_of_grammar": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 199,
+          "false_accept": 0,
+          "first_error_mean": 5.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 0
+        },
+        "power": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 30,
+          "false_accept": 0,
+          "first_error_mean": 1.6666666666666667,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 0
+        },
+        "signed_twist": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 82,
+          "false_accept": 0,
+          "first_error_mean": 2.25,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 0
+        },
+        "unseen_period": {
+          "accepted_program": 0,
+          "cases": 60,
+          "correct_future": 0,
+          "exact_euler_coordinates": 927,
+          "false_accept": 0,
+          "first_error_mean": 5.766666666666667,
+          "nonintegral": 0,
+          "total_euler_coordinates": 3840,
+          "verified_trace": 0
+        }
+      }
+    },
+    "symbolic_reference": {
+      "aggregate": {
+        "accepted_program": 115,
+        "cases": 195,
+        "correct_future": 109,
+        "exact_euler_coordinates": 12480,
+        "false_accept": 6,
+        "first_error_mean_weighted": 65.0,
+        "nonintegral": 0,
+        "total_euler_coordinates": 12480,
+        "verified_trace": 195
+      },
+      "splits": {
+        "collision": {
+          "accepted_program": 12,
+          "cases": 12,
+          "correct_future": 6,
+          "exact_euler_coordinates": 768,
+          "false_accept": 6,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "dev": {
+          "accepted_program": 40,
+          "cases": 40,
+          "correct_future": 40,
+          "exact_euler_coordinates": 2560,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 2560,
+          "verified_trace": 40
+        },
+        "gap": {
+          "accepted_program": 3,
+          "cases": 20,
+          "correct_future": 3,
+          "exact_euler_coordinates": 1280,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 1280,
+          "verified_trace": 20
+        },
+        "inverse": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "irregular": {
+          "accepted_program": 0,
+          "cases": 15,
+          "correct_future": 0,
+          "exact_euler_coordinates": 960,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 960,
+          "verified_trace": 15
+        },
+        "out_of_grammar": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "power": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "signed_twist": {
+          "accepted_program": 0,
+          "cases": 12,
+          "correct_future": 0,
+          "exact_euler_coordinates": 768,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 768,
+          "verified_trace": 12
+        },
+        "unseen_period": {
+          "accepted_program": 60,
+          "cases": 60,
+          "correct_future": 60,
+          "exact_euler_coordinates": 3840,
+          "false_accept": 0,
+          "first_error_mean": 65.0,
+          "nonintegral": 0,
+          "total_euler_coordinates": 3840,
+          "verified_trace": 60
+        }
+      }
+    }
+  },
+  "shuffled_label_control": {
+    "executable": false,
+    "rejection": "signed integer operator snap gate failed"
+  },
+  "source_sha256": {
+    "bench08.py": "a8b6f65f452161b2b194342bec67d6a4d4caff55867480c4a4a0c38f8094b71e",
+    "operator08.py": "142911dc14afdfd88564f48ade57e217be21067a3283479fa3b409a01e27672d",
+    "program04.py": "4aa1f6b0a0a874d8c9637998236be9b99ffff6125f542fe9fa441df59874ba03",
+    "rrc.py": "c99a6b7fb01c8c8d84aadf86cee9af8d379641eadd2ea6477b4359b1a8430f01",
+    "rrc05.py": "c2fcac4e9fcb51f5d9418fc01b7d87bc7b3d0223b841a62f68ef691fcb3a6dbe",
+    "rrc06.py": "db7e8f19b91f40df2f53cd6ca2ddeb7b1b5047b6c4c0d126fea8adb87f804fdc",
+    "rrc07.py": "1d6f420ed834ba62ce8f644f77f7292972708e2c6364f95e2f0a036b777b9fa5",
+    "train08.py": "b39266045973fddc25eea789ac2c8699c15fb891a9a6ea4c98c17114a0e10fa3"
+  },
+  "status": "bounded_teacher_forced_operator_induction_cpu",
+  "train_roster_sha256": "ff4daae18ddd29b3f3b861b2a06bfa9bda8dc7c2d8efda14798120cf449b537d",
+  "training_prefix_aliases": {
+    "collision": 0,
+    "dev": 0,
+    "gap": 1,
+    "inverse": 0,
+    "irregular": 0,
+    "out_of_grammar": 0,
+    "power": 0,
+    "signed_twist": 0,
+    "unseen_period": 0
+  }
+}

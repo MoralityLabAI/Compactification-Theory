@@ -1,0 +1,45 @@
+{
+  "a_fit": {
+    "condition_number": 4.1138570249708835,
+    "design_rank": 4,
+    "max_abs_residual": 1.80880022019198,
+    "mse": 0.07908646332376487,
+    "weights": [
+      0.5292945985940952,
+      -0.2395048666361105,
+      -0.4195135354101996,
+      0.2795056215978848
+    ]
+  },
+  "b_fit": {
+    "condition_number": 6.001294816524777,
+    "design_rank": 4,
+    "max_abs_residual": 12.643711477346827,
+    "mse": 0.39010836201907456,
+    "weights": [
+      0.08744161742417692,
+      1.4174680238707218,
+      -0.30089058869508345,
+      -0.05539793395809002
+    ]
+  },
+  "decoded_coefficients": null,
+  "degree_supervised": 16,
+  "executable": false,
+  "inference_teacher_access": false,
+  "kind": "raw_local_feedforward",
+  "learning_rate": 0.06,
+  "operator08_sha256": "142911dc14afdfd88564f48ade57e217be21067a3283479fa3b409a01e27672d",
+  "optimizer": "torch.Adam.fp64.full_batch",
+  "schema": "rrc08.weights.v1",
+  "seed": 2026110908,
+  "snap_max_error": 0.4707054014059048,
+  "steps": 1000,
+  "test_family_generation_in_train": false,
+  "torch_version": "2.10.0+cpu",
+  "train08_sha256": "b39266045973fddc25eea789ac2c8699c15fb891a9a6ea4c98c17114a0e10fa3",
+  "training_data_sha256": "ff4daae18ddd29b3f3b861b2a06bfa9bda8dc7c2d8efda14798120cf449b537d",
+  "training_examples": 192,
+  "training_rows": 3072,
+  "training_teacher_traces": true
+}
