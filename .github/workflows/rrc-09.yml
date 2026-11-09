@@ -1,0 +1,42 @@
+name: RRC-09 withheld-primitive composition exact CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/synth09.py'
+      - 'research/rrc_compactification/model09.py'
+      - 'research/rrc_compactification/train09.py'
+      - 'research/rrc_compactification/bench09.py'
+      - 'research/rrc_compactification/test_synth09.py'
+      - 'research/rrc_compactification/RRC09_*.md'
+      - 'research/rrc_compactification/results/rrc09_*.json'
+      - '.github/workflows/rrc-09.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/synth09.py'
+      - 'research/rrc_compactification/model09.py'
+      - 'research/rrc_compactification/train09.py'
+      - 'research/rrc_compactification/bench09.py'
+      - 'research/rrc_compactification/test_synth09.py'
+      - 'research/rrc_compactification/RRC09_*.md'
+      - 'research/rrc_compactification/results/rrc09_*.json'
+      - '.github/workflows/rrc-09.yml'
+  workflow_dispatch:
+jobs:
+  exact-synthesis-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact algebra, source-family isolation and leakage controls
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_synth09.py' -v
+      - name: Verify source-bound complete held-out replay
+        run: python research/rrc_compactification/bench09.py --check
+      - name: RRC-01 and RRC-05 exact-algebra regressions
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_rrc.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_rrc05.py' -v

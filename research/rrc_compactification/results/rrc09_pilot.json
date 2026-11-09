@@ -1,0 +1,1553 @@
+{
+  "checkpoint_sha256": {
+    "feedforward": "e309c6855baa0ea2b5503c9ba07bbd03075b4f62efe66525dc598dc0a7411b29",
+    "guided_ranker": "cfb4df7006dbe96a6a7f45f25975e5cef9962f9738cd400512b0d6411c897e07",
+    "recurrent": "6bd7581c9ebf90ee627c3b1cdc914983752641fd33ab6d1136a549263097820f",
+    "shuffled_recurrent": "db413de77d9f66f88ce393b87fc700621c962715446faff801f098cf8154aa43"
+  },
+  "collision_pairs": [
+    {
+      "degree": 19,
+      "pair": "collision-00",
+      "same_observed": true
+    },
+    {
+      "degree": 22,
+      "pair": "collision-01",
+      "same_observed": true
+    },
+    {
+      "degree": 25,
+      "pair": "collision-02",
+      "same_observed": true
+    },
+    {
+      "degree": 28,
+      "pair": "collision-03",
+      "same_observed": true
+    },
+    {
+      "degree": 31,
+      "pair": "collision-04",
+      "same_observed": true
+    },
+    {
+      "degree": 34,
+      "pair": "collision-05",
+      "same_observed": true
+    },
+    {
+      "degree": 37,
+      "pair": "collision-06",
+      "same_observed": true
+    },
+    {
+      "degree": 40,
+      "pair": "collision-07",
+      "same_observed": true
+    }
+  ],
+  "limitations": "Guided learner sees outputs of the supplied public C/D interpreter at test; exact search is the class-complete control. Direct neural models have no supervised C/D labels. Verified prefixes do not certify infinite identities or late mutations.",
+  "metrics": {
+    "exact": {
+      "by_split": {
+        "dev": {
+          "abstentions": 0,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 90,
+          "mean_candidate_attempts": 7.156,
+          "mean_estimated_coefficient_work": 220.689,
+          "mean_full_verifications": 1.111,
+          "mean_public_primitive_calls": 10.522,
+          "prefix_verified": 90
+        },
+        "heldout_C": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 14.688,
+          "mean_estimated_coefficient_work": 598.958,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 24.417,
+          "prefix_verified": 48
+        },
+        "heldout_CD": {
+          "abstentions": 0,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 27.25,
+          "mean_estimated_coefficient_work": 1237.875,
+          "mean_full_verifications": 1.031,
+          "mean_public_primitive_calls": 49.531,
+          "prefix_verified": 32
+        },
+        "heldout_D": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 17.646,
+          "mean_estimated_coefficient_work": 779.583,
+          "mean_full_verifications": 1.271,
+          "mean_public_primitive_calls": 30.458,
+          "prefix_verified": 48
+        },
+        "late_collision": {
+          "abstentions": 0,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8,
+          "mean_candidate_attempts": 29.5,
+          "mean_estimated_coefficient_work": 1406.5,
+          "mean_full_verifications": 1.25,
+          "mean_public_primitive_calls": 54.375,
+          "prefix_verified": 16
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1229.208,
+          "mean_full_verifications": 0.542,
+          "mean_public_primitive_calls": 56.083,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 6.812,
+          "mean_estimated_coefficient_work": 205.458,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 9.854,
+          "prefix_verified": 48
+        }
+      },
+      "heldout": {
+        "abstentions": 24,
+        "cases": 216,
+        "false_accept": 8,
+        "future_correct": 184,
+        "mean_candidate_attempts": 18.366,
+        "mean_estimated_coefficient_work": 776.153,
+        "mean_full_verifications": 1.051,
+        "mean_public_primitive_calls": 31.981,
+        "prefix_verified": 192
+      },
+      "total": {
+        "abstentions": 24,
+        "cases": 306,
+        "false_accept": 8,
+        "future_correct": 274,
+        "mean_candidate_attempts": 15.069,
+        "mean_estimated_coefficient_work": 612.781,
+        "mean_full_verifications": 1.069,
+        "mean_public_primitive_calls": 25.67,
+        "prefix_verified": 282
+      }
+    },
+    "feedforward": {
+      "by_split": {
+        "dev": {
+          "abstentions": 19,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 71,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 89.722,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.344,
+          "prefix_verified": 71
+        },
+        "heldout_C": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 39.188,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 0.896,
+          "prefix_verified": 0
+        },
+        "heldout_CD": {
+          "abstentions": 32,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 140.719,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.656,
+          "prefix_verified": 0
+        },
+        "heldout_D": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 122.312,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.438,
+          "prefix_verified": 0
+        },
+        "late_collision": {
+          "abstentions": 16,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 80.75,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.25,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 123.5,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.5,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 12,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 36,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 91.042,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.292,
+          "prefix_verified": 36
+        }
+      },
+      "heldout": {
+        "abstentions": 180,
+        "cases": 216,
+        "false_accept": 0,
+        "future_correct": 36,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 96.671,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.31,
+        "prefix_verified": 36
+      },
+      "total": {
+        "abstentions": 199,
+        "cases": 306,
+        "false_accept": 0,
+        "future_correct": 107,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 94.627,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.32,
+        "prefix_verified": 107
+      }
+    },
+    "guided_1": {
+      "by_split": {
+        "dev": {
+          "abstentions": 4,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 86,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1109.111,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.378,
+          "prefix_verified": 86
+        },
+        "heldout_C": {
+          "abstentions": 2,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 46,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1273.646,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.875,
+          "prefix_verified": 46
+        },
+        "heldout_CD": {
+          "abstentions": 1,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 31,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1406.406,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.969,
+          "prefix_verified": 31
+        },
+        "heldout_D": {
+          "abstentions": 7,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 41,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1264.875,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.625,
+          "prefix_verified": 41
+        },
+        "late_collision": {
+          "abstentions": 2,
+          "cases": 16,
+          "false_accept": 7,
+          "future_correct": 7,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1386.625,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.875,
+          "prefix_verified": 14
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1404.208,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 2,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 46,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1100.271,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.312,
+          "prefix_verified": 46
+        }
+      },
+      "heldout": {
+        "abstentions": 38,
+        "cases": 216,
+        "false_accept": 7,
+        "future_correct": 171,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1275.713,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 56.718,
+        "prefix_verified": 178
+      },
+      "total": {
+        "abstentions": 42,
+        "cases": 306,
+        "false_accept": 7,
+        "future_correct": 257,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1226.712,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 56.618,
+        "prefix_verified": 264
+      }
+    },
+    "guided_31": {
+      "by_split": {
+        "dev": {
+          "abstentions": 0,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 90,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1118.189,
+          "mean_full_verifications": 1.111,
+          "mean_public_primitive_calls": 56.589,
+          "prefix_verified": 90
+        },
+        "heldout_C": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1282.354,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 48
+        },
+        "heldout_CD": {
+          "abstentions": 0,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1418.938,
+          "mean_full_verifications": 1.031,
+          "mean_public_primitive_calls": 57.031,
+          "prefix_verified": 32
+        },
+        "heldout_D": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1323.0,
+          "mean_full_verifications": 1.271,
+          "mean_public_primitive_calls": 57.167,
+          "prefix_verified": 48
+        },
+        "late_collision": {
+          "abstentions": 0,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1486.875,
+          "mean_full_verifications": 1.25,
+          "mean_public_primitive_calls": 57.375,
+          "prefix_verified": 16
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 7722.0,
+          "mean_full_verifications": 31.0,
+          "mean_public_primitive_calls": 110.0,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1108.188,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.396,
+          "prefix_verified": 48
+        }
+      },
+      "heldout": {
+        "abstentions": 24,
+        "cases": 216,
+        "false_accept": 8,
+        "future_correct": 184,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 2003.583,
+        "mean_full_verifications": 4.435,
+        "mean_public_primitive_calls": 62.815,
+        "prefix_verified": 192
+      },
+      "total": {
+        "abstentions": 24,
+        "cases": 306,
+        "false_accept": 8,
+        "future_correct": 274,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1743.173,
+        "mean_full_verifications": 3.458,
+        "mean_public_primitive_calls": 60.984,
+        "prefix_verified": 282
+      }
+    },
+    "guided_4": {
+      "by_split": {
+        "dev": {
+          "abstentions": 2,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 88,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1113.967,
+          "mean_full_verifications": 1.089,
+          "mean_public_primitive_calls": 56.544,
+          "prefix_verified": 88
+        },
+        "heldout_C": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1282.354,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 48
+        },
+        "heldout_CD": {
+          "abstentions": 0,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1418.938,
+          "mean_full_verifications": 1.031,
+          "mean_public_primitive_calls": 57.031,
+          "prefix_verified": 32
+        },
+        "heldout_D": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1323.0,
+          "mean_full_verifications": 1.271,
+          "mean_public_primitive_calls": 57.167,
+          "prefix_verified": 48
+        },
+        "late_collision": {
+          "abstentions": 0,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1486.875,
+          "mean_full_verifications": 1.25,
+          "mean_public_primitive_calls": 57.375,
+          "prefix_verified": 16
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 2074.75,
+          "mean_full_verifications": 4.0,
+          "mean_public_primitive_calls": 61.083,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1108.188,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.396,
+          "prefix_verified": 48
+        }
+      },
+      "heldout": {
+        "abstentions": 24,
+        "cases": 216,
+        "false_accept": 8,
+        "future_correct": 184,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1376.111,
+        "mean_full_verifications": 1.435,
+        "mean_public_primitive_calls": 57.38,
+        "prefix_verified": 192
+      },
+      "total": {
+        "abstentions": 26,
+        "cases": 306,
+        "false_accept": 8,
+        "future_correct": 272,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1299.01,
+        "mean_full_verifications": 1.333,
+        "mean_public_primitive_calls": 57.134,
+        "prefix_verified": 280
+      }
+    },
+    "guided_8": {
+      "by_split": {
+        "dev": {
+          "abstentions": 0,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 90,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1118.189,
+          "mean_full_verifications": 1.111,
+          "mean_public_primitive_calls": 56.589,
+          "prefix_verified": 90
+        },
+        "heldout_C": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1282.354,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 48
+        },
+        "heldout_CD": {
+          "abstentions": 0,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1418.938,
+          "mean_full_verifications": 1.031,
+          "mean_public_primitive_calls": 57.031,
+          "prefix_verified": 32
+        },
+        "heldout_D": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1323.0,
+          "mean_full_verifications": 1.271,
+          "mean_public_primitive_calls": 57.167,
+          "prefix_verified": 48
+        },
+        "late_collision": {
+          "abstentions": 0,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1486.875,
+          "mean_full_verifications": 1.25,
+          "mean_public_primitive_calls": 57.375,
+          "prefix_verified": 16
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 2729.083,
+          "mean_full_verifications": 8.0,
+          "mean_public_primitive_calls": 67.417,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1108.188,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.396,
+          "prefix_verified": 48
+        }
+      },
+      "heldout": {
+        "abstentions": 24,
+        "cases": 216,
+        "false_accept": 8,
+        "future_correct": 184,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1448.815,
+        "mean_full_verifications": 1.88,
+        "mean_public_primitive_calls": 58.083,
+        "prefix_verified": 192
+      },
+      "total": {
+        "abstentions": 24,
+        "cases": 306,
+        "false_accept": 8,
+        "future_correct": 274,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1351.572,
+        "mean_full_verifications": 1.654,
+        "mean_public_primitive_calls": 57.644,
+        "prefix_verified": 282
+      }
+    },
+    "recurrent_1": {
+      "by_split": {
+        "dev": {
+          "abstentions": 30,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 60,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 73.889,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.4,
+          "prefix_verified": 60
+        },
+        "heldout_C": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 17.812,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 0.771,
+          "prefix_verified": 0
+        },
+        "heldout_CD": {
+          "abstentions": 32,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 89.062,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.188,
+          "prefix_verified": 0
+        },
+        "heldout_D": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 68.083,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.583,
+          "prefix_verified": 0
+        },
+        "late_collision": {
+          "abstentions": 16,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 9.5,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 0.5,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 70.458,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.042,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 16,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 73.229,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.188,
+          "prefix_verified": 32
+        }
+      },
+      "heldout": {
+        "abstentions": 184,
+        "cases": 216,
+        "false_accept": 0,
+        "future_correct": 32,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 57.088,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.116,
+        "prefix_verified": 32
+      },
+      "total": {
+        "abstentions": 214,
+        "cases": 306,
+        "false_accept": 0,
+        "future_correct": 92,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 62.029,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.199,
+        "prefix_verified": 92
+      }
+    },
+    "recurrent_2": {
+      "by_split": {
+        "dev": {
+          "abstentions": 62,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 28,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 79.167,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.411,
+          "prefix_verified": 28
+        },
+        "heldout_C": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 27.312,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 0.771,
+          "prefix_verified": 0
+        },
+        "heldout_CD": {
+          "abstentions": 32,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 85.5,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.25,
+          "prefix_verified": 0
+        },
+        "heldout_D": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 125.875,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.792,
+          "prefix_verified": 0
+        },
+        "late_collision": {
+          "abstentions": 16,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 28.5,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 0.5,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 71.25,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.083,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 30,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 18,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 54.625,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.042,
+          "prefix_verified": 18
+        }
+      },
+      "heldout": {
+        "abstentions": 198,
+        "cases": 216,
+        "false_accept": 0,
+        "future_correct": 18,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 68.875,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.144,
+        "prefix_verified": 18
+      },
+      "total": {
+        "abstentions": 260,
+        "cases": 306,
+        "false_accept": 0,
+        "future_correct": 46,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 71.902,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.222,
+        "prefix_verified": 46
+      }
+    },
+    "recurrent_4": {
+      "by_split": {
+        "dev": {
+          "abstentions": 61,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 29,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 79.167,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.411,
+          "prefix_verified": 29
+        },
+        "heldout_C": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 26.917,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 0.75,
+          "prefix_verified": 0
+        },
+        "heldout_CD": {
+          "abstentions": 32,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 90.844,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.281,
+          "prefix_verified": 0
+        },
+        "heldout_D": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 125.875,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.792,
+          "prefix_verified": 0
+        },
+        "late_collision": {
+          "abstentions": 16,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 28.5,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 0.5,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 72.833,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.167,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 30,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 18,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 54.625,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.042,
+          "prefix_verified": 18
+        }
+      },
+      "heldout": {
+        "abstentions": 198,
+        "cases": 216,
+        "false_accept": 0,
+        "future_correct": 18,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 69.755,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.153,
+        "prefix_verified": 18
+      },
+      "total": {
+        "abstentions": 259,
+        "cases": 306,
+        "false_accept": 0,
+        "future_correct": 47,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 72.523,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.229,
+        "prefix_verified": 47
+      }
+    },
+    "shuffled": {
+      "by_split": {
+        "dev": {
+          "abstentions": 75,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 15,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 19.0,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.0,
+          "prefix_verified": 15
+        },
+        "heldout_C": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 19.0,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.0,
+          "prefix_verified": 0
+        },
+        "heldout_CD": {
+          "abstentions": 32,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 19.0,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.0,
+          "prefix_verified": 0
+        },
+        "heldout_D": {
+          "abstentions": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 19.0,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.0,
+          "prefix_verified": 0
+        },
+        "late_collision": {
+          "abstentions": 16,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 19.0,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.0,
+          "prefix_verified": 0
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 19.0,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.0,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 43,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 5,
+          "mean_candidate_attempts": 1.0,
+          "mean_estimated_coefficient_work": 19.0,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 1.0,
+          "prefix_verified": 5
+        }
+      },
+      "heldout": {
+        "abstentions": 211,
+        "cases": 216,
+        "false_accept": 0,
+        "future_correct": 5,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 19.0,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.0,
+        "prefix_verified": 5
+      },
+      "total": {
+        "abstentions": 286,
+        "cases": 306,
+        "false_accept": 0,
+        "future_correct": 20,
+        "mean_candidate_attempts": 1.0,
+        "mean_estimated_coefficient_work": 19.0,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 1.0,
+        "prefix_verified": 20
+      }
+    },
+    "sketch_1": {
+      "by_split": {
+        "dev": {
+          "abstentions": 4,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 86,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1109.111,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.378,
+          "prefix_verified": 86
+        },
+        "heldout_C": {
+          "abstentions": 2,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 46,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1273.646,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.875,
+          "prefix_verified": 46
+        },
+        "heldout_CD": {
+          "abstentions": 1,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 31,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1406.406,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.969,
+          "prefix_verified": 31
+        },
+        "heldout_D": {
+          "abstentions": 7,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 41,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1264.875,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.625,
+          "prefix_verified": 41
+        },
+        "late_collision": {
+          "abstentions": 2,
+          "cases": 16,
+          "false_accept": 7,
+          "future_correct": 7,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1386.625,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.875,
+          "prefix_verified": 14
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1403.333,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 2,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 46,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1100.271,
+          "mean_full_verifications": 1.0,
+          "mean_public_primitive_calls": 56.312,
+          "prefix_verified": 46
+        }
+      },
+      "heldout": {
+        "abstentions": 38,
+        "cases": 216,
+        "false_accept": 7,
+        "future_correct": 171,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1275.616,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 56.718,
+        "prefix_verified": 178
+      },
+      "total": {
+        "abstentions": 42,
+        "cases": 306,
+        "false_accept": 7,
+        "future_correct": 257,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1226.644,
+        "mean_full_verifications": 1.0,
+        "mean_public_primitive_calls": 56.618,
+        "prefix_verified": 264
+      }
+    },
+    "sketch_31": {
+      "by_split": {
+        "dev": {
+          "abstentions": 0,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 90,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1118.189,
+          "mean_full_verifications": 1.111,
+          "mean_public_primitive_calls": 56.589,
+          "prefix_verified": 90
+        },
+        "heldout_C": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1282.354,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 48
+        },
+        "heldout_CD": {
+          "abstentions": 0,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1418.938,
+          "mean_full_verifications": 1.031,
+          "mean_public_primitive_calls": 57.031,
+          "prefix_verified": 32
+        },
+        "heldout_D": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1323.0,
+          "mean_full_verifications": 1.271,
+          "mean_public_primitive_calls": 57.167,
+          "prefix_verified": 48
+        },
+        "late_collision": {
+          "abstentions": 0,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1486.875,
+          "mean_full_verifications": 1.25,
+          "mean_public_primitive_calls": 57.375,
+          "prefix_verified": 16
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 7722.0,
+          "mean_full_verifications": 31.0,
+          "mean_public_primitive_calls": 110.0,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1108.188,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.396,
+          "prefix_verified": 48
+        }
+      },
+      "heldout": {
+        "abstentions": 24,
+        "cases": 216,
+        "false_accept": 8,
+        "future_correct": 184,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 2003.583,
+        "mean_full_verifications": 4.435,
+        "mean_public_primitive_calls": 62.815,
+        "prefix_verified": 192
+      },
+      "total": {
+        "abstentions": 24,
+        "cases": 306,
+        "false_accept": 8,
+        "future_correct": 274,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1743.173,
+        "mean_full_verifications": 3.458,
+        "mean_public_primitive_calls": 60.984,
+        "prefix_verified": 282
+      }
+    },
+    "sketch_4": {
+      "by_split": {
+        "dev": {
+          "abstentions": 2,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 88,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1113.967,
+          "mean_full_verifications": 1.089,
+          "mean_public_primitive_calls": 56.544,
+          "prefix_verified": 88
+        },
+        "heldout_C": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1282.354,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 48
+        },
+        "heldout_CD": {
+          "abstentions": 0,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1418.938,
+          "mean_full_verifications": 1.031,
+          "mean_public_primitive_calls": 57.031,
+          "prefix_verified": 32
+        },
+        "heldout_D": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1323.0,
+          "mean_full_verifications": 1.271,
+          "mean_public_primitive_calls": 57.167,
+          "prefix_verified": 48
+        },
+        "late_collision": {
+          "abstentions": 0,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1486.875,
+          "mean_full_verifications": 1.25,
+          "mean_public_primitive_calls": 57.375,
+          "prefix_verified": 16
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 2147.333,
+          "mean_full_verifications": 4.0,
+          "mean_public_primitive_calls": 61.083,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1108.188,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.396,
+          "prefix_verified": 48
+        }
+      },
+      "heldout": {
+        "abstentions": 24,
+        "cases": 216,
+        "false_accept": 8,
+        "future_correct": 184,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1384.176,
+        "mean_full_verifications": 1.435,
+        "mean_public_primitive_calls": 57.38,
+        "prefix_verified": 192
+      },
+      "total": {
+        "abstentions": 26,
+        "cases": 306,
+        "false_accept": 8,
+        "future_correct": 272,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1304.703,
+        "mean_full_verifications": 1.333,
+        "mean_public_primitive_calls": 57.134,
+        "prefix_verified": 280
+      }
+    },
+    "sketch_8": {
+      "by_split": {
+        "dev": {
+          "abstentions": 0,
+          "cases": 90,
+          "false_accept": 0,
+          "future_correct": 90,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1118.189,
+          "mean_full_verifications": 1.111,
+          "mean_public_primitive_calls": 56.589,
+          "prefix_verified": 90
+        },
+        "heldout_C": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1282.354,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.958,
+          "prefix_verified": 48
+        },
+        "heldout_CD": {
+          "abstentions": 0,
+          "cases": 32,
+          "false_accept": 0,
+          "future_correct": 32,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1418.938,
+          "mean_full_verifications": 1.031,
+          "mean_public_primitive_calls": 57.031,
+          "prefix_verified": 32
+        },
+        "heldout_D": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1323.0,
+          "mean_full_verifications": 1.271,
+          "mean_public_primitive_calls": 57.167,
+          "prefix_verified": 48
+        },
+        "late_collision": {
+          "abstentions": 0,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1486.875,
+          "mean_full_verifications": 1.25,
+          "mean_public_primitive_calls": 57.375,
+          "prefix_verified": 16
+        },
+        "out_of_grammar": {
+          "abstentions": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 2814.333,
+          "mean_full_verifications": 8.0,
+          "mean_public_primitive_calls": 67.917,
+          "prefix_verified": 0
+        },
+        "seen_graph": {
+          "abstentions": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48,
+          "mean_candidate_attempts": 31.0,
+          "mean_estimated_coefficient_work": 1108.188,
+          "mean_full_verifications": 1.042,
+          "mean_public_primitive_calls": 56.396,
+          "prefix_verified": 48
+        }
+      },
+      "heldout": {
+        "abstentions": 24,
+        "cases": 216,
+        "false_accept": 8,
+        "future_correct": 184,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1458.287,
+        "mean_full_verifications": 1.88,
+        "mean_public_primitive_calls": 58.139,
+        "prefix_verified": 192
+      },
+      "total": {
+        "abstentions": 24,
+        "cases": 306,
+        "false_accept": 8,
+        "future_correct": 274,
+        "mean_candidate_attempts": 31.0,
+        "mean_estimated_coefficient_work": 1358.258,
+        "mean_full_verifications": 1.654,
+        "mean_public_primitive_calls": 57.683,
+        "prefix_verified": 282
+      }
+    }
+  },
+  "parameters": {
+    "all_candidate_previews_charged": true,
+    "dev_count": 90,
+    "direct_student_fp32_params": 1692,
+    "direct_student_live_hidden_fp32": 20,
+    "excluded_training_primitives": [
+      "C",
+      "D"
+    ],
+    "feedforward_fp32_params": 1695,
+    "future_degree": 48,
+    "guided_ranker_float64_params": 6,
+    "prefix_degree": 18,
+    "preview_degree": 6,
+    "program_syntax_bits_excluding_interpreter": 6,
+    "public_full_grammar_size": 31,
+    "test_counts": {
+      "heldout_C": 48,
+      "heldout_CD": 32,
+      "heldout_D": 48,
+      "late_collision": 16,
+      "out_of_grammar": 24,
+      "seen_graph": 48
+    },
+    "train_count": 900,
+    "training_grammar_size": 13
+  },
+  "roster_sha256": {
+    "dev": "f20b073ff22f9f69e9cae6cba4691905458047ebc2b5d8346a2ffeaf8e330f02",
+    "heldout_C": "7598a17dd460389bc7dcb6ca9ac1ad5eb464cdd0986780bc09ae60e33c763bd3",
+    "heldout_CD": "8adbbf96b407ace8c9f96eb22629cb1dbefb9d5635ee0ef89391e7cb9043304a",
+    "heldout_D": "ed37570771681e198ff31bb659f6233f07406595c60499b09c061f607b237a34",
+    "late_collision": "af7ecd902dd2d9f44a0adb899984524db10cb4e31e460343e8865f29d4ef2e4d",
+    "out_of_grammar": "1dd111285af5f662bd867735e914dddf74d4007bcf58191857f9b2b4f307e2e6",
+    "seen_graph": "1dffe1777477686e55f841972de72c178f17f411d6f92020ba3d856bb63db156",
+    "train": "b60c8fb4af9cee5f8b9600214a8511fec1efc9c9c2df1f7427de9aeabe6a868f"
+  },
+  "schema": "rrc09.receipt.v1",
+  "source_sha256": {
+    "bench09.py": "23a17df21b1df83a159bc1d6abb20d6abe9ae0e7ae6eb0b0ea92e46fa3fcb211",
+    "model09.py": "b9098c70f3638771cd5f07736c043f1c711d3e166a66e2da929054914a8b9a37",
+    "rrc.py": "c99a6b7fb01c8c8d84aadf86cee9af8d379641eadd2ea6477b4359b1a8430f01",
+    "rrc05.py": "c2fcac4e9fcb51f5d9418fc01b7d87bc7b3d0223b841a62f68ef691fcb3a6dbe",
+    "synth09.py": "6e18a131802c55e9d4e1a5070f5008b110b281d36a327e18f7120dc267eab5f4",
+    "test_synth09.py": "991d0fde16e7246a3a06824ac2392c1ddaa53b001d8e41d7097f82c7fb88c85d",
+    "train09.py": "bf2ddf22379a05e2ebe2f479207fdb71d6bb070642e6cd74d5fb5f2ec1baeb12"
+  },
+  "split_alias_with_training": {
+    "dev": 0,
+    "heldout_C": 0,
+    "heldout_CD": 0,
+    "heldout_D": 0,
+    "late_collision": 0,
+    "out_of_grammar": 0,
+    "seen_graph": 0
+  },
+  "status": "exact_CPU_bounded_program_synthesis",
+  "train_roster_sha256": "b60c8fb4af9cee5f8b9600214a8511fec1efc9c9c2df1f7427de9aeabe6a868f"
+}
