@@ -1,3 +1,5 @@
+**RRC-07:** [iterative raw-only Euler refinement and first-fault feedback](research/rrc_compactification/RRC07_REPORT.md): trained recurrent/feedforward controls, exact residual-query accounting, paired first-fault results and finite certificates.
+
 # Compactification Theory
 
 **RRC-06:** [raw-coefficient Euler-trace benchmark](research/rrc_compactification/RRC06_REPORT.md): CPU-trained recurrent/feedforward students, exact first-fault certificates, held-out grammar tests and negative complete-program result.
