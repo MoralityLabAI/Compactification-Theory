@@ -1,0 +1,195 @@
+{
+  "baseline": [
+    {
+      "adaptive": {
+        "accuracy_den": 33,
+        "accuracy_num": 1,
+        "budget": 0,
+        "correct": 1,
+        "hypotheses": 33,
+        "total_queries": 0,
+        "transcripts": 1,
+        "wasted_queries": 0
+      },
+      "bellman_optimum_success_mass": 1,
+      "budget": 0,
+      "static": {
+        "accuracy_den": 33,
+        "accuracy_num": 1,
+        "budget": 0,
+        "correct": 1,
+        "hypotheses": 33,
+        "total_queries": 0,
+        "transcripts": 1,
+        "wasted_queries": 0
+      }
+    },
+    {
+      "adaptive": {
+        "accuracy_den": 33,
+        "accuracy_num": 2,
+        "budget": 1,
+        "correct": 2,
+        "hypotheses": 33,
+        "total_queries": 33,
+        "transcripts": 2,
+        "wasted_queries": 0
+      },
+      "bellman_optimum_success_mass": 2,
+      "budget": 1,
+      "static": {
+        "accuracy_den": 33,
+        "accuracy_num": 2,
+        "budget": 1,
+        "correct": 2,
+        "hypotheses": 33,
+        "total_queries": 33,
+        "transcripts": 2,
+        "wasted_queries": 0
+      }
+    },
+    {
+      "adaptive": {
+        "accuracy_den": 33,
+        "accuracy_num": 4,
+        "budget": 2,
+        "correct": 4,
+        "hypotheses": 33,
+        "total_queries": 66,
+        "transcripts": 4,
+        "wasted_queries": 0
+      },
+      "bellman_optimum_success_mass": 4,
+      "budget": 2,
+      "static": {
+        "accuracy_den": 33,
+        "accuracy_num": 3,
+        "budget": 2,
+        "correct": 3,
+        "hypotheses": 33,
+        "total_queries": 66,
+        "transcripts": 3,
+        "wasted_queries": 11
+      }
+    },
+    {
+      "adaptive": {
+        "accuracy_den": 33,
+        "accuracy_num": 8,
+        "budget": 3,
+        "correct": 8,
+        "hypotheses": 33,
+        "total_queries": 99,
+        "transcripts": 8,
+        "wasted_queries": 0
+      },
+      "bellman_optimum_success_mass": 8,
+      "budget": 3,
+      "static": {
+        "accuracy_den": 33,
+        "accuracy_num": 4,
+        "budget": 3,
+        "correct": 4,
+        "hypotheses": 33,
+        "total_queries": 99,
+        "transcripts": 4,
+        "wasted_queries": 24
+      }
+    },
+    {
+      "adaptive": {
+        "accuracy_den": 33,
+        "accuracy_num": 16,
+        "budget": 4,
+        "correct": 16,
+        "hypotheses": 33,
+        "total_queries": 132,
+        "transcripts": 16,
+        "wasted_queries": 0
+      },
+      "bellman_optimum_success_mass": 16,
+      "budget": 4,
+      "static": {
+        "accuracy_den": 33,
+        "accuracy_num": 5,
+        "budget": 4,
+        "correct": 5,
+        "hypotheses": 33,
+        "total_queries": 132,
+        "transcripts": 5,
+        "wasted_queries": 38
+      }
+    },
+    {
+      "adaptive": {
+        "accuracy_den": 33,
+        "accuracy_num": 32,
+        "budget": 5,
+        "correct": 32,
+        "hypotheses": 33,
+        "total_queries": 165,
+        "transcripts": 32,
+        "wasted_queries": 0
+      },
+      "bellman_optimum_success_mass": 32,
+      "budget": 5,
+      "static": {
+        "accuracy_den": 33,
+        "accuracy_num": 6,
+        "budget": 5,
+        "correct": 6,
+        "hypotheses": 33,
+        "total_queries": 165,
+        "transcripts": 6,
+        "wasted_queries": 54
+      }
+    },
+    {
+      "adaptive": {
+        "accuracy_den": 33,
+        "accuracy_num": 33,
+        "budget": 6,
+        "correct": 33,
+        "hypotheses": 33,
+        "total_queries": 167,
+        "transcripts": 33,
+        "wasted_queries": 0
+      },
+      "bellman_optimum_success_mass": 33,
+      "budget": 6,
+      "static": {
+        "accuracy_den": 33,
+        "accuracy_num": 7,
+        "budget": 6,
+        "correct": 7,
+        "hypotheses": 33,
+        "total_queries": 198,
+        "transcripts": 7,
+        "wasted_queries": 68
+      }
+    }
+  ],
+  "candidate_family": {
+    "base_residues_mod_5": [
+      1,
+      4
+    ],
+    "first_mutant_degree": 65,
+    "hypotheses": 33,
+    "last_mutant_degree": 96,
+    "unchanged_base_is_last_hypothesis": true,
+    "uniform_prior": true
+  },
+  "schema": "rrc03.active.v1",
+  "series_audit": {
+    "binary_comparisons_checked": 1056,
+    "coefficient_comparisons": 3201,
+    "independent_oracles_match": true,
+    "prefix_identical_through": 64
+  },
+  "sources_sha256": {
+    "active03.py": "b1f241966c315785f7c0be77b2dcb03633c2b49d9635b365470b61f955f2b323",
+    "rrc.py": "c99a6b7fb01c8c8d84aadf86cee9af8d379641eadd2ea6477b4359b1a8430f01",
+    "rrc02.py": "d356828052cf3dc0ef806773b7b8e8d94251241c626dd2b18b626eb436fc5aa1"
+  }
+}
