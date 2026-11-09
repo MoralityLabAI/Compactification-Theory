@@ -1,0 +1,26 @@
+name: RRC-01 symbolic compactification CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-01.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-01.yml'
+  workflow_dispatch:
+jobs:
+  exact-coefficients:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent exact oracles, enumeration and negative controls
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_*.py' -v
+      - name: Verify source-bound coefficient receipt
+        run: python research/rrc_compactification/rrc.py --check --out research/rrc_compactification/results/rrc01_n256_t64.json

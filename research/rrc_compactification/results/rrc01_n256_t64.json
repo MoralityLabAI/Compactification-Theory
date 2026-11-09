@@ -1,0 +1,89 @@
+{
+  "families": [
+    {
+      "coefficients_0_to_12": [
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+      ],
+      "fitted_rule": {
+        "grammar_bits_excluding_decoder": 10,
+        "modulus": 5,
+        "residues": [
+          1,
+          4
+        ]
+      },
+      "heldout_coefficient_count": 192,
+      "heldout_first_mismatch": null,
+      "minimum_part": 1,
+      "oracle_coefficients_sha256": "6898614da9c574f85a85f1cfeb50e6a6c21fd9303e404dfa83984e0a9bcbf410",
+      "staircase_first_mismatch": null,
+      "training_mismatch": null
+    },
+    {
+      "coefficients_0_to_12": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        3,
+        3,
+        4,
+        4,
+        6
+      ],
+      "fitted_rule": {
+        "grammar_bits_excluding_decoder": 10,
+        "modulus": 5,
+        "residues": [
+          2,
+          3
+        ]
+      },
+      "heldout_coefficient_count": 192,
+      "heldout_first_mismatch": null,
+      "minimum_part": 2,
+      "oracle_coefficients_sha256": "fcee3f753cbf2bad9096e48d90ee77731057cec8d7f5a3e5a838ab5cde465fa0",
+      "staircase_first_mismatch": null,
+      "training_mismatch": null
+    }
+  ],
+  "negative_controls": {
+    "gap_3_heldout_first_mismatch": null,
+    "gap_3_rule": null,
+    "rotated_rule": {
+      "grammar_bits_excluding_decoder": 10,
+      "modulus": 5,
+      "residues": [
+        0,
+        2
+      ]
+    },
+    "rotated_rule_heldout_first_mismatch": 65
+  },
+  "parameters": {
+    "eval_degree": 256,
+    "minimum_residue_observations": 2,
+    "modulus_cap": 12,
+    "train_degree": 64
+  },
+  "schema": "rrc01.v1",
+  "scope": "finite exact integer tests; known Rogers-Ramanujan theorem is an external mathematical fact",
+  "source_sha256": "c99a6b7fb01c8c8d84aadf86cee9af8d379641eadd2ea6477b4359b1a8430f01",
+  "status": "exact_cpu_finite_degree_only"
+}
