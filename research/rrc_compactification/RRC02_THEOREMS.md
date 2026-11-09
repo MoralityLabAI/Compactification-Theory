@@ -6,8 +6,8 @@ no novelty claim or external proof-assistant certificate.
 
 ## 1. Uniqueness of the finite Euler exponent vector
 
-Let `F(q)=1+sum_{n>=1} f_n q^n` in `Z[[q]]`. In the field `Q[[q]]`, there is a
-unique sequence `a_1, a_2, ...` in `Q` such that
+Let `F(q)=1+sum_{n>=1} f_n q^n` in `Z[[q]]`. There is a unique
+sequence `a_1, a_2, ...` of **integers** such that
 
 `F(q)=prod_{m>=1}(1-q^m)^(-a_m)`.
 
@@ -24,10 +24,14 @@ Then Möbius/divisor inversion gives
 `a_n=(b_n-sum_{d|n, d<n} d a_d)/n`.
 
 Both expressions use only coefficients through degree `n`; induction proves
-uniqueness. If `F` is a finite product of factors `(1-q^m)^(-a_m)` with
-integer `a_m`, inversion recovers those integers. A generic integral series
-need not have integral Euler exponents; RRC-01's `euler_exponents` checks
-integrality explicitly.
+uniqueness. **Integrality** also follows constructively: suppose the factors
+through `n-1` have been removed from `F`, giving an integral series of the
+form `1+c q^n+O(q^(n+1))`. Choose `a_n=c` and multiply the residual by
+`(1-q^n)^c`; this cancels its degree-`n` coefficient using only integral
+formal power series. Repeating for every `n` produces the required integer
+Euler exponent vector, while the first differing degree proves uniqueness.
+RRC-01's divisibility check is a useful arithmetic implementation guard,
+not an assumption about which integral input series admit the factorization.
 
 **Consequence:** Input coefficients through degree `T` determine the Euler
 exponents through `T`. A periodic binary rule on that finite window can be
