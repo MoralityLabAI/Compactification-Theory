@@ -1,0 +1,26 @@
+name: RRC-04 raw-coefficient symbolic discovery CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-04.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-04.yml'
+  workflow_dispatch:
+jobs:
+  exact-class-and-neural-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact bounded multiplicity and family-disjoint tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_program04.py' -v
+      - name: Source-bound CPU-only replay of frozen models and negative controls
+        run: python research/rrc_compactification/bench04.py --check
