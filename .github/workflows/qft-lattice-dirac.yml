@@ -26,3 +26,14 @@ jobs:
       - run: python -m pip install --disable-pip-version-check numpy scipy
       - run: python -m unittest discover -s experiments/qft-lattice-map/tests -v
       - run: python experiments/qft-lattice-map/run.py --output /tmp/qft-lattice-dirac.json
+      - name: Generate target-certified infinite-resolvent receipt
+        run: |
+          python experiments/qft-lattice-map/adaptive_certificate.py \
+            --target 1/1000 --cutoff 1024 \
+            --output /tmp/qft-adaptive-receipt.json
+      - name: Replay certificate with solver absent
+        run: python experiments/qft-lattice-map/adaptive_certificate.py --verify /tmp/qft-adaptive-receipt.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qft-infinite-resolvent-tolerance
+          path: /tmp/qft-adaptive-receipt.json
