@@ -82,3 +82,30 @@ controlled. The 50-flavor Schur bound is a **finite comparator** only.
 Next steps: analytic tail bounds for the Fourier kernel; interval enclosures
 for low-band eigenvalues; and a Lean theorem with stated self-adjointness,
 core/domain, and resolvent assumptions.
+
+## Infinite-flavor resolvent extension (November 9, 2026)
+
+[`THEORY.md`](THEORY.md) proves a uniform operator bound for the infinite
+one-particle Hamiltonian of Eq. (3), including its self-adjoint domain.
+For the centered M-flavor cutoff, the compressed-resolvent error is bounded
+by `pi**2/(abs(Im(z))**2 * (pi*(M+1)/2 - abs(Re(z)) - pi))` whenever the
+last parenthesis is positive. In particular, the infinite-flavor
+**compressed-resolvent** approximation converges in operator norm as `O(1/M)`.
+
+[`infinite_resolvent.py`](infinite_resolvent.py) adds more useful, quantitatively
+tighter *exact-integer residual certificates* for the two central flavor
+basis vectors at `k=pi/2, z=2i`. It uses rational enclosures of pi via the
+Machin arctangent identity, fixed-point outward rounding, and an analytic
+bound on the **infinite** uncomputed tail. The solver is used only to propose
+candidate vectors. The certificate verifier accepts signed integer witness
+entries and never calls the solver. The exact-scaled bounds and all witnesses
+are committed as [`results/infinite_resolvent_certificate.json`](results/infinite_resolvent_certificate.json).
+
+```bash
+python experiments/qft-lattice-map/run_infinite_resolvent.py --verify \
+  experiments/qft-lattice-map/results/infinite_resolvent_certificate.json
+```
+
+The proof of the mathematical inequality appears in `THEORY.md`; the numeric
+checker is exact-integer Python, with a separate formal Lean bridge tracking
+the abstract Schur and residual norm steps.
