@@ -1,0 +1,40 @@
+name: RRC-11 finite graph synthesis CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/graph11.py'
+      - 'research/rrc_compactification/train11.py'
+      - 'research/rrc_compactification/bench11.py'
+      - 'research/rrc_compactification/test_graph11.py'
+      - 'research/rrc_compactification/RRC11_*.md'
+      - 'research/rrc_compactification/results/rrc11_*.json'
+      - '.github/workflows/rrc-11.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/graph11.py'
+      - 'research/rrc_compactification/train11.py'
+      - 'research/rrc_compactification/bench11.py'
+      - 'research/rrc_compactification/test_graph11.py'
+      - 'research/rrc_compactification/RRC11_*.md'
+      - 'research/rrc_compactification/results/rrc11_*.json'
+      - '.github/workflows/rrc-11.yml'
+  workflow_dispatch:
+jobs:
+  exact-graph-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Small exact graph, split and collision checks
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_graph11.py' -v
+      - name: Verify frozen source-bound receipt
+        run: python research/rrc_compactification/bench11.py --check
+      - name: Refit deterministic ranker and compare
+        run: |
+          python research/rrc_compactification/train11.py --out /tmp/rrc11_ranker.json
+          cmp /tmp/rrc11_ranker.json research/rrc_compactification/results/rrc11_ranker.json
