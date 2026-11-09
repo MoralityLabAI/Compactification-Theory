@@ -1,0 +1,40 @@
+name: RRC-12 direct algebraic graph proposer CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/graph12.py'
+      - 'research/rrc_compactification/model12.py'
+      - 'research/rrc_compactification/train12.py'
+      - 'research/rrc_compactification/bench12.py'
+      - 'research/rrc_compactification/test_graph12.py'
+      - 'research/rrc_compactification/RRC12_*.md'
+      - 'research/rrc_compactification/results/rrc12_*.json'
+      - '.github/workflows/rrc-12.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/graph12.py'
+      - 'research/rrc_compactification/model12.py'
+      - 'research/rrc_compactification/train12.py'
+      - 'research/rrc_compactification/bench12.py'
+      - 'research/rrc_compactification/test_graph12.py'
+      - 'research/rrc_compactification/RRC12_*.md'
+      - 'research/rrc_compactification/results/rrc12_*.json'
+      - '.github/workflows/rrc-12.yml'
+  workflow_dispatch:
+jobs:
+  direct-graph-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact algebra, model isolation, split and checkpoint tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_graph12.py' -v
+      - name: Replay source-bound complete results without external ML dependencies
+        run: python research/rrc_compactification/bench12.py --check
+      - name: Keep RRC-11 exact fork-join baseline passing
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_graph11.py' -v
