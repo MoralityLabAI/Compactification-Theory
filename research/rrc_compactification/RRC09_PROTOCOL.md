@@ -23,7 +23,7 @@ Random source series are periodic-product partition generating functions with mu
 | Out-of-grammar | 24 | observed-degree mutations selected after exhaustive rejection of all 31 DSL programs |
 | Late collisions | 16 | eight exact-prefix base/mutant pairs, one future change per pair |
 
-The 216 held-out items are input/output-prefix distinct from the 900 training examples; each late collision pair deliberately duplicates its own observed input. The source *series* generator is shared across training and testing: these are held-out **operator families**, not held-out underlying partition-family generators. No test labels are used during gradient training or model selection. The benchmark and its single seed are exposed for subsequent research, so future models must use a fresh test roster.
+The 216 held-out items are input/output-prefix distinct from the 900 training examples; each late collision pair deliberately duplicates its own observed input. Some source-only prefixes recur despite distinct output targets: 20/90 development, 10/48 seen-graph, 11/48 C, 13/48 D, 10/32 CD, 8/24 out-of-grammar and 2/16 collision cases. These are case-level alias counts and include intentional collision replication. The source *series* generator is shared across training and testing: these are held-out **operator families**, not held-out underlying partition-family generators. No test labels are used during gradient training or model selection. The benchmark and its single seed are exposed for subsequent research, so future models must use a fresh test roster.
 
 ## Models, budgets and verification
 

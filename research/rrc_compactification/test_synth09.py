@@ -211,6 +211,9 @@ class ModelAndReplayTests(unittest.TestCase):
             self.assertEqual(data['metrics']['guided_4']['by_split'][name]['prefix_verified'],count)
             self.assertEqual(data['metrics']['recurrent_1']['by_split'][name]['prefix_verified'],0)
             self.assertEqual(data['metrics']['feedforward']['by_split'][name]['prefix_verified'],0)
+        self.assertEqual(data['source_only_alias_with_training']['heldout_C'],11)
+        self.assertEqual(data['source_only_alias_with_training']['heldout_D'],13)
+        self.assertEqual(data['source_only_alias_with_training']['heldout_CD'],10)
         self.assertEqual(data['metrics']['exact']['by_split']['late_collision']['false_accept'],8)
         self.assertEqual(data['metrics']['exact']['by_split']['out_of_grammar']['abstentions'],24)
 
