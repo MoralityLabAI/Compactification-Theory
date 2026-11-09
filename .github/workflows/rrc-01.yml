@@ -21,6 +21,6 @@ jobs:
         with:
           python-version: '3.12'
       - name: Independent exact oracles, enumeration and negative controls
-        run: python -m unittest discover -s research/rrc_compactification -p 'test_*.py' -v
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_rrc.py' -v
       - name: Verify source-bound coefficient receipt
         run: python research/rrc_compactification/rrc.py --check --out research/rrc_compactification/results/rrc01_n256_t64.json

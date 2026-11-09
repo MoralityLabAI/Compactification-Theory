@@ -85,3 +85,8 @@ The [RRC-02 run report](RRC02_REPORT.md) records a 363-parameter trained recurre
 ## RRC-04: raw coefficient to executable grammar (negative model pilot)
 
 [Results](RRC04_REPORT.md), [registered protocol](RRC04_PROTOCOL.md), [exact theorems](RRC04_THEORY.md), [source-bound replay](results/rrc04_pilot.json). Three 2026-11-09 CPU-trained models consume only raw counts through degree 64; the exact cap/period/residue synthesizer and 171 held-out generator-family tests preserve eight provable late-defect collisions. The direct recurrent student fails to emit a verified complete program on the held-out set. Use a fresh roster for any subsequent model tuning.
+
+
+## RRC-07: learned first-fault refinement and exact-feedback accounting
+
+The [RRC-07 CPU report](RRC07_REPORT.md), [frozen protocol](RRC07_PROTOCOL.md), [finite first-fault proof](RRC07_THEORY.md), [tests](test_rrc07.py), and [source-bound replay](results/rrc07_pilot.json) measure repeated correction of raw-only Euler predictions. On 72 fresh, known-family unseen-period cases, two learned recurrent passes move the mean first incorrect Euler coordinate from 4.75 to 6.76; total coordinate accuracy remains 2,894/4,608 and no direct neural program passes exact verification. A matched feedforward control reaches 2,975 correct coordinates. Exact residual feedback completes 72/72 after repeated full-vector queries, while a one-shot symbolic solver also completes 72/72. This is a limited first-fault improvement, without an end-to-end neural program-recovery gain. Run `python research/rrc_compactification/bench07.py --check` after installing NumPy for the frozen CPU replay.

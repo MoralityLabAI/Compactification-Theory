@@ -144,3 +144,8 @@ The [LSV-15 math and checkpoint protocol](research/levin_sieve_v1/pretrained_trm
 ## RRC-04: raw-coefficient symbolic program discovery
 
 [Measured RRC-04 CPU pilot](research/rrc_compactification/RRC04_REPORT.md) tests complete product-program proposals from unprocessed partition counts, with family-disjoint finite certificates, a source-hashed exact synthesizer, matched neural controls, and honest abstention/collision measurements. The trained recurrent student failed the registered direct-program test; the exact solver supplies the meaningful upper control.
+
+
+## RRC-07: iterative Euler first-fault correction
+
+[RRC-07's executed CPU experiment](research/rrc_compactification/RRC07_REPORT.md) trains a raw-only recurrent corrector above the frozen RRC-06 checkpoint and separately accounts for exact algebraic feedback. The recurrent model moves the first wrong exponent later but recovers zero complete held-out programs; a matched feedforward network achieves more correct coordinates. The source-bound replay, proofs, models, tests and eight-budget feedback controls live in `research/rrc_compactification/`.
