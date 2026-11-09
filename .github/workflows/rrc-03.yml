@@ -1,0 +1,44 @@
+name: RRC-03 active symbolic identification CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/active03.py'
+      - 'research/rrc_compactification/student03.py'
+      - 'research/rrc_compactification/train_active03.py'
+      - 'research/rrc_compactification/bench_active03.py'
+      - 'research/rrc_compactification/test_active03.py'
+      - 'research/rrc_compactification/RRC03_*.md'
+      - 'research/rrc_compactification/results/rrc03_*.json'
+      - 'research/rrc_compactification/rrc.py'
+      - 'research/rrc_compactification/rrc02.py'
+      - '.github/workflows/rrc-03.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/active03.py'
+      - 'research/rrc_compactification/student03.py'
+      - 'research/rrc_compactification/train_active03.py'
+      - 'research/rrc_compactification/bench_active03.py'
+      - 'research/rrc_compactification/test_active03.py'
+      - 'research/rrc_compactification/RRC03_*.md'
+      - 'research/rrc_compactification/results/rrc03_*.json'
+      - 'research/rrc_compactification/rrc.py'
+      - 'research/rrc_compactification/rrc02.py'
+      - '.github/workflows/rrc-03.yml'
+  workflow_dispatch:
+jobs:
+  exact-queries-and-model-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent exact coefficient queries and student controls
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_active03.py' -v
+      - name: Verify exact oracle and theorem bound receipt
+        run: python research/rrc_compactification/active03.py --check --out research/rrc_compactification/results/rrc03_exact.json
+      - name: Source-and-weight-bound student replay
+        run: python research/rrc_compactification/bench_active03.py --check
