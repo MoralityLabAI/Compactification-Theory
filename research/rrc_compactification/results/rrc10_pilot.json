@@ -1,0 +1,278 @@
+{
+  "checkpoint_sha256": {
+    "local": "07dd93c24b477f1b8f342edb4e1dad04610cb21af5dd1257e232a36e83dc7efb",
+    "recurrent": "7ed5c6d7e19cccacdb140fee84678e66443b40526fb8483f6572b06fc11a616c"
+  },
+  "collision_pairs": [
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-0"
+    },
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-1"
+    },
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-2"
+    },
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-3"
+    },
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-4"
+    },
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-5"
+    },
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-6"
+    },
+    {
+      "correct_members": 1,
+      "indistinguishable": true,
+      "pair": "collision-7"
+    }
+  ],
+  "metrics": {
+    "exact_inversion": {
+      "aggregate": {
+        "abstention": 16,
+        "accepted": 136,
+        "cases": 152,
+        "false_accept": 8,
+        "future_correct": 128
+      },
+      "splits": {
+        "conflict": {
+          "abstention": 16,
+          "accepted": 0,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "dev": {
+          "abstention": 0,
+          "accepted": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 24
+        },
+        "late_collision": {
+          "abstention": 0,
+          "accepted": 16,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8
+        },
+        "new_composition": {
+          "abstention": 0,
+          "accepted": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48
+        },
+        "new_multiplier": {
+          "abstention": 0,
+          "accepted": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48
+        }
+      }
+    },
+    "local": {
+      "aggregate": {
+        "abstention": 152,
+        "accepted": 0,
+        "cases": 152,
+        "false_accept": 0,
+        "future_correct": 0
+      },
+      "splits": {
+        "conflict": {
+          "abstention": 16,
+          "accepted": 0,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "dev": {
+          "abstention": 24,
+          "accepted": 0,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "late_collision": {
+          "abstention": 16,
+          "accepted": 0,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "new_composition": {
+          "abstention": 48,
+          "accepted": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "new_multiplier": {
+          "abstention": 48,
+          "accepted": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0
+        }
+      }
+    },
+    "no_demonstration": {
+      "aggregate": {
+        "abstention": 152,
+        "accepted": 0,
+        "cases": 152,
+        "false_accept": 0,
+        "future_correct": 0
+      },
+      "splits": {
+        "conflict": {
+          "abstention": 16,
+          "accepted": 0,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "dev": {
+          "abstention": 24,
+          "accepted": 0,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "late_collision": {
+          "abstention": 16,
+          "accepted": 0,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "new_composition": {
+          "abstention": 48,
+          "accepted": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "new_multiplier": {
+          "abstention": 48,
+          "accepted": 0,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 0
+        }
+      }
+    },
+    "recurrent": {
+      "aggregate": {
+        "abstention": 16,
+        "accepted": 136,
+        "cases": 152,
+        "false_accept": 8,
+        "future_correct": 128
+      },
+      "splits": {
+        "conflict": {
+          "abstention": 16,
+          "accepted": 0,
+          "cases": 16,
+          "false_accept": 0,
+          "future_correct": 0
+        },
+        "dev": {
+          "abstention": 0,
+          "accepted": 24,
+          "cases": 24,
+          "false_accept": 0,
+          "future_correct": 24
+        },
+        "late_collision": {
+          "abstention": 0,
+          "accepted": 16,
+          "cases": 16,
+          "false_accept": 8,
+          "future_correct": 8
+        },
+        "new_composition": {
+          "abstention": 0,
+          "accepted": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48
+        },
+        "new_multiplier": {
+          "abstention": 0,
+          "accepted": 48,
+          "cases": 48,
+          "false_accept": 0,
+          "future_correct": 48
+        }
+      }
+    }
+  },
+  "parameters": {
+    "demo_degree": 24,
+    "future_degree": 48,
+    "learned_integer_weights": [
+      1,
+      -1
+    ],
+    "one_hidden_multiplier_per_episode": true,
+    "public_causal_basis": true,
+    "public_wrapper_interpreter": true,
+    "test_k": [
+      9,
+      10,
+      11,
+      12
+    ],
+    "train_k": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "two_demonstrations_per_episode": true
+  },
+  "roster_sha256": {
+    "conflict": "90571603d70b542a0b7b47d12e3339e538815991382e86dcd295320ab097b2bd",
+    "dev": "77fc55bf6680bc0a2a3b221bc6a6db50f4eaac6e6e35aee5b800a558dea277ac",
+    "late_collision": "dbdc818c2cec3bd7070c1e54b422ea6f60ed85ecba5b1d6f08588a989bb287fe",
+    "new_composition": "165c7d4b5e3380bdd60cc278dba3a0eaf25093aba3ce7b02c29d47b2234525cd",
+    "new_multiplier": "aba5d8c368ed71cbcd0165b5ce592aa4ae90a43926c3861dca8877481f2b47ae",
+    "train": "60ef166486da6d7a7abeb88e7c69671f0f2f26983f55918393b64676bc84c6ef"
+  },
+  "schema": "rrc10.receipt.v1",
+  "scope": "Small polynomial multiplier family, exact teacher-forced causal basis; valid prefix is a finite certificate only; not novel algebra or a new primitive graph.",
+  "source_sha256": {
+    "bench10.py": "fb73ddb87d9d55af13993b3e205b4f7880c27d5c66c7595235f19ae49f10fbc3",
+    "primitive10.py": "01df009171033ed3df41ecb474ce762b9a344b53ad9e2a6427422a5c1c1a5ee9",
+    "test_primitive10.py": "5525ea26105fe7396a1cfa64e0e082eef5e594d98b07575d512644754e8b8cd5",
+    "train10.py": "d8df591ebb2faf61daa9c7e666f71f14b70753864da5fa2b4ea6357d476c3722"
+  }
+}
