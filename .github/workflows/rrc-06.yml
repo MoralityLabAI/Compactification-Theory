@@ -1,0 +1,26 @@
+name: RRC-06 raw-coefficient algebraic trace audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-06.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-06.yml'
+  workflow_dispatch:
+jobs:
+  exact-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Raw model, independent verifier, first-fault theorem and collision tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_rrc06.py' -v
+      - name: Verify frozen CPU source, checkpoint and prediction receipt
+        run: python research/rrc_compactification/bench06.py --check

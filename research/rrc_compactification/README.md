@@ -1,5 +1,7 @@
 # RRC-01: symbolic compactification of restricted partitions
 
+**RRC-06 (2026-11-09):** [raw-coefficient Euler-trace learner](RRC06_REPORT.md) trains 2,028-parameter recurrent and 2,084-parameter feedforward students on raw integer-count features. The exact verifier localizes first faulty Euler and log-derivative coordinates. Both students fail complete held-out program recovery at registered depth; [theory](RRC06_THEOREMS.md), [protocol](RRC06_PROTOCOL.md), and [receipt](results/rrc06_pilot.json) retain the negative result.
+
 **RRC-05 (2026-11-09):** [algebra-assisted recurrent Euler inversion](RRC05_REPORT.md) learns two residual gains over a *supplied exact divisor graph*. It recovers 120/120 unseen-period product programs at seven passes, matching a parameter-free Jacobi solver. [Theory](RRC05_THEORY.md), [protocol](RRC05_PROTOCOL.md), and [source-bound CPU receipt](results/rrc05_pilot.json) record the exact preprocessor cost and six ambiguous future collisions.
 
 **RRC-03:** [Active coefficient-query identification](RRC03_REPORT.md) adds a sharp adaptive-vs-fixed query theorem, a finite exact threshold oracle, and CPU-trained 353-parameter recurrent/feedforward policies with held-out candidate-count transfer. [Mathematical proof](RRC03_THEOREMS.md) · [Protocol](RRC03_PROTOCOL.md).
