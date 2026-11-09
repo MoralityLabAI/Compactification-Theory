@@ -1,0 +1,26 @@
+name: RRC-05 divisor-graph recurrent inversion CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-05.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/**'
+      - '.github/workflows/rrc-05.yml'
+  workflow_dispatch:
+jobs:
+  exact-algebra-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact algebra, independent enumeration, collisions and family tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_rrc05.py' -v
+      - name: Verify saved source- and checkpoint-bound CPU receipt
+        run: python research/rrc_compactification/bench05.py --check

@@ -1,5 +1,7 @@
 # Compactification Theory
 
+**RRC-05 research:** [finite-depth Euler inversion and trained residual circuit](research/rrc_compactification/RRC05_REPORT.md), with exact symbolic controls, source-family holdouts and a CPU-replayed result.
+
 **New research track:** [Algernon: a neural-net processor, a learning computer](research/algernon/README.md), joining compiled Qwenputer-style exact computation, recurrent CoT/LDT grafts, and sparse weight-space repair. [Experimental protocol](research/algernon/PROTOCOL.md) and [agent workorder](research/algernon/AGENT_WORKORDER.md).
 
 The new [Pluto-Gym research package](research/pluto_gym/README.md) adds a runnable

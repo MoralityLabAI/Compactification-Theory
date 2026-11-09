@@ -1,0 +1,74 @@
+{
+  "alpha": 0.04610077291727066,
+  "beta": 0.9359089136123657,
+  "depth_trained": 7,
+  "dev_roster_sha256": "d10410f38e33119878ac402c15b539c6615fa6a9f49f1bb111f24e8d77d24d45",
+  "dev_trace": [
+    {
+      "dev_mse": 0.228179812,
+      "dev_residual_mse": 0.332440227,
+      "step": 50
+    },
+    {
+      "dev_mse": 0.221463874,
+      "dev_residual_mse": 0.320120424,
+      "step": 100
+    },
+    {
+      "dev_mse": 0.219690338,
+      "dev_residual_mse": 0.315950632,
+      "step": 150
+    },
+    {
+      "dev_mse": 0.218634486,
+      "dev_residual_mse": 0.31257534,
+      "step": 200
+    },
+    {
+      "dev_mse": 0.225820825,
+      "dev_residual_mse": 0.324026078,
+      "step": 250
+    },
+    {
+      "dev_mse": 0.219818354,
+      "dev_residual_mse": 0.311189026,
+      "step": 300
+    }
+  ],
+  "feature_contract": "public exact b_n/n, computed from f_0..f_64; divisor graph prewired",
+  "kind": "shuffled_recurrent",
+  "live_state_values": 65,
+  "optimizer": {
+    "batch_size": 96,
+    "lr": 0.06,
+    "name": "Adam",
+    "sampling_seed": 2026111107,
+    "seed": 2026111007,
+    "steps": 300
+  },
+  "parameter_count": 2,
+  "permuted_target": true,
+  "raw_parameters": [
+    -3.7467525005340576,
+    -0.12835821509361267
+  ],
+  "schema": "rrc05.two_scalar.v1",
+  "source_sha256": {
+    "rrc05.py": "c2fcac4e9fcb51f5d9418fc01b7d87bc7b3d0223b841a62f68ef691fcb3a6dbe",
+    "train05.py": "f11dc5594fe3ea4a779e70470ecc8c12c1e73a41439a0f12abc813ed1b63d16a"
+  },
+  "test_seen_during_training": false,
+  "torch_version": "2.10.0+cpu",
+  "train_moduli": [
+    2,
+    3,
+    4,
+    6,
+    8,
+    9,
+    10,
+    12
+  ],
+  "train_roster_sha256": "1cced52f86019cb00e87a6dda8e5b06c7795c554ea6d2a91117b5de3ce999b9c",
+  "weight_bits_fp32": 64
+}
