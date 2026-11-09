@@ -1,0 +1,28 @@
+name: QFT lattice Dirac CPU replication
+
+on:
+  pull_request:
+    paths:
+      - "experiments/qft-lattice-map/**"
+      - ".github/workflows/qft-lattice-dirac.yml"
+  push:
+    paths:
+      - "experiments/qft-lattice-map/**"
+      - ".github/workflows/qft-lattice-dirac.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dirac-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --disable-pip-version-check numpy scipy
+      - run: python -m unittest discover -s experiments/qft-lattice-map/tests -v
+      - run: python experiments/qft-lattice-map/run.py --output /tmp/qft-lattice-dirac.json
