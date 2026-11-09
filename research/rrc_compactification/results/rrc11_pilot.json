@@ -1,0 +1,187 @@
+{
+  "claims_boundary": "Public interpreter executes each graph candidate; learned ranker sees its outputs. No direct neural operator-graph discovery or proof beyond observed horizon.",
+  "metrics": {
+    "dev": {
+      "blind_first": {
+        "accepted": 4,
+        "cases": 32,
+        "correct_future": 4,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.0,
+        "mean_nominal_work": 570.375,
+        "mean_primitive_calls": 4.5
+      },
+      "exact": {
+        "accepted": 32,
+        "cases": 32,
+        "correct_future": 32,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 11.0,
+        "mean_nominal_work": 6084.0,
+        "mean_primitive_calls": 48.0
+      },
+      "learned_preview": {
+        "accepted": 32,
+        "cases": 32,
+        "correct_future": 32,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.03125,
+        "mean_nominal_work": 10629.84375,
+        "mean_primitive_calls": 520.125
+      },
+      "preview": {
+        "accepted": 32,
+        "cases": 32,
+        "correct_future": 32,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.03125,
+        "mean_nominal_work": 10629.84375,
+        "mean_primitive_calls": 520.125
+      }
+    },
+    "heldout_graph": {
+      "blind_first": {
+        "accepted": 5,
+        "cases": 80,
+        "correct_future": 5,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.0,
+        "mean_nominal_work": 538.6875,
+        "mean_primitive_calls": 4.25
+      },
+      "exact": {
+        "accepted": 80,
+        "cases": 80,
+        "correct_future": 80,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 19.55,
+        "mean_nominal_work": 10418.85,
+        "mean_primitive_calls": 82.2
+      },
+      "learned_preview": {
+        "accepted": 79,
+        "cases": 80,
+        "correct_future": 79,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.05,
+        "mean_nominal_work": 10633.0125,
+        "mean_primitive_calls": 520.15
+      },
+      "preview": {
+        "accepted": 79,
+        "cases": 80,
+        "correct_future": 79,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.05,
+        "mean_nominal_work": 10633.0125,
+        "mean_primitive_calls": 520.15
+      }
+    },
+    "late_collision": {
+      "blind_first": {
+        "accepted": 0,
+        "cases": 16,
+        "correct_future": 0,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.0,
+        "mean_nominal_work": 507.0,
+        "mean_primitive_calls": 4.0
+      },
+      "exact": {
+        "accepted": 16,
+        "cases": 16,
+        "correct_future": 8,
+        "false_accept": 8,
+        "mean_full_candidate_checks": 13.5,
+        "mean_nominal_work": 7351.5,
+        "mean_primitive_calls": 58.0
+      },
+      "learned_preview": {
+        "accepted": 16,
+        "cases": 16,
+        "correct_future": 8,
+        "false_accept": 8,
+        "mean_full_candidate_checks": 1.125,
+        "mean_nominal_work": 10677.375,
+        "mean_primitive_calls": 520.5
+      },
+      "preview": {
+        "accepted": 16,
+        "cases": 16,
+        "correct_future": 8,
+        "false_accept": 8,
+        "mean_full_candidate_checks": 1.125,
+        "mean_nominal_work": 10677.375,
+        "mean_primitive_calls": 520.5
+      }
+    },
+    "out_of_grammar": {
+      "blind_first": {
+        "accepted": 0,
+        "cases": 20,
+        "correct_future": 0,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 1.0,
+        "mean_nominal_work": 557.7,
+        "mean_primitive_calls": 4.4
+      },
+      "exact": {
+        "accepted": 0,
+        "cases": 20,
+        "correct_future": 0,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 64.0,
+        "mean_nominal_work": 33943.65,
+        "mean_primitive_calls": 267.8
+      },
+      "learned_preview": {
+        "accepted": 0,
+        "cases": 20,
+        "correct_future": 0,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 4.0,
+        "mean_nominal_work": 12996.9,
+        "mean_primitive_calls": 538.8
+      },
+      "preview": {
+        "accepted": 0,
+        "cases": 20,
+        "correct_future": 0,
+        "false_accept": 0,
+        "mean_full_candidate_checks": 4.0,
+        "mean_nominal_work": 12996.9,
+        "mean_primitive_calls": 538.8
+      }
+    }
+  },
+  "model_weights": [
+    0.10000000000000002,
+    0.1688888888888889,
+    0.09680000000000002,
+    0.0608
+  ],
+  "parameters": {
+    "development_cases": 32,
+    "forecast_degree": 32,
+    "graph_candidates": 64,
+    "observed_degree": 12,
+    "preview_degree": 4,
+    "train_cases": 160,
+    "training_grammar_candidates": 9
+  },
+  "ranker_file_sha256": "5df0762eed20251a71c547822b91437590154ea80c79a1349079e948a2c976b8",
+  "rosters_sha256": {
+    "dev": "251bd868e27c0a3ce76162d08f4022d4245f4b4b0d42d0c515bf8550c77a486c",
+    "heldout_graph": "d13eb38c4d779445018cd1fc7139551644ed8702a530f09c3e80ccb2574f429a",
+    "late_collision": "98deb6d6160d31e7d67754d820359f3a403f58a0c98171b01468e57f280da88f",
+    "out_of_grammar": "4a02ee13d7cd6e4b3db91e811100495d753b28cfc70d847697516f8948afa8ae",
+    "train": "e6d9a0816ea05cc97872c148312b41b6025eee5ac2f2626f15e1c4b3337ddf9c"
+  },
+  "schema": "rrc11.receipt.v1",
+  "source_sha256": {
+    "bench11.py": "84d5764f85a7c921a3a50f0c268de369d91ff8c6d6d4550b1fe1b3a69ef7f5d6",
+    "graph11.py": "544e86850fbca085485d72532280b8ca1c1b107dc9f375128e067723806b76a2",
+    "train11.py": "5e4fc8b1c8b68c8d8bc46cdd24ef0ff7fc856a4e84cc508bff84ccd5ff5e3963"
+  },
+  "status": "exact_finite_cpu_operator_graph_identification"
+}
