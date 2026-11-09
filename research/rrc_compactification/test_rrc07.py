@@ -1,6 +1,7 @@
 """RRC-07 finite first-fault algebra and source-blind neural controls."""
 from __future__ import annotations
 import json
+import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
@@ -12,8 +13,6 @@ try:
     from .rrc05 import (Program05,product_coefficients,exact_program)
     from .raw_student06 import infer_raw
     from .student07 import (parameter_count,portable_forward,propose_int)
-    from .bench07 import load,calculate
-    from .fast07 import fast_base,fast_forward
 except ImportError:
     from rrc07 import (PREFIX,HORIZON,Case07,new_roster,raw_features,first_fault,fault_feedback,
                       score_proposal,roster_hash)
@@ -21,8 +20,17 @@ except ImportError:
     from rrc05 import (Program05,product_coefficients,exact_program)
     from raw_student06 import infer_raw
     from student07 import (parameter_count,portable_forward,propose_int)
-    from bench07 import load,calculate
-    from fast07 import fast_base,fast_forward
+
+HAS_NUMPY = importlib.util.find_spec('numpy') is not None
+if HAS_NUMPY:
+    try:
+        from .bench07 import load
+        from .fast07 import fast_base,fast_forward
+    except ImportError:
+        from bench07 import load
+        from fast07 import fast_base,fast_forward
+else:
+    load = fast_base = fast_forward = None
 
 HERE=Path(__file__).resolve().parent
 
@@ -106,6 +114,7 @@ class ExactFeedback(unittest.TestCase):
             self.assertTrue(repaired['verified_prefix'])
             self.assertLessEqual(repaired['corrected'],64)
 
+@unittest.skipUnless(HAS_NUMPY, "NumPy optional; RRC-07 CI installs it for neural parity")
 class NeuralContract(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
