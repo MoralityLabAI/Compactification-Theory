@@ -126,7 +126,7 @@ python experiments/qft-lattice-map/adaptive_certificate.py \
   --verify /tmp/qft-adaptive-receipt.json
 ```
 
-At (k=\pi/2), (z=2i), and source modes (n=-1,0), the validated upper
+At $k=\pi/2$, $z=2i$, and source modes $n=-1,0$, the validated upper
 bounds for this grid and cutoff include:
 
 | Flavors M | Infinity-certified error upper |
@@ -137,7 +137,7 @@ bounds for this grid and cutoff include:
 | 70 | 0.000981997 |
 
 Therefore 70 is the first grid entry that passes the exact threshold
-(1/1000), among the entries evaluated. Replay validates the embedded witness
+$1/1000$, among the entries evaluated. Replay validates the embedded witness
 bytes without numerical inversion; GitHub Actions saves the complete
 run receipt as an artifact. The error applies to the two chosen source columns,
 rather than to the full compressed-resolvent operator norm.
