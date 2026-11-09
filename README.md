@@ -149,3 +149,8 @@ The [LSV-15 math and checkpoint protocol](research/levin_sieve_v1/pretrained_trm
 ## RRC-07: iterative Euler first-fault correction
 
 [RRC-07's executed CPU experiment](research/rrc_compactification/RRC07_REPORT.md) trains a raw-only recurrent corrector above the frozen RRC-06 checkpoint and separately accounts for exact algebraic feedback. The recurrent model moves the first wrong exponent later but recovers zero complete held-out programs; a matched feedforward network achieves more correct coordinates. The source-bound replay, proofs, models, tests and eight-budget feedback controls live in `research/rrc_compactification/`.
+
+
+## RRC-08: supervised operator induction
+
+[The RRC-08 report](research/rrc_compactification/RRC08_REPORT.md) measures a learned eight-weight exact Euler recurrence on raw coefficient series from held-out mathematical families, against a similarly sized local feedforward model, symbolic inversion, parallel depth and six indistinguishable-prefix collision pairs. Teacher-forced algebraic features and decoder costs are documented.

@@ -90,3 +90,8 @@ The [RRC-02 run report](RRC02_REPORT.md) records a 363-parameter trained recurre
 ## RRC-07: learned first-fault refinement and exact-feedback accounting
 
 The [RRC-07 CPU report](RRC07_REPORT.md), [frozen protocol](RRC07_PROTOCOL.md), [finite first-fault proof](RRC07_THEORY.md), [tests](test_rrc07.py), and [source-bound replay](results/rrc07_pilot.json) measure repeated correction of raw-only Euler predictions. On 72 fresh, known-family unseen-period cases, two learned recurrent passes move the mean first incorrect Euler coordinate from 4.75 to 6.76; total coordinate accuracy remains 2,894/4,608 and no direct neural program passes exact verification. A matched feedforward control reaches 2,975 correct coordinates. Exact residual feedback completes 72/72 after repeated full-vector queries, while a one-shot symbolic solver also completes 72/72. This is a limited first-fault improvement, without an end-to-end neural program-recovery gain. Run `python research/rrc_compactification/bench07.py --check` after installing NumPy for the frozen CPU replay.
+
+
+## RRC-08: learned algebraic operator synthesis (CPU pilot)
+
+[RRC-08 report](RRC08_REPORT.md), [mathematics](RRC08_THEORY.md), [protocol](RRC08_PROTOCOL.md), and [frozen source-bound receipt](results/rrc08_pilot.json). Eight supervised FP64 coefficients were compiled into an exact integer Euler-inversion recurrence with a hand-provided convolution/divisor basis. On 155 held-out series, its exact traces reach 155/155 and restricted product-program predictions reach 69/155, including six unavoidable future-collision errors. The identically exact symbolic solver is the stronger computational baseline; this result is operator-coefficient identification, not primitive discovery.

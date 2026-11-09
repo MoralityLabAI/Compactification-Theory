@@ -1,0 +1,40 @@
+name: RRC-08 operator induction exact CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/operator08.py'
+      - 'research/rrc_compactification/train08.py'
+      - 'research/rrc_compactification/bench08.py'
+      - 'research/rrc_compactification/test_operator08.py'
+      - 'research/rrc_compactification/RRC08_*.md'
+      - 'research/rrc_compactification/results/rrc08_*.json'
+      - '.github/workflows/rrc-08.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/operator08.py'
+      - 'research/rrc_compactification/train08.py'
+      - 'research/rrc_compactification/bench08.py'
+      - 'research/rrc_compactification/test_operator08.py'
+      - 'research/rrc_compactification/RRC08_*.md'
+      - 'research/rrc_compactification/results/rrc08_*.json'
+      - '.github/workflows/rrc-08.yml'
+  workflow_dispatch:
+jobs:
+  operator-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-only circuit, exact algebra and collision tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_operator08.py' -v
+      - name: Verify the complete frozen CPU receipt
+        run: python research/rrc_compactification/bench08.py --check
+      - name: Keep RRC-01 and RRC-05 mathematical regressions green
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_rrc.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_rrc05.py' -v
