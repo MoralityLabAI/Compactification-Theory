@@ -31,3 +31,7 @@ The infinite Rogers–Ramanujan equalities are known theorems; this experiment i
 ## Proposed RRC-02 extension
 
 Build a predeclared pool of constrained partition grammars and a blinded train/dev/test split by *grammar family*. Include invalid periodicity hypotheses and examples sharing a long initial coefficient prefix but diverging later. Require a student to output an executable verifier and program length, with exact holdout checking. Compare against bounded enumerative synthesis at matched CPU/parameter budgets, with recurrent steps `0/1/2/4/8` and randomized residue-label controls. Make the withheld grammar families inaccessible during training and model selection. Register acceptance and false-positive rates before training.
+
+## RRC-02 CPU pilot execution (2026-11-09)
+
+The prospective RRC-02 pilot now has a runnable [implementation](rrc02.py), exact [nonidentifiability theorem](RRC02_THEOREMS.md), source-bound [receipt](results/rrc02_pilot.json), and [reported outcomes](RRC02_REPORT.md). It uses exact Euler-exponent features and an externally supplied verifier, so the broader registered challenge of raw-coefficient discovery and learner-emitted proof programs remains open. All predictions use degrees 0-64; degrees 65-128 are withheld for testing. The family split, aliasing controls, shuffled-label control and 0/1/2/4/8 computational depth sweep are checked with CPU tests.
