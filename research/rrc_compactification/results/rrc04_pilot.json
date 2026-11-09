@@ -1,0 +1,2312 @@
+{
+  "cap_semantics": {
+    "0": "unlimited",
+    "1": "distinct",
+    "2": "at_most_two"
+  },
+  "case_sha256_by_id": {
+    "dev-0000": "87ccfbf7f0a2b91b58a42f96aa7b29e77554876debd7750c091fa008ec310ac0",
+    "dev-0001": "b687a906e4e7713ab5cd283bc2e88f3dfa900c7b0bfb8b8221975eb7128fbf0d",
+    "dev-0002": "f57549fecdd7eee934d990fc6cf0cae84f14fef86c6ef55c2daa9890b97e3b77",
+    "dev-0003": "565e4fe9aa0aa18f4106c9395e6e468f8f8b682930b48c628e3943643a3c3d67",
+    "dev-0004": "9dc4a140c89c5c9616d6ba52355adb0a278e5ddb99979e994f02fa3f81ecf04f",
+    "dev-0005": "fe5d2dfca9fd40d91396b816b3d7b73b4bb2c6e58b3bed17a1ce7c2c56814bf7",
+    "dev-0006": "d076dc726e10e6a86a49048e53fc40f9527aa40cbd12872b6c8030c46fafe472",
+    "dev-0007": "f2de2f65e4da604f4d11d2ec372138e77fc415da6c2c4d832bf305db68f88849",
+    "dev-0008": "53dd6abbe0833bbce8f2afa5eda7af33d9bb22a1bbd492ebebabbcff3e86dbd2",
+    "dev-0009": "eccec810c07ccf7e551e8e9473b0ab64c462062f5190ec4add6bc7449be53d01",
+    "dev-0010": "98cd7b6e832d109187f2471215a2b0e0d02194b476565ecfa42bce52ff877634",
+    "dev-0011": "a61785e593c5e45c9fa64b878d657f214ec940c40e353fa5cd1c145774160523",
+    "dev-0012": "38a6873b79ca657e487760eb2f4d739cdd2a8b9e2b4cbdfbbf0dae0562371b06",
+    "dev-0013": "78bff7a1f03bd0038b29a9281be4659759940fca167f81dd71a83d7b12128145",
+    "dev-0014": "32ebc09accd6e28339fc19f7212585367643eb427d88de8838c0a1e0aef03b2d",
+    "dev-0015": "70f4881f04170acde2d4c536848fd829425e2e537a35a428eecf67be98a1b99b",
+    "dev-0016": "c6681fa8ffafebd3c1085ac8ac6cb372ca83d90e3ad6710f1b1eda3ffa2dcaa8",
+    "dev-0017": "d6d9c311dda07b45e7b7ff21b3602faf2107fd13c83705c1a715636e082116dc",
+    "dev-0018": "5a45066ceb23eac027ceab5ae0fe345dbd78024823f7fac39c6010de46d08a65",
+    "dev-0019": "5e0bd7f409374ea508f3021c68a475772c5bf0bf4ab575a44105ed19a5669a03",
+    "dev-0020": "b50c92348857b7276d267ca53626d7c0a3774707fbaff9ce0391de25c5704735",
+    "dev-0021": "a2d276dda655f5734647c725d00826b8eefd86026aee403623e06a3f387a1a37",
+    "dev-0022": "7c2f72f771961cad83b12a72979647af54b5cb169eda945db58e643cd1654850",
+    "dev-0023": "27e15458f81e94d3dfa146c7f8c4b365aedc05343e64535580d58e51c2cbba47",
+    "dev-0024": "eb6b7c1f7fe0b580d24121bd0ecf3ccba18ce060f07ad7fca6ba9e95a2d7e68e",
+    "dev-0025": "8158ba78a68eb69b3735b4e8c7cf60efbdfff19f0e668e10fdf26650fa8a02d3",
+    "dev-0026": "ee578502d0807667a5a6ac5619d2f69423a7ed734d088efae971001e28e0f58a",
+    "dev-0027": "dd4a3e56ea04b9066f558c9964c3b02b623b199a543a1aee9960de198d045a8d",
+    "dev-0028": "2ec66a80824771f29da37bf8838b5ac7c6a7318535a6503da2cfaecb8454f10f",
+    "dev-0029": "9876a5fcb7d04d34fe830a27c0b3b449eaacae559acb6e7d8e4e2c48e649b638",
+    "dev-0030": "b3468d8b49dfe85eaa4dc972340ee01abe5e3c40825b3866e14d8cad8b892370",
+    "dev-0031": "013249854e237419407c2b4153edb071e90e55f34802f29b36520a2bff6c391a",
+    "dev-0032": "159ef0afb482b65070b4a17cbb9865184e30f7acae59fe6a3e78056b2790a1d2",
+    "dev-0033": "44faf55b7a78ec98ac5865871d9e65512411e6960f2cd0c0aa0b4b2260322948",
+    "dev-0034": "b9c79f37cf1435f0bb44d9acf46fb4d2ed7b24cbdd23b041cb84438c644e811d",
+    "dev-0035": "8e6937cb40a9e39befee0faa5cc345d5205874ea5fdab09ec9c8ec60fd97b39e",
+    "dev-0036": "704584b34939d7f7e1d5044567d3b4f5fb29183542cd087227b49c07859ec722",
+    "dev-0037": "fc11b56af0633bf5cf810a54aa0d7162f6cc2ba05e76e07843cd377b1a093214",
+    "dev-0038": "4eaef4da11d78da1580462a640cdd76aec7d7ec75ffb7cefff4302d7a42023e9",
+    "dev-0039": "7fd74a140c69f3e9b46426fc486c7fce2c905f5b831ca4e4dfe1054fcd066f27",
+    "dev-0040": "92b28cc4aafb9fb92633cd0f9bb999ea919fe657cc30cc73e98b422a27d31d8a",
+    "dev-0041": "a1b636336fd081006b3bf10809cb04038f7763c74bad179bb6697519b9633e42",
+    "dev-0042": "9a583f570581b7eac6c594ccabc058df3fecac08d625348178ae7ed35e7ca3de",
+    "dev-0043": "5bce364d119c750a94138e8aade8f2dff0fc48227125d1f09f72db700e3472c4",
+    "dev-0044": "d61b9b37d379a83f3c7c19c1f1fdada6324aaf2a591c54cd7e83d92d3c311538",
+    "dev-0045": "373175a2c1b9eb55c15e9d1eeffad8bd730c5f3b5bbac7914205bda1ef2a5c61",
+    "dev-0046": "c223d5645f8b0f0c503858b7b494a3224bfb64c3c3344740a9fadc536bfe3394",
+    "dev-0047": "f7e136903d5be80386685f255067499fbd4ae5cef6e7c236b8e79172ea210393",
+    "dev-0048": "8a5a79f8f44ac5d8032f9e2fd54920e37fee7e0af01368b9689add947a1aacc0",
+    "dev-0049": "a7a069fc42452d7fe9406fc27bfc7c0ab06e7c8d00625936057ed324803f0059",
+    "dev-0050": "c211d1b3edca88819d1589004a3713e8c37cd110565e235f74f69fcec1f76772",
+    "dev-0051": "08e476cb36e4edab5ef7b73765661fc2eefb5143dae5d0646171e4a5103338da",
+    "dev-0052": "0e605d77eb8e26361686e055cfcf14190203b32a2689c6032aefe5ecbd3d19cb",
+    "dev-0053": "fdc18b9ca50efffa718f6c1389e285b6f0498323938273c5796603c01afafeb3",
+    "dev-0054": "86feb4231a7cddbd08a41924bb0418c8768b6c1a475690e2eb95f7ab63ee93a1",
+    "dev-0055": "ec8028d27b5be16efc0dfd80e684294e60406074ef75059c953e33df32551a4d",
+    "dev-0056": "2b5b129204d2a0cc5f05c55f869570b981e7087eb51f7cc8175a143396e6b7bc",
+    "dev-0057": "1bd22acce07844ac3e469cac59f41f30a0e26119ef8b852d5e8ec14b8b65b981",
+    "dev-0058": "30024f0bb76623e8b6492526812e0344274ea3e8531b0af63d9242074442a7bf",
+    "dev-0059": "5ff9c8eb105a9855f69583d95553c8818bf07b509ef2739931eac5d60c057665",
+    "dev-0060": "1164e0ea18d654e9e7c3b16543702c1b1afaeb5c1cadb83b31c63e30719f84a2",
+    "dev-0061": "75bd4cf2902ed7b9814b0374333863bb73314d51fec373c6733bd51b22d38ecf",
+    "dev-0062": "205cbe27d2e62ebdc5044738370056847b69c9fbf8b4f9b4b488021c6d8c4e48",
+    "dev-0063": "3d388a08836021e41452b04c1c560b785026f603a9f5f34a279894990215eee0",
+    "dev-0064": "62531265917e336772a38230a97f972d6089a09b24556e997ca14945ba28d79d",
+    "dev-0065": "71c0d195d97179b43a086156fe1a765cbc4fb5c0ac66c38d4636fe79611acb7b",
+    "dev-0066": "dfed58539f54d15f225f8cbd161ebf2a7ec716ffdb83e1c4943de8da8ed6fb1a",
+    "dev-0067": "2686636df2152d4e3fa76ec4e23f93ff5c875aa226c3d84819b12cb82bfa9b56",
+    "dev-0068": "5c8ecaf161f8993e31d2bf68da0744d56a2a7483d79bf74153fccc8f95d26e3b",
+    "dev-0069": "a830e93fefae9f394234ac1cfc3ef47faf48ec320ab6fcc3bfb5d29e7606ced2",
+    "dev-0070": "3bb1a33fbb1c81ab6bbc475ff6013c044d6938e79dd67ef2a4fc20018dbec7c9",
+    "dev-0071": "903d9163da17c851e7261f945fc20960e13cba45e53b39c9fdf86b0b376591e1",
+    "dev-0072": "deb56591c6e7fa03db059f2963351fbe6344917b17d2ef4d6f4cddcb823afeaf",
+    "dev-0073": "9a1b976ab2aa617a8eacf8d050b9c579c27e7426077e636bea77ba9f7fbcbcad",
+    "dev-0074": "39af1e32aba46990eba4e8e9ae6e1396119007ec6ad2a85e45e65fe0264d7c77",
+    "dev-0075": "0e840911ced25202260ed23f7d83d80538a7b7314e59392693b526e79f2bbd72",
+    "dev-0076": "99b1c5a57e28ba9dd49f7ed394961eb510ae86ae2f0809f4be59942ceb8f8e8a",
+    "dev-0077": "c72ca0d5ece0ab4663e7f96ff937d8ad6527d08118f978e595996838cc154c8d",
+    "dev-0078": "c48cd06e823a1357e65ad1d3513cb46b772ac2fabef0817d8666f87d6ab9464e",
+    "dev-0079": "4b42180d13172ceb7a034e322234e75d07d3a265adc89358943edaf48afc6a88",
+    "dev-0080": "914c88e2ad2df609929b9cf8a637e1081d10d583cf82b11ef206e2755f746e25",
+    "dev-0081": "29ddf9f2f0d912403960cd78814283da68e031e527a9b70fc8d6b114486e93da",
+    "dev-0082": "514bf75649a4b8a8bbac0fbb55f3a2aed8e7dee6e0d5cf6099b70398f3fb83a5",
+    "dev-0083": "87e9e2af790dda0c72a991c858caa2a1e3bdf9b7ace711e204768764aa6f3c8e",
+    "dev-0084": "27a31c7ebaeda7f207ef5589c04b7de04f91668edf2ed58d977b599efbbc1444",
+    "dev-0085": "5861e8a1e85de2f41e120c2dc28390fceffbacd0c70a633a5547f2e0ba284657",
+    "dev-0086": "44acbd3432bf52628542dfbafda0491af9c7d27664345f6728d84090390aa7fb",
+    "dev-0087": "4705e4d4d3060a9b088998605dcf8ff06e0755b9b10e8685e686963c397539f5",
+    "dev-0088": "9c231e88b08818f7c76d3c038551adb51dc6ca4b9a29dbe508e2a16a27cdff5a",
+    "dev-0089": "04418ce9dbf184020c027220a984efecedb48d491507781b1ceb1253fa66bbee",
+    "dev-0090": "8b22f8491197ca7581e823e20a99c486a9cdb21ef12538e87490e44df8fab17e",
+    "dev-0091": "690fd230430545558ac96bc5623454877729ece57df8c241f5fc3eea7efd23f2",
+    "dev-0092": "c8a3933450c1d79cd628968abb15167597afdee5a0d40d9ae8770219619d16f1",
+    "dev-0093": "6e2920af170bf9e7819b1aaacfe9191ebcc53c6b712621585ce4fc06905a9db1",
+    "dev-0094": "992118f95dfcbd36b62c7092f19f5ec914fc2fc97c894d4e8e7bc53abe41d1c2",
+    "dev-0095": "fe43a00f65215d6a32d1e7d6f3c6e6f9c6da2e4615b51b3bbd5dc692c4ffff2d",
+    "dev-0096": "2bae79596a6e42457905eed4c7507bc37a008dba9b418d054473acad062dc135",
+    "dev-0097": "644a13779338d213974ff6f4426277224974046daa9f7d4dfe502024e15208f2",
+    "dev-0098": "310ccc45432b5a2f2dc8dacaa202e5d506a4e5fd6664b134bef155ae640afed1",
+    "dev-0099": "267d4c5e6dc2a950b0ac84782859e2cbaa3cc15170190c51f0667232ddc7fedd",
+    "dev-0100": "9036cc048b1cae303122e29426b4ea60f6a1923bdda69d5220184e54788f4457",
+    "dev-0101": "a183d3a8f79dee4b1f265fd242b45029fd960217ecd57a91f8d3dff09910b503",
+    "dev-0102": "a4304585ecc6d264d65de017bf90a5bebdab337484168b7966a2c0a1b5a61fa3",
+    "dev-0103": "2c41c9c70998b0e3d9907955b09b638ad28c62fb43fb56e2b037ce8a59acf91c",
+    "dev-0104": "ba6463ae899d8c12b982871e37e96b7a4a2c8565b5d4500ecce9ce540d20971b",
+    "dev-0105": "6e5cd3e5add91fe511d9a0186d48cd2e88f2c68ca4ec57faa4e05602e9523166",
+    "dev-0106": "4ce68b10842af0bcf07768cbf604fad017057afc6f038efbfdd6a24bdd73f6f6",
+    "dev-0107": "bb19dc3d315a0e3a5c963d3bcbda78964ccaba573691f7e42c0d0e68b1cb0318",
+    "dev-0108": "ecac3429b4ccf46781f1da3794525bf4eac8b0d8e0c90ccb523bc927834e6107",
+    "dev-0109": "ea02a4f1c2600966bb223a86dca33985926596fd359d1494d79c951d2812bb90",
+    "dev-0110": "91843776c7dac43e9cc1f69a0ec23fd5abde66ee68625d41c36898473ebb6454",
+    "dev-0111": "2d058de3b7206928735fe0092ef38f511db86a3461fd07e8b9111e98dd651fe5",
+    "dev-0112": "8de357e6bc3e5a8ca66f77fb432793e22bcbdf4a274fa104ec608a7c944a9b57",
+    "dev-0113": "0f9d7464b504c8d6faf3f11f69465a98d446c2eb04c911a4a705710f8562163f",
+    "dev-0114": "0ca92c68f60d8d150e6e9387bc5971c45b99f7f65d3658dc402b1f483bf5549d",
+    "dev-0115": "19fae8f54652d165c25ed4490261d039f4c89042b146ce454558e501a711ad7f",
+    "dev-0116": "86fb90134c47b7dbb1f177bcf2ac5d40a41c703fa2eeeaa2962bae43321c2f82",
+    "dev-0117": "d42df724770ed8ce7ff909bb90e40feae1e7015de3b134c8767ea26678e49dd5",
+    "dev-0118": "fadc3f76ffaecb1310825042eff979a011aaa79e23c6a1a34a91cd87bd79b404",
+    "dev-0119": "5eacd2bd493b6c6496237d85fc1dd79cad709ff216606a793e299ad64c360215",
+    "dev-0120": "d480ad95eda09475cf979d8f78caa35edb6f1794943d841e8e34ea3535543306",
+    "dev-0121": "2d249d5bc54f0a8c4aca7341370dd558689104dbcff36b51e19645ca1e9f533e",
+    "dev-0122": "9402efd233f6e811035b308f948bf26288a9af41d5b9e2c2b5c45715231e17c6",
+    "dev-0123": "8d0aea16d25a46b4bcdd54f1d888ee5724ba3344b18a704de9936bf5e1d060f1",
+    "dev-0124": "7f0d243029966c4f5a0e3038fddc8ad6b9b66b42fbe0e66aa36aa96f32b6d3a2",
+    "dev-0125": "4dcf006bde2f2d851fc0fad0659b04e9ea3c27080750332ffce846b0df513d1d",
+    "dev-0126": "ab08910deffbdc2b2914aa4c5c0fea8a5d584b837d64c5535bd8eb6261a239be",
+    "dev-0127": "ef7f63f80c1d516251a106badc6204ecc0c6613238baa80d1af36af85718f320",
+    "dev-0128": "5a3492af809d085552aa7b0badf335f8538db9493d69b8d06959c9e325b3f980",
+    "dev-0129": "0bc22d431f4ea669a3f20a3e9ba8a88f86ada128a40ede40d75bc44cfc677fa5",
+    "dev-0130": "34cecd7467554974bca293dfe2a1ffeab2a7529a905ae8599f9b95b7eb8ef9f1",
+    "dev-0131": "42e4592bd18ac1ab106f39cbcf83a8b2dfce06b6c41b210271f850fee4c6bcce",
+    "dev-0132": "bf57acacac6be6f76adaa76b377e4a5c5e7036998e3d6d10e95b7fd5af0217fc",
+    "dev-0133": "c45b2e8fd0b40dc7d7b9a159527346250eb88af7b5e6df994ed3221e65dc5063",
+    "dev-0134": "f6882289ed87e4215351efc01937d6d5d214e42eb55605f6e27c902743f2b012",
+    "dev-0135": "7698139f4bfd6061437aa29e20475bf46741af8fe8b892b9b8450af1cc0fb902",
+    "dev-0136": "878a2a7d00d2c3283f7503f731f7b8a25f5b42c8e77d0476572c98e649025966",
+    "dev-0137": "9036edd605d5e9f49d377f2d862a1bb435c65007aa2a71579517ed7e57df834e",
+    "dev-0138": "d19700ab2aa7339b39d8e5475c9bbf68fdff22ae9f5b029fc12bb690a86ee4cd",
+    "dev-0139": "e3388a45e4fa628aa61c852d709373a7d5770a0d6f9ca1afc28d6eb83e58aa11",
+    "dev-0140": "22662079dcdef9439f5c74ca3a41cf97014f8a731ee7674eba188e51afb14dd8",
+    "dev-0141": "2f7427368332416f5b78c90f2557fe583a3fbd8a6d120ae6c6c2bbaaabce87b4",
+    "dev-0142": "496e2475b31c992fe5407ab87d01ae0f92a2e87fc16d7ba461e0a9e43f91b088",
+    "dev-0143": "ada25ebf61649234afeb4c9a61ad70ce4eae42449f3cbf92614e06c13d0ad817",
+    "dev-0144": "4a7e3b57a3dbaa1763b359857021e4c6e48c917448af245476aff45082a2a5b9",
+    "dev-0145": "fbc946d6c58eab9a7d5cddfd6a9cabead6c31872c94df7352259514ae10f6022",
+    "dev-0146": "e59ccb3350644308555da47c63022c084b9089df5d7e019d4b5b9fd333c5a45a",
+    "dev-0147": "d8d5c7ebd872b3aea9f641a32fe65194154af4d1e1c3769dc46c6c5202dc0a44",
+    "dev-0148": "3851fcc9aa690c859e150483444a8c14b63599d81ba148629122983bce9e5f99",
+    "dev-0149": "0cfc750cd43bf038b4cc257bf01fed85e39553e9a9aa7712ffae421e4166dedc",
+    "dev-0150": "7592e6f1cfacbe174d75c4b08fd4c673c936e14d8d24bce82a1a5c17c5c14408",
+    "dev-0151": "22709284693e3ac2b831e605649c4f5229e5fc4037d7914e585bed13bb597b3c",
+    "dev-0152": "a05fedf66f9469e2793e188c8da84d45bb18f14dfdc53afd2b300ccdd667bb51",
+    "dev-0153": "bb7c3ab64790992120195c550553a984094bad828dfbe6fb4b9e514be8897adf",
+    "dev-0154": "ad19d62ec7b490f0a10c022cb75fe4c78a447ba06c9cf547fb7f26dded6d1150",
+    "dev-0155": "d9f82af7eaa3fcbae68ad5b3d8301a772aff59ebe9a91030421a4737b4631960",
+    "dev-0156": "90040067c474e1e5f84b4d377365fb5d90b36820ad25bb71ef7beb6ec981778f",
+    "dev-0157": "11945d8d39bcaa2a8335bb7c9f5e8c49b83f581b6d0026886d9327585c05ac3f",
+    "dev-0158": "8e9c81a7102793bbfc31c69b2bd47f6704b9833538d08049308bc97bfa9cfbc4",
+    "dev-0159": "d7cbe331ce1c70d034ecd189a2214a1ee4a32a0807aac181c1d91039cfc7389c",
+    "dev-0160": "6dc8eb7b8caa145e03391802ed8911a066e2c70cabcf3ef6d8c95432248f5c1f",
+    "dev-0161": "ed74620e7e41a69e5860f641d045c8414679604e81a1c645ec418bc4fa3488a4",
+    "dev-0162": "11f432d01da9928c217062d7f1cd57f8828392483b4125c0c40df47d89e61f8b",
+    "dev-0163": "d245ed48a3407865d62610e22d0a5ec9bb4d868978b6d0e91d08eba612a6a441",
+    "dev-0164": "3efa5460a4b95b5d65cb130adc633c3ff9b334770f3fecbd9c7c18e404e260a4",
+    "dev-0165": "d33817a3884b487e33c671946662d8952cf73a0c5cd1169135652a49d342cdd1",
+    "dev-0166": "0be546165c5d0994efd6ba59788b9195095716d9d059f1011c21e1973d2c1f3e",
+    "dev-0167": "260f97b919374c50a9f4faa9ef0505b8de929a5aa4ced6d55bc8cab2a74ddd27",
+    "dev-0168": "11c7bf6e075f52ac2d6456082f6559bae5f92bccbaaed8f23f18c3e6b172f955",
+    "dev-0169": "abf939454fc04d9bb1e4972baac98ba7541262e9e2e9c1dd810818f9c0ee54ce",
+    "dev-0170": "9396fdee5318d265e5343b6b5a587357d06cfd53709b58134bba9a0ef45eec6d",
+    "dev-0171": "3b8f339a35791d752845a32ccbcfa50b4d201ea093faf76568784870ebf927b5",
+    "dev-0172": "3a043d0f84861fd90bb0a5938976d9f56ee59550214245c07cf74cb810e0a1fc",
+    "dev-0173": "5fed476e97e2ee9fc337016765b987658dc7a3238e2e56de234fa099c13515a6",
+    "dev-0174": "4375f9a96c6cb341ba21afdd3930a0526663d2ca8478d877619ea2e82a211dd3",
+    "dev-0175": "111ff4b133e17bfb035a1afe1314ad6376cea47e695d1ff4f7508bd73fbbaca0",
+    "dev-0176": "162575707188bf76701ae61f9be74d3c111e1f207205165b10a38e891aa1fc8c",
+    "dev-0177": "11302314fcc1eb4e9cd9563dabe2b85560aae02a485d37430f06f28e097e3521",
+    "dev-0178": "f37be2803ddd09ab5407c2a15c406887ee704ad80c82475f499756a67be2accd",
+    "dev-0179": "247b796bf000c58ad3be4a77be1b09c22ba3e0340dc90c87f294f401e76e1d50",
+    "fibonacci-cap0": "11795a70a63b04d62271b284db5e803acef58939481743edde22ffe09e3058f3",
+    "fibonacci-cap1": "9e670fd19e24400c4bd3d3783116b86c7b38301a747cb1b160dc4912566791ab",
+    "fibonacci-cap2": "5c3f57a70b8811f26b83746a14c9325a6ddee86b1a982616b652c6160b6471bf",
+    "gap1-min1": "891799bf111fddb81c4f7d1c21565a3091ec085c97d72f08901ede2af0af720a",
+    "gap1-min2": "b6962d779e6774c8a877e2a2a82066e766f9348bebe66561ad00fe9b5b945fc2",
+    "gap1-min3": "def08d8c065aef51aea2549916ca1c4b7aea32d04ca4fce38e54de296e4aa93c",
+    "gap1-min4": "2636f149ea003ea34298e2ab225d74a990011778e47d656175c91f093834ad5e",
+    "gap1-min5": "8172aff2f7426853cda6e0c8fb88ab9c85d3f44680a3537171b7250774f8d672",
+    "gap1-min6": "c2b151da6baac2773cc6fca1d836803a31c435c63b0cac3b35f46eb8904c9f57",
+    "gap1-min7": "031c3feec5cff587d8e25323d614d4ed1656d77abd1db0700d02b8cea75d0d05",
+    "gap1-min8": "4a41cd8d00b671d910bdf302e088be5a59a0bc06ed819a14998ab3383ae55fcf",
+    "gap2-min1": "8848fc7c0c99dccff0f1c7dbd54a02b7ed5303d45c09f6e1abfae47a0ba54217",
+    "gap2-min2": "7029de2b56938a438ee3f5b8dda538b320ae9a305e012afff0716e4231f22fde",
+    "gap2-min3": "8805f5977de841af2f98d380f8347b40080656edda7110ecb77b13b349615141",
+    "gap2-min4": "021291faa4c23e1f2438db4a5d2bccd931bd89b4c6642b6e157295c8286e5cf0",
+    "gap2-min5": "6c26f70184aa9cb336a20d8d87c6b80d76302dc2f6580a31aab7ccccc8e0a432",
+    "gap2-min6": "e752f4d451a44d24b192ae600531517a8865acba250578fa1805830add1d5869",
+    "gap2-min7": "f133a6c13f4855be3e9a165aa0bbfa271377be5047c7ede9612183a887911aba",
+    "gap2-min8": "4f512838ca1031892d09e5c297722a50d5771d43ca8109501e92f8ac114025d2",
+    "gap3-min1": "f46f455037cff36838cfa10e2bd9bb03f657fd7f5303ff7780635f359dbe19bb",
+    "gap3-min2": "0375bc925cf6a1b7cc22baef8523416a52553f7c1e651fc74d7c97b74c90a34a",
+    "gap3-min3": "38c385aefe8fab1ac52239d36b62c8b00e491149fd1e96da77da0b5504ada7ea",
+    "gap3-min4": "e7c893f4c6684c60796c53dbb6da43445cf726e9bcfc80318351c8abc0c53771",
+    "gap3-min5": "60ded7745106b9190d2d32b5182c31a80bc84678cf9b3515f5f921216c3be8bd",
+    "gap3-min6": "c31757dc9b79dc926c2e9ddaa09c2dbc909fd722b63480b61988544a333d4c77",
+    "gap3-min7": "792b7a3de1696da101e0fc144aa43709b531d91cbbed7fd36a62b5acc40eccf7",
+    "gap3-min8": "41768920fb7607c6d111aa5d17f5d82378c0153e389c91781bed3c41a9a1ce27",
+    "gap4-min1": "c2d241508a3c34e6a803fb6e02f02e0faa142db1d7646bc1050ecd9220b85dbd",
+    "gap4-min2": "e12bacd81612ef79c23a7e0da39af2696225eead4e30cbbe8c25accdd3bd91bb",
+    "gap4-min3": "2156e755236f06c6e53725668c4a952ffed13498d9711722a197593f0d7e5a76",
+    "gap4-min4": "2863f1671ad68aa3a376e9590ab338f5b581435ce26272353e120bf440915dd4",
+    "gap4-min5": "de737f6aa926ea743c6851f7b8a237cc7157b5500857b05da17c96a78c9747d7",
+    "gap4-min6": "c53722424955e01606bccf3ec3be483ec38cf223d8798ea7d48563eb3fdc2376",
+    "gap4-min7": "49cb68d3fc5d9d5c19b03ac20418ebec8b98e6fc2c050800ab063b1d6b3e5d8b",
+    "gap4-min8": "8ba53e4e724c2c1c89611169bc51ddbadb35505152b2167142de1df38b50631c",
+    "pair0-base": "8ced090486507ef6241a2fc9bcf46ab5dc96eca6346fdfd1908464b98f430100",
+    "pair0-mutant": "8f8c7543178ff6c2c04fcadecd993e06289dba31ccc40dabc00a42a3095b0811",
+    "pair1-base": "3d31bad0a2e925387bf94c1bb869b75ab851c1ea9834e8e03ebcfd52933efd9e",
+    "pair1-mutant": "039a41c080bb4308d98f227df9b2b5df285d1b0e53357bd444aea4b510bb2257",
+    "pair2-base": "00d1e341e9da669a91c61cac0f2352201fc664f43402e5d6ed21603edc2af4e4",
+    "pair2-mutant": "036018f49dc7297965b22e7755caf3c5908032f98c605366f48b7fb5a517b4ff",
+    "pair3-base": "380c5d3cba7e941f9ffa95e6303e084ea5b155fd79ff20a36399d1fe6f64f863",
+    "pair3-mutant": "e1d12f96bbad60f72f6b1fd2e746d05cba094583966b06e19eb96e587f5b1c42",
+    "pair4-base": "32e0237660a5e7e0f2217c8dc40347adbcb9fcc18c7fa375064134db193e0a78",
+    "pair4-mutant": "a49883198f2bf6e4b9373309a77e1b3ab3f8a087f442696499f7f9c1dec07f9f",
+    "pair5-base": "4a7cf4791aaa7d33e45a7d3308788362e5bfbae2249bfcf8ae573535ffbc4baa",
+    "pair5-mutant": "bdfb61119741788b08691af62a1154a846c8e376a340df91536fc0d9a32a115f",
+    "pair6-base": "0b133b87ea4781080e2f0c10a2c779b31b62e8ce9645d7ffdb74a34e21f245fe",
+    "pair6-mutant": "3d78f5858c7c631f529e793d24abda23524c1e214b4f2674caee6e7493a54033",
+    "pair7-base": "4e7407413d92ca1b1cf0c07afcf99d250f0bcddd11819c35f2da57720555a273",
+    "pair7-mutant": "e1f91d8b4f9c9c1cd2481148b11006cc69cf2a1b31d599a853069c092dd5cfbf",
+    "powers2-cap0": "24891766cc3b03b5574ed1b7affe794302bfd78df6f3f439c922d2b30a0c3a47",
+    "powers2-cap1": "3fae7c4071ae07c48bae924961e12fd1a82eba99aee55b21ddc213e2173d5959",
+    "powers2-cap2": "220b9378607642df002793f25004dd0b382279fb4cd43e9e2a98f3863aed19c8",
+    "primes-cap0": "d215db1b4556f8ca4a4f9afa4d9c69aba5068847818c74b5fd6b504af966a0ac",
+    "primes-cap1": "dec986afc7cbdb5929123a49440f19e2c4bc9a34089f6b397e65d67925f5e91d",
+    "primes-cap2": "25ed31313e104bbbb3206b949f4455e7d5574fd40c7e7181ac0290ebdd223bae",
+    "squares-cap0": "8c05302d2eb265f8a2dfadeac20f309db122f2fbdfeabf6a8f008fbdd306fec8",
+    "squares-cap1": "aaf5e309c94c222e750115a69c004f393aa6355aa5827c61340dba6e8a7fa707",
+    "squares-cap2": "190e49a7576959c1f7813557ff40f20a27a0ac46e23fe7d3d4318e83fc024a56",
+    "triangular-cap0": "54ce64bd0b673c32602b9509adf2fd7a301dea62f14ca4f84825c86e94ba0974",
+    "triangular-cap1": "5509a10402156cefb31d5ec2222b60287b7fea1eaeb1ad551208f33681041e3b",
+    "triangular-cap2": "b8f6878468c0314799cb5139f37331a691292493622c8d69bc88cbcfc4255262",
+    "unseen_modulus-0000": "bec6feeb378d9de4e609fc37554539fce606843e37797033b15ca8a0dbc8be5d",
+    "unseen_modulus-0001": "db36d1f80e78f0a62761631c44a918d8b02c6148c8af82de71f4f7f35dff10c9",
+    "unseen_modulus-0002": "9cecfa6a5a30a682d41e94590e549d31414bbfe4eb5473028c9f356c5f02ab00",
+    "unseen_modulus-0003": "9260c58b9b02957c0cc73dc1896be14faadb304f2a0d1e6c58ffdb28fbad96b6",
+    "unseen_modulus-0004": "e43aaf8b0cf30da1491a102c76d582179188c28c644aade2f92aca7a02abd84b",
+    "unseen_modulus-0005": "038e2964dc7aca67d050d3afa6d0ab6b5607aecd643706aec50715c224becc18",
+    "unseen_modulus-0006": "dc6594dec54c71680e91dd268a1ad57b94515e0246fb2853dfce49ae30fa30c3",
+    "unseen_modulus-0007": "45b2ef22515cb4517b33346dbe123457088d635d0f310d3e23a0b5b906b31af2",
+    "unseen_modulus-0008": "53b6aebf27944c7649414da654b9d954470a981c40c3cbc960c46d3bb70d1ac7",
+    "unseen_modulus-0009": "679f92774729b3f66d8fcf9454b46cf49f2046a4aa176506d3ad3a4d75587bea",
+    "unseen_modulus-0010": "9fe0637ad612dcade73380bbdf661f48433146d9de4720465af36acd9f25067b",
+    "unseen_modulus-0011": "1c5fd0d0a7a54795da33b4b5f52ecaabeefd249ecb63940477e43e455b2e524c",
+    "unseen_modulus-0012": "f3c9547193a758cc7658a85eda1f550e4dd822ee0798ea67f711183e787d8b85",
+    "unseen_modulus-0013": "345da70dbf1f97011b35c62eed051df26324b5887c6f8b1087f2ab5fa682d63a",
+    "unseen_modulus-0014": "2b66e4d7685431db286ba8af03eebbc1e3b0e65c36db36d45856d42b75e723fa",
+    "unseen_modulus-0015": "e7cc5e4b226f58a3796de6ee4e640bf69f08637d5da5ad49cb149255d2e65a55",
+    "unseen_modulus-0016": "f69bfba329278c96b0aacd9db784e4c1af716174ec98c3ab008afd7837bcf136",
+    "unseen_modulus-0017": "66ae975c75e338a249c2b0800840009b431df6c6dd880b8226e8e9f527b1ae1c",
+    "unseen_modulus-0018": "42e2e6455d04373df8bc855bd613f5910e45777b2e229990256ddee98249011a",
+    "unseen_modulus-0019": "7dd444ce2b29a9aa6b30a6d1d44a81705aeb51614da055d4845301e88c3578f6",
+    "unseen_modulus-0020": "45e80b0007b3057cf44dd40341801f598d97cf6d186bca73862b761f61837967",
+    "unseen_modulus-0021": "488964923bb391b5dfa2f3c408646731be862ce9a11cab45cd642cf15b562fb3",
+    "unseen_modulus-0022": "69055fa3d413d340cdfbcc13b34f9ffbf03fcdb6e9c5d8b63a649a82c5814cdc",
+    "unseen_modulus-0023": "a42b352ee5a3ea164ddd253a5001eb98ff55b119d44790412ff8f0c71a39dfc9",
+    "unseen_modulus-0024": "c5d7849b7e7488ea3b9d02b82bd74697c2d0c7ab50d22763af6c6c48f3082850",
+    "unseen_modulus-0025": "7ede95d93c851f5964241638283fb6d70be911152b30b71d2706062c187ed5c0",
+    "unseen_modulus-0026": "d39295d185c6c0181f299565773aa6e99a349c8f1d55a70eee6b298022416506",
+    "unseen_modulus-0027": "8a09f23a64c74a7eaf7e73189b6772e5ce9cdd8defa3e51d1373c3bb6a7e061f",
+    "unseen_modulus-0028": "3eca0d16ed7a30d12b7ba066b06919f9d4b6194442754c59668ed8458e3290ba",
+    "unseen_modulus-0029": "402330fd107ebb8c8b7f4c7c16747a0beba9072ad670c53d42ef15bc30a1a062",
+    "unseen_modulus-0030": "c4e5dc9f3b18109af422b5c65ae58228a8843b6e091fb2bdbfa2ed781e2c975e",
+    "unseen_modulus-0031": "e2cf2312d3123cda258de0a7f30e919771ccc9a2279c7baa2b34b07a9041f852",
+    "unseen_modulus-0032": "1c127442c4d7bbd56cdb799a7c320db5e477a8193ebe2cd0f4db0078c05d54cf",
+    "unseen_modulus-0033": "d3ffec36945b06d10926f4c28ae9753aaff0095ba6eca172e85450adbd168fdf",
+    "unseen_modulus-0034": "94dc41f4f913a3fc1b371cc1cd6045e0654ca8ec31febfe4076f0db4f1599a68",
+    "unseen_modulus-0035": "5439e733e09b2c918de038bfbec50e23bf4cc0fc8397673617251d76e4e772e6",
+    "unseen_modulus-0036": "bd806978452d301a470a0465a7a26d8da7b791ce8e73bb9bae817524d351b10c",
+    "unseen_modulus-0037": "b82684827db04ff38c27cf7ccc6d8871d9ccf84c9ce4a61ca75deff21d4d88c2",
+    "unseen_modulus-0038": "a6434ddfa10e332c485801ecfd0da6f0637183fd49fae2e84b13164b8df75c7e",
+    "unseen_modulus-0039": "c9df97751abda3eebbf66b7849295c76a4e80dece7a195cabb41ef86d75c9c3d",
+    "unseen_modulus-0040": "1183cb3209f42058c1137e00651589ade59920b8ad2604a5ce903077884af8a0",
+    "unseen_modulus-0041": "5c131f698565f4bc2f56113882888d7df11f1a2bb83794bbc2235f6eab426c16",
+    "unseen_modulus-0042": "a837e7f3282f9dc4297d8b9c4ae5a83b721f5efda5102ee62e26e01b35062fb1",
+    "unseen_modulus-0043": "7450c9f536b72c924a927caa0e8fa2eaebdda26c57f21c65008c6a8a95603eb4",
+    "unseen_modulus-0044": "be9b73bd8a83b8a62e4efabf8494de557d467abb463a31889568e7035892606b",
+    "unseen_modulus-0045": "d69608678b9e885c6c36ac6289b0b809949215a2b4096f0d1cda741b7c8df27b",
+    "unseen_modulus-0046": "d5623a2d867aed3554e05291c1be6a19812aa60b32df1aa778b756e38cc6cede",
+    "unseen_modulus-0047": "bae3c1cc8d3426ea02dc6cdfb83653554f2c2581d2b226ffdfd621511d7a3f74",
+    "unseen_modulus-0048": "e1345f622ab7ce6339922776fcf0a71166bb9b4b1e0eccdfdab06259f791d7ef",
+    "unseen_modulus-0049": "0f6a17f01c3901e16abe41e543364bdc2c03aa577e48a4d1ca72f8b3ad3f021e",
+    "unseen_modulus-0050": "034357496b42624d26ba25f258ba1827632e08c31a1a2464680af99d76716a1a",
+    "unseen_modulus-0051": "313fdd3bccfe1da7936fb7a98425170947fb85d772fb660f18e9ec340af39891",
+    "unseen_modulus-0052": "bae8716e0db242d2cce1905de85ff90033b0dee4cfbda2b5139e0ae0f1d3d413",
+    "unseen_modulus-0053": "9ed7403f24c910f21a5db144493b713f7d78bf0bb09553e9e987651cbc307711",
+    "unseen_modulus-0054": "1128825a0abefdb5428330d7764d6d59576ebe3388321d7f117e4c331dd2e9aa",
+    "unseen_modulus-0055": "437e4a65319f9f740aa5f9f9f93f54e3b89bc8e1f2c24c7906db67ea77868478",
+    "unseen_modulus-0056": "dc048afdef4fb073f4979ae15648351a8802ae0c1cd69f45dc3ef8a5b8f44ce6",
+    "unseen_modulus-0057": "a946abe6620695e0d157ba5ace924aecc73c4f0be4f91d7017c7df43f0f8b209",
+    "unseen_modulus-0058": "e0b1e45f78e61a680bc63eefb93b32c1bcd31a55275d887956331e02848e618a",
+    "unseen_modulus-0059": "7e1e89a3adbb72f88014ada68abff97aeb90fb06d3a1f566b9ca2c6c1161c65c",
+    "unseen_modulus-0060": "19634ae7875616821bfef505e4931aed1cb3c9f642830b86e3566557e8213b0b",
+    "unseen_modulus-0061": "dc7de24e3b4bdd47eeba170a69f8bd7eb589dd400eb16a9606808a9e2ea6c1a4",
+    "unseen_modulus-0062": "eaf4d4cc4af29b637fb4a8d442660fbb41aa748a46e59e155316d76f0ec1973e",
+    "unseen_modulus-0063": "83a5a52d104c5d3bdab4de71724fe5f4ceae3e54c45863d53034941ac699d59f",
+    "unseen_modulus-0064": "c2895168540745402fa2421615e1f207908f36c19a7183f51f1d6633230db656",
+    "unseen_modulus-0065": "e244d79149073751603633624beff6a22936f4701612c2ad853b5a19ef61201a",
+    "unseen_modulus-0066": "f7ebfdcc3a491710ec2a72ababfc80b14c511ad65ceab6ee3a52d5d24ab27e08",
+    "unseen_modulus-0067": "5dad8850cf364869e4fa7697bb02656cd5e1fdcb8483396127eaf10c0315195a",
+    "unseen_modulus-0068": "64db92afdcedbbd6aaee8d557080d3bceb0d33d8a13bb8d55f953291b8eb6e94",
+    "unseen_modulus-0069": "7f128fa097df59c6b8ab3f93e1bdd33dec6d95725cdae0a1967f9d248a91f80a",
+    "unseen_modulus-0070": "e73d7dd3010429ed124d84f44a208e3a76257f71c148fcf64f74fdd02eec91bb",
+    "unseen_modulus-0071": "9f98c88de592e859606e34b22cd9368ab92575731f0bf54aef0ed287e226497b",
+    "unseen_modulus-0072": "6a4f5b435c456132e34be2cb1991410e53158b824157dd5f3aef68a79454f29b",
+    "unseen_modulus-0073": "e7d5603af61e4133fd06f16c108c9272932cc466865266891d0f6fd82caac991",
+    "unseen_modulus-0074": "e0cbf689335ffac589e339223bd408cc2fd54e4dcb6b8a74f032903b9c805db9",
+    "unseen_modulus-0075": "e6fceaeeca4e642c089c94b202f281aa79c4e005a4f75f12ec43f9b319e1bc96",
+    "unseen_modulus-0076": "ab950cdb6823cc3de793db835f6a3be9d7579d6d18025c08a76231938234235c",
+    "unseen_modulus-0077": "e0a8d53861810cd8e064f60b55698531d5d80ab885f3acd85f3f1763aab55254",
+    "unseen_modulus-0078": "ec8839a2cb5b302c0c0df4916288bcd2ac527999019913bb49978943eb7eef4a",
+    "unseen_modulus-0079": "ecc22c1da3a1ad3f5fff6b47de5c4a9c8f19f2603e2e3a98850db5c7ab0b7499",
+    "unseen_modulus-0080": "353501797b9bf3685fecb9384834170be4f750345803e39e30267c85877312ef",
+    "unseen_modulus-0081": "5f02e17da7170440362ae326777df699a3af444e620cc1b7430d916a6c3d95cc",
+    "unseen_modulus-0082": "cd5eed10f14612e13a91231b674d116bd735c38b1287b080ca7eca5724550c3c",
+    "unseen_modulus-0083": "a323534c480a7881cb9ec6d372159498f1602f9936811d53cfdbc6bb378240ab",
+    "unseen_modulus-0084": "8bc11f6516196f488eded468e307892b9244ec97071f700e6e3a22652e005f11",
+    "unseen_modulus-0085": "f2f80d7139088b37b56962f8162137a1f64b3f0f618fbe32f2866326e5f392d4",
+    "unseen_modulus-0086": "d47f710b07855fdda22283a26cca05b153a4670dcc2a9a7eda56bf326ae9d85e",
+    "unseen_modulus-0087": "34e2171017a1b316af0740f33c2e88714da58acdf846bf06154ff044492a77aa",
+    "unseen_modulus-0088": "49c76bfe28737f5978116594f99c9b0e46fb447fc4bf5e608fc978b57a042ffe",
+    "unseen_modulus-0089": "864430d30b53398b21f4aa6013685ef76e1a6bff737b12b783c07894ca2fdc15",
+    "unseen_modulus-0090": "f862d897581ec79994caddc4128540b565ce9336c74b7b9531874a4ad07ca97b",
+    "unseen_modulus-0091": "0119a996610fb865caa7ab36f9b44178396e1d1b7d18ce0203361f055ad79633",
+    "unseen_modulus-0092": "4c1f53cde154fcacaa35e68284c6fefd0fa46b03df8c039e79bc62ad27471df1",
+    "unseen_modulus-0093": "fd5ae3260662e0e07fb498d9143825bff46074f04827a125ceada49fd006d696",
+    "unseen_modulus-0094": "4ddc6bce686ba727e556bed01b72b50c838a7d0b9060b7ef0484594f963c90a1",
+    "unseen_modulus-0095": "e95fac0db85026a0919a26b223e90f7396053745126463ac411eda0087c3e386",
+    "unseen_modulus-0096": "474aac59f77893c432ff98295b7c596637dc047dbc1d601cdfc34545f94d2d8e",
+    "unseen_modulus-0097": "1ebd09a8df7bda848522e97bb5d20947415a6f38ff010bae489920795f8e2576",
+    "unseen_modulus-0098": "e389625f9d3843055720f478e251a10d95d8219e8159277581e43f62fa738037",
+    "unseen_modulus-0099": "e9ca458d449cf3456f08efde57493f57f9bc90eae60d8dda36adf40d199b19ed",
+    "unseen_modulus-0100": "3b8e42367b430b23daf5937723d93bfaf83e390283eb300ac043a8f9cf3c3954",
+    "unseen_modulus-0101": "e34b32efd6b9494c9efe711ab0c1016566d8ed35d86e50eb5d4b4c389b4f542c",
+    "unseen_modulus-0102": "53804777a0b1ad62e94136622c9991710f1eb668d2f5b6d6fa61fb7c724f6782",
+    "unseen_modulus-0103": "c21a5eec1514faa9337dfabb7e6014be4a8de68317ad20ccbf410e8c54483d1b",
+    "unseen_modulus-0104": "8eeddebd2578748021b4585edbfdf04bf2be52cb9e5d884239b0f2f5574ba4e7",
+    "unseen_modulus-0105": "cbd0a3cb6eb0d1f1ecafb2ce745bca0bb60bc823ce433bd8bafba28d05a8f77f",
+    "unseen_modulus-0106": "cb16bc9e44270414a197e2d536b49dca076a821fa4a5543abd26438c73fb7a3c",
+    "unseen_modulus-0107": "6138a603c0a6ad2d6d853c15779e3b356bf031529ffb1bf0090793ab3b1a3b18"
+  },
+  "checkpoints_sha256": {
+    "feedforward": "2fba17d0c81ecf89872ccc5a34c5ebcde0f876b208d767e562dd2496bf3d2f5b",
+    "recurrent": "c4b259c774215f0ea52f596cac45eaff945b73b2f50cb9c2f72bb2775958dc35",
+    "shuffled_recurrent": "198dae50768d4b8d749b46dd3c71b30ef0da5d9ff533b0f7b1a95a21cd7453ed"
+  },
+  "collision_bound": {
+    "pairs": 8,
+    "pairs_with_identical_prefix": 8,
+    "universal_correct_limit_given_shared_prefix": 8
+  },
+  "feedforward_parameter_count": 3345,
+  "forecast_degree": 128,
+  "full_case_trace_sha256": "517e37920247c4f87ef5361e901d7eb7c7ce70b1506a931d52cd1aa9e0f6addd",
+  "models_by_depth": {
+    "feedforward": {
+      "2": {
+        "abstained": 345,
+        "approx_inference_macs_per_case": 3297,
+        "cases": 351,
+        "correct_horizon": 6,
+        "false_accept": 0,
+        "hybrid_correct_horizon": 69,
+        "hybrid_verified": 69,
+        "mean_syntax_bits_accepted": 17.6667,
+        "prefix_verified": 6,
+        "split_breakdown": {
+          "collision": {
+            "abstained": 16,
+            "cases": 16,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "dev": {
+            "abstained": 174,
+            "cases": 180,
+            "correct_horizon": 6,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 63,
+            "hybrid_verified": 63,
+            "mean_syntax_bits_accepted": 17.6667,
+            "prefix_verified": 6
+          },
+          "local_gap": {
+            "abstained": 32,
+            "cases": 32,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 1,
+            "hybrid_verified": 1,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "nonperiodic": {
+            "abstained": 15,
+            "cases": 15,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "unseen_modulus": {
+            "abstained": 108,
+            "cases": 108,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 5,
+            "hybrid_verified": 5,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          }
+        }
+      }
+    },
+    "recurrent": {
+      "0": {
+        "abstained": 351,
+        "approx_inference_macs_per_case": 127008,
+        "cases": 351,
+        "correct_horizon": 0,
+        "false_accept": 0,
+        "hybrid_correct_horizon": 31,
+        "hybrid_verified": 32,
+        "mean_syntax_bits_accepted": null,
+        "prefix_verified": 0,
+        "split_breakdown": {
+          "collision": {
+            "abstained": 16,
+            "cases": 16,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 1,
+            "hybrid_verified": 2,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "dev": {
+            "abstained": 180,
+            "cases": 180,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 22,
+            "hybrid_verified": 22,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "local_gap": {
+            "abstained": 32,
+            "cases": 32,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "nonperiodic": {
+            "abstained": 15,
+            "cases": 15,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "unseen_modulus": {
+            "abstained": 108,
+            "cases": 108,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 8,
+            "hybrid_verified": 8,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          }
+        }
+      },
+      "1": {
+        "abstained": 351,
+        "approx_inference_macs_per_case": 127584,
+        "cases": 351,
+        "correct_horizon": 0,
+        "false_accept": 0,
+        "hybrid_correct_horizon": 30,
+        "hybrid_verified": 30,
+        "mean_syntax_bits_accepted": null,
+        "prefix_verified": 0,
+        "split_breakdown": {
+          "collision": {
+            "abstained": 16,
+            "cases": 16,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "dev": {
+            "abstained": 180,
+            "cases": 180,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 24,
+            "hybrid_verified": 24,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "local_gap": {
+            "abstained": 32,
+            "cases": 32,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "nonperiodic": {
+            "abstained": 15,
+            "cases": 15,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "unseen_modulus": {
+            "abstained": 108,
+            "cases": 108,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 6,
+            "hybrid_verified": 6,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          }
+        }
+      },
+      "2": {
+        "abstained": 351,
+        "approx_inference_macs_per_case": 128160,
+        "cases": 351,
+        "correct_horizon": 0,
+        "false_accept": 0,
+        "hybrid_correct_horizon": 28,
+        "hybrid_verified": 28,
+        "mean_syntax_bits_accepted": null,
+        "prefix_verified": 0,
+        "split_breakdown": {
+          "collision": {
+            "abstained": 16,
+            "cases": 16,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "dev": {
+            "abstained": 180,
+            "cases": 180,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 28,
+            "hybrid_verified": 28,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "local_gap": {
+            "abstained": 32,
+            "cases": 32,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "nonperiodic": {
+            "abstained": 15,
+            "cases": 15,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "unseen_modulus": {
+            "abstained": 108,
+            "cases": 108,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          }
+        }
+      },
+      "4": {
+        "abstained": 351,
+        "approx_inference_macs_per_case": 129312,
+        "cases": 351,
+        "correct_horizon": 0,
+        "false_accept": 0,
+        "hybrid_correct_horizon": 21,
+        "hybrid_verified": 21,
+        "mean_syntax_bits_accepted": null,
+        "prefix_verified": 0,
+        "split_breakdown": {
+          "collision": {
+            "abstained": 16,
+            "cases": 16,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "dev": {
+            "abstained": 180,
+            "cases": 180,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 21,
+            "hybrid_verified": 21,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "local_gap": {
+            "abstained": 32,
+            "cases": 32,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "nonperiodic": {
+            "abstained": 15,
+            "cases": 15,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "unseen_modulus": {
+            "abstained": 108,
+            "cases": 108,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          }
+        }
+      },
+      "8": {
+        "abstained": 351,
+        "approx_inference_macs_per_case": 131616,
+        "cases": 351,
+        "correct_horizon": 0,
+        "false_accept": 0,
+        "hybrid_correct_horizon": 17,
+        "hybrid_verified": 17,
+        "mean_syntax_bits_accepted": null,
+        "prefix_verified": 0,
+        "split_breakdown": {
+          "collision": {
+            "abstained": 16,
+            "cases": 16,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "dev": {
+            "abstained": 180,
+            "cases": 180,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 17,
+            "hybrid_verified": 17,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "local_gap": {
+            "abstained": 32,
+            "cases": 32,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "nonperiodic": {
+            "abstained": 15,
+            "cases": 15,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "unseen_modulus": {
+            "abstained": 108,
+            "cases": 108,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          }
+        }
+      }
+    },
+    "shuffled_recurrent": {
+      "2": {
+        "abstained": 351,
+        "approx_inference_macs_per_case": 128160,
+        "cases": 351,
+        "correct_horizon": 0,
+        "false_accept": 0,
+        "hybrid_correct_horizon": 17,
+        "hybrid_verified": 17,
+        "mean_syntax_bits_accepted": null,
+        "prefix_verified": 0,
+        "split_breakdown": {
+          "collision": {
+            "abstained": 16,
+            "cases": 16,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "dev": {
+            "abstained": 180,
+            "cases": 180,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 15,
+            "hybrid_verified": 15,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "local_gap": {
+            "abstained": 32,
+            "cases": 32,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "nonperiodic": {
+            "abstained": 15,
+            "cases": 15,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 0,
+            "hybrid_verified": 0,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          },
+          "unseen_modulus": {
+            "abstained": 108,
+            "cases": 108,
+            "correct_horizon": 0,
+            "false_accept": 0,
+            "hybrid_correct_horizon": 2,
+            "hybrid_verified": 2,
+            "mean_syntax_bits_accepted": null,
+            "prefix_verified": 0
+          }
+        }
+      }
+    }
+  },
+  "oracle_by_split": {
+    "collision": {
+      "abstained": 0,
+      "cases": 16,
+      "correct_horizon": 8,
+      "false_accept": 8,
+      "mean_syntax_bits_accepted": 12.0,
+      "prefix_verified": 16
+    },
+    "dev": {
+      "abstained": 0,
+      "cases": 180,
+      "correct_horizon": 180,
+      "false_accept": 0,
+      "mean_syntax_bits_accepted": 18.8722,
+      "prefix_verified": 180
+    },
+    "local_gap": {
+      "abstained": 29,
+      "cases": 32,
+      "correct_horizon": 3,
+      "false_accept": 0,
+      "mean_syntax_bits_accepted": 9.3333,
+      "prefix_verified": 3
+    },
+    "nonperiodic": {
+      "abstained": 15,
+      "cases": 15,
+      "correct_horizon": 0,
+      "false_accept": 0,
+      "mean_syntax_bits_accepted": null,
+      "prefix_verified": 0
+    },
+    "unseen_modulus": {
+      "abstained": 0,
+      "cases": 108,
+      "correct_horizon": 108,
+      "false_accept": 0,
+      "mean_syntax_bits_accepted": 16.5556,
+      "prefix_verified": 108
+    }
+  },
+  "prefix_aliases_with_train": {
+    "collision": 2,
+    "dev": 0,
+    "local_gap": 1,
+    "nonperiodic": 0,
+    "unseen_modulus": 0
+  },
+  "prefix_degree": 64,
+  "recurrent_parameter_count": 3363,
+  "roster_sha256": {
+    "collision": "ff3d59db4b77f855a24f1703fab3dc839fd22f539357e29aebe92590c14287a3",
+    "dev": "ba4bcc5701b034c0de19579befd92dd1564953a27c30976a7b47d2ace3a10b6d",
+    "local_gap": "f1d92dfd1c6cd53d86f1808d16d5c96c8931400e3b18159272034b1956d459d5",
+    "nonperiodic": "4f4188e7f497ca907f6cfccd227bfda6576bdffd6ea461a9cd55491f0468f3dc",
+    "train": "9be66a1f31e03954c1327bcd33cb9470264e1fa5f8daa536c6d0ec4e779c7f6f",
+    "unseen_modulus": "772d2b3b28457328770788a453bff15d7100b53c21cce4e85089d6aed455047a"
+  },
+  "schema": "rrc04.pilot.v1",
+  "scope": "CPU-trained raw-prefix toy policy and finite-degree exact verification; no infinite theorem or recurrent advantage",
+  "selected_case_details": [
+    {
+      "case_id": "dev-0000",
+      "collision_group": null,
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 0,
+              "period": 8,
+              "residues": [
+                0,
+                2,
+                4,
+                6
+              ],
+              "syntax_bits": 17
+            },
+            "syntax_bits": 17
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 10,
+              "residues": [],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 10,
+              "residues": [],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                0,
+                2,
+                4,
+                5,
+                6,
+                7,
+                8,
+                10,
+                11
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                2,
+                4,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        }
+      },
+      "oracle_program": {
+        "cap": 0,
+        "period": 12,
+        "residues": [
+          0,
+          2,
+          7,
+          8
+        ],
+        "syntax_bits": 21
+      },
+      "prefix_sha256": "ec4c6861a915ad2fb2b223c91d2e88f79c5565b857b809fdd36b43a8816828b2",
+      "source_family": "product_cap0"
+    },
+    {
+      "case_id": "unseen_modulus-0000",
+      "collision_group": null,
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 8,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 17
+            },
+            "syntax_bits": 17
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 10,
+              "residues": [],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 12,
+              "residues": [],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                3,
+                5,
+                7
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 10,
+              "residues": [
+                1,
+                2,
+                4,
+                7
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          }
+        }
+      },
+      "oracle_program": {
+        "cap": 2,
+        "period": 7,
+        "residues": [
+          1
+        ],
+        "syntax_bits": 14
+      },
+      "prefix_sha256": "1e1ec741f59b7491c1de8cf9ece722ab01154e02bbc19e8256a12ca3f2e037bc",
+      "source_family": "product_cap2"
+    },
+    {
+      "case_id": "gap2-min1",
+      "collision_group": null,
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 8,
+              "residues": [
+                0,
+                1,
+                4,
+                6
+              ],
+              "syntax_bits": 17
+            },
+            "syntax_bits": 17
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 10,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 10,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                10
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        }
+      },
+      "oracle_program": {
+        "cap": 0,
+        "period": 5,
+        "residues": [
+          1,
+          4
+        ],
+        "syntax_bits": 12
+      },
+      "prefix_sha256": "7464f596d1c2e134a64fb7818f10cf6e03843375374c8cc80317d25d04babe3a",
+      "source_family": "local_gap"
+    },
+    {
+      "case_id": "gap2-min2",
+      "collision_group": null,
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 0,
+              "period": 8,
+              "residues": [
+                0,
+                2,
+                3,
+                6,
+                7
+              ],
+              "syntax_bits": 17
+            },
+            "syntax_bits": 17
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 10,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                4,
+                10
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        }
+      },
+      "oracle_program": {
+        "cap": 0,
+        "period": 5,
+        "residues": [
+          2,
+          3
+        ],
+        "syntax_bits": 12
+      },
+      "prefix_sha256": "5a259a4d523d17bb8ff357487522487480a5fa4ba04d47dd994697fba45b9f2c",
+      "source_family": "local_gap"
+    },
+    {
+      "case_id": "gap3-min1",
+      "collision_group": null,
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 12,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                5,
+                7,
+                8,
+                9,
+                10
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 10,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 10,
+              "residues": [
+                1,
+                4,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 12,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                4,
+                10
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        }
+      },
+      "oracle_program": null,
+      "prefix_sha256": "2058660d88b30acd0abc62ae25de3bd6212d1eb96c530411d1eafdef63bd2802",
+      "source_family": "local_gap"
+    },
+    {
+      "case_id": "squares-cap0",
+      "collision_group": null,
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                1,
+                4
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 10,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 12,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 12,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 1,
+              "period": 9,
+              "residues": [
+                1,
+                2,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                4,
+                7,
+                10
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        }
+      },
+      "oracle_program": null,
+      "prefix_sha256": "6be1771c6f330ed664320de36b7822b5e63bbe4c3cbde7f55afe4ec2316374d8",
+      "source_family": "nonperiodic"
+    },
+    {
+      "case_id": "pair0-base",
+      "collision_group": "pair0",
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 8,
+              "residues": [
+                0,
+                1,
+                4,
+                6
+              ],
+              "syntax_bits": 17
+            },
+            "syntax_bits": 17
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 10,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 10,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                10
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        }
+      },
+      "oracle_program": {
+        "cap": 0,
+        "period": 5,
+        "residues": [
+          1,
+          4
+        ],
+        "syntax_bits": 12
+      },
+      "prefix_sha256": "7464f596d1c2e134a64fb7818f10cf6e03843375374c8cc80317d25d04babe3a",
+      "source_family": "collision"
+    },
+    {
+      "case_id": "pair0-mutant",
+      "collision_group": "pair0",
+      "model_proposals": {
+        "feedforward": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 8,
+              "residues": [
+                0,
+                1,
+                4,
+                6
+              ],
+              "syntax_bits": 17
+            },
+            "syntax_bits": 17
+          }
+        },
+        "recurrent": {
+          "0": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 10,
+              "residues": [
+                1
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "1": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 10,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "syntax_bits": 19
+            },
+            "syntax_bits": 19
+          },
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "4": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          },
+          "8": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 9,
+              "residues": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "syntax_bits": 18
+            },
+            "syntax_bits": 18
+          }
+        },
+        "shuffled_recurrent": {
+          "2": {
+            "correct_horizon": false,
+            "first_future_mismatch": 65,
+            "hybrid_correct_horizon": false,
+            "hybrid_first_future_mismatch": null,
+            "hybrid_prefix_verified": false,
+            "hybrid_program": null,
+            "prefix_verified": false,
+            "proposal": {
+              "cap": 2,
+              "period": 12,
+              "residues": [
+                10
+              ],
+              "syntax_bits": 21
+            },
+            "syntax_bits": 21
+          }
+        }
+      },
+      "oracle_program": {
+        "cap": 0,
+        "period": 5,
+        "residues": [
+          1,
+          4
+        ],
+        "syntax_bits": 12
+      },
+      "prefix_sha256": "7464f596d1c2e134a64fb7818f10cf6e03843375374c8cc80317d25d04babe3a",
+      "source_family": "collision"
+    }
+  ],
+  "sizes": {
+    "collision": 16,
+    "dev": 180,
+    "local_gap": 32,
+    "nonperiodic": 15,
+    "train": 1500,
+    "unseen_modulus": 108
+  },
+  "source_sha256": {
+    "bench04.py": "cd5213134419767b5ec49cab2aebcd0b2828f636b1e6ed9a48b753638bd677ca",
+    "program04.py": "4aa1f6b0a0a874d8c9637998236be9b99ffff6125f542fe9fa441df59874ba03",
+    "rrc.py": "c99a6b7fb01c8c8d84aadf86cee9af8d379641eadd2ea6477b4359b1a8430f01",
+    "student04.py": "42de06b0506378098e0660d429f8689657cf4b2f3056dad327d3a7b96d616754",
+    "train04.py": "4e15a4c972d569c6dd621727375d0acc6124adf76d458f4bcddefbdf4de88137"
+  },
+  "train_moduli": [
+    2,
+    3,
+    4,
+    6,
+    8,
+    9,
+    10,
+    12
+  ],
+  "unseen_moduli": [
+    5,
+    7,
+    11
+  ]
+}

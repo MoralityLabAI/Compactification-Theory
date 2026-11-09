@@ -76,3 +76,8 @@ See [PROTOCOL.md](PROTOCOL.md) for the fixed split and failure gates.
 ## RRC-02 CPU recurrent pilot (2026-11-09)
 
 The [RRC-02 run report](RRC02_REPORT.md) records a 363-parameter trained recurrent student, a 371-parameter feedforward control, and a shuffled-label control on 224 train, 8 dev and 44 held-out counting problems. The student proposes periodic residue grammars from exact Euler-exponent features; a separate exact prefix verifier checks every proposal. On the test roster the recurrent and feedforward students each agree with the symbolic enumerator on 44/44 cases; 30 accepted programs extrapolate exactly through degree 128 and four deliberately indistinguishable prefix mutations defeat both. Varying recurrent depth across 0/1/2/4/8 gives no accuracy improvement. See the [finite-prefix impossibility proof](RRC02_THEOREMS.md), [standard-library test suite](test_rrc02.py), [frozen replay receipt](results/rrc02_pilot.json) and [CPU workflow](../../.github/workflows/rrc-02.yml). Training is optional; CI only verifies the frozen checkpoints.
+
+
+## RRC-04: raw coefficient to executable grammar (negative model pilot)
+
+[Results](RRC04_REPORT.md), [registered protocol](RRC04_PROTOCOL.md), [exact theorems](RRC04_THEORY.md), [source-bound replay](results/rrc04_pilot.json). Three 2026-11-09 CPU-trained models consume only raw counts through degree 64; the exact cap/period/residue synthesizer and 171 held-out generator-family tests preserve eight provable late-defect collisions. The direct recurrent student fails to emit a verified complete program on the held-out set. Use a fresh roster for any subsequent model tuning.
