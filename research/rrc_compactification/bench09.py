@@ -91,7 +91,10 @@ def run():
     training_sigs={case.input_signature for case in data['train']}
     split_alias={k:sum(c.input_signature in training_sigs for c in v)
                  for k,v in data.items() if k!='train'}
-    if any(split_alias.values()):raise AssertionError('new evaluation data aliases training')
+    train_sources={c.source[:ds.PREFIX+1] for c in data['train']}
+    source_only_alias={k:sum(c.source[:ds.PREFIX+1] in train_sources for c in v)
+                       for k,v in data.items() if k!='train'}
+    if any(split_alias.values()):raise AssertionError('new I/O pairs alias training')
     assert all('C' not in c.hidden_program and 'D' not in c.hidden_program for c in data['train']+data['dev'])
     metrics=defaultdict(lambda:defaultdict(list))
     collisions=[]
@@ -135,6 +138,7 @@ def run():
             'train_roster_sha256':ds.roster_digest(data['train']),
             'roster_sha256':{k:ds.roster_digest(v) for k,v in data.items()},
             'split_alias_with_training':split_alias,
+            'source_only_alias_with_training':source_only_alias,
             'parameters':{'train_count':ds.TRAIN_COUNT,'dev_count':ds.DEV_COUNT,
                           'test_counts':ds.TEST_COUNTS,'prefix_degree':ds.PREFIX,
                           'preview_degree':ds.PREVIEW,'future_degree':ds.HORIZON,
