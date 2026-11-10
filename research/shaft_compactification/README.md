@@ -124,3 +124,11 @@ Run the exact reference without third-party dependencies:
 
 The optional trained experiment requires pinned PyTorch:
 `python -m research.shaft_compactification.experiments.unknown_semantics --out /tmp/shaft-comp-08.json`.
+
+## SHAFT-COMP-09: noise and missing observations
+
+[Full theorem and experimental report](SHAFT_COMP_09_REPORT.md) | [noisy-gauge Monte Carlo](noisy_gauge.py) | [negative controls](structured_missingness.py) | [Lean certificate](lean/Shaft/NoisyGauge.lean) | [frozen 1,024-trial reference](results/noisy_gauge_reference.json).
+
+With 48 candidate S4×C2 mappings, an exhaustive search finds eight optimal 3-anchor sets; the balanced triple (3,5,6) has minimum pairwise Hamming separation 4, versus 2 for one-hot (1,2,4). At 10% independent target-bit flips and 25% random missingness, six balanced anchors recover the true gauge in 960/1024 trials, compared with 855/1024 for six one-hot anchors. The analysis derives a conditional Chernoff/union bound and Lean-checked sufficient score-margin certificates.
+
+Fixed systematic censoring of two query coordinates preserves a two-way gauge ambiguity even across 24 anchors. This identifies a limitation of claims based on independently missing observations. All new evaluations use abstract finite synthetic task signatures; SHAFT-COMP-09 does not train or evaluate a frontier model.
