@@ -39,3 +39,7 @@ jobs:
         run: python research/observational_inwardness_v1/long_horizon.py --check
       - name: Verify OIC-15 hidden-phase family inference, exact oracle and fault receipts
         run: python research/observational_inwardness_v1/oic15_verify.py
+      - name: Verify OIC-16 learned belief from archived weights, source digests and raw fault panels
+        run: python research/observational_inwardness_v1/oic16_verify.py --check
+      - name: Replay OIC-16 post-hoc Fourier emission scaling diagnostic
+        run: python research/observational_inwardness_v1/oic16_scale.py --check
