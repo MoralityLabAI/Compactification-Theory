@@ -17,3 +17,7 @@ Provide the learner only raw visible states `x_0,...,x_t` and the registered act
 ## Falsification and evidence grades
 
 Treat any classifier that distinguishes the families from passive outputs as a likely data leak until independently explained. A learned monitor passes the transfer gate only after held-out phase, phase-count, and raw-sensor perturbation tests, with the uncertainty across seeds and known oracle comparisons published. Separate empirical mean error from the sharp worst-case mathematical bounds. The exact finite results establish an observable detection task; they make no claim about synthetic self-awareness or the intrinsic nature of physical systems.
+
+## Execution closeout (2026-11-10)
+
+The protocol has now been executed in [OIC15_REPORT.md](OIC15_REPORT.md). All 30 fitted observers, five registered training seeds, three architectures, two phase splits, exact passive controls, new phase counts n=7,8, and exhaustively placed one-fault raw sensor checks are recorded. The cyclic filters were supplied the two candidate transitions as known structural models; the raw-likelihood architecture is a separately tested sensor-model repair. Training used 500 optimizer steps and matched batches, with no privileged phase input. Mathematical guarantees and measured learned-model outcomes are distinguished in [OIC15_THEORY.md](OIC15_THEORY.md).
