@@ -185,3 +185,41 @@ python research/observational_inwardness_v1/learned_pilot.py --n 4 --splits full
 This experiment measures one synthetic supervised recurrent
 model. The preregistered [OIC-11 protocol](EXPERIMENT.md) remains
 intact; a pretrained looped-layer model study has not been run.
+
+
+## OIC-13: Exact-clock structural transfer control (executed)
+
+[Report and conditional symmetry theorem](OIC13_REPORT.md). The follow-up
+executed 120 additional CPU-trained models: 2-parameter reflection-tied
+and 3-parameter oriented readouts, each trained against a **hard-coded
+exact modular clock and XOR visible-state rule**. Both use the OIC-12
+action distribution, phase splits, five seeds, optimizer steps, and
+six frozen evaluation schedules. The architecture therefore supplies
+a substantial inductive prior; the experiment is a structured
+control rather than evidence that a generic RNN learned latent
+phase dynamics.
+
+At n=4,5,6, every reflection-tied model reproduced every phase's
+entire trajectory on all six tested schedules, including unseen
+initial phases. Every heldout-oriented fixed model mislabeled
+the missing z=1 phase while maintaining oracle-level **interfamily
+code distance**. This shows why monitoring studies should report
+both distance and trajectory fidelity.
+
+- [CPU training/replay source](clock_pilot.py)
+- [Independent standard-library receipt verifier](verify_clock.py)
+- [Tamper-detection and scope tests](test_verify_clock.py)
+- [Pinned manifest (120 fits, 60 pairs)](results/oic13_summary.json)
+- [Full compressed trajectories and losses](results/oic13_full.json.gz.b64)
+
+~~~sh
+python research/observational_inwardness_v1/verify_clock.py --check
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+# Full CPU retraining with PyTorch and NumPy:
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python research/observational_inwardness_v1/clock_pilot.py --out /tmp/oic13_full.json
+~~~
+
+The next experiment should learn the modular state evolution while
+retaining a verified symmetry constraint, then compare observable
+futures on unseen phases at matched runtime compute. The fixed
+OIC-13 clock deliberately makes this part of the task exact.
