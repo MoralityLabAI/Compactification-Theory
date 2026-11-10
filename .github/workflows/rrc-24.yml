@@ -1,0 +1,46 @@
+name: RRC-24 late-divergence search exact CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/delay24.py'
+      - 'research/rrc_compactification/model24.py'
+      - 'research/rrc_compactification/train24.py'
+      - 'research/rrc_compactification/bench24.py'
+      - 'research/rrc_compactification/test_delay24.py'
+      - 'research/rrc_compactification/RRC24_*.md'
+      - 'research/rrc_compactification/README_RRC24.md'
+      - 'research/rrc_compactification/results/rrc24_*.json'
+      - '.github/workflows/rrc-24.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/delay24.py'
+      - 'research/rrc_compactification/model24.py'
+      - 'research/rrc_compactification/train24.py'
+      - 'research/rrc_compactification/bench24.py'
+      - 'research/rrc_compactification/test_delay24.py'
+      - 'research/rrc_compactification/RRC24_*.md'
+      - 'research/rrc_compactification/README_RRC24.md'
+      - 'research/rrc_compactification/results/rrc24_*.json'
+      - '.github/workflows/rrc-24.yml'
+  workflow_dispatch:
+jobs:
+  source-bound-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Algebra, exact suffix inference, leakage and finite collision tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_delay24.py' -v
+      - name: Compare source/checkpoint-locked full deterministic result
+        run: python research/rrc_compactification/bench24.py --check
+      - name: Keep prior scaling and integer-meter regressions green
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_scale23.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_meter22.py' -v
+      - name: Execute short physical timing smoke without a timing threshold
+        run: python research/rrc_compactification/bench24.py --profile --cases 6 --rounds 1 --out /tmp/rrc24_cpu_smoke.json
