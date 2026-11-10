@@ -1,5 +1,8 @@
 # Algernon: a neural-net processor, a learning computer
 
+**ARG-01 CPU algebraic reasoning gym:** [Frozen RRC-19 recurrent proposer with independent, pinned EvalMath verification](algebraic_reasoning_gym/README.md), [results](algebraic_reasoning_gym/REPORT.md), and [Qwen/looped-model workorder](algebraic_reasoning_gym/QWEN_WORKORDER.md). The CPU baseline is executed; a Qwen latent graft remains unrun.
+
+
 **Algernon-02 executable experiment:** [Circuit Mirror](circuit_mirror/README.md) combines a typed pointer-machine transition, an exact BN254 R1CS-style checker, generated Circom source, a tiny trained recurrent readout, and retained CPU-only experiment receipts. [Experimental falsification criteria](circuit_mirror/EXPERIMENT.md).
 
 **Algebraic machine:** [Executable mathematics and Lean proofs](algebraic_machine/README.md) cover instruction-monoid semiconjugacy, twisted-cycle sheaf obstructions, sparse intertwining repair, and recurrent depth-error bounds; [derivations](algebraic_machine/THEOREMS.md).

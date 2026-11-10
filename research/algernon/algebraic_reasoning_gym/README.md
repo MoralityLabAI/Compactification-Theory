@@ -6,7 +6,7 @@ A runnable CPU benchmark combining EvalMath's independent exact finite formal-se
 
 ## Ownership and exact mathematical boundary
 
-EvalMath owns `spiral_ln.algebraic_reasoning_oracle`, its tests, and a deterministic 228-case reference receipt. The `evalmath_pin.json` file locks the oracle source SHA-256 and, after upstream integration, its exact EvalMath Git commit. Source-only local runs explicitly record an unresolved commit rather than asserting a false pin. `gym.py` imports that module from a separate checkout at the pinned revision. It never vendors the EvalMath verifier or substitutes a neural predictor for an exact equality check.
+EvalMath owns `spiral_ln.algebraic_reasoning_oracle`, its tests, and a deterministic 228-case reference receipt. The `evalmath_pin.json` locks the oracle source SHA-256 and the merged EvalMath commit `88bb6cf8d2fe172e37d25964dfb2c285d9033841` (EvalMath PR #31). The workflow checks out that revision explicitly. `gym.py` imports that module from a separate checkout at the pinned revision. It never vendors the EvalMath verifier or substitutes a neural predictor for an exact equality check.
 
 Two public demonstrations give integer coefficients through degree 12, with a fresh query input. Graph programs contain three symbols from `I,N,S,R`, operating on four supplied graph topologies. One paid graph query computes both observed examples and records exact coefficient agreement and the first mismatching degree. A maximum of twelve candidates is allowed for each learned/static restricted policy. The complete certified class and 64-syntax searches receive explicitly larger budgets. Future degree-13–32 query output is held back until independent grading.
 
@@ -14,7 +14,7 @@ The 36-case calibration set is generated and receipt-hashed but unused in the be
 
 ## Reproduce on CPU
 
-Use the EvalMath revision in `evalmath_pin.json` in a sibling checkout. The bytewise oracle source SHA-256 is checked on every local run. A source-only package has an explicit unresolved-commit status until that revision is merged. From Compactification-Theory root:
+Use the EvalMath revision in `evalmath_pin.json` in a sibling checkout. The bytewise oracle source SHA-256 is checked on every local run. The pinned revision is merged and the bytewise source checksum is checked on every run. From Compactification-Theory root:
 
 ```sh
 PYTHONPATH=.:../EvalMath/src python -m unittest discover -s research/algernon/algebraic_reasoning_gym -p 'test_gym.py' -v
