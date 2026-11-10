@@ -1,0 +1,44 @@
+name: RRC-16 topology-conditioned withheld join CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/topology16.py'
+      - 'research/rrc_compactification/policy16.py'
+      - 'research/rrc_compactification/train16.py'
+      - 'research/rrc_compactification/bench16.py'
+      - 'research/rrc_compactification/test_topology16.py'
+      - 'research/rrc_compactification/RRC16_*.md'
+      - 'research/rrc_compactification/README_RRC16.md'
+      - 'research/rrc_compactification/results/rrc16_*.json'
+      - '.github/workflows/rrc-16.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/topology16.py'
+      - 'research/rrc_compactification/policy16.py'
+      - 'research/rrc_compactification/train16.py'
+      - 'research/rrc_compactification/bench16.py'
+      - 'research/rrc_compactification/test_topology16.py'
+      - 'research/rrc_compactification/RRC16_*.md'
+      - 'research/rrc_compactification/README_RRC16.md'
+      - 'research/rrc_compactification/results/rrc16_*.json'
+      - '.github/workflows/rrc-16.yml'
+  workflow_dispatch:
+jobs:
+  heldout-join-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact arithmetic, topology family controls and interpreter budgets
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_topology16.py' -v
+      - name: Verify source-bound checkpoint and trajectory receipt
+        run: python research/rrc_compactification/bench16.py --check
+      - name: Preserve RRC-14 and RRC-15 regression tests
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_graph14.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_topology15.py' -v
