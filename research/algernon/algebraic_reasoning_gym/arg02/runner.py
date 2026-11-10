@@ -225,9 +225,12 @@ def load_model(entry, device):
     root = verify_snapshot(entry)
     dtype = getattr(torch, entry["dtype"])
     tok = AutoTokenizer.from_pretrained(root, local_files_only=True)
+    # Load straight onto the GPU so the weights never also sit in host RAM.
+    cuda = torch.device(device).type == "cuda"
     model = AutoModelForCausalLM.from_pretrained(root, dtype=dtype, local_files_only=True,
-                                                 attn_implementation=entry.get("attn_implementation", "sdpa"))
-    return model.to(device).eval(), tok
+                                                 attn_implementation=entry.get("attn_implementation", "sdpa"),
+                                                 device_map=str(device) if cuda else None)
+    return (model if cuda else model.to(device)).eval(), tok
 
 
 def op_token_ids(tok):
