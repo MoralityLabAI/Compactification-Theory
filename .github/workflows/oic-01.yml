@@ -45,3 +45,9 @@ jobs:
         run: python research/observational_inwardness_v1/oic16_scale.py --check
       - name: Verify OIC-18 phase-localization fits and all raw fault receipts (no torch)
         run: python research/observational_inwardness_v1/oic18_verify.py --check
+      - name: OIC-19 shift-gauge and receipt tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic19*.py' -v
+      - name: OIC-19 tests with optimized Python
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic19*.py' -v
+      - name: OIC-19 independent model and raw-sensor fault replay
+        run: python research/observational_inwardness_v1/oic19_verify.py
