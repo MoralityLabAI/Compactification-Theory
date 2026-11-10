@@ -223,3 +223,58 @@ The next experiment should learn the modular state evolution while
 retaining a verified symmetry constraint, then compare observable
 futures on unseen phases at matched runtime compute. The fixed
 OIC-13 clock deliberately makes this part of the task exact.
+
+
+## OIC-14: learned cyclic transition and algebraic projection
+
+**Executed CPU pilot, 2026-11-10:** [OIC-14 report](OIC14_REPORT.md) and
+[theorems T14–T17](OIC14_THEORY.md). The phase update is now learned
+from visible-state supervision. The system still receives its initial
+phase encoding and uses a built-in XOR-visible schema and anchored
+phase-zero detector. These are synthetic controlled dynamics.
+
+Ninety paired runs produced 180 fitted models across phase counts 4–6,
+five seeds, full/held-out initial-phase splits and three architectures:
+local angle optimization (three scalars), likelihood-grid angle
+initialization then optimization (three scalars, **extra 4n forward
+candidate evaluations**), and an unconstrained 2×2 transition
+(six scalars). Each model receives 350 optimizer steps with matched
+batch and task distribution.
+
+Held-out full-trajectory *latch-schedule* accuracy, pooling fixed and
+rotating model families, was 25%/30%/33.3% for local optimization,
+**100%/100%/100%** for the likelihood grid and
+100%/90%/91.7% for the unconstrained matrix (n=4/5/6).
+The grid results matched the oracle raw-code separation on that schedule
+for all five seeds at every phase count. The architectures are matched
+in optimizer steps, **not** total inference compute or parameter count.
+
+The grid-trained continuous clocks can still drift during long
+continuously probed rollouts. A post-training projection to the nearest
+Z_n generator repairs the exact finite-state recurrence whenever
+the projection selects the true group step and the learned readout
+classifies every discrete phase correctly. Those conditions hold
+for all 60 grid-trained fits and for 55/60 locally trained fits.
+The conditional all-horizon theorem concerns the **projected integer
+state machine**, not floating-point loop stability.
+
+- [Neural CPU training and evaluation](learnable_clock.py)
+- [Group-retraction implementation](projection.py)
+- [Independent standard-library receipt verifier](verify_receipt.py)
+- [Tampering and group-action tests](test_verify_receipt.py)
+- [Hash-pinned 180-fit summary](results/oic14_summary.json)
+- [Compressed replayable trajectories](results/oic14_compact_full.json.gz.b64)
+- [OIC-15 phase-inference protocol](OIC15_PROTOCOL.md), prospective
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+python research/observational_inwardness_v1/verify_receipt.py
+# Optional CPU training with torch and numpy:
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python research/observational_inwardness_v1/learnable_clock.py --out /tmp/oic14_training.json
+~~~
+
+**Next experiment:** [OIC-15](OIC15_PROTOCOL.md) would remove the
+privileged initial phase, retain the registered intervention interface
+and test whether a recurrent model can infer the hidden clock from
+observations. No OIC-15 model has been trained.
