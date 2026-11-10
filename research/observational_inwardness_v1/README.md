@@ -339,4 +339,23 @@ cd research/observational_inwardness_v1
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python oic18_train.py --out results/oic18_retrain.json
 ~~~
 
-**Next:** [OIC-19 protocol](OIC19_PROTOCOL.md) tests whether public-history learning can concentrate the rotating transition kernel and recover the identifiable phase posterior while preserving OIC-18's large-n family classification and fault robustness. This experiment is prospective.
+## OIC-19: Exact observable-shift classes and predictive state recovery
+
+The [executed OIC-19 experiment](OIC19_REPORT.md) contains 30 new fits and 10 frozen OIC-18 von Mises baselines. An observable raw-next-state predictive likelihood recovers the registered ±1 rotating shift in all five seeds and both training splits, with more than 99.7% mean correct-step kernel mass and 100% clean model-family and gauge-relative phase-MAP accuracy on unseen n=24,64. Stronger entropy regularization converges to a wrong ±2 shift while retaining family identification; a simulator-phase-supervised ceiling succeeds in all full-phase seeds and three of five held-out seeds.
+
+[OIC-T26](OIC19_THEORY.md) proves that for uniform hidden initial phase, deterministic shifts have the same observable-history law exactly when they have the same gcd(n,d). Generator recovery is therefore relative to the restricted model class and the observational gauge.
+
+The new raw-sensor fault receipt preserves **200,960** single-substitution and erasure episodes for the ten predictive fits. Mean held-out accuracy after one substituted raw sample is 73.07% at n=8, 99.69% at n=24, and 99.95% at n=64. Every tested single erasure is classified correctly; the exact codebook retains the worst-case correction guarantee.
+
+- [Mathematical note](OIC19_THEORY.md)
+- [Experiment report](OIC19_REPORT.md)
+- [Trained weights, scores and pinned source hashes](results/oic19_summary.json)
+- [Independent pure-Python verifier](oic19_verify.py)
+- [Prospective OIC-20 fault-aware predictive protocol](OIC20_PROTOCOL.md)
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic19*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic19*.py' -v
+python research/observational_inwardness_v1/oic19_verify.py
+~~~
+
