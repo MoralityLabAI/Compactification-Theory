@@ -12,11 +12,10 @@ HERE = Path(__file__).resolve().parent
 
 
 def records():
-    items=[]
-    for augment in ('clean','aug'):
-        for chunk in ('s01','s23','s4'):
-            items.extend(json.loads((HERE/'results'/f'{augment}_{chunk}.json').read_text())['runs'])
-    return items
+    # Read the archived full receipt; CI does not keep intermediate seed chunks.
+    from oic16_verify import load_receipt
+    _, data = load_receipt()
+    return data['runs']
 
 
 class OIC16ProjectionTests(unittest.TestCase):
