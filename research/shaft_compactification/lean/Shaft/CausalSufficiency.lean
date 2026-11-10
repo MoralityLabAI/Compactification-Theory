@@ -45,7 +45,7 @@ theorem causal_reconstruction_sound
     (out : Code → Output)
     (congruent : CausalCongruence step encode)
     (factor : ∀ s, observe s = out (encode s))
-    (section : ∀ s, encode (restore (encode s)) = encode s)
+    (sectionLaw : ∀ s, encode (restore (encode s)) = encode s)
     (word : List Input) (s : State) :
     observe (run step word (restore (encode s))) =
       observe (run step word s) := by
@@ -54,7 +54,7 @@ theorem causal_reconstruction_sound
         out (encode (run step word (restore (encode s)))) := factor _
     _ = out (encode (run step word s)) :=
       congrArg out (causal_code_all_words step encode congruent word
-        (restore (encode s)) s (section s))
+        (restore (encode s)) s (sectionLaw s))
     _ = observe (run step word s) := (factor _).symm
 
 /-- If two states have equal compact codes but disagree after one
