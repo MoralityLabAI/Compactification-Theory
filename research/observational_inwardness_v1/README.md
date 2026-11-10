@@ -143,3 +143,45 @@ integer arithmetic. No neural, cosmological or consciousness claim.
 ## OIC-11 preregistered recurrent monitor test
 
 The [OIC-11 protocol](EXPERIMENT.md) specifies exact, learned toy-recurrence and pretrained-recurrence tiers, phase-odd/even controls, raw/event sensor comparisons, matched compute and readout costs, and preregistered neural latch failure criteria. Only the finite exact tier has been implemented. Learned and pretrained results are prospective.
+
+
+## OIC-12: first executed learned recurrence pilot
+
+The [OIC-12 report](OIC12_REPORT.md) describes a CPU experiment on **60
+trained GRUs**, paired across n=4,5,6, five seeds and two training splits.
+Each model has 2,185 parameters and a 24-dimensional recurrent state.
+The model is initialized from a *privileged Fourier encoding* of the true
+hidden phase; the monitor sees only raw visible outputs.
+
+When every initial phase was represented in training, the five-seed
+exact latch-trajectory accuracy was 100% for n=4 and n=5 and
+96.7% fixed / 100% rotating for n=6. With two phases withheld,
+the corresponding full-sequence accuracies were **60%/50%** at n=4,
+**60%/60%** at n=5 and **73.3%/73.3%** at n=6. For the
+heldout split, trained-phase trajectory accuracy remained 100%;
+unseen starting phases often failed. Model errors sometimes
+*increased* apparent raw-trace code distance, demonstrating why
+raw distance must be audited alongside transition fidelity.
+
+- [Exact executed training source](learned_pilot.py), requiring
+  PyTorch 2.10.0+cpu and NumPy 2.3.5 for pinned reproduction
+- [60-model compressed rollout receipt](results/learned_pilot_full.json.gz.b64)
+- [Human-readable metrics and hashes](results/learned_pilot_summary.json)
+- [Independent standard-library receipt verifier](verify_learned.py)
+  and [tampering tests](test_verify_learned.py)
+
+The frozen receipt is checked in lightweight CI without installing
+PyTorch. Retaining the ability to *retrain* the 60 models requires
+an explicit CPU replay using the pinned dependencies, since the
+archived receipt contains trajectories and training losses rather
+than model weight checkpoints.
+
+~~~sh
+python research/observational_inwardness_v1/verify_learned.py --check
+# Optional CPU reproduction with torch + numpy installed:
+python research/observational_inwardness_v1/learned_pilot.py --n 4 --splits full --seeds 0 1 2 3 4 --out /tmp/oic12_n4_full.json
+~~~
+
+This experiment measures one synthetic supervised recurrent
+model. The preregistered [OIC-11 protocol](EXPERIMENT.md) remains
+intact; a pretrained looped-layer model study has not been run.
