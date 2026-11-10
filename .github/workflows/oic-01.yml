@@ -29,3 +29,5 @@ jobs:
         run: python research/observational_inwardness_v1/robust_run.py --check
       - name: Raw-state fault-tolerant reference replay
         run: python research/observational_inwardness_v1/raw_run.py --check
+      - name: Verify completed OIC-12 GRU receipt without torch
+        run: python research/observational_inwardness_v1/verify_learned.py --check
