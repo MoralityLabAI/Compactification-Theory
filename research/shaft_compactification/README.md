@@ -87,3 +87,15 @@ The Lean file proves abstract congruence, a Boolean witness, and deterministic e
 * [Algernon belief geometry](../algernon/belief_geometry/README.md) studies observer-relative belief updates and gauge quotients.
 
 A subsequent local experiment could compare restricted future-observation quotients against complete-future quotients in consented small recurrent networks, including causal state erasure and matched monitor-error controls. Keep all work within isolated simulation environments.
+
+## SHAFT-COMP-06: recurrent depth and substrate-transfer continuation (2026-11-10)
+
+[Full mathematical and empirical report](SHAFT_COMP_06_REPORT.md).
+
+This continuation proves monotonicity of finite-horizon behavioral indistinguishability and multi-substrate observation coverage, plus an abstract integer-valued recurrent-error amplification bound in [DepthTransfer.lean](lean/Shaft/DepthTransfer.lean). A separate 16-goal finite experiment constructs observer quotients that refine with available continuation depth.
+
+Two independently trained, 3,265-parameter toy GRUs demonstrate a concrete semantic-code versus raw-state distinction. A four-bit task label selects the appropriate learned embedding for either model; unaligned raw embedding transfer is near chance. Mid-run state erasure yields near-chance task predictions; explicit reinitialization from the same four-bit label restores approximately 96% accuracy in the final eight steps. Results are conditional on retained model weights and embedding tables. The experiment uses only local synthetic tasks and no device, network or clandestine persistence methods.
+
+* Exact CPU reference: `python -m research.shaft_compactification.depth_quotient`.
+* Synthetic trained model: `python -m research.shaft_compactification.experiments.trained_recurrence --out /tmp/shaft-trained-recurrence.json` (requires PyTorch).
+* Frozen results: [exact finite](results/depth_quotient.json), [trained GRU](results/trained_recurrence.json).
