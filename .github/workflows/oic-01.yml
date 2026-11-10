@@ -35,3 +35,5 @@ jobs:
         run: python research/observational_inwardness_v1/verify_clock.py --check
       - name: Verify OIC-14 learned phase transition receipt without torch
         run: python research/observational_inwardness_v1/verify_receipt.py
+      - name: Replay OIC-14 long-horizon angular drift from archived weights
+        run: python research/observational_inwardness_v1/long_horizon.py --check
