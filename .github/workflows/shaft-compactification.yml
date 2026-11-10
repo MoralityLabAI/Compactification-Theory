@@ -60,6 +60,25 @@ jobs:
               assert record['behavioral_code_transfer']['semantic_code_inferred_from_source'] == r['cross_substrate'][direction]['semantic_code_inferred_from_source']
           print('SHAFT-COMP-07 source, counting identity, and full/summary receipt agreement verified')
           PY
+      - name: SHAFT-COMP-08 exact reference and frozen receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/unknown_semantics.py
+          python -m research.shaft_compactification.gauge_identifiability > /tmp/shaft08-finite.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          exact = json.loads(Path('/tmp/shaft08-finite.json').read_text())
+          frozen = json.loads(Path('research/shaft_compactification/results/unknown_semantics.json').read_text())
+          assert exact == frozen['finite'], 'SHAFT-COMP-08 finite enumeration drift'
+          assert exact['candidate_count_by_anchor_number'] == {'0':48,'1':6,'2':2,'3':1}
+          assert exact['two_anchor_pair_count_examined'] == 256
+          assert frozen['trained']['heldout_contexts'] == 512
+          assert frozen['trained']['distinct_target_catalog_signatures'] == 16
+          assert frozen['trained']['anchor_sweep']['3']['first_consistent_candidate']['recovered_goal_fraction'] == 1
+          assert frozen['trained']['anchor_sweep']['3']['first_consistent_candidate']['target_task_accuracy'] == frozen['trained']['correct_goal_oracle_accuracy']
+          assert frozen['trained']['anchor_sweep']['2']['candidate_count'] == 2
+          print('SHAFT-COMP-08 exact counting reference and frozen trained receipt schema checked')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt

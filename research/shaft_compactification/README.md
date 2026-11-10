@@ -110,3 +110,17 @@ The companion [PredictiveCode.lean](lean/Shaft/PredictiveCode.lean) provides an 
 
 To reproduce with PyTorch installed:
 `python -m research.shaft_compactification.experiments.predictive_state --out /tmp/shaft-predictive.json`.
+
+## SHAFT-COMP-08: unknown semantic gauge and paired-anchor identifiability
+
+[Formal and experimental report](SHAFT_COMP_08_REPORT.md) | [Lean gauge theorem](lean/Shaft/GaugeIdentifiability.lean) | [Exact CPU enumeration](gauge_identifiability.py) | [Trained-GRU experiment](experiments/unknown_semantics.py) | [Frozen receipt](results/unknown_semantics.json).
+
+The task representations have an unknown four-query permutation and an unknown global binary output inversion, yielding 48 possible cross-model semantic gauges. Without paired observations, the full unlabeled set of 16 binary task behaviors is invariant under all 48 gauges. Three deliberately chosen paired behavioral anchors reduce the consistent transformations from 48 to 6 to 2 to 1; exhaustive finite enumeration confirms that every two-anchor choice leaves at least two candidates.
+
+Two independently trained GRUs were tested on 512 fresh-prefix contexts. With three corresponding observations, an anonymous destination prototype catalog recovers the correct latent task in 512/512 cases and the recipient achieves 99.29% accuracy over fresh 32-step sequences, equal to its oracle using the correct resident embedding. A two-anchor, lexicographic-first mapping scores 74.76%; complete state erasure scores 49.91%. The underlying task family is shared, and the receiving model plus complete 16-prototype embedding catalog remain available. Anchor pairs supply limited supervision, and the benchmark makes no claim of unconstrained unsupervised semantic alignment, deleted-weight restoration, or real-world distributed persistence.
+
+Run the exact reference without third-party dependencies:
+`python -m research.shaft_compactification.gauge_identifiability`.
+
+The optional trained experiment requires pinned PyTorch:
+`python -m research.shaft_compactification.experiments.unknown_semantics --out /tmp/shaft-comp-08.json`.
