@@ -102,7 +102,7 @@ def condition(design: str, noise_pct: int, missing_pct: int, trials: int) -> dic
     true_code = codes[true_index]
     masks = {budget: (1 << (4 * budget)) - 1 for budget in BUDGETS}
     distances = {
-        budget: [(code ^ true_code & masks[budget]).bit_count()
+        budget: [((code ^ true_code) & masks[budget]).bit_count()
                  for i, code in enumerate(codes) if i != true_index]
         for budget in BUDGETS
     }
