@@ -276,3 +276,48 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python research/observational_inwardnes
 ~~~
 
 **OIC-15 executed:** [OIC15_REPORT.md](OIC15_REPORT.md) removes privileged initial-phase access and evaluates 30 trained generic and cyclic observers over held-out phases and phase counts. The [OIC-T18–T22 proofs](OIC15_THEORY.md) establish permanent phase ambiguity, exact family identification, a finite likelihood ceiling, and a raw sensor robustness margin. The archived [raw-history monitoring protocol](OIC15_PROTOCOL.md) remains as the preregistered design; [OIC16_PROTOCOL.md](OIC16_PROTOCOL.md) describes the next unknown-dynamics experiment. The full model checkpoints are preserved in `results/oic15_weights.json.gz.b64`, with `results/oic15_traces.json.gz.b64`, `results/oic15_analysis.json` and `results/oic15_manifest.json` for independent verification.
+
+
+## OIC-16 executed: learned cyclic dynamics without initial phase access
+
+[OIC16_REPORT.md](OIC16_REPORT.md) documents twenty CPU-trained 14-parameter
+family-conditioned circulant belief filters on matched OIC-15 synthetic episodes.
+The model learns five-offset stochastic transitions and a shared Fourier emission
+using public action/state histories and supervised family labels; hidden initial
+phase is absent from the inference interface.
+
+- Five seeds, two training phase splits, clean/fault-augmented training;
+  n=4,5,6 for training, held-out n=7,8 for registered transfer
+- Clean n-active family identification: 100% in all 20 fits on n=4,...,8;
+  balanced passive prior control: 50% classification
+- Raw one-sample corruption at n=8: 58.3%/66.5% for clean
+  full/heldout training and 84.9%/79.3% for augmented training
+- Post-hoc deterministic cyclic projection: all 20 learned kernels select
+  fixed shift zero and rotating shift ±1; exact raw-codebook equivalence
+  gives 100% on every tested single error/erasure at even n up to 12
+- Post-hoc n=9,...,32 stress identifies failure of the fixed-bandwidth
+  Fourier emission as adjacent phases become indistinguishable
+
+[OIC16_THEORY.md](OIC16_THEORY.md) proves phase-reflection gauge
+indistinguishability, projected codebook equivalence, and a quadratic
+Fourier phase-resolution bound. The original
+[OIC16_PROTOCOL.md](OIC16_PROTOCOL.md) records the prospective experiment
+conditions; [OIC18_PROTOCOL.md](OIC18_PROTOCOL.md) registers a separate
+phase-resolution transfer experiment.
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic16*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic16*.py' -v
+python research/observational_inwardness_v1/oic16_verify.py --check
+python research/observational_inwardness_v1/oic16_scale.py --check
+# To retrain (requires CPU PyTorch and NumPy):
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python research/observational_inwardness_v1/oic16_train.py --out /tmp/oic16_retrained.json
+~~~
+
+Receipts: [compressed learned weights and predictions](results/oic16_full.json.gz.b64),
+[SHA-pinned summary](results/oic16_summary.json), and
+[post-hoc scale reference](results/oic16_scaling.json).
+The pure-Python replay recomputes all 600 clean panels, 100
+phase-relabel controls and 1,080 raw fault-position panels from saved
+weights. This finite synthetic result establishes neither a neural
+mechanistic-interpretability certificate nor any conclusion about consciousness.
