@@ -49,7 +49,16 @@ jobs:
               results = r['results'][seed]
               assert results['exact_true_goal_by_depth']['12'] == 1.0
               assert results['shuffled_label_exact_true_goal_at_12'] < 0.15
-          print('SHAFT-COMP-07 syntax, counting bound, and receipt fields verified')
+          full = json.loads(Path('research/shaft_compactification/results/predictive_state.json').read_text())
+          assert full['training']['probe_supervision'].endswith('no goal IDs')
+          for seed in ('101', '202'):
+              for depth, measured in full['models'][seed]['independent_test'].items():
+                  assert measured['probe_exact_true_goal_rate'] == r['results'][seed]['exact_true_goal_by_depth'][depth]
+                  assert measured['probe_vs_true_goal_bit_accuracy'] == r['results'][seed]['probe_bit_accuracy_by_depth'][depth]
+                  assert measured['teacher_vs_true_goal_bit_accuracy'] == r['results'][seed]['teacher_bit_accuracy_by_depth'][depth]
+          for direction, record in full['cross_substrate'].items():
+              assert record['behavioral_code_transfer']['semantic_code_inferred_from_source'] == r['cross_substrate'][direction]['semantic_code_inferred_from_source']
+          print('SHAFT-COMP-07 source, counting identity, and full/summary receipt agreement verified')
           PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
