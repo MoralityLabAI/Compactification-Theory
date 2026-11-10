@@ -256,9 +256,12 @@ def collect(model, seqs, pad, layers, n_ref=2048, n_key=1024, bs=4, seed=0):
             h.remove()
     out = {}
     for l, A in acc.items():
-        out[l] = {"u_raw": (A["y_loop"] / max(A["n_loop"], 1) - A["y_non"] / max(A["n_non"], 1)).cpu(),
-                  "k_mean": (A["a_loop"] / max(A["n_loop"], 1)).cpu(), "n_loop": A["n_loop"], "n_non": A["n_non"],
-                  "ref": torch.cat(A["ref"]) if A["ref"] else None, "key": torch.cat(A["key"]) if A["key"] else None}
+        if A["n_loop"] < 32 or A["n_non"] < 32 or not A["ref"] or not A["key"]:
+            print(f"  layer {l}: skipped, {A['n_loop']} loop and {A['n_non']} non-loop tokens (need 32 of each)", flush=True)
+            continue
+        out[l] = {"u_raw": (A["y_loop"] / A["n_loop"] - A["y_non"] / A["n_non"]).cpu(),
+                  "k_mean": (A["a_loop"] / A["n_loop"]).cpu(), "n_loop": A["n_loop"], "n_non": A["n_non"],
+                  "ref": torch.cat(A["ref"]), "key": torch.cat(A["key"])}
     return out
 
 
@@ -399,7 +402,12 @@ def main():
     # stage gen_calib (calibration + held-out teacher-forced texts, base model)
     base_cal = generate(model, tok, cal + tfs, out / "gen_calib.jsonl", a.max_new, a.bs, 11, keep_ids=True)
     byid = {r["id"]: r for r in base_cal}
-    mk_seq = lambda items: [(byid[i["id"]]["prompt"], byid[i["id"]]["gen"], loop_mask(byid[i["id"]]["gen"])) for i in items if byid[i["id"]]["gen"]]
+    def lmask(g):
+        m = loop_mask(g)
+        if a.smoke:                                   # plumbing only: short generations hold no real loops
+            m = m | (np.arange(len(g)) % 4 == 0)
+        return m
+    mk_seq = lambda items: [(byid[i["id"]]["prompt"], byid[i["id"]]["gen"], lmask(byid[i["id"]]["gen"])) for i in items if byid[i["id"]]["gen"]]
     cal_seq, tf_seq = mk_seq(cal), mk_seq(tfs)
     meta["calib_cut_rate"] = float(np.mean([not byid[i["id"]]["finished"] for i in cal]))
     meta["calib_loop_token_share"] = float(np.mean([m.mean() for _, _, m in cal_seq]))
@@ -409,9 +417,11 @@ def main():
         info = collect(model, cal_seq, pad, layers, n_ref=a.n_ref, n_key=max(a.n_ref // 2, 256))
         for l, d in info.items():
             d["u"] = d["u_raw"] / d["u_raw"].norm().clamp_min(1e-9)
+        if not info:
+            raise SystemExit("collect kept no layer: the calibration generations contain too few looping tokens")
         base_lp, isl = tf_stats(model, cal_seq, pad)
         proxy = {}
-        for l in layers:
+        for l in sorted(info):
             maybe_pause()
             lp, _ = tf_stats(model, cal_seq, pad, hooks=[(l, proj_hook(info[l]["u"].cuda(), 1.0))])
             sup = float((base_lp[isl] - lp[isl]).mean()); dmg = float((base_lp[~isl] - lp[~isl]).mean())
