@@ -410,3 +410,194 @@ monitors exhibit independently validated phase-recurrence
 signatures and how expensive it is to audit them. These
 finite examples establish no current neural architecture's
 hidden-state topology or monitor error budget.
+
+
+## OIC-T08. Sharp robustness law for corrupted raw state observations (even n)
+
+**New sensor contract.** The evaluator now receives the *raw visible
+state* x_t at every time t=0,...,T, with a total budget of e adversarial
+bit substitutions and r marked erasures of individual state samples.
+The interventions u_t are selected in advance (nonadaptive fixed
+schedule). The hidden initial phase remains unknown and the initial
+visible state x_0 is fixed and common to both models. This differs from
+OIC-T06's transition-level fault model.
+
+For a binary action word w=(u_0,...,u_(T-1)), define the raw codebooks
+
+\[
+C_A(w)=\{(x_0,\ldots,x_T):z_0\in Z_n,\ a=0\},\quad
+C_B(w)=\{(x_0,\ldots,x_T):z_0\in Z_n,\ a=1\}.
+\]
+
+Let d(w)=min_(a∈C_A,b∈C_B) d_H(a,b).
+
+**Theorem (even n).** For each even integer n>=2 and T>=0,
+
+\[
+\boxed{
+\max_{w\in\{0,1\}^T}d(w)=\max(0,T-n+1).
+}
+\]
+
+Consequently, the minimum length of a nonadaptive fixed schedule
+guaranteeing identification with <=e corruptions and <=r erasures is
+
+\[
+\boxed{T^*_{\rm raw}(n,e,r)=n+2e+r.}
+\]
+
+**Upper bound.** For any schedule and n>=2, compare the fixed
+model with nonzero hidden phase z_0=1 to the rotating model with
+z_0=1 and the same x_0. In the fixed model, the phase never reaches
+zero; in the rotating model, z_t=1+t (mod n), whose first zero
+occurs at t=n-1. Until transition t=n-1 the visible trajectories
+are identical for *any* action word. Therefore the first n raw
+samples x_0,...,x_(n-1) are equal in these two admissible
+initial conditions, giving d(w)<=max(0,T-n+1) for T>=n-1.
+When T<n there are no differences at all, so d(w)=0.
+
+**Attainment for even n.** For T>=n take w=1^n 0^(T-n).
+In the active prefix each rotating initial phase visits z=0
+exactly once, whereas the fixed model's hidden phase visits
+zero either zero or n times. Since n is even, those two
+pulse counts have opposite parity for every possible pair
+of hidden initial phases. The visible state at time n
+therefore differs across *every* fixed/rotating pair.
+After time n, u=0 makes both models toggle x at each
+transition, preserving their visible disagreement at
+times n,...,T. Thus d(w)>=T-n+1. The upper bound
+shows equality.
+
+A common corrupted raw transcript from two codewords is
+possible exactly when their Hamming distance is <=2e+r,
+using the same elementary error/erasure collision
+construction as OIC-T06. Thus guaranteed decoding
+requires d(w)>=2e+r+1. The maximum-distance formula
+gives T>=n+2e+r, attained by the stated word. QED.
+
+## OIC-T09. Exact active-probe budget and the odd parity obstruction
+
+**Minimal active probes for even n.** Any fixed action word
+with q<n active interventions misses at least one phase
+residue class modulo n. The rotating initial phase which
+passes through zero only on that residue class then produces
+an all-zero hidden pulse signal for the complete word.
+That visible trajectory equals the fixed model with any
+nonzero constant phase. Consequently d(w)=0 when q<n,
+for any T. The OIC-T08 attaining word contains exactly n
+active probes regardless of e and r. The minimum
+nonadaptive active-probe count is therefore
+
+\[
+\boxed{q^*_{\rm raw}(n,e,r)=n,\quad n\text{ even},}
+\]
+
+when the observation horizon may grow. Here the passive
+state samples are still collected and their sensor costs
+must be charged; q counts active interventions alone.
+
+**Terminal parity obstruction for odd n.** Let q be the
+number of active interventions in an arbitrary fixed
+word w. The fixed model's final-state parity relative
+to the baseline x_0 xor (T mod 2) is either 0 (nonzero
+initial hidden phase) or q mod 2 (zero initial phase).
+Let h_j be the number of active probes in phase residue
+j mod n, with sum_j h_j=q. Each rotating initial phase
+has final-state parity h_j mod 2.
+
+For final raw state alone to separate the model families,
+the fixed model must have only parity 0, hence q must be
+even. All n rotating phase counts h_j would then need
+to be odd, so their sum would have parity n mod 2.
+For odd n this contradicts q even. If q is odd, the
+fixed model already produces both terminal parities,
+which must overlap the nonempty rotating family.
+Therefore, for every odd n>=3 and every fixed action word,
+
+\[
+\boxed{
+\{x_T^A\}\cap\{x_T^B\}\neq\varnothing.
+}
+\]
+
+This obstruction concerns the *final-state readout*.
+Entire histories may still distinguish the families,
+and repeated nonadaptive probes can overcome finite
+fault budgets. The odd-cycle result is a parity
+constraint on this particular interface, rather than a
+claim about general topology or phenomenal inwardness.
+
+**Finite odd examples.** Independent exhaustive fixed
+schedule searches give the maximum interfamily raw
+distance for n=3 at horizons T=3,4,5,6,7 as
+1,1,2,2,3. Thus correcting one corrupted raw-state
+sample first becomes possible at T=7 rather than
+the even-n formula's value 5. For n=5 with one
+corrupted sample, the optimum distance reaches 3
+already at T=7. For n=3, two substitutions require
+distance 5 and are first possible at T=10 in the
+exhaustive range. The results depend on the model's
+exact phase count and available probe schedules.
+
+## OIC-T10. Correlated audit errors induced by raw-state noise
+
+For any clean raw state sequence x_0,...,x_T,
+the noiseless inferred pulse is
+
+\[
+b_t=1\oplus x_t\oplus x_{t+1}.
+\]
+
+Suppose the raw channel substitutes state bits
+according to an error indicator f_t, so
+\(\widetilde x_t=x_t\oplus f_t\). The derived audit
+error is
+
+\[
+\boxed{
+\widetilde b_t\oplus b_t=f_t\oplus f_{t+1}.
+}
+\]
+
+A single interior raw bit substitution affects the two
+neighboring derived audit symbols. A corrupted boundary
+sample affects one. Multiple adjacent raw substitutions
+can cancel in their shared inferred audit symbol.
+A marked raw-state erasure removes at most its two
+neighboring derived audit symbols.
+
+Therefore at most e raw substitutions and r erased
+state samples induce at most 2e audit substitutions and
+2r audit erasures. Applying OIC-T06 to these upper
+bounds yields the conservative sufficient horizon
+
+\[
+T\geq n(4e+2r+1).
+\]
+
+OIC-T08 performs direct raw-trace decoding and proves
+the sharper exact horizon n+2e+r for even n. Both
+budgets concern a single declared measurement channel;
+monitor architecture, costs and independence assumptions
+must be specified before comparing fault rates.
+
+## Reproduction and evidence
+
+- raw_sensor.py: raw-trace codebook, exact cross-family
+  distance, odd parity final-state test, raw/audit
+  conversion, adversarial common-receipt generator and
+  exhaustive fixed-schedule optimizer.
+- test_raw_sensor.py: independent finite checks for
+  the even-n optimality, odd-n obstruction and raw
+  fault-correlation formula.
+- raw_run.py --check: deterministic exact JSON
+  replay for 20 even-phase robustness configurations
+  and three odd-phase counterexample witnesses.
+
+These are finite deterministic calculations plus
+handwritten mathematical proofs. Generalizing to
+learned recurrence would require identifying a
+realistic sensor interface and a phase-type hidden
+mode with independently measured dynamics. A
+realistic floating-point or probabilistic corruption
+model needs a separate analysis.
