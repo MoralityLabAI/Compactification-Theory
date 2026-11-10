@@ -1,0 +1,27 @@
+name: OIC-01 finite observability reference
+
+on:
+  push:
+    paths:
+      - 'research/observational_inwardness_v1/**'
+      - '.github/workflows/oic-01.yml'
+  pull_request:
+    paths:
+      - 'research/observational_inwardness_v1/**'
+      - '.github/workflows/oic-01.yml'
+
+jobs:
+  finite-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+      - name: Exact tests with assertions optimized away
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+      - name: Pinned receipt replay
+        run: python research/observational_inwardness_v1/run.py --check
