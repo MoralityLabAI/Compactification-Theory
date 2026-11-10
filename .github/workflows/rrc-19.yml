@@ -1,0 +1,42 @@
+name: RRC-19 family-balanced class ranking exact CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/family19.py'
+      - 'research/rrc_compactification/train19.py'
+      - 'research/rrc_compactification/bench19.py'
+      - 'research/rrc_compactification/test_family19.py'
+      - 'research/rrc_compactification/RRC19_*.md'
+      - 'research/rrc_compactification/README_RRC19.md'
+      - 'research/rrc_compactification/results/rrc19_*.json'
+      - '.github/workflows/rrc-19.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/family19.py'
+      - 'research/rrc_compactification/train19.py'
+      - 'research/rrc_compactification/bench19.py'
+      - 'research/rrc_compactification/test_family19.py'
+      - 'research/rrc_compactification/RRC19_*.md'
+      - 'research/rrc_compactification/README_RRC19.md'
+      - 'research/rrc_compactification/results/rrc19_*.json'
+      - '.github/workflows/rrc-19.yml'
+  workflow_dispatch:
+jobs:
+  balanced-source-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-family, exact program, budget and leakage tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_family19.py' -v
+      - name: Complete source-hashed CPU replay with post-primary seed controls
+        run: python research/rrc_compactification/bench19.py --check
+      - name: Retain RRC-17 and RRC-18 finite class certificates
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_quotient17.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_certify18.py' -v
