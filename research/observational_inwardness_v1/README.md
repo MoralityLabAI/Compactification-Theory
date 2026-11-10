@@ -139,3 +139,7 @@ python research/observational_inwardness_v1/raw_run.py --check
 **Model scope:** one finite synthetic latent state machine, nonadaptive
 binary interventions, known raw-sample corruption budgets and exact
 integer arithmetic. No neural, cosmological or consciousness claim.
+
+## OIC-11 preregistered recurrent monitor test
+
+The [OIC-11 protocol](EXPERIMENT.md) specifies exact, learned toy-recurrence and pretrained-recurrence tiers, phase-odd/even controls, raw/event sensor comparisons, matched compute and readout costs, and preregistered neural latch failure criteria. Only the finite exact tier has been implemented. Learned and pretrained results are prospective.
