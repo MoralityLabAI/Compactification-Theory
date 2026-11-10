@@ -27,3 +27,5 @@ jobs:
         run: python research/observational_inwardness_v1/run.py --check
       - name: Fault-tolerant audit-channel receipt replay
         run: python research/observational_inwardness_v1/robust_run.py --check
+      - name: Raw-state fault-tolerant reference replay
+        run: python research/observational_inwardness_v1/raw_run.py --check
