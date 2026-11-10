@@ -132,3 +132,9 @@ The optional trained experiment requires pinned PyTorch:
 With 48 candidate S4×C2 mappings, an exhaustive search finds eight optimal 3-anchor sets; the balanced triple (3,5,6) has minimum pairwise Hamming separation 4, versus 2 for one-hot (1,2,4). At 10% independent target-bit flips and 25% random missingness, six balanced anchors recover the true gauge in 960/1024 trials, compared with 855/1024 for six one-hot anchors. The analysis derives a conditional Chernoff/union bound and Lean-checked sufficient score-margin certificates.
 
 Fixed systematic censoring of two query coordinates preserves a two-way gauge ambiguity even across 24 anchors. This identifies a limitation of claims based on independently missing observations. All new evaluations use abstract finite synthetic task signatures; SHAFT-COMP-09 does not train or evaluate a frontier model.
+
+## SHAFT-COMP-10: endogenous recurrent observation noise
+
+[Full report](SHAFT_COMP_10_REPORT.md), [model-generated noise benchmark](experiments/activation_noise.py), [calibrated reference-anchor selection](experiments/adaptive_anchor.py), [pure finite anchor geometry](anchor_geometry.py), [Lean cluster-noise certificate](lean/Shaft/ClusterNoise.lean), and [frozen summary](results/comp10_summary.json).
+
+Two independently trained toy GRUs were tested in both directions using genuinely model-generated recurrent errors, with source depth 12 and destination depths up to 64. Nominally optimal clean-channel anchors lose their advantage when the destination's error rates vary by task and query. Model-specific calibration over 560 possible triples produced uniquely correct six-anchor alignment in 512/512 and 471/512 held-out depth-64 trials, with a second independent-prefix evaluation of 512/512 and 462/512. The calibration knows the synthetic reference alignment and the receiving model retains its full trained substrate. There is no real-device or deleted-weight persistence experiment.

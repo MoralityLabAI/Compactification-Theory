@@ -99,6 +99,29 @@ jobs:
                   assert record['consistent_global_relabeling']['unique_wrong_gauge']
           print('SHAFT-COMP-09 deterministic receipts and structured error controls reproduced')
           PY
+      - name: SHAFT-COMP-10 scripts and frozen model summary
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/activation_noise.py
+          python -m py_compile research/shaft_compactification/experiments/adaptive_anchor.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('research/shaft_compactification/results/comp10_summary.json').read_text())
+          assert r['base_model_seeds'] == [101, 202]
+          assert r['independent_test_trials_per_condition'] == 512
+          assert r['calibration_prefixes_per_goal'] == 192
+          assert len(r['conditions']) == 4
+          for entry in r['conditions']:
+              assert len(entry['replicates']) == 2
+              assert len(entry['selected']) == 3
+              for rep in entry['replicates']:
+                  metrics = rep['unique_at_six']
+                  assert 0 <= metrics['balanced_six'] <= 512
+                  assert 0 <= metrics['onehot'] <= 512
+                  assert 0 <= metrics['adaptive'] <= 512
+          assert all(len(x) == 64 for x in r['full_local_receipt_sha256'].values())
+          print('SHAFT-COMP-10 source syntax and local frozen metric schema verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
