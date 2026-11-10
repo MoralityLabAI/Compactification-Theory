@@ -94,6 +94,29 @@ class PureTests(unittest.TestCase):
         self.assertEqual(pick_sigma({"1.0": 0.75, "2.0": 0.25}, "midpoint"), 1.0)
         self.assertEqual(pick_sigma({"1.0": 0.75, "2.0": 0.25}, "half"), 1.0)
 
+    def test_answer_suffix_scores_only_the_digit(self):
+        """H-A3f's answer target is the state after `depth` steps, in upstream's `### d` + EOS suffix, and the
+        index returned is the digit token's. A tokenizer that splits the digit is refused."""
+        from research.algernon.circuit_mirror.lotus_bridge.correct import answer_suffix
+
+        class Tok:
+            eos_token_id = 0
+
+            def __init__(self, digit_text=None):
+                self.digit_text = digit_text
+
+            def encode(self, text, add_special_tokens=False):
+                return [100, 300 + int(text.split(" ")[1])]
+
+            def decode(self, ids):
+                return self.digit_text or " ".join(str(i - 300) for i in ids)
+
+        row = {"successors": [1, 2, 3, 4, 5, 0], "initial": 0}
+        self.assertEqual(answer_suffix(Tok(), row, 16), ([100, 304, 0], 1))
+        self.assertEqual(answer_suffix(Tok(), row, 3), ([100, 303, 0], 1))
+        with self.assertRaises(ValueError):
+            answer_suffix(Tok(digit_text="4x"), row, 16)
+
     @unittest.skipIf(torch is None, "needs torch")
     def test_fixed_noise_reference_ignores_the_slot_scale(self):
         """H-A3d: with a ref the absolute noise is the same for any slot scale; without one it follows the slots."""

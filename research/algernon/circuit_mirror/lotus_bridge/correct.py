@@ -28,6 +28,10 @@ the correctors have no bias, so C's correction is zero whenever the decoded stat
 run's own slot RMS at loop j, so an arm that rescales the slots on clean loops no longer rescales its noise.
 With `--sigma-rule midpoint` (H-A3e) sigma is the grid value whose calibrated plain accuracy is closest to the
 midpoint between the grid's highest and lowest accuracy, rather than closest to 0.5, and kappa = sigma x r.
+With `--loss answer` (H-A3f) each training case also runs all `--depth` loops with upstream's answer suffix
+(`### d` and EOS) teacher-forced after the latent block, and the cross-entropy of the answer digit is added to the
+local loss. The answer reads every slot, so its gradient reaches the corrector weights for slots 3-5, which the
+local loss (pi on slot 2, causal attention) cannot.
 """
 from __future__ import annotations
 
@@ -210,18 +214,40 @@ def eps_for(rid, hidden):
     return torch.randn(SLOTS, hidden, generator=g)
 
 
-def train_step_loss(model, lm, tok, digits, row, j, *, arm, G, noise, scale=1.0):
-    """Local loss through F: pi on the corrected slots after loop j and after loop j + 1."""
+def answer_suffix(tok, row, depth):
+    """Upstream's answer suffix for the state after `depth` steps, `### d` then EOS, and the index of the digit
+    token within it (the only position the H-A3f answer loss scores)."""
+    ans = iterate(row["successors"], row["initial"], depth)
+    suffix = tok.encode(f"### {ans}", add_special_tokens=False) + [tok.eos_token_id]
+    if tok.decode(suffix[-2:-1]).strip() != str(ans):
+        raise ValueError(f"answer digit is not one token in {suffix}")
+    return suffix, len(suffix) - 2
+
+
+def train_step_loss(model, lm, tok, digits, row, j, *, arm, G, noise, scale=1.0, answer_depth=None):
+    """Local loss through F: pi on the corrected slots after loop j and after loop j + 1. With `answer_depth`
+    (H-A3f) the forward runs that many loops with the answer suffix teacher-forced, and the answer digit's
+    cross-entropy (upstream's main loss with every other label masked) is added."""
     import torch
     ids, first, last = layout(model, tok, prompt_nocount(row).rstrip("\n"))
     dev = next(model.parameters()).device
+    labels = [-100] * len(ids)
+    loops = j + 1
+    if answer_depth:
+        suffix, at = answer_suffix(tok, row, answer_depth)
+        labels += [-100] * len(suffix)
+        labels[len(ids) + at] = suffix[at]
+        ids, loops = ids + suffix, answer_depth
     x = torch.tensor([ids], device=dev)
     rec = Recurrence(model, lm, digits, row["successors"], row["initial"], arm=arm, G=G, noise=noise, scale=scale)
-    with rec.hooked(first, last):
-        model.forward(x, torch.ones_like(x), torch.full_like(x, -100), torch.arange(len(ids), device=dev)[None],
-                      n_looped_iters=j + 1)
+    with rec.hooked(first, last) as calls:
+        out = model.forward(x, torch.ones_like(x), torch.tensor([labels], device=dev),
+                            torch.arange(len(ids), device=dev)[None], n_looped_iters=loops)
+    if calls[0] != loops + 1:
+        raise AssertionError(f"expected initial + {loops} loop passes, got {calls[0]}")
     targets = [iterate(row["successors"], row["initial"], k) for k in (j, j + 1)]
-    return sum(-torch.log(rec.probs[k - 1][t] + 1e-9) for k, t in zip((j, j + 1), targets))
+    local = sum(-torch.log(rec.probs[k - 1][t] + 1e-9) for k, t in zip((j, j + 1), targets))
+    return local + out.main_loss if answer_depth else local
 
 
 def load(args):
@@ -297,8 +323,8 @@ def train(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma):
                 j = rng.randint(1, args.max_train_loop)
                 noise = None if rng.random() < args.clean_share else {
                     "j": j, "sigma": sigma, "eps": eps_for(f"train:{row['id']}:{j}", hidden), "ref": args.noise_ref_rms}
-                loss = train_step_loss(model, lm, tok, digits, row, j, arm=arm, G=G, noise=noise,
-                                       scale=args.kappa) / args.batch
+                loss = train_step_loss(model, lm, tok, digits, row, j, arm=arm, G=G, noise=noise, scale=args.kappa,
+                                       answer_depth=args.depth if args.loss == "answer" else None) / args.batch
                 loss.backward()
                 total += float(loss)
             opt.step()
@@ -430,6 +456,9 @@ def main():
     ap.add_argument("--sigma-rule", choices=("half", "midpoint"), default="half",
                     help="noise level from calibrate.json: sigma* closest to 0.5 accuracy (H-A3 to H-A3d) or "
                          "midpoint (H-A3e): closest to halfway between the grid's highest and lowest accuracy")
+    ap.add_argument("--loss", choices=("local", "answer"), default="local",
+                    help="corrector training loss: pi at loops j and j + 1 (H-A3 to H-A3e), or that plus the answer "
+                         "digit's cross-entropy after --depth loops with the answer suffix teacher-forced (H-A3f)")
     args = ap.parse_args()
     args.bias = args.corrector_bias == "on"
     meta, model, lm, tok, digits = load(args)
@@ -458,6 +487,8 @@ def main():
         key["noise_ref_rms"] = args.noise_ref_rms
     if args.sigma_rule != "half":
         key["sigma_rule"] = args.sigma_rule
+    if args.loss != "local":
+        key["loss"] = args.loss
     parts = Parts(args.out / "parts", key)
     watch = PowerWatch(args.min_power_w, active=str(args.device).startswith("cuda"))
     extract = upstream_extract_answer(args.upstream)
@@ -468,8 +499,8 @@ def main():
     except Paused as e:
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
-    experiment = ("H-A3e" if args.sigma_rule == "midpoint" else "H-A3d" if args.noise_ref == "fixed"
-                  else "H-A3c" if not args.bias else "H-A3b" if args.out_scale == "noise" else "H-A3")
+    experiment = ("H-A3f" if args.loss == "answer" else "H-A3e" if args.sigma_rule == "midpoint"
+                  else "H-A3d" if args.noise_ref == "fixed" else "H-A3c" if not args.bias else "H-A3b" if args.out_scale == "noise" else "H-A3")
     out = {"schema_version": "algernon-03-v1", "experiment": experiment, "cmd": args.cmd, "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
            "kappa": args.kappa,
            "args": {k: v for k, v in vars(args).items() if k not in ("upstream", "base", "checkpoint", "roster", "out")}

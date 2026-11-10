@@ -481,3 +481,43 @@ The runs go to a new output directory, and P is evaluated again.
     - By loop 16, P's slots are back on the clean run, while C's and I's stay off it.
 
 Report: [lotus_bridge/results/algernon-03e/report.md](lotus_bridge/results/algernon-03e/report.md).
+
+## H-A3f: H-A3e with a training loss that reaches the answer (registered 2026-11-10, after H-A3e's evaluation was read, before any H-A3f run)
+
+**Why.**
+- In H-A3e, C repaired what pi reads (exact-checker trace acceptance 0.987) but not the answer (0.639 against P's 0.626).
+- The local loss scores only pi on slot 2, at loops j and j + 1. The slots attend causally, so it sends no gradient to the corrector weights that write slots 3-5; in all three H-A3e correctors those weights are exactly zero. The generated answer reads all six slots.
+- The registered rules score the answer, so H-A3e tested C together with a loss that cannot see the answer. H-A3f gives every arm a loss that can.
+
+**One change: the training loss.**
+- Each training case runs all 16 loops with upstream's answer suffix (`### d` and EOS) teacher-forced after the latent block. d is the state after 16 steps.
+- The cross-entropy of the answer digit, upstream's main loss with every other label masked, is added with weight 1 to the local loss, which is unchanged: pi at loops j and j + 1.
+- `correct.py --loss answer`.
+- The answer target is training supervision given equally to every arm. No arm receives it, or anything derived from it, at evaluation.
+
+**Pre-registration checks** (CPU, D1, code as committed with this registration):
+- On 6 roster cases under P without noise, the teacher-forced answer digit equals the generated answer in 6 of 6. Each forward makes the expected 17 passes (initial + 16 loops). The answer loss is 0.0000.
+- On generated training cases with noise after loop 4 at sigma = 1 and a zero-initialised C:
+  - The local loss alone gives exactly zero gradient on the slot 3-5 weights.
+  - With the answer loss, one case's decode at loops 4 and 5 is right (local loss 0.137), but its answer is wrong (answer loss 15.2). There the slot 3-5 weight gradients are 7.2e-4, 1.8e-4 and 6.8e-5.
+  - On cases whose answer stays right, the answer loss adds about 1e-10.
+
+**Everything else is H-A3e unchanged:**
+- F and pi;
+- sigma_e = 1.0 (`--sigma-rule midpoint`), kappa = 6.92, the fixed noise reference r = 6.92;
+- the bias-free correctors and the arms' inputs;
+- the training recipe: 600 steps, batch 8, the same generated cases, loops j and noise draws, 25% clean cases, Adam at lr 1e-3;
+- the evaluation conditions (sigma_e, sigma_e/2, 2 sigma_e), the exact checker;
+- R1-R4 with their margins and case-bootstrap lower bounds, the instrument (P clean 72/72 with every clean trace accepted), and the 0.97 clean floor.
+
+The runs go to a new output directory. P has no corrector, so its evaluation is H-A3e's rerun.
+
+**Predictions.**
+- **P's records equal H-A3e's** (primary accuracy 0.626).
+- **C's primary accuracy rises above its H-A3e value of 0.639, but R1 is not met.** C's input e - p is near zero once pi's decode is right, so most of the answer loss's gradient reaches C only through the noise loop and the loop after it.
+- **R4 is met, and I keeps clean runs intact** (>= 0.97). The answer loss is also applied on the clean training cases.
+- **R2 is not met.**
+
+**What it settles.**
+- **If R1 is met** (with the instrument valid and C above the clean floor): the transition residual repairs D1's answer once its training loss reaches the answer. H-A3e's null for C then reflects the local loss's reach.
+- **If R1 is not met:** the residual form G(e - p) does not repair D1's answer at the midpoint, with or without an answer-level loss, and Phase 4 closes on that null for C. Whether the information-matched I repairs is reported through R4.
