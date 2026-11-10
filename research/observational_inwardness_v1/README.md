@@ -45,3 +45,16 @@ cost of restoring distinguishing power with an explicit intervention.
 
 **Evidence scope:** written elementary proofs, exhaustive finite Python checks,
 and pinned replay. There are no Lean kernel checks or trained-model observations.
+
+
+## OIC-04: Bayesian observability curve
+
+With equal priors on the two models and uniformly unknown hidden phase,
+the optimal adaptive identification risk after T action opportunities is
+1/2 for T=0 or 1; (n-T)/(2n) for 2 <= T <= n; and 0 thereafter.
+Repeated probing is Bayes-optimal because it reveals the entire
+hidden-zero indicator stream, which suffices to simulate any less
+informative adaptive probe policy. The independently exhaustive
+[Bayesian reference](bayes.py) and [tests](test_bayes.py) use exact
+fractions. OIC-05 also shows that detection time can be arbitrarily
+large while the passive quotient remains exactly two states.
