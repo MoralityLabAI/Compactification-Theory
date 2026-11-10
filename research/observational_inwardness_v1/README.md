@@ -275,7 +275,4 @@ python research/observational_inwardness_v1/verify_receipt.py
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 python research/observational_inwardness_v1/learnable_clock.py --out /tmp/oic14_training.json
 ~~~
 
-**Next experiment:** [OIC-15](OIC15_PROTOCOL.md) would remove the
-privileged initial phase, retain the registered intervention interface
-and test whether a recurrent model can infer the hidden clock from
-observations. No OIC-15 model has been trained.
+**OIC-15 executed:** [OIC15_REPORT.md](OIC15_REPORT.md) removes privileged initial-phase access and evaluates 30 trained generic and cyclic observers over held-out phases and phase counts. The [OIC-T18–T22 proofs](OIC15_THEORY.md) establish permanent phase ambiguity, exact family identification, a finite likelihood ceiling, and a raw sensor robustness margin. The archived [raw-history monitoring protocol](OIC15_PROTOCOL.md) remains as the preregistered design; [OIC16_PROTOCOL.md](OIC16_PROTOCOL.md) describes the next unknown-dynamics experiment. The full model checkpoints are preserved in `results/oic15_weights.json.gz.b64`, with `results/oic15_traces.json.gz.b64`, `results/oic15_analysis.json` and `results/oic15_manifest.json` for independent verification.
