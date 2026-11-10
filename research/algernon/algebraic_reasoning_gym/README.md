@@ -45,6 +45,10 @@ PYTHONPATH=.:../EvalMath/src python -m research.algernon.algebraic_reasoning_gym
   --score-proposals /tmp/qwen_arg01.jsonl --out /tmp/qwen_arg01_scored.json
 ```
 
+## ARG-02
+
+[`arg02/`](arg02/README.md) evaluates Qwen3.5-0.8B-Base on this roster with explicit recurrent depth and matched-compute controls, through the same public-only export and EvalMath grading. Protocol: [`arg02/PROTOCOL.md`](arg02/PROTOCOL.md).
+
 ## Research interpretation
 
 The primary signal is executable-program *future* accuracy per full measured computation, including class compilation, predictor inference and exact candidate verification. Aggregate correctness should be split by known/novel source family; source-family holdouts in RRC-19 itself are public, so ARG-01 is another deterministic research evaluation rather than an independently blind study. An RRC-19 GRU forward pass processes the thirteen coefficient steps of its input **once**; additional candidate-verifier calls are external computation, not new GRU refinement steps. A true recurrence-depth comparison requires the external checkpoint and actual latent forward traces.

@@ -1,0 +1,54 @@
+{
+  "counts": {
+    "calibration": 36,
+    "dev": 96,
+    "shots": 4,
+    "test": 192,
+    "test_positive": 168
+  },
+  "dev_families": [
+    "product",
+    "signed",
+    "sparse"
+  ],
+  "dev_seed": 2026111102,
+  "evalmath_seed": 2026111027,
+  "roster_sha256": {
+    "calibration": "088c8dc031f9aa14c94339bd08983f55e730be9415952aed20c66921aa6abf19",
+    "dev": "113081f8fe58a3a42bb198130436ecf8dc7d9247416694c5ac0ce57b5264041e",
+    "shots": "201a4dbce72f1a2f9703579c4ab901503da2fa31efd520c56ea1a40fb3a15994",
+    "test": "0e8caf0649d30f834d0bcfd1469b705d6d73371812cb87575fd3e12243ebcbba"
+  },
+  "schema": "algernon.arg02.splits.v1",
+  "shot_programs": {
+    "additive": [
+      "I",
+      "R",
+      "I"
+    ],
+    "cascade": [
+      "N",
+      "N",
+      "S"
+    ],
+    "fork": [
+      "S",
+      "I",
+      "S"
+    ],
+    "hadamard": [
+      "R",
+      "R",
+      "N"
+    ]
+  },
+  "shot_seed": 2026111103,
+  "signature_overlaps": {
+    "calibration_vs_test": 0,
+    "dev_vs_calibration": 0,
+    "dev_vs_test": 0,
+    "shots_vs_dev": 0,
+    "shots_vs_test": 0
+  },
+  "test_duplicate_public_signatures": 6
+}
