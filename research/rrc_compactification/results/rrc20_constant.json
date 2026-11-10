@@ -1,0 +1,46 @@
+{
+  "base_models_frozen": true,
+  "bias": [
+    3.119603847241057,
+    1.99196752171659,
+    -2.909234266917669,
+    -2.910315574250412
+  ],
+  "calibration_canonical_top12": 375,
+  "calibration_digest": "4f5d4eebae45e59230d25441c0ea3a86c514c4f9bf6445f1a8dc43cab3570bfe",
+  "calibration_examples": 420,
+  "calibration_nll": 2.135137785878857,
+  "checkpoint_sha256": {
+    "balanced_feedforward": "a40cc30ccb93550edbaca1ba6660f24ca0adde37bf910fe4a05f55bbbe20a001",
+    "balanced_recurrent": "fa610d639243c96d40ebde2d75c2b852c3d0881b65db07736c0a1c4590a161d8",
+    "rrc18_feedforward": "c1a7311441cd3e6136127e7ce6b985e6932d72c718090f050e5904c0cc61798e",
+    "rrc18_recurrent": "96f452216c3895cc8206321e7cede35c55404c80e9ac8b096d323bb1cfb005c3",
+    "shuffled_recurrent": "9178aaf0fea14f9beb026e797b6186c1cba0a134afb5e3de63602a5f8e77f834",
+    "skewed_recurrent": "72e5baf944e1f1851e0d296a7e53ac314cd7d679294d5bed372b1c46e90b6b01"
+  },
+  "classifier_supervision_available_at_calibration": true,
+  "experts": [
+    "balanced_recurrent",
+    "skewed_recurrent",
+    "balanced_feedforward",
+    "certified_class_mass"
+  ],
+  "features": 14,
+  "kind": "constant",
+  "learning_rate": 0.035,
+  "matrix": null,
+  "parameter_count": 4,
+  "schema": "rrc20.gate.v1",
+  "seed": 2026111020,
+  "source_sha256": {
+    "family19.py": "f954113844fddfc668039f0b8dce685ada4d55a200282605cec66173a6096895",
+    "family20.py": "c4f25c53c0b2f312ba922979d630ea112e953eae7315a4798fcd63a70f3548c6",
+    "gate20.py": "19ad45ce1ed3724af6d0923b4956fa16c798138eaaf37ab6c302f232cb48a345",
+    "learn18.py": "468f0203fcf3fef75efe7c75b038460d4954d675d30c01dcc64b8714bd393acc",
+    "model18.py": "a2d44deedd21028accb0600afdaff421f4d9df47b06cfad4f6073ffa3bd12f2e",
+    "train20.py": "2f9d47c07a0644680228e95425d264367d13fdf6ea8534059b6a18ee686213bc"
+  },
+  "steps": 500,
+  "test_families_used": false,
+  "torch_version": "2.10.0+cpu"
+}
