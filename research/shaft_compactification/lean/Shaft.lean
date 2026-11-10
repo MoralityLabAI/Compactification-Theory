@@ -5,3 +5,4 @@ import Shaft.GaugeIdentifiability
 import Shaft.NoisyGauge
 import Shaft.ClusterNoise
 import Shaft.CausalSufficiency
+import Shaft.FiniteObservability
