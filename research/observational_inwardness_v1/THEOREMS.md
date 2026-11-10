@@ -193,3 +193,68 @@ https://arxiv.org/abs/1102.0264
 
 Classical system identification and minimal realization:
 see the repo's LSV-10 and RC-01 for assumptions and context.
+
+
+## OIC-T04. Exact Bayesian discrimination curve and adaptive optimality
+
+Assume the two model families have equal prior probability 1/2, while
+the initial hidden phase is independently uniform on Z_n in either model.
+The initial visible bit is observed. Let R_T be the optimal probability
+of choosing the wrong family after T opportunities, using the declared
+binary probes and allowing adaptive policies.
+
+The exact Bayes risk is
+
+\[
+\boxed{
+ R_T=
+ \begin{cases}
+  \tfrac12,&T=0,1,\\
+  \tfrac{n-T}{2n},&2\leq T\leq n,\\
+  0,&T\geq n.
+ \end{cases}
+}
+\]
+
+**Proof.** Continuously set u=1, and extract from consecutive visible
+readouts the indicator b_t=[z_t=0], since x remains unchanged exactly
+when b_t=1. For T between 2 and n, the fixed model gives the all-zero
+indicator word with probability (n-1)/n and the all-one word with
+probability 1/n. The rotating model gives the all-zero word with
+probability (n-T)/n and gives each of the T one-hot indicator words
+with probability 1/n. Their support overlaps only on the all-zero
+word. Thus their total-variation distance is T/n, and with equal
+model priors the minimum classification error is (1-TV)/2 =
+(n-T)/(2n). For T=1, both models yield b_0=1 with probability
+1/n, hence their distributions coincide and the risk remains 1/2.
+At T=n, the supports are disjoint.
+
+**Adaptive optimality.** Hidden-phase evolution does not depend on
+the action. The all-one probe schedule reveals the entire binary
+indicator sequence b_0,...,b_(T-1). Given that sequence, an observer
+can *simulate* any other admissible adaptive strategy: reproduce its
+chosen actions, and recursively compute the visible outputs that
+strategy would have seen. Every alternative observation transcript
+is therefore a function of the full-probe transcript, and can carry
+no more information about the model family. The displayed Bayes
+risk is optimal among adaptive and randomized strategies. QED.
+
+**Consequence.** A first active probe yields exactly zero statistical
+advantage under this prior, even though the two internal graphs differ.
+From the second probe onward the total-variation distance grows
+linearly until complete discrimination at n. This illustrates how
+prior assumptions affect average-case detection while OIC-T02 gives
+a prior-free worst-case guarantee.
+
+The exact Fraction-based implementation and exhaustive fixed-schedule
+search are in bayes.py and test_bayes.py. No stochastic numerical
+approximation or machine-learning evaluation is involved.
+
+## OIC-T05. Fixed visible quotient with unbounded detection depth
+
+For every integer K, choose n > max(K,2). OIC-T01 yields the same
+two-class passive observational quotient for both systems, while
+OIC-T02 requires more than K action opportunities for worst-case
+identification. Therefore no finite universal bound on the required
+probe horizon can depend solely on the cardinality of that passive
+quotient. This follows directly from the constructed family.
