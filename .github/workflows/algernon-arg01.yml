@@ -1,0 +1,34 @@
+name: Algernon ARG-01 frozen recurrent algebraic gym
+on:
+  push:
+    paths:
+      - 'research/algernon/algebraic_reasoning_gym/**'
+      - '.github/workflows/algernon-arg01.yml'
+  pull_request:
+    paths:
+      - 'research/algernon/algebraic_reasoning_gym/**'
+      - '.github/workflows/algernon-arg01.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  frozen-recurrent-and-exact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/EvalMath
+          ref: 88bb6cf8d2fe172e37d25964dfb2c285d9033841
+          path: .arg01_evalmath
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent EvalMath oracle exact tests
+        run: PYTHONPATH=.arg01_evalmath/src python -m unittest discover -s .arg01_evalmath/tests -p test_algebraic_reasoning_oracle.py -v
+      - name: Frozen checkpoint, interpreter independence and leakage audit
+        run: PYTHONPATH=.:.arg01_evalmath/src python -m unittest discover -s research/algernon/algebraic_reasoning_gym -p test_gym.py -v
+      - name: Full source-bound CPU replay
+        run: PYTHONPATH=.:.arg01_evalmath/src python -m research.algernon.algebraic_reasoning_gym.gym --check
