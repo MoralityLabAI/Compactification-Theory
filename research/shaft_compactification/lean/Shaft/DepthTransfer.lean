@@ -41,25 +41,25 @@ theorem horizonEq_step {Input : Type u} {State : Type v} {Output : Type w}
 def GoalEqOn {Substrate : Type u} {Goal : Type v} {Input : Type w}
     {State : Type x} {Output : Type y}
     (allowed : Substrate → Prop)
-    (initialize : Substrate → Goal → State)
+    (seedState : Substrate → Goal → State)
     (step : Substrate → Input → State → State)
     (observe : Substrate → State → Output)
     (horizon : Nat) (g h : Goal) : Prop :=
   ∀ b, allowed b → ∀ word : List Input, word.length ≤ horizon →
-    observe b (run (step b) word (initialize b g)) =
-      observe b (run (step b) word (initialize b h))
+    observe b (run (step b) word (seedState b g)) =
+      observe b (run (step b) word (seedState b h))
 
 /-- More substrates yield a finer or equal observational equivalence. -/
 theorem goalEqOn_more_substrates {Substrate : Type u} {Goal : Type v}
     {Input : Type w} {State : Type x} {Output : Type y}
     (oldAvailable newAvailable : Substrate → Prop)
     (included : ∀ b, oldAvailable b → newAvailable b)
-    (initialize : Substrate → Goal → State)
+    (seedState : Substrate → Goal → State)
     (step : Substrate → Input → State → State)
     (observe : Substrate → State → Output)
     (horizon : Nat) (g h : Goal)
-    (newEq : GoalEqOn newAvailable initialize step observe horizon g h) :
-    GoalEqOn oldAvailable initialize step observe horizon g h := by
+    (newEq : GoalEqOn newAvailable seedState step observe horizon g h) :
+    GoalEqOn oldAvailable seedState step observe horizon g h := by
   intro b hb word hw
   exact newEq b (included b hb) word hw
 
@@ -98,9 +98,9 @@ theorem depth_error_bound (gain defect : Nat) (error : Nat → Nat)
 theorem depthBudget_unit_gain (defect n : Nat) :
     depthBudget 1 defect n = n * defect := by
   induction n with
-  | zero => rfl
+  | zero => simp [depthBudget]
   | succ n ih =>
-    simp [depthBudget, ih, Nat.succ_mul, Nat.add_assoc]
+    simp [depthBudget, ih, Nat.succ_mul]
 
 #print axioms horizonEq_mono
 #print axioms horizonEq_step
