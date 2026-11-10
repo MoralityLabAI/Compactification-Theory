@@ -33,3 +33,5 @@ jobs:
         run: python research/observational_inwardness_v1/verify_learned.py --check
       - name: Verify OIC-13 structural clock experiment receipt without torch
         run: python research/observational_inwardness_v1/verify_clock.py --check
+      - name: Verify OIC-14 learned phase transition receipt without torch
+        run: python research/observational_inwardness_v1/verify_receipt.py
