@@ -258,3 +258,155 @@ OIC-T02 requires more than K action opportunities for worst-case
 identification. Therefore no finite universal bound on the required
 probe horizon can depend solely on the cardinality of that passive
 quotient. This follows directly from the constructed family.
+
+
+## OIC-T06. Exact error/erasure robustness law
+
+The preceding results assume perfect per-step measurements. We now
+**change the measurement interface** to a single audit channel. At
+each transition, the evaluator receives a bit reporting whether the
+visible state remained unchanged. In the clean system this bit equals
+
+\[
+b_t=u_t\,[z_t=0].
+\]
+
+The evaluator does **not** receive an additional, uncorrupted copy of
+the raw visible state x_t. Otherwise the observer could reconstruct b_t
+and bypass corruption. Before the verdict, an adversary may replace at
+most e audit bits by their opposites, and independently erase at most r
+audit bits with known erased positions (symbol ⊥). There is one
+global budget (e,r) per observation transcript. The model and hidden
+initial phase remain unknown; the intervention sequence can depend on
+previous reported audit symbols.
+
+**Theorem.** For all integers n>=2 and e,r>=0, the minimum worst-case
+number of transition opportunities that allows guaranteed
+identification of the fixed and rotating model families under this
+audit channel is
+
+\[
+\boxed{T^*_{e,r}(n)=n(2e+r+1).}
+\]
+
+**Proof, step 1 (coding separation).** For a fixed intervention
+schedule, regard the two model families as sets C_A and C_B of
+binary length-T words, one codeword per possible hidden initial
+phase. A common corrupted audit transcript can come from codewords
+a∈C_A and b∈C_B if and only if their Hamming distance satisfies
+
+\[
+d_H(a,b)\leq 2e+r.
+\]
+
+For sufficiency, erase up to r of their disagreement positions and
+split the remaining at most 2e differences between the two
+possible corruption patterns, using at most e substitutions for
+each model. For necessity, each unexplained disagreement requires
+at least one substitution on one of the two clean words; erasures
+can remove at most r such disagreements. Thus zero-error
+identification is possible exactly when the minimum interfamily
+distance is at least 2e+r+1.
+
+**Step 2 (distance of the fully probed interface).** Choose u_t=1
+on every transition. The fixed family's codebook contains
+0^T (all initial phases z≠0) and 1^T (initial phase z=0).
+For the rotating family each initial phase produces a pulse
+once per n transitions, so each rotating codeword has either
+floor(T/n) or ceil(T/n) one-bits. Distances to the fixed
+all-zero codeword are the pulse counts, and distances to the
+fixed all-one codeword are T minus the pulse counts. Since
+n>=2,
+
+\[
+T-\lceil T/n\rceil\geq\lfloor T/n\rfloor.
+\]
+
+Consequently,
+
+\[
+\boxed{d_{\min}(C_A,C_B)=\lfloor T/n\rfloor.}
+\]
+
+The coding separation condition is therefore equivalent to
+floor(T/n)>=2e+r+1, or T>=n(2e+r+1).
+
+**Step 3 (adaptive optimality).** Hidden-phase evolution z_t
+does not depend on u_t. Under continuous probing, the clean
+signal is the entire hidden-zero indicator stream. For any
+alternative adaptive policy, reconstruct its decisions from a
+fully probed *possibly corrupted* transcript recursively:
+at a step where its decision is u_t=1, pass the actual audit
+symbol (including any erasure); if it chooses u_t=0, pass a
+perfect zero. The resulting transcript is feasible for that
+adaptive policy under an error/erasure budget no greater than
+the original (e,r), as only reports at u_t=1 retain possible
+corruptions. Any flawless decoder for the alternative policy
+would thus yield a flawless decoder for continuous probing.
+Since the continuous-probe codebooks are inseparable below
+the bound, adaptivity cannot improve the guaranteed
+identification horizon. Continuous probing attains it. QED.
+
+The proof requires that the defender's action choice has no
+effect on the hidden-phase update, that corruption applies
+to the specified **audit symbols**, and that missing positions
+are explicitly marked. A different sensor, raw x_t corruption,
+unreported erasures, or a phase-reset action requires a new
+distance calculation.
+
+## OIC-T07. Sharp nonadaptive trusted-probe budget
+
+Suppose a fixed observation schedule contains q active probes
+over any number T>=q of time steps. Group its active probe
+indices into the n residue classes modulo n, with counts
+h_0,...,h_(n-1), whose sum is q. Every rotating hidden phase
+produces a codeword with ones precisely on one residue class.
+Comparing that codeword with fixed model's all-zero audit
+word gives distance h_j for the corresponding phase. Thus
+
+\[
+d_{\min}\leq\min_j h_j\leq\lfloor q/n\rfloor.
+\]
+
+To correct e substitutions and r known-position erasures for
+all hidden phases, the necessary active-probe budget is
+
+\[
+\boxed{q\geq n(2e+r+1).}
+\]
+
+This is sharp: use exactly q=n(2e+r+1) consecutive active
+probes. Each residue class is sampled 2e+r+1 times. The
+distance to the fixed all-one codeword is at least as large,
+and OIC-T06 applies. This particular *resource* claim concerns
+fixed (nonadaptive) schedules; OIC-T06 separately covers
+adaptive policies under a bounded time horizon.
+
+## Executable evidence, lineage, and remaining work
+
+The standard-library implementation is robust.py, with
+test_robust.py and robust_run.py. Tests verify exact codebook
+distances, construct valid ambiguous receipts when the
+distance condition fails, and exhaustively compare all
+binary nonadaptive probe schedules for small n and T.
+The pinned JSON receipt records 25 (n,e,r) configurations,
+including the exact boundary T-1 and T. Tests also run
+with Python optimization enabled.
+
+The mathematics uses classical coding-theoretic minimum
+distance ideas in a narrow finite dynamical interface.
+Related work on sensor attacks and observer reconstruction:
+
+- Chong, Wakaiki and Hespanha, *Observability of Linear
+  Systems Under Adversarial Attacks*, IEEE ACC (2015):
+  https://web.ece.ucsb.edu/~hespanha/published/19_observability-adversarial-acc-submit-revised.pdf
+- Dean, Angluin et al., *Inferring Finite Automata with Stochastic
+  Output Functions and an Application to Map Learning*,
+  Machine Learning 18 (1995):
+  https://doi.org/10.1023/A:1022874607797
+
+A next empirical step is to test whether recurrent AI
+monitors exhibit independently validated phase-recurrence
+signatures and how expensive it is to audit them. These
+finite examples establish no current neural architecture's
+hidden-state topology or monitor error budget.
