@@ -359,3 +359,31 @@ python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_
 python research/observational_inwardness_v1/oic19_verify.py
 ~~~
 
+
+## OIC-20: Minimum labeled sensors for identifying hidden generators
+
+[OIC-T27–T30](OIC20_THEORY.md) extend the OIC-T26 gcd-class result to a
+new, explicitly resource-charged sensor interface. An active observation
+reports separately labeled hits at registered marker positions in
+Z_n. Two markers at 0 and k identify a modular shift by its gcd and
+the relative hit-time lag when the markers share an orbit.
+For prime power n=p^a, the exact minimum number of labeled sensors
+needed to identify **every** shift is a+1 when p is odd, and a when p=2.
+
+The [executable exact sensor search](oic20_markers.py) enumerates full
+n-step observation distributions and proves minimum label counts by
+exhaustion for n=2..16. Notably n=6 needs only markers (0,2), n=8
+needs three markers, and n=16 needs four. Ten unit tests pass in both
+Python modes; CI checks the [pinned deterministic receipt](results/oic20_reference.json).
+This is a finite exact sensor-design result; it does not supply new
+observations to the original one-marker OIC-19 trained models.
+
+The [OIC-20 research report](OIC20_REPORT.md) records the full finite
+enumeration. [OIC-21](OIC21_PROTOCOL.md) preregisters the next
+cost-aware learned sensor-selection experiment.
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
+python research/observational_inwardness_v1/oic20_run.py --check
+~~~
