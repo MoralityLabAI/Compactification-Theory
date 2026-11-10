@@ -459,3 +459,25 @@ The runs go to a new output directory, and P is evaluated again.
 **What it settles.**
 - **If R1 is met** (with the instrument valid and C above the clean floor): the transition residual repairs D1's slot state when the noise damages it without wiping it. H-A3 to H-A3d's nulls are then attributed to testing at the floor.
 - **If R1 is not met:** no additive linear corrector under this recipe repairs D1's slot state, either at the floor or at the midpoint. Phase 4 closes with a null for this corrector family.
+
+**H-A3e Result (2026-11-10):** R1, R2 and R3 not met; **R4 met**. The instrument is valid. C and N keep clean runs intact; I does not (0.958, 3 of 72 clean cases missed). Three of the four registered predictions held; the prediction that R4 is not met failed.
+- Run details: code `b1bcaa6` (train and eval); weights `80eda0824cff`; sigma_e = 1.0 by `--sigma-rule midpoint`; kappa = 6.92; noise std 1.0 x 6.92 for every arm. No crash.
+- *Primary condition* (864 runs per arm): P 0.626, C 0.639, I 0.804, N 0.546.
+  - C - P = +0.013 [-0.001, +0.027]
+  - C - I = -0.166 [-0.228, -0.102]
+  - C - N = +0.093 [+0.049, +0.140] (under the 0.10 margin)
+  - I - P = +0.178 [+0.112, +0.243]
+- *Clean:* P 1.000, C 1.000 (every clean trace accepted for both), I 0.958 (every clean trace accepted, 3 answers wrong), N 0.986.
+- *Settled:*
+  - The transition residual does not repair D1's answer at the midpoint either, so R1 is not met at both the floor and the midpoint.
+  - The registered branch for R1 not met reads "no additive linear corrector under this recipe repairs D1's slot state". R4 contradicts it as worded: I, an additive linear corrector trained under the same recipe, repairs the answer at matched corruption (+0.178).
+  - The null therefore holds for the residual form G(e - p), not for the corrector family. R4 met carries H-A3d's registered meaning: the map's prediction written into the slots repairs the state at matched corruption, here at sigma = 1. It does so at a clean cost just under the 0.97 floor.
+- *Post-hoc, not registered:*
+  - Trace acceptance, primary: P 0.304, C 0.987, I 0.985, N 0.303. C repairs what pi reads almost every time; its answer is right in 0.638 of its valid-trace runs, against 0.810 for I.
+  - The local loss reads pi on slot 2 at loops j and j + 1, and attention is causal. No gradient reaches the corrector weights that write slots 3-5, which stay exactly zero in all three trained arms. The generated answer reads all six slots.
+  - At 2 sigma_e, I - P = +0.157 [+0.088, +0.227]. At sigma_e/2, P is at 0.963 and no arm beats it.
+  - CPU check on 12 generated cases, j = 4. C's and I's corrections lift pi's margin at j to +130 and +159, against a noise cost of about 15.
+    - I pushes on every loop: its clean-loop margin goes from +5 to +101.
+    - By loop 16, P's slots are back on the clean run, while C's and I's stay off it.
+
+Report: [lotus_bridge/results/algernon-03e/report.md](lotus_bridge/results/algernon-03e/report.md).
