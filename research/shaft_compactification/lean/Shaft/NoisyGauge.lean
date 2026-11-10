@@ -59,10 +59,13 @@ theorem strict_winner_unique
     (candidate : Gauge)
     (minimum : ∀ g, score candidate ≤ score g) :
     candidate = correct := by
-  by_contra h
-  have strict := winner candidate h
-  have atMost := minimum correct
-  omega
+  by_cases h : candidate = correct
+  · exact h
+  · have hstrict := winner candidate h
+    have hle := minimum correct
+    have hbad : score correct < score correct :=
+      Nat.lt_of_lt_of_le hstrict hle
+    exact False.elim ((Nat.lt_irrefl _) hbad)
 
 /-- If every competing signature has at least d discrepancies and an
 adversary can erase e and flip r observations, the bound d > e + 2r
