@@ -1,6 +1,7 @@
 """OIC-21 exact and learned fair-budget comparisons with explicit sensor costs."""
 from __future__ import annotations
-import json,random,time,sys
+import json,random,time,sys,base64,gzip
+from functools import lru_cache
 from pathlib import Path
 import numpy as np
 import torch
@@ -13,8 +14,24 @@ from oic20_markers import exhaustive_minimum_markers,identifies_every_shift
 
 NS=(4,5,6,7,8,12,16,24,32)
 
+@lru_cache(maxsize=1)
+def archived_fits():
+    """Reconstruct fitted weights from the portable receipt on a clean checkout."""
+    p=Path(__file__).parent/'results'/'oic21_fits.json.gz.b64'
+    raw=base64.b64decode(p.read_bytes().strip(),validate=True)
+    payload=json.loads(gzip.decompress(raw))
+    if payload.get('training_tag')!='OIC-21-ORACLE-DISTILL-01':
+        raise ValueError('unrecognized model receipt')
+    return {(x['metadata']['split'],x['metadata']['seed']):x for x in payload['fits']}
+
+
+def load_fit_record(split,seed):
+    path=Path(__file__).parent/f'fit_{split}_{seed}.json'
+    return json.loads(path.read_text()) if path.exists() else archived_fits()[(split,seed)]
+
+
 def load_model(split,seed):
-    record=json.loads((Path(__file__).parent/f'fit_{split}_{seed}.json').read_text())
+    record=load_fit_record(split,seed)
     m=ScoreNet();m.load_state_dict({k:torch.tensor(v) for k,v in record['weights'].items()});m.eval()
     return m,record
 
@@ -60,7 +77,7 @@ def run():
         for split in ('full','heldout'):
             runs=[]
             for seed in range(5):
-                record=json.loads((Path(__file__).parent/f'fit_{split}_{seed}.json').read_text())
+                record=load_fit_record(split,seed)
                 r=record['evaluation']
                 result=next(x for x in r if x['n']==n and x['horizon']==Q)
                 fresh=result  # frozen trial; torch replay validated separately
