@@ -36,10 +36,12 @@ class TaskMemoryGRU(nn.Module):
         self.cell = nn.GRUCell(TOKENS, HIDDEN)
         self.readout = nn.Sequential(nn.Linear(HIDDEN + TOKENS, HIDDEN), nn.Tanh(), nn.Linear(HIDDEN, 1))
 
-    def forward(self, goals, tokens, init=None):
+    def forward(self, goals, tokens, init=None, reset_at=None, reset_state=None):
         h = self.embedding(goals) if init is None else init
         outputs = []
         for t in range(tokens.shape[1]):
+            if reset_at is not None and t == reset_at:
+                h = reset_state
             x = F.one_hot(tokens[:, t], TOKENS).float()
             h = self.cell(x, h)
             outputs.append(self.readout(torch.cat((h, x), dim=-1)).squeeze(-1))
@@ -124,6 +126,11 @@ def evaluate(model, other):
                 name: score(model(goals, tokens, init=state), truth)
                 for name, state in states.items()
             }
+            if horizon >= 64:
+                cases[str(horizon)]['midrun_erasure_at_32'] = score(
+                    model(goals, tokens, reset_at=32, reset_state=torch.zeros(EVAL_BATCH, HIDDEN)), truth)
+                cases[str(horizon)]['explicit_reseed_from_code_at_32'] = score(
+                    model(goals, tokens, reset_at=32, reset_state=model.embedding(goals)), truth)
     return cases
 
 
