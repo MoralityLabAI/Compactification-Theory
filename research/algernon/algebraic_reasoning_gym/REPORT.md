@@ -32,8 +32,8 @@ The model remains slower than complete symbolic search on this CPU while recover
 
 ## Checks and provenance
 
-- EvalMath oracle: 12 tests, source-hashed deterministic 228-case reference manifest.
-- Algernon harness: 13 tests, source-hashed receipt, exact budget and negative/collision tests.
+- EvalMath oracle: 12 tests, source-hashed deterministic 228-case reference manifest, merged in EvalMath PR #31.
+- Algernon harness: 14 tests, source-hashed receipt, exact budget and negative/collision tests.
 - Cross-check: EvalMath's independent arithmetic agrees with the existing RRC interpreter on 512 randomly generated graph/topology/input cases.
 - Frozen model: checkpoint SHA-256 is verified for four RRC-19 arms before deserialization. No gradient training or model selection occurred.
 - Tests explicitly replace the hidden graph/future while holding visible demonstrations fixed, ensuring the model's proposed class order remains invariant.
