@@ -1,0 +1,4253 @@
+{
+  "experiment": "OIC-15-CPU-01",
+  "matched_training_sample_seeds": true,
+  "metrics": [
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.2517268166377756,
+      "mean_passive_deviation": 0.03819678425788879,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.008768304528419424,
+      "mean_passive_deviation": 0.44062395095825196,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.00030297621384706033,
+      "mean_passive_deviation": 0.4898896157741547,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.10724808099689635,
+      "mean_passive_deviation": 0.28363189697265623,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25226641266134225,
+      "mean_passive_deviation": 0.044115716218948366,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.007139466791729697,
+      "mean_passive_deviation": 0.4465165793895721,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.00021249988157715129,
+      "mean_passive_deviation": 0.4922764003276825,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.7600000000000001,
+      "mean_brier": 0.1428154489370634,
+      "mean_passive_deviation": 0.28449643552303316,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.8,
+        0.8,
+        0.8,
+        0.6,
+        0.8
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.2527462053296986,
+      "mean_passive_deviation": 0.04837634563446045,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.0008380619884548355,
+      "mean_passive_deviation": 0.48373361825942995,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.3287663894422254e-05,
+      "mean_passive_deviation": 0.4964298069477081,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9,
+      "mean_brier": 0.09407492062637197,
+      "mean_passive_deviation": 0.30758548676967623,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.9166666666666666,
+        0.8333333333333334,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25314810506487684,
+      "mean_passive_deviation": 0.051481296122074124,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9285714285714286,
+      "mean_brier": 0.03588137934558057,
+      "mean_passive_deviation": 0.47323998212814333,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9714285714285715,
+      "mean_brier": 0.011337640562208276,
+      "mean_passive_deviation": 0.4800308108329773,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        0.9285714285714286,
+        1.0,
+        0.9285714285714286
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9142857142857143,
+      "mean_brier": 0.08317301340642728,
+      "mean_passive_deviation": 0.3895670652389526,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.8571428571428571
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.2534901387989457,
+      "mean_passive_deviation": 0.05381313562393188,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.975,
+      "mean_brier": 0.021317179054821417,
+      "mean_passive_deviation": 0.48063255548477174,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        0.9375,
+        1.0,
+        0.9375
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9875,
+      "mean_brier": 0.009669836942651257,
+      "mean_passive_deviation": 0.4814334511756897,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9375
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.10611695633678316,
+      "mean_passive_deviation": 0.3121886432170868,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.4440719386294018e-05,
+      "mean_passive_deviation": 0.4966556251049042,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.4440719386294018e-05,
+      "mean_passive_deviation": 0.4966556251049042,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.0937564616541299,
+      "mean_passive_deviation": 0.3734321713447571,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 2.4024898434379467e-05,
+      "mean_passive_deviation": 0.4958255887031555,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 2.4024898434379467e-05,
+      "mean_passive_deviation": 0.4958255887031555,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8,
+      "mean_brier": 0.13333777869682323,
+      "mean_passive_deviation": 0.2992203593254089,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.636503600449506e-05,
+      "mean_passive_deviation": 0.49499834775924684,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.636503600449506e-05,
+      "mean_passive_deviation": 0.49499834775924684,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9166666666666666,
+      "mean_brier": 0.06946792232435468,
+      "mean_passive_deviation": 0.4134281754493713,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 5.1411000813388236e-05,
+      "mean_passive_deviation": 0.494173926115036,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 5.1411000813388236e-05,
+      "mean_passive_deviation": 0.494173926115036,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9285714285714286,
+      "mean_brier": 0.06126045140669175,
+      "mean_passive_deviation": 0.42449958324432374,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 6.912530391333584e-05,
+      "mean_passive_deviation": 0.49335225820541384,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 6.912530391333584e-05,
+      "mean_passive_deviation": 0.49335225820541384,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.09725594927438364,
+      "mean_passive_deviation": 0.37177571654319763,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 8.001798920724229e-06,
+      "mean_passive_deviation": 0.4986810326576233,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 7.062169968114734e-28,
+      "mean_passive_deviation": 0.5,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.09375783180570643,
+      "mean_passive_deviation": 0.3737698972225189,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.1096797251480584e-05,
+      "mean_passive_deviation": 0.4986836791038513,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 5.879638548196904e-11,
+      "mean_passive_deviation": 0.4999958038330078,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8,
+      "mean_brier": 0.13333333333333344,
+      "mean_passive_deviation": 0.30000001192092896,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.4244866648753502e-05,
+      "mean_passive_deviation": 0.4986911952495575,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.3898316363775134e-38,
+      "mean_passive_deviation": 0.5,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9166666666666666,
+      "mean_brier": 0.06945863951434635,
+      "mean_passive_deviation": 0.4153980493545532,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.7430831327394745e-05,
+      "mean_passive_deviation": 0.4986945688724518,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.9377897781033645e-16,
+      "mean_passive_deviation": 0.5,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9285714285714286,
+      "mean_brier": 0.06122448992153563,
+      "mean_passive_deviation": 0.4285680055618286,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 2.0615801461177493e-05,
+      "mean_passive_deviation": 0.4986979067325592,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.669624136388349e-49,
+      "mean_passive_deviation": 0.5,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "full"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.09724269870416362,
+      "mean_passive_deviation": 0.3737410485744476,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "full"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25139297159077023,
+      "mean_passive_deviation": 0.030200010538101195,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.002701075204832716,
+      "mean_passive_deviation": 0.46509845852851867,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.00026348768722230247,
+      "mean_passive_deviation": 0.49219738841056826,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8,
+      "mean_brier": 0.14346498216455061,
+      "mean_passive_deviation": 0.23263999521732331,
+      "n": 4,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.625,
+        0.75
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25173978717030077,
+      "mean_passive_deviation": 0.032571375370025635,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.96,
+      "mean_brier": 0.026371637272390995,
+      "mean_passive_deviation": 0.4315328299999237,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        0.9,
+        0.9,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.0003898656275376741,
+      "mean_passive_deviation": 0.4891828656196594,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8,
+      "mean_brier": 0.14200489798907326,
+      "mean_passive_deviation": 0.29754582345485686,
+      "n": 5,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25206176484092513,
+      "mean_passive_deviation": 0.03385291695594787,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.0013264641275871401,
+      "mean_passive_deviation": 0.481511527299881,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.00014671109256921385,
+      "mean_passive_deviation": 0.4945389568805695,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8666666666666666,
+      "mean_brier": 0.121083255775601,
+      "mean_passive_deviation": 0.24821755886077881,
+      "n": 6,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25246126638035876,
+      "mean_passive_deviation": 0.038052402436733246,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9285714285714286,
+      "mean_brier": 0.05065560896811498,
+      "mean_passive_deviation": 0.4810433626174927,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9857142857142858,
+      "mean_brier": 0.005975312676752152,
+      "mean_passive_deviation": 0.48104897141456604,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9285714285714286
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9142857142857144,
+      "mean_brier": 0.07747765078488413,
+      "mean_passive_deviation": 0.36906120777130125,
+      "n": 7,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.8571428571428571,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25290948306540245,
+      "mean_passive_deviation": 0.04213253259658813,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9875,
+      "mean_brier": 0.00659971092509071,
+      "mean_passive_deviation": 0.47778877019882204,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.9375
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "mean_brier": 0.00016622114962446267,
+      "mean_passive_deviation": 0.4936010718345642,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8625,
+      "mean_brier": 0.10954130443715412,
+      "mean_passive_deviation": 0.31207504868507385,
+      "n": 8,
+      "parameters": 3873,
+      "per_seed_accuracies": [
+        0.875,
+        0.8125,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.4808691546847621e-05,
+      "mean_passive_deviation": 0.4966131329536438,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.4808691546847621e-05,
+      "mean_passive_deviation": 0.4966131329536438,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.09375662598597462,
+      "mean_passive_deviation": 0.37341225147247314,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 2.4636130677101653e-05,
+      "mean_passive_deviation": 0.4957726001739502,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 2.4636130677101653e-05,
+      "mean_passive_deviation": 0.4957726001739502,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8,
+      "mean_brier": 0.1333378914031401,
+      "mean_passive_deviation": 0.2992104530334473,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.7288854411458596e-05,
+      "mean_passive_deviation": 0.49493502974510195,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.7288854411458596e-05,
+      "mean_passive_deviation": 0.49493502974510195,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9166666666666666,
+      "mean_brier": 0.06946851726300231,
+      "mean_passive_deviation": 0.41338720321655276,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 5.271416598788602e-05,
+      "mean_passive_deviation": 0.49410027265548706,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 5.271416598788602e-05,
+      "mean_passive_deviation": 0.49410027265548706,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9285714285714286,
+      "mean_brier": 0.06126136144913491,
+      "mean_passive_deviation": 0.4244481801986694,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 7.0875049768261e-05,
+      "mean_passive_deviation": 0.49326829314231874,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "mean_brier": 7.0875049768261e-05,
+      "mean_passive_deviation": 0.49326829314231874,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.09725679990789397,
+      "mean_passive_deviation": 0.37173508405685424,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 8.99534511426834e-06,
+      "mean_passive_deviation": 0.49860094785690307,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.2781259659069377e-27,
+      "mean_passive_deviation": 0.5,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.09375880381126112,
+      "mean_passive_deviation": 0.37369564175605774,
+      "n": 4,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.2471332652114248e-05,
+      "mean_passive_deviation": 0.49860392808914183,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 7.454863132815835e-11,
+      "mean_passive_deviation": 0.4999952673912048,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8,
+      "mean_brier": 0.13333333333333344,
+      "mean_passive_deviation": 0.30000001192092896,
+      "n": 5,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.8,
+        0.8,
+        0.8,
+        0.8,
+        0.8
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.6002863939622465e-05,
+      "mean_passive_deviation": 0.49861239194869994,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 3.1929520865015654e-38,
+      "mean_passive_deviation": 0.5,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9166666666666666,
+      "mean_brier": 0.0694603912063356,
+      "mean_passive_deviation": 0.41532190442085265,
+      "n": 6,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666,
+        0.9166666666666666
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.957593184898037e-05,
+      "mean_passive_deviation": 0.4986161708831787,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 5.618611130501963e-16,
+      "mean_passive_deviation": 0.5,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9285714285714286,
+      "mean_brier": 0.06122448995532405,
+      "mean_passive_deviation": 0.4285675883293152,
+      "n": 7,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286,
+        0.9285714285714286
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "mean_brier": 0.25,
+      "mean_passive_deviation": 0.0,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "schedule": "passive",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 2.314553874677579e-05,
+      "mean_passive_deviation": 0.49861992001533506,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "full_active",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "mean_brier": 1.0712367774487917e-48,
+      "mean_passive_deviation": 0.5,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "schedule": "latch",
+      "split": "heldout"
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "mean_brier": 0.09724520408287637,
+      "mean_passive_deviation": 0.37366607785224915,
+      "n": 8,
+      "parameters": 1,
+      "per_seed_accuracies": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "schedule": "random_budget",
+      "split": "heldout"
+    }
+  ],
+  "observability_controls": {
+    "4": {
+      "fixed_nonzero_phases_indistinguishable": true,
+      "fixed_remaining_phase_entropy_bits": 1.584962500721156,
+      "n_probe_zero_error": true,
+      "passive_family_identical": true
+    },
+    "5": {
+      "fixed_nonzero_phases_indistinguishable": true,
+      "fixed_remaining_phase_entropy_bits": 2.0,
+      "n_probe_zero_error": true,
+      "passive_family_identical": true
+    },
+    "6": {
+      "fixed_nonzero_phases_indistinguishable": true,
+      "fixed_remaining_phase_entropy_bits": 2.321928094887362,
+      "n_probe_zero_error": true,
+      "passive_family_identical": true
+    },
+    "7": {
+      "fixed_nonzero_phases_indistinguishable": true,
+      "fixed_remaining_phase_entropy_bits": 2.584962500721156,
+      "n_probe_zero_error": true,
+      "passive_family_identical": true
+    },
+    "8": {
+      "fixed_nonzero_phases_indistinguishable": true,
+      "fixed_remaining_phase_entropy_bits": 2.807354922057604,
+      "n_probe_zero_error": true,
+      "passive_family_identical": true
+    }
+  },
+  "prefix_trajectories": [
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.7,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.875,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "n": 4,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.6599999999999999,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.7,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.8,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.9,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "n": 5,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.6333333333333333,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.6666666666666667,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.75,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8333333333333334,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.8333333333333334,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9166666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.9166666666666666,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "n": 6,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5857142857142856,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.6428571428571428,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.7142857142857143,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7142857142857143,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.7857142857142857,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7857142857142857,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8571428571428571,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.8571428571428572,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.9285714285714286,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 7
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.575,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.625,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.6875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.6875,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.75,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8125,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.8125,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.9375,
+      "split": "full",
+      "steps": 7
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.975,
+      "n": 8,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 8
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.75,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 4,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.7,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.7,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.8,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.9,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 5,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.6666666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.6666666666666667,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.75,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8333333333333334,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.8333333333333334,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9166666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.9166666666666666,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 6,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.6428571428571429,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.6428571428571428,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.7142857142857143,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7142857142857143,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.7857142857142857,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7857142857142857,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8571428571428571,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.8571428571428572,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.9285714285714286,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 7,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 7
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.625,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.625,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.6875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.6875,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.75,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8125,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.8125,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9375,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.9375,
+      "split": "full",
+      "steps": 7
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 8,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 8
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.75,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 4,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.7,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.7,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.8,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.9,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 5,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.6666666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.6666666666666667,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.75,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8333333333333334,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.8333333333333334,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9166666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.9166666666666666,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 6,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.6428571428571429,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.6428571428571428,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.7142857142857143,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7142857142857143,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.7857142857142857,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7857142857142857,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8571428571428571,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.8571428571428572,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.9285714285714286,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 7,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 7
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "full",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.625,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.625,
+      "split": "full",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.6875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.6875,
+      "split": "full",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.75,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "full",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8125,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.8125,
+      "split": "full",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "full",
+      "steps": 6
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9375,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.9375,
+      "split": "full",
+      "steps": 7
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 8,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "full",
+      "steps": 8
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.75,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.875,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "n": 4,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.7,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.7,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.8,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.9,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.96,
+      "n": 5,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.6666666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.6666666666666667,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.75,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8333333333333334,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.8333333333333334,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8833333333333334,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.9166666666666666,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 1.0,
+      "n": 6,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.6428571428571429,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.6428571428571428,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.7142857142857143,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7142857142857143,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.7857142857142857,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7857142857142857,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8428571428571427,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.8571428571428572,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.9285714285714286,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 7
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.5,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.625,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.625,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.6625,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.6875,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.75,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.8125,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.8125,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.9375,
+      "split": "heldout",
+      "steps": 7
+    },
+    {
+      "architecture": "gru",
+      "mean_accuracy": 0.9875,
+      "n": 8,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 8
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.75,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 4,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.7,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.7,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.8,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.9,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 5,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.6666666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.6666666666666667,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.75,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8333333333333334,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.8333333333333334,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9166666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.9166666666666666,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 6,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.6428571428571429,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.6428571428571428,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.7142857142857143,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7142857142857143,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.7857142857142857,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7857142857142857,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8571428571428571,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.8571428571428572,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.9285714285714286,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 7,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 7
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.5,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.625,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.625,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.6875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.6875,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.75,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.8125,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.8125,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 0.9375,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.9375,
+      "split": "heldout",
+      "steps": 7
+    },
+    {
+      "architecture": "cyclic",
+      "mean_accuracy": 1.0,
+      "n": 8,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 8
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.75,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "n": 4,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 4,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.7,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.7,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.8,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9,
+      "n": 5,
+      "optimal_bayes_accuracy": 0.9,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 5,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.6666666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.6666666666666667,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.75,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8333333333333334,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.8333333333333334,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9166666666666666,
+      "n": 6,
+      "optimal_bayes_accuracy": 0.9166666666666666,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 6,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.6428571428571429,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.6428571428571428,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.7142857142857143,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7142857142857143,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.7857142857142857,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.7857142857142857,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8571428571428571,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.8571428571428572,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9285714285714286,
+      "n": 7,
+      "optimal_bayes_accuracy": 0.9285714285714286,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 7,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 7
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.5,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.5,
+      "split": "heldout",
+      "steps": 1
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.625,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.625,
+      "split": "heldout",
+      "steps": 2
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.6875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.6875,
+      "split": "heldout",
+      "steps": 3
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.75,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.75,
+      "split": "heldout",
+      "steps": 4
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.8125,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.8125,
+      "split": "heldout",
+      "steps": 5
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.875,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.875,
+      "split": "heldout",
+      "steps": 6
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 0.9375,
+      "n": 8,
+      "optimal_bayes_accuracy": 0.9375,
+      "split": "heldout",
+      "steps": 7
+    },
+    {
+      "architecture": "raw",
+      "mean_accuracy": 1.0,
+      "n": 8,
+      "optimal_bayes_accuracy": 1.0,
+      "split": "heldout",
+      "steps": 8
+    }
+  ],
+  "raw_fault_experiments": [
+    {
+      "active_probes": 4,
+      "architecture": "gru",
+      "fault": "flip",
+      "horizon": 6,
+      "mean_accuracy": 0.7321428571428571,
+      "mean_worst_case_phase_success": 0.075,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.7857142857142857,
+        0.6428571428571429,
+        0.7142857142857143,
+        0.7321428571428571,
+        0.7857142857142857
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 280
+    },
+    {
+      "active_probes": 4,
+      "architecture": "gru",
+      "fault": "erasure",
+      "horizon": 5,
+      "mean_accuracy": 0.8291666666666666,
+      "mean_worst_case_phase_success": 0.175,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.8541666666666666,
+        0.8125,
+        0.8333333333333334,
+        0.8125,
+        0.8333333333333334
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 240
+    },
+    {
+      "active_probes": 6,
+      "architecture": "gru",
+      "fault": "flip",
+      "horizon": 8,
+      "mean_accuracy": 0.7574074074074074,
+      "mean_worst_case_phase_success": 0.08333333333333333,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.8055555555555556,
+        0.7037037037037037,
+        0.7407407407407407,
+        0.75,
+        0.7870370370370371
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 540
+    },
+    {
+      "active_probes": 6,
+      "architecture": "gru",
+      "fault": "erasure",
+      "horizon": 7,
+      "mean_accuracy": 0.875,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.875,
+        0.8854166666666666,
+        0.8645833333333334,
+        0.875,
+        0.875
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 480
+    },
+    {
+      "active_probes": 8,
+      "architecture": "gru",
+      "fault": "flip",
+      "horizon": 10,
+      "mean_accuracy": 0.7909090909090908,
+      "mean_worst_case_phase_success": 0.0625,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.8068181818181818,
+        0.7272727272727273,
+        0.8352272727272727,
+        0.7613636363636364,
+        0.8238636363636364
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 880
+    },
+    {
+      "active_probes": 8,
+      "architecture": "gru",
+      "fault": "erasure",
+      "horizon": 9,
+      "mean_accuracy": 0.8637500000000001,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.88125,
+        0.90625,
+        0.81875,
+        0.88125,
+        0.83125
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 800
+    },
+    {
+      "active_probes": 4,
+      "architecture": "cyclic",
+      "fault": "flip",
+      "horizon": 6,
+      "mean_accuracy": 0.5357142857142857,
+      "mean_worst_case_phase_success": 0.0,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.5357142857142857,
+        0.5357142857142857,
+        0.5357142857142857,
+        0.5357142857142857,
+        0.5357142857142857
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 280
+    },
+    {
+      "active_probes": 4,
+      "architecture": "cyclic",
+      "fault": "erasure",
+      "horizon": 5,
+      "mean_accuracy": 0.8333333333333334,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 240
+    },
+    {
+      "active_probes": 6,
+      "architecture": "cyclic",
+      "fault": "flip",
+      "horizon": 8,
+      "mean_accuracy": 0.6574074074074074,
+      "mean_worst_case_phase_success": 0.4166666666666667,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.6574074074074074,
+        0.6574074074074074,
+        0.6574074074074074,
+        0.6574074074074074,
+        0.6574074074074074
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 540
+    },
+    {
+      "active_probes": 6,
+      "architecture": "cyclic",
+      "fault": "erasure",
+      "horizon": 7,
+      "mean_accuracy": 0.875,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 480
+    },
+    {
+      "active_probes": 8,
+      "architecture": "cyclic",
+      "fault": "flip",
+      "horizon": 10,
+      "mean_accuracy": 0.6306818181818182,
+      "mean_worst_case_phase_success": 0.4375,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.6306818181818182,
+        0.6306818181818182,
+        0.6306818181818182,
+        0.6306818181818182,
+        0.6306818181818182
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 880
+    },
+    {
+      "active_probes": 8,
+      "architecture": "cyclic",
+      "fault": "erasure",
+      "horizon": 9,
+      "mean_accuracy": 0.9,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.9
+      ],
+      "split": "full",
+      "successful_seeds": 0,
+      "tested_episodes": 800
+    },
+    {
+      "active_probes": 4,
+      "architecture": "raw",
+      "fault": "flip",
+      "horizon": 6,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 4,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "full",
+      "successful_seeds": 5,
+      "tested_episodes": 280
+    },
+    {
+      "active_probes": 4,
+      "architecture": "raw",
+      "fault": "erasure",
+      "horizon": 5,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 4,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "full",
+      "successful_seeds": 5,
+      "tested_episodes": 240
+    },
+    {
+      "active_probes": 6,
+      "architecture": "raw",
+      "fault": "flip",
+      "horizon": 8,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 6,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "full",
+      "successful_seeds": 5,
+      "tested_episodes": 540
+    },
+    {
+      "active_probes": 6,
+      "architecture": "raw",
+      "fault": "erasure",
+      "horizon": 7,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 6,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "full",
+      "successful_seeds": 5,
+      "tested_episodes": 480
+    },
+    {
+      "active_probes": 8,
+      "architecture": "raw",
+      "fault": "flip",
+      "horizon": 10,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 8,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "full",
+      "successful_seeds": 5,
+      "tested_episodes": 880
+    },
+    {
+      "active_probes": 8,
+      "architecture": "raw",
+      "fault": "erasure",
+      "horizon": 9,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 8,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "full",
+      "successful_seeds": 5,
+      "tested_episodes": 800
+    },
+    {
+      "active_probes": 4,
+      "architecture": "gru",
+      "fault": "flip",
+      "horizon": 6,
+      "mean_accuracy": 0.7357142857142858,
+      "mean_worst_case_phase_success": 0.15,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.75,
+        0.6964285714285714,
+        0.6785714285714286,
+        0.75,
+        0.8035714285714286
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 280
+    },
+    {
+      "active_probes": 4,
+      "architecture": "gru",
+      "fault": "erasure",
+      "horizon": 5,
+      "mean_accuracy": 0.9041666666666668,
+      "mean_worst_case_phase_success": 0.65,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.8958333333333334,
+        0.9166666666666666,
+        0.8958333333333334,
+        0.9375,
+        0.875
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 240
+    },
+    {
+      "active_probes": 6,
+      "architecture": "gru",
+      "fault": "flip",
+      "horizon": 8,
+      "mean_accuracy": 0.7611111111111112,
+      "mean_worst_case_phase_success": 0.09999999999999999,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.7314814814814815,
+        0.7685185185185185,
+        0.7685185185185185,
+        0.75,
+        0.7870370370370371
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 540
+    },
+    {
+      "active_probes": 6,
+      "architecture": "gru",
+      "fault": "erasure",
+      "horizon": 7,
+      "mean_accuracy": 0.89375,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.8958333333333334,
+        0.8958333333333334,
+        0.8541666666666666,
+        0.9479166666666666,
+        0.875
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 480
+    },
+    {
+      "active_probes": 8,
+      "architecture": "gru",
+      "fault": "flip",
+      "horizon": 10,
+      "mean_accuracy": 0.7443181818181818,
+      "mean_worst_case_phase_success": 0.0875,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.7159090909090909,
+        0.7329545454545454,
+        0.7443181818181818,
+        0.7784090909090909,
+        0.75
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 880
+    },
+    {
+      "active_probes": 8,
+      "architecture": "gru",
+      "fault": "erasure",
+      "horizon": 9,
+      "mean_accuracy": 0.89,
+      "mean_worst_case_phase_success": 0.4875,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.9,
+        0.9,
+        0.83125,
+        0.9625,
+        0.85625
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 800
+    },
+    {
+      "active_probes": 4,
+      "architecture": "cyclic",
+      "fault": "flip",
+      "horizon": 6,
+      "mean_accuracy": 0.5357142857142857,
+      "mean_worst_case_phase_success": 0.0,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.5357142857142857,
+        0.5357142857142857,
+        0.5357142857142857,
+        0.5357142857142857,
+        0.5357142857142857
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 280
+    },
+    {
+      "active_probes": 4,
+      "architecture": "cyclic",
+      "fault": "erasure",
+      "horizon": 5,
+      "mean_accuracy": 0.8333333333333334,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 4,
+      "per_seed_accuracy": [
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334,
+        0.8333333333333334
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 240
+    },
+    {
+      "active_probes": 6,
+      "architecture": "cyclic",
+      "fault": "flip",
+      "horizon": 8,
+      "mean_accuracy": 0.6574074074074074,
+      "mean_worst_case_phase_success": 0.4166666666666667,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.6574074074074074,
+        0.6574074074074074,
+        0.6574074074074074,
+        0.6574074074074074,
+        0.6574074074074074
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 540
+    },
+    {
+      "active_probes": 6,
+      "architecture": "cyclic",
+      "fault": "erasure",
+      "horizon": 7,
+      "mean_accuracy": 0.875,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 6,
+      "per_seed_accuracy": [
+        0.875,
+        0.875,
+        0.875,
+        0.875,
+        0.875
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 480
+    },
+    {
+      "active_probes": 8,
+      "architecture": "cyclic",
+      "fault": "flip",
+      "horizon": 10,
+      "mean_accuracy": 0.6306818181818182,
+      "mean_worst_case_phase_success": 0.4375,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.6306818181818182,
+        0.6306818181818182,
+        0.6306818181818182,
+        0.6306818181818182,
+        0.6306818181818182
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 880
+    },
+    {
+      "active_probes": 8,
+      "architecture": "cyclic",
+      "fault": "erasure",
+      "horizon": 9,
+      "mean_accuracy": 0.9,
+      "mean_worst_case_phase_success": 0.5,
+      "n": 8,
+      "per_seed_accuracy": [
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.9
+      ],
+      "split": "heldout",
+      "successful_seeds": 0,
+      "tested_episodes": 800
+    },
+    {
+      "active_probes": 4,
+      "architecture": "raw",
+      "fault": "flip",
+      "horizon": 6,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 4,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "heldout",
+      "successful_seeds": 5,
+      "tested_episodes": 280
+    },
+    {
+      "active_probes": 4,
+      "architecture": "raw",
+      "fault": "erasure",
+      "horizon": 5,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 4,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "heldout",
+      "successful_seeds": 5,
+      "tested_episodes": 240
+    },
+    {
+      "active_probes": 6,
+      "architecture": "raw",
+      "fault": "flip",
+      "horizon": 8,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 6,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "heldout",
+      "successful_seeds": 5,
+      "tested_episodes": 540
+    },
+    {
+      "active_probes": 6,
+      "architecture": "raw",
+      "fault": "erasure",
+      "horizon": 7,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 6,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "heldout",
+      "successful_seeds": 5,
+      "tested_episodes": 480
+    },
+    {
+      "active_probes": 8,
+      "architecture": "raw",
+      "fault": "flip",
+      "horizon": 10,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 8,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "heldout",
+      "successful_seeds": 5,
+      "tested_episodes": 880
+    },
+    {
+      "active_probes": 8,
+      "architecture": "raw",
+      "fault": "erasure",
+      "horizon": 9,
+      "mean_accuracy": 1.0,
+      "mean_worst_case_phase_success": 1.0,
+      "n": 8,
+      "per_seed_accuracy": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "split": "heldout",
+      "successful_seeds": 5,
+      "tested_episodes": 800
+    }
+  ],
+  "structural_controls": {
+    "exact_raw_oracle": [
+      {
+        "accuracy": 1.0,
+        "kind": "flip",
+        "n": 4,
+        "tested_episodes": 56
+      },
+      {
+        "accuracy": 1.0,
+        "kind": "erasure",
+        "n": 4,
+        "tested_episodes": 48
+      },
+      {
+        "accuracy": 1.0,
+        "kind": "flip",
+        "n": 6,
+        "tested_episodes": 108
+      },
+      {
+        "accuracy": 1.0,
+        "kind": "erasure",
+        "n": 6,
+        "tested_episodes": 96
+      },
+      {
+        "accuracy": 1.0,
+        "kind": "flip",
+        "n": 8,
+        "tested_episodes": 176
+      },
+      {
+        "accuracy": 1.0,
+        "kind": "erasure",
+        "n": 8,
+        "tested_episodes": 160
+      }
+    ],
+    "unseen_marker_relabelings": {
+      "4": true,
+      "5": true,
+      "6": true,
+      "7": true,
+      "8": true
+    }
+  }
+}
