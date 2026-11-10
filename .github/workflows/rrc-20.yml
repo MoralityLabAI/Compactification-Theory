@@ -1,0 +1,44 @@
+name: RRC-20 family-calibrated quotient exact CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/family20.py'
+      - 'research/rrc_compactification/gate20.py'
+      - 'research/rrc_compactification/train20.py'
+      - 'research/rrc_compactification/bench20.py'
+      - 'research/rrc_compactification/test_family20.py'
+      - 'research/rrc_compactification/RRC20_*.md'
+      - 'research/rrc_compactification/README_RRC20.md'
+      - 'research/rrc_compactification/results/rrc20_*.json'
+      - '.github/workflows/rrc-20.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/family20.py'
+      - 'research/rrc_compactification/gate20.py'
+      - 'research/rrc_compactification/train20.py'
+      - 'research/rrc_compactification/bench20.py'
+      - 'research/rrc_compactification/test_family20.py'
+      - 'research/rrc_compactification/RRC20_*.md'
+      - 'research/rrc_compactification/README_RRC20.md'
+      - 'research/rrc_compactification/results/rrc20_*.json'
+      - '.github/workflows/rrc-20.yml'
+  workflow_dispatch:
+jobs:
+  calibrated-quotient-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact algebra, calibrated inference isolation and finite-prefix tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_family20.py' -v
+      - name: Verify source- and checkpoint-locked receipt
+        run: python research/rrc_compactification/bench20.py --check
+      - name: Retain exact certified-quotient and source-family regressions
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_certify18.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_family19.py' -v
