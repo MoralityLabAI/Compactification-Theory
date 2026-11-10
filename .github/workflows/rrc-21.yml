@@ -1,0 +1,63 @@
+name: RRC-21 selective symbolic OOD routing exact CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/select21.py'
+      - 'research/rrc_compactification/risk21.py'
+      - 'research/rrc_compactification/train21.py'
+      - 'research/rrc_compactification/bench21.py'
+      - 'research/rrc_compactification/test_select21.py'
+      - 'research/rrc_compactification/RRC21_*.md'
+      - 'research/rrc_compactification/README_RRC21.md'
+      - 'research/rrc_compactification/results/rrc21_*.json'
+      - 'research/rrc_compactification/family19.py'
+      - 'research/rrc_compactification/family20.py'
+      - 'research/rrc_compactification/model18.py'
+      - 'research/rrc_compactification/learn18.py'
+      - 'research/rrc_compactification/certify18.py'
+      - 'research/rrc_compactification/results/rrc19_*.json'
+      - 'research/rrc_compactification/results/rrc20_*.json'
+      - '.github/workflows/rrc-21.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/select21.py'
+      - 'research/rrc_compactification/risk21.py'
+      - 'research/rrc_compactification/train21.py'
+      - 'research/rrc_compactification/bench21.py'
+      - 'research/rrc_compactification/test_select21.py'
+      - 'research/rrc_compactification/RRC21_*.md'
+      - 'research/rrc_compactification/README_RRC21.md'
+      - 'research/rrc_compactification/results/rrc21_*.json'
+      - 'research/rrc_compactification/family19.py'
+      - 'research/rrc_compactification/family20.py'
+      - 'research/rrc_compactification/model18.py'
+      - 'research/rrc_compactification/learn18.py'
+      - 'research/rrc_compactification/certify18.py'
+      - 'research/rrc_compactification/results/rrc19_*.json'
+      - 'research/rrc_compactification/results/rrc20_*.json'
+      - '.github/workflows/rrc-21.yml'
+  workflow_dispatch:
+jobs:
+  selective-ood-cpu-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact finite certificates, conformal p-values and metering tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_select21.py' -v
+      - name: Replay known-only calibration without updates
+        run: |
+          python research/rrc_compactification/train21.py --out /tmp/rrc21_calibration_replay.json
+          cmp /tmp/rrc21_calibration_replay.json research/rrc_compactification/results/rrc21_calibration.json
+      - name: Replay all frozen outputs, exact proposals and resource receipts
+        run: python research/rrc_compactification/bench21.py --check
+      - name: Keep RRC-17 to RRC-20 regression suites green
+        run: |
+          for pattern in test_family20.py test_family19.py test_certify18.py test_quotient17.py; do
+            python -m unittest discover -s research/rrc_compactification -p "$pattern" -v
+          done
