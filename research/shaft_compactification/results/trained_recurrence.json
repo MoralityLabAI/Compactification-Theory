@@ -1,0 +1,286 @@
+{
+  "evaluation": {
+    "batch_per_horizon_per_seed": 256,
+    "horizons": [
+      1,
+      12,
+      32,
+      64
+    ],
+    "test_sequences_are_fresh_random_draws": true
+  },
+  "evidence_class": "synthetic_trained_cpu_gru_not_frontier_model",
+  "pytorch_version": "2.10.0+cpu",
+  "results": {
+    "101": {
+      "depth": {
+        "1": {
+          "erased_zero_state": {
+            "all_steps": 0.542969,
+            "last_eight_steps": 0.542969
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.875,
+            "last_eight_steps": 0.875
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "native_semantic_selector": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.585938,
+            "last_eight_steps": 0.585938
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.550781,
+            "last_eight_steps": 0.550781
+          }
+        },
+        "12": {
+          "erased_zero_state": {
+            "all_steps": 0.501953,
+            "last_eight_steps": 0.505371
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.976237,
+            "last_eight_steps": 0.986816
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "native_semantic_selector": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.515625,
+            "last_eight_steps": 0.485352
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.539388,
+            "last_eight_steps": 0.539062
+          }
+        },
+        "32": {
+          "erased_zero_state": {
+            "all_steps": 0.499634,
+            "last_eight_steps": 0.498047
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.960327,
+            "last_eight_steps": 0.92041
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 0.987061,
+            "last_eight_steps": 0.955078
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 0.989624,
+            "last_eight_steps": 0.960449
+          },
+          "native_semantic_selector": {
+            "all_steps": 0.989746,
+            "last_eight_steps": 0.960938
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.48938,
+            "last_eight_steps": 0.469238
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.540649,
+            "last_eight_steps": 0.55127
+          }
+        },
+        "64": {
+          "erased_zero_state": {
+            "all_steps": 0.477844,
+            "last_eight_steps": 0.490723
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.887329,
+            "last_eight_steps": 0.763672
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 0.924377,
+            "last_eight_steps": 0.808105
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 0.927368,
+            "last_eight_steps": 0.811523
+          },
+          "native_semantic_selector": {
+            "all_steps": 0.927429,
+            "last_eight_steps": 0.8125
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.468933,
+            "last_eight_steps": 0.458008
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.542542,
+            "last_eight_steps": 0.515137
+          }
+        }
+      },
+      "final_training_loss": 0.0000648,
+      "observational_classes": {
+        "all_four_first_tokens": 16,
+        "public_first_token": 2
+      }
+    },
+    "202": {
+      "depth": {
+        "1": {
+          "erased_zero_state": {
+            "all_steps": 0.554688,
+            "last_eight_steps": 0.554688
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.847656,
+            "last_eight_steps": 0.847656
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "native_semantic_selector": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.578125,
+            "last_eight_steps": 0.578125
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.550781,
+            "last_eight_steps": 0.550781
+          }
+        },
+        "12": {
+          "erased_zero_state": {
+            "all_steps": 0.516927,
+            "last_eight_steps": 0.513672
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.917643,
+            "last_eight_steps": 0.937012
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "native_semantic_selector": {
+            "all_steps": 1,
+            "last_eight_steps": 1
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.52832,
+            "last_eight_steps": 0.511719
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.539388,
+            "last_eight_steps": 0.539062
+          }
+        },
+        "32": {
+          "erased_zero_state": {
+            "all_steps": 0.485107,
+            "last_eight_steps": 0.488281
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.93103,
+            "last_eight_steps": 0.919434
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 0.990234,
+            "last_eight_steps": 0.963379
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 0.99292,
+            "last_eight_steps": 0.973633
+          },
+          "native_semantic_selector": {
+            "all_steps": 0.992676,
+            "last_eight_steps": 0.973145
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.494141,
+            "last_eight_steps": 0.493164
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.541138,
+            "last_eight_steps": 0.548828
+          }
+        },
+        "64": {
+          "erased_zero_state": {
+            "all_steps": 0.499512,
+            "last_eight_steps": 0.492188
+          },
+          "latent_quantized_2_bits_per_coordinate": {
+            "all_steps": 0.883606,
+            "last_eight_steps": 0.76416
+          },
+          "latent_quantized_4_bits_per_coordinate": {
+            "all_steps": 0.919128,
+            "last_eight_steps": 0.784668
+          },
+          "latent_quantized_8_bits_per_coordinate": {
+            "all_steps": 0.920532,
+            "last_eight_steps": 0.777344
+          },
+          "native_semantic_selector": {
+            "all_steps": 0.920898,
+            "last_eight_steps": 0.779785
+          },
+          "raw_cross_substrate_state": {
+            "all_steps": 0.526855,
+            "last_eight_steps": 0.519531
+          },
+          "wrong_semantic_selector": {
+            "all_steps": 0.555237,
+            "last_eight_steps": 0.574219
+          }
+        }
+      },
+      "final_training_loss": 0.0000458,
+      "observational_classes": {
+        "all_four_first_tokens": 16,
+        "public_first_token": 2
+      }
+    }
+  },
+  "training": {
+    "batch": 128,
+    "hidden_size": 24,
+    "learning_rate": 0.01,
+    "length": 12,
+    "seeds": [
+      101,
+      202
+    ],
+    "semantics": "goal encodes a four-bit truth table; model sees goal once as initial state",
+    "steps": 600
+  }
+}
