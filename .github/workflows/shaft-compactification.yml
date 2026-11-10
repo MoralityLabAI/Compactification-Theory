@@ -1,0 +1,52 @@
+name: SHAFT compactification (abstract finite reference)
+
+on:
+  pull_request:
+    paths:
+      - 'research/shaft_compactification/**'
+      - '.github/workflows/shaft-compactification.yml'
+  push:
+    paths:
+      - 'research/shaft_compactification/**'
+      - '.github/workflows/shaft-compactification.yml'
+  workflow_dispatch:
+
+jobs:
+  finite-cpu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run synthetic finite tests
+        run: python -m unittest discover -s research/shaft_compactification/tests -v
+      - name: Compare deterministic reference receipt
+        run: |
+          python -m research.shaft_compactification.experiment > /tmp/shaft-comp-reference.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          prefix = Path('research/shaft_compactification/results/reference.json')
+          expected = json.loads(prefix.read_text())
+          observed = json.loads(Path('/tmp/shaft-comp-reference.json').read_text())
+          assert observed == expected, 'SHAFT-COMP-05 reference drift'
+          assert observed['heldout_distinguishable_pairs'] == observed['goal_pairs']
+          print('Reproduced synthetic reference')
+          PY
+
+  lean-kernel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lean 4 abstract observability proofs
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: research/shaft_compactification/lean
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: false
+      - name: Print Lean axiom dependencies
+        working-directory: research/shaft_compactification/lean
+        run: lake env lean Shaft/Observability.lean
