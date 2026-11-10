@@ -1,0 +1,58 @@
+{
+  "cpu": "AMD EPYC 9V74 80-Core Processor",
+  "measured_wall_times_not_replay_asserted": true,
+  "profile": {
+    "complete_64": {
+      "cases_per_pass": 24,
+      "median_wall_ms": 4.77854,
+      "p90_wall_ms": 16.05117,
+      "passes": 2,
+      "successes_over_passes": 40,
+      "total_wall_ms": 374.2157
+    },
+    "feedforward_4": {
+      "cases_per_pass": 24,
+      "median_wall_ms": 2.4646,
+      "p90_wall_ms": 11.44078,
+      "passes": 2,
+      "successes_over_passes": 28,
+      "total_wall_ms": 232.6986
+    },
+    "fixed_4": {
+      "cases_per_pass": 24,
+      "median_wall_ms": 2.87379,
+      "p90_wall_ms": 9.2228,
+      "passes": 2,
+      "successes_over_passes": 20,
+      "total_wall_ms": 175.969
+    },
+    "preview_4": {
+      "cases_per_pass": 24,
+      "median_wall_ms": 3.2655,
+      "p90_wall_ms": 31.31646,
+      "passes": 2,
+      "successes_over_passes": 40,
+      "total_wall_ms": 450.4525
+    },
+    "recurrent_4": {
+      "cases_per_pass": 24,
+      "median_wall_ms": 4.1618,
+      "p90_wall_ms": 14.25823,
+      "passes": 2,
+      "successes_over_passes": 20,
+      "total_wall_ms": 313.2573
+    }
+  },
+  "python": "3.13.5",
+  "roster_count": 24,
+  "schema": "rrc25.machine_profile.v1",
+  "scope": "Warm Python CPU inference and exact observed-prefix program checks. Training, roster construction and future grading excluded.",
+  "source_sha256": {
+    "bench25.py": "377aeef8766e72458a1733a58e0fcb3db73831080d0ac3f74ff3aa2443bd6dd7",
+    "compound25.py": "1a6f77e0eefc349735602065ac5c67dcccb862d27badd4e75a5c4760c50340e2",
+    "delay24.py": "754434779222ef70cde4815f2f3f5e0c242ed30629eca1597ee7c8439e5ecf48",
+    "graph11.py": "544e86850fbca085485d72532280b8ca1c1b107dc9f375128e067723806b76a2",
+    "model25.py": "112b7ee50e32d6a13dc0e28053c3c0d29296ee766eae9ad9a94a334f87632bf7",
+    "train25.py": "84966482109921ec1ad27ebb811696bb357126375b6ec63ee16427158eb30549"
+  }
+}

@@ -1,0 +1,51 @@
+name: RRC-25 delayed composite suffix exact CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/compound25.py'
+      - 'research/rrc_compactification/model25.py'
+      - 'research/rrc_compactification/train25.py'
+      - 'research/rrc_compactification/bench25.py'
+      - 'research/rrc_compactification/test_compound25.py'
+      - 'research/rrc_compactification/RRC25_*.md'
+      - 'research/rrc_compactification/README_RRC25.md'
+      - 'research/rrc_compactification/results/rrc25_*.json'
+      - 'research/rrc_compactification/delay24.py'
+      - 'research/rrc_compactification/graph11.py'
+      - '.github/workflows/rrc-25.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/compound25.py'
+      - 'research/rrc_compactification/model25.py'
+      - 'research/rrc_compactification/train25.py'
+      - 'research/rrc_compactification/bench25.py'
+      - 'research/rrc_compactification/test_compound25.py'
+      - 'research/rrc_compactification/RRC25_*.md'
+      - 'research/rrc_compactification/README_RRC25.md'
+      - 'research/rrc_compactification/results/rrc25_*.json'
+      - 'research/rrc_compactification/delay24.py'
+      - 'research/rrc_compactification/graph11.py'
+      - '.github/workflows/rrc-25.yml'
+  workflow_dispatch:
+jobs:
+  two-branch-exact-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact arithmetic, blind inference, suffix ambiguity and source tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_compound25.py' -v
+      - name: Check exact source and checkpoint receipt
+        run: python research/rrc_compactification/bench25.py --check
+      - name: RRC-24 and RRC-23 regression coverage
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_delay24.py' -v
+          python research/rrc_compactification/bench24.py --check
+          python -m unittest discover -s research/rrc_compactification -p 'test_scale23.py' -v
+      - name: Run an actual short CPU timing smoke without asserting host-specific times
+        run: python research/rrc_compactification/bench25.py --profile --cases 2 --rounds 1 --out /tmp/rrc25_ci_profile.json
