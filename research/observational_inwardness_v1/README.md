@@ -260,6 +260,7 @@ state machine**, not floating-point loop stability.
 
 - [Neural CPU training and evaluation](learnable_clock.py)
 - [Group-retraction implementation](projection.py)
+- [Long-horizon drift replay](long_horizon.py) with [frozen drift receipt](results/oic14_long_horizon.json.gz.b64)
 - [Independent standard-library receipt verifier](verify_receipt.py)
 - [Tampering and group-action tests](test_verify_receipt.py)
 - [Hash-pinned 180-fit summary](results/oic14_summary.json)
