@@ -58,3 +58,39 @@ informative adaptive probe policy. The independently exhaustive
 [Bayesian reference](bayes.py) and [tests](test_bayes.py) use exact
 fractions. OIC-05 also shows that detection time can be arbitrarily
 large while the passive quotient remains exactly two states.
+
+
+## OIC-06: fault-tolerant audit channel
+
+The new [OIC-T06 proof](THEOREMS.md#oic-t06-exact-errorerasure-robustness-law)
+handles a monitor which receives the **single audit symbol**
+b_t = probe_t * [hidden_phase_t = 0] per transition, with at most e
+adversarial substitutions and r explicitly marked erasures per run.
+The observer has no independent clean raw-state readout in this
+scenario. For every n>=2, the exact minimax observation horizon is:
+
+\[
+T^*(n,e,r)=n(2e+r+1).
+\]
+
+This is a classical error-correcting code distance argument specialized
+to the OIC pair, including an adaptive-probing impossibility proof.
+[OIC-T07](THEOREMS.md#oic-t07-sharp-nonadaptive-trusted-probe-budget)
+also proves a sharp active-probe count for fixed schedules.
+
+- [robust.py](robust.py): exact codebooks, Hamming-distance oracle,
+  adversarial collision witnesses, exhaustive schedule search
+- [test_robust.py](test_robust.py): seven deterministic test cases
+- [robust_run.py](robust_run.py): frozen receipt replay
+- [results/robust_reference.json](results/robust_reference.json):
+  25 finite boundary cases with n=2..6
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+python research/observational_inwardness_v1/robust_run.py --check
+~~~
+
+**Interpretation boundary:** this is a synthetic audit channel with
+declared integer corruption budgets, not an observed attack on a
+transformer or a claim about cosmological consciousness.
