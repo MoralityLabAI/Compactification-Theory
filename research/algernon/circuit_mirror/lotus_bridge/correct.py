@@ -26,6 +26,8 @@ element by about one noise std. The default, `unit`, is H-A3 as registered. With
 the correctors have no bias, so C's correction is zero whenever the decoded state satisfies the constraint. With
 `--noise-ref fixed` (H-A3d) the noise std is sigma times the mean clean slot RMS from `scale.json` rather than the
 run's own slot RMS at loop j, so an arm that rescales the slots on clean loops no longer rescales its noise.
+With `--sigma-rule midpoint` (H-A3e) sigma is the grid value whose calibrated plain accuracy is closest to the
+midpoint between the grid's highest and lowest accuracy, rather than closest to 0.5, and kappa = sigma x r.
 """
 from __future__ import annotations
 
@@ -347,6 +349,15 @@ def evaluate(args, model, lm, tok, digits, extract, parts, watch, hidden, sigma)
     return {"records": records, "summary": summarize(records, args.noise_loops)}
 
 
+def pick_sigma(acc_by_sigma, rule):
+    """The noise level from calibrate.json's plain accuracy by sigma. `half` (H-A3 to H-A3d): closest to 0.5, as
+    calibrate() picks sigma*. `midpoint` (H-A3e): closest to the midpoint between the highest and lowest accuracy
+    on the grid, so the state is damaged but not wiped. Ties go to the smaller sigma."""
+    acc = {float(s): a for s, a in acc_by_sigma.items()}
+    target = 0.5 if rule == "half" else (max(acc.values()) + min(acc.values())) / 2
+    return min(acc, key=lambda s: (abs(acc[s] - target), s))
+
+
 def case_bootstrap(per_case, n_boot=2000, seed=0):
     import numpy as np
     x = np.asarray(per_case, dtype=float)
@@ -416,6 +427,9 @@ def main():
     ap.add_argument("--noise-ref", choices=("slots", "fixed"), default="slots",
                     help="noise scale: the slots' own RMS at loop j (H-A3 to H-A3c) or fixed (H-A3d): the mean clean "
                          "slot RMS from scale.json, the same absolute noise for every arm and case")
+    ap.add_argument("--sigma-rule", choices=("half", "midpoint"), default="half",
+                    help="noise level from calibrate.json: sigma* closest to 0.5 accuracy (H-A3 to H-A3d) or "
+                         "midpoint (H-A3e): closest to halfway between the grid's highest and lowest accuracy")
     args = ap.parse_args()
     args.bias = args.corrector_bias == "on"
     meta, model, lm, tok, digits = load(args)
@@ -424,10 +438,13 @@ def main():
     roster_sha = json.loads(args.roster.read_text(encoding="utf-8"))["roster_sha256"]
     sigma = None
     if args.cmd != "calibrate":
-        sigma = json.loads((args.out / "calibrate.json").read_text(encoding="utf-8"))["result"]["sigma_star"]
+        cal = json.loads((args.out / "calibrate.json").read_text(encoding="utf-8"))["result"]
+        sigma = (cal["sigma_star"] if args.sigma_rule == "half"
+                 else pick_sigma(cal["plain_accuracy_by_sigma"], args.sigma_rule))
     args.kappa = 1.0
     if args.out_scale == "noise" and args.cmd in ("train", "eval"):
-        args.kappa = json.loads((args.out / "scale.json").read_text(encoding="utf-8"))["result"]["kappa"]
+        sc = json.loads((args.out / "scale.json").read_text(encoding="utf-8"))["result"]
+        args.kappa = sc["kappa"] if sigma == sc["sigma_star"] else sigma * sc["slot_rms_mean"]
     args.noise_ref_rms = None
     if args.noise_ref == "fixed" and args.cmd in ("train", "eval"):
         args.noise_ref_rms = json.loads((args.out / "scale.json").read_text(encoding="utf-8"))["result"]["slot_rms_mean"]
@@ -439,6 +456,8 @@ def main():
         key["bias"] = False
     if args.noise_ref_rms is not None:
         key["noise_ref_rms"] = args.noise_ref_rms
+    if args.sigma_rule != "half":
+        key["sigma_rule"] = args.sigma_rule
     parts = Parts(args.out / "parts", key)
     watch = PowerWatch(args.min_power_w, active=str(args.device).startswith("cuda"))
     extract = upstream_extract_answer(args.upstream)
@@ -449,8 +468,8 @@ def main():
     except Paused as e:
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
-    experiment = ("H-A3d" if args.noise_ref == "fixed" else "H-A3c" if not args.bias
-                  else "H-A3b" if args.out_scale == "noise" else "H-A3")
+    experiment = ("H-A3e" if args.sigma_rule == "midpoint" else "H-A3d" if args.noise_ref == "fixed"
+                  else "H-A3c" if not args.bias else "H-A3b" if args.out_scale == "noise" else "H-A3")
     out = {"schema_version": "algernon-03-v1", "experiment": experiment, "cmd": args.cmd, "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
            "kappa": args.kappa,
            "args": {k: v for k, v in vars(args).items() if k not in ("upstream", "base", "checkpoint", "roster", "out")}

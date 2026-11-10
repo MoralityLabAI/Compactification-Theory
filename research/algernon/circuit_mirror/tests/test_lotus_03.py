@@ -82,6 +82,18 @@ class PureTests(unittest.TestCase):
         self.assertTrue(d["R4_I_minus_P"]["met"])
         self.assertFalse(d["R1_C_minus_P"]["met"])
 
+    def test_sigma_rules_on_the_registered_calibration(self):
+        """`half` reproduces sigma* = 16 from calibrate.json; `midpoint` (H-A3e) picks 1.0, whose accuracy 0.771 is
+        closest to (1.000 + 0.569) / 2. Ties go to the smaller sigma."""
+        from research.algernon.circuit_mirror.lotus_bridge.correct import pick_sigma
+        cal = json.loads((ROSTER.parent / "results" / "algernon-03d" / "calibrate.json").read_text(encoding="utf-8"))
+        acc = cal["result"]["plain_accuracy_by_sigma"]
+        self.assertEqual(pick_sigma(acc, "half"), cal["result"]["sigma_star"])
+        self.assertEqual(pick_sigma(acc, "midpoint"), 1.0)
+        self.assertEqual(pick_sigma({"1.0": 0.8, "2.0": 0.4, "4.0": 0.6}, "midpoint"), 4.0)
+        self.assertEqual(pick_sigma({"1.0": 0.75, "2.0": 0.25}, "midpoint"), 1.0)
+        self.assertEqual(pick_sigma({"1.0": 0.75, "2.0": 0.25}, "half"), 1.0)
+
     @unittest.skipIf(torch is None, "needs torch")
     def test_fixed_noise_reference_ignores_the_slot_scale(self):
         """H-A3d: with a ref the absolute noise is the same for any slot scale; without one it follows the slots."""

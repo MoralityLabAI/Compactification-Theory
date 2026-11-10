@@ -418,3 +418,44 @@ The runs go to a new output directory. P is evaluated again, because its noise s
   - CPU check on 12 generated cases, j = 4: no arm shrinks the slots now (RMS 6.85-7.02 before the noise). C's and I's pushes at the noise loop move the margin by +21 and +46 against a noise cost of about 240. N's correction moves the clean-loop margin from +6 to -1, which is its clean damage.
 
 Report: [lotus_bridge/results/algernon-03d/report.md](lotus_bridge/results/algernon-03d/report.md).
+
+## H-A3e: H-A3d at a noise level that damages the state without wiping it (registered 2026-11-10, after H-A3d's evaluation was read, before any H-A3e run)
+
+**Why.** H-A3 to H-A3d all ran at sigma\* = 16, the grid value whose calibrated plain accuracy was closest to 0.5.
+- On the 48 generated calibration cases, plain accuracy by sigma is 1.000 (0.25), 0.944 (0.5), 0.771 (1), 0.681 (2), 0.646 (4), 0.653 (8) and 0.569 (16), from `calibrate.json`.
+- The accuracy floor on these cases is about 0.57-0.65, because many random functions send every state to the same place within a few steps. 0.5 lies below that floor, so the rule picked the noisiest level.
+- On the roster, P's accuracy at 8, 16 and 32 is 0.495-0.505, 0.494-0.500 and 0.472-0.477 across H-A3 to H-A3d, also at the floor.
+- Every condition evaluated so far therefore tested repair of a state that the noise had already erased. H-A3d's CPU check fits this: the noise at sigma\* costs about 240 logits of margin against F's clean margin of about +13.
+- H-A3e asks the same question where the state is damaged but not wiped.
+
+**One change: the noise level.**
+- sigma_e is the grid value whose calibrated plain accuracy is closest to the midpoint between the grid's highest and lowest accuracy: (1.000 + 0.569) / 2 = 0.785. Ties go to the smaller sigma.
+- That gives **sigma_e = 1.0** (accuracy 0.771). It was fixed from the published `calibrate.json`. No roster run below sigma = 8 exists.
+- `correct.py --sigma-rule midpoint`.
+- kappa keeps H-A3b's definition, sigma x r, so a corrector weight of 1 still moves a slot element by one noise std: kappa = 1.0 x 6.92 = 6.92.
+- Training and evaluation use sigma_e as H-A3d used sigma\*:
+  - training noise at sigma_e;
+  - primary condition sigma_e = 1.0;
+  - sigma_e/2 = 0.5 and 2 sigma_e = 2.0 as the secondary conditions;
+  - noise after loop j in {4, 8, 12}, four seeds.
+
+**Everything else is H-A3d unchanged:**
+- F and pi;
+- the fixed noise reference r = 6.92;
+- the bias-free correctors and the arms' inputs;
+- the training recipe, batches and noise draws (scaled by sigma_e);
+- the local loss;
+- the exact checker;
+- R1-R4 with their margins and case-bootstrap lower bounds, the instrument (P clean 72/72 with every clean trace accepted) and the 0.97 clean floor.
+
+The runs go to a new output directory, and P is evaluated again.
+
+**Predictions.**
+- **P's primary accuracy lies between 0.60 and 0.85:** damaged, not at the floor.
+- **C keeps clean runs intact** (clean accuracy >= 0.97).
+- **C - P is positive, but R1 is not met.** H-A3d's pushes moved the margin by a tenth to a fifth of the noise's cost, and kappa scales with sigma, so the ratio changes only through what training learns. The residual is more informative here, because the decode after the noise is often still right, but I expect less than +0.10.
+- **R2, R3 and R4 are not met.**
+
+**What it settles.**
+- **If R1 is met** (with the instrument valid and C above the clean floor): the transition residual repairs D1's slot state when the noise damages it without wiping it. H-A3 to H-A3d's nulls are then attributed to testing at the floor.
+- **If R1 is not met:** no additive linear corrector under this recipe repairs D1's slot state, either at the floor or at the midpoint. Phase 4 closes with a null for this corrector family.
