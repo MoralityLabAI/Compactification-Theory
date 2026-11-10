@@ -1,6 +1,6 @@
 # OIC-16: Unknown dynamics with a learned phase-belief operator
 
-**Prospective, unexecuted.** OIC-15 supplies the two candidate phase-transition laws in both cyclic observers. The next task is to learn those candidate dynamics from input/output histories without `z0` or privileged model-family information at inference.
+**Originally preregistered; experiment executed November 10, 2026.** OIC-15 supplies the two candidate phase-transition laws in both cyclic observers. The next task is to learn those candidate dynamics from input/output histories without `z0` or privileged model-family information at inference.
 
 ## Target
 
@@ -15,3 +15,19 @@ For learnability, report the transition kernel's spectrum and its distance to th
 ## Acceptance
 
 A reported transfer improvement requires a preregistered accuracy margin over matched compute baselines on both phase-count OOD tests, robust operation at raw-sensor fault levels registered before training, and calibrated model-family probabilities. State-reconstruction scores must explicitly account for the permanently unidentifiable fixed-family nonzero phase fibre (OIC-T18).
+
+
+## Execution addendum (OIC-16-CPU-01)
+
+The 20-fit CPU study and source-pinned receipt are in
+[OIC16_REPORT.md](OIC16_REPORT.md) and
+[results/oic16_summary.json](results/oic16_summary.json).
+The learned stochastic five-shift kernels met the clean family
+identification gate on registered n=7,8, while failing many single
+raw-bit substitution cases. A separately flagged exploratory
+deterministic cyclic projection restored the exact raw-codebook
+distance, at the cost of a stronger hard-coded prior.
+A post-hoc n=9–32 sweep found the shared low-frequency Fourier
+emission fails at larger phase counts. It is separated from the
+original registered OOD gate in the report. The next experiment is
+[OIC18_PROTOCOL.md](OIC18_PROTOCOL.md).
