@@ -79,6 +79,28 @@ jobs:
           assert frozen['trained']['anchor_sweep']['2']['candidate_count'] == 2
           print('SHAFT-COMP-08 exact counting reference and frozen trained receipt schema checked')
           PY
+      - name: SHAFT-COMP-09 finite noisy-gauge Monte Carlo receipt
+        run: |
+          python -m research.shaft_compactification.noisy_gauge > /tmp/shaft09.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('/tmp/shaft09.json').read_text())
+          assert r['three_anchor_minimax']['max_min_distance'] == 4
+          assert r['three_anchor_minimax']['distinct_triplets_checked'] == 560
+          assert len(r['three_anchor_minimax']['optimal_triples']) == 8
+          assert r['trials_per_condition'] == 1024
+          for design in ('onehot', 'balanced'):
+              for budget in ('3','6','12','24'):
+                  clean = r['designs'][design]['conditions']['p00_missing00'][budget]
+                  assert clean['unique_correct_recoveries'] == 1024
+                  assert clean['chernoff_union_bound_probability'] == 0
+          raw = json.dumps(r, sort_keys=True, separators=(',',':'))
+          print('BEGIN_SHAFT09_RECEIPT')
+          for k in range(0,len(raw),4000):
+              print('SHAFT09_DATA ' + raw[k:k+4000])
+          print('END_SHAFT09_RECEIPT')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
