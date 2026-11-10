@@ -1,0 +1,68 @@
+{
+  "machine": {
+    "python": "3.13.5",
+    "system": "Linux"
+  },
+  "memory_script_sha256": "df4967cd0cf9830a83a88552dd9598dc54fb2cd715bdfbb635e43189d5701591",
+  "records": {
+    "192/selective_progressive": {
+      "after_execution_resident_kib": 102440,
+      "arm": "selective_progressive",
+      "cases": 84,
+      "degree": 192,
+      "peak_rss_kib": 102296,
+      "setup_resident_kib": 102424,
+      "wall_elapsed_ms": 1495.756
+    },
+    "192/symbolic_progressive": {
+      "after_execution_resident_kib": 100184,
+      "arm": "symbolic_progressive",
+      "cases": 84,
+      "degree": 192,
+      "peak_rss_kib": 99980,
+      "setup_resident_kib": 100184,
+      "wall_elapsed_ms": 1082.263
+    },
+    "384/selective_progressive": {
+      "after_execution_resident_kib": 102104,
+      "arm": "selective_progressive",
+      "cases": 8,
+      "degree": 384,
+      "peak_rss_kib": 101904,
+      "setup_resident_kib": 102088,
+      "wall_elapsed_ms": 849.623
+    },
+    "384/symbolic_progressive": {
+      "after_execution_resident_kib": 99668,
+      "arm": "symbolic_progressive",
+      "cases": 8,
+      "degree": 384,
+      "peak_rss_kib": 99468,
+      "setup_resident_kib": 99668,
+      "wall_elapsed_ms": 593.371
+    }
+  },
+  "schema": "rrc23.memory.v1",
+  "scope": "Fresh process per arm/horizon; Linux ru_maxrss KiB including setup and model loading. Host specific, not exact CI evidence.",
+  "source_sha256": {
+    "bench21.py": "7665262ef73849f5de2f5f3cc109656ce6ca3e0711fb1e6dbe4d67976c24f23f",
+    "bench22.py": "954bd546ecf8576e3250077366153750beff23aa01e3d15584f6ea04c6a46dfc",
+    "bench23.py": "4b53bb07b8b101916d9a5b9b479c548b97a6d3f7111635d5d7e8f6fc43e813b1",
+    "certify18.py": "290d38cafc408e482f5aa2f871f67960cb6c1c8efefd0771ca7cde9d8b7161b8",
+    "family19.py": "f954113844fddfc668039f0b8dce685ada4d55a200282605cec66173a6096895",
+    "family20.py": "c4f25c53c0b2f312ba922979d630ea112e953eae7315a4798fcd63a70f3548c6",
+    "gate20.py": "19ad45ce1ed3724af6d0923b4956fa16c798138eaaf37ab6c302f232cb48a345",
+    "graph11.py": "544e86850fbca085485d72532280b8ca1c1b107dc9f375128e067723806b76a2",
+    "graph12.py": "1de9bc8f2ef0a8c3f732c6f44968a4ba519ea20836c3f31ef7ed8859bd8bad1a",
+    "graph13.py": "4667a287323da86bd2cfb59ccaa74874ada0dfff61f4722adb7e3c33f7bb7f5d",
+    "graph14.py": "0c61a29615d5fea4571c72dc6219ccfd254424d064168463ffb8c70d6ce34559",
+    "learn18.py": "468f0203fcf3fef75efe7c75b038460d4954d675d30c01dcc64b8714bd393acc",
+    "meter22.py": "493a8b800eaaafd1e2c3e35190e2b0407b4f5ee00a46ea98212dcf92b695dcc6",
+    "model18.py": "a2d44deedd21028accb0600afdaff421f4d9df47b06cfad4f6073ffa3bd12f2e",
+    "risk21.py": "a02b9ba00efb116e3b3932fa649365b4978e39a77a9f310118f0574630876879",
+    "scale23.py": "8e365d4aecb73b7224e7be84bd8fb0b2f268fd792ebac2dd93218ec1321a0744",
+    "select21.py": "433d0b56a19995bffaf3537aa098548ba6ac5b24744ea1fa0397d972c0ea0e0b",
+    "topology15.py": "23dbf83050ac3bb9b37e2f2769950d250ac6ed0f767a5cfb1e7bc2f03a7d0864",
+    "topology16.py": "93c85b4227fa0530863bddb2b5f2edfa704563aaf9a0ca35557698f29a873e5b"
+  }
+}

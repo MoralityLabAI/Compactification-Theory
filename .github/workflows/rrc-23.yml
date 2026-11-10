@@ -1,0 +1,45 @@
+name: RRC-23 coefficient and grammar CPU scaling audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/scale23.py'
+      - 'research/rrc_compactification/bench23.py'
+      - 'research/rrc_compactification/memory23.py'
+      - 'research/rrc_compactification/test_scale23.py'
+      - 'research/rrc_compactification/RRC23_*.md'
+      - 'research/rrc_compactification/README_RRC23.md'
+      - 'research/rrc_compactification/results/rrc23_*.json'
+      - '.github/workflows/rrc-23.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/scale23.py'
+      - 'research/rrc_compactification/bench23.py'
+      - 'research/rrc_compactification/memory23.py'
+      - 'research/rrc_compactification/test_scale23.py'
+      - 'research/rrc_compactification/RRC23_*.md'
+      - 'research/rrc_compactification/README_RRC23.md'
+      - 'research/rrc_compactification/results/rrc23_*.json'
+      - '.github/workflows/rrc-23.yml'
+  workflow_dispatch:
+jobs:
+  scaling-exact-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Exact series, extended grammar, class scope, zero-leakage and physical record tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_scale23.py' -v
+      - name: Recompute full horizon and 256-syntax exact receipt
+        run: python research/rrc_compactification/bench23.py --check
+      - name: Run real shortened host timing smoke (no asserted speed threshold)
+        run: python research/rrc_compactification/bench23.py --smoke
+      - name: Previous RRC-21 and RRC-22 source-bound audits
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_select21.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_meter22.py' -v
+          python research/rrc_compactification/bench22.py --check
