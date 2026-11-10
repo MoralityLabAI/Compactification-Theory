@@ -7,11 +7,15 @@ angular-drift sufficient condition. Does not certify floating-point arithmetic.
 from __future__ import annotations
 import json
 import math
+import gzip
+import base64
+import argparse
 from pathlib import Path
 from statistics import median
 
 HERE=Path(__file__).resolve().parent
-DATA=HERE/'results'/'oic14_full.json'
+DATA=HERE/'results'/'oic14_compact_full.json.gz.b64'
+FROZEN=HERE/'results'/'oic14_long_horizon.json.gz.b64'
 
 
 def sign_event(n,architecture,fit,phase,step):
@@ -57,7 +61,7 @@ def angular_certificate(n,fit,family):
 
 
 def run():
-    data=json.loads(DATA.read_text())
+    data=json.loads(gzip.decompress(base64.b64decode(DATA.read_text().strip())))
     rows=[]
     for item in data['runs']:
         n=item['n'];arch=item['architecture'];split=item['training_split'];seed=item['seed']
@@ -75,9 +79,17 @@ def run():
 
 
 if __name__=='__main__':
+    ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--check',action='store_true',help='recompute and compare against the frozen compressed receipt')
+    args=ap.parse_args()
     out=run()
-    path=HERE/'results'/'oic14_long_horizon.json'
-    path.write_text(json.dumps(out,indent=2,sort_keys=True)+'\n')
+    if args.check:
+        expected=json.loads(gzip.decompress(base64.b64decode(FROZEN.read_text().strip())))
+        if out!=expected: raise SystemExit('OIC-14 LONG-HORIZON REPLAY MISMATCH')
+        print('OIC-14 long-horizon replay matches frozen receipt')
+    else:
+        path=HERE/'results'/'oic14_long_horizon.json'
+        path.write_text(json.dumps(out,indent=2,sort_keys=True)+'\n')
     print('rows',len(out['rows']))
     for arch in ('orthogonal_local','orthogonal_grid','unconstrained'):
       for split in ('full','heldout'):
