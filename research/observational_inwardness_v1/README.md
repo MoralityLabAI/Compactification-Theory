@@ -321,3 +321,22 @@ The pure-Python replay recomputes all 600 clean panels, 100
 phase-relabel controls and 1,080 raw fault-position panels from saved
 weights. This finite synthetic result establishes neither a neural
 mechanistic-interpretability certificate nor any conclusion about consciousness.
+
+## OIC-18: n-scaled phase-localizing emissions, executed
+
+The [OIC-18 report](OIC18_REPORT.md), [OIC-T26–T28 derivations](OIC18_THEORY.md), and [locked preregistration](OIC18_LOCK.md) extend the OIC-16 unknown-dynamics observer to n-dependent continuous phase emission. **60 new CPU-trained models** (five seeds, clean/fault-augmented sensors, full/heldout initial phases, three emissions) are compared with 20 frozen original Fourier fits, all on the matched 500-step × 128-example training budget.
+
+On clean heldout-phase training, the n²-localized temperature and von Mises emissions achieve 100% balanced family classification at the previously unseen n=24 and n=64; the original Fourier model scores 59.6% and 52.2%, respectively. The equal-capacity third-harmonic control retains significant large-n errors. The learned stochastic filters can distinguish the *model family* while retaining an inaccurate or diffuse rotating generator, and fault-augmented training substantially improves the worst-case sensor-position sweeps while leaving a small number of substitution failures. Interpret class identification, phase reconstruction and sensor fault robustness separately.
+
+Every raw-sample substitution and marked-erasure position was tested for even n=4,6,8,12,16,24,32,64, across both families and all initial phases: **1,610,400 fault episodes**. The standard-library [independent verifier](oic18_verify.py) reconstructs selected model posteriors from archived weights, audits all stored scores and receipts, and checks source hashes and gauge controls. Eight additional [unit tests](test_oic18_math.py) run with and without Python optimizations. Machine-readable [manifest](results/oic18_summary.json) indexes the four model and four fault archives and the frozen baseline receipt.
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic18*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic18*.py' -v
+python research/observational_inwardness_v1/oic18_verify.py --check
+# Requires PyTorch / NumPy, high CPU cost:
+cd research/observational_inwardness_v1
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python oic18_train.py --out results/oic18_retrain.json
+~~~
+
+**Next:** [OIC-19 protocol](OIC19_PROTOCOL.md) tests whether public-history learning can concentrate the rotating transition kernel and recover the identifiable phase posterior while preserving OIC-18's large-n family classification and fault robustness. This experiment is prospective.
