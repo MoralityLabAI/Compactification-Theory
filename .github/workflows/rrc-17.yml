@@ -1,0 +1,40 @@
+name: RRC-17 semantic quotient exact CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/quotient17.py'
+      - 'research/rrc_compactification/bench17.py'
+      - 'research/rrc_compactification/test_quotient17.py'
+      - 'research/rrc_compactification/RRC17_*.md'
+      - 'research/rrc_compactification/README_RRC17.md'
+      - 'research/rrc_compactification/results/rrc17_pilot.json'
+      - '.github/workflows/rrc-17.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/quotient17.py'
+      - 'research/rrc_compactification/bench17.py'
+      - 'research/rrc_compactification/test_quotient17.py'
+      - 'research/rrc_compactification/RRC17_*.md'
+      - 'research/rrc_compactification/README_RRC17.md'
+      - 'research/rrc_compactification/results/rrc17_pilot.json'
+      - '.github/workflows/rrc-17.yml'
+  workflow_dispatch:
+jobs:
+  semantic-quotient-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Algebraic probes, exact evidence, offline costs and collision limits
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_quotient17.py' -v
+      - name: Recompute source-bound 752-case replay including three independent seeds
+        run: python research/rrc_compactification/bench17.py --check
+      - name: Freeze RRC-16 and cross-topology algebra regressions
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_topology16.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_topology15.py' -v
