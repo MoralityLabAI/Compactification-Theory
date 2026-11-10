@@ -122,6 +122,31 @@ jobs:
           assert all(len(x) == 64 for x in r['full_local_receipt_sha256'].values())
           print('SHAFT-COMP-10 source syntax and local frozen metric schema verified')
           PY
+      - name: SHAFT-COMP-11 finite proof fixture and experiment receipts
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/causal_probe.py
+          python -m py_compile research/shaft_compactification/experiments/natural_alias.py
+          python -m research.shaft_compactification.causal_finite > /tmp/shaft-comp11-finite.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          finite = json.loads(Path('/tmp/shaft-comp11-finite.json').read_text())
+          pinned = json.loads(Path('research/shaft_compactification/results/causal_finite.json').read_text())
+          assert finite == pinned, 'SHAFT-COMP-11 finite-state certificate drifted'
+          r = json.loads(Path('research/shaft_compactification/results/comp11_summary.json').read_text())
+          assert r['seeds'] == [101, 202]
+          assert r['states_per_depth_per_seed'] == 512
+          assert len(r['nullspace_results']) == 12 and len(r['natural_state_pairs']) == 6
+          assert all(x['code_preserved'] == 1 for x in r['nullspace_results'])
+          assert all(len(v) == 64 for v in r['frozen_full_receipt_hashes'].values())
+          for seed in ('101', '202'):
+              condition = next(x for x in r['natural_state_pairs']
+                               if x['seed'] == seed and x['depth'] == 12)
+              assert condition['code_agreement'] == 1
+              assert condition['diverged_0'] == 0
+              assert condition['diverged_32'] > 0
+          print('SHAFT-COMP-11 finite certificate and frozen neural schema checked')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -162,4 +187,6 @@ jobs:
           use-mathlib-cache: false
       - name: Print Lean axiom dependencies
         working-directory: research/shaft_compactification/lean
-        run: lake env lean Shaft/Observability.lean
+        run: |
+          lake env lean Shaft/Observability.lean
+          lake env lean Shaft/CausalSufficiency.lean
