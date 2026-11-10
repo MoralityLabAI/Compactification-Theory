@@ -147,6 +147,30 @@ jobs:
               assert condition['diverged_32'] > 0
           print('SHAFT-COMP-11 finite certificate and frozen neural schema checked')
           PY
+      - name: SHAFT-COMP-12 exact observability reference and local receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/gramian_probe.py
+          python -m research.shaft_compactification.finite_observability > /tmp/shaft12_finite.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          obs=json.loads(Path('/tmp/shaft12_finite.json').read_text())
+          expected=json.loads(Path('research/shaft_compactification/results/finite_observability.json').read_text())
+          assert obs == expected, 'SHAFT-COMP-12 exact integer reference drift'
+          assert [row['exact_observability_rank'] for row in obs['results']] == [1,2,3,4,5,6,6,6,6]
+          summary=json.loads(Path('research/shaft_compactification/results/gramian_summary.json').read_text())
+          assert summary['total_recurrent_trajectories'] == 256
+          assert summary['full_rank_at_horizon5_1e5_total'] == 248
+          assert summary['full_rank_at_horizon6_1e5_total'] == 256
+          assert summary['measured_jacobian_max_disagreement_autograd'] < 1e-6
+          assert len(summary['full_raw_receipt_sha256']) == 64
+          for record in summary['results']:
+              assert record['ranks_e3'][:5] == [4,8,12,16,20]
+              assert record['rank_e5_h5'] >= 60
+              assert record['blind_002'] < record['randomnull_002']
+              assert record['blind_02'] < record['randomnull_02']
+          print('Exact six-bit Gramian reference and trained summary schema validated')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -190,3 +214,4 @@ jobs:
         run: |
           lake env lean Shaft/Observability.lean
           lake env lean Shaft/CausalSufficiency.lean
+          lake env lean Shaft/FiniteObservability.lean

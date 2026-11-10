@@ -1,0 +1,125 @@
+{
+  "experiment": "SHAFT-COMP-12",
+  "evidence": "locally_trained_synthetic_GRU_linearized_observability",
+  "source_model_seeds": [
+    101,
+    202
+  ],
+  "hidden_dimensions": 24,
+  "linear_monitor_outputs": 4,
+  "state_depths": [
+    12,
+    40
+  ],
+  "horizon_observations": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "states_per_seed_and_depth": 64,
+  "total_recurrent_trajectories": 256,
+  "measured_jacobian_max_disagreement_autograd": 5.960464477539063e-8,
+  "full_raw_receipt_sha256": "c3e41cb71a1f29422fa2faf56b7c00102d2f590dd7b091bee3d2aea8715530d3",
+  "pytorch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "result_fields": {
+    "ranks_e3": "median singular-value rank at relative threshold 1e-3, horizons 0..7",
+    "rank_e5_h5": "full-rank trajectories out of 64 at relative singular-value threshold 1e-5, horizon5",
+    "blind_002": "median nonlinear probe logit L2 shift through horizon4; radius 0.02; direction is null for O_4",
+    "randomnull_002": "median nonlinear probe logit L2 shift through horizon4; radius 0.02; random direction null for W",
+    "blind_02": "same blind direction; radius 0.2; horizon4",
+    "randomnull_02": "same random instantaneous null direction; radius 0.2; horizon4",
+    "blind_02_h7": "same blind direction; radius 0.2; horizon7"
+  },
+  "results": [
+    {
+      "seed": 101,
+      "state_depth": 12,
+      "ranks_e3": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        22,
+        23,
+        24
+      ],
+      "rank_e5_h5": 62,
+      "blind_002": 0.00008939,
+      "randomnull_002": 0.05220617,
+      "blind_02": 0.00889517,
+      "randomnull_02": 0.52009454,
+      "blind_02_h7": 0.06635107
+    },
+    {
+      "seed": 101,
+      "state_depth": 40,
+      "ranks_e3": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        22,
+        23,
+        24
+      ],
+      "rank_e5_h5": 63,
+      "blind_002": 0.00009737,
+      "randomnull_002": 0.05759888,
+      "blind_02": 0.0095997,
+      "randomnull_02": 0.5727261,
+      "blind_02_h7": 0.0721403
+    },
+    {
+      "seed": 202,
+      "state_depth": 12,
+      "ranks_e3": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        22,
+        23,
+        23
+      ],
+      "rank_e5_h5": 63,
+      "blind_002": 0.00006212,
+      "randomnull_002": 0.04777076,
+      "blind_02": 0.00626787,
+      "randomnull_02": 0.47337104,
+      "blind_02_h7": 0.05885584
+    },
+    {
+      "seed": 202,
+      "state_depth": 40,
+      "ranks_e3": [
+        4,
+        8,
+        12,
+        16,
+        20,
+        22,
+        23.5,
+        24
+      ],
+      "rank_e5_h5": 60,
+      "blind_002": 0.00007704,
+      "randomnull_002": 0.04666104,
+      "blind_02": 0.00768872,
+      "randomnull_02": 0.47905062,
+      "blind_02_h7": 0.04912246
+    }
+  ],
+  "full_rank_at_horizon5_1e5_total": 248,
+  "full_rank_at_horizon6_1e5_total": 256,
+  "intervention_guidance": "oracle choice uses exact per-trajectory Jacobians and known future input sequence; this is a local causal diagnostic, not a deployable concealment method",
+  "note": "full-gru substrate and trained probe are retained throughout; no cross-device experiment or deleted-weight reconstruction"
+}
