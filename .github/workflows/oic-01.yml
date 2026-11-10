@@ -25,3 +25,5 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
       - name: Pinned receipt replay
         run: python research/observational_inwardness_v1/run.py --check
+      - name: Fault-tolerant audit-channel receipt replay
+        run: python research/observational_inwardness_v1/robust_run.py --check
