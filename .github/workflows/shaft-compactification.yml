@@ -33,6 +33,24 @@ jobs:
               assert metrics['midrun_erasure_at_32']['last_eight_steps'] < 0.60
           print('Trained GRU receipt schema verified; retraining remains opt-in')
           PY
+      - name: Check SHAFT-COMP-07 script and frozen summary
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/predictive_state.py
+          python -m research.shaft_compactification.behavioral_budget > /tmp/shaft-budget.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          budget = json.loads(Path('/tmp/shaft-budget.json').read_text())
+          assert budget['ceiling_successes_for_16_uniform_goals'] == {str(k): 2**k for k in range(5)}
+          r = json.loads(Path('research/shaft_compactification/results/predictive_state_summary.json').read_text())
+          assert r['base_seeds'] == [101, 202]
+          assert r['probe_train_depths'] == [4, 8, 12]
+          for seed in ('101', '202'):
+              results = r['results'][seed]
+              assert results['exact_true_goal_by_depth']['12'] == 1.0
+              assert results['shuffled_label_exact_true_goal_at_12'] < 0.15
+          print('SHAFT-COMP-07 syntax, counting bound, and receipt fields verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt

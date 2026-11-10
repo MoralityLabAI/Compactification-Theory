@@ -99,3 +99,14 @@ Two independently trained, 3,265-parameter toy GRUs demonstrate a concrete seman
 * Exact CPU reference: `python -m research.shaft_compactification.depth_quotient`.
 * Synthetic trained model: `python -m research.shaft_compactification.experiments.trained_recurrence --out /tmp/shaft-trained-recurrence.json` (requires PyTorch).
 * Frozen results: [exact finite](results/depth_quotient.json), [trained GRU](results/trained_recurrence.json).
+
+## SHAFT-COMP-07: behavior-supervised predictive-state extraction (2026-11-10)
+
+[Full report](SHAFT_COMP_07_REPORT.md) | [Reproduction script](experiments/predictive_state.py) | [Frozen numerical summary](results/predictive_state_summary.json).
+
+A 100-parameter linear probe trained on frozen GRU activations and the model's *own four counterfactual one-step output bits* learns a four-bit behavior code. The probe's fitting procedure never receives objective IDs. For two 3,265-parameter toy GRUs, exact recovery on fresh 12-step contexts reached 100% on each seed; by 64 recurrent steps it declined to 31.25% / 42.58% while teacher predictions also degraded. Cross-substrate transfer uses the receiving GRU's **pretrained goal-code embedding table**, so it is a conditional, shared-task-language result and cannot reconstruct erased model weights. Shuffled-label and uncalibrated cross-model hidden-coordinate controls were measured.
+
+The companion [PredictiveCode.lean](lean/Shaft/PredictiveCode.lean) provides an abstract predictive sufficiency theorem, code separation, model-independent signature transfer, approximate error composition and coordinate-change invariance. The exact four-bit identifier lower bound for 16 distinct tasks is checked in [behavioral_budget.py](behavioral_budget.py). All empirical studies remain isolated, locally executed synthetic evaluations.
+
+To reproduce with PyTorch installed:
+`python -m research.shaft_compactification.experiments.predictive_state --out /tmp/shaft-predictive.json`.
