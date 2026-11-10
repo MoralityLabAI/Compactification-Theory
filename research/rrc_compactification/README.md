@@ -6,3 +6,7 @@
 ## RRC-23: measured scaling and exact verifier break-even
 
 [RRC-23](README_RRC23.md) holds the existing neural router and degree-12 class certificate fixed while scaling exact formal-series checks to degree 192 (plus an eight-case degree-384 stress) and expanding the public syntax to four tokens/256 programs. The staged complete symbolic method is faster than staged selective neural deferral at every measured horizon. Exact results, physical timing, peak RSS, and source-hashed replay are stored separately; higher-degree class equality is empirically checked rather than newly proved.
+
+## RRC-24: delayed q-adic factors and exact candidate search
+
+[Results](RRC24_REPORT.md), [algebraic analysis](RRC24_THEORY.md), [protocol](RRC24_PROTOCOL.md), and [reproducibility guide](README_RRC24.md) compare a learned four-base ranker with an exact degree-16 ordering and complete delayed-factor recovery. Thirty-two delayed choices per base have identical coefficients through degree 63. The two-query GRU identifies 195/240 held-out programs, while exact prefix ordering identifies 217/240 and uses less measured CPU time. The suffix parameters are reconstructed by a supplied exact algorithm; the experiment's trained model ranks base operators only.
