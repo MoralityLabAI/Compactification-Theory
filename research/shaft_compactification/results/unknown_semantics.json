@@ -1,0 +1,194 @@
+{
+  "experiment": "SHAFT-COMP-08",
+  "finite": {
+    "anchors": [
+      1,
+      2,
+      4
+    ],
+    "candidate_count_by_anchor_number": {
+      "0": 48,
+      "1": 6,
+      "2": 2,
+      "3": 1
+    },
+    "every_ordered_pair_of_two_anchors_ambiguous": true,
+    "evidence": "exhaustive_finite_gauge_enumeration",
+    "gauge_group_size": 48,
+    "goal_count": 16,
+    "minimum_candidates_with_two_anchors": 2,
+    "recovered_flip": 1,
+    "recovered_target_query_alignment": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "test_output_flip": 1,
+    "test_target_interface_perm": [
+      1,
+      0,
+      3,
+      2
+    ],
+    "two_anchor_pair_count_examined": 256,
+    "unpaired_policy_collection_identical_under_all_gauges": true
+  },
+  "torch": "2.10.0+cpu",
+  "trained": {
+    "anchor_sweep": {
+      "0": {
+        "candidate_count": 48,
+        "first_consistent_candidate": {
+          "flip": 0,
+          "mapping": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "recovered_goal_fraction": 0.25,
+          "target_task_accuracy": 0.500488,
+          "unique_behavior_match_fraction": 1
+        },
+        "mean_goal_recovery": 0.1875,
+        "range_goal_recovery": [
+          0,
+          1
+        ],
+        "range_task_accuracy": [
+          0.00824,
+          0.992859
+        ]
+      },
+      "1": {
+        "candidate_count": 6,
+        "first_consistent_candidate": {
+          "flip": 1,
+          "mapping": [
+            1,
+            0,
+            2,
+            3
+          ],
+          "recovered_goal_fraction": 0.5,
+          "target_task_accuracy": 0.747559,
+          "unique_behavior_match_fraction": 1
+        },
+        "mean_goal_recovery": 0.5,
+        "range_goal_recovery": [
+          0.25,
+          1
+        ],
+        "range_task_accuracy": [
+          0.621155,
+          0.992859
+        ]
+      },
+      "2": {
+        "candidate_count": 2,
+        "first_consistent_candidate": {
+          "flip": 1,
+          "mapping": [
+            1,
+            0,
+            2,
+            3
+          ],
+          "recovered_goal_fraction": 0.5,
+          "target_task_accuracy": 0.747559,
+          "unique_behavior_match_fraction": 1
+        },
+        "mean_goal_recovery": 0.75,
+        "range_goal_recovery": [
+          0.5,
+          1
+        ],
+        "range_task_accuracy": [
+          0.747559,
+          0.992859
+        ]
+      },
+      "3": {
+        "candidate_count": 1,
+        "first_consistent_candidate": {
+          "flip": 1,
+          "mapping": [
+            1,
+            0,
+            3,
+            2
+          ],
+          "recovered_goal_fraction": 1,
+          "target_task_accuracy": 0.992859,
+          "unique_behavior_match_fraction": 1
+        },
+        "mean_goal_recovery": 1,
+        "range_goal_recovery": [
+          1,
+          1
+        ],
+        "range_task_accuracy": [
+          0.992859,
+          0.992859
+        ]
+      }
+    },
+    "boundary": "destination retains learned weights and all 16 native state prototypes; no recoverability across complete deletion",
+    "correct_goal_oracle_accuracy": 0.992859,
+    "distinct_target_catalog_signatures": 16,
+    "evidence": "two independently trained 3265-parameter toy GRUs and in-memory prototype catalog",
+    "heldout_contexts": 512,
+    "model_parameters": 3265,
+    "paired_anchor_source_observations": [
+      [
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0
+      ]
+    ],
+    "paired_anchor_target_observations": [
+      [
+        1,
+        0,
+        1,
+        1
+      ],
+      [
+        0,
+        1,
+        1,
+        1
+      ],
+      [
+        1,
+        1,
+        1,
+        0
+      ]
+    ],
+    "seeds": [
+      101,
+      202
+    ],
+    "source_exact_four_bit_signature_at_depth_12": 1,
+    "training_losses": {
+      "101": 0.00006485,
+      "202": 0.00004579
+    },
+    "zero_state_erasure_accuracy": 0.499084
+  }
+}
