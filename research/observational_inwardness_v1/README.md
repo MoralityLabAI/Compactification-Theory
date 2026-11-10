@@ -94,3 +94,48 @@ python research/observational_inwardness_v1/robust_run.py --check
 **Interpretation boundary:** this is a synthetic audit channel with
 declared integer corruption budgets, not an observed attack on a
 transformer or a claim about cosmological consciousness.
+
+
+## OIC-08–10: raw-state monitoring and parity-sensitive robustness
+
+A new [raw-state sensor reference](raw_sensor.py) measures the *state samples*
+x_0,...,x_T themselves. With e arbitrary substitutions and r marked
+erasures of raw state samples, the sharp fixed-schedule result for **even**
+hidden-phase count n is
+
+\[
+T^*_{\rm raw}(n,e,r)=n+2e+r.
+\]
+
+Only n active interventions are required, even for larger e and r;
+the remaining 2e+r time steps passively read a latched visible difference.
+In contrast, the OIC-06 audit channel reports corrupted transition
+*events*, so it has the different worst-case law
+n(2e+r+1).
+
+For odd n, the final visible state cannot universally separate the
+hidden-model families for any fixed probe schedule. There are valid
+whole-history probe schedules, however, and an independent finite
+optimizer quantifies their cross-family distances. This is an
+explicit parity effect tied to the declared raw-state interface.
+
+Sensor error propagation is tracked directly:
+\`delta(audit_t) = delta(raw_t) xor delta(raw_(t+1))\`.
+Thus one interior raw sample error disturbs two adjacent audit
+events, and direct raw-trace error correction can be much cheaper
+than converting to a transition-audit stream.
+
+- [OIC-T08–10 derivations](THEOREMS.md#oic-t08-sharp-robustness-law-for-corrupted-raw-state-observations-even-n)
+- [Raw sensor code and exact codebook search](raw_sensor.py)
+- [Raw sensor unit tests](test_raw_sensor.py)
+- [Pinned finite raw sensor receipt](results/raw_reference.json)
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+python research/observational_inwardness_v1/raw_run.py --check
+~~~
+
+**Model scope:** one finite synthetic latent state machine, nonadaptive
+binary interventions, known raw-sample corruption budgets and exact
+integer arithmetic. No neural, cosmological or consciousness claim.
