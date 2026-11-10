@@ -1,0 +1,46 @@
+name: RRC-18 certified quotient and direct class inference CPU audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/certify18.py'
+      - 'research/rrc_compactification/learn18.py'
+      - 'research/rrc_compactification/model18.py'
+      - 'research/rrc_compactification/train18.py'
+      - 'research/rrc_compactification/bench18.py'
+      - 'research/rrc_compactification/test_certify18.py'
+      - 'research/rrc_compactification/RRC18_*.md'
+      - 'research/rrc_compactification/README_RRC18.md'
+      - 'research/rrc_compactification/results/rrc18_*.json'
+      - '.github/workflows/rrc-18.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/certify18.py'
+      - 'research/rrc_compactification/learn18.py'
+      - 'research/rrc_compactification/model18.py'
+      - 'research/rrc_compactification/train18.py'
+      - 'research/rrc_compactification/bench18.py'
+      - 'research/rrc_compactification/test_certify18.py'
+      - 'research/rrc_compactification/RRC18_*.md'
+      - 'research/rrc_compactification/README_RRC18.md'
+      - 'research/rrc_compactification/results/rrc18_*.json'
+      - '.github/workflows/rrc-18.yml'
+  workflow_dispatch:
+jobs:
+  certified-quotient-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact polynomial ring, graph classes, query accounting and no-leakage tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_certify18.py' -v
+      - name: Replay complete source- and checkpoint-bound finite certificate
+        run: python research/rrc_compactification/bench18.py --check
+      - name: Prior exact quotient and new topology regression
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_quotient17.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_topology16.py' -v
