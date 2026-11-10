@@ -70,9 +70,10 @@ theorem three_anchor_gauge_unique
     constructor
     · rfl
     · intro q
-      apply onehotPattern_injective q (mapping q)
-      intro a
-      simpa using matching q a
+      have hq : q = mapping q := onehotPattern_injective q (mapping q) (by
+        intro a
+        simpa using matching q a)
+      exact hq.symm
   | true =>
     have h : ∀ a : Fin 3,
         onehotPattern (0 : Fin 4) a =
