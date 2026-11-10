@@ -58,3 +58,9 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
       - name: OIC-20 pinned finite sensor design replay
         run: python research/observational_inwardness_v1/oic20_run.py --check
+      - name: OIC-21 exact adaptive query and source-receipt integrity tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic21_*.py' -v
+      - name: OIC-21 optimized exact tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic21_*.py' -v
+      - name: OIC-21 pinned teacher, held-out and online fault evidence audit
+        run: python research/observational_inwardness_v1/oic21_verify.py --check
