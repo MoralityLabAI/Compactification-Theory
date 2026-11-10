@@ -1,0 +1,43 @@
+name: RRC-22 exact arithmetic and physical-profile smoke audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/bench22.py'
+      - 'research/rrc_compactification/meter22.py'
+      - 'research/rrc_compactification/test_meter22.py'
+      - 'research/rrc_compactification/RRC22_*.md'
+      - 'research/rrc_compactification/README_RRC22.md'
+      - 'research/rrc_compactification/results/rrc22_*.json'
+      - '.github/workflows/rrc-22.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/bench22.py'
+      - 'research/rrc_compactification/meter22.py'
+      - 'research/rrc_compactification/test_meter22.py'
+      - 'research/rrc_compactification/RRC22_*.md'
+      - 'research/rrc_compactification/README_RRC22.md'
+      - 'research/rrc_compactification/results/rrc22_*.json'
+      - '.github/workflows/rrc-22.yml'
+  workflow_dispatch:
+jobs:
+  measured-cpu-receipt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent exact interpreter and no-leakage tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_meter22.py' -v
+      - name: Recompute deterministic bit-width and program-certificate receipt
+        run: python research/rrc_compactification/bench22.py --check
+      - name: Run actual process-level timing and memory smoke, with no machine-bound thresholds
+        run: python research/rrc_compactification/bench22.py --smoke
+      - name: Retain prior exact selective/class benchmarks
+        run: |
+          for pattern in test_select21.py test_family20.py test_family19.py test_certify18.py; do
+            python -m unittest discover -s research/rrc_compactification -p "$pattern" -v
+          done
