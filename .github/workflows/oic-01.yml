@@ -43,3 +43,5 @@ jobs:
         run: python research/observational_inwardness_v1/oic16_verify.py --check
       - name: Replay OIC-16 post-hoc Fourier emission scaling diagnostic
         run: python research/observational_inwardness_v1/oic16_scale.py --check
+      - name: Verify OIC-18 phase-localization fits and all raw fault receipts (no torch)
+        run: python research/observational_inwardness_v1/oic18_verify.py --check
