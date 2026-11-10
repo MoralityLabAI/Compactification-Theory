@@ -387,3 +387,30 @@ python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic
 python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
 python research/observational_inwardness_v1/oic20_run.py --check
 ~~~
+
+
+## OIC-21: Adaptive single-marker sensing, executed CPU pilot
+
+The [OIC-21 report](OIC21_REPORT.md) records 10 trained **oracle-distilled** 145-parameter sensor-query policies, with five seeds each for full-phase and held-out-phase training at n=4–6. Every shift and hidden initial phase was evaluated at n=4,5,6,7,8,12,16,24,32 under a budget of n+2 one-bit marker queries.
+
+The [OIC-T31–T35 mathematics](OIC21_THEORY.md) establishes the exact finite-horizon Bayes decision-tree recursion, a no-hit lower bound for reliable shift identification, a strict five-query adaptive advantage, and a counterexample separating **observation-law identifiability** from identification on one trajectory. Exact computations find full-identification budgets 2n−2 for n=2–6; the general claim is an open conjecture.
+
+At unseen n=24, the learned held-out-phase policy averages **72.53% shift accuracy** using 26 returned sensor bits; the 64 randomized fixed policies average 28.69% using the same number of returned bits. The exact posterior enumerates all n² latent shift/phase candidates, and the learned component is only the sensor-address scorer. Sending the 26 adaptive sensor addresses also costs up to **130 control bits**, so this experiment does not establish a total communication saving.
+
+All-position single-fault tests across n=4,6,8, five seeds and two splits contain **21,640 evaluated clean/flip/erasure episodes**. At n=8 the held-out controller attains 81.56% clean shift accuracy but only 48.94% with one adversarially substituted reported bit. Faults change later sensor choices. [OIC-22](OIC22_PROTOCOL.md) preregisters fault-aware adaptive planning.
+
+- [Exact finite oracle](oic21_exact.py) and [policy/scoring reference](oic21_policy.py)
+- [CPU training source](oic21_train.py) and [benchmark script](oic21_bench.py)
+- [Online sensor corruption model](oic21_faults.py) and [fault batch runner](oic21_fault_bench.py)
+- [Frozen source/weight and result hashes](results/oic21_manifest.json), [compressed ten-model receipts](results/oic21_fits.json.gz.b64), [clean benchmark](results/oic21_bench.json), and [fault panels](results/oic21_faults.json)
+- [Independent standard-library integrity/replay verifier](oic21_verify.py)
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic21_*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic21_*.py' -v
+python research/observational_inwardness_v1/oic21_verify.py --check
+# Optional CPU PyTorch retraining of a single seed:
+OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python research/observational_inwardness_v1/oic21_train.py --seed 0 --split heldout --out /tmp/oic21_heldout_0.json
+~~~
+
+**Evidence scope:** exact finite calculations and a supervised synthetic CPU policy pilot. The exact hypothesis belief and oracle action labels are privileged structural knowledge; the model does not infer unknown physical dynamics from scratch. Sensor faults are evaluated end-to-end under the declared likelihood model.
