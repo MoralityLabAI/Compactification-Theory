@@ -1,0 +1,40 @@
+name: RRC-15 frozen cross-topology exact CPU replay
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/rrc_compactification/topology15.py'
+      - 'research/rrc_compactification/bench15.py'
+      - 'research/rrc_compactification/test_topology15.py'
+      - 'research/rrc_compactification/RRC15_*.md'
+      - 'research/rrc_compactification/README_RRC15.md'
+      - 'research/rrc_compactification/results/rrc15_pilot.json'
+      - '.github/workflows/rrc-15.yml'
+  pull_request:
+    paths:
+      - 'research/rrc_compactification/topology15.py'
+      - 'research/rrc_compactification/bench15.py'
+      - 'research/rrc_compactification/test_topology15.py'
+      - 'research/rrc_compactification/RRC15_*.md'
+      - 'research/rrc_compactification/README_RRC15.md'
+      - 'research/rrc_compactification/results/rrc15_pilot.json'
+      - '.github/workflows/rrc-15.yml'
+  workflow_dispatch:
+jobs:
+  cross-topology-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: New algebra, source isolation, budget and collision tests
+        run: python -m unittest discover -s research/rrc_compactification -p 'test_topology15.py' -v
+      - name: Full source and frozen-checkpoint-bound replay
+        run: python research/rrc_compactification/bench15.py --check
+      - name: Preserve previous graph policy regression tests
+        run: |
+          python -m unittest discover -s research/rrc_compactification -p 'test_graph14.py' -v
+          python -m unittest discover -s research/rrc_compactification -p 'test_graph13.py' -v
