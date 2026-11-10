@@ -51,3 +51,10 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic19*.py' -v
       - name: OIC-19 independent model and raw-sensor fault replay
         run: python research/observational_inwardness_v1/oic19_verify.py
+
+      - name: OIC-20 labeled-marker minimum sensor tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
+      - name: OIC-20 optimized exact sensor tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
+      - name: OIC-20 pinned finite sensor design replay
+        run: python research/observational_inwardness_v1/oic20_run.py --check
