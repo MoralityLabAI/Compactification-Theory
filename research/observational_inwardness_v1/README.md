@@ -692,3 +692,30 @@ python research/observational_inwardness_v1/oic32_run.py --check
 
 
 **OIC-T68/T69 global one-erasure theorem:** for every prime p≥2, the exact unrestricted fixed minimum is Q=2p queries with one marked erasure. For p≥5, an affine-plane line-pair moment contradiction rules out 2p−1 queries even when every marker is addressable. Exhaustive p=2,3 checks close the small cases. See [the proof](OIC32_THEORY.md), [pure-Python reference](oic32_erasure.py), [unit tests](test_oic32_erasure.py), and [pinned receipt](results/oic32_erasure.json).
+
+
+## OIC-33: mandatory-address constraints in the adversarial query game
+
+[OIC33_THEORY.md](OIC33_THEORY.md) proves a necessary next-address restriction
+for any pair of still-possible hidden worlds whose remaining phase
+disagreement opportunities are exactly one greater than their combined
+substitution allowances. All such pairs share one public history; intersecting
+their required marker positions yields a sound multihypothesis pruning rule.
+
+The new C++ search reduces expanded n=7 states by about 75% at both
+historically certified horizons, preserving exhaustive Q14 UNSAT and a complete
+Q20 SAT policy. [OIC33_REPORT.md](OIC33_REPORT.md) reports measured state/memory
+costs and explicitly inconclusive larger Q19 searches.
+
+- [OIC-33 C++ solver](oic33_tight.cpp) and
+  [pure-Python constraint reference](oic33_tight_reference.py)
+- [Independent tests](test_oic33_tight.py), normal and optimized modes
+- [Source-hash and policy replay](oic33_reference.py), with optional full
+  C++ recompile and exact Q14/Q20 rerun
+- [Pinned certificate](results/oic33_reference.json) and
+  [Q20 policy tree](results/oic33_q20_tree.json.gz.b64)
+- [OIC-34 follow-up protocol](OIC34_PROTOCOL.md) for the unresolved Q19 search
+
+The globally fixed n=7 one-substitution threshold is 21 (OIC-32);
+the adaptive threshold remains bounded by 15 and 20. The exact finite
+benchmark implies no empirical claim about trained-model hidden states.
