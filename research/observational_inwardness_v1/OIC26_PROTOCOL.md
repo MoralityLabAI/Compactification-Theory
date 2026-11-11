@@ -22,4 +22,4 @@ Report at least one conclusive n=6 exact threshold or a stronger analytic lower 
 
 ## Executed interim result, 11 November 2026
 
-The six-phase **one-marked-erasure** threshold is now resolved: Q*_erasure(6)=11 by independent unquotiented and symmetry-reduced negative searches at Q=10, plus a verified 753-node positive policy at Q=11. See [OIC26_REPORT.md](OIC26_REPORT.md). The registered **one-substitution** n=6 search remains open.
+The six-phase **one-marked-erasure** threshold is now resolved: Q*_erasure(6)=11 by independent unquotiented and symmetry-reduced negative searches at Q=10, plus a verified 753-node positive policy at Q=11. See [OIC26_REPORT.md](OIC26_REPORT.md). The registered **one-substitution** n=6 task was subsequently resolved in [OIC27_REPORT.md](OIC27_REPORT.md): Q*_flip(6)=15. The [OIC-27 theory](OIC27_THEORY.md) supplies the affine-gauge proof and independent finite certificates.
