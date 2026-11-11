@@ -8,6 +8,69 @@
     "unquotiented_failure_states": 79681
   },
   "evidence_level": "exact_n5_erasure_and_one_flip_lower_bound; no upper_bound_for_one_flip",
+  "fixed_one_erasure_comparison": [
+    {
+      "best_fixed_cross_shift_distance": 2,
+      "best_fixed_word": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "exhaustive_schedules": 8,
+      "fixed_schedule_one_erasure_correctable": true,
+      "n": 2,
+      "query_budget": 4
+    },
+    {
+      "best_fixed_cross_shift_distance": 1,
+      "best_fixed_word": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "exhaustive_schedules": 81,
+      "fixed_schedule_one_erasure_correctable": false,
+      "n": 3,
+      "query_budget": 5
+    },
+    {
+      "best_fixed_cross_shift_distance": 1,
+      "best_fixed_word": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "exhaustive_schedules": 4096,
+      "fixed_schedule_one_erasure_correctable": false,
+      "n": 4,
+      "query_budget": 7
+    },
+    {
+      "best_fixed_cross_shift_distance": 1,
+      "best_fixed_word": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "exhaustive_schedules": 390625,
+      "fixed_schedule_one_erasure_correctable": false,
+      "n": 5,
+      "query_budget": 9
+    }
+  ],
   "n": 5,
   "one_substitution": {
     "Q12_status": "inconclusive_700000_state_cap",
