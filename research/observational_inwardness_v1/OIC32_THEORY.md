@@ -174,3 +174,20 @@ For p=2 and p=3, these are **finite computer-assisted exhaustive results**. Simu
 The six-query word (0,0,0,0,0,0) for p=2 and the eight-query word (0,0,0,1,1,1,2,2) for p=3 both have inter-shift Hamming distance three. Exhaustive enumeration rules out Q=5 and Q=7 respectively, and shorter successful schedules could always be extended to those horizons.
 
 The uniform analytic proof OIC-T64 covers every prime p≥5. These two exceptions complete the classification over all primes. The standard-library enumerator oic32_small.py and its five tests provide an independent finite check. The general second-moment inequality is deliberately restricted to p≥5.
+
+
+## OIC-T67. Certified strict benefit of adaptive queries under one substitution
+
+The unrestricted fixed lower bound combines with previously verified adaptive decision trees:
+
+- p=5: OIC-T45 gives an adaptive minimum of 14 queries; OIC-T64 gives a fixed minimum of 15.
+- n=6: OIC-27 gives an adaptive minimum of 15; OIC-T49 establishes a fixed lower bound of at least 18.
+- p=7: OIC-T51 supplies a verified adaptive winning tree with at most 20 queries; OIC-T64 proves every fixed schedule needs at least 21.
+
+Thus the adaptive strategy has a **strictly smaller returned-query budget** in each case with one adversarially inverted report. At seven phases,
+
+\[
+Q^*_{\mathrm{adaptive,flip}}(7)\le20<21=Q^*_{\mathrm{fixed,flip}}(7).
+\]
+
+This conclusion is independent of the earlier HiGHS fixed-Q20 infeasibility result. Live address commands and policy-description costs remain separately charged, so a query-count advantage does not necessarily mean lower total communication.
