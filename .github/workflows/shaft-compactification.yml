@@ -428,6 +428,31 @@ jobs:
           assert s['primary']['bootstrap95'][0]>0
           print('SHAFT-COMP-22 exact gauge quotient and frozen trained-GRU results audited')
           PY
+      - name: SHAFT-COMP-23 exact two-query recovery and frozen decoder audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/behavior_only_factorization.py
+          python -m research.shaft_compactification.behavior_only_finite > /tmp/shaft_comp23_finite.json
+          python -m research.shaft_compactification.comp23_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          finite=json.loads(Path('/tmp/shaft_comp23_finite.json').read_text())
+          assert set(finite['result'])=={'repeat_toggle','successor_toggle'}
+          for cell in finite['result'].values():
+              assert cell['canonical_states_checked']==768
+              assert cell['distinct_behavioral_codes']==384
+              assert cell['all_behavioral_codes_exactly_recovered']
+          r=json.loads(Path('research/shaft_compactification/results/comp23_summary.json').read_text())
+          f=json.loads(Path('research/shaft_compactification/results/comp23_calibration_freeze.json').read_text())
+          assert r['frozen_calibration_commit']=='5bb2e00777aeea7a88b5b2e374abfa21d3892647'
+          assert r['frozen_calibration_full_sha256']==f['full_local_calibration_freeze_sha256']
+          assert r['heldout_depth40']['states']==4096
+          assert r['heldout_depth40']['total_binary_decisions']==147456
+          assert r['primary']['positive_heldout_models']==4
+          assert r['primary']['bootstrap95'][0]>0
+          assert r['reproducibility']['complete_six_model_replay_identical']
+          print('SHAFT-COMP-23 exact majority inverse, count audit and pre-heldout calibration verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -482,3 +507,4 @@ jobs:
           lake env lean Shaft/TemporalFamily.lean
           lake env lean Shaft/TemporalSupervision.lean
           lake env lean Shaft/FactorizedLatch.lean
+          lake env lean Shaft/BehaviorOnlyIdentification.lean
