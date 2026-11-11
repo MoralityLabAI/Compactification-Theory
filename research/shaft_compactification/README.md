@@ -164,3 +164,13 @@ The experiment tests whether a **fixed** observability-rank deficit (24 minus th
 Q5's actual [twelve-arm F1/F8 baseline](results/q5_registered_reference.json) is pinned read-only (9/12 classified correctly). Q5's F1/F8 measures parameter-gradient fragility, distinct from finite-horizon state observability. An [opt-in checkpoint runner](experiments/q5_checkpoint_bridge.py) verifies original checkpoint hashes and estimates a **projected/sketched** rank across the full token-state tensor. The twelve Q5 checkpoint files are absent from the accessible Git branch, so SHAFT-COMP-13 has **not measured the new statistic on Q5 checkpoints**.
 
 No neural weight-deletion recovery, covert persistence, or real-device evaluation was performed.
+
+## SHAFT-COMP-14: task-sensitive directional Gramian, registered holdout (2026-11-11)
+
+[Registered protocol](SHAFT_COMP_14_PROTOCOL.md) · [Research report](SHAFT_COMP_14_REPORT.md) · [Executable GRU experiment](experiments/task_weighted_observability.py) · [Frozen numerical summary](results/comp14_summary.json) · [AUC audit](task_auc_audit.py) · [Lean direction/cost proofs](lean/Shaft/TaskObservability.lean).
+
+This test compares the COMP-13 numerical rank-deficit predictor against a task-specific, **pair-directional** finite-horizon Gramian: the native four-query output Jacobian is transported through the five-step recurrent tangent cocycle and evaluated on the actual difference between paired natural hidden states. All diagnostic inputs are separately seeded from the 32-step outcome continuation. The protocol froze seeds 505/606 as the new holdout before observing their labels.
+
+The registered weighted directional score achieved held-out AUC **0.652604**, versus matched rank **0.481179**, among 864 eligible state pairs with 50 divergences. The paired within-model bootstrap difference interval is **[0.059345, 0.272535]**, with two new model seeds. The native unweighted directional score reached **0.654742**, slightly above the registered boundary-weighted score; thus evidence favors directional readout sensitivity rather than an independent benefit of the boundary weight. Model-level variability remains large.
+
+The script runs locally with PyTorch 2.10.0+cpu. Independent full rerun produced a byte-identical JSON receipt, SHA-256 \`2930a006382adb552accd501fe6bf730d6681d0937c998ac061054392f126844\`. The GitHub summary retains exact pair-count AUC audits, environment hashes, and uncertainty. This is a synthetic detection study, with no recovered hidden goals or device persistence.
