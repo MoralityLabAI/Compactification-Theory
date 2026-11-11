@@ -148,7 +148,6 @@ python research/observational_inwardness_v1/oic32_run.py --check
 
 These checks verify the exact arithmetic, incidence identity with duplicate query locations, analytic inequality, constructive block witnesses, and randomized negative instances. They supplement a **uniform mathematical proof** and do not treat random testing as evidence of an exhaustive negative result.
 
-
 ## OIC-T66. Complete prime-size classification, including the small exceptions
 
 For a fixed one-bit sensor and one adversarial substitution, the smallest primes are exceptional:
@@ -162,32 +161,100 @@ For a fixed one-bit sensor and one adversarial substitution, the smallest primes
 \end{cases}}
 \]
 
-For p=2 and p=3, these are **finite computer-assisted exhaustive results**. Simultaneously translating every queried marker m_t and hidden initial phase z_0 by c∈F_p preserves every report trajectory for each shift d. We may therefore fix the first sensor marker at zero. At horizon Q this leaves exactly p^(Q−1) normalized fixed schedules.
+For `p=2` and `p=3`, these are **finite computer-assisted exhaustive results**. Simultaneously translating every queried marker `m_t` and hidden initial phase `z_0` by a constant `c∈F_p` preserves every report trajectory, for each shift `d`. Hence we may fix the first marker to zero without changing the existence of a successful fixed schedule. At horizon `Q` the resulting search space contains exactly `p^(Q-1)` words.
 
-| Prime p | Horizon Q | Schedules enumerated | Maximum cross-shift minimum distance |
+The independent integer enumerator evaluates every such word at the immediately shorter horizons:
+
+| p | Q | Exhaustively enumerated normalized fixed words | Largest attained cross-shift distance |
 |---:|---:|---:|---:|
 | 2 | 5 | 16 | 2 |
 | 2 | 6 | 32 | 3 |
 | 3 | 7 | 729 | 2 |
 | 3 | 8 | 2,187 | 3 |
 
-The six-query word (0,0,0,0,0,0) for p=2 and the eight-query word (0,0,0,1,1,1,2,2) for p=3 both have inter-shift Hamming distance three. Exhaustive enumeration rules out Q=5 and Q=7 respectively, and shorter successful schedules could always be extended to those horizons.
+At `p=2,Q=6`, the six-address word `(0,0,0,0,0,0)` attains distance three. At `p=3,Q=8`, the word `(0,0,0,1,1,1,2,2)` attains distance three. Any shorter valid schedule could be extended to the immediately shorter tested horizon without reducing its minimum distance. Complete enumeration at `Q=5` and `Q=7`, respectively, establishes the exact minima.
 
-The uniform analytic proof OIC-T64 covers every prime p≥5. These two exceptions complete the classification over all primes. The standard-library enumerator oic32_small.py and its five tests provide an independent finite check. The general second-moment inequality is deliberately restricted to p≥5.
-
+The general analytical proof OIC-T64 covers every prime `p>=5`. The exceptional enumerations are independently reproducible through `oic32_small.py`, `test_oic32_small.py` and `oic32_small_run.py`, using only Python integers. These cases complete the classification over all primes without extending the uniform second-moment argument to `p=3`, where its strict inequality does not apply.
 
 ## OIC-T67. Certified strict benefit of adaptive queries under one substitution
 
-The unrestricted fixed lower bound combines with previously verified adaptive decision trees:
+The new unrestricted fixed lower bound combines with previously independently verified adaptive decision trees:
 
-- p=5: OIC-T45 gives an adaptive minimum of 14 queries; OIC-T64 gives a fixed minimum of 15.
-- n=6: OIC-27 gives an adaptive minimum of 15; OIC-T49 establishes a fixed lower bound of at least 18.
-- p=7: OIC-T51 supplies a verified adaptive winning tree with at most 20 queries; OIC-T64 proves every fixed schedule needs at least 21.
+- `p=5`: OIC-T45 gives an adaptive minimum of 14 queries, while OIC-T64 gives a fixed minimum of 15.
+- `n=6`: OIC-T47/48 give an adaptive minimum of 15; the previously proved even-cycle fixed lower bound OIC-T49 is at least 18.
+- `p=7`: OIC-T51 supplies a verified adaptive winning tree with at most 20 queries; OIC-T64 now proves every fixed schedule needs at least 21.
 
-Thus the adaptive strategy has a **strictly smaller returned-query budget** in each case with one adversarially inverted report. At seven phases,
+Thus the adaptive strategy has a **strictly smaller returned-query budget** in each of these synthetic cases with one adversarially inverted report. At seven phases,
 
 \[
 Q^*_{\mathrm{adaptive,flip}}(7)\le20<21=Q^*_{\mathrm{fixed,flip}}(7).
 \]
 
-This conclusion is independent of the earlier HiGHS fixed-Q20 infeasibility result. Live address commands and policy-description costs remain separately charged, so a query-count advantage does not necessarily mean lower total communication.
+This is independent of the previous HiGHS fixed-Q20 infeasibility conclusion. It follows from the new analytic fixed lower bound and the complete OIC-28 winning policy replay. Adaptive strategies still pay live address-command and policy-description costs, so a lower *number of reports* does not imply lower total communication or hardware cost.
+
+## OIC-T68. Global fixed one-erasure optimum for prime cycles
+
+**Theorem.** For every prime `p>=5`, with one **marked erased report** and no substitutions, the minimum number of fixed, precommitted one-bit sensor queries is exactly
+
+\[
+\boxed{Q^*_{\mathrm{fixed,one\ erasure}}(p)=2p.}
+\]
+
+This lower bound permits **every** one of the p sensor addresses. The two-block word `0^p 1^p` achieves distance two (OIC-T58, k=2), so it suffices to rule out `Q=2p-1`.
+
+**Proof.** As in OIC-T64, represent query occurrences as points `(r,m)` of the affine plane `F_p²`, with each hidden shift/phase a nonvertical line `L` and weight `w(L)` equal to the count of queries on it. Erasure recovery requires minimum cross-shift Hamming distance at least **two**.
+
+At `Q=2p-1`, each slope's p lines have total weight `2p-1`, so at least one line in each slope class has weight at most one. A weight-zero line would have distance at most one from a light line in any other slope, contradicting erasure correction. Hence all lines have weight at least one.
+
+If two weight-one lines of different slopes shared a selected query point, their report distance would be `1+1−2c(P)<=0`, violating distance two. Lines of the same slope have disjoint supports. Thus each query occurrence belongs to at most one weight-one line. If `a_1` is their number,
+
+\[
+a_1\le Q=2p-1. \tag{11}
+\]
+
+Write the weights of all remaining lines as `2+k_L`, `k_L>=0`; positive k identifies the heavier lines. Across all `p` slope classes, the sum of the `p²` line weights is `pQ=2p²-p`. Comparing with baseline weight two gives
+
+\[
+E:=\sum_{k_L>0}k_L=a_1-p\le p-1. \tag{12}
+\]
+
+The line-pair moment is therefore bounded above by
+
+\[
+\begin{aligned}
+\sum_L\binom{w(L)}2
+&=p^2-a_1+\frac12\sum_{k_L>0}(3k_L+k_L^2)\\
+&=p^2-p+\frac{E+\sum k_L^2}{2}\\
+&\le p^2-p+\frac{E+E^2}{2}\\
+&\le\frac{3p(p-1)}{2}. \tag{13}
+\end{aligned}
+\]
+
+The time-residue row counts at `Q=2p-1` are `p−1` rows of size two and one row of size one. The incidence identity OIC-T65 independently forces
+
+\[
+\sum_L\binom{w(L)}2 \ge \sum_{r<s}R_rR_s
+=2(p-1)^2. \tag{14}
+\]
+
+The lower bound (14) exceeds the upper bound (13) by
+
+\[
+2(p-1)^2-\frac{3p(p-1)}2
+=\frac{(p-1)(p-4)}2>0\qquad(p\ge5). \tag{15}
+\]
+
+Therefore no `2p-1` fixed schedule can correct a marked erasure. Any shorter successful schedule could be extended to that length without reducing its minimum code distance. The two-block code attains `Q=2p`, proving the theorem. QED.
+
+## OIC-T69. One-erasure optimum over every prime size
+
+For `p=2` and `p=3`, the normalized finite enumerator verifies the immediately shorter horizons exhaustively: all four length-three schedules on `p=2` have cross-shift distance at most one, and all 81 normalized length-five schedules on `p=3` also have distance at most one. A two-block word attains distance two at `Q=4` for `p=2` and `Q=6` for `p=3`. Combined with OIC-T68:
+
+\[
+\boxed{Q^*_{\mathrm{fixed,one\ erasure}}(p)=2p
+\quad\text{for every prime }p\ge2.}
+\]
+
+The p=2 and p=3 lower bounds are finite exhaustive certificates; the p>=5 lower bound is uniform and analytic. The general statement applies to a known-position erased binary report, leaving the other reported bits intact. It is distinct from the model with a substituted bit, whose exact prime thresholds are classified in OIC-T64/T66.
+
+See `oic32_erasure.py`, `test_oic32_erasure.py`, `oic32_erasure_run.py`, and `results/oic32_erasure.json` for the arithmetic and small-instance checks. All calculations are integer-exact.
