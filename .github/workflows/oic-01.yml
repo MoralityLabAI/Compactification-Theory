@@ -82,3 +82,19 @@ jobs:
         run: python research/observational_inwardness_v1/oic22_reference.py --check
       - name: OIC-22 trained 145-parameter scorer receipt and independent replay
         run: python research/observational_inwardness_v1/oic22_verify.py --check
+
+
+  oic23-certificates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact OIC-23 adaptive/fixed query tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic23_exact.py' -v
+      - name: Exact OIC-23 tests with Python optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic23_exact.py' -v
+      - name: Replay nine pinned adversarial policy certificates
+        run: python research/observational_inwardness_v1/oic23_reference.py --check
