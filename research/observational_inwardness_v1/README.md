@@ -560,3 +560,34 @@ python research/observational_inwardness_v1/oic25_reference.py --cpp-check
 The threshold is a computer-assisted finite-state theorem under the
 declared deterministic sensor and adversarial fault rules. It does not
 provide a trained-model, consciousness or physical-cosmology result.
+
+
+## OIC-26: Exact six-phase one-erasure query threshold
+
+The [OIC-26 executed report](OIC26_REPORT.md) resolves the
+six-phase **one marked erasure** case with an exact minimum
+of **eleven adaptive, one-bit marker queries**. An unquotiented
+finite search rules out ten queries after examining 2,223,374 states;
+the translation-quotient search independently rules out ten
+after 370,580 states.
+
+At eleven queries, the winning 753-node policy passes
+OIC-23's independent checker and 331 true-world fault
+replays. The empirical pattern Q*_erasure(n)=2n−1 now
+holds for n=3,4,5,6. It is a conjecture for arbitrary n.
+
+- [Executable exact reference](oic26_erasure.py)
+- [Independent tests](test_oic26_erasure.py)
+- [Pinned negative-search receipt](results/oic26_reference.json)
+- [Complete eleven-query winning tree](results/oic26_n6_erasure_tree.json.gz.b64)
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic26_erasure.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic26_erasure.py' -v
+python research/observational_inwardness_v1/oic26_erasure.py --check
+python research/observational_inwardness_v1/oic26_erasure.py --recompute
+~~~
+
+The [OIC-26 protocol](OIC26_PROTOCOL.md) still governs the
+open six-phase one-substitution problem. The erasure
+extension is an exact synthetic result with no Lean kernel proof.
