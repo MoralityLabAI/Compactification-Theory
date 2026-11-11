@@ -397,7 +397,7 @@ The [OIC-T31–T35 mathematics](OIC21_THEORY.md) establishes the exact finite-ho
 
 At unseen n=24, the learned held-out-phase policy averages **72.53% shift accuracy** using 26 returned sensor bits; the 64 randomized fixed policies average 28.69% using the same number of returned bits. The exact posterior enumerates all n² latent shift/phase candidates, and the learned component is only the sensor-address scorer. Sending the 26 adaptive sensor addresses also costs up to **130 control bits**, so this experiment does not establish a total communication saving.
 
-All-position single-fault tests across n=4,6,8, five seeds and two splits contain **21,640 evaluated clean/flip/erasure episodes**. At n=8 the held-out controller attains 81.56% clean shift accuracy but only 48.94% with one adversarially substituted reported bit. Faults change later sensor choices. [OIC-22](OIC22_PROTOCOL.md) preregisters fault-aware adaptive planning.
+All-position single-fault tests across n=4,6,8, five seeds and two splits contain **21,640 evaluated clean/flip/erasure episodes**. At n=8 the held-out controller attains 81.56% clean shift accuracy but only 48.94% with one adversarially substituted reported bit. Faults change later sensor choices. [OIC-22](OIC22_PROTOCOL.md) registered the subsequent fault-aware experiment, now executed and reported below.
 
 - [Exact finite oracle](oic21_exact.py) and [policy/scoring reference](oic21_policy.py)
 - [CPU training source](oic21_train.py) and [benchmark script](oic21_bench.py)
@@ -414,3 +414,51 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 python research/observational_inwardnes
 ~~~
 
 **Evidence scope:** exact finite calculations and a supervised synthetic CPU policy pilot. The exact hypothesis belief and oracle action labels are privileged structural knowledge; the model does not infer unknown physical dynamics from scratch. Sensor faults are evaluated end-to-end under the declared likelihood model.
+
+
+## OIC-22: fault-aware active sensing, executed negative pilot
+
+[OIC22_REPORT.md](OIC22_REPORT.md) records ten **145-parameter** trained
+sensor scorers (five seeds, full and held-out phase splits), trained with
+500 Adam steps and batches of 96. The cyclic hypothesis transition table
+remains supplied as structural knowledge. A two-mask posterior now accounts
+exactly for zero or one sensor-report substitution. The policy uses a stable
+four-decimal score tie break. The teacher combines exact joint Bayes planning
+on the n=4,5 **optimal-policy trees** with frozen OIC-21 policy supervision
+off-tree and at n=6; the additional teacher computation is disclosed.
+
+Across the 21,640 registered n=4,6,8 population episodes, the held-out
+policy obtains **48.26%** shift accuracy with one substitution at n=6
+versus OIC-21's 43.75%, and **50.50%** at n=8 versus 48.94%.
+Clean identification remains within the registered tolerance.
+**The ten-percentage-point adversarial improvement gate fails.**
+
+[OIC22_THEORY.md](OIC22_THEORY.md) gives exact one-flip, one-erasure
+and mixed clean/flip Bayesian recursions on small finite systems,
+with a new necessary lower bound for universal full-shift recovery:
+
+\[
+\boxed{Q\ge n(e+1)+r}
+\]
+
+for up to e substitutions and r marked erasures. Thus the previous
+Q=n+2 benchmark cannot provide a worst-case one-flip certificate at n>=4.
+
+- [OIC-22 exact Bellman solver](oic22_exact.py) and [finite replay](oic22_reference.py)
+- [Two-mask Bayesian monitor](oic22_filter.py) and [CPU training](oic22_train.py)
+- [Independent Python-only receipt verifier](oic22_verify.py)
+- [Saved training weights and evaluation counts](results/oic22_fits.json.gz.b64), [aggregate scores and pinned hashes](results/oic22_summary.json)
+- [Optional four-step receding planner](oic22_lookahead.py) and [pinned exploratory comparison](results/oic22_lookahead.json)
+- [OIC23_PROTOCOL.md](OIC23_PROTOCOL.md): prospective certified query horizons starting at the necessary information lower bound
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic22*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic22*.py' -v
+python research/observational_inwardness_v1/oic22_reference.py --check
+python research/observational_inwardness_v1/oic22_verify.py --check
+python research/observational_inwardness_v1/oic22_verify.py --deep
+~~~
+
+The source hashes and 90 panel totals have been checked by an independent
+scalar implementation. The results are synthetic and establish no measured
+transformer self-model, consciousness or cosmological mechanism.
