@@ -1,6 +1,6 @@
 # OIC-23: Certified robust query schedules above the information lower bound
 
-**Prospective (11 November 2026).** OIC-22's learned policy failed the preregistered ten-point single-substitution gain at Q=n+2, and OIC-T36 shows a universal full-shift guarantee requires Q≥n(e+1)+r. The next exact study starts at this necessary horizon rather than assuming a subcritical monitor can become perfect through training alone.
+**Prospective (11 November 2026).** OIC-22's learned policy failed the preregistered ten-point single-substitution gain at Q=n+2, and OIC-T37 shows a universal full-shift guarantee requires Q≥n(e+1)+r. The next exact study starts at this necessary horizon rather than assuming a subcritical monitor can become perfect through training alone.
 
 ## Registered objective
 
