@@ -49,3 +49,21 @@ python research/observational_inwardness_v1/oic24_run.py --check
 ~~~
 
 This result is conditional on the declared exact cyclic model, single-bit addressed sensor, and bounded report-fault interface. No neural model or physical hidden-state measurement is involved.
+
+
+## OIC-T43. Strict adaptive benefit under one marked erasure
+
+At the exact adaptive one-erasure threshold for n=2,3,4,5, compare every fixed address word of the same length. A fixed word induces one binary codeword per hidden (d,z0). Guaranteeing identification after one **marked erasure** requires minimum Hamming distance at least 2 between codewords belonging to distinct shifts.
+
+Using translation symmetry to fix the first sensor address at zero, exhaustive enumeration gives:
+
+| n | Adaptive horizon Q* | Fixed words examined | Largest fixed cross-shift distance |
+|---|---:|---:|---:|
+| 2 | 4 | 8 | 2 |
+| 3 | 5 | 81 | 1 |
+| 4 | 7 | 4,096 | 1 |
+| 5 | 9 | 390,625 | 1 |
+
+Thus for n=3,4,5 **adaptive addressing is strictly more powerful than any fixed schedule at the same sensor-output budget when one erasure is permitted**. At n=2, a fixed schedule attains the exact adaptive minimum. Each exhaustive count and maximizing witness are pinned in `results/oic24_reference.json` and replayed by `oic24_run.py --check`.
+
+The adaptive erasure minima for n=3,4,5 equal 2n−1, suggesting the open conjecture \(Q^*_{\mathrm{erasure}}(n)=2n-1\) for n≥3. Neither a proof nor an n≥6 result has yet been obtained. Online address-transmission bits, policy-description bits and computational search cost must be charged separately from the one-bit sensor returns.
