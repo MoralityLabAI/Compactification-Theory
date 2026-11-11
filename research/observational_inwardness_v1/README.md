@@ -497,3 +497,32 @@ python research/observational_inwardness_v1/oic23_reference.py --check
 
 The claims concern a synthetic exact finite sensor game. The source, oracle
 and certificate do not establish any learned-model or physical cosmology result.
+
+
+## OIC-24: phase-translation quotient and five-phase robust thresholds
+
+The [OIC-24 note](OIC24_NOTE.md) proves that simultaneous translation of
+hidden initial phases and sensor addresses preserves every admissible
+report, including substitutions and marked erasures. A verified
+symmetry-reduced Boolean oracle applies this equivalence to policy search.
+
+At n=5, the **minimum** worst-case adaptive query budget with up to
+one marked erasure is exactly nine. The ordinary unquotiented oracle
+rules out eight queries, while the nine-query adaptive tree passes
+independent replay on all 174 true-state/fault paths.
+
+For one substituted report, complete symmetry-quotient searches rule out
+all horizons through eleven queries, establishing Q*_flip(5)>=12.
+The Q=12 attempt hit a declared 700,000-state cap; its feasibility is open.
+
+- [Exact symmetry-aware oracle](oic24_sym.py)
+- [Canonical certificate replay](oic24_run.py)
+- [Five symmetry and integrity tests](test_oic24_sym.py)
+- [Pinned reference](results/oic24_reference.json) and
+  [nine-query erasure policy](results/oic24_n5_erasure_policy.json.gz.b64)
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
+python research/observational_inwardness_v1/oic24_run.py --check
+~~~
