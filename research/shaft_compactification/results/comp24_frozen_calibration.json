@@ -1,0 +1,143 @@
+{
+  "experiment": "SHAFT-COMP-24",
+  "phase": "calibration",
+  "protocol": "SHAFT_COMP_24_PROTOCOL.md",
+  "registration_commit": "92ad76ece8dafe37a6181b48ca53ee52f1554059",
+  "full_calibration_sha256": "e007f5cdbc33fab71740392ec65b5f2dfc36f8bbf20fbca8fffe4700bcf057be",
+  "experiment_source_sha256": "fe4b10ebedcb8074614f493ebe148b492663309331bd4adce125f63c4fbfcbd2",
+  "per_goal": 16,
+  "families": {
+    "repeat_toggle": {
+      "source_seed": 2301,
+      "source_model": {
+        "base_model_sha256": "4d1fa2406bfe6419dce150d8a3e84980ca061f1eee1bd1f5bb7a460fb8104833",
+        "checkpoint_sha256": "795b8897c3aa2087b326cb3378738c8612f2c4c7e0d8798ccd293de86a670ec5",
+        "native_accuracy_d12": 0.9694010615348816,
+        "native_accuracy_d32": 0.96148681640625,
+        "original_receipt_sha256": "a1fe3111c17f2e577eb514a78187267dee75b7e323f6ad6efdb5e5baa6ce13a0"
+      },
+      "calibration_states": 2048,
+      "inference": {
+        "rule": [
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "exact_tie_entries": 0,
+        "minimum_votes_per_entry": 1872,
+        "minimum_vote_fraction_margin": 0.44444444
+      }
+    },
+    "successor_toggle": {
+      "source_seed": 2311,
+      "source_model": {
+        "base_model_sha256": "7e73ad46739c21e698a8b111c54ea6ed4f5dfdb718732533f9b53554e73dba4c",
+        "checkpoint_sha256": "3a99ecc0a9aef3fe0bf045480c4320f8f069c3a981940",
+        "native_accuracy_d12": 0.9969889521598816,
+        "native_accuracy_d32": 0.995086669921875,
+        "original_receipt_sha256": "5f37a7bfe68c084082d28d09508714008d056aeed809052106f9c4f91f21bf5e"
+      },
+      "calibration_states": 2048,
+      "inference": {
+        "rule": [
+          [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "exact_tie_entries": 0,
+        "minimum_votes_per_entry": 1884,
+        "minimum_vote_fraction_margin": 0.48467967
+      }
+    }
+  }
+}
