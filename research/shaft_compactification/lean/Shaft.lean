@@ -18,3 +18,4 @@ import Shaft.TemporalSupervision
 import Shaft.FactorizedLatch
 import Shaft.BehaviorOnlyIdentification
 import Shaft.TriggerIdentification
+import Shaft.TriggerRule
