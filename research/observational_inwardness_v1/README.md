@@ -637,3 +637,10 @@ python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic
 python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
 python research/observational_inwardness_v1/oic30_run.py --check
 ~~~
+
+
+**Unrestricted Q20 audit:** the 49-variable occupancy MILP with all
+seven addresses has now returned HiGHS INFEASIBLE; see
+[the pinned solver status](results/oic30_q20_solver_status.json).
+This remains solver-reported evidence until an independently checkable
+integer-unsatisfiability certificate is produced.
