@@ -462,3 +462,38 @@ python research/observational_inwardness_v1/oic22_verify.py --deep
 The source hashes and 90 panel totals have been checked by an independent
 scalar implementation. The results are synthetic and establish no measured
 transformer self-model, consciousness or cosmological mechanism.
+
+
+## OIC-23: exact robust adaptive-query certificates
+
+[OIC23_REPORT.md](OIC23_REPORT.md) and [OIC23_THEORY.md](OIC23_THEORY.md)
+establish **complete finite** robust query thresholds for unknown shift and initial phase on
+cycles n=2,3,4. For one substituted report the exact minimum queries are 6,8,10;
+for one marked erasure they are 4,5,7; for one of each they are 8,9,12.
+These are exhaustive finite results, with an open conjecture Q*(n)=2n+2
+for one substitution at n>=5. The n=5 exploratory run hit a declared
+300,000-node cap, so its status is inconclusive.
+
+At n=4,Q=10, a verified adaptive policy always recovers the shift despite
+one substituted report. Exhaustive enumeration of all 4^9=262144 fixed
+schedules after phase-translation reduction proves that each has
+minimum cross-shift Hamming distance <=2, insufficient to correct one
+substitution. This gives a strict robust adaptive-versus-fixed separation
+at equal ten-report budget, while adaptive addresses also require online
+address communication.
+
+- [Exact Boolean solver](oic23_exact.py) and
+  [independent certificate generator/replayer](oic23_reference.py)
+- [Seven finite tests](test_oic23_exact.py) for ordinary and optimized Python
+- [Pinned manifest](results/oic23_reference.json) and
+  [nine compressed query trees](results/oic23_certificates.json.gz.b64)
+- [OIC-24 protocol](OIC24_PROTOCOL.md) for larger cycles and a stronger lower bound
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic23_exact.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic23_exact.py' -v
+python research/observational_inwardness_v1/oic23_reference.py --check
+~~~
+
+The claims concern a synthetic exact finite sensor game. The source, oracle
+and certificate do not establish any learned-model or physical cosmology result.
