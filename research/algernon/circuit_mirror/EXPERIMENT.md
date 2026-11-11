@@ -521,3 +521,27 @@ The runs go to a new output directory. P has no corrector, so its evaluation is 
 **What it settles.**
 - **If R1 is met** (with the instrument valid and C above the clean floor): the transition residual repairs D1's answer once its training loss reaches the answer. H-A3e's null for C then reflects the local loss's reach.
 - **If R1 is not met:** the residual form G(e - p) does not repair D1's answer at the midpoint, with or without an answer-level loss, and Phase 4 closes on that null for C. Whether the information-matched I repairs is reported through R4.
+
+**H-A3f Result (2026-11-12):** **R1, R2 and R3 met**; R4 not met. The instrument is valid. C and N keep clean runs intact; I does not (0.944, 4 of 72 clean cases missed). One of the four registered predictions held (P's records equal H-A3e's, 1,368 of 1,368); the other three failed.
+- Run details:
+  - code `e1c98cb` (train and eval); weights `80eda0824cff`; sigma_e = 1.0; kappa = 6.92; `--loss answer`.
+  - Training stopped twice and resumed from its 25-step checkpoints: a power cap at I step 288, and a requested pause at I step 425. The batches are seeded per step.
+- *Primary condition* (864 runs per arm): P 0.626, C 0.811, I 0.714, N 0.561.
+  - C - P = +0.185 [+0.141, +0.231]
+  - C - I = +0.097 [+0.041, +0.154]
+  - C - N = +0.250 [+0.188, +0.315]
+  - I - P = +0.088 [+0.032, +0.146] (under the 0.10 margin)
+- *Clean:* P 1.000 and C 1.000, with every clean trace accepted; I 0.944; N 0.972.
+- *Settled:*
+  - The registered branch for R1 met applies: the transition residual repairs D1's answer once its training loss reaches the answer. H-A3e's null for C reflects the local loss's reach.
+  - C beats I, which gets the same inputs [e, p] and combines them freely. Under this loss the advantage is the residual form's, not information I lacks.
+  - Under the local loss (H-A3e) the sign was reversed: C - I = -0.166.
+- *Post-hoc, not registered:*
+  - C's trace acceptance is unchanged (0.985). Its answer is right in 0.813 of its valid-trace runs, against 0.638 in H-A3e.
+  - I's trace acceptance falls from 0.985 to 0.691 and its answer accuracy from 0.804 to 0.714.
+  - The slot 3-5 corrector weights are no longer zero: norms 6.23 (C), 9.88 (I), 10.54 (N).
+  - At 2 sigma_e, C - P = +0.181 [+0.106, +0.264]. At sigma_e/2, C is level with P (0.968 against 0.963).
+  - CPU check on 12 generated cases, j = 4. C still pushes only where pi's decode is wrong: its clean-loop margin stays at F's +13.
+  - In the same check, I's and N's slots after loop j - 1 have a median RMS of 3.8, against F's 6.95. The fixed noise is therefore larger relative to their state.
+
+Report: [lotus_bridge/results/algernon-03f/report.md](lotus_bridge/results/algernon-03f/report.md).
