@@ -591,3 +591,42 @@ python research/observational_inwardness_v1/oic26_erasure.py --recompute
 The [OIC-26 protocol](OIC26_PROTOCOL.md) still governs the
 open six-phase one-substitution problem. The erasure
 extension is an exact synthetic result with no Lean kernel proof.
+
+
+## OIC-27: Exact six-phase one-substitution threshold
+
+The completed [OIC-27 report](OIC27_REPORT.md) and
+[theorem note](OIC27_THEORY.md) establish the computer-assisted
+exact adaptive query minimum **Q*=15** for n=6 with one substituted
+report, unknown shift and unknown initial phase. Two independently
+implemented C++ solvers reject Q=14 after 1,639,144 translation-reduced
+states and 813,921 affine-reduced states; each constructs its own
+winning Q=15 policy. The pure Python independent verifier validates
+both complete policy trees and 477 / 471 real-world legal fault paths.
+
+[OIC-T47](OIC27_THEORY.md#oic-t47-the-affine-phase-label-symmetry)
+proves soundness of the affine phase-gauge quotient used by the second
+solver. [OIC-T49](OIC27_THEORY.md#oic-t49-even-cycle-nonadaptive-parity-bound)
+gives the analytic nonadaptive lower bound
+Q_fixed(n,e) >= n(2e+1) for even n. A separate SciPy/HiGHS
+integer feasibility search finds a valid n=6 one-flip fixed schedule
+at Q=21 and reports Q=20 infeasible; this fixed optimum has the
+explicitly stated solver evidence grade.
+
+- [Translation solver](oic27_fast.cpp), [affine solver](oic27_affine.cpp)
+- [Independent true-world verifier](oic27_verify.py)
+- [Frozen policy receipt and replay](oic27_reference.py)
+- [Eight mutation and exact-gauge tests](test_oic27_exact.py)
+- [Pinned reference](results/oic27_reference.json) and
+  [compressed policy trees](results/oic27_n6_flip_policies.json.gz.b64)
+- [OIC-28 protocol](OIC28_PROTOCOL.md), prospective n=7 work
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic27*.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic27*.py' -v
+python research/observational_inwardness_v1/oic27_reference.py --check --cpp-check
+~~~
+
+The computed thresholds concern this finite publicly addressed
+one-bit sensor contract. They are separate from tests of actual
+looped transformer internals or conscious experience.
