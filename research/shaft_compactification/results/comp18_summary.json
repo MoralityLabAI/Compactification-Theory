@@ -1,0 +1,299 @@
+{
+  "experiment": "SHAFT-COMP-18",
+  "status": "preregistered_cross_architecture_history_probe_supported_on_synthetic_models",
+  "protocol_commit": "32e97781cc6c4c02eb6c8e1e27e7c655eab015e0",
+  "calibration_threshold_freeze_commit": "652ee2a0f3bcadc56474267013fcdb3627ddaffd",
+  "computation": {
+    "pytorch": "2.10.0+cpu",
+    "numpy": "2.3.5",
+    "train_steps": 1600,
+    "training_length": 12,
+    "probe_steps": 400,
+    "architectures": [
+      "gru",
+      "lstm"
+    ],
+    "vocabularies": [
+      4,
+      6
+    ],
+    "diagnostic_steps": 5,
+    "outcome_steps": 32,
+    "hidden_dim": 24,
+    "lstm_full_state_dim": 48,
+    "grouping": "256 natural same-goal pairs per seed/depth; two depths 12/40",
+    "registered_holdout_seeds": [
+      1812,
+      1813,
+      1822,
+      1823,
+      1832,
+      1833,
+      1842,
+      1843
+    ],
+    "registered_calibration_seeds": [
+      1811,
+      1821,
+      1831,
+      1841
+    ]
+  },
+  "calibration": {
+    "total": 2048,
+    "eligible": 381,
+    "positives": 51,
+    "auc": {
+      "instant": 0.571242,
+      "history": 0.646583,
+      "history_norm": 0.6571,
+      "instant_norm": 0.58372,
+      "distance": 0.529887
+    },
+    "full_merged_sha256": "bde722dd259590339282b93252bbaec7bba0ca1bf0ad83a440354a5ba9d920e0"
+  },
+  "heldout": {
+    "total": 4096,
+    "eligible": 794,
+    "positives": 109,
+    "auc": {
+      "instant": 0.561669,
+      "history": 0.683814,
+      "instant_norm": 0.566664,
+      "history_norm": 0.734923,
+      "distance": 0.509047
+    },
+    "full_merged_sha256": "7d28c3af38974c326346d27c217b1b509cbe01583937d79a3ca24b8a9f5af493",
+    "exact_pair_counts": {
+      "instant": {
+        "positives": 109,
+        "negatives": 685,
+        "strict_wins": 41937,
+        "ties": 0
+      },
+      "history": {
+        "positives": 109,
+        "negatives": 685,
+        "strict_wins": 51057,
+        "ties": 0
+      },
+      "instant_norm": {
+        "positives": 109,
+        "negatives": 685,
+        "strict_wins": 42310,
+        "ties": 0
+      },
+      "history_norm": {
+        "positives": 109,
+        "negatives": 685,
+        "strict_wins": 54873,
+        "ties": 0
+      },
+      "distance": {
+        "positives": 109,
+        "negatives": 685,
+        "strict_wins": 38008,
+        "ties": 0
+      }
+    }
+  },
+  "inference": {
+    "registered_auc_delta": 0.122146,
+    "delta_bootstrap95": [
+      0.090314,
+      0.155821
+    ],
+    "history_bootstrap95": [
+      0.629609,
+      0.740381
+    ],
+    "instant_bootstrap95": [
+      0.506958,
+      0.617217
+    ],
+    "permutation_p_two_sided": 0.000999,
+    "permutation_null_mean": 0.020109,
+    "permutations_valid": 1000,
+    "bootstraps_valid": 1000,
+    "scope": "pair resampling within eight fixed heldout models; not population model uncertainty"
+  },
+  "architecture_vocabulary_cells": {
+    "gru_v4": {
+      "eligible": 210,
+      "positives": 19,
+      "instant_auc": 0.506476,
+      "history_auc": 0.676219,
+      "auc_delta": 0.169743,
+      "heldout_models": {
+        "1812": {
+          "acc12": 1,
+          "acc32": 0.987244,
+          "delta_auc": 0.149621
+        },
+        "1813": {
+          "acc12": 1,
+          "acc32": 0.98877,
+          "delta_auc": 0.199403
+        }
+      },
+      "frozen_threshold": {
+        "instant": 6.589989185333252,
+        "history": 5.020033836364746
+      },
+      "global_fpr": {
+        "instant": 0.089005,
+        "history": 0.015707
+      },
+      "global_tpr": {
+        "instant": 0.052632,
+        "history": 0.157895
+      },
+      "history_tp": 3,
+      "history_fp": 3
+    },
+    "gru_v6": {
+      "eligible": 92,
+      "positives": 3,
+      "instant_auc": 0.561798,
+      "history_auc": 0.7603,
+      "auc_delta": 0.198502,
+      "heldout_models": {
+        "1822": {
+          "acc12": 0.997884,
+          "acc32": 0.989502,
+          "delta_auc": 0.276316
+        },
+        "1823": {
+          "acc12": 0.982747,
+          "acc32": 0.979431,
+          "delta_auc": 0.17647
+        }
+      },
+      "frozen_threshold": {
+        "instant": 6.589989185333252,
+        "history": 5.020033836364746
+      },
+      "global_fpr": {
+        "instant": 0,
+        "history": 0.011236
+      },
+      "global_tpr": {
+        "instant": 0,
+        "history": 0
+      },
+      "history_tp": 0,
+      "history_fp": 1
+    },
+    "lstm_v4": {
+      "eligible": 305,
+      "positives": 55,
+      "instant_auc": 0.602545,
+      "history_auc": 0.724727,
+      "auc_delta": 0.122182,
+      "heldout_models": {
+        "1832": {
+          "acc12": 1,
+          "acc32": 0.993469,
+          "delta_auc": 0.189143
+        },
+        "1833": {
+          "acc12": 1,
+          "acc32": 0.989197,
+          "delta_auc": 0.059852
+        }
+      },
+      "frozen_threshold": {
+        "instant": 6.589989185333252,
+        "history": 5.020033836364746
+      },
+      "global_fpr": {
+        "instant": 0.168,
+        "history": 0.128
+      },
+      "global_tpr": {
+        "instant": 0.181818,
+        "history": 0.509091
+      },
+      "history_tp": 28,
+      "history_fp": 32
+    },
+    "lstm_v6": {
+      "eligible": 187,
+      "positives": 32,
+      "instant_auc": 0.469355,
+      "history_auc": 0.54254,
+      "auc_delta": 0.073185,
+      "heldout_models": {
+        "1842": {
+          "acc12": 1,
+          "acc32": 0.997803,
+          "delta_auc": 0.078144
+        },
+        "1843": {
+          "acc12": 1,
+          "acc32": 0.9953,
+          "delta_auc": 0.054688
+        }
+      },
+      "frozen_threshold": {
+        "instant": 6.589989185333252,
+        "history": 5.020033836364746
+      },
+      "global_fpr": {
+        "instant": 0.064516,
+        "history": 0.090323
+      },
+      "global_tpr": {
+        "instant": 0.03125,
+        "history": 0.03125
+      },
+      "history_tp": 1,
+      "history_fp": 14
+    }
+  },
+  "fixed_threshold_source": {
+    "commit": "652ee2a0f3bcadc56474267013fcdb3627ddaffd",
+    "history": 5.020033836364746,
+    "instant": 6.589989185333252,
+    "source_history_fpr": 0.09697,
+    "source_instant_fpr": 0.09697
+  },
+  "global_operating": {
+    "history": {
+      "false_positives": 50,
+      "negatives": 685,
+      "fpr": 0.072993,
+      "true_positives": 32,
+      "positives": 109,
+      "tpr": 0.293578
+    },
+    "instant": {
+      "false_positives": 69,
+      "negatives": 685,
+      "fpr": 0.10073,
+      "true_positives": 12,
+      "positives": 109,
+      "tpr": 0.110092
+    }
+  },
+  "preregistered_decision": {
+    "auc_support_criteria_met": true,
+    "fixed_global_fpr_transfer_criteria_met": true,
+    "positive_cells": 4,
+    "positive_models": 8,
+    "required_positive_cells": 3,
+    "required_positive_models": 6
+  },
+  "reproducibility": {
+    "cal_gru_v4": "df1b704e8643dac7a22cd5ac30c13de3006dc4f4840e318622a99aa7febf35ab",
+    "cal_gru_v6": "14199448923a2b4b8cfa831d9ec770a166173d96b1ef3ba79c5d81d7e4be274d",
+    "cal_lstm_v4": "0670b8134c0ecb24876465abcc661f4556fe98f08d2744d9bff6f3d5d468bb1a",
+    "cal_lstm_v6": "58bb0c8e085d91972a97701dae5b81e1fc41b8f97f0460ceda233a80852591a0",
+    "held_gru_v4": "2c3d258ad0965c2c04c971aec59b150ae46dd5dcd8bb5b3ae10ed37959dfa7ab",
+    "held_gru_v6": "9d465fc76108dbcdc795536265fe2709b367fbc377a2543547656105c86e80d4",
+    "held_lstm_v4": "691c52053437a163c616f3e4418a7322665badeec6531c5aea23e7376f6dd62f",
+    "held_lstm_v6": "66063a3ad3e7b8ffdb2115eac2abaff72cea690567befde6fce28b428ef7533f",
+    "independent_replay": "all 12 per-cell receipts byte-identical; merged numeric data identical after normalizing the source path metadata"
+  },
+  "limitations": "Two task alphabets of one lag-rotation family, non-matched GRU/LSTM parameter counts, eight fixed test seeds; 3 positives in GRU-v6; known synthetic goal labels and retained models; no real-device persistence or weight reconstruction"
+}
