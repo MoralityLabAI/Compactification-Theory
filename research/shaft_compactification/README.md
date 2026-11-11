@@ -152,3 +152,15 @@ The Lean result gives sufficient conditions for exact causal restoration when th
 [Full mathematical/empirical report](SHAFT_COMP_12_REPORT.md), [exact six-bit observability reference](finite_observability.py), [Lean horizon and delayed-state proofs](lean/Shaft/FiniteObservability.lean), [trained recurrent Jacobian benchmark](experiments/gramian_probe.py) and [frozen numerical summary](results/gramian_summary.json).
 
 For a 24-dimensional recurrent state and a four-output probe, the finite-horizon observation stack O_L can have rank at most min(24,4(L+1)). The exact six-bit shift register verifies the Gramian identity and exposes a one-bit difference only at horizon five. On two trained toy GRUs, the median measured effective ranks reached 24 at horizon five under relative SVD tolerance 10^-5, with 248/256 individual trajectories full rank there and 256/256 by horizon six. At tolerance 10^-3, median horizon-five rank was 22. A direction selected from ker(O_4) produces small early nonlinear probe changes and grows more visible by horizon seven. Every computation is in-memory on synthetic task models; the full substrate remains intact.
+
+## SHAFT-COMP-13: preregistered prediction failure and Q5 bridge (2026-11-11)
+
+[Registered protocol](SHAFT_COMP_13_PROTOCOL.md) · [Full research report](SHAFT_COMP_13_REPORT.md) · [executable trained-GRU experiment](experiments/observability_prediction.py) · [frozen summary](results/comp13_summary.json) · [pure-Python AUC re-audit](rank_auc_reference.py).
+
+The experiment tests whether a **fixed** observability-rank deficit (24 minus the mean pair rank of O_5 at relative tolerance 10^-3) predicts delayed disagreement between two naturally reached states that agree under the immediate behavioral monitor. The diagnostic 5-token trajectory is independent of the 32-token outcome continuation. Seeds 303/404 are previously untested model holdouts, while 101/202 are calibration models.
+
+**Negative primary result:** among 827 eligible held-out state pairs, 55 diverged after 32 steps. Rank-deficit ROC-AUC = **0.504439**, within-model bootstrap 95% interval [0.416862,0.586862], within-seed/depth permutation p=0.963037. The full CPU experiment was independently reproduced byte for byte. More state rank at the registered horizon and precision therefore failed to predict the behavioral endpoint in this toy study.
+
+Q5's actual [twelve-arm F1/F8 baseline](results/q5_registered_reference.json) is pinned read-only (9/12 classified correctly). Q5's F1/F8 measures parameter-gradient fragility, distinct from finite-horizon state observability. An [opt-in checkpoint runner](experiments/q5_checkpoint_bridge.py) verifies original checkpoint hashes and estimates a **projected/sketched** rank across the full token-state tensor. The twelve Q5 checkpoint files are absent from the accessible Git branch, so SHAFT-COMP-13 has **not measured the new statistic on Q5 checkpoints**.
+
+No neural weight-deletion recovery, covert persistence, or real-device evaluation was performed.
