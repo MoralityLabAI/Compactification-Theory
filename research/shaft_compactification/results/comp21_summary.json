@@ -196,7 +196,21 @@
     "finite_aliased_previous_pairs_per_family": 3840,
     "torch": "2.10.0+cpu",
     "numpy": "2.3.5",
-    "replay_status": "two heldout aux-state seeds selected for independent replay, verification pending"
+    "replay_status": "byte-identical base-model and conditional-probe JSON receipts on one heldout auxiliary model per family",
+    "exact_replay_proofs": [
+      {
+        "seed": 2202,
+        "family": "repeat_toggle",
+        "model_receipt_sha256": "0989d2f5e1b56283b40a4fc3a5e7caa2a59f97d188440c91f70bf1a82b8d146e",
+        "probe_receipt_sha256": "a50b154b6623d8d84cf370ef9a2cf0b54f4d53ad9a42819ee655e9c60f383acb"
+      },
+      {
+        "seed": 2212,
+        "family": "successor_toggle",
+        "model_receipt_sha256": "f1742f74733b20507600d8f7175ca6f66b265ee34770771e6c48901ef23a2158",
+        "probe_receipt_sha256": "fc597fe8e7898bf5ed7a3aa6cfc478aa319efa1b52a0067a14feb4ffa8ddf1d2"
+      }
+    ]
   },
   "limits": "Four fixed heldout seeds, goal known during base training, auxiliary labels privileged, baseline and aux probe eligibility cohorts differ; inference devices and full neural weights remain present."
 }
