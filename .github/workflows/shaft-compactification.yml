@@ -275,6 +275,37 @@ jobs:
               assert summary['per_family_receipt_sha256'][family]==summary['replays'][family+'_sha256']
           print('SHAFT-COMP-16 negative transfer and fixed FPR thresholds independently audited')
           PY
+      - name: SHAFT-COMP-17 frozen history-probe and threshold audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/history_aware_transfer.py
+          python -m py_compile research/shaft_compactification/experiments/history_capacity_control.py
+          python -m research.shaft_compactification.temporal_probe_reference > /tmp/shaft17-finite.json
+          python -m research.shaft_compactification.history_probe_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          exact = json.loads(Path('/tmp/shaft17-finite.json').read_text())
+          frozen = json.loads(Path('research/shaft_compactification/results/temporal_probe_reference.json').read_text())
+          assert exact == frozen, 'COMP-17 temporal reference drift'
+          assert frozen['families']['xor_lag']['one_step_alias_pairs_split_by_two_steps'] == 72
+          assert frozen['families']['parity_gate']['one_step_alias_pairs_split_by_two_steps'] == 64
+          s=json.loads(Path('research/shaft_compactification/results/comp17_summary.json').read_text())
+          t=json.loads(Path('research/shaft_compactification/results/comp17_calibration_thresholds.json').read_text())
+          assert s['registration_commit'] == t['registration_commit']
+          assert s['threshold_freeze_commit'] == '603eb2640f5f4f98c99630495249d005c9dd2729'
+          assert s['sha256_full_json'] == s['sha256_replay_json']
+          assert t['thresholds']['history_direction'] == 18.48828887939453
+          assert t['thresholds']['instant_direction'] == 12.010499954223633
+          assert s['heldout']['eligible'] == 523 and s['heldout']['positives'] == 31
+          assert abs(s['inference']['auc_difference'] - 0.103462) < 1e-6
+          assert s['decision']['prediction_transfer_supported']
+          assert s['decision']['fixed_fpr_transfer_supported']
+          posthoc=json.loads(Path('research/shaft_compactification/results/comp17_posthoc_summary.json').read_text())
+          assert posthoc['heldout']['eligible'] == 523
+          assert abs(posthoc['heldout']['auc']['duplicate_immediate_16'] - 0.556517) < 1e-6
+          assert posthoc['status'] == 'exploratory_followup_after_registered_results'
+          print('SHAFT-COMP-17 finite, preregistered, paired-AUC and posthoc receipts verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -322,4 +353,5 @@ jobs:
           lake env lean Shaft/DiagnosticSchedule.lean
           lake env lean Shaft/TaskObservability.lean
           lake env lean Shaft/TaskFactorial.lean
+          lake env lean Shaft/HistoryProbe.lean
           lake env lean Shaft/TemporalFamily.lean
