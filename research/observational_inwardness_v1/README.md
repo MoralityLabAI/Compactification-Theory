@@ -686,3 +686,6 @@ python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic
 python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32_global.py' -v
 python research/observational_inwardness_v1/oic32_run.py --check
 ~~~
+
+
+**OIC-T66 small-prime classification:** exhaustive fixed-schedule enumeration establishes Q=6 for p=2 and Q=8 for p=3. Combined with OIC-T64, the global prime-size rule is 6, 8, and 3p for p≥5. See [small-prime exact enumerator](oic32_small.py), [tests](test_oic32_small.py), and [pinned receipt](results/oic32_exceptional.json).
