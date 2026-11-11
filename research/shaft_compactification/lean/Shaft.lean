@@ -11,3 +11,4 @@ import Shaft.TaskObservability
 import Shaft.TaskFactorial
 import Shaft.TemporalFamily
 import Shaft.HistoryProbe
+import Shaft.HistoryAlphabet
