@@ -14,3 +14,4 @@ import Shaft.HistoryProbe
 import Shaft.HistoryAlphabet
 import Shaft.CapacityMatched
 import Shaft.PersistentLatch
+import Shaft.TemporalSupervision
