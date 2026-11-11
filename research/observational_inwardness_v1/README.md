@@ -670,3 +670,19 @@ unrestricted fixed Q20 certificate and adaptive Q19 tasks.
 **Scope:** finite synthetic sensing. Full seven-marker Q20 feasibility has
 only solver-reported infeasibility, so global fixed minimum still requires
 a checkable certificate. The exact adaptive seven-phase interval is 15–20.
+
+
+## OIC-32: Global fixed-schedule optimum for prime cycles
+
+[OIC-T64/T65](OIC32_THEORY.md) prove a **global** optimal fixed one-substitution query horizon of `Q=3p` for every prime `p>=5`, with all `p` sensor addresses permitted. This settles the seven-phase unrestricted Q20 feasibility gap left open in OIC-30/31: 20 queries are analytically impossible and the existing three-marker 21-query schedule attains the exact optimum. The proof uses the second factorial moment of affine-line query weights and independently handles repeated phase-residue measurements; it does **not** rely on HiGHS or an SMT UNSAT claim.
+
+- [Proof and incidence identity](OIC32_THEORY.md)
+- [Research report](OIC32_REPORT.md)
+- [Standalone integer reference](oic32_global.py), [seven tests](test_oic32_global.py) and [pinned receipt](results/oic32_reference.json)
+- [Next adaptive research protocol](OIC33_PROTOCOL.md): the n=7 adaptive minimum remains in the certified interval 15–20
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32_global.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32_global.py' -v
+python research/observational_inwardness_v1/oic32_run.py --check
+~~~
