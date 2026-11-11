@@ -46,8 +46,8 @@ def merge(paths,permutations=PERMUTATIONS,bootstraps=BOOTSTRAPS):
     heldout=[r for r in merged['rows'] if r['heldout']]
     merged['heldout_pooled']=summary(heldout)
     merged['heldout_pooled']['contrasts']=contrasts(merged['heldout_pooled']['auc'])
-    merged['source_threshold_pooled']={key:operating_point(heldout,key,value)
-                                       for key,value in SOURCE_THRESHOLDS.items()}
+    merged['source_threshold_pooled']={key:operating_point(heldout,key,threshold)
+                                       for key,threshold in SOURCE_THRESHOLDS.items()}
     merged['inference']=paired_inference(merged['rows'],permutations,bootstraps)
     signs=[]
     for family,cfg in FAMILY_SEEDS.items():
