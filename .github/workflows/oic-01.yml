@@ -211,8 +211,10 @@ jobs:
         with:
           python-version: '3.12'
       - name: OIC-32 independent affine-plane integer tests
-        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32_global.py' -v
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32*.py' -v
       - name: OIC-32 optimized-mode tests
-        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32_global.py' -v
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32*.py' -v
       - name: Verify general prime lower-bound arithmetic and pinned codebooks
         run: python research/observational_inwardness_v1/oic32_run.py --check
+      - name: Exhaustively replay p2 and p3 exceptional fixed schedules
+        run: python research/observational_inwardness_v1/oic32_small_run.py --check
