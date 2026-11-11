@@ -1,0 +1,45 @@
+{
+  "certificate_canonical_sha256": "264fa1a4020550db2f19ba4769b53d09b205125d212af4cae0e49293ec6e69c0",
+  "certificate_gzip_sha256": "e4653523bf101c358723c85e3a0bc561256c724770bb1358234a8f2a487822f6",
+  "claim": "search-space reduction and pinned Q14 UNSAT / Q20 SAT validation; no Q19 threshold resolved",
+  "comparisons": {
+    "14": {
+      "baseline": {
+        "states": 6719523,
+        "status": "UNSAT"
+      },
+      "new": {
+        "states": 1673753,
+        "status": "UNSAT"
+      }
+    },
+    "20": {
+      "baseline": {
+        "states": 1094946,
+        "status": "SAT"
+      },
+      "new": {
+        "states": 270328,
+        "status": "SAT"
+      }
+    }
+  },
+  "q19_search_status": "inconclusive: h0 40m-state attempt timed out at 75s; h1 50m-state attempt capped after 106.6s (~2.9GB RSS); h3 60m-state attempt timed out at 130s (~3.3GB RSS). No conclusive Q19 result.",
+  "runtime_conditions": "local C++17 g++ -O3 -march=native; source comparisons recompiled in --cpp-check",
+  "schema": "OIC33-TIGHT-MARKER-REF-V1",
+  "scope": "finite n7 robust adaptive shift sensing; one substituted report; correct shift required for every initial phase",
+  "source_hashes": {
+    "baseline_solver_sha256": "40348dabf4285efb26e3ebaf7a0fb5b7a06d0e8ffba9b08dc71c44b97bfe93da",
+    "new_solver_sha256": "071b26bb287937748e5d0d412aaab3ad272070f51cebf2f358cf7c9d1f898894",
+    "reference_sha256": "7fc4ac0467178a2d38d42d7aa5cc76925c7586db81168c238b4972cbc44d61e0",
+    "tests_sha256": "9b3f0df3baf70070b7120a8e3b4646196cf10cd99830a99e7dac0fee0d900fab"
+  },
+  "theorem": "OIC-T70 mandatory-address intersection; OIC-T71 affine equivariance",
+  "verified_policy": {
+    "leaves": 782,
+    "max_depth": 20,
+    "nodes": 1701,
+    "nonempty_children": 1700,
+    "true_world_fault_paths": 1029
+  }
+}
