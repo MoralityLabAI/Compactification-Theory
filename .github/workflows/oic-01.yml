@@ -98,3 +98,19 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic23_exact.py' -v
       - name: Replay nine pinned adversarial policy certificates
         run: python research/observational_inwardness_v1/oic23_reference.py --check
+
+
+  oic24-symmetry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-24 exact phase-translation and n5 robust-query tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
+      - name: OIC-24 optimized Python tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
+      - name: Independently replay pinned five-phase erasure policy
+        run: python research/observational_inwardness_v1/oic24_run.py --check
