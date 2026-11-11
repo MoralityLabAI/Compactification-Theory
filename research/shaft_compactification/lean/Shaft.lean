@@ -17,3 +17,4 @@ import Shaft.PersistentLatch
 import Shaft.TemporalSupervision
 import Shaft.FactorizedLatch
 import Shaft.BehaviorOnlyIdentification
+import Shaft.TriggerIdentification
