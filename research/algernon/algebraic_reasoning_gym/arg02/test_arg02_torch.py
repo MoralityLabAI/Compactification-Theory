@@ -145,6 +145,9 @@ class PipelineTests(unittest.TestCase):
                           "--check", str(out / "arg02_receipt.json")])
             receipt = json.loads((out / "arg02_receipt.json").read_text())
             self.assertTrue(receipt["smoke"])
+            from research.algernon.algebraic_reasoning_gym.arg02 import tables
+            profile = json.loads((out / "arg02_profile.json").read_text())
+            self.assertIn("## Decision rules", tables.render(receipt, profile))
             self.assertEqual(receipt["summary"]["loop@1"]["negative_accepted"], 0)
             self.assertIn("mechanism_claim", receipt["decisions"])
             # the depth-1 loop and the canonical ensemble member are the same forward
