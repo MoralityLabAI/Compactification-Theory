@@ -306,6 +306,32 @@ jobs:
           assert posthoc['status'] == 'exploratory_followup_after_registered_results'
           print('SHAFT-COMP-17 finite, preregistered, paired-AUC and posthoc receipts verified')
           PY
+      - name: SHAFT-COMP-18 frozen architecture-vocabulary transfer receipts
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/architecture_vocab_transfer.py
+          python -m py_compile research/shaft_compactification/experiments/merge_architecture_transfer.py
+          python -m research.shaft_compactification.finite_history_vocab > /tmp/shaft18_finite.json
+          python -m research.shaft_compactification.comp18_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('research/shaft_compactification/results/comp18_finite_reference.json').read_text())
+          actual=json.loads(Path('/tmp/shaft18_finite.json').read_text())
+          assert expected == actual, 'SHAFT-COMP-18 exact finite quotient receipt drift'
+          assert actual['results']['4']['joint_one_and_two_step_classes'] == 54
+          assert actual['results']['6']['joint_one_and_two_step_classes'] == 348
+          s=json.loads(Path('research/shaft_compactification/results/comp18_summary.json').read_text())
+          t=json.loads(Path('research/shaft_compactification/results/comp18_calibration_thresholds.json').read_text())
+          assert s['protocol_commit']==t['registration_commit']
+          assert s['heldout']['eligible']==794 and s['heldout']['positives']==109
+          assert abs(s['inference']['registered_auc_delta']-.122146)<1e-6
+          assert s['preregistered_decision']['positive_models']==8
+          assert s['preregistered_decision']['positive_cells']==4
+          assert s['preregistered_decision']['fixed_global_fpr_transfer_criteria_met']
+          assert t['global_thresholds']['history']==5.020033836364746
+          assert len(s['heldout']['full_merged_sha256'])==64
+          print('SHAFT-COMP-18 registered result and exact finite reference verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -354,4 +380,5 @@ jobs:
           lake env lean Shaft/TaskObservability.lean
           lake env lean Shaft/TaskFactorial.lean
           lake env lean Shaft/HistoryProbe.lean
+          lake env lean Shaft/HistoryAlphabet.lean
           lake env lean Shaft/TemporalFamily.lean
