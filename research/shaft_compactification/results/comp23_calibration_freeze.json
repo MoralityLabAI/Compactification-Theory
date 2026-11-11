@@ -1,0 +1,60 @@
+{
+  "experiment": "SHAFT-COMP-23",
+  "phase": "calibration_frozen_before_heldout",
+  "registration_commit": "fae6c5c6843ee8f2a8f85686012ee559dc37d281",
+  "full_local_calibration_freeze_sha256": "730efbe3a5d5cb9cd772171988e32a8bac5a2e2b6a0cd79ed55331c44e36fbc4",
+  "experiment_source_sha256": "17bf025a2e24f01c78d0bf11590e04a24b20d268f55ed4469af7813b8f39736f",
+  "calibration_seeds": {
+    "repeat_toggle": 2301,
+    "successor_toggle": 2311
+  },
+  "heldout_seeds": {
+    "repeat_toggle": [
+      2302,
+      2303
+    ],
+    "successor_toggle": [
+      2312,
+      2313
+    ]
+  },
+  "training_recipe": {
+    "base_steps": 3200,
+    "decoder_steps": 600,
+    "training_states": 2304,
+    "evaluation_per_goal": 16
+  },
+  "models": {
+    "repeat_toggle": {
+      "seed": 2301,
+      "gate": true,
+      "accuracy_d12": 0.9694010615348816,
+      "accuracy_d32": 0.96148681640625,
+      "model_hash": "4d1fa2406bfe6419dce150d8a3e84980ca061f1eee1bd1f5bb7a460fb8104833",
+      "json_sha256": "a1fe3111c17f2e577eb514a78187267dee75b7e323f6ad6efdb5e5baa6ce13a0",
+      "checkpoint_sha256": "795b8897c3aa2087b326cb3378738c8612f2c4c7e0d8798ccd293de86a670ec5",
+      "depth40_native_bit": {
+        "direct36": 0.5272623896598816,
+        "factorized900": 0.8966471552848816,
+        "directmlp890": 0.7470431923866272,
+        "oracle": 0.9543728232383728
+      }
+    },
+    "successor_toggle": {
+      "seed": 2311,
+      "gate": true,
+      "accuracy_d12": 0.9969889521598816,
+      "accuracy_d32": 0.995086669921875,
+      "model_hash": "7e73ad46739c21e698a8b111c54ea6ed4f5dfdb718732533f9b53554e73dba4c",
+      "json_sha256": "5f37a7bfe68c084082d28d09508714008d056aeed809052106f9c4f91f21bf5e",
+      "checkpoint_sha256": "3a99ecc0a9aef3fe0bf045480c4320f8f069c2",
+      "depth40_native_bit": {
+        "direct36": 0.5021430253982544,
+        "factorized900": 0.9482150673866272,
+        "directmlp890": 0.7804633378982544,
+        "oracle": 0.9926486611366272
+      }
+    }
+  },
+  "note": "Only new calibration seeds were fitted. Full calibration JSON is SHA256 pinned above. Heldout not trained until after this commit."
+}
