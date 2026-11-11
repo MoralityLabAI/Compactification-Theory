@@ -33,3 +33,21 @@ The exploratory SciPy/HiGHS reduced MILP (49 integer variables) found a 21-query
 The unrestricted fixed-schedule horizon is currently between the prior **solver-reported** exclusion at Q20 and the verified Q21 upper bound. A proof-carrying all-marker Q20 infeasibility certificate would establish the exact fixed minimum. The adaptive seven-phase horizon remains between 15 and 20. The next registered protocol targets proof-producing Q20 occupancy feasibility or infeasibility, and adaptive Q19 with explicit resource caps.
 
 No neural implementation, subjective-experience claim, or physical-cosmology result is inferred from these finite sensor codes.
+
+
+## Extended unrestricted Q20 solver audit
+
+After the initial twelve-second time-limit test, the **exact phase-residue
+49-integer-variable** model was rerun for 55 seconds with all seven sensor
+positions available. SciPy 1.17.0 / HiGHS returned **INFEASIBLE**
+(status 2) after 50.52 seconds. The constraints include all 1,029
+different-shift world pairs with minimum code distance 3, and the row totals
+(3,3,3,3,3,3,2). The independent older 147-variable formulation
+previously reported infeasibility too.
+
+This strengthens the solver evidence for a globally minimal fixed
+horizon of 21, but **a solver-reported integer infeasibility result is
+not an independently checkable proof certificate**. The full result,
+source SHA and runtime limit are pinned in
+[results/oic30_q20_solver_status.json](results/oic30_q20_solver_status.json).
+OIC-31 retains the exact proof-certificate gate.
