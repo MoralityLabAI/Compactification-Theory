@@ -1,6 +1,6 @@
 # SHAFT-COMP-23: Behavioral-only factorization of persistent temporal state
 
-**Preregistered November 11, 2026.** [Protocol](SHAFT_COMP_23_PROTOCOL.md), commit \`fae6c5c6843ee8f2a8f85686012ee559dc37d281\`. **Calibrated before heldout:** frozen commit \`5bb2e00777aeea7a88b5b2e374abfa21d3892647\`, with independent full local calibration SHA-256 \`730efbe3a5d5cb9cd772171988e32a8bac5a2e2b6a0cd79ed55331c44e36fbc4\`. Both calibration base models passed the prespecified 90% native task-accuracy gate.
+**Preregistered November 11, 2026.** [Protocol](SHAFT_COMP_23_PROTOCOL.md), commit `fae6c5c6843ee8f2a8f85686012ee559dc37d281`. **Calibrated before heldout:** frozen commit `5bb2e00777aeea7a88b5b2e374abfa21d3892647`, with independent full local calibration SHA-256 `730efbe3a5d5cb9cd772171988e32a8bac5a2e2b6a0cd79ed55331c44e36fbc4`. Both calibration base models passed the prespecified 90% native task-accuracy gate.
 
 **Registered primary result:** across four *fresh* heldout GRUs, the behavioral-only 900-parameter structured decoder reaches **89.3643% native two-query bit accuracy** at depth 40, while the 900-parameter direct linear decoder reaches **51.7225%**. The pooled difference is **+37.6418 percentage points**, model-stratified 1,000-bootstrap 95% interval **[+37.1127,+38.1702] percentage points**. Every heldout seed favors structured decoding. The registered support criterion is met.
 
@@ -24,7 +24,7 @@ For ordered future queries (a,c), the exact final response is
 \boxed{B_2(a,c)=b[c]\oplus T(p,a).}
 \]
 
-The registered triggers are \`repeat_toggle\` with T(p,a)=[a=p] and \`successor_toggle\` with T(p,a)=[a=(p+1) mod 6]. For a fixed second query c, precisely **one** of the six first-query rows complements b[c]; five retain it. A majority vote across the rows recovers b[c], and the row of complements identifies p (via the inverse successor mapping where relevant).
+The registered triggers are `repeat_toggle` with T(p,a)=[a=p] and `successor_toggle` with T(p,a)=[a=(p+1) mod 6]. For a fixed second query c, precisely **one** of the six first-query rows complements b[c]; five retain it. A majority vote across the rows recovers b[c], and the row of complements identifies p (via the inverse successor mapping where relevant).
 
 This yields a **constructive inversion from 36 behavioral bits to the effective six-bit table and previous token**. In each family, the Python reference enumerates all 768 canonical (g,l,p) states, recovering all 384 distinct behavioral codes and reconstituting the complete 36-bit signature. Canonical goal/latch complement symmetry remains unidentifiable, as it should.
 
@@ -65,7 +65,7 @@ Both calibration and all four heldout seeds are new. Base model training follows
 
 Both calibration models were trained and their full receipts SHA-256 pinned **before any heldout training began**. The heldout experiment script requires the byte-exact frozen calibration receipt and its SHA-256 on command line before fitting a heldout model. No model or seed was replaced based on performance. In each heldout model, test inputs use fresh independent natural histories at depths 12 and 40, with 16 histories per goal per depth (1,024 fresh states at each depth).
 
-The trained experiment script on GitHub is byte-identical to the executable used locally: Git blob SHA \`d521b96255d3bc06e7771048a70325b094260aaf\`, source SHA-256 \`17bf025a2e24f01c78d0bf11590e04a24b20d268f55ed4469af7813b8f39736f\`.
+The trained experiment script on GitHub is byte-identical to the executable used locally: Git blob SHA `d521b96255d3bc06e7771048a70325b094260aaf`, source SHA-256 `17bf025a2e24f01c78d0bf11590e04a24b20d268f55ed4469af7813b8f39736f`.
 
 ## 4. Neural heldout results
 
@@ -117,16 +117,16 @@ This does not establish an unknown latent goal in a frontier model or any cross-
 
 From the repository root with CPU PyTorch 2.10.0 and NumPy 2.3.5:
 
-\`\`\`bash
+```bash
 python -m unittest discover -s research/shaft_compactification/tests -v
 python -m research.shaft_compactification.behavior_only_finite
 python -m research.shaft_compactification.comp23_audit
 python -m research.shaft_compactification.experiments.behavior_only_factorization \
   --family repeat_toggle --seed 2301 --phase calibration \
   --out /tmp/comp23_cal_repeat.json
-\`\`\`
+```
 
-Run the successor calibration seed 2311, freeze the full calibration SHA-256 receipt, and only then run heldout seeds 2302,2303,2312,2313 with the \`--calibration-freeze\` and \`--freeze-sha256\` arguments. The accompanying ZIP archive provides the original calibration receipt and executable replay commands. Light CI checks the standard-library reference, frozen aggregate counts, experiment Python syntax and Lean 4.28 kernel. Full CPU retraining is intentionally opt-in.
+Run the successor calibration seed 2311, freeze the full calibration SHA-256 receipt, and only then run heldout seeds 2302,2303,2312,2313 with the `--calibration-freeze` and `--freeze-sha256` arguments. The accompanying ZIP archive provides the original calibration receipt and executable replay commands. Light CI checks the standard-library reference, frozen aggregate counts, experiment Python syntax and Lean 4.28 kernel. Full CPU retraining is intentionally opt-in.
 
 ## Next falsifier
 
