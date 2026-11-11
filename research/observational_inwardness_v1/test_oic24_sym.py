@@ -3,7 +3,7 @@ from __future__ import annotations
 import base64,gzip,hashlib,json,random,unittest
 from oic24_sym import SymFaultGame
 from oic23_exact import ExactFaultGame
-from oic23_reference import replay_true_scenarios
+from oic23_reference import replay_true_scenarios, min_interfamily_distance
 from oic24_run import MANIFEST,TREE
 
 class OIC24Tests(unittest.TestCase):
@@ -44,6 +44,10 @@ class OIC24Tests(unittest.TestCase):
         self.assertEqual(hashlib.sha256(canonical).hexdigest(),m['policy_canonical_json_sha256'])
         tree=json.loads(canonical)
         self.assertEqual(replay_true_scenarios(5,9,0,1,tree),174)
+        self.assertEqual([x['best_fixed_cross_shift_distance'] for x in m['fixed_one_erasure_comparison']],[2,1,1,1])
+        self.assertEqual([x['exhaustive_schedules'] for x in m['fixed_one_erasure_comparison']],[8,81,4096,390625])
+        for row in m['fixed_one_erasure_comparison']:
+            self.assertEqual(min_interfamily_distance(row['n'],tuple(row['best_fixed_word'])),row['best_fixed_cross_shift_distance'])
         self.assertEqual(m['n'],5)
         self.assertEqual(m['erasure_only']['minimum_queries'],9)
         self.assertEqual(m['one_substitution']['known_impossible_through'],11)
