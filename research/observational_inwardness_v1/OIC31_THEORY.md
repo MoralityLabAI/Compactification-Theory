@@ -55,3 +55,8 @@ The Python checker computes every cross-shift distance in these examples using i
 The OIC-30 49-integer occupancy formulation with the exact 1,029 cross-shift distance inequalities was independently examined by an SMT-LIA formulation through the installed Z3 library. Under a shell time limit, this attempt returned no conclusive answer. The direct and reduced HiGHS models previously reported Q20 infeasibility, but lack a stand-alone integer-UNSAT certificate. The global fixed optimum is therefore **at most 21**, with **Q20 still uncertified**. The adaptive seven-phase query optimum remains in the verified interval `15..20`.
 
 The OIC-31 mixed-error theorem supplies a sharp general result for the proper-marker design class. It is an application of classical code distance to a periodic finite-state sensor channel. Claims about actual neural models would require a separately demonstrated observation map.
+
+
+## Superseding exact global result (OIC-32, 11 November 2026)
+
+The unrestricted Q20 n=7 feasibility question described above is resolved by the subsequent [OIC-T64 affine-line-moment proof](OIC32_THEORY.md). For every prime `p>=5`, the globally optimal fixed one-flip query horizon is exactly `3p`, even if every phase marker is addressable. In particular `Q_fixed^*(7)=21`; the previous HiGHS infeasibility result is now ancillary evidence rather than a proof dependency. The earlier proper-marker theorem remains valid as a special case.
