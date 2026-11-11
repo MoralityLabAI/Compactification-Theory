@@ -405,6 +405,29 @@ jobs:
           assert s['conditional_probe']['history_minus_goal_95_bootstrap'][1]>0
           print('COMP-21 finite oracle, frozen thresholds, exact AUC and model-gate receipts verified')
           PY
+      - name: SHAFT-COMP-22 finite quotient and neural receipt audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/factorized_decoder.py
+          python -m research.shaft_compactification.factorized_latch_finite > /tmp/comp22_finite.json
+          python -m research.shaft_compactification.comp22_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          exact=json.loads(Path('/tmp/comp22_finite.json').read_text())
+          frozen=json.loads(Path('research/shaft_compactification/results/factorized_latch_reference.json').read_text())
+          assert exact == frozen, 'COMP-22 exact quotient reference drift'
+          for x in exact['result'].values():
+              assert x['minimal_behavioral_classes']==384
+              assert x['canonical_states_per_reduced_code']==2
+              assert x['two_query_signature_classes']==384
+          s=json.loads(Path('research/shaft_compactification/results/comp22_summary.json').read_text())
+          assert s['test_states']==16384 and len(s['frozen_models'])==4
+          assert s['pooled_by_depth']['40']['methods']['canonical']['native_exact_count']==596
+          assert s['pooled_by_depth']['40']['methods']['direct']['native_exact_count']==0
+          assert s['primary']['positive_models']==4
+          assert s['primary']['bootstrap95'][0]>0
+          print('SHAFT-COMP-22 exact gauge quotient and frozen trained-GRU results audited')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -458,3 +481,4 @@ jobs:
           lake env lean Shaft/CapacityMatched.lean
           lake env lean Shaft/TemporalFamily.lean
           lake env lean Shaft/TemporalSupervision.lean
+          lake env lean Shaft/FactorizedLatch.lean
