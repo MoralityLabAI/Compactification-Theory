@@ -249,12 +249,12 @@ def main():
     result,(base_model,latch,prevhead)=run_one(args.family,args.seed,args.phase,args.steps,args.probe_steps,args.per_goal,args.show_every)
     payload=json.dumps(result,sort_keys=True,indent=2)+'\n'
     if args.out:
-        args.out.parent.mkdir(parents=True,exist_ok=True)
+        args.out.parent.mkdir(exist_ok=True,parents=True)
         args.out.write_text(payload)
     else:
         print(payload,end='')
     if args.checkpoint:
-        args.checkpoint.parent.mkdir(parents=True,exist_ok=True)
+        args.checkpoint.parent.mkdir(exist_ok=True,parents=True)
         torch.save({'base':base_model.state_dict(),'latch_head':latch.state_dict(),
                     'prev_head':prevhead.state_dict(),'family':args.family,'seed':args.seed},args.checkpoint)
 
