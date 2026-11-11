@@ -46,7 +46,7 @@ At n=6, this planning reference clears the ten-point flip improvement gate again
 
 ## Exact worst-case obstruction and communication costs
 
-OIC-T36 proves that universal full-shift identification under at most e substitutions and r marked erasures needs at least Q=n(e+1)+r one-bit queries. At the present n+2 budget this is impossible for a single substitution and n≥4 regardless of the learned policy. The theorem is a lower bound; sufficiency at Q=2n is open for this interface.
+OIC-T37 proves that universal full-shift identification under at most e substitutions and r marked erasures needs at least Q=n(e+1)+r one-bit queries. At the present n+2 budget this is impossible for a single substitution and n≥4 regardless of the learned policy. The theorem is a lower bound; sufficiency at Q=2n is open for this interface.
 
 | n | Registered Q | Required Q for one-flip guarantee (necessary) | Online response+address bits |
 |---:|---:|---:|---:|
