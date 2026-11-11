@@ -1,6 +1,6 @@
 # OIC-24: Does robust query complexity have a closed form?
 
-**Prospective, November 11, 2026.** OIC-23 establishes exact finite robust identification budgets through n=4 and a strict adaptive/fixed separation at n=4, Q=10.
+**Partially executed, November 11, 2026.** The n=5 one-erasure threshold and the one-flip eleven-query impossibility are certified in [OIC24_NOTE.md](OIC24_NOTE.md). The twelve-query one-flip feasibility question and larger cycles remain prospective. OIC-23 establishes exact finite robust identification budgets through n=4 and a strict adaptive/fixed separation at n=4, Q=10.
 
 ## Registered questions
 
