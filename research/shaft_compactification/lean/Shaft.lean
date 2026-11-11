@@ -7,3 +7,4 @@ import Shaft.ClusterNoise
 import Shaft.CausalSufficiency
 import Shaft.FiniteObservability
 import Shaft.DiagnosticSchedule
+import Shaft.TaskObservability
