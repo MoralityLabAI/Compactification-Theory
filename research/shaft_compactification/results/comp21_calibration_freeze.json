@@ -1,0 +1,99 @@
+{
+  "experiment": "SHAFT-COMP-21",
+  "stage": "calibration_frozen_before_heldout_training",
+  "registration_commit": "b4596c1b5c0e4a63fc4dc3a3d03af524ad041f10",
+  "full_local_freeze_sha256": "50ba4e1a233d81eb8057e9d0f4380f54ac6170d7f09a4621ba019d6b7ecc6d8e",
+  "source_models": [
+    {
+      "family": "repeat_toggle",
+      "seed": 2201,
+      "baseline": {
+        "d12": 0.756103515625,
+        "d32": 0.59912109375,
+        "gate": false,
+        "model_sha256": "7d4b3162831d02515bd25cdbf1eaceb000b5bfabcc2886d3b53a4402c0785de8"
+      },
+      "aux": {
+        "d12": 0.99853515625,
+        "d32": 0.998565673828125,
+        "gate": true,
+        "model_sha256": "006dc1c89b2d68b695541155cebd4041984090b844890eb35f7e2bfcf02a3015"
+      }
+    },
+    {
+      "family": "successor_toggle",
+      "seed": 2211,
+      "baseline": {
+        "d12": 0.8767903447151184,
+        "d32": 0.673431396484375,
+        "gate": false,
+        "model_sha256": "692b355f29bacb273a785166a1bc7b2d9077204639bc4a997f38b4e7805439b2"
+      },
+      "aux": {
+        "d12": 0.9998372197151184,
+        "d32": 0.999725341796875,
+        "gate": true,
+        "model_sha256": "acd5e5548edd2f497e70757a31db4b2cef74a893f280f35a0b40a1b482e6deb5"
+      }
+    }
+  ],
+  "probe_calibration": [
+    {
+      "family": "repeat_toggle",
+      "eligible": 47,
+      "positives": 12,
+      "oracle_native_agreement": 1,
+      "auc": {
+        "goal": 0.885714,
+        "duplicate": 0.871429,
+        "history": 0.857143
+      }
+    },
+    {
+      "family": "successor_toggle",
+      "eligible": 69,
+      "positives": 24,
+      "oracle_native_agreement": 0.9710144927536232,
+      "auc": {
+        "goal": 0.744444,
+        "duplicate": 0.743519,
+        "history": 0.743519
+      }
+    }
+  ],
+  "calibration_counts": {
+    "eligible": 116,
+    "positives": 36,
+    "negatives": 80
+  },
+  "threshold_selection": "0.9 higher quantile of eligible calibration negatives, strict score > threshold",
+  "fixed_thresholds": {
+    "goal": {
+      "threshold": 0.6242356896400452,
+      "false_positives": 7,
+      "true_positives": 10
+    },
+    "duplicate": {
+      "threshold": 0.7256337404251099,
+      "false_positives": 7,
+      "true_positives": 7
+    },
+    "history": {
+      "threshold": 0.6254289150238037,
+      "false_positives": 7,
+      "true_positives": 6
+    }
+  },
+  "heldout_seeds": {
+    "repeat_toggle": [
+      2202,
+      2203
+    ],
+    "successor_toggle": [
+      2212,
+      2213
+    ]
+  },
+  "gate": "12-step native bit accuracy >=0.90; probe evaluations omitted for ungated models",
+  "caution": "Only 80 calibration negatives; fixed thresholds have high sampling uncertainty."
+}
