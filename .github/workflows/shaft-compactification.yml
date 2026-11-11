@@ -332,6 +332,28 @@ jobs:
           assert len(s['heldout']['full_merged_sha256'])==64
           print('SHAFT-COMP-18 registered result and exact finite reference verified')
           PY
+      - name: SHAFT-COMP-19 exact capacity-control and frozen result audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/capacity_history.py
+          python -m py_compile research/shaft_compactification/experiments/merge_capacity_history.py
+          python -m research.shaft_compactification.capacity_finite > /tmp/shaft19_finite.json
+          python -m research.shaft_compactification.comp19_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('research/shaft_compactification/results/comp19_finite.json').read_text())
+          actual=json.loads(Path('/tmp/shaft19_finite.json').read_text())
+          assert expected == actual, 'SHAFT-COMP-19 exact 384-state reference drift'
+          assert expected['families']['lag_rotate']['joint_immediate_history_classes'] == 348
+          assert expected['families']['lag_match']['joint_immediate_history_classes'] == 384
+          s=json.loads(Path('research/shaft_compactification/results/comp19_summary.json').read_text())
+          assert s['heldout']['eligible'] == 968 and s['heldout']['positives'] == 323
+          assert s['inference']['positive_cell_count'] == 4
+          assert s['inference']['permutation_p_two_sided'] == 0.003996
+          assert s['inference']['bootstrap_95_delta'][0] > 0
+          assert s['operating']['history_fixed_source_fpr_pass_all_four_cells']
+          print('SHAFT-COMP-19 exact reference and preregistered capacity result verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -381,4 +403,5 @@ jobs:
           lake env lean Shaft/TaskFactorial.lean
           lake env lean Shaft/HistoryProbe.lean
           lake env lean Shaft/HistoryAlphabet.lean
+          lake env lean Shaft/CapacityMatched.lean
           lake env lean Shaft/TemporalFamily.lean
