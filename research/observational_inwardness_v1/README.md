@@ -630,3 +630,35 @@ python research/observational_inwardness_v1/oic27_reference.py --check --cpp-che
 The computed thresholds concern this finite publicly addressed
 one-bit sensor contract. They are separate from tests of actual
 looped transformer internals or conscious experience.
+
+
+## OIC-28: Seven-phase robust sensing interval (executed)
+
+The [OIC-28 report](OIC28_REPORT.md) and [theory note](OIC28_THEORY.md)
+establish the exact finite **interval** 15 ≤ Q*_flip(7) ≤ 20
+under one substituted addressed-sensor bit and unknown hidden shift and
+initial phase. A complete affine-symmetry search rules out 14 queries
+(6,719,523 memo states); a verified 20-query adaptive policy has
+1,697 nodes and passes 1,029 independent true-world/fault replays.
+Intermediate horizons 15–19 remain unresolved due to resource caps.
+
+The optional [fixed-schedule integer model](oic28_fixed_milp.py)
+reports Q20 infeasible using SciPy/HiGHS, without an independent
+infeasibility certificate. All claims remain finite and synthetic.
+
+- [C++ exact affine solver](oic28_affine.cpp)
+- [Independent public-history and fault-path verifier](oic28_verify.py)
+- [Pinned reference and recompilation runner](oic28_reference.py)
+- [Six certificate and symmetry tests](test_oic28.py)
+- [Canonical 20-query winning tree](results/oic28_n7_q20_tree.json.gz.b64)
+- [Complete result manifest](results/oic28_reference.json)
+- [OIC-29 follow-up protocol](OIC29_PROTOCOL.md)
+
+Reproduction:
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic28.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic28.py' -v
+python research/observational_inwardness_v1/oic28_reference.py --check
+python research/observational_inwardness_v1/oic28_reference.py --cpp-check
+~~~
