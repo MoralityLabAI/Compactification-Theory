@@ -132,3 +132,21 @@ jobs:
         run: python research/observational_inwardness_v1/oic25_reference.py --check
       - name: Independently compile C++ and exhaust Q13 without pair-pruning
         run: python research/observational_inwardness_v1/oic25_reference.py --cpp-check
+
+
+  oic26-six-phase-erasure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Six-phase erasure policy and equivariance tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic26_erasure.py' -v
+      - name: Six-phase erasure tests with Python optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic26_erasure.py' -v
+      - name: Verify pinned erasure tree and replay all fault paths
+        run: python research/observational_inwardness_v1/oic26_erasure.py --check
+      - name: Exhaust all n6 Q10 policies in unquotiented and reduced games
+        run: python research/observational_inwardness_v1/oic26_erasure.py --recompute
