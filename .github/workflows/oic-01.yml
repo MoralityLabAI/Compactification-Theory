@@ -184,3 +184,19 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic29_fixed.py' -v
       - name: Recompute pinned cross-shift distance spectra and collision receipts
         run: python research/observational_inwardness_v1/oic29_fixed.py --check
+
+
+  oic30-prime-cycle-fixed-sensors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: General prime-block theorem witnesses and all two-marker configurations
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
+      - name: Optimized-mode exact tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
+      - name: Independently reconstruct the 21-query three-marker receipt
+        run: python research/observational_inwardness_v1/oic30_run.py --check
