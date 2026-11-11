@@ -526,3 +526,37 @@ python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic
 python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
 python research/observational_inwardness_v1/oic24_run.py --check
 ~~~
+
+
+## OIC-25: exact five-phase one-substitution threshold
+
+The [OIC-25 proof and computer-assisted certificate](OIC25_THEORY.md)
+resolves OIC-24's formerly capped five-phase search. With one addressed
+binary report per step, unknown (shift, initial phase), and at most one
+substituted report, **the exact finite adaptive horizon is Q*=14**.
+A faster C++ Boolean game and a separately written Python dynamic
+program agree that Q=13 is impossible; the C++ negative search was
+also rerun without the new pairwise pruning rule.
+
+At Q=14 both implementations construct the same complete 662-node
+winning tree. OIC-23's independent verifier checks all 327
+true-world/adversarial report paths. This refutes the earlier
+conjectured Q*(n)=2n+2 pattern at n=5.
+
+- [OIC-T44 pairwise residual-disagreement theorem and OIC-T45 exact finite result](OIC25_THEORY.md)
+- [Executed search report](OIC25_REPORT.md)
+- [Fast C++ search](oic25_fast.cpp) and [independent Python search](oic25_independent.py)
+- [Pinned source, search and policy replay](oic25_reference.py) and [tests](test_oic25_exact.py)
+- [Finite search summary](results/oic25_reference.json) and [compressed winning tree](results/oic25_n5_q14_tree.json.gz.b64)
+- [OIC-26 protocol](OIC26_PROTOCOL.md) on general lower bounds and n=6
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic25_exact.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic25_exact.py' -v
+python research/observational_inwardness_v1/oic25_reference.py --check
+python research/observational_inwardness_v1/oic25_reference.py --cpp-check
+~~~
+
+The threshold is a computer-assisted finite-state theorem under the
+declared deterministic sensor and adversarial fault rules. It does not
+provide a trained-model, consciousness or physical-cosmology result.
