@@ -19,13 +19,13 @@ def validate(path=PATH):
     for depth in ("12","40"):
         cell=data["metrics_by_depth"][depth]
         assert cell["states"]==4096
-        assert cell["learned"]==cell["oracle"]
         assert cell["bits_total"]==147456
-    assert all(0<=cell[name]["bits_correct"]<=cell["bits_total"]
+        assert cell["learned"]==cell["oracle"]
+        assert all(0 <= cell[name]["bits_correct"] <= cell["bits_total"]
             for name in ("learned","oracle","zero","wrong_family","permuted_previous"))
     d=data["metrics_by_depth"]["40"]
-    a=d["learned"]["bits_correct"]/d["learned"]["bits_total"]
-    b=d["zero"]["bits_correct"]/d["zero"]["bits_total"]
+    a=d["learned"]["bits_correct"]/d["bits_total"]
+    b=d["zero"]["bits_correct"]/d["bits_total"]
     delta=a-b
     assert abs(delta-data["primary"]["difference"])<1e-8
     assert d["learned"]["exact_correct"]==3137
