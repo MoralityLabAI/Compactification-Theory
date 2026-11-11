@@ -29,12 +29,18 @@ The pure-Python reference calculates affine-line weights from raw query schedule
 
 The proof does not assume that a marker address is missing. It is a stronger result than the earlier proper-marker bound. The adaptive n=7 query threshold remains within **15–20**, with its Q19 search still inconclusive after the registered caps. See `OIC33_PROTOCOL.md` for the next search.
 
+## Small-prime exceptions (OIC-T66)
 
-## Small-prime exceptions: OIC-T66
+A separate exhaustive search normalizes the first sensor marker to zero by the exact global translation gauge. It enumerates all 16 length-five and 32 length-six schedules for `p=2`, and all 729 length-seven and 2,187 length-eight schedules for `p=3`.
 
-Translation-normalized exhaustive searches check 16 length-five and 32 length-six fixed schedules for p=2, plus 729 length-seven and 2,187 length-eight schedules for p=3. They prove that the global fixed one-substitution minima are Q=6 for p=2 and Q=8 for p=3. Combined with the analytic theorem for p≥5, this settles every prime phase size. The positive witnesses and complete shorter-horizon searches are retained in results/oic32_exceptional.json, with five dedicated new unit tests. The full OIC-32 suite has 12 tests in each Python execution mode.
+The globally optimal fixed one-substitution query horizon for **every prime phase size** is consequently `6` at `p=2`, `8` at `p=3`, and `3p` for `p>=5`. Exact positive witnesses and negative exhaustive maxima are pinned in `results/oic32_exceptional.json`. The combined OIC-32 suite has **12 tests**, each passing with and without Python assertions enabled.
 
+## Certified strict adaptive advantage
 
-## Strict adaptive advantage now certified
+At p=7, the previously verified 20-query adaptive policy of OIC-28 now has a **mathematically certified strict query-count advantage** over every fixed policy: OIC-T64 proves the fixed minimum is 21. At p=5, the adaptive optimum 14 is one below the fixed optimum 15; at n=6, the adaptive optimum 15 is at least three below the existing fixed lower bound 18. These are returned-query comparisons; online sensor-address and policy-description costs are separately charged.
 
-At p=7, the independently verified OIC-28 adaptive 20-query policy has a strict query-count advantage over every fixed policy: OIC-T64 proves the fixed optimum is 21. At p=5 the respective minima are 14 versus 15, and at n=6 the adaptive minimum 15 is below the proved fixed lower bound 18. All comparisons concern returned sensor queries; online addressing and policy storage have distinct costs.
+## Unrestricted one-erasure result (OIC-T68/T69)
+
+A second affine-plane moment argument proves that **every prime** cycle has a globally optimal fixed single-marked-erasure horizon of **2p queries**, allowing the full marker alphabet. For p>=5, ruling out Q=2p−1 gives a pair-moment upper bound `3p(p−1)/2` and a strict lower bound `2(p−1)²`, separated by `(p−1)(p−4)/2`. Two distinct p-query marker blocks attain distance two. The small cases p=2 and p=3 are covered by complete normalized enumerations of Q=3 and Q=5 schedules.
+
+The same standard-library module verifies p=5,7,11,13 and the two-block constructive code distance. Five additional unit tests bring the OIC-32 total to **17 tests per Python execution mode**. The pinned erasure receipt is `results/oic32_erasure.json`.
