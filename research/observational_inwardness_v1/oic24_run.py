@@ -4,7 +4,7 @@ import argparse,base64,gzip,hashlib,json
 from pathlib import Path
 from oic24_sym import SymFaultGame
 from oic23_exact import ExactFaultGame
-from oic23_reference import replay_true_scenarios
+from oic23_reference import replay_true_scenarios, best_fixed_schedule
 HERE=Path(__file__).resolve().parent
 MANIFEST=HERE/'results/oic24_reference.json'
 TREE=HERE/'results/oic24_n5_erasure_policy.json.gz.b64'
@@ -23,6 +23,15 @@ def experiment()->tuple[dict,dict]:
     # after exploring fewer than the declared 600k states.
     flip_impossible=SymFaultGame(5,11,1,0,node_cap=600000)
     if flip_impossible.solve():raise AssertionError('unexpected 11-query one-flip policy')
+    fixed_erasure=[]
+    for size,horizon in ((2,4),(3,5),(4,7),(5,9)):
+        distance,word,count=best_fixed_schedule(size,horizon)
+        if distance!=(2 if size==2 else 1):
+            raise AssertionError('fixed one-erasure distance reference changed')
+        fixed_erasure.append({'n':size,'query_budget':horizon,
+                              'best_fixed_cross_shift_distance':distance,
+                              'best_fixed_word':list(word),'exhaustive_schedules':count,
+                              'fixed_schedule_one_erasure_correctable':distance>=2})
     blob=json.dumps(policy,sort_keys=True,separators=(',',':')).encode('utf8')
     comp=gzip.compress(blob,mtime=0)
     manifest={
@@ -33,6 +42,7 @@ def experiment()->tuple[dict,dict]:
             'symmetry_quotient_success_states':possible.visited,
             'policy_tree_nodes':nodes,'independent_true_world_paths':scenarios,
         },
+        'fixed_one_erasure_comparison':fixed_erasure,
         'one_substitution':{
             'known_impossible_through':11,
             'symmetry_quotient_failure_states':flip_impossible.visited,
