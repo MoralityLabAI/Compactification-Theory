@@ -1,5 +1,7 @@
 # OIC-24: Phase-translation pruning and an exact five-phase erasure threshold
 
+**Historical update, 11 November 2026:** [OIC-25](OIC25_THEORY.md) has now resolved the previously capped Q=12 one-substitution search: the exact five-phase threshold is **Q*=14**, with independent exhaustive negative search at Q=13 and a complete positive policy certificate at Q=14. The inconclusive status below describes the earlier OIC-24 run.
+
 **11 November 2026.** An extension of OIC-23's finite robust sensor game. Exact arithmetic, exhaustive finite negative searches, complete constructive adaptive policy trees and independently enumerated true-state faults. This is a synthetic sensor-identification result.
 
 ## OIC-T41. Sound rotational quotient of the adversarial information state
