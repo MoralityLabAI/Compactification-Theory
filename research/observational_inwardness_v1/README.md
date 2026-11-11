@@ -644,3 +644,29 @@ seven addresses has now returned HiGHS INFEASIBLE; see
 [the pinned solver status](results/oic30_q20_solver_status.json).
 This remains solver-reported evidence until an independently checkable
 integer-unsatisfiability certificate is produced.
+
+
+## OIC-31: exact mixed substitution/erasure bounds with proper marker subsets
+
+[OIC-T62/T63](OIC31_THEORY.md) extends the OIC-30 prime-cycle construction
+to e adversarial substituted sensor reports and r marked erasures.
+Any fixed schedule on n hidden phases which **omits at least one marker**
+requires Q >= n(2e+r+1) queries. For a prime p with
+2 <= 2e+r+1 < p, a block code that uses 2e+r+1 different labels,
+each queried for p steps, attains this bound exactly.
+
+A seven-phase example correcting one substitution plus one erasure needs
+28 queries and four markers in this resource class. The
+[executed report](OIC31_REPORT.md), [integer reference](oic31_mixed.py),
+[six tests](test_oic31_mixed.py), and
+[pinned receipt](results/oic31_reference.json) are lightweight and
+dependency-free; [OIC-32](OIC32_PROTOCOL.md) specifies the remaining
+unrestricted fixed Q20 certificate and adaptive Q19 tasks.
+
+    python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic31_mixed.py' -v
+    python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic31_mixed.py' -v
+    python research/observational_inwardness_v1/oic31_run.py --check
+
+**Scope:** finite synthetic sensing. Full seven-marker Q20 feasibility has
+only solver-reported infeasibility, so global fixed minimum still requires
+a checkable certificate. The exact adaptive seven-phase interval is 15–20.
