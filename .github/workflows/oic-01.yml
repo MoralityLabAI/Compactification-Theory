@@ -114,3 +114,21 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
       - name: Independently replay pinned five-phase erasure policy
         run: python research/observational_inwardness_v1/oic24_run.py --check
+
+
+  oic25-five-phase-threshold:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent exact Python tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic25_exact.py' -v
+      - name: Exact Python tests with optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic25_exact.py' -v
+      - name: Reconstruct the 14-query policy and rule out shorter policies
+        run: python research/observational_inwardness_v1/oic25_reference.py --check
+      - name: Independently compile C++ and exhaust Q13 without pair-pruning
+        run: python research/observational_inwardness_v1/oic25_reference.py --cpp-check
