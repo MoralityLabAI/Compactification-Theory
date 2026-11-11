@@ -35,7 +35,6 @@ theorem task_energy_monotone (readout weight : Nat → Nat) (n : Nat) :
     weightedTrajectoryCost readout weight n ≤
       weightedTrajectoryCost readout weight (n+1) := by
   simp [weightedTrajectoryCost]
-  exact Nat.le_add_right _ _
 
 /-- Zero accumulated energy entails zero contribution at every
     observed time, so it remains a genuine blind direction. -/
