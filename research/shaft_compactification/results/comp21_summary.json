@@ -1,0 +1,202 @@
+{
+  "experiment": "SHAFT-COMP-21",
+  "phase": "completed",
+  "registration_commit": "b4596c1b5c0e4a63fc4dc3a3d03af524ad041f10",
+  "calibration_freeze_commit": "051b7f9c9cc317f3c40e61fce591ecfba2b73b64",
+  "frozen_calibration_sha256": "50ba4e1a233d81eb8057e9d0f4380f54ac6170d7f09a4621ba019d6b7ecc6d8e",
+  "full_local_raw_receipt_sha256": "1baaa2fbe7dc3fb97fd51d0eab58e595be8951614565ea8e6ade07399dd2c7d5",
+  "full_local_summary_sha256": "94366dc54cc9aef623dfd3d1e405fd3131b0adae8e617003ae2029a3c8725d64",
+  "model": "24-hidden GRU, six input symbols, 64 explicitly supplied goal IDs, 3200 Adam steps, batch 128, 12-step training sequences",
+  "training_intervention": "post-update latch BCE weight1.0 and previous-symbol CE weight0.25 with training-only linear heads",
+  "gate": "native bit accuracy >=0.90 across 1024 fresh 12-step sequences",
+  "calibration": {
+    "models": 2,
+    "arms": 2,
+    "aux_gate_passed": 2,
+    "baseline_gate_passed": 0,
+    "source_eligible": 116,
+    "source_positive_events": 36,
+    "source_negative_events": 80,
+    "frozen_thresholds": {
+      "goal": 0.6242356896400452,
+      "duplicate": 0.7256337404251099,
+      "history": 0.6254289150238037
+    }
+  },
+  "heldout": {
+    "models": 4,
+    "arms": 2,
+    "aux_gate_passed": 4,
+    "baseline_gate_passed": 3,
+    "capability_support_criterion_met": true,
+    "mean_accuracy_d12": {
+      "aux": 0.9698689728975296,
+      "baseline": 0.9122517853975296,
+      "paired_difference": 0.0576171875
+    },
+    "mean_accuracy_d32": {
+      "aux": 0.96441650390625,
+      "baseline": 0.7219314575195312,
+      "paired_difference": 0.24248504638671875
+    },
+    "per_seed": [
+      {
+        "seed": 2202,
+        "family": "repeat_toggle",
+        "baseline_d12": 0.9610188603401184,
+        "aux_d12": 0.9048665165901184,
+        "baseline_d32": 0.805572509765625,
+        "aux_d32": 0.892059326171875,
+        "baseline_gate": true,
+        "aux_gate": true,
+        "baseline_model_sha256": "ed829a3ee48b9a85e8e3c404435b42cc04601a5069a139e8941caec157bb3ce5",
+        "aux_model_sha256": "db51e5cc5c0cf014735ee99d4b2c77ae5f91ee26ef3c047f086995541416e8a9"
+      },
+      {
+        "seed": 2203,
+        "family": "repeat_toggle",
+        "baseline_d12": 0.91357421875,
+        "aux_d12": 0.98486328125,
+        "baseline_d32": 0.70965576171875,
+        "aux_d32": 0.976165771484375,
+        "baseline_gate": true,
+        "aux_gate": true,
+        "baseline_model_sha256": "d990b01d6b63c228b5c081c86e59a711fb38456f5411efcef2b85ca4534054ce",
+        "aux_model_sha256": "471e96351a48e6f3a709376bf1d9bc1b3e918b9b7a11b77578e79e78bb11e1bf"
+      },
+      {
+        "seed": 2212,
+        "family": "successor_toggle",
+        "baseline_d12": 0.9498698115348816,
+        "aux_d12": 0.9912109375,
+        "baseline_d32": 0.731842041015625,
+        "aux_d32": 0.991485595703125,
+        "baseline_gate": true,
+        "aux_gate": true,
+        "baseline_model_sha256": "3cad8a653f0f43362841a35e87de9bec556ff37a5c4c135528193638f63e4b33",
+        "aux_model_sha256": "24e55a36a7d46e67ba0ca02580a74dbe22da70e0e2c537d14389c3cd6f125f2f"
+      },
+      {
+        "seed": 2213,
+        "family": "successor_toggle",
+        "baseline_d12": 0.8245442509651184,
+        "aux_d12": 0.99853515625,
+        "baseline_d32": 0.640655517578125,
+        "aux_d32": 0.997955322265625,
+        "baseline_gate": false,
+        "aux_gate": true,
+        "baseline_model_sha256": "a99ab636a9c3f047bf92b631fd2f602c3cbde305186dd939e622a014117ef962",
+        "aux_model_sha256": "6f0314048862d7b9c2e7a425fd844e5c51348e8400fe3b35d5a8ca67cad488cc"
+      }
+    ]
+  },
+  "auxiliary_head_decoding_posthoc_at_40_steps": {
+    "repeat_2202": {
+      "latch": 1,
+      "previous": 1
+    },
+    "repeat_2203": {
+      "latch": 0.9998534917831421,
+      "previous": 1
+    },
+    "successor_2212": {
+      "latch": 1,
+      "previous": 1
+    },
+    "successor_2213": {
+      "latch": 1,
+      "previous": 1
+    }
+  },
+  "conditional_probe": {
+    "aux_eligible": 160,
+    "aux_positives": 56,
+    "aux_native_oracle_label_agreement": 0.925,
+    "aux_auc": {
+      "goal": 0.7458791208791209,
+      "duplicate": 0.732657967032967,
+      "history": 0.7398695054945055,
+      "state_distance": 0.7520604395604396
+    },
+    "aux_mann_whitney": {
+      "positive": 56,
+      "negative": 104,
+      "goal_strict_wins": 4344,
+      "duplicate_strict_wins": 4267,
+      "history_strict_wins": 4309,
+      "distance_strict_wins": 4380,
+      "all_ties": 0
+    },
+    "history_minus_goal_auc": -0.006009615384615419,
+    "history_minus_goal_95_bootstrap": [
+      -0.07333638290082437,
+      0.05393501592265436
+    ],
+    "history_minus_goal_stratified_permutation_p": 0.42357642357642356,
+    "baseline_gate_passed_eligible": 393,
+    "baseline_gate_passed_positives": 221,
+    "baseline_native_oracle_label_agreement": 0.5419847328244275,
+    "baseline_auc": {
+      "goal": 0.6097548142691781,
+      "duplicate": 0.6099126591602652,
+      "history": 0.5943649373881932,
+      "state_distance": 0.5188624644848995
+    },
+    "baseline_mann_whitney": {
+      "positive": 221,
+      "negative": 172,
+      "goal_strict_wins": 23178,
+      "duplicate_strict_wins": 23184,
+      "history_strict_wins": 22593,
+      "distance_strict_wins": 19723,
+      "all_ties": 0
+    },
+    "source_threshold_transfer_aux": {
+      "repeat_toggle": {
+        "history": {
+          "false_positives": 3,
+          "negative_count": 57,
+          "true_positives": 3,
+          "positive_count": 34
+        }
+      },
+      "successor_toggle": {
+        "history": {
+          "false_positives": 1,
+          "negative_count": 47,
+          "true_positives": 0,
+          "positive_count": 22
+        }
+      },
+      "pooled": {
+        "goal": {
+          "false_positives": 20,
+          "negative_count": 104,
+          "true_positives": 21,
+          "positive_count": 56
+        },
+        "duplicate": {
+          "false_positives": 2,
+          "negative_count": 104,
+          "true_positives": 3,
+          "positive_count": 56
+        },
+        "history": {
+          "false_positives": 4,
+          "negative_count": 104,
+          "true_positives": 3,
+          "positive_count": 56
+        }
+      }
+    },
+    "interpretation": "No history-probe advantage over privileged goal code; source history threshold transfers with low false-positive rate and very low sensitivity. Probe comparisons conditional on base-task gate."
+  },
+  "checks": {
+    "finite_oracle_traces": 33152,
+    "finite_aliased_previous_pairs_per_family": 3840,
+    "torch": "2.10.0+cpu",
+    "numpy": "2.3.5",
+    "replay_status": "two heldout aux-state seeds selected for independent replay, verification pending"
+  },
+  "limits": "Four fixed heldout seeds, goal known during base training, auxiliary labels privileged, baseline and aux probe eligibility cohorts differ; inference devices and full neural weights remain present."
+}
