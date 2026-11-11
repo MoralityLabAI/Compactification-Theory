@@ -9,3 +9,4 @@ import Shaft.FiniteObservability
 import Shaft.DiagnosticSchedule
 import Shaft.TaskObservability
 import Shaft.TaskFactorial
+import Shaft.TemporalFamily
