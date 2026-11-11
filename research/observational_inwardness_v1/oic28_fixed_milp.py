@@ -62,5 +62,5 @@ def model(horizon:int,target:int=3,seconds:float=45):
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('horizon',type=int);parser.add_argument('--seconds',type=int,default=45)
     opts=parser.parse_args();started=time.monotonic();o=model(opts.horizon,seconds=opts.seconds)
-    o['wall_seconds']=round(time.time()-started,3)
+    o['wall_seconds']=round(time.monotonic()-started,3)
     print(json.dumps(o,sort_keys=True,indent=2))
