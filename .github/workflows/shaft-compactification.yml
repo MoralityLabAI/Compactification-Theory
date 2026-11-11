@@ -453,6 +453,25 @@ jobs:
           assert r['reproducibility']['complete_six_model_replay_identical']
           print('SHAFT-COMP-23 exact majority inverse, count audit and pre-heldout calibration verified')
           PY
+      - name: SHAFT-COMP-24 exact finite trigger reference and frozen audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/identify_trigger.py
+          python -m research.shaft_compactification.trigger_identifiability >/tmp/comp24_finite.json
+          python -m research.shaft_compactification.comp24_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          finite=json.loads(Path('/tmp/comp24_finite.json').read_text())
+          assert finite['family_state_checks']==768
+          assert finite['unknown_entries']==36
+          assert finite['unlabelled_row_permutations_checked']==8640
+          frozen=json.loads(Path('research/shaft_compactification/results/comp24_frozen_calibration.json').read_text())
+          assert frozen['registration_commit']=='92ad76ece8dafe37a6181b48ca53ee52f1554059'
+          assert frozen['full_calibration_sha256']=='e007f5cdbc33fab71740392ec65b5f2dfc36f8bbf20fbca8fffe4700bcf057be'
+          assert all(v['inference']['exact_tie_entries']==0 for v in frozen['families'].values())
+          assert all(v['calibration_states']==2048 for v in frozen['families'].values())
+          print('SHAFT-COMP-24 exact trigger identification and frozen heldout counts verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -508,3 +527,4 @@ jobs:
           lake env lean Shaft/TemporalSupervision.lean
           lake env lean Shaft/FactorizedLatch.lean
           lake env lean Shaft/BehaviorOnlyIdentification.lean
+          lake env lean Shaft/TriggerIdentification.lean
