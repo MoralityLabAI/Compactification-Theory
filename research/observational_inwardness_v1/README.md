@@ -602,3 +602,38 @@ python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic
 python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic29_fixed.py' -v
 python research/observational_inwardness_v1/oic29_fixed.py --check
 ```
+
+
+## OIC-30: prime-cycle error-correcting sensor blocks
+
+[OIC-30's executed exact report](OIC30_REPORT.md) supersedes the earlier
+**22-query three-marker** fixed upper bound at seven hidden phases.
+The new **21-query, three-marker** schedule is:
+
+~~~text
+0,0,0,0,0,0,0,1,1,1,1,1,1,1,2,2,2,2,2,2,2
+~~~
+
+Its minimum cross-shift Hamming distance is exactly **3**, as independently
+checked across all 1,029 candidate pairs and 1,078 zero-or-one-substitution
+report paths. The first-episode literal preprogramming budget is **72 bits**
+(21 sensor responses, 9 marker-address bits and 42 schedule-description bits).
+[OIC-T58–T61](OIC30_THEORY.md) prove a general prime-cycle block code,
+a two-marker obstruction, a sharp query lower bound for fixed schedules
+using fewer than all n labels, and an exact phase-residue occupancy reduction.
+All 16,384 normalized two-marker fixed Q21 schedules are covered by an
+analytic obstruction and an exhaustive finite check.
+
+The **global** fixed Q20 case with access to all seven sensor addresses is
+still unresolved, as are adaptive horizons Q15–19. The next
+[OIC-31 protocol](OIC31_PROTOCOL.md) requests an independently checkable
+unrestricted Q20 integer infeasibility certificate or verified positive
+schedule, plus a proof-carrying adaptive Q19 search. The optional
+[oic30_reduced_milp.py](oic30_reduced_milp.py) uses SciPy/HiGHS for
+exploratory occupancy searches; it is excluded from lightweight CI.
+
+~~~sh
+python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
+python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
+python research/observational_inwardness_v1/oic30_run.py --check
+~~~
