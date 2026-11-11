@@ -15,3 +15,4 @@ import Shaft.HistoryAlphabet
 import Shaft.CapacityMatched
 import Shaft.PersistentLatch
 import Shaft.TemporalSupervision
+import Shaft.FactorizedLatch

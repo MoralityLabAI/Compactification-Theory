@@ -1,0 +1,634 @@
+{
+  "cells": [
+    {
+      "depth": 12,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.50472,
+        "effective_exact_vs_canonical": 0.01416,
+        "effective_exact_vs_native": 0.025879,
+        "ground_goal_bit": 0.605469,
+        "ground_goal_exact": 0.045898,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.878147,
+        "native_vs_exact_automaton_full": 0.157715,
+        "previous_accuracy": 1.0
+      },
+      "family": "repeat_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.50472,
+          "automaton_full_accuracy": 0.01416,
+          "native_bit_accuracy": 0.522759,
+          "native_full_accuracy": 0.005859,
+          "predictions_sha256": "40b4f2331e03ce51f2bfe8520c61033ccbd39b8d7c199f67cd6fb663f30afcaa"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.605469,
+          "automaton_full_accuracy": 0.045898,
+          "native_bit_accuracy": 0.609077,
+          "native_full_accuracy": 0.015137,
+          "predictions_sha256": "0305276fa6622187299455fc5590511dcffcec9284a2c93d5f362981d561f586"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.501546,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.537109,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "8b82f1f2dc553ca0bb0b2cf1e097468274f0517924bfeccb921749d24760dd88"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.878147,
+          "native_full_accuracy": 0.157715,
+          "predictions_sha256": "f5149b730e453f1b8556186dca4bc20712f151a5f2e928a166e77725bc130985"
+        }
+      },
+      "seed": 2202,
+      "states": 2048
+    },
+    {
+      "depth": 40,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.503255,
+        "effective_exact_vs_canonical": 0.021484,
+        "effective_exact_vs_native": 0.032715,
+        "ground_goal_bit": 0.594971,
+        "ground_goal_exact": 0.040039,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.877998,
+        "native_vs_exact_automaton_full": 0.159668,
+        "previous_accuracy": 1.0
+      },
+      "family": "repeat_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.503255,
+          "automaton_full_accuracy": 0.021484,
+          "native_bit_accuracy": 0.518107,
+          "native_full_accuracy": 0.006836,
+          "predictions_sha256": "ec9e5a9011628eb9e4452bcbc4eedee27659aa38c7425620c6e55175c69686f5"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.594971,
+          "automaton_full_accuracy": 0.040039,
+          "native_bit_accuracy": 0.601386,
+          "native_full_accuracy": 0.014648,
+          "predictions_sha256": "c2aae735937bae6aa7752d5cea90982a90b848ea7167e4abaf9b580bd9cefa8f"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.500895,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.535848,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "684807bb16dbd4e4e09ac3d14e28caf029f594c03d1ab8fca9bd163c614dfacc"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.877998,
+          "native_full_accuracy": 0.159668,
+          "predictions_sha256": "0d49463adcf11e6c3b02da758f48576ad88e245c37460e3f244e828e4cdc7f89"
+        }
+      },
+      "seed": 2202,
+      "states": 2048
+    },
+    {
+      "depth": 12,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.534749,
+        "effective_exact_vs_canonical": 0.022949,
+        "effective_exact_vs_native": 0.025391,
+        "ground_goal_bit": 0.722087,
+        "ground_goal_exact": 0.115723,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.979831,
+        "native_vs_exact_automaton_full": 0.686523,
+        "previous_accuracy": 1.0
+      },
+      "family": "repeat_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.534749,
+          "automaton_full_accuracy": 0.022949,
+          "native_bit_accuracy": 0.540866,
+          "native_full_accuracy": 0.020508,
+          "predictions_sha256": "d231100e43109b068e501deca593b2b5d0f019e535f695e7d1f43afcab4f59aa"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.722087,
+          "automaton_full_accuracy": 0.115723,
+          "native_bit_accuracy": 0.727146,
+          "native_full_accuracy": 0.102051,
+          "predictions_sha256": "13b8ea49a855bf007c2698c368a786ec41512402a1871e48af6feb3967b1236c"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.519952,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.527805,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "7b5d6e1d1518536f1ddfaf5012a35b05009b2aad1ebdc0823b5770c13d1fde17"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.979831,
+          "native_full_accuracy": 0.686523,
+          "predictions_sha256": "dc4ab6c8cb3483fea2ef3c7e883e0dddd9d8abf1b871c694cae0518cbe59548b"
+        }
+      },
+      "seed": 2203,
+      "states": 2048
+    },
+    {
+      "depth": 40,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.522949,
+        "effective_exact_vs_canonical": 0.02002,
+        "effective_exact_vs_native": 0.025391,
+        "ground_goal_bit": 0.716064,
+        "ground_goal_exact": 0.115723,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.964559,
+        "native_vs_exact_automaton_full": 0.604004,
+        "previous_accuracy": 1.0
+      },
+      "family": "repeat_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.522949,
+          "automaton_full_accuracy": 0.02002,
+          "native_bit_accuracy": 0.533732,
+          "native_full_accuracy": 0.015137,
+          "predictions_sha256": "4c7def983e085c0c29b16ac6bc3e789a7a490780f403456a07b14de3a99913b9"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.716064,
+          "automaton_full_accuracy": 0.115723,
+          "native_bit_accuracy": 0.731188,
+          "native_full_accuracy": 0.098633,
+          "predictions_sha256": "496ab0e7ea3e872e7edbc1de2d10c7461b3ecf0ca255c57887f0ee1bf1e8b168"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.509752,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.520454,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "bd8f1937700b3f32ba64e978a7d0fd95e989abeca31003bdf93bba90ee9c1101"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.964559,
+          "native_full_accuracy": 0.604004,
+          "predictions_sha256": "24da22ba5ea84b91026a70fe09a061c03b5fbe4f5b173f83b5a499836b4ebc86"
+        }
+      },
+      "seed": 2203,
+      "states": 2048
+    },
+    {
+      "depth": 12,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.511068,
+        "effective_exact_vs_canonical": 0.016602,
+        "effective_exact_vs_native": 0.016113,
+        "ground_goal_bit": 0.695557,
+        "ground_goal_exact": 0.104492,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.988675,
+        "native_vs_exact_automaton_full": 0.898438,
+        "previous_accuracy": 1.0
+      },
+      "family": "successor_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.511068,
+          "automaton_full_accuracy": 0.016602,
+          "native_bit_accuracy": 0.512845,
+          "native_full_accuracy": 0.015625,
+          "predictions_sha256": "2825830f75595da33f3a168ba73e9c9142c9d8ac654ed35359d7a04bf88e8484"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.695557,
+          "automaton_full_accuracy": 0.104492,
+          "native_bit_accuracy": 0.696248,
+          "native_full_accuracy": 0.101074,
+          "predictions_sha256": "ba11f21208c5c11539d4b25a0f26c984ee975fdd738d4a146fe3196f44abeece"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.508111,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.510756,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "e6a1a74396962ff6348ee828b16e8cf2b913f39b474eef4428b00528215e1072"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.988675,
+          "native_full_accuracy": 0.898438,
+          "predictions_sha256": "2e4ba0977a31f39bb91b3a2d092a1f0169c6bf5fc073dfc0495779b43936709e"
+        }
+      },
+      "seed": 2212,
+      "states": 2048
+    },
+    {
+      "depth": 40,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.509359,
+        "effective_exact_vs_canonical": 0.017578,
+        "effective_exact_vs_native": 0.018066,
+        "ground_goal_bit": 0.69222,
+        "ground_goal_exact": 0.092285,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.987237,
+        "native_vs_exact_automaton_full": 0.890625,
+        "previous_accuracy": 1.0
+      },
+      "family": "successor_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.509359,
+          "automaton_full_accuracy": 0.017578,
+          "native_bit_accuracy": 0.511922,
+          "native_full_accuracy": 0.016602,
+          "predictions_sha256": "04e3511ceed9e9bd710d104d07e422776c4ffdf0b4b68f80596b69d43b559336"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.69222,
+          "automaton_full_accuracy": 0.092285,
+          "native_bit_accuracy": 0.693427,
+          "native_full_accuracy": 0.087402,
+          "predictions_sha256": "320f028484baeb2cbd25d6635f5403e2679de7f3468c7bbfe530f3c17347bd1c"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.505981,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.508355,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "d121562be6693ade050a634cfc9ab2b455dd5514733a6866121dd253df397fc9"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.987237,
+          "native_full_accuracy": 0.890625,
+          "predictions_sha256": "1a4d9cb12658e672ec859b9c07db78386be822f955c57dafb5a23878a2937cea"
+        }
+      },
+      "seed": 2212,
+      "states": 2048
+    },
+    {
+      "depth": 12,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.531413,
+        "effective_exact_vs_canonical": 0.026367,
+        "effective_exact_vs_native": 0.026367,
+        "ground_goal_bit": 0.671387,
+        "ground_goal_exact": 0.090332,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.997111,
+        "native_vs_exact_automaton_full": 0.960449,
+        "previous_accuracy": 1.0
+      },
+      "family": "successor_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.531413,
+          "automaton_full_accuracy": 0.026367,
+          "native_bit_accuracy": 0.532701,
+          "native_full_accuracy": 0.026367,
+          "predictions_sha256": "e09efa9efb4bb03f3fd4c13a61815e0be28982a37d860e749d362e900148ca51"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.671387,
+          "automaton_full_accuracy": 0.090332,
+          "native_bit_accuracy": 0.672323,
+          "native_full_accuracy": 0.089844,
+          "predictions_sha256": "b2f14c81796cf9d6aababc8aea91030306a2f2459a2447d6430fd8f847007ca1"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.517714,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.519002,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "db6f4b8dd78be28e2fa97b26b5bf25a79b8a0f5d8e44dc552845c5707cf104a8"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.997111,
+          "native_full_accuracy": 0.960449,
+          "predictions_sha256": "3aaed1a3a79badc7e13fc653fc9a63a126d762f12a6c315f802ecd8d179913a5"
+        }
+      },
+      "seed": 2213,
+      "states": 2048
+    },
+    {
+      "depth": 40,
+      "diagnostics": {
+        "effective_bit_vs_canonical": 0.531901,
+        "effective_exact_vs_canonical": 0.02832,
+        "effective_exact_vs_native": 0.02832,
+        "ground_goal_bit": 0.675212,
+        "ground_goal_exact": 0.092285,
+        "latch_accuracy": 1.0,
+        "native_vs_exact_automaton_bit": 0.99726,
+        "native_vs_exact_automaton_full": 0.959961,
+        "previous_accuracy": 1.0
+      },
+      "family": "successor_toggle",
+      "methods": {
+        "behavioral": {
+          "automaton_bit_accuracy": 0.531901,
+          "automaton_full_accuracy": 0.02832,
+          "native_bit_accuracy": 0.532959,
+          "native_full_accuracy": 0.02832,
+          "predictions_sha256": "6743f3ab02683bcd6e65b555d012761f9ed281244e6281a2c7469ab54b94be17"
+        },
+        "canonical": {
+          "automaton_bit_accuracy": 0.675212,
+          "automaton_full_accuracy": 0.092285,
+          "native_bit_accuracy": 0.676324,
+          "native_full_accuracy": 0.090332,
+          "predictions_sha256": "c6399896da9b631bb28062ad756d599add3cc77d1602b9f929ff2393545aaa86"
+        },
+        "direct": {
+          "automaton_bit_accuracy": 0.517917,
+          "automaton_full_accuracy": 0.0,
+          "native_bit_accuracy": 0.518921,
+          "native_full_accuracy": 0.0,
+          "predictions_sha256": "d9a00d04a0999c6a63e9da1c52647b8f975d367f7827b0d7c0e679ed29cefda9"
+        },
+        "oracle": {
+          "automaton_bit_accuracy": 1.0,
+          "automaton_full_accuracy": 1.0,
+          "native_bit_accuracy": 0.99726,
+          "native_full_accuracy": 0.959961,
+          "predictions_sha256": "a5c8caeccd7c726b94a035ac4446425dd6234d7fe5242f6666f290e041c81fcc"
+        }
+      },
+      "seed": 2213,
+      "states": 2048
+    }
+  ],
+  "evidence": "exact_384_class_behavioral_gauge_and_fresh_probes_on_four_existing_grus",
+  "experiment": "SHAFT-COMP-22",
+  "frozen_models": {
+    "repeat_toggle_2202": {
+      "checkpoint_sha256": "366b6a91897b2f346915bfe062ea792151253b23f4b83b412c729b89a5bebf4a",
+      "model_sha256": "db51e5cc5c0cf014735ee99d4b2c77ae5f91ee26ef3c047f086995541416e8a9",
+      "prior_accuracy_d12": 0.9048665165901184,
+      "prior_accuracy_d32": 0.892059326171875
+    },
+    "repeat_toggle_2203": {
+      "checkpoint_sha256": "1dae07ab94456b17542586649f9c8325f61b8f7485585c1abaf8de3a00091abb",
+      "model_sha256": "471e96351a48e6f3a709376bf1d9bc1b3e918b9b7a11b77578e79e78bb11e1bf",
+      "prior_accuracy_d12": 0.98486328125,
+      "prior_accuracy_d32": 0.976165771484375
+    },
+    "successor_toggle_2212": {
+      "checkpoint_sha256": "8c07331f4bd6f9513f708891b2a5688ae31cba540cf72c143098e0a11230ea01",
+      "model_sha256": "24e55a36a7d46e67ba0ca02580a74dbe22da70e0e2c537d14389c3cd6f125f2f",
+      "prior_accuracy_d12": 0.9912109375,
+      "prior_accuracy_d32": 0.991485595703125
+    },
+    "successor_toggle_2213": {
+      "checkpoint_sha256": "6a1f296daea14fd5e78d56a6de590b5b4141bef5c66979aba1799cbd887d076d",
+      "model_sha256": "6f0314048862d7b9c2e7a425fd844e5c51348e8400fe3b35d5a8ca67cad488cc",
+      "prior_accuracy_d12": 0.99853515625,
+      "prior_accuracy_d32": 0.997955322265625
+    }
+  },
+  "heads": {
+    "repeat_toggle_2202": {
+      "hashes": {
+        "direct": "cf43463e6285bba9d51060cd3a1934ebebfefa66007d7c15ed14c2960ff607c0",
+        "effective": "afc6c890c419b6962c38b6009248e13e6b1d994e91a48cead1c24f61b7bd51ff",
+        "goal": "95dccf132ea02c3aa18b1e3ac873c9bd8f208fba5b5d4a8ba51d2a0d157e55af",
+        "latch": "537f5eaa59451c1e79dba4d476ae5477e770f94c8927483281bab371ff4bfbc2",
+        "previous": "d4d52cb8ac52b5a6f8993a361d752ff1dd633b98b719870249cb950d63b1b878"
+      },
+      "loss": {
+        "direct": 0.6784922,
+        "effective": 0.6791112,
+        "goal": 0.5799126,
+        "latch": 0.0025309,
+        "previous": 0.0005995
+      },
+      "parameters": {
+        "direct": 900,
+        "effective": 150,
+        "goal": 150,
+        "latch": 25,
+        "previous": 150
+      },
+      "training_contexts": 2304
+    },
+    "repeat_toggle_2203": {
+      "hashes": {
+        "direct": "0e9ceb35db6ba15844a3ecb63d8df53112ae99a733513be56ccd375216aae09f",
+        "effective": "9d8fd3c9cbbc2a77aa2b1c2a1850cf9d6bf9695fa92b78efe59a49f22d31762c",
+        "goal": "bf40df1574dc30b23b95263583fc8e99930be7352c269b2676b32a92043bd4da",
+        "latch": "b603ac738e79077a6003c209f52c8accea31428703f60eb9550083abcdbac51f",
+        "previous": "fa6f6f0baf70e18a43b5bed67ec581d19a3484b23f422974f3c52669f8458ba6"
+      },
+      "loss": {
+        "direct": 0.6839544,
+        "effective": 0.6818435,
+        "goal": 0.4853021,
+        "latch": 0.0039564,
+        "previous": 0.0005995
+      },
+      "parameters": {
+        "direct": 900,
+        "effective": 150,
+        "goal": 150,
+        "latch": 25,
+        "previous": 150
+      },
+      "training_contexts": 2304
+    },
+    "successor_toggle_2212": {
+      "hashes": {
+        "direct": "d517d0a156d8042dcb894ba82c771e9c7eaff11551a2fce22324e5b8328ddf85",
+        "effective": "988fbc84bb93f79fdcdba742e2e9ca40f356a638895a7c8d95e91bd42e9d938e",
+        "goal": "8a3d7c50f9bf5a925c81b91c74f9b7f7f5de7dfc48b8841a148346a9f1d5a2f3",
+        "latch": "802864aa03060f4dcbf6b99d9e4fa5f4caadc622a2bb3248d7c74053323f003f",
+        "previous": "0b197d2936bebed14aefaaeee449b144071cc3383aca6b692e2d3d9d58276f16"
+      },
+      "loss": {
+        "direct": 0.6853581,
+        "effective": 0.6847569,
+        "goal": 0.4778173,
+        "latch": 0.0024301,
+        "previous": 0.0006528
+      },
+      "parameters": {
+        "direct": 900,
+        "effective": 150,
+        "goal": 150,
+        "latch": 25,
+        "previous": 150
+      },
+      "training_contexts": 2304
+    },
+    "successor_toggle_2213": {
+      "hashes": {
+        "direct": "64aabc50c801d48bc5b62d1648cb3a7085b55e59c79ca14dab9b3e9132c89b78",
+        "effective": "90b96d2f8918cb2e03567472df6a8a1ef07abf6bf6d1e5bde50ab72a2a1202e4",
+        "goal": "08ba1ec630535adf60e1d8b0559c02daa9e58f03aef126053e3cbe153af8bdb1",
+        "latch": "8a5ff054bcda93341cf4eb3a7b9fdec073a8239998241dde5de4183a1d661ade",
+        "previous": "4e75ef820fd0c1711868a99d5ceb59ec37968275e279bf05763f32d4aae0a464"
+      },
+      "loss": {
+        "direct": 0.6846389,
+        "effective": 0.6813485,
+        "goal": 0.5260856,
+        "latch": 0.0029586,
+        "previous": 0.0006739
+      },
+      "parameters": {
+        "direct": 900,
+        "effective": 150,
+        "goal": 150,
+        "latch": 25,
+        "previous": 150
+      },
+      "training_contexts": 2304
+    }
+  },
+  "known_limitations": [
+    "goal, latch and previous token labels are privileged supervision for the canonical factorization, while direct uses native behavioral labels",
+    "all four seed/model instances were previously examined in COMP-21",
+    "native 36-bit responses can disagree with exact automaton even when base training-horizon accuracy passes 90 percent",
+    "behavioral effective-table linear probes have weak accuracy; no architecture-independent persistence result",
+    "full weights and goal labels are accessible during controlled data generation"
+  ],
+  "model_cohort": "COMP-21 four preexisting aux_state base models; prospective test states, reused model weights",
+  "numpy": "2.3.5",
+  "pooled_by_depth": {
+    "12": {
+      "latent_decoding": {
+        "effective_exact_vs_canonical": 0.02002,
+        "effective_exact_vs_native": 0.023438,
+        "ground_goal_bit": 0.673625,
+        "ground_goal_exact": 0.089111,
+        "latch_accuracy": 1.0,
+        "native_oracle_full_match": 0.675781,
+        "previous_accuracy": 1.0
+      },
+      "methods": {
+        "behavioral": {
+          "automaton_correct_bits": 153498,
+          "automaton_exact_count": 164,
+          "native_bit_accuracy": 0.527293,
+          "native_correct_bits": 155505,
+          "native_exact_accuracy": 0.01709,
+          "native_exact_count": 140
+        },
+        "canonical": {
+          "automaton_correct_bits": 198660,
+          "automaton_exact_count": 730,
+          "native_bit_accuracy": 0.676198,
+          "native_correct_bits": 199419,
+          "native_exact_accuracy": 0.077026,
+          "native_exact_count": 631
+        },
+        "direct": {
+          "automaton_correct_bits": 150945,
+          "automaton_exact_count": 0,
+          "native_bit_accuracy": 0.523668,
+          "native_correct_bits": 154436,
+          "native_exact_accuracy": 0.0,
+          "native_exact_count": 0
+        },
+        "oracle": {
+          "automaton_correct_bits": 294912,
+          "automaton_exact_count": 8192,
+          "native_bit_accuracy": 0.960941,
+          "native_correct_bits": 283393,
+          "native_exact_accuracy": 0.675781,
+          "native_exact_count": 5536
+        }
+      },
+      "states": 8192
+    },
+    "40": {
+      "latent_decoding": {
+        "effective_exact_vs_canonical": 0.021851,
+        "effective_exact_vs_native": 0.026123,
+        "ground_goal_bit": 0.669617,
+        "ground_goal_exact": 0.085083,
+        "latch_accuracy": 1.0,
+        "native_oracle_full_match": 0.653564,
+        "previous_accuracy": 1.0
+      },
+      "methods": {
+        "behavioral": {
+          "automaton_correct_bits": 152430,
+          "automaton_exact_count": 179,
+          "native_bit_accuracy": 0.52418,
+          "native_correct_bits": 154587,
+          "native_exact_accuracy": 0.016724,
+          "native_exact_count": 137
+        },
+        "canonical": {
+          "automaton_correct_bits": 197478,
+          "automaton_exact_count": 697,
+          "native_bit_accuracy": 0.675581,
+          "native_correct_bits": 199237,
+          "native_exact_accuracy": 0.072754,
+          "native_exact_count": 596
+        },
+        "direct": {
+          "automaton_correct_bits": 150003,
+          "automaton_exact_count": 0,
+          "native_bit_accuracy": 0.520894,
+          "native_correct_bits": 153618,
+          "native_exact_accuracy": 0.0,
+          "native_exact_count": 0
+        },
+        "oracle": {
+          "automaton_correct_bits": 294912,
+          "automaton_exact_count": 8192,
+          "native_bit_accuracy": 0.956763,
+          "native_correct_bits": 282161,
+          "native_exact_accuracy": 0.653564,
+          "native_exact_count": 5354
+        }
+      },
+      "states": 8192
+    }
+  },
+  "primary": {
+    "bootstrap95": [
+      0.067505,
+      0.078125
+    ],
+    "bootstrap_draws": 1000,
+    "by_model": {
+      "2202": 0.014648,
+      "2203": 0.098633,
+      "2212": 0.087402,
+      "2213": 0.090332
+    },
+    "positive_models": 4,
+    "primary_canonical_minus_direct_exact_native_depth40": 0.072754,
+    "support_gate": true
+  },
+  "registration_commit": "f539c28e0dc4409cc76741a48c5d39ba9531f9c0",
+  "sources": {
+    "full_raw": "comp22_full.json",
+    "sha256": "d76bd5c53fb01d9a8a03ef5995b2c45fec3c377380937aef0bc50c6f6d8e7808"
+  },
+  "states_per_model_depth": 2048,
+  "test_states": 16384,
+  "torch": "2.10.0+cpu",
+  "train_states": 2304
+}
