@@ -377,6 +377,34 @@ jobs:
           assert all(x['accuracy_d12']<.90 for x in r['models'].values())
           print('SHAFT-COMP-20 exact finite reference and neural failure independently audited')
           PY
+      - name: SHAFT-COMP-21 finite label oracle and capability-gated receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/aux_latch_learning.py
+          python -m py_compile research/shaft_compactification/experiments/evaluate_latch_probe.py
+          python -m research.shaft_compactification.temporal_supervision_finite > /tmp/shaft21_exact.json
+          python -m research.shaft_compactification.comp21_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          source=json.loads(Path('/tmp/shaft21_exact.json').read_text())
+          assert source['traces_checked']==33152
+          for family in ('repeat_toggle','successor_toggle'):
+              row=source['separations'][family]
+              assert row['one_query_aliases']==3840
+              assert row['two_query_splits']==3840
+          s=json.loads(Path('research/shaft_compactification/results/comp21_summary.json').read_text())
+          frozen=json.loads(Path('research/shaft_compactification/results/comp21_calibration_freeze.json').read_text())
+          assert frozen['registration_commit']==s['registration_commit']
+          assert s['calibration_freeze_commit']=='051b7f9c9cc317f3c40e61fce591ecfba2b73b64'
+          assert s['heldout']['aux_gate_passed']==4
+          assert s['heldout']['baseline_gate_passed']==3
+          assert len(s['checks']['exact_replay_proofs'])==2
+          assert s['conditional_probe']['aux_eligible']==160
+          assert s['conditional_probe']['aux_positives']==56
+          assert s['conditional_probe']['history_minus_goal_95_bootstrap'][0]<0
+          assert s['conditional_probe']['history_minus_goal_95_bootstrap'][1]>0
+          print('COMP-21 finite oracle, frozen thresholds, exact AUC and model-gate receipts verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -429,3 +457,4 @@ jobs:
           lake env lean Shaft/PersistentLatch.lean
           lake env lean Shaft/CapacityMatched.lean
           lake env lean Shaft/TemporalFamily.lean
+          lake env lean Shaft/TemporalSupervision.lean
