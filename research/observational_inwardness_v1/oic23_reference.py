@@ -136,8 +136,15 @@ def replay_stored():
         if independent!=expected['true_world_fault_paths_checked']:raise AssertionError('scenario mismatch')
         if g.verify_tree(case['policy'])!=expected['policy_tree_nodes']:raise AssertionError('tree mismatch')
     generated,regenerated_tree=build_reference()
-    if saved!=generated or cert!=regenerated_tree:
-        raise AssertionError('reference mismatch: solver fails to reproduce pinned certificate')
+    # Python versions may produce byte-distinct gzip streams even with mtime=0.
+    # The stored archive's *own* gzip SHA was already verified above. For
+    # independent regeneration, verify the decoded canonical certificate and
+    # every platform-independent field of the manifest instead of demanding
+    # identical compressed bytes across Python/zlib versions.
+    portable_saved={k:v for k,v in saved.items() if k!='certificate_gzip_sha256'}
+    portable_generated={k:v for k,v in generated.items() if k!='certificate_gzip_sha256'}
+    if portable_saved!=portable_generated or cert!=regenerated_tree:
+        raise AssertionError('semantic reference mismatch: solver failed to reproduce the certificate')
     return saved
 
 
