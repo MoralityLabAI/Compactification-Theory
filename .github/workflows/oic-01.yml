@@ -64,3 +64,21 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic21_*.py' -v
       - name: OIC-21 pinned teacher, held-out and online fault evidence audit
         run: python research/observational_inwardness_v1/oic21_verify.py --check
+
+
+  oic22-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-22 finite Bayes and source-integrity tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic22*.py' -v
+      - name: OIC-22 optimized Python tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic22*.py' -v
+      - name: OIC-22 frozen exact Bellman oracle
+        run: python research/observational_inwardness_v1/oic22_reference.py --check
+      - name: OIC-22 trained 145-parameter scorer receipt and independent replay
+        run: python research/observational_inwardness_v1/oic22_verify.py --check
