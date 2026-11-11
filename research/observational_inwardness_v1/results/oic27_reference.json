@@ -1,0 +1,90 @@
+{
+  "certificates_canonical_json_sha256": "d338bdcbb8f625510767d3800e0f6134fbbbeac85a04697a7d17d5a72bc2bfc6",
+  "certificates_gzip_sha256": "414afe2e7e4f8314c2f29bfe22b21460beae4bb0e4077bd9a37d37776e107b14",
+  "evidence_scope": "finite computer-assisted exact; full policy trees independently validated",
+  "exact_minimum_adaptive_queries": 15,
+  "exhaustive_negative_horizon": 14,
+  "fixed_schedule": {
+    "analytically_proved_necessary_queries": 18,
+    "claim_grade": "fixed 21-query minimality requires SciPy HiGHS 0-1 feasibility solver; 18-query lower is analytic",
+    "milp_q21_status": "FEASIBLE",
+    "milp_q21_witness": [
+      0,
+      2,
+      2,
+      3,
+      3,
+      4,
+      2,
+      5,
+      3,
+      4,
+      4,
+      3,
+      3,
+      1,
+      4,
+      5,
+      5,
+      5,
+      1,
+      0,
+      5
+    ],
+    "milp_scipy_highs_q20_status": "INFEASIBLE",
+    "verified_q21_min_cross_shift_distance": 3
+  },
+  "marked_erasures": 0,
+  "max_substitutions": 1,
+  "n": 6,
+  "negative_affine_states": 813921,
+  "negative_translation_states": 1639144,
+  "online_resource": {
+    "adaptive_queries": 15,
+    "address_bits_direct": 45,
+    "candidate_layer_logical_bits": 72,
+    "returned_bits": 15,
+    "total_bits_direct": 60
+  },
+  "positive_affine_states": 210059,
+  "positive_certificate_checks": {
+    "affine": {
+      "belief": {
+        "leaves": 453,
+        "max_depth": 15,
+        "nodes": 994,
+        "reachable_edges": 993
+      },
+      "real_world": {
+        "max_depth": 15,
+        "max_paths_per_world": 15,
+        "min_paths_per_world": 5,
+        "paths": 471,
+        "worlds": 36
+      }
+    },
+    "translation": {
+      "belief": {
+        "leaves": 455,
+        "max_depth": 15,
+        "nodes": 998,
+        "reachable_edges": 997
+      },
+      "real_world": {
+        "max_depth": 15,
+        "max_paths_per_world": 15,
+        "min_paths_per_world": 5,
+        "paths": 477,
+        "worlds": 36
+      }
+    }
+  },
+  "positive_translation_states": 214548,
+  "schema": "OIC27-N6-FLIP-V1",
+  "source_sha256": {
+    "oic27_affine.cpp": "6131348b61e62666ceeef7097a03cb0afe37dfaabdade23793458b237f7c3b0b",
+    "oic27_fast.cpp": "b749f7dd96c02dde80d658b1affc03905cad1337b79c30ee868928db27c5e798",
+    "oic27_fixed_milp.py": "1aa5cad1b66290a49588fef16763ef27287506da77cc1b5061e1091d4c2c9128",
+    "oic27_verify.py": "b5e3a593b327fbe4869203220020a7b09d61a3a9a7f195b971c4f5f4f4f70f79"
+  }
+}
