@@ -221,6 +221,33 @@ jobs:
           assert s['heldout']['auroc']['native_unweighted']>s['heldout']['auroc']['task_weighted']
           print('SHAFT-COMP-14 preregistered metrics, exact AUC accounting and finite mathematics checked')
           PY
+      - name: SHAFT-COMP-15 factorial preregistration, fixed receipts and exact audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/factorial_observability.py
+          python -m research.shaft_compactification.factorial_reference > /tmp/shaft_comp15_finite.json
+          python -m research.shaft_compactification.factorial_auc_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from research.shaft_compactification.factorial_reference import reference
+          finite=json.loads(Path('/tmp/shaft_comp15_finite.json').read_text())
+          assert finite == reference()
+          s=json.loads(Path('research/shaft_compactification/results/comp15_summary.json').read_text())
+          assert s['protocol_commit']=='0240f2f3378647d1106111b000e0aa425cdaee27'
+          assert s['heldout_seeds']==[707,808,909,1001]
+          assert s['calibration_seeds']==[101,202]
+          assert s['diagnostic_steps']==5 and s['outcome_steps']==32
+          assert s['rank_relative_threshold']==0.001
+          assert s['heldout']['eligible']==1534 and s['heldout']['positives']==118
+          assert abs(s['heldout']['auc']['learned_direction']-0.710225)<1e-6
+          assert abs(s['heldout']['auc']['learned_rank']-0.484385)<1e-6
+          assert s['inference']['positive_model_count']==4
+          assert s['inference']['primary_difference_bootstrap95'][0]>0
+          assert s['inference']['prespecified_support_criteria_met']
+          assert s['full_receipt_sha256']==s['independent_replay_sha256']
+          assert len(s['model_hashes'])==6
+          print('SHAFT-COMP-15 exact factorial/AUC reference and frozen preregistered result verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -267,3 +294,4 @@ jobs:
           lake env lean Shaft/FiniteObservability.lean
           lake env lean Shaft/DiagnosticSchedule.lean
           lake env lean Shaft/TaskObservability.lean
+          lake env lean Shaft/TaskFactorial.lean
