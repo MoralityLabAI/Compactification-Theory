@@ -171,6 +171,32 @@ jobs:
               assert record['blind_02'] < record['randomnull_02']
           print('Exact six-bit Gramian reference and trained summary schema validated')
           PY
+      - name: SHAFT-COMP-13 registered negative-result and Q5 baseline audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/observability_prediction.py
+          python -m py_compile research/shaft_compactification/experiments/q5_checkpoint_bridge.py
+          python -m research.shaft_compactification.rank_auc_reference
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('research/shaft_compactification/results/comp13_summary.json').read_text())
+          assert a['status'] == 'completed_negative_registered_primary'
+          assert a['heldout_model_seeds'] == [303, 404]
+          assert a['calibration_model_seeds'] == [101, 202]
+          assert a['rank_relative_threshold'] == 0.001
+          assert a['diagnostic_horizon'] == 5 and a['outcome_continuation_length'] == 32
+          assert a['raw_pairs_sha256'] and len(a['raw_pairs_sha256']) == 64
+          result=a['test_results']['heldout_pooled']
+          assert result['eligible'] == 827 and result['positives'] == 55
+          assert abs(result['auroc']['rank_deficit'] - 0.504439) < 1e-6
+          assert a['test_results']['uncertainty']['permutation_trials'] == 1000
+          assert len(a['model_hashes']) == 4
+          q5=json.loads(Path('research/shaft_compactification/results/q5_registered_reference.json').read_text())
+          assert len(q5['rows']) == 12
+          assert q5['correct'] == 9 and q5['n_extrap'] == 8
+          assert sum((r['f1_f8'] < .05) == r['extrap'] for r in q5['rows']) == 9
+          print('SHAFT-COMP-13 registered negative result, binned ROC-AUC, and Q5 baseline verified')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -215,3 +241,4 @@ jobs:
           lake env lean Shaft/Observability.lean
           lake env lean Shaft/CausalSufficiency.lean
           lake env lean Shaft/FiniteObservability.lean
+          lake env lean Shaft/DiagnosticSchedule.lean
