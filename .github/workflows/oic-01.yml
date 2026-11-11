@@ -218,3 +218,5 @@ jobs:
         run: python research/observational_inwardness_v1/oic32_run.py --check
       - name: Exhaustively replay p2 and p3 exceptional fixed schedules
         run: python research/observational_inwardness_v1/oic32_small_run.py --check
+      - name: Verify global marked-erasure optimum on all prime sizes
+        run: python research/observational_inwardness_v1/oic32_erasure_run.py --check
