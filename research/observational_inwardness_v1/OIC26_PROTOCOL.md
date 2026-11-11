@@ -19,3 +19,7 @@ Account for one returned bit per query, ceil(log2 n) address bits, policy descri
 ## Acceptance
 
 Report at least one conclusive n=6 exact threshold or a stronger analytic lower bound with a proof independently checked in Python. Any model-based claim must retain a complete adversarial history audit. Publication requires a pinned source hash, a runnable solver, a fault-path replay and a negative-search status that distinguishes exhaustive UNSAT from a resource-limit failure.
+
+## Executed interim result, 11 November 2026
+
+The six-phase **one-marked-erasure** threshold is now resolved: Q*_erasure(6)=11 by independent unquotiented and symmetry-reduced negative searches at Q=10, plus a verified 753-node positive policy at Q=11. See [OIC26_REPORT.md](OIC26_REPORT.md). The registered **one-substitution** n=6 search remains open.
