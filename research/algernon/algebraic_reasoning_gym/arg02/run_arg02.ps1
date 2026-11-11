@@ -14,7 +14,9 @@ param(
     [string]$Vramorama = "$env:LOCALAPPDATA\Programs\vramorama\vramorama.exe",
     [string]$ResultsDir = "research\algernon\algebraic_reasoning_gym\arg02\results"
 )
-$ErrorActionPreference = "Stop"
+# Exit codes decide failure: under Windows PowerShell 5.1 "Stop" would turn a Python
+# warning on stderr into a terminating error.
+$ErrorActionPreference = "Continue"
 $env:PYTHONPATH = ".;$EvalMathSrc"
 $env:PYTHONUTF8 = "1"
 $env:HF_HUB_OFFLINE = "1"
