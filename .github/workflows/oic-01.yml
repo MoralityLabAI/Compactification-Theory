@@ -200,3 +200,19 @@ jobs:
         run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
       - name: Independently reconstruct the 21-query three-marker receipt
         run: python research/observational_inwardness_v1/oic30_run.py --check
+
+
+  oic32-global-fixed-prime-one-flip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-32 independent affine-plane integer tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32_global.py' -v
+      - name: OIC-32 optimized-mode tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32_global.py' -v
+      - name: Verify general prime lower-bound arithmetic and pinned codebooks
+        run: python research/observational_inwardness_v1/oic32_run.py --check
