@@ -47,7 +47,7 @@ PYTHONPATH=.:../EvalMath/src python -m research.algernon.algebraic_reasoning_gym
 
 ## ARG-02
 
-[`arg02/`](arg02/README.md) evaluates Qwen3.5-0.8B-Base on this roster with explicit recurrent depth and matched-compute controls, through the same public-only export and EvalMath grading. Protocol: [`arg02/PROTOCOL.md`](arg02/PROTOCOL.md).
+[`arg02/`](arg02/README.md) evaluates Qwen3.5-0.8B-Base on this roster with explicit recurrent depth and matched-compute controls, through the same public-only export and EvalMath grading. Protocol: [`arg02/PROTOCOL.md`](arg02/PROTOCOL.md); result: [`arg02/REPORT.md`](arg02/REPORT.md).
 
 ## Research interpretation
 

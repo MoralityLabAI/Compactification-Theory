@@ -1,6 +1,6 @@
 # ARG-02: recurrent-depth evaluation of Qwen3.5 on the Algernon algebraic gym
 
-ARG-02 runs a pretrained Qwen checkpoint on the ARG-01 held-out roster with explicit recurrent depth, exact EvalMath verification of every proposal, and the controls needed to tell recurrence apart from extra compute. The registered design, arms and decision rules are in [PROTOCOL.md](PROTOCOL.md); the current execution state is in [STATUS.md](STATUS.md).
+ARG-02 runs a pretrained Qwen checkpoint on the ARG-01 held-out roster with explicit recurrent depth, exact EvalMath verification of every proposal, and the controls needed to tell recurrence apart from extra compute. The registered design, arms and decision rules are in [PROTOCOL.md](PROTOCOL.md); results are in [REPORT.md](REPORT.md) (negative: recurrence did not increase verified program recovery) and the run log in [STATUS.md](STATUS.md).
 
 ## Layout
 
@@ -18,6 +18,7 @@ ARG-02 runs a pretrained Qwen checkpoint on the ARG-01 held-out roster with expl
 | `checkpoint_check.py` | CPU pre-run check on the real weights |
 | `smoke.py` | the whole pipeline on a tiny random Qwen3.5 on CPU |
 | `run_arg02.ps1` | the GPU chain under vramorama |
+| `tables.py` | Markdown tables from the receipt and profile |
 
 ## Run
 
