@@ -1,0 +1,241 @@
+{
+  "experiment": "SHAFT-COMP-14",
+  "status": "completed_preregistered_toy_test",
+  "protocol_sha": "221c225d2a3b9222b0cfd8b699a07f21b293452e",
+  "evidence": "two calibration GRUs and two newly held-out toy GRUs; native task-output Jacobians",
+  "torch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "calibration_model_seeds": [
+    101,
+    202
+  ],
+  "heldout_model_seeds": [
+    505,
+    606
+  ],
+  "state_dim": 24,
+  "learned_probe_outputs": 4,
+  "diagnostic_horizon": 5,
+  "outcome_horizon": 32,
+  "relative_rank_threshold": 0.001,
+  "goal_count": 16,
+  "goal_pairs_per_depth": 256,
+  "total_pairs": 2048,
+  "weight": "1/(1+abs(native_logit))",
+  "model_sha256": {
+    "101": {
+      "base": "20ca5ce2e003958a81ec16de17e3e95f99f74efac7fdc07b52c6897214af6f16",
+      "probe": "1fd2ed29cd3acd8c97bab32b9bacb5ee788dea01615457ec0c9201478e122c46"
+    },
+    "202": {
+      "base": "3ed16bfdba4cf1c50b177f0e1f119c123b53ce567426e7b79e7110b681730b01",
+      "probe": "27df5a93fd7a2ae75e550b8bd1a0a8a21fefd84c7d87bf294625faabd14669a9"
+    },
+    "505": {
+      "base": "f0d16965b73e2bcd1c61b682cb4e6d689d842642066850571cc13eb1b4152383",
+      "probe": "19f4e12ac0e61d50fe93c46ccf23c9801dd08cf893a53580dc7251b976f20806"
+    },
+    "606": {
+      "base": "849dc857338520d69890159c980bac3c318ee4d05405dfa66d0c68a7ca2c46c3",
+      "probe": "cbd10b9eba83ff822078989ab63d8ac0987c801ab86a137ab71f504806de483e"
+    }
+  },
+  "gradient_parity": {
+    "max_abs": 0.000001430511474609375,
+    "per_seed": {
+      "101": 0.000001430511474609375,
+      "202": 9.5367431640625e-7,
+      "505": 0.000001430511474609375,
+      "606": 0.000001430511474609375
+    }
+  },
+  "calibration": {
+    "eligible": 819,
+    "total": 1024,
+    "positives": 60,
+    "auroc": {
+      "task_weighted": 0.670026,
+      "native_unweighted": 0.696794,
+      "rank_deficit": 0.447497,
+      "near_native_margin": 0.578085,
+      "low_probe_margin": 0.527185,
+      "state_distance": 0.552525
+    }
+  },
+  "heldout": {
+    "eligible": 864,
+    "total": 1024,
+    "positives": 50,
+    "auroc": {
+      "task_weighted": 0.652604,
+      "native_unweighted": 0.654742,
+      "rank_deficit": 0.481179,
+      "near_native_margin": 0.613612,
+      "low_probe_margin": 0.572826,
+      "state_distance": 0.50199
+    }
+  },
+  "per_model_depth": [
+    {
+      "seed": 101,
+      "depth": 12,
+      "eligible": 256,
+      "positives": 17,
+      "task": 0.735417,
+      "rank": 0.454713,
+      "unweighted": 0.75683
+    },
+    {
+      "seed": 101,
+      "depth": 40,
+      "eligible": 151,
+      "positives": 11,
+      "task": 0.806494,
+      "rank": 0.285065,
+      "unweighted": 0.81039
+    },
+    {
+      "seed": 202,
+      "depth": 12,
+      "eligible": 256,
+      "positives": 21,
+      "task": 0.602837,
+      "rank": 0.585309,
+      "unweighted": 0.61155
+    },
+    {
+      "seed": 202,
+      "depth": 40,
+      "eligible": 156,
+      "positives": 11,
+      "task": 0.68652,
+      "rank": 0.329154,
+      "unweighted": 0.702821
+    },
+    {
+      "seed": 505,
+      "depth": 12,
+      "eligible": 256,
+      "positives": 7,
+      "task": 0.686173,
+      "rank": 0.422834,
+      "unweighted": 0.67642
+    },
+    {
+      "seed": 505,
+      "depth": 40,
+      "eligible": 171,
+      "positives": 13,
+      "task": 0.688413,
+      "rank": 0.410906,
+      "unweighted": 0.79406
+    },
+    {
+      "seed": 606,
+      "depth": 12,
+      "eligible": 256,
+      "positives": 14,
+      "task": 0.473436,
+      "rank": 0.547078,
+      "unweighted": 0.477273
+    },
+    {
+      "seed": 606,
+      "depth": 40,
+      "eligible": 181,
+      "positives": 16,
+      "task": 0.619318,
+      "rank": 0.555114,
+      "unweighted": 0.560606
+    }
+  ],
+  "uncertainty": {
+    "registered_task_auc": 0.652604,
+    "matched_rank_auc": 0.481179,
+    "task_minus_rank_auc": 0.171425,
+    "task_bootstrap95": [
+      0.573592,
+      0.731161
+    ],
+    "difference_bootstrap95": [
+      0.059345,
+      0.272535
+    ],
+    "permutation_p_two_sided": 0.014985,
+    "permutation_null_mean": 0.567573,
+    "permutation_count": 1000,
+    "stratified_bootstrap_count": 1000,
+    "limits": "within-model stratified; only two held-out model seeds"
+  },
+  "exact_mann_whitney_pairs": {
+    "calibration": {
+      "positive": 60,
+      "negative": 759,
+      "counts": {
+        "task_weighted": [
+          30513,
+          0
+        ],
+        "native_unweighted": [
+          31732,
+          0
+        ],
+        "rank_deficit": [
+          15826,
+          9106
+        ],
+        "near_native_margin": [
+          26326,
+          0
+        ],
+        "low_probe_margin": [
+          24008,
+          0
+        ],
+        "state_distance": [
+          25162,
+          0
+        ]
+      }
+    },
+    "heldout": {
+      "positive": 50,
+      "negative": 814,
+      "counts": {
+        "task_weighted": [
+          26561,
+          0
+        ],
+        "native_unweighted": [
+          26648,
+          0
+        ],
+        "rank_deficit": [
+          15041,
+          9086
+        ],
+        "near_native_margin": [
+          24974,
+          0
+        ],
+        "low_probe_margin": [
+          23314,
+          0
+        ],
+        "state_distance": [
+          20431,
+          0
+        ]
+      }
+    },
+    "value_shape": "[strict_wins, tied_pairs]; AUC=(strict_wins+ties/2)/(positive*negative)"
+  },
+  "full_receipt_sha256": "2930a006382adb552accd501fe6bf730d6681d0937c998ac061054392f126844",
+  "replay_receipt_sha256": "2930a006382adb552accd501fe6bf730d6681d0937c998ac061054392f126844",
+  "notes": [
+    "Improvement is for task-specific directional sensitivity; unweighted directional AUC is 0.654742, slightly better than the preregistered boundary-weighted 0.652604.",
+    "Cross-model variability: seed 505 pooled AUC ≈0.742, seed 606 pooled AUC ≈0.575.",
+    "The matched rank baseline uses a learned four-output probe; primary metric additionally accesses native output derivatives, creating an access difference.",
+    "No evidence about actual hidden objectives or distributed persistence."
+  ]
+}
