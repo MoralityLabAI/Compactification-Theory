@@ -33,3 +33,8 @@ The proof does not assume that a marker address is missing. It is a stronger res
 ## Small-prime exceptions: OIC-T66
 
 Translation-normalized exhaustive searches check 16 length-five and 32 length-six fixed schedules for p=2, plus 729 length-seven and 2,187 length-eight schedules for p=3. They prove that the global fixed one-substitution minima are Q=6 for p=2 and Q=8 for p=3. Combined with the analytic theorem for p≥5, this settles every prime phase size. The positive witnesses and complete shorter-horizon searches are retained in results/oic32_exceptional.json, with five dedicated new unit tests. The full OIC-32 suite has 12 tests in each Python execution mode.
+
+
+## Strict adaptive advantage now certified
+
+At p=7, the independently verified OIC-28 adaptive 20-query policy has a strict query-count advantage over every fixed policy: OIC-T64 proves the fixed optimum is 21. At p=5 the respective minima are 14 versus 15, and at n=6 the adaptive minimum 15 is below the proved fixed lower bound 18. All comparisons concern returned sensor queries; online addressing and policy storage have distinct costs.
