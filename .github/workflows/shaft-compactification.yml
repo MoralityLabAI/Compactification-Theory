@@ -248,6 +248,33 @@ jobs:
           assert len(s['model_hashes'])==6
           print('SHAFT-COMP-15 exact factorial/AUC reference and frozen preregistered result verified')
           PY
+      - name: SHAFT-COMP-16 temporal transfer and preregistered negative audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/family_transfer.py
+          python -m py_compile research/shaft_compactification/experiments/merge_family_receipts.py
+          python -m research.shaft_compactification.temporal_family_reference > /tmp/shaft16_finite.json
+          python -m research.shaft_compactification.temporal_family_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          actual=json.loads(Path('/tmp/shaft16_finite.json').read_text())
+          pinned=json.loads(Path('research/shaft_compactification/results/temporal_family_reference.json').read_text())
+          assert actual==pinned,'SHAFT-COMP-16 temporal finite reference drift'
+          summary=json.loads(Path('research/shaft_compactification/results/comp16_summary.json').read_text())
+          assert summary['protocol_commit']=='83a436d3e301002491655a1d96af7bf1df88e4a7'
+          assert summary['calibration_source']['thresholds']=={'learned_direction':6.854760490520719,'learned_rank':2.5}
+          assert summary['heldout_pooled']['eligible']==371
+          assert summary['heldout_pooled']['positives']==28
+          assert summary['inference']['bootstrap_95'][0]<0<summary['inference']['bootstrap_95'][1]
+          assert not summary['decision']['directional_prediction_transfer_supported']
+          assert not summary['decision']['source_threshold_fpr_transfer_supported']
+          assert len(summary['model_training'])==8
+          assert len(summary['model_hashes'])==8
+          assert summary['full_receipt_sha256']=='a3fa526da6c72e30f924af747b70197dd731bc6683347acd253f8290810a71a1'
+          for family in ('lag_rotate','lag_match'):
+              assert summary['per_family_receipt_sha256'][family]==summary['replays'][family+'_sha256']
+          print('SHAFT-COMP-16 negative transfer and fixed FPR thresholds independently audited')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -295,3 +322,4 @@ jobs:
           lake env lean Shaft/DiagnosticSchedule.lean
           lake env lean Shaft/TaskObservability.lean
           lake env lean Shaft/TaskFactorial.lean
+          lake env lean Shaft/TemporalFamily.lean
