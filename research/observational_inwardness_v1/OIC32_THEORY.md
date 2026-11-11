@@ -147,3 +147,30 @@ python research/observational_inwardness_v1/oic32_run.py --check
 ~~~
 
 These checks verify the exact arithmetic, incidence identity with duplicate query locations, analytic inequality, constructive block witnesses, and randomized negative instances. They supplement a **uniform mathematical proof** and do not treat random testing as evidence of an exhaustive negative result.
+
+
+## OIC-T66. Complete prime-size classification, including the small exceptions
+
+For a fixed one-bit sensor and one adversarial substitution, the smallest primes are exceptional:
+
+\[
+\boxed{Q^*_{\rm fixed,flip}(p)=
+\begin{cases}
+6,&p=2,\\
+8,&p=3,\\
+3p,&p\ge5\text{ prime}.
+\end{cases}}
+\]
+
+For p=2 and p=3, these are **finite computer-assisted exhaustive results**. Simultaneously translating every queried marker m_t and hidden initial phase z_0 by c∈F_p preserves every report trajectory for each shift d. We may therefore fix the first sensor marker at zero. At horizon Q this leaves exactly p^(Q−1) normalized fixed schedules.
+
+| Prime p | Horizon Q | Schedules enumerated | Maximum cross-shift minimum distance |
+|---:|---:|---:|---:|
+| 2 | 5 | 16 | 2 |
+| 2 | 6 | 32 | 3 |
+| 3 | 7 | 729 | 2 |
+| 3 | 8 | 2,187 | 3 |
+
+The six-query word (0,0,0,0,0,0) for p=2 and the eight-query word (0,0,0,1,1,1,2,2) for p=3 both have inter-shift Hamming distance three. Exhaustive enumeration rules out Q=5 and Q=7 respectively, and shorter successful schedules could always be extended to those horizons.
+
+The uniform analytic proof OIC-T64 covers every prime p≥5. These two exceptions complete the classification over all primes. The standard-library enumerator oic32_small.py and its five tests provide an independent finite check. The general second-moment inequality is deliberately restricted to p≥5.
