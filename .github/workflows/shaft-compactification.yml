@@ -197,6 +197,30 @@ jobs:
           assert sum((r['f1_f8'] < .05) == r['extrap'] for r in q5['rows']) == 9
           print('SHAFT-COMP-13 registered negative result, binned ROC-AUC, and Q5 baseline verified')
           PY
+      - name: SHAFT-COMP-14 task-directional reference and frozen AUC audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/task_weighted_observability.py
+          python -m research.shaft_compactification.task_gramian_reference > /tmp/shaft14_finite.json
+          python -m research.shaft_compactification.task_auc_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from research.shaft_compactification.task_gramian_reference import reference
+          observed=json.loads(Path('/tmp/shaft14_finite.json').read_text())
+          assert observed == reference()
+          assert observed['aligned_directional_energy']==1
+          assert observed['hidden_directional_energy']==0
+          s=json.loads(Path('research/shaft_compactification/results/comp14_summary.json').read_text())
+          assert s['protocol_sha']=='221c225d2a3b9222b0cfd8b699a07f21b293452e'
+          assert s['heldout_model_seeds']==[505,606]
+          assert s['heldout']['eligible']==864 and s['heldout']['positives']==50
+          assert s['uncertainty']['permutation_count']==1000
+          assert len(s['full_receipt_sha256'])==64
+          assert abs(s['heldout']['auroc']['task_weighted']-.652604)<1e-6
+          assert abs(s['heldout']['auroc']['rank_deficit']-.481179)<1e-6
+          assert s['heldout']['auroc']['native_unweighted']>s['heldout']['auroc']['task_weighted']
+          print('SHAFT-COMP-14 preregistered metrics, exact AUC accounting and finite mathematics checked')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -242,3 +266,4 @@ jobs:
           lake env lean Shaft/CausalSufficiency.lean
           lake env lean Shaft/FiniteObservability.lean
           lake env lean Shaft/DiagnosticSchedule.lean
+          lake env lean Shaft/TaskObservability.lean
