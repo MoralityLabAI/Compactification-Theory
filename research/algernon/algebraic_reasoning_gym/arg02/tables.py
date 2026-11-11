@@ -30,7 +30,8 @@ def arm_order(receipt):
     summary = receipt["summary"]
     depths = sorted({int(k.split("@")[1]) for k in summary if k.startswith("loop@")})
     main = [f"loop@{t}" for t in depths if t in (1, 2, 4, 8, 16) or t == d]
-    main += [a for a in (f"open@{d}", f"shuffle@{d}", f"ensemble@{d}", "ff2b@1", "controller") if a in summary]
+    main += [a for a in (f"open@{d}", f"shuffle@{d}", f"shuffle_a1@{d}", f"ensemble@{d}", "ff2b@1", "controller")
+             if a in summary]
     main += sorted(a for a in summary if a.startswith("symbolic:"))
     return main
 
@@ -67,9 +68,10 @@ def render(receipt, profile):
                    f"{r['difference']:+d} | {_ci(r)} | {r['mcnemar_p']:.4f} |")
     out.append("\n## Decision rules\n")
     dec = receipt["decisions"]
-    for k in ("H1_depth", "H2a_feedback", "H2b_state", "H3a_repeat", "H3b_ff", "H3c_efficiency", "H4_symbolic",
-              "mechanism_claim"):
-        out.append(f"- {k}: **{'met' if dec[k] else 'not met'}**")
+    for k in ("H1_depth", "H2a_feedback", "H2b_state", "H2b_state_original_shuffle", "H3a_repeat", "H3b_ff",
+              "H3c_efficiency", "H4_symbolic", "mechanism_claim"):
+        if k in dec:
+            out.append(f"- {k}: **{'met' if dec[k] else 'not met'}**")
     dep = receipt["depth"]
     out.append("\n## Depth curve (loop, test positives)\n")
     out.append("| step | future@12 | future@1 | accepted@1 | greedy valid | greedy accepted | median relative residual | median reduction |")

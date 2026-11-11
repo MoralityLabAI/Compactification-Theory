@@ -511,8 +511,7 @@ def run_test(args, cfg, engine_factory, rows, watch, log, device):
     for i, row in enumerate(rows):
         cid = row["case_id"]
         donor = rows[i - 1]
-        need = [lbl for lbl in ("test_loop", "test_perturb", "test_open", "test_shuffle", "test_patch",
-                                "test_ensemble", "test_controller") if parts.load(lbl, cid) is None]
+        need = [lbl for lbl in (args.arms or TEST_LABELS) if parts.load(lbl, cid) is None]
         if not need:
             continue
         watch.check(cid)
@@ -534,13 +533,15 @@ def run_test(args, cfg, engine_factory, rows, watch, log, device):
             value = arm_open(engine, row, shuffle_steps)
             value["peak_bytes"] = _peak(device)
             parts.save("test_open", cid, value)
-        if "test_shuffle" in need or "test_patch" in need:
+        if {"test_shuffle", "test_shuffle_a1", "test_patch"} & set(need):
             _peak_reset(device)
             dout = donor_run(engine, donor, max(shuffle_steps), shuffle_steps, psteps)
-            if "test_shuffle" in need:
-                value = arm_shuffle(engine, row, dout, donor["case_id"], shuffle_steps)
-                value["peak_bytes"] = _peak(device)
-                parts.save("test_shuffle", cid, value)
+            for lbl in ("test_shuffle", "test_shuffle_a1"):
+                if lbl in need:
+                    _peak_reset(device)
+                    value = arm_shuffle(engine, row, dout, donor["case_id"], shuffle_steps)
+                    value["peak_bytes"] = _peak(device)
+                    parts.save(lbl, cid, value)
             if "test_patch" in need:
                 _peak_reset(device)
                 value = arm_patch(engine, row, dout, donor["case_id"], pdepth, psteps)
@@ -561,6 +562,12 @@ def run_test(args, cfg, engine_factory, rows, watch, log, device):
     write_atomic(run / "test_order.json", json.dumps(ids) + "\n")
 
 
+TEST_LABELS = ("test_loop", "test_perturb", "test_open", "test_shuffle", "test_patch", "test_ensemble",
+               "test_controller")
+# Amendment 1: the donor shuffle rerun with the corrected position alignment.
+AMENDED_LABELS = ("test_shuffle_a1",)
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("command", choices=["dev", "test"])
@@ -570,6 +577,8 @@ def main(argv=None):
     p.add_argument("--device", default="cuda")
     p.add_argument("--smoke", action="store_true", help="tiny random Qwen3.5 on CPU, no checkpoint")
     p.add_argument("--limit", type=int)
+    p.add_argument("--arms", nargs="+", choices=TEST_LABELS + AMENDED_LABELS,
+                   help="test stage: compute only these part labels")
     args = p.parse_args(argv)
     from .settings import load_config, load_lock
     cfg = load_config(args.smoke)
@@ -610,10 +619,11 @@ def main(argv=None):
     rows = read_public(run / "public" / f"{split}.jsonl")
     if args.limit:
         rows = rows[:args.limit]
-    manifest = {"command": args.command, "stage": args.stage, "model": args.model, "smoke": args.smoke,
+    manifest_name = f"manifest_{args.command}_{args.stage or args.model}" +         ("_" + "_".join(args.arms) if args.arms else "") + ".json"
+    manifest = {"command": args.command, "arms": args.arms, "stage": args.stage, "model": args.model, "smoke": args.smoke,
                 "environment": environment(device), "config_sha256": file_sha256(CONFIG),
                 "lock_sha256": file_sha256(LOCK), "rows": len(rows), "started": time.time()}
-    write_atomic(run / f"manifest_{args.command}_{args.stage or args.model}.json", json.dumps(manifest, indent=2) + "\n")
+    write_atomic(run / manifest_name, json.dumps(manifest, indent=2) + "\n")
     try:
         with torch.inference_mode():
             if args.command == "dev":
@@ -626,7 +636,7 @@ def main(argv=None):
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
     manifest["finished"] = time.time()
-    write_atomic(run / f"manifest_{args.command}_{args.stage or args.model}.json", json.dumps(manifest, indent=2) + "\n")
+    write_atomic(run / manifest_name, json.dumps(manifest, indent=2) + "\n")
     log("done")
 
 

@@ -82,10 +82,19 @@ def extract(logprobs, op_ids):
             "row_spread": max(spread1, spread2)}
 
 
-def align_index(recipient_len, donor_len, device):
-    """Recipient position p takes donor position donor_len-1-((recipient_len-1-p) mod donor_len)."""
-    k = torch.arange(recipient_len - 1, -1, -1, device=device) % donor_len
-    return donor_len - 1 - k
+def align_index(recipient_len, donor_len, device, tail=2):
+    """Right-aligned donor position for every recipient position.
+
+    The last `tail` positions (the two candidate tokens, which differ per row)
+    map only onto each other. Recipient prompt positions beyond the donor's
+    length wrap within the donor's prompt positions, never onto its candidate
+    tokens, so rows that share a prefix receive identical displacements there.
+    (Amendment 1: the first version wrapped over the whole donor sequence.)
+    """
+    k = torch.arange(recipient_len - 1, -1, -1, device=device)
+    prompt = donor_len - tail
+    idx = torch.where(k < donor_len, donor_len - 1 - k, prompt - 1 - ((k - donor_len) % prompt))
+    return idx
 
 
 class BlockLoop:

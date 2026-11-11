@@ -217,13 +217,22 @@ def answer_tape(run, ids, sel, cfg):
     return tape
 
 
+def has_amended_shuffle(run, ids):
+    """Amendment 1: the donor shuffle rerun with corrected alignment (all test rows present)."""
+    root = Path(run) / "parts" / "test_shuffle_a1"
+    return root.is_dir() and len(list(root.glob("*.json"))) >= len(ids)
+
+
 def _tape(run, ids):
     tape = []
     loop, _ = load_label(run, "test_loop", ids)
     for cid in ids:
         for t, r in loop[cid]["records"].items():
             tape.append({"case": cid, "arm": "loop", "step": int(t), "record": r})
-    for label, arm in (("test_open", "open"), ("test_shuffle", "shuffle"), ("test_perturb", "perturb")):
+    labels = [("test_open", "open"), ("test_shuffle", "shuffle"), ("test_perturb", "perturb")]
+    if has_amended_shuffle(run, ids):
+        labels.append(("test_shuffle_a1", "shuffle_a1"))
+    for label, arm in labels:
         parts, _ = load_label(run, label, ids)
         for cid in ids:
             for t, r in parts[cid]["records"].items():
@@ -370,7 +379,9 @@ def compute_table(run, ids, sel, cfg, grades, sizes, sym, sym_meta):
     block = tuple(sel["block"])
     loop, _ = load_label(run, "test_loop", ids)
     opn, _ = load_label(run, "test_open", ids)
-    shf, _ = load_label(run, "test_shuffle", ids)
+    shuffles = [("shuffle", load_label(run, "test_shuffle", ids)[0])]
+    if has_amended_shuffle(run, ids):
+        shuffles.append(("shuffle_a1", load_label(run, "test_shuffle_a1", ids)[0]))
     ens, _ = load_label(run, "test_ensemble", ids)
     ff, _ = load_label(run, "test_ff", ids)
     ctl, _ = load_label(run, "test_controller", ids)
@@ -400,16 +411,17 @@ def compute_table(run, ids, sel, cfg, grades, sizes, sym, sym_meta):
             layers = flops.path(tc, block, 1)
             ms = otm["prelude_ms"] + sum(otm["block_ms"][:d]) + otm["readout_ms"][str(d)]
             add(f"open@{d}", cid, _macs(tc, L, layers), ms, 16 * L, 16 * L * len(layers), 1)
-        sv = shf[cid]
-        stm = sv["usage"]["timing"]
-        Ld = sv["usage"]["donor_tokens"] // 16
-        for d in [x for x in cfg["depths"] if x > 1]:
-            own = flops.path(tc, block, 1)
-            donor_layers = list(range(a)) + list(range(a, b)) * d
-            macs = _macs(tc, L, own) + 16 * sum(flops.layer_macs(tc, i, Ld) for i in donor_layers)
-            dt = sv["usage"]["donor_timing"]
-            ms = stm["prelude_ms"] + stm["block_ms"][0] + stm["readout_ms"][str(d)] + dt["prelude_ms"] + sum(dt["block_ms"][:d])
-            add(f"shuffle@{d}", cid, macs, ms, 16 * (L + Ld), 16 * (L * len(own) + Ld * len(donor_layers)), 2)
+        for name, shf in shuffles:
+            sv = shf[cid]
+            stm = sv["usage"]["timing"]
+            Ld = sv["usage"]["donor_tokens"] // 16
+            for d in [x for x in cfg["depths"] if x > 1]:
+                own = flops.path(tc, block, 1)
+                donor_layers = list(range(a)) + list(range(a, b)) * d
+                macs = _macs(tc, L, own) + 16 * sum(flops.layer_macs(tc, i, Ld) for i in donor_layers)
+                dt = sv["usage"]["donor_timing"]
+                ms = stm["prelude_ms"] + stm["block_ms"][0] + stm["readout_ms"][str(d)] + dt["prelude_ms"] + sum(dt["block_ms"][:d])
+                add(f"{name}@{d}", cid, macs, ms, 16 * (L + Ld), 16 * (L * len(own) + Ld * len(donor_layers)), 2)
         ev = ens[cid]
         for d, m in sizes.items():
             vs = cfg["ensemble_variants"][:m]
@@ -453,8 +465,9 @@ def compute_table(run, ids, sel, cfg, grades, sizes, sym, sym_meta):
 
 def peaks(run, ids):
     out = {}
-    for label in ("test_loop", "test_perturb", "test_open", "test_shuffle", "test_patch", "test_ensemble",
-                  "test_controller", "test_ff"):
+    labels = ["test_loop", "test_perturb", "test_open", "test_shuffle", "test_patch", "test_ensemble",
+              "test_controller", "test_ff"] + (["test_shuffle_a1"] if has_amended_shuffle(run, ids) else [])
+    for label in labels:
         parts, _ = load_label(run, label, ids)
         vals = [v.get("peak_bytes") for v in parts.values() if v.get("peak_bytes") is not None]
         out[label] = max(vals) if vals else None
@@ -611,7 +624,10 @@ def decisions(cmp, compute, summary, sel, sizes):
     res = {
         "H1_depth": ok(cmp[f"loop@{d}_vs_loop@1"]) and cmp[f"loop@{d}_vs_loop@1"]["mcnemar_p"] < 0.05,
         "H2a_feedback": ok(cmp[f"loop@{d}_vs_open@{d}"]),
-        "H2b_state": ok(cmp[f"loop@{d}_vs_shuffle@{d}"]),
+        # Amendment 1: H2b is evaluated on the corrected shuffle when it exists; the
+        # original arm's outcome is kept alongside.
+        "H2b_state": ok(cmp.get(f"loop@{d}_vs_shuffle_a1@{d}", cmp[f"loop@{d}_vs_shuffle@{d}"])),
+        "H2b_state_original_shuffle": ok(cmp[f"loop@{d}_vs_shuffle@{d}"]),
         "H3a_repeat": ok(cmp[f"loop@{d}_vs_ensemble@{d}"]),
         "H3b_ff": ok(cmp[f"loop@{d}_vs_ff2b@1"]),
         "H3c_efficiency": eff(f"loop@{d}") > eff("loop@1") and eff(f"loop@{d}") > eff(f"ensemble@{d}"),
@@ -652,6 +668,9 @@ def cmd_report(args):
               ("loop@1", "symbolic:certified_mass12"), ("ff2b@1", "loop@1")]
     pairs += [(f"open@{x}", "loop@1") for x in cfg["depths"] if x > 1]
     pairs += [(f"shuffle@{x}", "loop@1") for x in cfg["depths"] if x > 1]
+    if f"shuffle_a1@{d}" in grades:
+        pairs += [(f"loop@{d}", f"shuffle_a1@{d}")]
+        pairs += [(f"shuffle_a1@{x}", "loop@1") for x in cfg["depths"] if x > 1]
     cmp = {f"{a}_vs_{b}": compare(grades, a, b, pos, cases) for a, b in pairs}
     cmp1 = {f"{a}_vs_{b}": compare(grades, a, b, pos, cases, ("at1", "future_correct"))
             for a, b in pairs if not (a.startswith("symbolic") or b.startswith("symbolic") or a == "controller")}

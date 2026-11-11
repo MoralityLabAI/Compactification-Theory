@@ -83,9 +83,16 @@ class RecurrenceTests(unittest.TestCase):
         sh = bl.trajectory(self.ids, self.ops, 4, mode="shuffle", readout_steps={4}, donor_delta=donor["deltas"])
         lp = bl.trajectory(self.ids, self.ops, 4, readout_steps={4})
         self.assertFalse(_close(sh["records"][4], lp["records"][4], tol=1e-7))
+        # rows sharing a prefix must stay identical whichever case is longer
+        self.assertLess(sh["records"][4]["row_spread"], 1e-5)
+        donor_long = bl.trajectory(self.ids, self.ops, 4, keep_delta={4})
+        sh2 = bl.trajectory(self.ids2, self.ops, 4, mode="shuffle", readout_steps={4}, donor_delta=donor_long["deltas"])
+        self.assertLess(sh2["records"][4]["row_spread"], 1e-5)
         idx = self.rec.align_index(37 + 2, 29 + 2, torch.device("cpu"))
-        self.assertEqual(int(idx[-1]), 30)
         self.assertEqual(len(idx), 39)
+        self.assertEqual(idx[-2:].tolist(), [29, 30])  # candidates onto candidates
+        self.assertTrue(bool((idx[:-2] <= 28).all()))  # prompt onto donor prompt only
+        self.assertEqual(self.rec.align_index(10, 10, torch.device("cpu")).tolist(), list(range(10)))
 
     def test_self_patch_and_zero_kick_are_identities(self):
         bl = self.loop()
@@ -140,6 +147,7 @@ class PipelineTests(unittest.TestCase):
             with patch.object(oracle, "roster", side_effect=AssertionError("runner touched the roster")):
                 runner.main(["test", "--run-dir", tmp, "--smoke"])
                 runner.main(["test", "--run-dir", tmp, "--smoke", "--model", "ff"])
+                runner.main(["test", "--run-dir", tmp, "--smoke", "--arms", "test_shuffle_a1"])
             analyze.main(["report", "--run-dir", tmp, "--out", str(out)])
             analyze.main(["replay", "--tape", str(out / "arg02_answer_tape.jsonl.gz"),
                           "--check", str(out / "arg02_receipt.json")])
@@ -150,6 +158,12 @@ class PipelineTests(unittest.TestCase):
             self.assertIn("## Decision rules", tables.render(receipt, profile))
             self.assertEqual(receipt["summary"]["loop@1"]["negative_accepted"], 0)
             self.assertIn("mechanism_claim", receipt["decisions"])
+            self.assertIn("H2b_state_original_shuffle", receipt["decisions"])
+            d = receipt["selection"]["depth"]
+            self.assertIn(f"loop@{d}_vs_shuffle_a1@{d}", receipt["paired_future12"])
+            spreads = [t["record"]["row_spread"] for t in analyze.read_tape(out / "arg02_answer_tape.jsonl.gz")
+                       if t["arm"] == "shuffle_a1"]
+            self.assertTrue(spreads and max(spreads) < 1e-4)
             # the depth-1 loop and the canonical ensemble member are the same forward
             self.assertEqual(receipt["summary"]["loop@1"]["future12"], receipt["summary"]["ensemble@1"]["future12"])
             # restarting reuses every part

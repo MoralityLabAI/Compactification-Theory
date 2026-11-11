@@ -84,3 +84,11 @@ The runner stops on a checkpoint hash mismatch, a public row with any non-public
 ## Reproduction
 
 `results/arg02_answer_tape.jsonl.gz` holds every model answer record (log-probabilities rounded to 1e-6 before grading). `analyze replay` regrades it on CPU against `results/arg02_receipt.json` with no model or GPU.
+
+## Amendment 1 (2026-11-11, after the test run)
+
+**Defect.** The report's row-spread diagnostic (rows that share a prefix must give identical log-probabilities at the shared positions) was exactly 0 for every arm except the donor shuffle, where 40% of test records disagreed across rows (median 0, p95 0.25-1.4, maximum 5.4 nats). Cause: `align_index` wrapped right-aligned positions over the whole donor sequence, so when the recipient prompt was longer than the donor's, some recipient prompt positions received the displacement of the donor's two candidate-token positions, which differ per row. The shuffled arm therefore mixed row-specific interventions into one 64-program distribution.
+
+**Fix.** Candidate positions now map only onto candidate positions, and recipient prompt positions beyond the donor's length wrap within the donor's prompt positions (`recurrence.align_index`; tests check row consistency with both a shorter and a longer donor). No other arm uses this mapping; patching replaces the last five positions directly.
+
+**Rerun.** Only the shuffle arm is recomputed, as part label `test_shuffle_a1` with the same donors (previous test row) and depths, using the unchanged selection. The original `test_shuffle` parts are kept and reported as `shuffle@d`; the corrected arm is `shuffle_a1@d`. H2b is evaluated on `shuffle_a1@d*`; the original arm's outcome is reported beside it as `H2b_state_original_shuffle`. Before the rerun, the original shuffle arm scored 67/168 at d* = 16, equal to loop(16), so H2b was not met; the defect adds noise only to the shuffled arm, which can only make H2b easier to meet. H1 had already failed (loop(16) 67 vs loop(1) 68), so the mechanism claim cannot be met whatever the rerun shows.
