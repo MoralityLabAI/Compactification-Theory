@@ -17,3 +17,8 @@ Revisit OIC-28 Q19 under strict state/RAM/wall caps and the 42-element affine ph
 ## Resource ledger
 
 Charge response bits, address commands or preprogrammed instructions, policy storage, candidate belief bits, proof bytes, runtime and peak host RAM separately. The finite synthetic benchmark cannot by itself certify a learned transformer observer.
+
+
+## Resolution (11 November 2026)
+
+[OIC-T64](OIC32_THEORY.md) proves that `Q_fixed^*(p,one substitution)=3p` for every prime `p>=5`, **including full-marker schedules**. The former unrestricted Q20 n=7 SAT/UNSAT certificate gap is closed analytically: Q20 impossible, Q21 attained by the known three-block code. The separate adaptive seven-phase query minimum remains 15–20 and is the subject of [OIC-33](OIC33_PROTOCOL.md).
