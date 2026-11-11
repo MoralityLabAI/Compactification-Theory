@@ -1,0 +1,37 @@
+name: OIC-28 seven-phase robust adaptive sensor certificates
+
+on:
+  push:
+    paths:
+      - 'research/observational_inwardness_v1/oic28*'
+      - 'research/observational_inwardness_v1/test_oic28.py'
+      - 'research/observational_inwardness_v1/OIC28*'
+      - 'research/observational_inwardness_v1/OIC29*'
+      - 'research/observational_inwardness_v1/results/oic28*'
+      - '.github/workflows/oic28.yml'
+  pull_request:
+    paths:
+      - 'research/observational_inwardness_v1/oic28*'
+      - 'research/observational_inwardness_v1/test_oic28.py'
+      - 'research/observational_inwardness_v1/OIC28*'
+      - 'research/observational_inwardness_v1/OIC29*'
+      - 'research/observational_inwardness_v1/results/oic28*'
+      - '.github/workflows/oic28.yml'
+
+jobs:
+  seven-phase-exact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify saved n7 20-query policy and source hashes
+        run: python research/observational_inwardness_v1/oic28_reference.py --check
+      - name: Exact finite certificate tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic28.py' -v
+      - name: Exact finite tests with optimized Python
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic28.py' -v
+      - name: Compile C++ and rerun Q14 exhaustive negative and Q20 positive searches
+        run: python research/observational_inwardness_v1/oic28_reference.py --cpp-check
