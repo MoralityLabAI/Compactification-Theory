@@ -689,3 +689,6 @@ python research/observational_inwardness_v1/oic32_run.py --check
 
 
 **OIC-T66 small-prime classification:** exhaustive fixed-schedule enumeration establishes Q=6 for p=2 and Q=8 for p=3. Combined with OIC-T64, the global prime-size rule is 6, 8, and 3p for p≥5. See [small-prime exact enumerator](oic32_small.py), [tests](test_oic32_small.py), and [pinned receipt](results/oic32_exceptional.json).
+
+
+**OIC-T68/T69 global one-erasure theorem:** for every prime p≥2, the exact unrestricted fixed minimum is Q=2p queries with one marked erasure. For p≥5, an affine-plane line-pair moment contradiction rules out 2p−1 queries even when every marker is addressable. Exhaustive p=2,3 checks close the small cases. See [the proof](OIC32_THEORY.md), [pure-Python reference](oic32_erasure.py), [unit tests](test_oic32_erasure.py), and [pinned receipt](results/oic32_erasure.json).
