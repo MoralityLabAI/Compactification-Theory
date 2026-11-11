@@ -146,5 +146,4 @@ def main():
     print(json.dumps({"phase":a.phase,"aggregate":m["aggregate"],"models":len(m["models"]),
         "heldout_decision":m.get("preregistered_decision")},sort_keys=True))
 
-
 if __name__=="__main__":main()
