@@ -129,8 +129,8 @@ def paired_inference(rows, permutations=PERMUTATIONS, bootstraps=BOOTSTRAPS):
                 permutation_trials=len(null),bootstrap_trials_valid=len(boot))
 
 
-def run(per_goal=PER_GOAL,permutations=PERMUTATIONS,bootstraps=BOOTSTRAPS,
-        families=None,training_steps=TRAIN_STEPS):
+def run(per_goal=PER_GOAL, permutations=PERMUTATIONS, bootstraps=BOOTSTRAPS,
+        families=None, training_steps=TRAIN_STEPS):
     torch.set_num_threads(3)
     torch.use_deterministic_algorithms(True)
     selected=list(FAMILY_SEEDS) if families is None else list(families)
