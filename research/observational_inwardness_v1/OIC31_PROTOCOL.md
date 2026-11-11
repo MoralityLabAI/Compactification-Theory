@@ -19,3 +19,14 @@ For every policy record returned bits, online address bits, literal offline mark
 ## Reproducibility
 
 Keep lightweight CI to pure-standard-library exact code, pinned witness receipt replay and two-marker exhaustiveness. Run expensive SAT/MILP/branch-search processes as optional separately budgeted jobs. Any constrained all-marker infeasibility proof must be independently machine-checkable before upgrading its status.
+
+
+## Registered Q20 status update
+
+The full-label 49-variable occupancy model has now returned SciPy/HiGHS
+INFEASIBLE after 50.52 seconds, with all seven addresses permitted.
+The previous 147-variable model reported the same result. These
+are integer solver decisions; neither supplies a standalone
+proof of unsatisfiability. The next milestone is a checkable
+certificate and a second solver/checker methodology, rather
+than repeated positive witness searches alone.
