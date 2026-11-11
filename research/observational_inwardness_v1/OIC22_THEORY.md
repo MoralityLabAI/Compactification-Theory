@@ -14,7 +14,7 @@ M'_0=M_0\cap C_y,\qquad M'_1=(M_1\cap C_y)\cup(M_0\cap(U\setminus C_y)).
 
 These sets are disjoint. An erasure can be handled separately with the exact one-erasure process: the erasure branch is \((M'_0,M'_1)=(\varnothing,M_0)\); a binary report intersects both current sets with \(C_y\). In a model allowing both fault types the bookkeeping must track both budgets.
 
-## OIC-T35: Exact Bayesian Bellman recursion with one fault
+## OIC-T36: Exact Bayesian Bellman recursion with one fault
 
 Assume a single substitution occurs uniformly at one of the \(Q\) observation positions. Each hidden candidate is equally likely. At the final time the only candidates compatible with the transcript have exactly one mismatch. Let \(D_d=\{(d,z_0):z_0\in\mathbb Z_n\}\). The optimal leaf score is
 
@@ -48,7 +48,7 @@ and the root accuracy is \(V^{1/2}_0(U,\varnothing)/(2n^2Q)\). This is the **joi
 
 These are **best adaptive expected accuracies** among all deterministic query policies. They are exact finite numbers, checked against independently enumerated fixed-schedule distributions for small n. No full exact root optimum is asserted for n=6 or n=8, where state growth is much larger.
 
-## OIC-T36: Robust all-zero indistinguishability lower bound
+## OIC-T37: Robust all-zero indistinguishability lower bound
 
 **Theorem.** Every policy guaranteeing identification of the full hidden shift for all \((d,z_0)\), under at most \(e\) report substitutions and \(r\) marked erasures, needs
 
@@ -60,7 +60,7 @@ These are **best adaptive expected accuracies** among all deterministic query po
 
 This is a **necessary** resource bound. It establishes no matching sufficiency construction. For one substitution it says \(Q\ge 2n\), and for one substitution plus one erasure \(Q\ge 2n+1\). In particular, the registered \(Q=n+2\) policy has no full-shift zero-error certificate at \(n\ge4\).
 
-## OIC-T37: Adversarial policy-tree decoding condition
+## OIC-T38: Adversarial policy-tree decoding condition
 
 Let \(P\) be a deterministic adaptive query policy. A public receipt \(h\) determines the actual issued addresses by replaying \(P\) on its previously **received** reports. Define \(\mathcal H_P(d,z_0;e,r)\) as the set of possible receipts under all legal faults. There exists an exact decoder guaranteed correct for every pair and fault pattern if and only if the unions
 
