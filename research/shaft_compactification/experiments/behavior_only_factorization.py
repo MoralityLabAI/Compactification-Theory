@@ -159,7 +159,7 @@ def evaluate_cell(model,heads,family,seed,depth,per_goal=EVAL_PER_GOAL):
             'native_exact_correct':int(match_native.all(dim=1).sum()),
         }
     for i in range(len(g)):
-        rec={'seed':int(seed),'family':family,'depth':depth,'index':int(i),
+        rec={'seed':int(seed),'family':family,'depth':int(depth),'index':int(i),
              'goal_audit_only':int(g[i]),'latch_audit_only':int(l[i]),'previous_audit_only':int(p[i]),
              'effective_exact_audit_only':int((effective_pred[i]==effective_true[i]).all()),
              'previous_correct_audit_only':int(prev_pred[i]==p[i]),
