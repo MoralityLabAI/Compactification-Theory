@@ -122,3 +122,17 @@ python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic
 python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
 python research/observational_inwardness_v1/oic30_run.py --check
 ~~~
+
+
+## Follow-up on unrestricted Q20 feasibility
+
+A longer exact occupancy-integer search with all seven markers enabled
+returned HiGHS status **INFEASIBLE** after 50.52 seconds, using
+49 integer occupancy variables and the 1,029 exact cross-shift distance
+constraints. This is a second formulation of the earlier direct binary
+integer model. The result is recorded in
+[results/oic30_q20_solver_status.json](results/oic30_q20_solver_status.json).
+The program's feasibility formulation is proved exact in OIC-T61, while
+the integer solver's own negative conclusion still awaits a
+proof-carrying branch certificate. We therefore continue to treat
+global Q20 impossibility as **solver-reported evidence**.
