@@ -150,3 +150,21 @@ jobs:
         run: python research/observational_inwardness_v1/oic26_erasure.py --check
       - name: Exhaust all n6 Q10 policies in unquotiented and reduced games
         run: python research/observational_inwardness_v1/oic26_erasure.py --recompute
+
+
+  oic27-six-phase-one-flip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-27 independent certificate and parity-bound tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic27*.py' -v
+      - name: OIC-27 tests with Python optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic27*.py' -v
+      - name: Replay both 15-query policy trees and source SHA pins
+        run: python research/observational_inwardness_v1/oic27_reference.py --check
+      - name: Compile both C++ solvers, exhaust Q14 and rebuild Q15 proofs
+        run: python research/observational_inwardness_v1/oic27_reference.py --cpp-check
