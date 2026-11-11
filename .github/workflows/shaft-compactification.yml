@@ -354,6 +354,29 @@ jobs:
           assert s['operating']['history_fixed_source_fpr_pass_all_four_cells']
           print('SHAFT-COMP-19 exact reference and preregistered capacity result verified')
           PY
+      - name: SHAFT-COMP-20 exact latch and trained neural negative receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/persistent_goal_control.py
+          python -m py_compile research/shaft_compactification/experiments/merge_comp20.py
+          python -m research.shaft_compactification.comp20_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research/shaft_compactification/results')
+          r=json.loads((root/'comp20_summary.json').read_text())
+          f=json.loads((root/'comp20_frozen_calibration.json').read_text())
+          assert r['registration_commit']=='9201423bc6b5895ed1773a15b683d385b9481b08'
+          assert f['phase']=='calibration_thresholds'
+          assert r['fixed_thresholds']==f['pooled_thresholds']
+          assert len(r['models'])==8
+          assert r['heldout']['eligible']==1016 and r['heldout']['positives']==200
+          assert abs(r['heldout']['auc']['goal']-.492745)<1e-6
+          assert abs(r['heldout']['auc']['history']-.476740)<1e-6
+          assert r['uncertainty']['bootstrap95'][0]<0<r['uncertainty']['bootstrap95'][1]
+          assert r['operating_points']['combined']['history']['fpr']>.15
+          assert all(x['accuracy_d12']<.90 for x in r['models'].values())
+          print('SHAFT-COMP-20 exact finite reference and neural failure independently audited')
+          PY
       - name: Run synthetic finite tests
         run: python -m unittest discover -s research/shaft_compactification/tests -v
       - name: Reproduce SHAFT-COMP-06 finite quotient receipt
@@ -403,5 +426,6 @@ jobs:
           lake env lean Shaft/TaskFactorial.lean
           lake env lean Shaft/HistoryProbe.lean
           lake env lean Shaft/HistoryAlphabet.lean
+          lake env lean Shaft/PersistentLatch.lean
           lake env lean Shaft/CapacityMatched.lean
           lake env lean Shaft/TemporalFamily.lean
