@@ -1,0 +1,57 @@
+{
+  "certificate_canonical_sha256": "814969777085ba87d0442fa4a847ef2d334c38dbf9e2724c945c0cf30d1c4af9",
+  "certificate_gzip_sha256": "5d3bda887191b279be229fa2a1a678a0fe32e4c33410b685af2ae7ab0a4f826a",
+  "certificate_stats": {
+    "leaves": 773,
+    "max_depth": 20,
+    "nodes": 1697,
+    "nonempty_children": 1696,
+    "true_world_fault_paths": 1029
+  },
+  "certified_interval_lower": 15,
+  "certified_interval_upper": 20,
+  "date": "2026-11-11",
+  "direct_address_bits": 60,
+  "logical_candidate_bits": 98,
+  "marked_erasures": 0,
+  "max_flips": 1,
+  "n": 7,
+  "negative_horizon": 14,
+  "positive_horizon": 20,
+  "resource_limit_results": "The Q15 search hit 10M-node cap and Q18/Q19 runs hit caps/timeouts; all inconclusive.",
+  "returned_report_bits": 20,
+  "schema": "OIC28-N7-E1-INTERVAL-V1",
+  "scope": "computer_assisted_finite_adaptive_sensor_game; no general_N theorem or neural inference",
+  "searches": [
+    {
+      "Q": 14,
+      "affine": true,
+      "expanded_states": 6719523,
+      "heuristic": 0,
+      "pair_prune": true,
+      "pair_pruned": 5045224,
+      "state_cap": 10000000,
+      "status": "UNSAT"
+    },
+    {
+      "Q": 20,
+      "affine": true,
+      "expanded_states": 1097803,
+      "heuristic": 2,
+      "pair_prune": true,
+      "pair_pruned": 815171,
+      "state_cap": 8500000,
+      "status": "SAT"
+    }
+  ],
+  "solver_source_sha256": "40348dabf4285efb26e3ebaf7a0fb5b7a06d0e8ffba9b08dc71c44b97bfe93da",
+  "total_online_link_bits": 80,
+  "unresolved_horizons": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "verifier_source_sha256": "c28d2ef9bc7742659cb81abfa766ed33c90d986e8cbaadbf88747d8b333d7299"
+}
