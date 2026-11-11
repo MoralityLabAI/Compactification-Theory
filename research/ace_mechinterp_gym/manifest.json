@@ -1,0 +1,20 @@
+{
+  "schema": "ace-mechinterp-gym/v0.1",
+  "task": "hidden-bit-v1",
+  "seed": 20261101,
+  "rounds_per_candidate": 128,
+  "null_violation_floor": 0.2,
+  "alternative_violation_rate": 0.05,
+  "root_alpha": "0.05",
+  "substitution_budget_per_candidate": 1,
+  "candidates": [
+    {"id": "full", "code": "full", "actions": ["id", "reveal"], "alpha": "0.01"},
+    {"id": "task_id_only", "code": "task", "actions": ["id"], "alpha": "0.01"},
+    {"id": "task_reveal", "code": "task", "actions": ["id", "reveal"], "alpha": "0.01"},
+    {"id": "constant", "code": "constant", "actions": ["id", "reveal"], "alpha": "0.01"}
+  ],
+  "synthetic_attacks": [
+    {"candidate": "full", "index": 7, "kind": "flip"},
+    {"candidate": "full", "index": 15, "kind": "erase"}
+  ]
+}
