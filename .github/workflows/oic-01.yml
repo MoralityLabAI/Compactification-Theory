@@ -168,3 +168,19 @@ jobs:
         run: python research/observational_inwardness_v1/oic27_reference.py --check
       - name: Compile both C++ solvers, exhaust Q14 and rebuild Q15 proofs
         run: python research/observational_inwardness_v1/oic27_reference.py --cpp-check
+
+
+  oic29-fixed-sensor-certificates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact fixed-sensor codeword and fault-path checks
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic29_fixed.py' -v
+      - name: Optimized Python verification
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic29_fixed.py' -v
+      - name: Recompute pinned cross-shift distance spectra and collision receipts
+        run: python research/observational_inwardness_v1/oic29_fixed.py --check
