@@ -76,7 +76,7 @@ def main(argv: list[str] | None = None) -> None:
         responses = bench.read_jsonl(args.responses)
         result = bench.evaluate(cases, [g for g in gold if g["case_id"] in ids], responses)
         bench.write_json(args.out, result)
-        print(json.dumps(result["summary"], indent=2))
+        print(json.dumps(result["metrics"], indent=2))
 
 
 if __name__ == "__main__":
