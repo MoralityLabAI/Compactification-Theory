@@ -27,6 +27,11 @@ jobs:
         run: python -m research.refutation_bench validate
       - name: Check scoring, leakage and exact certificates
         run: python -m unittest discover -s research/refutation_bench/tests -v
+      - name: Verify expansion cases and exact Collatz witness
+        run: |
+          python -m research.refutation_bench.expansion.suite validate
+          python -m research.refutation_bench.expansion.suite witness
+          python -m research.refutation_bench.expansion.suite export --split dev --out /tmp/refutation_combined_dev.jsonl
       - name: Replay source-hashed controls
         run: python -m research.refutation_bench baselines --check
       - name: Exercise input-only and train-only exports
