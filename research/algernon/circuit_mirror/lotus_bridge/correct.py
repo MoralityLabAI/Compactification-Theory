@@ -28,10 +28,10 @@ the correctors have no bias, so C's correction is zero whenever the decoded stat
 run's own slot RMS at loop j, so an arm that rescales the slots on clean loops no longer rescales its noise.
 With `--sigma-rule midpoint` (H-A3e) sigma is the grid value whose calibrated plain accuracy is closest to the
 midpoint between the grid's highest and lowest accuracy, rather than closest to 0.5, and kappa = sigma x r.
-With `--loss answer` (H-A3f) each training case also runs all `--depth` loops with upstream's answer suffix
-(`### d` and EOS) teacher-forced after the latent block, and the cross-entropy of the answer digit is added to the
-local loss. The answer reads every slot, so its gradient reaches the corrector weights for slots 3-5, which the
-local loss (pi on slot 2, causal attention) cannot.
+With `--loss answer` (H-A3f at the midpoint, H-A3g at sigma*) each training case also runs all `--depth` loops with
+upstream's answer suffix (`### d` and EOS) teacher-forced after the latent block, and the cross-entropy of the answer
+digit is added to the local loss. The answer reads every slot, so its gradient reaches the corrector weights for
+slots 3-5, which the local loss (pi on slot 2, causal attention) cannot.
 """
 from __future__ import annotations
 
@@ -424,6 +424,18 @@ def summarize(records, noise_loops):
     return out
 
 
+def experiment_name(out_scale="unit", bias=True, noise_ref="slots", sigma_rule="half", loss="local"):
+    if loss == "answer":
+        return "H-A3f" if sigma_rule == "midpoint" else "H-A3g"
+    if sigma_rule == "midpoint":
+        return "H-A3e"
+    if noise_ref == "fixed":
+        return "H-A3d"
+    if not bias:
+        return "H-A3c"
+    return "H-A3b" if out_scale == "noise" else "H-A3"
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("cmd", choices=("calibrate", "scale", "train", "eval"))
@@ -499,8 +511,7 @@ def main():
     except Paused as e:
         log(f"PAUSE: {e}; exit {PAUSE_EXIT}")
         sys.exit(PAUSE_EXIT)
-    experiment = ("H-A3f" if args.loss == "answer" else "H-A3e" if args.sigma_rule == "midpoint"
-                  else "H-A3d" if args.noise_ref == "fixed" else "H-A3c" if not args.bias else "H-A3b" if args.out_scale == "noise" else "H-A3")
+    experiment = experiment_name(args.out_scale, args.bias, args.noise_ref, args.sigma_rule, args.loss)
     out = {"schema_version": "algernon-03-v1", "experiment": experiment, "cmd": args.cmd, "checkpoint_sha256": meta["final_sha256"], "roster_sha256": roster_sha, "sigma_star": sigma,
            "kappa": args.kappa,
            "args": {k: v for k, v in vars(args).items() if k not in ("upstream", "base", "checkpoint", "roster", "out")}

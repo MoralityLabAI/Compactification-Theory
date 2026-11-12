@@ -132,6 +132,17 @@ class PureTests(unittest.TestCase):
         self.assertTrue(torch.equal(noise_delta(slots, dict(own, ref=None)), noise_delta(slots, own)))
         self.assertTrue(torch.allclose(noise_delta(slots, own), 2.0 * rms * eps))
 
+    def test_experiment_names_cover_the_full_grid(self):
+        """H-A3g distinguishes `--loss answer` at sigma* (`half`) from H-A3f at the midpoint."""
+        from research.algernon.circuit_mirror.lotus_bridge.correct import experiment_name
+        self.assertEqual(experiment_name(), "H-A3")
+        self.assertEqual(experiment_name("noise"), "H-A3b")
+        self.assertEqual(experiment_name("noise", bias=False), "H-A3c")
+        self.assertEqual(experiment_name("noise", bias=False, noise_ref="fixed"), "H-A3d")
+        self.assertEqual(experiment_name("noise", bias=False, noise_ref="fixed", sigma_rule="midpoint"), "H-A3e")
+        self.assertEqual(experiment_name("noise", bias=False, noise_ref="fixed", sigma_rule="midpoint", loss="answer"), "H-A3f")
+        self.assertEqual(experiment_name("noise", bias=False, noise_ref="fixed", sigma_rule="half", loss="answer"), "H-A3g")
+
 
 @unittest.skipIf(torch is None or not UPSTREAM or _gpt2_snapshot() is None,
                  "needs torch, ALGERNON_LOTUS_UPSTREAM and the pinned GPT-2 snapshot")

@@ -545,3 +545,34 @@ The runs go to a new output directory. P has no corrector, so its evaluation is 
   - In the same check, I's and N's slots after loop j - 1 have a median RMS of 3.8, against F's 6.95. The fixed noise is therefore larger relative to their state.
 
 Report: [lotus_bridge/results/algernon-03f/report.md](lotus_bridge/results/algernon-03f/report.md).
+
+## H-A3g: H-A3f at sigma\* = 16, completing the noise-by-loss grid (registered 2026-11-12, after H-A3f's evaluation was read, before any H-A3g run)
+
+**Why.**
+- H-A3d tested floor-level corruption (`sigma* = 16`, where plain accuracy is 0.500) under the local loss (`pi` on slot 2 only) and found R1-R4 not met (C 0.487, I 0.455).
+- H-A3e and H-A3f then moved to the midpoint (`sigma_e = 1`, plain accuracy 0.626) and showed that C fails under the local loss (0.639) because slots 3-5 receive zero gradient, whereas adding the answer digit's cross-entropy (`--loss answer`) lifts C to 0.811 and meets R1, R2 and R3 at zero clean cost.
+- That leaves the fourth cell of `{sigma* = 16, sigma_e = 1} x {local loss, answer loss}` untested, as flagged in [algernon-03f/report.md](lotus_bridge/results/algernon-03f/report.md#limits): whether H-A3d's floor-level null was also a consequence of the local loss's reach, or whether isotropic slot erasure at `sigma* = 16` defeats the rank-6 residual corrector even when the loss reaches all six slots.
+- Mechanistically the test is nontrivial even at `sigma* = 16`: loops `1 .. j - 1` before the noise loop are clean, so `p_{j-1}` at loop `j` still decodes the true state before the corrupted step and `e_j = p_{j-1} M` still supplies the true step-`j` state to both C (`G(e_j - p_j)`) and I (`G([e_j, p_j])`), scaled by `kappa = 16 x r = 110.78`.
+
+**One change from H-A3f (equivalently, one change from H-A3d):**
+- Relative to H-A3f: `--sigma-rule half` (the default) instead of `midpoint`, selecting `sigma* = 16.0` from H-A3's `calibrate.json`, with `kappa = 16.0 x 6.92 = 110.78` from H-A3b's `scale.json` and fixed noise std `16.0 x 6.92` per slot element.
+- Relative to H-A3d: `--loss answer` instead of `local`.
+
+**Everything else is H-A3d and H-A3f unchanged:**
+- F (02D's D1, `80eda0824cff`) and pi (D1's LM head on slot 2);
+- the fixed noise reference `r = 6.92` (`--noise-ref fixed`), output in noise units (`--out-scale noise`), and bias-free correctors (`--corrector-bias off`);
+- the training recipe: 600 steps, batch 8, the same generated cases (`train_seed = 20261107`), loops `j` in `1..7` and noise draws (scaled by `sigma* = 16`), 25% clean cases, Adam at `lr = 1e-3`, with `--loss answer`;
+- evaluation at primary `sigma* = 16.0` (`j` in `{4, 8, 12}`, four seeds = 864 runs per arm) and secondary `sigma*/2 = 8.0` and `2 sigma* = 32.0` (216 runs each), plus the 72 clean cases, scored by the exact BN254 R1CS trace checker;
+- R1-R4 with their margins and case-bootstrap lower bounds, the instrument check (P clean 72/72 with every clean trace accepted), and the 0.97 clean floor.
+
+The runs go to a new output directory (`algernon-03g`). P has no corrector, so its evaluation is H-A3d's rerun.
+
+**Predictions.**
+- **P's records equal H-A3d's** (primary accuracy 0.500, 1,368 of 1,368 records identical).
+- **C keeps clean runs intact** (clean accuracy >= 0.97), since C has no bias and `e - p` on clean D1 loops is near zero even when multiplied by `kappa = 110.78`.
+- **C rises above H-A3d's 0.487, but R1 is not met** (`C - P < +0.10`). Although `e_j = p_{j-1} M` at the noise loop still names the true state, a 6-dimensional linear write cannot cancel the orthogonal 4,602-dimensional Gaussian perturbation of std `110.8` across all six slots (`16x` larger than in H-A3f).
+- **R2, R3 and R4 are not met, and I falls below the 0.97 clean floor** (at `kappa = 110.78`, any clean-loop push from `G([e, p])` is amplified `16x` relative to H-A3f).
+
+**What it settles.**
+- **If R1 is met** (with the instrument valid and C above the clean floor): once the training loss reaches all six slots, the transition residual recovers D1's answer even from floor-level slot erasure (`sigma* = 16`) by reading `p_{j-1} M` from the last clean loop; H-A3d's null was the local loss's reach rather than the noise floor.
+- **If R1 is not met:** residual slot repair under an answer-level loss requires partially surviving slot state (`sigma = 1`, H-A3f) and fails once corruption reaches the floor (`sigma* = 16`), closing the 2x2 Phase 4 grid (`{sigma = 1, 16} x {local, answer}`).
