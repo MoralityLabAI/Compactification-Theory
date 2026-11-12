@@ -33,6 +33,28 @@ defect discovery from a raw paper or repository is a later track. The public
 answer key makes this seed unsuitable as a concealed generalization test.
 No language model has been evaluated or trained in this release.
 
+## Sourced extension: 25-case combined suite
+
+The separately versioned [historical source-audit expansion](expansion/README.md)
+adds ten development cases from five independent historical and contemporary
+proof families: Deolalikar P versus NP, Kempe four colours, Lamé Fermat,
+the original and repaired Wiles Fermat work, and Ansari's Collatz sieve.
+It includes an exact finite counterexample to a Collatz-sieve set identity,
+valid retained subclaims, and an explicit repaired-proof control.
+
+The frozen v0.1 seed and its baseline receipt remain unchanged. Run the
+combined evaluator using:
+
+```sh
+python -m research.refutation_bench.expansion.suite validate
+python -m research.refutation_bench.expansion.suite witness
+python -m research.refutation_bench.expansion.suite export --split dev --out /tmp/refutation_combined.jsonl
+```
+
+This 25-case public combined suite is still a development corpus without a
+held-out generalization test. See the expansion ledger for source confidence
+and proof-status boundaries.
+
 ## Run from the repository root
 
 ```bash
