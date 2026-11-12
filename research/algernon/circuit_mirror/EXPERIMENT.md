@@ -576,3 +576,18 @@ The runs go to a new output directory (`algernon-03g`). P has no corrector, so i
 **What it settles.**
 - **If R1 is met** (with the instrument valid and C above the clean floor): once the training loss reaches all six slots, the transition residual recovers D1's answer even from floor-level slot erasure (`sigma* = 16`) by reading `p_{j-1} M` from the last clean loop; H-A3d's null was the local loss's reach rather than the noise floor.
 - **If R1 is not met:** residual slot repair under an answer-level loss requires partially surviving slot state (`sigma = 1`, H-A3f) and fails once corruption reaches the floor (`sigma* = 16`), closing the 2x2 Phase 4 grid (`{sigma = 1, 16} x {local, answer}`).
+
+**H-A3g Result (2026-11-12):** R1, R2, R3 and R4 not met. The instrument is valid. C keeps clean runs intact (1.000); I (0.764, 17 of 72 clean cases missed) and N (0.528, 34 missed) do not. Three of the four registered predictions held (P identical to H-A3d on 1,368/1,368 records; C clean 1.000; R1-R4 not met and I below 0.97 clean); C's primary accuracy stayed at P (0.481) rather than rising above H-A3d's 0.487.
+- Run details: code `845c38a` (train and eval); weights `80eda0824cff`; `sigma* = 16.0` (`--sigma-rule half`); `kappa = 110.78`; `--loss answer`; 4 GiB `vramorama` lease, no crash or restart.
+- *Primary condition* (864 runs per arm): P 0.500, C 0.481, I 0.528, N 0.505.
+  - C - P = -0.019 [-0.061, +0.024]
+  - C - I = -0.046 [-0.094, -0.002]
+  - C - N = -0.023 [-0.084, +0.032]
+  - I - P = +0.028 [-0.014, +0.071]
+- *Clean:* P 1.000 and C 1.000, with every clean trace accepted; I 0.764 (trace valid 0.972); N 0.528 (trace valid 0.347).
+- *Settled:*
+  - The registered branch for R1 not met applies: residual slot repair under `--loss answer` requires partially surviving slot state (`sigma = 1`, H-A3f: 0.811) and fails once corruption reaches the floor (`sigma* = 16`, here: 0.481), closing the `{sigma = 1, 16} x {local, answer}` Phase 4 grid.
+  - H-A3d's floor-level null was not caused by the local loss's reach: slot 3-5 corrector weights are nonzero (norms 2.57 C, 3.55 I, 2.77 N vs 0 in H-A3d), yet a rank-6 additive write cannot cancel isotropic 4,608-dimensional noise of std 110.78 across all six slots, and C's training loss never falls (19.21 to 26.55).
+- *Post-hoc, not registered:* C's trace acceptance drops from 0.156 in H-A3d to 0.034 (`C - P = -0.042 [-0.065, -0.021]`), as nonzero slot 3-5 pushes driven by noisy `e - p` inputs perturb downstream attention without recovering the answer. Together with H-A3f (`2 sigma_e = 2`, where C beat P by +0.181) and H-A3g's `sigma*/2 = 8` (C 0.495 vs P 0.505), the breakdown threshold of additive residual repair lies in `sigma in (2, 8)`.
+
+Report: [lotus_bridge/results/algernon-03g/report.md](lotus_bridge/results/algernon-03g/report.md).
