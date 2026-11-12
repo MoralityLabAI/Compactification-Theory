@@ -1,0 +1,35 @@
+name: RefutationBench source and certificate checks
+
+permissions:
+  contents: read
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/**'
+      - '.github/workflows/refutation-bench.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/**'
+      - '.github/workflows/refutation-bench.yml'
+  workflow_dispatch:
+
+jobs:
+  offline-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source families and annotation references
+        run: python -m research.refutation_bench validate
+      - name: Check scoring, leakage and exact certificates
+        run: python -m unittest discover -s research/refutation_bench/tests -v
+      - name: Replay source-hashed controls
+        run: python -m research.refutation_bench baselines --check
+      - name: Exercise input-only and train-only exports
+        run: |
+          python -m research.refutation_bench export --split dev --out /tmp/refutation_prompts.jsonl
+          python -m research.refutation_bench distill --split train --out /tmp/refutation_train.jsonl

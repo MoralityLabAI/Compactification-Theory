@@ -1,5 +1,7 @@
 # Compactification Theory
 
+**RefutationBench v0.1:** [evidence-grounded proof audits and compact certificates](research/refutation_bench/README.md), with a pinned Riemann-submission case study, paired valid/invalid controls, exact finite certificate checks, and train-only distillation export. This public seed runs offline; learned reasoning gains remain an experimental target.
+
 **RRC-06:** [raw-coefficient Euler-trace benchmark](research/rrc_compactification/RRC06_REPORT.md): CPU-trained recurrent/feedforward students, exact first-fault certificates, held-out grammar tests and negative complete-program result.
 
 **RRC-05 research:** [finite-depth Euler inversion and trained residual circuit](research/rrc_compactification/RRC05_REPORT.md), with exact symbolic controls, source-family holdouts and a CPU-replayed result.

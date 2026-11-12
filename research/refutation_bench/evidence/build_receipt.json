@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "source_commit": "df4382089188aca16d2a54de0fc5f9cf98da33b7",
+  "audit_date": "2026-11-12",
+  "lean_version": "4.16.0",
+  "lean_commit": "128a1e6b0a82",
+  "lake_version": "5.0.0-128a1e6",
+  "platform": "x86_64-unknown-linux-gnu",
+  "source_zip_sha256": "cade46dd88c77266877c51168bfcc548715ef197cdf931a0dae0bbded8939fd5",
+  "sources_and_config_unchanged_for_reproduction": true,
+  "commands": [
+    {
+      "command": "lake build",
+      "exit_code": 1,
+      "missing_path": "RH/RH.lean"
+    },
+    {
+      "command": "lake build RH.Main",
+      "exit_code": 1,
+      "missing_path": "RH/RH/Main.lean"
+    }
+  ],
+  "project_theorems_compiled": false,
+  "print_axioms_executed": false,
+  "scope": "Observed failure to locate project modules under the submitted Lake configuration. This is not a mathematical counterexample.",
+  "dependency_note": "The root pins Lean 4.16.0; the pinned mathlib revision names 4.16.0-rc1. Root toolchain was restored to its submitted value before reproduction.",
+  "transcript": "Original lean-toolchain: leanprover/lean4:v4.16.0\n\n$ <isolated-lean-4.16.0>/bin/lake build\n✖ [?/?] Computing build jobs\nerror: no such file or directory (error code: 2)\n  file: ./././RH/RH.lean\nSome required builds logged failures:\n- Computing build jobs\nerror: build failed\nexit code: 1\n\n$ <isolated-lean-4.16.0>/bin/lake build RH.Main\n✖ [2/2] Running RH.Main\nerror: no such file or directory (error code: 2)\n  file: ./././RH/RH/Main.lean\nSome required builds logged failures:\n- RH.Main\nerror: build failed\nexit code: 1\n\n",
+  "original_transcript_sha256": "e7a7030fefd4a992d2b39d862d8d146f1da1b394102b10e6e4a736243498618c",
+  "transcript_redaction": "Only the scratch path to the isolated Lake executable is replaced."
+}
