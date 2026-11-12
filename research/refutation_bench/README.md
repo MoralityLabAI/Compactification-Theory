@@ -59,6 +59,10 @@ and proof-status boundaries.
 
 An [LR-01 recurrent student trained on the combined suite in GitHub Actions](results/lr01_ci_pilot.md) reached 10–11/19 development verdicts with 36,682 parameters; its false-refutation rate was 8–9 of 9 non-refuted development cases. The recurrent-depth comparison and label-shuffle control establish a working train/evaluate pipeline but no measured generalizable refutation skill. The public receipt pins the private model PR, dataset revision and successful CI logs.
 
+## Exact formal curriculum and actual recurrent training
+
+The [FC-02 formal curriculum](formal_curriculum/README.md) generates 1,536 balanced Horn-logic problems, with 768 positive Lean-compiled theorems and 768 independently verified finite countermodels. A [separate actual LR-01 recurrent training experiment](results/fc02_lr01_depth_extrapolation.md) measured depth and family transfer with 11,521 parameters. Both training seeds went from 50% OOD verdict accuracy at four inference passes to 85–88% at twelve passes, using unchanged weights. The results are on a public synthetic fragment, and the 8/12-pass follow-up was exploratory after an initial failure. The original benchmark seed, sourced cases and immutable baseline receipt remain independent.
+
 ## Run from the repository root
 
 ```bash
