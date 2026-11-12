@@ -55,6 +55,10 @@ This 25-case public combined suite is still a development corpus without a
 held-out generalization test. See the expansion ledger for source confidence
 and proof-status boundaries.
 
+### CI model transfer result
+
+An [LR-01 recurrent student trained on the combined suite in GitHub Actions](results/lr01_ci_pilot.md) reached 10–11/19 development verdicts with 36,682 parameters; its false-refutation rate was 8–9 of 9 non-refuted development cases. The recurrent-depth comparison and label-shuffle control establish a working train/evaluate pipeline but no measured generalizable refutation skill. The public receipt pins the private model PR, dataset revision and successful CI logs.
+
 ## Run from the repository root
 
 ```bash
