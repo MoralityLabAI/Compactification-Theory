@@ -62,6 +62,35 @@ These are part of the trusted Lean setup; compiler
 acceptance and absence of `sorryAx` are recorded
 rather than claiming that every tactic is axiom-free.
 
+## First frozen student outcome
+
+[The completed model CI #43456144563](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43456144563)
+trained four 62,401-param LR-01 tactic rankers and
+then compiled their original held-out selected
+tactics in a separate dependent Lean job.
+
+Top-1 certified proofs /48: train-only lexical
+baseline **36**, one-pass seeds17/29 **33/35**,
+four-pass seeds17/29 **31/35**. Allowing up to
+three tactics raised every model to **36/48**.
+Full Lean-registry and native `first | ...`
+symbolic search both compiled **48/48**.
+
+The [first-run research ledger](../results/fc10_real_lean_tactic_states_20261113.md)
+records exact successes, original source
+hashes and CPU time; the [independent
+artifact audit](../results/fc10_independent_audit.json)
+checks all candidate source SHA256s.
+Every model solved the 24 arithmetic
+test cases, but all four missed
+all 12 list-associativity goals:
+the successful list tactic was
+absent from training labels.
+
+**The preregistered model criterion
+failed.** Native Lean search remains
+stronger on this small benchmark.
+
 ## Exact tactic applications and models
 
 The stacked [LoopedTransformers FC-10 PR](https://github.com/MoralityLabAI/LoopedTransformers/pull/31)
