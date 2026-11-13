@@ -20,3 +20,5 @@ The finite controls check Gaussian fourth moments, equilateral packing, distorti
 The source papers' compact doubling witness is not reproduced by these finite checks, and no trained neural checkpoint is tested.
 
 [PROTOCOL.md](PROTOCOL.md) defines the future-observation metric experiment, owned separately from RC-01, IC-01, IRC-02 and SUD-01.
+
+The independently kernel-checked discrete bridge is in [MathCan PR #31](https://github.com/patrickdugan/MathCan/pull/31). It covers the integer one-sixth clearance and full-prefix recovery lemmas only.
