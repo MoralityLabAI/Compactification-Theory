@@ -41,6 +41,8 @@ class FourierProbePilotTests(unittest.TestCase):
         self.assertEqual(x["paired_sentinel"],str(Q(2401,4096)))
         self.assertEqual(x["constant_mode_accuracy"],str(Q(5791,8192)))
         self.assertEqual(x["paired_sentinel_accuracy"],str(Q(6497,8192)))
+        self.assertEqual(x["fourth_order_pair_count"],24)
+        self.assertEqual(x["oracle_41_feature_mse"],str(Q(2657907,8388608)))
         self.assertEqual(x["paired_classification_accuracy_gain"],
                          str(Q(353,4096)))
 
