@@ -143,6 +143,40 @@ def streaming_state_laws(n: int, deletion: Fraction, count: int,
     return out
 
 
+
+
+def streaming_laws_for_words(source_words, deletion: Fraction, count: int,
+                             memory_bits: int) -> dict[str,dict[int,Fraction]]:
+    """B-bit monitoring only over a declared empirical source support.
+
+    The source support is explicitly a separate experimental input.
+    """
+    group=list(dict.fromkeys(source_words))
+    if not group or any(not isinstance(x,str) or not x or
+                        any(c not in "01" for c in x) for x in group):
+        raise ValueError("nonempty finite binary source support required")
+    if len(set(map(len,group)))!=1 or len(group[0])>12:
+        raise ValueError("fixed word size <=12")
+    if type(count) is not int or not 0<=count<=8:
+        raise ValueError("count=0..8 required")
+    if type(memory_bits) is not int or not 1<=memory_bits<=12:
+        raise ValueError("memory_bits=1..12 required")
+    out={}
+    for x in group:
+        channel=deletion_law(x,deletion)
+        states={0:Fraction(1)}
+        for _ in range(count):
+            next_states=defaultdict(Fraction)
+            for s,weight in states.items():
+                for trace,prob in channel.items():
+                    next_states[update_state(s,trace,memory_bits)] += weight*prob
+            states=dict(next_states)
+        if sum(states.values())!=1:
+            raise AssertionError("lost probability in empirical monitor")
+        out[x]=states
+    return out
+
+
 def optimal_terminal_success(laws: dict[str,dict[int,Fraction]]) -> Fraction:
     """MAP success for uniform input X from ONLY the final state."""
     if not laws:
