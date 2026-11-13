@@ -154,6 +154,7 @@ def capture_cycle(model: Any, tokens: torch.Tensor, chart: torch.Tensor, *,
     if predictions[0] != predictions[-1]:
         raise InvalidBraidTrace('Output prediction differs at identical endpoint intervention')
     return {
+        'sequence_length': int(tokens.shape[1]),
         'angles': [2*math.pi*k/angles for k in range(angles+1)],
         'frames_by_visit': visits,
         'observed_token_positions': list(observed),
