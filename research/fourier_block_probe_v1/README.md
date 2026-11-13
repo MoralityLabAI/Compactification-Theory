@@ -6,7 +6,7 @@ Started November 13, 2026. The mathematics pairs
 [OpenAI #192](https://github.com/openai/math/blob/main/lean/docs/192.md)
 (unbounded singleton Fourier sum relative to square-root degree).
 
-[Theorem and proofs](THEORY.md) |
+[Verified results](RESULTS.md) | [Theorem and proofs](THEORY.md) |
 [exact finite reference](reference.py) |
 [heldout Fourier benchmark](benchmark.py) |
 [future neural protocol](PROTOCOL.md)
@@ -67,3 +67,18 @@ The proposed checkpoint-level experiment requires actual frozen
 weights, a registered feature basis and heldout interventions.
 No trained language-model or sentience claims arise from this
 synthetic benchmark.
+
+## Adaptive observation theorem
+
+FPB-5 adds a stronger impossibility result: under independently uniform
+matched XOR registers, any adaptive monitor that never observes both
+members of the same pair has a complete transcript independent of the
+hidden XOR source. The exact reference checks conditional laws for all
+hidden states through five matched pairs. The monitor learns one source
+bit immediately upon completing a pair. This result applies to
+unmatched-pair query policies, including nonlinear downstream decoders.
+
+The separate [MathCan PR #34](https://github.com/patrickdugan/MathCan/pull/34)
+contains the Lean-certified one-bit cancellation and paired-Fourier
+transport identities. Neither MathCan nor the finite benchmark proves
+the external OpenAI asymptotic claims.
