@@ -1,0 +1,72 @@
+{
+  "candidates": [
+    0.02,
+    0.06,
+    0.15
+  ],
+  "chosen_lambda": 0.02,
+  "elapsed_seconds": 11.445,
+  "rows": [
+    {
+      "heldin_phase_family_logloss": 0.249698089,
+      "kernel_entropy_bits": 1.3298835021666509,
+      "lambda": 0.02,
+      "seed": 0,
+      "split": "full",
+      "training_wall_seconds": 3.2183
+    },
+    {
+      "heldin_phase_family_logloss": 0.253398355,
+      "kernel_entropy_bits": 1.346020046198994,
+      "lambda": 0.02,
+      "seed": 1,
+      "split": "full",
+      "training_wall_seconds": 2.741
+    },
+    {
+      "heldin_phase_family_logloss": 0.252128334,
+      "kernel_entropy_bits": 1.1625645403078189,
+      "lambda": 0.06,
+      "seed": 0,
+      "split": "full",
+      "training_wall_seconds": 2.9853
+    },
+    {
+      "heldin_phase_family_logloss": 0.256179966,
+      "kernel_entropy_bits": 1.1653248968193863,
+      "lambda": 0.06,
+      "seed": 1,
+      "split": "full",
+      "training_wall_seconds": 3.1425
+    },
+    {
+      "heldin_phase_family_logloss": 0.251394339,
+      "kernel_entropy_bits": 1.1152051902005566,
+      "lambda": 0.15,
+      "seed": 0,
+      "split": "full",
+      "training_wall_seconds": 2.7482
+    },
+    {
+      "heldin_phase_family_logloss": 0.255455714,
+      "kernel_entropy_bits": 1.115798618760709,
+      "lambda": 0.15,
+      "seed": 1,
+      "split": "full",
+      "training_wall_seconds": 3.0301
+    }
+  ],
+  "scores": {
+    "0.02": 0.25154822200000004,
+    "0.06": 0.25415414999999997,
+    "0.15": 0.2534250265
+  },
+  "selection_criterion": "lowest mean held-in n4/5/6 full_active family logloss, phases restricted to training split",
+  "test_n7_and_above_read_during_selection": false,
+  "validation_fits_each_150_steps_batch_128": true,
+  "validation_seeds": [
+    0,
+    1
+  ],
+  "validation_training_fits": 6
+}

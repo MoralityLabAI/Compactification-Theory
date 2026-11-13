@@ -1,0 +1,50 @@
+{
+  "large_n": "no full exact oracle claim for n>=6",
+  "oracle_scope": "exact uniform initial phase, shift, and one fault location; mixed includes 50pct clean",
+  "rows": [
+    {
+      "Q": 5,
+      "address_bits": 10,
+      "at_most_one_flip_zero_error_impossible": true,
+      "half_clean_half_flip_denominator": 90,
+      "half_clean_half_flip_numerator": 71,
+      "n": 3,
+      "response_bits": 5,
+      "total_online_bits": 15,
+      "uniform_one_erasure_denominator": 45,
+      "uniform_one_erasure_numerator": 45,
+      "uniform_one_flip_denominator": 45,
+      "uniform_one_flip_numerator": 34
+    },
+    {
+      "Q": 6,
+      "address_bits": 12,
+      "at_most_one_flip_zero_error_impossible": true,
+      "half_clean_half_flip_denominator": 192,
+      "half_clean_half_flip_numerator": 147,
+      "n": 4,
+      "response_bits": 6,
+      "total_online_bits": 18,
+      "uniform_one_erasure_denominator": 96,
+      "uniform_one_erasure_numerator": 90,
+      "uniform_one_flip_denominator": 96,
+      "uniform_one_flip_numerator": 73
+    },
+    {
+      "Q": 7,
+      "address_bits": 21,
+      "at_most_one_flip_zero_error_impossible": true,
+      "half_clean_half_flip_denominator": 350,
+      "half_clean_half_flip_numerator": 262,
+      "n": 5,
+      "response_bits": 7,
+      "total_online_bits": 28,
+      "uniform_one_erasure_denominator": 175,
+      "uniform_one_erasure_numerator": 154,
+      "uniform_one_flip_denominator": 175,
+      "uniform_one_flip_numerator": 126
+    }
+  ],
+  "tag": "OIC-22-FINITE-BELLMAN-01",
+  "worst_case_lower_bound": "Q >= n*(e+1) + r"
+}

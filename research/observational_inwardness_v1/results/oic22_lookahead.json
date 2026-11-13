@@ -1,0 +1,60 @@
+{
+  "results": [
+    {
+      "Q": 8,
+      "lookahead_steps": 4,
+      "n": 6,
+      "objective_clean_weight": 1,
+      "objective_single_flip_weight": 3,
+      "panels": [
+        {
+          "accuracy": 0.8888888888888888,
+          "correct": 32,
+          "episodes": 36,
+          "kind": "clean"
+        },
+        {
+          "accuracy": 0.5555555555555556,
+          "correct": 160,
+          "episodes": 288,
+          "kind": "flip"
+        },
+        {
+          "accuracy": 0.7673611111111112,
+          "correct": 221,
+          "episodes": 288,
+          "kind": "erase"
+        }
+      ]
+    },
+    {
+      "Q": 10,
+      "lookahead_steps": 4,
+      "n": 8,
+      "objective_clean_weight": 1,
+      "objective_single_flip_weight": 3,
+      "panels": [
+        {
+          "accuracy": 0.828125,
+          "correct": 53,
+          "episodes": 64,
+          "kind": "clean"
+        },
+        {
+          "accuracy": 0.534375,
+          "correct": 342,
+          "episodes": 640,
+          "kind": "flip"
+        },
+        {
+          "accuracy": 0.7421875,
+          "correct": 475,
+          "episodes": 640,
+          "kind": "erase"
+        }
+      ]
+    }
+  ],
+  "scope": "exploratory exact belief, limited 4-step continuation, unmatched inference CPU costs",
+  "tag": "OIC-22-LOOKAHEAD-01"
+}

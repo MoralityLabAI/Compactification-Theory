@@ -1,0 +1,64 @@
+{
+  "excludes_full_marker_exception": true,
+  "proof_status": "uniform_analytic_proof_with_finite_integer_checks",
+  "rows": [
+    {
+      "attaining_marker_count": 3,
+      "attaining_minimum_cross_shift_distance": 3,
+      "attaining_word_length": 15,
+      "cross_shift_pairs_checked": 250,
+      "forbidden_query_horizon": 14,
+      "integer_contradiction_gap": 10,
+      "line_pairs_lower_all_words": 78,
+      "line_pairs_upper_if_robust": 68,
+      "max_heavy_excess": 2,
+      "max_weight_two_lines": 7,
+      "minimum_query_horizon": 15,
+      "prime": 5
+    },
+    {
+      "attaining_marker_count": 3,
+      "attaining_minimum_cross_shift_distance": 3,
+      "attaining_word_length": 21,
+      "cross_shift_pairs_checked": 1029,
+      "forbidden_query_horizon": 20,
+      "integer_contradiction_gap": 32,
+      "line_pairs_lower_all_words": 171,
+      "line_pairs_upper_if_robust": 139,
+      "max_heavy_excess": 3,
+      "max_weight_two_lines": 10,
+      "minimum_query_horizon": 21,
+      "prime": 7
+    },
+    {
+      "attaining_marker_count": 3,
+      "attaining_minimum_cross_shift_distance": 3,
+      "attaining_word_length": 33,
+      "cross_shift_pairs_checked": 6655,
+      "forbidden_query_horizon": 32,
+      "integer_contradiction_gap": 109,
+      "line_pairs_lower_all_words": 465,
+      "line_pairs_upper_if_robust": 356,
+      "max_heavy_excess": 5,
+      "max_weight_two_lines": 16,
+      "minimum_query_horizon": 33,
+      "prime": 11
+    },
+    {
+      "attaining_marker_count": 3,
+      "attaining_minimum_cross_shift_distance": 3,
+      "attaining_word_length": 39,
+      "cross_shift_pairs_checked": 13182,
+      "forbidden_query_horizon": 38,
+      "integer_contradiction_gap": 164,
+      "line_pairs_lower_all_words": 666,
+      "line_pairs_upper_if_robust": 502,
+      "max_heavy_excess": 6,
+      "max_weight_two_lines": 19,
+      "minimum_query_horizon": 39,
+      "prime": 13
+    }
+  ],
+  "schema": "OIC32-PRIME-GLOBAL-FIXED-FLIP-V1",
+  "statement": "For every prime p>=5, global fixed one-substitution minimum Q=3p"
+}

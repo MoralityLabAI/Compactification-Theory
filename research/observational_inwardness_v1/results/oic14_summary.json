@@ -1,0 +1,1121 @@
+{
+  "compressed_receipt_sha256": "ee7d665143a8beec71ab764bfeb48bb9bd338152396d0fdbc3646389d073b1d7",
+  "compute_caveat": "grid scans 4n candidate angles on first training minibatch before 350 Adam steps; 3 vs 6 trainable parameters",
+  "experiment": "OIC-14",
+  "fits_by_architecture": {
+    "orthogonal_grid": 60,
+    "orthogonal_local": 60,
+    "unconstrained": 60
+  },
+  "full_receipt_file": "oic14_compact_full.json.gz.b64",
+  "full_receipt_sha256": "8445862c42265cc4c85c66d3556bce2bc803bb67c04abf9697527fea958516a4",
+  "full_trace_projected_correct_fit_count": 115,
+  "full_trace_projected_correct_grid_fit_count": 60,
+  "model_fits": 180,
+  "model_scope": "privileged initial phase, known XOR schema and z0 phase marker, trainable phase dynamics",
+  "projection_source_sha256": "95fe940573ac5889d5895a291f55781eb69dfd1b3f4b644a3d405ffb79518114",
+  "reproduction": "python learnable_clock.py --out results/oic14_full.json; python make_receipt.py; python verify_receipt.py",
+  "run_count": 90,
+  "status": "executed_synthetic_learned_phase_transition",
+  "summary": [
+    {
+      "architecture": "orthogonal_local",
+      "exact_oracle_code_distance_runs": 0,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "latch_oracle_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "learned_rotation_rad_fixed": [
+        0.57298923,
+        0.57337725,
+        0.56891811,
+        0.56801945,
+        0.5742479
+      ],
+      "learned_rotation_rad_rotating": [
+        1.00276494,
+        0.99666828,
+        0.9944815,
+        0.99604678,
+        0.99577308
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 4,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 0.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.5,
+      "whole_trace_accuracy_rotating": 0.25,
+      "zero_error_identifiable_runs": 0
+    },
+    {
+      "architecture": "orthogonal_grid",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 16,
+      "latch_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_oracle_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "learned_rotation_rad_fixed": [
+        0.00410033,
+        -0.00329938,
+        0.0020506,
+        0.00203505,
+        -0.00104447
+      ],
+      "learned_rotation_rad_rotating": [
+        1.5702287,
+        1.57103002,
+        1.56911981,
+        1.57151759,
+        1.57194757
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 4,
+      "one_raw_bit_fault_tolerant_runs": 5,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        1.57079637,
+        1.57079637,
+        1.57079637,
+        1.57079637,
+        1.57079637
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "unconstrained",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_oracle_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "learned_rotation_rad_fixed": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "learned_rotation_rad_rotating": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "max_equivariance_residual_rotating": 0.03257798,
+      "max_orthogonality_defect_rotating": 0.53514129,
+      "n": 4,
+      "one_raw_bit_fault_tolerant_runs": 5,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 6,
+      "trainable_params_rotating": 6,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "orthogonal_local",
+      "exact_oracle_code_distance_runs": 0,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "latch_oracle_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "learned_rotation_rad_fixed": [
+        0.5576573,
+        0.55000085,
+        0.55392021,
+        0.54819763,
+        0.55387384
+      ],
+      "learned_rotation_rad_rotating": [
+        0.56980675,
+        0.56625581,
+        0.57285565,
+        0.56755823,
+        0.56776792
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 4,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 0.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.5,
+      "whole_trace_accuracy_rotating": 0.0,
+      "zero_error_identifiable_runs": 0
+    },
+    {
+      "architecture": "orthogonal_grid",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 16,
+      "latch_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_oracle_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "learned_rotation_rad_fixed": [
+        -0.02558965,
+        -0.02888843,
+        -0.02659704,
+        -0.02474053,
+        -0.02962251
+      ],
+      "learned_rotation_rad_rotating": [
+        1.57099986,
+        1.57048202,
+        1.56931818,
+        1.57230258,
+        1.57133853
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 4,
+      "one_raw_bit_fault_tolerant_runs": 5,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        1.57079637,
+        1.57079637,
+        1.57079637,
+        1.57079637,
+        1.57079637
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "unconstrained",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_oracle_min_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "learned_rotation_rad_fixed": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "learned_rotation_rad_rotating": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "max_equivariance_residual_rotating": 0.24854039,
+      "max_orthogonality_defect_rotating": 0.2996411,
+      "n": 4,
+      "one_raw_bit_fault_tolerant_runs": 5,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 6,
+      "trainable_params_rotating": 6,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "orthogonal_local",
+      "exact_oracle_code_distance_runs": 0,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "latch_oracle_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "learned_rotation_rad_fixed": [
+        0.49406764,
+        0.49398994,
+        0.49554479,
+        0.50218838,
+        0.49419284
+      ],
+      "learned_rotation_rad_rotating": [
+        0.75608075,
+        0.75680619,
+        0.76093006,
+        0.75657535,
+        0.75694615
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 5,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 0.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.6,
+      "whole_trace_accuracy_rotating": 0.2,
+      "zero_error_identifiable_runs": 0
+    },
+    {
+      "architecture": "orthogonal_grid",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 20,
+      "latch_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_oracle_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "learned_rotation_rad_fixed": [
+        -0.0007823,
+        0.00047053,
+        0.0034026,
+        0.00125393,
+        0.00101344
+      ],
+      "learned_rotation_rad_rotating": [
+        1.2563318,
+        1.25538766,
+        1.25647914,
+        1.25678825,
+        1.25705278
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 5,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        1.2566371,
+        1.2566371,
+        1.2566371,
+        1.2566371,
+        1.2566371
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "unconstrained",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_oracle_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "learned_rotation_rad_fixed": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "learned_rotation_rad_rotating": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "max_equivariance_residual_rotating": 0.08848916,
+      "max_orthogonality_defect_rotating": 0.09387558,
+      "n": 5,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 6,
+      "trainable_params_rotating": 6,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "orthogonal_local",
+      "exact_oracle_code_distance_runs": 0,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "latch_oracle_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "learned_rotation_rad_fixed": [
+        0.490042,
+        0.49355945,
+        0.48906744,
+        0.49375206,
+        0.48767602
+      ],
+      "learned_rotation_rad_rotating": [
+        0.76319653,
+        0.76129436,
+        0.76678771,
+        0.76124614,
+        0.76048052
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 5,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 0.5,
+        "rotating": 0.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.4,
+      "whole_trace_accuracy_rotating": 0.2,
+      "zero_error_identifiable_runs": 0
+    },
+    {
+      "architecture": "orthogonal_grid",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 20,
+      "latch_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_oracle_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "learned_rotation_rad_fixed": [
+        -0.03104625,
+        -0.036231,
+        -0.0292788,
+        -0.03204919,
+        -0.03444079
+      ],
+      "learned_rotation_rad_rotating": [
+        1.25518596,
+        1.25502384,
+        1.25613928,
+        1.25551653,
+        1.25589955
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 5,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        1.2566371,
+        1.2566371,
+        1.2566371,
+        1.2566371,
+        1.2566371
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "unconstrained",
+      "exact_oracle_code_distance_runs": 4,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        1
+      ],
+      "latch_oracle_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "learned_rotation_rad_fixed": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "learned_rotation_rad_rotating": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "max_equivariance_residual_rotating": 0.16347566,
+      "max_orthogonality_defect_rotating": 0.17326988,
+      "n": 5,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 0.5,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 6,
+      "trainable_params_rotating": 6,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.8,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "orthogonal_local",
+      "exact_oracle_code_distance_runs": 0,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "latch_oracle_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "learned_rotation_rad_fixed": [
+        0.43605596,
+        0.44409108,
+        0.44730607,
+        0.43572482,
+        0.43874729
+      ],
+      "learned_rotation_rad_rotating": [
+        0.60304058,
+        0.60438156,
+        0.60967618,
+        0.6044929,
+        0.60775298
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 6,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 0.6,
+        "rotating": 0.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.6333333333333333,
+      "whole_trace_accuracy_rotating": 0.16666666666666666,
+      "zero_error_identifiable_runs": 0
+    },
+    {
+      "architecture": "orthogonal_grid",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 24,
+      "latch_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "latch_oracle_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "learned_rotation_rad_fixed": [
+        0.00133543,
+        0.0022446,
+        -0.00286327,
+        -0.00365802,
+        0.0057167
+      ],
+      "learned_rotation_rad_rotating": [
+        1.04725504,
+        1.04700959,
+        1.0485642,
+        1.0471791,
+        1.04755795
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 6,
+      "one_raw_bit_fault_tolerant_runs": 5,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        1.04719758,
+        1.04719758,
+        1.04719758,
+        1.04719758,
+        1.04719758
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "unconstrained",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "latch_oracle_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "learned_rotation_rad_fixed": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "learned_rotation_rad_rotating": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "max_equivariance_residual_rotating": 0.08246974,
+      "max_orthogonality_defect_rotating": 0.09670715,
+      "n": 6,
+      "one_raw_bit_fault_tolerant_runs": 5,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 6,
+      "trainable_params_rotating": 6,
+      "training_split": "full",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "orthogonal_local",
+      "exact_oracle_code_distance_runs": 0,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "latch_oracle_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "learned_rotation_rad_fixed": [
+        0.43714392,
+        0.45134965,
+        0.45149773,
+        0.44790143,
+        0.44666156
+      ],
+      "learned_rotation_rad_rotating": [
+        0.58431792,
+        0.59231937,
+        0.58498698,
+        0.58999264,
+        0.58571857
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 6,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 0.5,
+        "rotating": 0.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.5,
+      "whole_trace_accuracy_rotating": 0.16666666666666666,
+      "zero_error_identifiable_runs": 0
+    },
+    {
+      "architecture": "orthogonal_grid",
+      "exact_oracle_code_distance_runs": 5,
+      "extra_scan_candidate_evals_per_family": 24,
+      "latch_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "latch_oracle_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "learned_rotation_rad_fixed": [
+        -0.02911872,
+        -0.02603248,
+        -0.03101684,
+        -0.02750455,
+        -0.02656795
+      ],
+      "learned_rotation_rad_rotating": [
+        1.04774308,
+        1.04655313,
+        1.04918265,
+        1.04745233,
+        1.04822361
+      ],
+      "max_equivariance_residual_rotating": 0.0,
+      "max_orthogonality_defect_rotating": 0.0,
+      "n": 6,
+      "one_raw_bit_fault_tolerant_runs": 5,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 1.0,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 3,
+      "trainable_params_rotating": 3,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        1.04719758,
+        1.04719758,
+        1.04719758,
+        1.04719758,
+        1.04719758
+      ],
+      "whole_trace_accuracy_fixed": 1.0,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    },
+    {
+      "architecture": "unconstrained",
+      "exact_oracle_code_distance_runs": 0,
+      "extra_scan_candidate_evals_per_family": 0,
+      "latch_min_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_oracle_min_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "learned_rotation_rad_fixed": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "learned_rotation_rad_rotating": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "max_equivariance_residual_rotating": 0.13401891,
+      "max_orthogonality_defect_rotating": 0.15616119,
+      "n": 6,
+      "one_raw_bit_fault_tolerant_runs": 0,
+      "phase_indices_1_and_n_minus_2_accuracy": {
+        "fixed": 0.5,
+        "rotating": 1.0
+      },
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "trainable_params_fixed": 6,
+      "trainable_params_rotating": 6,
+      "training_split": "heldout",
+      "warmstart_grid_rotating_radians": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "whole_trace_accuracy_fixed": 0.8333333333333334,
+      "whole_trace_accuracy_rotating": 1.0,
+      "zero_error_identifiable_runs": 5
+    }
+  ],
+  "training_source_sha256": "ebb3ca18c6e3d64aa702f8ef545a34579efd77eb75469aed4fc49a4748e876cf"
+}

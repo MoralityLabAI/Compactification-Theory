@@ -1,0 +1,51 @@
+{
+  "claim_status": "exhaustive_finite_computer_assisted; no Lean proof",
+  "cpp_no_pair_pruning_q13": {
+    "exists_winning_policy": false,
+    "visited_canonical_states": 2597699
+  },
+  "cpp_pair_pruning_q13": {
+    "exists_winning_policy": false,
+    "visited_canonical_states": 379889
+  },
+  "cpp_q14": {
+    "exists_winning_policy": true,
+    "visited_canonical_states": 926
+  },
+  "independent_world_fault_paths_checked": 327,
+  "marked_erasures": 0,
+  "max_bit_substitutions": 1,
+  "minimum_queries": 14,
+  "model": "z_t=(z0+t*d)%5; query sensor address m; clean report [z_t=m]",
+  "n": 5,
+  "policy_canonical_json_sha256": "762d371bcc304db32290e212c8e55e6dfd7254a566db51968d026fbf78715991",
+  "policy_gzip_sha256": "8138158fd45bb6df4c82c39bc46e100feb4b1aec39cc1a873a1592255e8171d0",
+  "policy_tree_nodes": 662,
+  "python_exact_searches": [
+    {
+      "exists_winning_policy": false,
+      "python_visited_canonical_states": 35542,
+      "query_horizon": 11
+    },
+    {
+      "exists_winning_policy": false,
+      "python_visited_canonical_states": 125216,
+      "query_horizon": 12
+    },
+    {
+      "exists_winning_policy": false,
+      "python_visited_canonical_states": 379887,
+      "query_horizon": 13
+    },
+    {
+      "exists_winning_policy": true,
+      "python_visited_canonical_states": 922,
+      "query_horizon": 14
+    }
+  ],
+  "schema": "OIC25-N5-ROBUST-FLIP-V1",
+  "source_sha256": {
+    "oic25_fast.cpp": "6725f96da4c2d7f4a2241b24dd2dcd182d5d41d818098a2ddfa923c4dd6ce579",
+    "oic25_independent.py": "92f08a30615ab6250ad0f94662df99b85726823f4af0738aea3d9e3bb946ad0b"
+  }
+}

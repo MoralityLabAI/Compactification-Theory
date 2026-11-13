@@ -1,0 +1,31 @@
+name: OIC-31 mixed-fault prime-cycle proofs
+on:
+  push:
+    paths:
+      - 'research/observational_inwardness_v1/oic31_*'
+      - 'research/observational_inwardness_v1/test_oic31_*'
+      - 'research/observational_inwardness_v1/OIC31_*'
+      - 'research/observational_inwardness_v1/results/oic31_reference.json'
+      - '.github/workflows/oic31.yml'
+  pull_request:
+    paths:
+      - 'research/observational_inwardness_v1/oic31_*'
+      - 'research/observational_inwardness_v1/test_oic31_*'
+      - 'research/observational_inwardness_v1/OIC31_*'
+      - 'research/observational_inwardness_v1/results/oic31_reference.json'
+      - '.github/workflows/oic31.yml'
+jobs:
+  exact-mixed-fault:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Standard-library mixed-fault unit tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic31_mixed.py' -v
+      - name: Python optimized-mode exact checks
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic31_mixed.py' -v
+      - name: Pinned exact mixed-fault receipt replay
+        run: python research/observational_inwardness_v1/oic31_run.py --check

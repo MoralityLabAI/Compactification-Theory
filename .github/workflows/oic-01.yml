@@ -1,0 +1,222 @@
+name: OIC-01 finite observability reference
+
+on:
+  push:
+    paths:
+      - 'research/observational_inwardness_v1/**'
+      - '.github/workflows/oic-01.yml'
+  pull_request:
+    paths:
+      - 'research/observational_inwardness_v1/**'
+      - '.github/workflows/oic-01.yml'
+
+jobs:
+  finite-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+      - name: Exact tests with assertions optimized away
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_*.py' -v
+      - name: Pinned receipt replay
+        run: python research/observational_inwardness_v1/run.py --check
+      - name: Fault-tolerant audit-channel receipt replay
+        run: python research/observational_inwardness_v1/robust_run.py --check
+      - name: Raw-state fault-tolerant reference replay
+        run: python research/observational_inwardness_v1/raw_run.py --check
+      - name: Verify completed OIC-12 GRU receipt without torch
+        run: python research/observational_inwardness_v1/verify_learned.py --check
+      - name: Verify OIC-13 structural clock experiment receipt without torch
+        run: python research/observational_inwardness_v1/verify_clock.py --check
+      - name: Verify OIC-14 learned phase transition receipt without torch
+        run: python research/observational_inwardness_v1/verify_receipt.py
+      - name: Replay OIC-14 long-horizon angular drift from archived weights
+        run: python research/observational_inwardness_v1/long_horizon.py --check
+      - name: Verify OIC-15 hidden-phase family inference, exact oracle and fault receipts
+        run: python research/observational_inwardness_v1/oic15_verify.py
+      - name: Verify OIC-16 learned belief from archived weights, source digests and raw fault panels
+        run: python research/observational_inwardness_v1/oic16_verify.py --check
+      - name: Replay OIC-16 post-hoc Fourier emission scaling diagnostic
+        run: python research/observational_inwardness_v1/oic16_scale.py --check
+      - name: Verify OIC-18 phase-localization fits and all raw fault receipts (no torch)
+        run: python research/observational_inwardness_v1/oic18_verify.py --check
+      - name: OIC-19 shift-gauge and receipt tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic19*.py' -v
+      - name: OIC-19 tests with optimized Python
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic19*.py' -v
+      - name: OIC-19 independent model and raw-sensor fault replay
+        run: python research/observational_inwardness_v1/oic19_verify.py
+
+      - name: OIC-20 labeled-marker minimum sensor tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
+      - name: OIC-20 optimized exact sensor tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic20_markers.py' -v
+      - name: OIC-20 pinned finite sensor design replay
+        run: python research/observational_inwardness_v1/oic20_run.py --check
+      - name: OIC-21 exact adaptive query and source-receipt integrity tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic21_*.py' -v
+      - name: OIC-21 optimized exact tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic21_*.py' -v
+      - name: OIC-21 pinned teacher, held-out and online fault evidence audit
+        run: python research/observational_inwardness_v1/oic21_verify.py --check
+
+
+  oic22-evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-22 finite Bayes and source-integrity tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic22*.py' -v
+      - name: OIC-22 optimized Python tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic22*.py' -v
+      - name: OIC-22 frozen exact Bellman oracle
+        run: python research/observational_inwardness_v1/oic22_reference.py --check
+      - name: OIC-22 trained 145-parameter scorer receipt and independent replay
+        run: python research/observational_inwardness_v1/oic22_verify.py --check
+
+
+  oic23-certificates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact OIC-23 adaptive/fixed query tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic23_exact.py' -v
+      - name: Exact OIC-23 tests with Python optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic23_exact.py' -v
+      - name: Replay nine pinned adversarial policy certificates
+        run: python research/observational_inwardness_v1/oic23_reference.py --check
+
+
+  oic24-symmetry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-24 exact phase-translation and n5 robust-query tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
+      - name: OIC-24 optimized Python tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic24_sym.py' -v
+      - name: Independently replay pinned five-phase erasure policy
+        run: python research/observational_inwardness_v1/oic24_run.py --check
+
+
+  oic25-five-phase-threshold:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent exact Python tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic25_exact.py' -v
+      - name: Exact Python tests with optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic25_exact.py' -v
+      - name: Reconstruct the 14-query policy and rule out shorter policies
+        run: python research/observational_inwardness_v1/oic25_reference.py --check
+      - name: Independently compile C++ and exhaust Q13 without pair-pruning
+        run: python research/observational_inwardness_v1/oic25_reference.py --cpp-check
+
+
+  oic26-six-phase-erasure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Six-phase erasure policy and equivariance tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic26_erasure.py' -v
+      - name: Six-phase erasure tests with Python optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic26_erasure.py' -v
+      - name: Verify pinned erasure tree and replay all fault paths
+        run: python research/observational_inwardness_v1/oic26_erasure.py --check
+      - name: Exhaust all n6 Q10 policies in unquotiented and reduced games
+        run: python research/observational_inwardness_v1/oic26_erasure.py --recompute
+
+
+  oic27-six-phase-one-flip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-27 independent certificate and parity-bound tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic27*.py' -v
+      - name: OIC-27 tests with Python optimization
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic27*.py' -v
+      - name: Replay both 15-query policy trees and source SHA pins
+        run: python research/observational_inwardness_v1/oic27_reference.py --check
+      - name: Compile both C++ solvers, exhaust Q14 and rebuild Q15 proofs
+        run: python research/observational_inwardness_v1/oic27_reference.py --cpp-check
+
+
+  oic29-fixed-sensor-certificates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact fixed-sensor codeword and fault-path checks
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic29_fixed.py' -v
+      - name: Optimized Python verification
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic29_fixed.py' -v
+      - name: Recompute pinned cross-shift distance spectra and collision receipts
+        run: python research/observational_inwardness_v1/oic29_fixed.py --check
+
+
+  oic30-prime-cycle-fixed-sensors:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: General prime-block theorem witnesses and all two-marker configurations
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
+      - name: Optimized-mode exact tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic30_prime_blocks.py' -v
+      - name: Independently reconstruct the 21-query three-marker receipt
+        run: python research/observational_inwardness_v1/oic30_run.py --check
+
+
+  oic32-global-fixed-prime-one-flip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: OIC-32 independent affine-plane integer tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32*.py' -v
+      - name: OIC-32 optimized-mode tests
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic32*.py' -v
+      - name: Verify general prime lower-bound arithmetic and pinned codebooks
+        run: python research/observational_inwardness_v1/oic32_run.py --check
+      - name: Exhaustively replay p2 and p3 exceptional fixed schedules
+        run: python research/observational_inwardness_v1/oic32_small_run.py --check
+      - name: Verify global marked-erasure optimum on all prime sizes
+        run: python research/observational_inwardness_v1/oic32_erasure_run.py --check

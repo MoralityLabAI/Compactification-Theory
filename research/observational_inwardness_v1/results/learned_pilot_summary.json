@@ -1,0 +1,254 @@
+{
+  "experiment": "OIC-12",
+  "status": "completed_cpu_toy_trained_gru_pilot",
+  "training_protocol": {
+    "tag": "OIC-12-CPU-GRU-01",
+    "hidden_width": 24,
+    "teacher_forcing": true,
+    "inference": "closed_loop_hard_threshold",
+    "n": [
+      4,
+      5,
+      6
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "splits": [
+      "full",
+      "heldout"
+    ],
+    "train_steps": 350,
+    "train_batch": 96,
+    "lr": 0.014,
+    "torch": "2.10.0+cpu",
+    "numpy": "2.3.5",
+    "python": "3.13.5",
+    "cpu_threads": 1
+  },
+  "run_count": 30,
+  "model_fits": 60,
+  "summary": [
+    {
+      "n": 4,
+      "training_split": "full",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latch_full_trace_accuracy_fixed": 1,
+      "latch_full_trace_accuracy_rotating": 1,
+      "latch_fixed_trained_initial_phase_accuracy": 1,
+      "latch_fixed_withheld_initial_phase_accuracy": 1,
+      "latch_rotating_trained_initial_phase_accuracy": 1,
+      "latch_rotating_withheld_initial_phase_accuracy": 1,
+      "latch_empirical_min_code_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_oracle_min_code_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "runs_identifiable_without_noise": 5,
+      "runs_identifiable_with_one_raw_substitution": 5,
+      "runs_with_exact_oracle_code_distance": 5,
+      "total_runs": 5
+    },
+    {
+      "n": 4,
+      "training_split": "heldout",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latch_full_trace_accuracy_fixed": 0.6,
+      "latch_full_trace_accuracy_rotating": 0.5,
+      "latch_fixed_trained_initial_phase_accuracy": 1,
+      "latch_fixed_withheld_initial_phase_accuracy": 0.2,
+      "latch_rotating_trained_initial_phase_accuracy": 1,
+      "latch_rotating_withheld_initial_phase_accuracy": 0,
+      "latch_empirical_min_code_distances": [
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "latch_oracle_min_code_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "runs_identifiable_without_noise": 1,
+      "runs_identifiable_with_one_raw_substitution": 0,
+      "runs_with_exact_oracle_code_distance": 0,
+      "total_runs": 5
+    },
+    {
+      "n": 5,
+      "training_split": "full",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latch_full_trace_accuracy_fixed": 1,
+      "latch_full_trace_accuracy_rotating": 1,
+      "latch_fixed_trained_initial_phase_accuracy": 1,
+      "latch_fixed_withheld_initial_phase_accuracy": 1,
+      "latch_rotating_trained_initial_phase_accuracy": 1,
+      "latch_rotating_withheld_initial_phase_accuracy": 1,
+      "latch_empirical_min_code_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_oracle_min_code_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "runs_identifiable_without_noise": 5,
+      "runs_identifiable_with_one_raw_substitution": 0,
+      "runs_with_exact_oracle_code_distance": 5,
+      "total_runs": 5
+    },
+    {
+      "n": 5,
+      "training_split": "heldout",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latch_full_trace_accuracy_fixed": 0.6,
+      "latch_full_trace_accuracy_rotating": 0.6,
+      "latch_fixed_trained_initial_phase_accuracy": 1,
+      "latch_fixed_withheld_initial_phase_accuracy": 0,
+      "latch_rotating_trained_initial_phase_accuracy": 1,
+      "latch_rotating_withheld_initial_phase_accuracy": 0,
+      "latch_empirical_min_code_distances": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "latch_oracle_min_code_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "runs_identifiable_without_noise": 0,
+      "runs_identifiable_with_one_raw_substitution": 0,
+      "runs_with_exact_oracle_code_distance": 0,
+      "total_runs": 5
+    },
+    {
+      "n": 6,
+      "training_split": "full",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latch_full_trace_accuracy_fixed": 0.9666666666666667,
+      "latch_full_trace_accuracy_rotating": 1,
+      "latch_fixed_trained_initial_phase_accuracy": 0.95,
+      "latch_fixed_withheld_initial_phase_accuracy": 1,
+      "latch_rotating_trained_initial_phase_accuracy": 1,
+      "latch_rotating_withheld_initial_phase_accuracy": 1,
+      "latch_empirical_min_code_distances": [
+        7,
+        7,
+        6,
+        7,
+        7
+      ],
+      "latch_oracle_min_code_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "runs_identifiable_without_noise": 5,
+      "runs_identifiable_with_one_raw_substitution": 5,
+      "runs_with_exact_oracle_code_distance": 4,
+      "total_runs": 5
+    },
+    {
+      "n": 6,
+      "training_split": "heldout",
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latch_full_trace_accuracy_fixed": 0.7333333333333333,
+      "latch_full_trace_accuracy_rotating": 0.7333333333333333,
+      "latch_fixed_trained_initial_phase_accuracy": 1,
+      "latch_fixed_withheld_initial_phase_accuracy": 0.2,
+      "latch_rotating_trained_initial_phase_accuracy": 1,
+      "latch_rotating_withheld_initial_phase_accuracy": 0.2,
+      "latch_empirical_min_code_distances": [
+        1,
+        1,
+        0,
+        0,
+        8
+      ],
+      "latch_oracle_min_code_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "runs_identifiable_without_noise": 3,
+      "runs_identifiable_with_one_raw_substitution": 1,
+      "runs_with_exact_oracle_code_distance": 0,
+      "total_runs": 5
+    }
+  ],
+  "full_receipt_file": "learned_pilot_full.json.gz.b64",
+  "full_receipt_decoded_sha256": "2a013ef5028c0c831ba8d51e4ed8a84aafd13fb5f64dd26c0b70acecd38c8332",
+  "full_receipt_gzip_sha256": "326997433675eccdbeb2871cb61cf0b40b6a2a700a94d973ad9b1e589cc20330",
+  "training_code_sha256": "276e1e0514724a74c24ca7c7cfafd0e76b7951828a762a63a5c04cfbdb31cdb0",
+  "total_elapsed_seconds": 140.19,
+  "scope": "synthetic_supervised_GRU_from_exact_phase_state_and_teacher_visible_reads",
+  "source_replay": "train with explicit --n --splits --seeds per batch on CPU, PyTorch version pinned as observed"
+}
