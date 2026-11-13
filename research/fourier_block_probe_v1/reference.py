@@ -206,6 +206,85 @@ def smallest_parity_lift_check() -> dict:
             "singleton_coefficients_zero":True}
 
 
+
+
+def adaptive_unpaired_transcript(n: int, x: int, y: int) -> tuple:
+    """One adaptive query in each matched pair, never both endpoints.
+
+    The side of coordinate i depends on the previously read bit.
+    The transcript records (side,index,observed bit). Side 0 is x.
+    """
+    if type(n) is not int or not 1<=n<=8:
+        raise ValueError("probe dimension must be 1..8")
+    if any(type(v) is not int or not 0<=v<(1<<n) for v in (x,y)):
+        raise ValueError("probe registers outside declared width")
+    previous=0
+    events=[]
+    for i in range(n):
+        side=0 if i==0 or previous==0 else 1
+        value=((x if side==0 else y)>>i)&1
+        events.append((side,i,value))
+        previous=value
+    return tuple(events)
+
+
+def conditional_unpaired_law(n: int, xor_state: int) -> dict[tuple,Fraction]:
+    """Transcript law conditioned on a fixed hidden XOR source.
+
+    Conditioned on z, x stays uniform and y=x xor z. Exact probabilities
+    come from enumerating 2**n possible x registers.
+    """
+    if type(n) is not int or not 1<=n<=8 or (
+            type(xor_state) is not int or not 0<=xor_state<(1<<n)):
+        raise ValueError("n=1..8 and xor_state in 0..2**n-1 required")
+    counts={}
+    for x in range(1<<n):
+        transcript=adaptive_unpaired_transcript(n,x,x^xor_state)
+        counts[transcript]=counts.get(transcript,0)+1
+    return {key:Fraction(count,1<<n) for key,count in counts.items()}
+
+
+def conditional_completed_pair_law(n: int,xor_state: int,index: int=0):
+    """Reveal both x_i and y_i, exposing the hidden z_i exactly."""
+    if type(n) is not int or not 1<=n<=8 or (
+            type(xor_state) is not int or not 0<=xor_state<(1<<n)) or (
+            type(index) is not int or not 0<=index<n):
+        raise ValueError("invalid paired probe")
+    counts={}
+    for x in range(1<<n):
+        a=(x>>index)&1
+        b=((x^xor_state)>>index)&1
+        counts[(a,b)]=counts.get((a,b),0)+1
+    return {key:Fraction(count,1<<n) for key,count in counts.items()}
+
+
+def adaptive_probe_control(max_n: int=5) -> dict:
+    """Exact finite conditional independence for an adaptive unpaired policy."""
+    if type(max_n) is not int or not 1<=max_n<=8:
+        raise ValueError("max_n must be in 1..8")
+    cases=0
+    for n in range(1,max_n+1):
+        base=conditional_unpaired_law(n,0)
+        if len(base)!=(1<<n) or set(base.values())!={Fraction(1,1<<n)}:
+            raise AssertionError("unpaired transcript should be uniform")
+        for z in range(1<<n):
+            if conditional_unpaired_law(n,z)!=base:
+                raise AssertionError("adaptive unmatched probe leaked hidden XOR")
+            cases+=1
+        # If the completed source parity bit differs, the paired
+        # transcript supports are disjoint.
+        a=conditional_completed_pair_law(n,0)
+        b=conditional_completed_pair_law(n,1)
+        if set(a)&set(b):
+            raise AssertionError("completed pair failed to reveal hidden bit")
+    return {
+        "max_n":max_n,
+        "conditional_source_states_checked":cases,
+        "adaptive_unpaired_transcripts_source_independent":True,
+        "one_completed_pair_reveals_one_hidden_bit":True,
+        "adaptive_query_bound_per_source_dimension":"one per XOR pair",
+    }
+
 def exact_controls() -> dict:
     rejection=exact_base_rejection_count()
     if rejection!=38416:
@@ -238,6 +317,7 @@ def exact_controls() -> dict:
     if full!=Fraction(9375,8192):
         raise AssertionError("selector Fourier composition identity changed")
     small=smallest_parity_lift_check()
+    adaptive=adaptive_probe_control(5)
     return {
         "status":"EXACT_FINITE_FOURIER_CONTROL",
         "source_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
@@ -260,6 +340,7 @@ def exact_controls() -> dict:
         "hidden_probe_pair_mse_gain":str(sentinel**2),
         "hidden_zero_witness":sensitivity,
         "exact_small_spectral_transport":small,
+        "adaptive_unpaired_probe_control":adaptive,
         "openai_132_asymptotic_witness_reproduced":False,
         "openai_192_unbounded_ratio_witness_reproduced":False,
         "trained_transformer_checkpoint_tested":False,
