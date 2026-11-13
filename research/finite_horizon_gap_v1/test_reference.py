@@ -16,6 +16,9 @@ from reference import (
     gaussian_isometry_moment_identity,
     net_transfer_distortion,
     robust_net_threshold,
+    shift_observation_matrix,
+    exact_rational_rank,
+    finite_shift_rank_frontier,
 )
 
 
@@ -117,6 +120,25 @@ class TestFHC01(unittest.TestCase):
             coarse_embedding_1d_certificate(
                 [0,1,2],[0,2],{Fraction(0):0,Fraction(2):1},
                 1,1)
+
+    def test_shift_future_observability_rank_grows_and_saturates(self):
+        for width in range(1, 14):
+            for horizon in range(0, width * 2 + 3):
+                matrix = shift_observation_matrix(width, horizon)
+                self.assertEqual(exact_rational_rank(matrix), min(width, horizon))
+        frontier = finite_shift_rank_frontier(8, [1, 2, 4, 8, 16])
+        self.assertEqual([r["required_linear_dimension"] for r in frontier],
+                         [1, 2, 4, 8, 8])
+
+    def test_shift_null_direction_disappears_at_horizon(self):
+        width = 7
+        for horizon in range(width):
+            probe = [int(j == horizon) for j in range(width)]
+            observations = shift_observation_matrix(width,horizon)
+            self.assertTrue(all(sum(a*b for a,b in zip(row,probe))==0
+                                for row in observations))
+            next_row = shift_observation_matrix(width,horizon+1)[-1]
+            self.assertEqual(sum(a*b for a,b in zip(next_row,probe)),1)
 
     def test_fixed_reference_receipt(self):
         r = control_report()
