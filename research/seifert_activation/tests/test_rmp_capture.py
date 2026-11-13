@@ -3,11 +3,15 @@ from pathlib import Path
 from types import SimpleNamespace
 import sys
 import unittest
-import torch
+try:
+    import torch
+except ImportError:  # Optional for the rest of Compactification-Theory's exact CPU tests.
+    torch = None
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from knot import InvalidBraidTrace
-from rmp_capture import (capture_cycle,analyze_cycle,chart_from_decoder,
-                         compare_double_resolution,sha256_tensor)
+if torch is not None:
+    from rmp_capture import (capture_cycle, analyze_cycle, chart_from_decoder,
+                             compare_double_resolution, sha256_tensor)
 
 
 class MockRMP:
@@ -35,6 +39,7 @@ class MockRMP:
         return SimpleNamespace(logits=logits,visit_outputs=tuple(outputs))
 
 
+@unittest.skipIf(torch is None, "torch is optional for SCM-02 RMP adapter tests")
 class RMPAdapterTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -71,6 +76,17 @@ class RMPAdapterTests(unittest.TestCase):
         self.assertEqual(original['predictions'],changed['predictions'])
         self.assertEqual(original['intervention_axes_sha256'],changed['intervention_axes_sha256'])
         self.assertNotEqual(original['chart_sha256'],changed['chart_sha256'])
+
+    def test_topological_birth_and_boundary_collision(self):
+        inner=capture_cycle(self.model,self.tokens,self.chart,inject_token=0,
+                            observed_tokens=[1,2],radius=.2,angles=64)
+        critical=capture_cycle(self.model,self.tokens,self.chart,inject_token=0,
+                               observed_tokens=[1,2],radius=.4,angles=64)
+        outer=capture_cycle(self.model,self.tokens,self.chart,inject_token=0,
+                            observed_tokens=[1,2],radius=.8,angles=64)
+        self.assertEqual(analyze_cycle(inner)[-1]['pair_winding']['0,1'],0)
+        self.assertFalse(analyze_cycle(critical)[-1]['valid'])
+        self.assertEqual(analyze_cycle(outer)[-1]['pair_winding']['0,1'],1)
 
     def test_chart_feature_validity(self):
         decoder=torch.tensor([[1.,0.],[0.,1.],[1.,1.]],dtype=torch.float32)
