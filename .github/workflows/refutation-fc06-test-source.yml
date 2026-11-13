@@ -1,0 +1,59 @@
+name: FC-06 unseen strict-budget source and Lean proof checks
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc06/test_data.py'
+      - 'research/refutation_bench/tests/test_fc06_test.py'
+      - '.github/workflows/refutation-fc06-test-source.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc06/test_data.py'
+      - 'research/refutation_bench/tests/test_fc06_test.py'
+      - '.github/workflows/refutation-fc06-test-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certify-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact family independence, goal budget and baseline replay
+        run: python -m unittest research.refutation_bench.tests.test_fc06_test -v
+      - name: Canonical independent test generator and certificate receipt
+        run: |
+          python -m research.refutation_bench.fc06.test_data \
+            --out /tmp/FC06_test.jsonl \
+            --lean /tmp/FC06_test.lean \
+            --receipt /tmp/FC06_test_receipt.json
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile every held-out valid theorem
+        run: |
+          lean /tmp/FC06_test.lean 2>&1 | tee /tmp/FC06_test_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC06_test_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC06_test_lean.log)" -ge 2
+      - name: Archive source, baseline and compiler receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc06-test-source-${{ github.run_id }}
+          path: |
+            /tmp/FC06_test.jsonl
+            /tmp/FC06_test.lean
+            /tmp/FC06_test_receipt.json
+            /tmp/FC06_test_lean.log
+          retention-days: 30
+          if-no-files-found: warn
