@@ -226,3 +226,41 @@ Status ledger:
 - Synthetic rational checks: finite validation, not the #098 witness.
 - Checkpoint experiments: protocol only until actual assets and
   preregistered run receipts exist.
+
+
+## 9. Constructive recurrent control: horizon observability rank (FHC-5)
+
+Let the latent state h belong to R^m. Define the reversible cyclic
+shift F(h_0,...,h_{m-1})=(h_1,...,h_{m-1},h_0) and a scalar
+readout G(h)=h_0. At horizon T, retain the observation tuple
+
+\[
+O_T(h)=(G(h),G(Fh),\ldots,G(F^{T-1}h)).
+\]
+
+Its matrix has row t equal to standard basis vector e_(t mod m).
+The first min(T,m) rows are independent and every later row repeats
+one of the first m. Therefore
+
+\[
+\boxed{\mathrm{rank}(O_T)=\min(T,m).}\tag{FHC-5}
+\]
+
+Suppose a linear d-coordinate encoder E and a linear future decoder
+R exactly factor the observation map on all R^m, i.e.
+O_T=R E. Then rank(O_T)<=rank(E)<=d, hence
+
+\[
+\boxed{d\ge\min(T,m).}
+\]
+
+Equality is attained by retaining exactly the first min(T,m)
+coordinates, and for T>=m by the full state. At fixed width m=8,
+the required linear ranks at T=1,2,4,8,16 are exactly 1,2,4,8,8.
+
+This is an exact **finite-dimensional linear** lower bound.
+It supplies an executable toy regression for an observation
+metric that refines with horizon. Unlike FHC-1, the rank
+saturates at the actual state width. Nonlinear encoders and
+finite-sample approximate reconstruction have separate
+constraints; FHC-5 states a linear factorization theorem.
