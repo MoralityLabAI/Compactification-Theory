@@ -304,6 +304,17 @@ def exact_controls() -> dict:
         raise AssertionError("unexpected base singleton signal")
     if hidden_fourier(BASE_MASK|SENTINEL)!=Fraction(1,4096):
         raise AssertionError("full hidden Fourier degree changed")
+    fourth_order_masks=[
+        (1 << (4*b+i)) | (1 << (4*b+j))
+        for b in range(4) for i in range(4) for j in range(i+1,4)
+    ]
+    fourth_order_coeffs=[hidden_fourier(mask) for mask in fourth_order_masks]
+    if len(fourth_order_coeffs)!=24 or set(map(abs,fourth_order_coeffs))!={Fraction(343,4096)}:
+        raise AssertionError("expected 24 paired fourth-order coefficients")
+    mu_full=hidden_fourier(0)
+    sentinel_full=hidden_fourier(SENTINEL)
+    fourth_order_mse=(1-mu_full**2-sentinel_full**2-
+                      sum((c*c for c in fourth_order_coeffs),Fraction()))
     if lifted_fourier(SENTINEL,SENTINEL)!=sentinel:
         raise AssertionError("paired sentinel probe disappeared")
     if any(lifted_fourier(1<<i,0) or lifted_fourier(0,1<<i)
@@ -338,6 +349,9 @@ def exact_controls() -> dict:
         "hidden_probe_mse_base":str(1-mu**2),
         "hidden_probe_mse_pair_sentinel":str(1-mu**2-sentinel**2),
         "hidden_probe_pair_mse_gain":str(sentinel**2),
+        "hidden_block_fourth_order_count":len(fourth_order_coeffs),
+        "hidden_block_fourth_order_abs_coeff":"343/4096",
+        "hidden_probe_41_feature_mse_population":str(fourth_order_mse),
         "hidden_zero_witness":sensitivity,
         "exact_small_spectral_transport":small,
         "adaptive_unpaired_probe_control":adaptive,
