@@ -143,6 +143,9 @@ class FiniteFourierProbes(unittest.TestCase):
         self.assertEqual(r["selector_fourier_degree"],35)
         self.assertEqual(r["hidden_probe_pair_mse_gain"],
                          str(Q(2401,4096)**2))
+        self.assertEqual(r["hidden_block_fourth_order_count"],24)
+        self.assertEqual(r["hidden_probe_41_feature_mse_population"],
+                         str(Q(2657907,8388608)))
         self.assertFalse(r["trained_transformer_checkpoint_tested"])
         self.assertFalse(r["openai_132_asymptotic_witness_reproduced"])
         self.assertFalse(r["openai_192_unbounded_ratio_witness_reproduced"])
