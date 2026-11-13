@@ -61,6 +61,29 @@ replays the exact proposed rule sequence,
 and Lean 4.19.0 compilation remains the
 certificate authority.
 
+## Independent validation
+
+[Post-hoc CI #43424550518](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43424550518)
+passed four regression tests. The unary-only
+BFS accepted **192/192** positive cases,
+including **96/96 at familiar depth and
+96/96 at greater depth**, with no false
+formal certificates and zero model
+parameters. The independent strict
+trace checker accepted all proposed
+positive sequences, and Lean 4.19.0
+compiled all **192** resulting proof
+terms. The two inspected endpoint
+theorems report zero extra axioms.
+
+The archived post-hoc artifact
+`fc07-posthoc-unary-43424550518`
+contains the complete input-only trace
+ledger, generated Lean source and
+kernel log. The source test cases,
+first-run neural model predictions
+and preregistration remain unchanged.
+
 ## Meaning for FC-07
 
 The preregistered FC-07 experiment did find
