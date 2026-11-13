@@ -1,0 +1,72 @@
+name: FC-10 train-only REAL Lean tactic-state corpus
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc10/core.py'
+      - 'research/refutation_bench/fc10/train_data.py'
+      - 'research/refutation_bench/tests/test_fc10_source.py'
+      - '.github/workflows/refutation-fc10-train.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc10/core.py'
+      - 'research/refutation_bench/fc10/train_data.py'
+      - 'research/refutation_bench/tests/test_fc10_source.py'
+      - '.github/workflows/refutation-fc10-train.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actual-goal-traces:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check frozen theorem family and strict trace parser
+        run: |
+          python -m unittest research.refutation_bench.tests.test_fc10_source -v
+      - name: Generate Lean TRAIN/DEV source and metadata before test generator exists
+        run: |
+          python -m research.refutation_bench.fc10.train_data \
+            --out-dir /tmp/fc10_train_dev
+          test ! -e research/refutation_bench/fc10/test_data.py
+      - name: Install pinned Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile all training and dev theorem proofs, extract real goal states
+        run: |
+          lean /tmp/fc10_train_dev/TrainDev.lean 2>&1 | tee /tmp/fc10_train_dev/lean_actual_states.log
+          if grep -E 'error:|sorryAx' /tmp/fc10_train_dev/lean_actual_states.log; then exit 1; fi
+          python -m research.refutation_bench.fc10.train_data \
+            --out-dir /tmp/fc10_train_dev \
+            --extract-log /tmp/fc10_train_dev/lean_actual_states.log
+      - name: Check 156 actual Lean goal states parsed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('/tmp/fc10_train_dev')
+          states=[json.loads(x) for x in (root/'train_states.jsonl').read_text().splitlines()]
+          assert len(states)==156
+          assert sum(x['split']=='train' for x in states)==132
+          assert sum(x['split']=='dev' for x in states)==24
+          assert all(x['goal_state'].count('⊢')==1 for x in states)
+          print("REAL_LEAN_TACTIC_STATES_PARSED",len(states))
+          PY
+      - name: Preserve exact source, real elaborator states, theorems and hashes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc10-real-lean-train-dev-${{ github.run_id }}
+          path: /tmp/fc10_train_dev/
+          retention-days: 30
+          if-no-files-found: warn
