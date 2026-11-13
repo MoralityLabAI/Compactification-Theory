@@ -264,3 +264,159 @@ metric that refines with horizon. Unlike FHC-1, the rank
 saturates at the actual state width. Nonlinear encoders and
 finite-sample approximate reconstruction have separate
 constraints; FHC-5 states a linear factorization theorem.
+
+
+## 10. FHC-6: Binary predictive sufficiency versus exact metric dimension
+
+We now instantiate the recurrent-observation problem on RC-01's
+six-bit affine circuit class. This is a finite result independent of
+the deep #094/#098 source claims; it tests the *distinction* those
+claims encourage us to measure.
+
+Let x be uniform over GF(2)^6, let F be the reversible companion
+transition
+
+\[
+F(x)_i=x_{i+1}\quad(0\le i<5),\qquad
+F(x)_5=x_0\oplus x_1,
+\quad G(x)=x_0.
+\]
+
+The underlying polynomial \(z^6+z+1\) is primitive over GF(2).
+Equivalently, direct exact enumeration of the dual recurrence
+\(r_{t+1}=r_t A\), \(r_0=e_0\), visits all 63 nonzero six-bit row
+masks before repeating. Our reference enumerates and verifies this
+claim without importing a finite-field library.
+
+Write the length-T future trace as
+
+\[
+\Phi_T(x)=\bigl(G(x),G(Fx),\ldots,G(F^{T-1}x)\bigr)
+\in\{0,1\}^T.
+\]
+
+**FHC-6a (minimal predictive bits, any deterministic binary code).**
+For \(1\le T\le63\), the GF(2) rank of the first T row masks
+is \(r_T=\min(T,6)\). Therefore \(\Phi_T\) takes exactly
+\(2^{r_T}\) distinct values. Any exact future decoder receiving only
+a fixed B-bit code E(x) requires
+
+\[
+\boxed{B\ge r_T=\min(T,6).}\tag{FHC-6a}
+\]
+
+A basis encoding of those row masks attains this bound and the
+reference verifies its decoding on every one of the 64 states.
+The cardinality argument covers nonlinear encoders too, provided
+they are limited to B finite binary bits. It does not constrain a
+single arbitrary-precision real coordinate.
+
+**FHC-6b (exact Euclidean metric dimension).**
+For each nonzero mask r let \(\chi_r(x)=(-1)^{r\cdot x}\).
+Under uniform x the characters obey
+
+\[
+\mathbb E\,\chi_r=0,\qquad
+\mathbb E\,\chi_r\chi_s=\mathbf1[r=s].
+\]
+
+The centered real-valued future coordinates satisfy
+\(\Phi_T(x)_t-\tfrac12=-\tfrac12\chi_{r_t}(x)\).
+Because the row masks are distinct until period 63,
+
+\[
+\boxed{\mathrm{Cov}(\Phi_T(X))=\frac14 I_T.}\tag{FHC-6b}
+\]
+
+Hence the full 64-point trace configuration has affine dimension T.
+Pairwise squared Euclidean distances determine its centered Gram
+matrix, so any *exact Euclidean isometry* of these 64 points into
+\(\mathbb R^d\) requires
+
+\[
+\boxed{d\ge T,\quad 1\le T\le63.}\tag{FHC-6c}
+\]
+
+In particular the exact predictive quotient has **six binary bits**
+at T=63, while exact Euclidean isometry of its 64 future traces
+requires **63 real coordinates**. These are different resources and
+different fidelity contracts.
+
+**FHC-6d (equilateral terminal horizon).**
+When T=63, every nonzero six-bit mask is present. For any x≠y,
+exactly half of the 64 masks have odd dot product with x xor y, and
+the zero mask is among those with even dot product. Thus exactly 32
+of the 63 future bits differ:
+
+\[
+\boxed{\|\Phi_{63}(x)-\Phi_{63}(y)\|_2^2=32,\quad x\ne y.}
+\tag{FHC-6d}
+\]
+
+These 64 points are the vertices of a regular simplex in its
+63-dimensional affine span. The family is **not uniformly doubling**
+as m increases; its finite packing obstruction is distinct from
+the compact doubling witness in #098.
+
+At distortion D>1, approximate Euclidean embedding may take far
+fewer coordinates. Standard finite-set random projection estimates
+depend logarithmically on N=64 rather than linearly on T, with
+constants depending on D. This is the exact-isometry versus
+bounded-distortion phenomenon being measured by FHC-01B.
+
+## 11. FHC-7: Intervention alphabet expands the predictive quotient
+
+At a one-step observation horizon, if the only permitted readout is
+\(G(x)=x_0\), the equivalence partition has two classes and needs
+one binary bit. If the observer may apply one of six distinct cyclic
+coordinate rotations before reading x0, the available readouts are
+
+\[
+\{x_0,x_1,\ldots,x_5\}.
+\]
+
+Their GF(2) span has rank six. The minimal exact binary code for
+all allowed one-step interventions therefore has six bits:
+
+\[
+\boxed{B_{\mathrm{single\ read}}=1,\qquad
+B_{\mathrm{six\ reads}}=6.}\tag{FHC-7}
+\]
+
+The pair x=0, y=2 is observationally equivalent under the original
+bit-zero readout and distinguishable by the bit-one probe.
+This witnesses a concrete interface-dependent quotient refinement.
+The reference checks the pair and all action masks, reusing the RC-01
+GF(2) algebra.
+
+## 12. Empirical FHC-01B finite pilot
+
+The new executable benchmark fits a PCA projector from 48
+preselected calibration states and compares Gaussian random
+projectors and the exact minimal binary quotient. It evaluates
+every pair among 16 disjoint held-out states, across the frozen
+horizons 1,2,4,6,8,16,32,63. All target future traces come from
+the exact RC-01 source recurrence.
+
+The metric is Euclidean distance between finite future output
+traces. Each embedding uses one scale chosen from calibration
+pairs. Pairwise test ratios are retained, along with a concrete
+worst-pair witness, calibrated failures at D=1.5 and D=2.0,
+and the descriptive optimum rescaling distortion of the held-out
+pairs. The optimum scale derived from held-out data is never used
+for the primary calibrated gate.
+
+The **exact semantic quotient code** can decode all T future
+bits on every state, although its Euclidean geometry need not
+preserve the future-output metric. Computing the PCA or Gaussian
+code from the full future traces requires T oracle operations
+per state. Its projection matrix and mean vector are charged to
+the resource ledger; these baselines do not establish a cheap
+neural implementation from the original recurrent state.
+
+PCA is trained on synthetic oracle data. The pilot is neither a
+trained language-model experiment nor a replication of the source
+OpenAI papers. Its exact results distinguish predictive
+sufficiency, exact metric isometry and approximate sampled
+distortion. Additional real-checkpoint studies remain a distinct
+gate.
