@@ -172,6 +172,53 @@ def coarse_embedding_1d_certificate(states, net, images: dict, epsilon,
             "violations":[[str(x),str(y)] for ok,x,y in rows if not ok]}
 
 
+
+def shift_observation_matrix(width: int, horizon: int) -> list[list[Fraction]]:
+    """O_T rows e_(t mod width), t=0,...,T-1, for a cyclic shift."""
+    if width < 1 or horizon < 0:
+        raise ValueError("width>=1 and horizon>=0 required")
+    return [[Fraction(int(j == t % width)) for j in range(width)]
+            for t in range(horizon)]
+
+
+def exact_rational_rank(rows) -> int:
+    """Fractional row elimination, proving rank for a finite supplied matrix."""
+    a = [[rational(v) for v in row] for row in rows]
+    if not a:
+        return 0
+    n = len(a[0])
+    if any(len(row) != n for row in a):
+        raise ValueError("ragged matrix")
+    pivot_row = 0
+    for col in range(n):
+        next_pivot = next((i for i in range(pivot_row,len(a))
+                          if a[i][col] != 0),None)
+        if next_pivot is None:
+            continue
+        a[pivot_row],a[next_pivot]=a[next_pivot],a[pivot_row]
+        pivot=a[pivot_row][col]
+        a[pivot_row]=[v/pivot for v in a[pivot_row]]
+        for k in range(len(a)):
+            if k!=pivot_row and a[k][col]!=0:
+                factor=a[k][col]
+                a[k]=[u-factor*v for u,v in zip(a[k],a[pivot_row])]
+        pivot_row+=1
+        if pivot_row==len(a):
+            break
+    return pivot_row
+
+
+def finite_shift_rank_frontier(width: int, horizons) -> list[dict]:
+    """Linear encoder dimension min(T,width) to preserve all future readouts."""
+    out=[]
+    for T in horizons:
+        rank=exact_rational_rank(shift_observation_matrix(width,T))
+        if rank!=min(width,T):
+            raise AssertionError("shift-register observability rank mismatch")
+        out.append({"horizon":T, "required_linear_dimension":rank})
+    return out
+
+
 def control_report() -> dict:
     """Reference cases fixed before using neural data."""
     weights=[Fraction(1,2),Fraction(-2,3),Fraction(5,4)]
@@ -191,6 +238,8 @@ def control_report() -> dict:
         list(range(5)), [0,2,4],
         {Fraction(0):0,Fraction(2):2,Fraction(4):4},1,1)
     assert net["passed"]
+    frontier=finite_shift_rank_frontier(8,[1,2,4,8,16])
+    assert [r["required_linear_dimension"] for r in frontier]==[1,2,4,8,8]
     return {
         "status":"CONTROL_ONLY",
         "source_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
@@ -203,6 +252,7 @@ def control_report() -> dict:
         "doubling_example_net_cardinality_upper":1024,
         "exact_geometry_pairs_checked":cert["pairs_checked"],
         "finite_net_pairs_checked":net["pairs_checked"],
+        "shift_register_linear_frontier_width8":frontier,
         "constructs_compact_doubling_witness":False,
         "runs_trained_models":False,
     }
