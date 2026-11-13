@@ -33,13 +33,14 @@ jobs:
         run: PYTHONPATH=.:.arg02_evalmath/src python -m unittest research.algernon.algebraic_reasoning_gym.arg02.test_arg02 -v
       - name: Committed answer tape regrades to the committed receipt
         run: |
-          R=research/algernon/algebraic_reasoning_gym/arg02/results
-          if [ -f $R/arg02_receipt.json ]; then
-            PYTHONPATH=.:.arg02_evalmath/src python -m research.algernon.algebraic_reasoning_gym.arg02.analyze replay \
-              --tape $R/arg02_answer_tape.jsonl.gz --check $R/arg02_receipt.json
-          else
-            echo "no ARG-02 receipt committed yet"
-          fi
+          for R in research/algernon/algebraic_reasoning_gym/arg02/results research/algernon/algebraic_reasoning_gym/arg02/results_nanbeige; do
+            if [ -f $R/arg02_receipt.json ]; then
+              PYTHONPATH=.:.arg02_evalmath/src python -m research.algernon.algebraic_reasoning_gym.arg02.analyze replay \
+                --tape $R/arg02_answer_tape.jsonl.gz --check $R/arg02_receipt.json
+            else
+              echo "no receipt in $R"
+            fi
+          done
   cpu-recurrence-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 25

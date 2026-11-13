@@ -1,6 +1,6 @@
 # ARG-02: recurrent-depth evaluation of Qwen3.5 on the Algernon algebraic gym
 
-ARG-02 runs a pretrained Qwen checkpoint on the ARG-01 held-out roster with explicit recurrent depth, exact EvalMath verification of every proposal, and the controls needed to tell recurrence apart from extra compute. The registered design, arms and decision rules are in [PROTOCOL.md](PROTOCOL.md); results are in [REPORT.md](REPORT.md) (negative: recurrence did not increase verified program recovery) and the run log in [STATUS.md](STATUS.md).
+ARG-02 runs a pretrained Qwen checkpoint on the ARG-01 held-out roster with explicit recurrent depth, exact EvalMath verification of every proposal, and the controls needed to tell recurrence apart from extra compute. The registered design, arms and decision rules are in [PROTOCOL.md](PROTOCOL.md); results are in [REPORT.md](REPORT.md) (Qwen3.5, negative: an untrained loop did not increase verified program recovery) and [REPORT_NANBEIGE.md](REPORT_NANBEIGE.md) (Nanbeige4.2-3B, natively looped: a real depth gain, mechanism claim not met) and the run log in [STATUS.md](STATUS.md).
 
 ## Layout
 
@@ -19,6 +19,7 @@ ARG-02 runs a pretrained Qwen checkpoint on the ARG-01 held-out roster with expl
 | `smoke.py` | the whole pipeline on a tiny random Qwen3.5 on CPU |
 | `run_arg02.ps1` | the GPU chain under vramorama |
 | `tables.py` | Markdown tables from the receipt and profile |
+| `nanbeige.py` | Nanbeige4.2-3B loader and native full-stack loop (profile `nanbeige`, transformers < 5) |
 
 ## Run
 

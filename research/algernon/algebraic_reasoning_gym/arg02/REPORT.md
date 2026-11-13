@@ -2,6 +2,8 @@
 
 **Executed 2026-11-11** on the RTX 5080 Laptop GPU under the protocol registered on 2026-11-10 ([PROTOCOL.md](PROTOCOL.md)), with one post-run amendment to the donor-shuffle control (Amendment 1). Development selection ran once, the test stage ran once, and the corrected shuffle arm ran once more. All numbers below are from [`results/arg02_receipt.json`](results/arg02_receipt.json) and [`results/arg02_profile.json`](results/arg02_profile.json). Full tables are in [`results/arg02_tables.md`](results/arg02_tables.md) and per-case grades in `results/arg02_traces.jsonl.gz`. `analyze replay` regrades the committed answer tape to the committed receipt on CPU.
 
+Follow-up with a natively looped model (Nanbeige4.2-3B, trained at 2 loops): [REPORT_NANBEIGE.md](REPORT_NANBEIGE.md).
+
 ## Answer
 
 **No.** At the pre-registered depth d* = 16, the block loop recovered **67 of 168** test programs with correct withheld futures within 12 exact checks. The unmodified single pass recovered **68**. The difference is -1: 32 cases gained and 33 lost, cluster-bootstrap 95% CI [-0.085, +0.072] per case, McNemar p = 1.0. The development gain that selected this setting (+16 of 132) did not replicate. Extra recurrence reshuffled which programs were found without finding more. It also drove the unconstrained readout off the operator grammar and amplified small state perturbations about tenfold, at 3.5x the GPU time.
