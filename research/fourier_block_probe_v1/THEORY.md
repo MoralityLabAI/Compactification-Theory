@@ -336,3 +336,55 @@ observations can be useless until the correct interaction
 grammar permits two-sided access to the same hidden factor.
 A real model's feature pairing and latent source law would
 need separate evidence before importing the theorem.
+
+
+## FPB-6: Exact population gain from fourth-order paired features
+
+In the 17-bit finite source, the first sixteen Boolean coordinates
+are arranged as four blocks of four. Within each block, there are
+six unordered pairs. The exact source Fourier coefficients satisfy
+
+\[
+\bigl|\widehat H(\{i,j\})\bigr|=\frac{343}{4096}
+\]
+
+for each of these 24 within-block pairs. All 16 first-degree
+coefficients outside the sentinel vanish.
+
+By FPB-1, a degree-two character of the original source becomes
+a degree-four matched x/y character of the lifted mode. All
+17 matched degree-two raw-input features and all 24 selected
+degree-four features are mutually orthogonal under the uniform
+input distribution. The optimal population affine regression
+onto these 41 signed characters plus a constant therefore has
+
+\[
+\begin{aligned}
+\mathrm{MSE}_{41}^{\star}
+&=1-\left(\frac{1695}{4096}\right)^2
+  -\left(\frac{2401}{4096}\right)^2
+  -24\left(\frac{343}{4096}\right)^2\\
+&=\boxed{\frac{2657907}{8388608}\approx0.3168472052.}
+\end{aligned}\tag{FPB-6}
+\]
+
+The formula is exact by Parseval/L2 projection. The finite
+reference computes every one of these 24 coefficients by
+full enumeration of the original 16-bit truth table and
+checks their magnitudes before issuing the certificate.
+
+In the independently held-out synthetic sample, the
+calibration-fitted 41-feature Fourier readout reached MSE
+approximately 0.326570 and sign accuracy 95.31%. The gap
+from the population optimum comes from finite calibration
+and test sampling. The 41-feature arm has a richer fixed
+interaction grammar than the one-feature sentinel monitor
+and should be charged accordingly.
+
+This explicit hierarchy is the new experimental design:
+first-order marginal probes, matched second-order probes,
+and paired fourth-order features can expose successively
+different aspects of an XOR-concealed Boolean computation.
+For trained models, the interaction features and their
+selection rule require independent registration to avoid
+post-hoc feature mining.
