@@ -300,9 +300,11 @@ def guarded_first_nonempty_laws(source_words, deletion: Fraction, count: int,
                     accum[state]+=prob/(1-empty_one)
             if sum(accum.values())!=1:
                 raise AssertionError("conditional nonempty trace law invalid")
-        law={0:unknown_probability}
+        law=({0:unknown_probability} if unknown_probability else {})
         for state,p in accum.items():
-            law[state]=(1-unknown_probability)*p
+            weight=(1-unknown_probability)*p
+            if weight:
+                law[state]=weight
         if sum(law.values())!=1:
             raise AssertionError("guarded monitor law did not normalize")
         out[word]=law
