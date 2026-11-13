@@ -165,7 +165,8 @@
       "Qwen/Qwen3-4B-Instruct-2507",
       "Qwen/Qwen3-8B",
       "Qwen/Qwen2.5-0.5B-Instruct"
-    ]
+    ],
+    "nanbeige": "Nanbeige/Nanbeige4.2-3B: rev 451ed48c (weights) and b82e54bd (newer code only, no weights) in the local HF cache"
   },
   "hardware": {
     "gpu": "NVIDIA GeForce RTX 5080 Laptop GPU",
@@ -179,5 +180,62 @@
     "transformers": "5.17.0",
     "numpy": "2.5.3",
     "fla_kernels": false
+  },
+  "nanbeige": {
+    "repo": "Nanbeige/Nanbeige4.2-3B",
+    "revision": "451ed48c3273ecef7ea8faaa43c31ce529763bb1",
+    "dtype": "bfloat16",
+    "attn_implementation": "sdpa",
+    "snapshot_env": "ARG02_SNAPSHOT_NANBEIGE",
+    "loader": "nanbeige",
+    "bos_token_id": 166100,
+    "environment": "C:/Users/patri/.venvs/bvg-v03 (transformers 4.46.3, torch 2.11.0+cu128); the remote code targets transformers 4.42",
+    "files_sha256": {
+      "config.json": "f6cb15b22847664f3a6049dc4b58fdd10f1650d112ac99a1da3d051f17c2ca19",
+      "tokenizer.json": "1d858a0fc007f22af6ae18bfa1ae52d30e398aa9cd1ea06e7777176869346a3f",
+      "configuration_nanbeige.py": "98abb9faa303717b234b3d381a9650e8cb656ccf287a12f6ad6215a3bbf8be10",
+      "modeling_nanbeige.py": "547737f989f5cb741c1a568acaf85f83521fa67a8f7268e19f9a37e60127c0d5",
+      "model.safetensors.index.json": "30d8da0fa8b97abc6d9eddfd017a0cb7a649bcbd58caa57804c56c767db5c0f1",
+      "model-00001-of-00002.safetensors": "09d265d5ec837bc64462796b7f8c110be9a135a55ed7a6eb5d07e0e90c976a94",
+      "model-00002-of-00002.safetensors": "31019e7870a044f44bc3f7e981f8c5ecd42d341e5ca6cfdbfd07fb95d95be389"
+    },
+    "text_config": {
+      "model_type": "nanbeige",
+      "num_hidden_layers": 22,
+      "hidden_size": 3072,
+      "intermediate_size": 10752,
+      "num_attention_heads": 48,
+      "num_key_value_heads": 8,
+      "head_dim": 128,
+      "vocab_size": 166144,
+      "num_loops": 2,
+      "tie_word_embeddings": false
+    }
+  },
+  "smoke_nanbeige": {
+    "repo": "smoke/tiny-random-nanbeige",
+    "revision": "0000000000000000000000000000000000000000",
+    "dtype": "float32",
+    "loader": "nanbeige",
+    "bos_token_id": 166100,
+    "files_sha256": {},
+    "text_config": {
+      "model_type": "nanbeige",
+      "num_hidden_layers": 2,
+      "hidden_size": 64,
+      "intermediate_size": 96,
+      "num_attention_heads": 4,
+      "num_key_value_heads": 2,
+      "head_dim": 16,
+      "vocab_size": 166144,
+      "num_loops": 2,
+      "tie_word_embeddings": false
+    }
+  },
+  "recurrence_nanbeige": {
+    "mechanism": "native full-stack loop: norm(layers(h)) repeated; trained with num_loops = 2; loop count set at inference (nanbeige.py)",
+    "native_recurrence": true,
+    "trained_for_recurrence": true,
+    "trained_depth": 2
   }
 }

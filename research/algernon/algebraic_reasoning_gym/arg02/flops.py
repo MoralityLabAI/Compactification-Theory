@@ -36,9 +36,18 @@ def _mlp(t):
     return 3 * t["hidden_size"] * t["intermediate_size"]
 
 
+def _dense_softmax_attention(t):
+    h, nh, nkv, hd = t["hidden_size"], t["num_attention_heads"], t["num_key_value_heads"], t["head_dim"]
+    return h * nh * hd + 2 * h * nkv * hd + nh * hd * h
+
+
 def layer_macs(cfg, layer, length):
     """MACs for one row of `length` tokens through decoder layer `layer`."""
     t = text_config(cfg)
+    if t.get("model_type") == "nanbeige":
+        # Every layer is softmax attention + SwiGLU MLP; the loop re-runs all of them.
+        attn = t["num_attention_heads"] * t["head_dim"] * length * (length + 1)
+        return length * (_dense_softmax_attention(t) + _mlp(t)) + attn
     kind = t["layer_types"][layer]
     if kind == "linear_attention":
         return length * (_dense_linear_attention(t) + _mlp(t))

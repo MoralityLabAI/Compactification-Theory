@@ -219,8 +219,27 @@ def tiny_model(seed=0, vocab=128):
     return model, CharTokenizer(vocab)
 
 
+def tiny_nanbeige():
+    """Random 2-layer Nanbeige from the local snapshot's own remote code (needs transformers < 5)."""
+    import torch
+    from . import nanbeige
+    from .settings import load_lock
+    real = load_lock()["nanbeige"]
+    root = snapshot_dir(real)
+    torch.manual_seed(0)
+    over = {"hidden_size": 64, "intermediate_size": 96, "num_hidden_layers": 2, "num_attention_heads": 4,
+            "num_key_value_heads": 2, "head_dim": 16, "kv_channels": 16}
+    model = nanbeige.build(root, "cpu", torch.float32, "sdpa", over, random_init=True)
+    return model, nanbeige.load_tokenizer(root, real["bos_token_id"])
+
+
 def load_model(entry, device):
     import torch
+    if entry.get("loader") == "nanbeige":
+        from . import nanbeige
+        root = verify_snapshot(entry)
+        model = nanbeige.build(root, device, getattr(torch, entry["dtype"]), entry.get("attn_implementation", "sdpa"))
+        return model, nanbeige.load_tokenizer(root, entry["bos_token_id"])
     from transformers import AutoModelForCausalLM, AutoTokenizer
     root = verify_snapshot(entry)
     dtype = getattr(torch, entry["dtype"])
@@ -248,17 +267,29 @@ def op_token_ids(tok):
 
 class Engine:
     def __init__(self, model, tok, block, shots, device):
-        from .recurrence import BlockLoop
+        from .prompts import TAIL
         self.model, self.tok, self.shots, self.device = model, tok, shots, device
         self.op_ids = op_token_ids(tok)
-        self.loop = BlockLoop(model, block)
+        if getattr(model.config, "model_type", None) == "nanbeige":
+            from .nanbeige import NanbeigeLoop
+            self.loop = NanbeigeLoop(model, block)
+        else:
+            from .recurrence import BlockLoop
+            self.loop = BlockLoop(model, block)
+        # Tail tokens as they appear after other text (sentencepiece tokenizers add a
+        # dummy prefix at the start of a standalone string).
+        head = self.tok.encode("x", add_special_tokens=False)
+        full = self.tok.encode("x" + TAIL, add_special_tokens=False)
+        if full[:len(head)] != head:
+            raise AssertionError("tokenizer does not split the tail cleanly")
+        self.tail = full[len(head):]
 
     def prompt_ids(self, row, variant="canonical", feedback=()):
         from .prompts import render
         text = render(row, shots=self.shots, variant=variant, feedback=feedback)
-        ids = self.tok.encode(text, add_special_tokens=False)
-        tail = self.tok.encode("\nProgram:", add_special_tokens=False)
-        if ids[-len(tail):] != tail:
+        encode = getattr(self.tok, "encode_prompt", None)
+        ids = encode(text) if encode else self.tok.encode(text, add_special_tokens=False)
+        if ids[-len(self.tail):] != self.tail:
             raise AssertionError("prompt tail tokenises differently")
         return ids
 
@@ -487,7 +518,7 @@ def run_test(args, cfg, engine_factory, rows, watch, log, device):
     block, k, dstar = tuple(sel["block"]), sel["shots"], sel["depth"]
     extra = {"selection_sha256": file_sha256(run / "selection.json")}
     if args.model == "ff":
-        engine, entry = engine_factory(None, k, model_key="ff_control")
+        engine, entry = engine_factory(None, k, role="ff")
         parts = Parts(run / "parts", part_key(cfg, entry, None, k, "test_ff", extra))
         for row in rows:
             if parts.load("test_ff", row["case_id"]) is not None:
@@ -574,17 +605,22 @@ def main(argv=None):
     p.add_argument("--run-dir", required=True)
     p.add_argument("--stage", choices=["shots", "blocks"])
     p.add_argument("--model", choices=["main", "ff"], default="main")
+    p.add_argument("--profile", choices=["qwen", "nanbeige"], default="qwen")
     p.add_argument("--device", default="cuda")
     p.add_argument("--smoke", action="store_true", help="tiny random Qwen3.5 on CPU, no checkpoint")
     p.add_argument("--limit", type=int)
     p.add_argument("--arms", nargs="+", choices=TEST_LABELS + AMENDED_LABELS,
                    help="test stage: compute only these part labels")
     args = p.parse_args(argv)
-    from .settings import load_config, load_lock
-    cfg = load_config(args.smoke)
-    lock = load_lock()
+    from .settings import load_config, model_entry, ff_entry
+    cfg = load_config(args.smoke, args.profile)
     run = Path(args.run_dir)
     run.mkdir(parents=True, exist_ok=True)
+    exported = run / "export_manifest.json"
+    if exported.exists() and load_json(exported).get("profile", "qwen") != args.profile:
+        raise SystemExit("run directory was exported for a different profile")
+    if args.model == "ff" and ff_entry(cfg) is None:
+        raise SystemExit(f"profile {args.profile} has no feedforward control")
     logf = run / "job.log"
 
     def log(msg):
@@ -600,19 +636,23 @@ def main(argv=None):
     watch = PowerWatch(cfg["min_power_w"], active=device.type == "cuda")
     loaded = {}
 
-    def engine_factory(block, k, model_key="model"):
-        entry = lock["smoke"] if args.smoke else lock[model_key]
-        if model_key not in loaded:
+    def engine_factory(block, k, role="main"):
+        entry = model_entry(cfg) if role == "main" else ff_entry(cfg)
+        if role not in loaded:
             for other in list(loaded):
                 del loaded[other]
             if device.type == "cuda":
                 torch.cuda.empty_cache()
-            loaded[model_key] = tiny_model() if args.smoke else load_model(entry, device)
-        model, tok = loaded[model_key]
+            if args.smoke:
+                loaded[role] = tiny_nanbeige() if args.profile == "nanbeige" else tiny_model()
+            else:
+                loaded[role] = load_model(entry, device)
+        model, tok = loaded[role]
         shots = read_shots(run / "public" / "shots.json", k)
         eng_block = block if block is not None else (0, len(model.model.layers))
         engine = Engine(model, tok, eng_block, shots, device)
-        write_atomic(run / f"op_ids_{model_key}.json", json.dumps(engine.op_ids, sort_keys=True))
+        name = "model" if role == "main" else "ff_control"
+        write_atomic(run / f"op_ids_{name}.json", json.dumps(engine.op_ids, sort_keys=True))
         return engine, entry
 
     split = "development" if args.command == "dev" else "test"
@@ -620,7 +660,7 @@ def main(argv=None):
     if args.limit:
         rows = rows[:args.limit]
     manifest_name = f"manifest_{args.command}_{args.stage or args.model}" +         ("_" + "_".join(args.arms) if args.arms else "") + ".json"
-    manifest = {"command": args.command, "arms": args.arms, "stage": args.stage, "model": args.model, "smoke": args.smoke,
+    manifest = {"command": args.command, "profile": args.profile, "arms": args.arms, "stage": args.stage, "model": args.model, "smoke": args.smoke,
                 "environment": environment(device), "config_sha256": file_sha256(CONFIG),
                 "lock_sha256": file_sha256(LOCK), "rows": len(rows), "started": time.time()}
     write_atomic(run / manifest_name, json.dumps(manifest, indent=2) + "\n")

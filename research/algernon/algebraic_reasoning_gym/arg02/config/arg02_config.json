@@ -103,5 +103,86 @@
       "rounds": 3
     },
     "note": "tiny random 8-layer Qwen3.5 on CPU; exercises every code path, scores are meaningless"
+  },
+  "profiles": {
+    "nanbeige": {
+      "model_key": "nanbeige",
+      "ff_key": null,
+      "depths": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "block_candidates": [
+        [
+          0,
+          22
+        ]
+      ],
+      "ensemble_variants": [
+        "canonical",
+        "swap",
+        "space",
+        "swap_space",
+        "rot1",
+        "swap_rot1",
+        "space_rot1",
+        "swap_space_rot1",
+        "rot2",
+        "swap_rot2",
+        "space_rot2",
+        "swap_space_rot2",
+        "rot3",
+        "swap_rot3",
+        "space_rot3",
+        "swap_space_rot3"
+      ],
+      "perturb": {
+        "step": 1,
+        "sigma": 0.25,
+        "depth": 8,
+        "readout_steps": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "seed_base": 2026111105
+      },
+      "note": "Nanbeige4.2-3B, natively looped (trained at 2 loops); depth = number of full-stack loops; no same-family feedforward checkpoint on this machine, so the repeated-forward ensemble (m(d) = d forwards, up to 16 prompt variants) is the equal-compute control",
+      "smoke_overrides": {
+        "block_candidates": [
+          [
+            0,
+            2
+          ]
+        ],
+        "depths": [
+          1,
+          2,
+          4
+        ],
+        "shot_options": [
+          0,
+          1
+        ],
+        "perturb": {
+          "step": 1,
+          "sigma": 0.25,
+          "depth": 4,
+          "readout_steps": [
+            1,
+            2,
+            4
+          ],
+          "seed_base": 2026111105
+        },
+        "controller": {
+          "rounds": 3
+        }
+      },
+      "cuda_memory_fraction": 0.8
+    }
   }
 }

@@ -55,12 +55,78 @@ def parity(model, tok, rows, block, op_ids, n):
     return out
 
 
+def nanbeige_check(args):
+    """Hashes, tokenizer contract, prompt lengths and loop-count parity on the real Nanbeige weights."""
+    import torch
+    from .recurrence import extract
+    lock, cfg = load_lock(), load_config(profile="nanbeige")
+    entry = lock["nanbeige"]
+    t0 = time.perf_counter()
+    root = runner.verify_snapshot(entry)
+    report = {"schema": "algernon.arg02.checkpoint_check.v1", "profile": "nanbeige", "device": args.device,
+              "model": {"repo": entry["repo"], "revision": entry["revision"],
+                        "files_verified": sorted(entry["files_sha256"]), "hash_seconds": time.perf_counter() - t0}}
+    from . import nanbeige
+    tok = nanbeige.load_tokenizer(root, entry["bos_token_id"])
+    op_ids = runner.op_token_ids(tok)
+    run = Path(args.run_dir)
+    test = runner.read_public(run / "public" / "test.jsonl")
+    dev = runner.read_public(run / "public" / "development.jsonl")
+    shots = runner.read_shots(run / "public" / "shots.json", max(cfg["shot_options"]))
+
+    def lengths(rows, k):
+        ls = [len(tok.encode_prompt(render(r, shots=shots[:k]))) for r in rows]
+        return {"min": min(ls), "max": max(ls), "mean": sum(ls) / len(ls)}
+    from .prompts import render
+    report["tokenizer"] = {"op_token_ids": op_ids, "bos": entry["bos_token_id"]}
+    report["prompt_tokens"] = {f"{name}_shots{k}": lengths(rows, k) for name, rows in (("test", test), ("development", dev))
+                               for k in cfg["shot_options"]}
+    if args.parity:
+        device = torch.device(args.device)
+        if device.type == "cuda":
+            torch.cuda.set_per_process_memory_fraction(cfg["cuda_memory_fraction"], 0)
+        t0 = time.perf_counter()
+        model, tok = runner.load_model(entry, device)
+        report["load_seconds"] = time.perf_counter() - t0
+        report["model_class"] = type(model).__name__
+        report["parameters"] = sum(p.numel() for p in model.parameters())
+        eng = runner.Engine(model, tok, None, [], device)
+        out = []
+        for row in dev[:args.parity]:
+            ids, plen = eng.rows(row)
+            traj = eng.loop.trajectory(ids, op_ids, 3, readout_steps={1, 2, 3})
+            item = {"case_id": row["case_id"], "tokens": int(ids.shape[1]), "loop_ms": traj["timing"]["block_ms"],
+                    "relative_step": traj["residual"]}
+            for t in (1, 2, 3):
+                model.config.num_loops = t
+                with torch.inference_mode():
+                    h = model.model(input_ids=ids.to(device), use_cache=False).last_hidden_state
+                    ref = extract(torch.log_softmax(model.lm_head(h[:, -3:]).float(), -1), op_ids)
+                mine = traj["records"][t]
+                diff = max(abs(a - b) for k in ("lp1", "lp2", "lp3")
+                           for a, b in zip(torch.tensor(mine[k]).flatten().tolist(), torch.tensor(ref[k]).flatten().tolist()))
+                item[f"loops{t}"] = {"max_abs_logprob_diff": diff,
+                                     "argmax_equal": [mine["g1"], mine["g2"], mine["g3"]] == [ref["g1"], ref["g2"], ref["g3"]]}
+            model.config.num_loops = 2
+            out.append(item)
+        report["parity"] = out
+        if device.type == "cuda":
+            report["peak_allocated_bytes"] = int(torch.cuda.max_memory_allocated())
+    Path(args.out).parent.mkdir(parents=True, exist_ok=True)
+    Path(args.out).write_text(json.dumps(report, indent=2, sort_keys=True) + chr(10), encoding="utf-8", newline=chr(10))
+    print(json.dumps(report, indent=2, sort_keys=True))
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--run-dir", required=True)
     p.add_argument("--out", required=True)
-    p.add_argument("--parity", type=int, default=0, help="rows to run through the real model on CPU")
+    p.add_argument("--parity", type=int, default=0, help="rows to run through the real model")
+    p.add_argument("--profile", choices=["qwen", "nanbeige"], default="qwen")
+    p.add_argument("--device", default="cpu")
     args = p.parse_args()
+    if args.profile == "nanbeige":
+        return nanbeige_check(args)
     lock, cfg = load_lock(), load_config()
     from transformers import AutoTokenizer
     report = {"schema": "algernon.arg02.checkpoint_check.v1", "device": "cpu"}

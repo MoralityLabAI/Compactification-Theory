@@ -71,7 +71,8 @@ def render(receipt, profile):
     for k in ("H1_depth", "H2a_feedback", "H2b_state", "H2b_state_original_shuffle", "H3a_repeat", "H3b_ff",
               "H3c_efficiency", "H4_symbolic", "mechanism_claim"):
         if k in dec:
-            out.append(f"- {k}: **{'met' if dec[k] else 'not met'}**")
+            verdict = "not applicable" if dec[k] is None else ("met" if dec[k] else "not met")
+            out.append(f"- {k}: **{verdict}**")
     dep = receipt["depth"]
     out.append("\n## Depth curve (loop, test positives)\n")
     out.append("| step | future@12 | future@1 | accepted@1 | greedy valid | greedy accepted | median relative residual | median reduction |")

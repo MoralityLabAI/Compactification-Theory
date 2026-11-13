@@ -20,7 +20,7 @@ from spiral_ln import algebraic_reasoning_oracle as oracle
 
 from research.algernon.algebraic_reasoning_gym import external
 from . import flops, scoring, splits, stats
-from .settings import load_config
+from .settings import ff_entry, load_config, model_entry
 
 HERE = Path(__file__).resolve().parent
 CONFIG = HERE / "config" / "arg02_config.json"
@@ -75,6 +75,8 @@ def cmd_export(args):
     write(run / "splits_audit.json", dump(audit))
     manifest = {"sample": args.sample, "files": {p.name: file_sha256(p) for p in sorted((run / "public").iterdir())},
                 "audit_sha256": sha256(json.dumps(audit, sort_keys=True).encode()).hexdigest()}
+    if args.profile != "qwen":
+        manifest["profile"] = args.profile
     write(run / "export_manifest.json", dump(manifest))
     print("exported", len(test), "test and", len(dev), "development rows to", run / "public")
 
@@ -134,9 +136,15 @@ def is_smoke(run):
     return load_json(Path(run) / "export_manifest.json").get("sample") is not None
 
 
+def run_config(run):
+    """Config for a run directory: its export decides smoke and model profile."""
+    manifest = load_json(Path(run) / "export_manifest.json")
+    return load_config(manifest.get("sample") is not None, manifest.get("profile", "qwen"))
+
+
 def cmd_select(args):
     run = Path(args.run_dir)
-    cfg = load_config(is_smoke(run))
+    cfg = run_config(run)
     cases = all_cases()
     ids = public_ids(run, "development")
     ops = op_ids(run)
@@ -210,7 +218,7 @@ def _rounded(rec):
 
 def answer_tape(run, ids, sel, cfg):
     """Every model answer record of the test run, keyed (case, arm, step)."""
-    tape = _tape(run, ids)
+    tape = _tape(run, ids, with_ff=ff_entry(cfg) is not None)
     for item in tape:
         if "record" in item:
             item["record"] = _rounded(item["record"])
@@ -223,7 +231,7 @@ def has_amended_shuffle(run, ids):
     return root.is_dir() and len(list(root.glob("*.json"))) >= len(ids)
 
 
-def _tape(run, ids):
+def _tape(run, ids, with_ff=True):
     tape = []
     loop, _ = load_label(run, "test_loop", ids)
     for cid in ids:
@@ -246,9 +254,10 @@ def _tape(run, ids):
         for t, r in patch[cid]["patches"].items():
             tape.append({"case": cid, "arm": "patch", "step": int(t), "record": r["record"],
                          "donor": patch[cid]["donor"]})
-    ff, _ = load_label(run, "test_ff", ids)
-    for cid in ids:
-        tape.append({"case": cid, "arm": "ff2b", "step": 1, "record": ff[cid]["records"]["1"]})
+    if with_ff:
+        ff, _ = load_label(run, "test_ff", ids)
+        for cid in ids:
+            tape.append({"case": cid, "arm": "ff2b", "step": 1, "record": ff[cid]["records"]["1"]})
     ctl, _ = load_label(run, "test_controller", ids)
     for cid in ids:
         tape.append({"case": cid, "arm": "controller", "step": len(ctl[cid]["tested"]),
@@ -276,7 +285,7 @@ def grade_tape(tape, cases, ops, cfg, sel):
         key = f"{arm}@{item['step']}"
         by.setdefault(key, {})[item["case"]] = _compact(scoring.score_record(case, item["record"], ops))
     block = sel["block"]
-    n = cfg_layers(sel)
+    n = model_entry(cfg)["text_config"]["num_hidden_layers"]
     sizes = flops.ensemble_sizes(n, block, cfg["depths"], len(cfg["ensemble_variants"]))
     for cid, recs in ens.items():
         for d, m in sizes.items():
@@ -284,11 +293,6 @@ def grade_tape(tape, cases, ops, cfg, sel):
             g = scoring.score_scores(cases[cid], scoring.ensemble_scores(chosen), None)
             by.setdefault(f"ensemble@{d}", {})[cid] = _compact(g)
     return by, sizes
-
-
-def cfg_layers(sel):
-    return load_json(LOCK)["model"]["text_config"]["num_hidden_layers"] if not sel.get("smoke") else \
-        load_json(LOCK)["smoke"]["text_config"]["num_hidden_layers"]
 
 
 def write_tape(path, tape):
@@ -372,10 +376,9 @@ def _macs(tc, length, layers, rows=16):
 
 
 def compute_table(run, ids, sel, cfg, grades, sizes, sym, sym_meta):
-    lock = load_json(LOCK)
-    entry = lock["smoke"] if sel.get("smoke") else lock["model"]
-    ff_entry = lock["smoke"] if sel.get("smoke") else lock["ff_control"]
-    tc, tcff = entry["text_config"], ff_entry["text_config"]
+    entry, ffe = model_entry(cfg), ff_entry(cfg)
+    tc = entry["text_config"]
+    tcff = ffe["text_config"] if ffe else None
     block = tuple(sel["block"])
     loop, _ = load_label(run, "test_loop", ids)
     opn, _ = load_label(run, "test_open", ids)
@@ -383,7 +386,7 @@ def compute_table(run, ids, sel, cfg, grades, sizes, sym, sym_meta):
     if has_amended_shuffle(run, ids):
         shuffles.append(("shuffle_a1", load_label(run, "test_shuffle_a1", ids)[0]))
     ens, _ = load_label(run, "test_ensemble", ids)
-    ff, _ = load_label(run, "test_ff", ids)
+    ff = load_label(run, "test_ff", ids)[0] if ffe else None
     ctl, _ = load_label(run, "test_controller", ids)
     per = {}
 
@@ -429,9 +432,10 @@ def compute_table(run, ids, sel, cfg, grades, sizes, sym, sym_meta):
             ms = sum(ev["usage_by_variant"][v]["gpu_ms"] for v in vs)
             tok = sum(16 * ev["usage_by_variant"][v]["length"] for v in vs)
             add(f"ensemble@{d}", cid, macs, ms, tok, sum(ev["usage_by_variant"][v]["layer_evals"] for v in vs), m)
-        fv = ff[cid]
-        add("ff2b@1", cid, _macs(tcff, fv["usage"]["length"], flops.path(tcff)), fv["usage"]["gpu_ms"],
-            16 * fv["usage"]["length"], fv["usage"]["layer_evals"], 1)
+        if ff is not None:
+            fv = ff[cid]
+            add("ff2b@1", cid, _macs(tcff, fv["usage"]["length"], flops.path(tcff)), fv["usage"]["gpu_ms"],
+                16 * fv["usage"]["length"], fv["usage"]["layer_evals"], 1)
         cv = ctl[cid]
         macs = sum(_macs(tc, r["prompt_tokens"] + 2, flops.path(tc)) for r in cv["rounds"])
         tok = sum(16 * (r["prompt_tokens"] + 2) for r in cv["rounds"])
@@ -463,10 +467,11 @@ def compute_table(run, ids, sel, cfg, grades, sizes, sym, sym_meta):
     return summary, per
 
 
-def peaks(run, ids):
+def peaks(run, ids, cfg):
     out = {}
     labels = ["test_loop", "test_perturb", "test_open", "test_shuffle", "test_patch", "test_ensemble",
-              "test_controller", "test_ff"] + (["test_shuffle_a1"] if has_amended_shuffle(run, ids) else [])
+              "test_controller"] + (["test_ff"] if ff_entry(cfg) else []) + \
+        (["test_shuffle_a1"] if has_amended_shuffle(run, ids) else [])
     for label in labels:
         parts, _ = load_label(run, label, ids)
         vals = [v.get("peak_bytes") for v in parts.values() if v.get("peak_bytes") is not None]
@@ -629,16 +634,19 @@ def decisions(cmp, compute, summary, sel, sizes):
         "H2b_state": ok(cmp.get(f"loop@{d}_vs_shuffle_a1@{d}", cmp[f"loop@{d}_vs_shuffle@{d}"])),
         "H2b_state_original_shuffle": ok(cmp[f"loop@{d}_vs_shuffle@{d}"]),
         "H3a_repeat": ok(cmp[f"loop@{d}_vs_ensemble@{d}"]),
-        "H3b_ff": ok(cmp[f"loop@{d}_vs_ff2b@1"]),
+        # None: the profile has no same-family feedforward checkpoint.
+        "H3b_ff": ok(cmp[f"loop@{d}_vs_ff2b@1"]) if f"loop@{d}_vs_ff2b@1" in cmp else None,
         "H3c_efficiency": eff(f"loop@{d}") > eff("loop@1") and eff(f"loop@{d}") > eff(f"ensemble@{d}"),
         "H4_symbolic": summary[f"loop@{d}"]["future12"] >= summary["symbolic:certified_mass_full"]["future12"] and
                        eff(f"loop@{d}") > eff("symbolic:certified_mass_full"),
     }
-    res["mechanism_claim"] = all(res[k] for k in ("H1_depth", "H2a_feedback", "H2b_state", "H3a_repeat", "H3b_ff"))
+    res["mechanism_claim"] = all(res[k] for k in ("H1_depth", "H2a_feedback", "H2b_state", "H3a_repeat", "H3b_ff")
+                                 if res[k] is not None)
     res["efficiency_future12_per_e2e_second"] = {arm: eff(arm) for arm in
                                                  (f"loop@{d}", "loop@1", f"ensemble@{d}", "ff2b@1", "controller",
                                                   "symbolic:certified_mass_full", "symbolic:certified_mass12",
-                                                  "symbolic:exhaustive_64", "symbolic:frozen_gru")}
+                                                  "symbolic:exhaustive_64", "symbolic:frozen_gru")
+                                                 if arm in summary and arm in compute}
     res["selected"] = {"block": sel["block"], "depth": d, "shots": sel["shots"], "ensemble_size": sizes[d]}
     return res
 
@@ -646,7 +654,8 @@ def decisions(cmp, compute, summary, sel, sizes):
 def cmd_report(args):
     run = Path(args.run_dir)
     smoke = is_smoke(run)
-    cfg = load_config(smoke)
+    cfg = run_config(run)
+    has_ff = ff_entry(cfg) is not None
     sel = load_json(run / "selection.json")
     sel["smoke"] = smoke
     cases = all_cases()
@@ -662,10 +671,14 @@ def cmd_report(args):
     d = sel["depth"]
     pairs = [(f"loop@{x}", "loop@1") for x in cfg["depths"] if x > 1]
     pairs += [(f"loop@{d}", f"open@{d}"), (f"loop@{d}", f"shuffle@{d}"), (f"loop@{d}", f"ensemble@{d}"),
-              (f"loop@{d}", "ff2b@1"), ("controller", "loop@1"), (f"loop@{d}", "symbolic:certified_mass12"),
+              ("controller", "loop@1"), (f"loop@{d}", "symbolic:certified_mass12"),
               (f"loop@{d}", "symbolic:certified_mass_full"), (f"loop@{d}", "symbolic:exhaustive_64"),
               ("loop@1", "symbolic:frozen_gru"), ("loop@1", "symbolic:frozen_ff"),
-              ("loop@1", "symbolic:certified_mass12"), ("ff2b@1", "loop@1")]
+              ("loop@1", "symbolic:certified_mass12")]
+    if has_ff:
+        pairs += [(f"loop@{d}", "ff2b@1"), ("ff2b@1", "loop@1")]
+    if 2 in cfg["depths"] and d != 2:
+        pairs += [(f"loop@{d}", "loop@2")]
     pairs += [(f"open@{x}", "loop@1") for x in cfg["depths"] if x > 1]
     pairs += [(f"shuffle@{x}", "loop@1") for x in cfg["depths"] if x > 1]
     if f"shuffle_a1@{d}" in grades:
@@ -679,12 +692,11 @@ def cmd_report(args):
     for item in tape:
         if "record" in item:
             tape_index[(item["arm"], str(item["step"]), item["case"])] = item["record"]
-    lock = load_json(LOCK)
-    entry = lock["smoke"] if smoke else lock["model"]
+    entry, ffe = model_entry(cfg), ff_entry(cfg)
     receipt = {
-        "schema": RESULT_SCHEMA, "smoke": smoke, "op_ids": ops,
+        "schema": RESULT_SCHEMA, "smoke": smoke, "op_ids": ops, "profile": cfg["profile"],
         "model": {k: entry[k] for k in ("repo", "revision", "dtype") if k in entry},
-        "ff_control": {k: (lock["smoke"] if smoke else lock["ff_control"])[k] for k in ("repo", "revision")},
+        "ff_control": {k: ffe[k] for k in ("repo", "revision")} if ffe else None,
         "selection": {k: sel[k] for k in ("shots", "block", "depth", "dev_gain", "dev_future12_selected",
                                           "dev_future12_depth1") if k in sel},
         "ensemble_sizes": {str(k): v for k, v in sizes.items()},
@@ -698,7 +710,7 @@ def cmd_report(args):
         "probes": probe_analysis(run, ids, cases, sel, cfg),
         "external_crosscheck": external_crosscheck(grades, ids, cases, entry["revision"], run / "arg01_external.jsonl"),
     }
-    profile = {"schema": "algernon.arg02.profile.v1", "compute": compute, "peak_allocated_bytes": peaks(run, ids),
+    profile = {"schema": "algernon.arg02.profile.v1", "compute": compute, "peak_allocated_bytes": peaks(run, ids, cfg),
                "manifests": {p.name: load_json(p) for p in sorted(run.glob("manifest_*.json"))},
                "timing_scope": "CUDA-event timings per segment; a depth-d latency is prelude + d block steps + its readout, "
                                "measured inside the combined trajectory; verifier time is this machine's CPU wall time at grading"}
@@ -723,7 +735,7 @@ def cmd_replay(args):
     tape = read_tape(args.tape)
     if file_sha256(args.tape) != receipt["answer_tape_sha256"]:
         raise SystemExit("answer tape differs from receipt")
-    cfg = load_config(receipt["smoke"])
+    cfg = load_config(receipt["smoke"], receipt.get("profile", "qwen"))
     sel = dict(receipt["selection"])
     sel["smoke"] = receipt["smoke"]
     cases = all_cases()
@@ -745,6 +757,7 @@ def main(argv=None):
     p.add_argument("--run-dir")
     p.add_argument("--stage", choices=["shots", "blocks"])
     p.add_argument("--sample", type=int)
+    p.add_argument("--profile", choices=["qwen", "nanbeige"], default="qwen", help="export: model profile of the run")
     p.add_argument("--out")
     p.add_argument("--allow-partial", action="store_true")
     p.add_argument("--tape")

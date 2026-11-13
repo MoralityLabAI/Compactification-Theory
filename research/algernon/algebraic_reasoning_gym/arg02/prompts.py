@@ -22,7 +22,19 @@ HEADER = (
     "Find the program that maps both inputs to their outputs.\n"
 )
 
-VARIANTS = ("canonical", "swap", "space", "swap_space")
+BASE_VARIANTS = ("canonical", "swap", "space", "swap_space")
+# Rotations reorder the in-context shots; "rotK" alone is the canonical case block.
+VARIANTS = BASE_VARIANTS + tuple((f"rot{r}" if v == "canonical" else f"{v}_rot{r}")
+                                 for r in (1, 2, 3) for v in BASE_VARIANTS)
+
+
+def parse_variant(variant):
+    """(swap demos, space separators, shot rotation) of a variant name."""
+    if variant not in VARIANTS:
+        raise ValueError("unknown prompt variant")
+    base, _, rot = variant.partition("rot")
+    base = base.rstrip("_") or "canonical"
+    return base in ("swap", "swap_space"), base in ("space", "swap_space"), int(rot) if rot else 0
 
 
 def _check_public(row, allowed):
@@ -42,18 +54,17 @@ def _series(values, sep):
 
 
 def case_block(row, *, variant="canonical", program=None, feedback=()):
-    if variant not in VARIANTS:
-        raise ValueError("unknown prompt variant")
-    sep = " " if variant in ("space", "swap_space") else ", "
+    swap, space, _ = parse_variant(variant)
+    sep = " " if space else ", "
     demos = list(row["demos"])
-    if variant in ("swap", "swap_space"):
+    if swap:
         demos = demos[::-1]
     lines = [f"\nTopology: {row['topology']}"]
     for i, demo in enumerate(demos, 1):
         lines.append(f"Input {i}: {_series(demo['input'], sep)}")
         lines.append(f"Output {i}: {_series(demo['output'], sep)}")
     for item in feedback:
-        lines.append(feedback_line(item, swapped=variant in ("swap", "swap_space")))
+        lines.append(feedback_line(item, swapped=swap))
     text = "\n".join(lines) + TAIL
     if program is not None:
         text += "".join(OP_TEXT[op] for op in program) + "\n"
@@ -76,7 +87,8 @@ def render(row, *, shots=(), variant="canonical", feedback=()):
     """Full prompt text for one public record. `shots` are solved shot records."""
     _check_public(row, PUBLIC_FIELDS)
     text = HEADER
-    for shot in shots:
+    rot = parse_variant(variant)[2] % len(shots) if shots else 0
+    for shot in list(shots[rot:]) + list(shots[:rot]):
         _check_public(shot, SHOT_FIELDS)
         if "program" not in shot:
             raise ValueError("shot without program")

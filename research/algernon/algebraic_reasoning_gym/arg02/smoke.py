@@ -14,16 +14,18 @@ from pathlib import Path
 from . import analyze, runner
 
 
-def run(run_dir, sample=2):
+def run(run_dir, sample=2, profile="qwen"):
     run_dir = Path(run_dir)
     out = run_dir / "results"
-    analyze.main(["export", "--run-dir", str(run_dir), "--sample", str(sample)])
-    runner.main(["dev", "--run-dir", str(run_dir), "--stage", "shots", "--smoke"])
+    common = ["--run-dir", str(run_dir), "--smoke", "--profile", profile]
+    analyze.main(["export", "--run-dir", str(run_dir), "--sample", str(sample), "--profile", profile])
+    runner.main(["dev", "--stage", "shots"] + common)
     analyze.main(["select", "--run-dir", str(run_dir), "--stage", "shots"])
-    runner.main(["dev", "--run-dir", str(run_dir), "--stage", "blocks", "--smoke"])
+    runner.main(["dev", "--stage", "blocks"] + common)
     analyze.main(["select", "--run-dir", str(run_dir), "--stage", "blocks"])
-    runner.main(["test", "--run-dir", str(run_dir), "--smoke"])
-    runner.main(["test", "--run-dir", str(run_dir), "--smoke", "--model", "ff"])
+    runner.main(["test"] + common)
+    if profile == "qwen":
+        runner.main(["test", "--model", "ff"] + common)
     analyze.main(["report", "--run-dir", str(run_dir), "--out", str(out)])
     analyze.main(["replay", "--tape", str(out / "arg02_answer_tape.jsonl.gz"),
                   "--check", str(out / "arg02_receipt.json")])
@@ -34,8 +36,9 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--run-dir", required=True)
     p.add_argument("--sample", type=int, default=2)
+    p.add_argument("--profile", choices=["qwen", "nanbeige"], default="qwen")
     args = p.parse_args()
-    print("smoke results in", run(args.run_dir, args.sample))
+    print("smoke results in", run(args.run_dir, args.sample, args.profile))
 
 
 if __name__ == "__main__":
