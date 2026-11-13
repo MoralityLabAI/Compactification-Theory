@@ -133,6 +133,37 @@ def generate_tests()->list[dict]:
     return output
 
 
+def simple_legal_success_rate(rows:list[dict],method:str)->dict[str,dict]:
+    """First observed fixed-seed non-neural baseline; no test-case selection."""
+    if method not in ("random_legal","goal_first"):
+        raise ValueError(method)
+    result={}
+    for split in TEST_SPECS:
+        items=[x for x in rows if x["split"]==split and x["label"]=="established"]
+        hits=0
+        for case in items:
+            digest=hashlib.sha256(case["case_id"].encode()).digest()
+            rng=random.Random(2917+int.from_bytes(digest[:4],"big"))
+            known=set(case["facts"])
+            for _ in range(train.ACTION_BUDGET):
+                if case["goal"] in known:
+                    break
+                options=[j for j,rule in enumerate(case["rules"])
+                         if rule["head"] not in known and set(rule["premises"])<=known]
+                if not options:
+                    break
+                goals=[j for j in options if case["rules"][j]["head"]==case["goal"]]
+                if method=="goal_first" and goals:
+                    selected=min(goals)
+                else:
+                    selected=rng.choice(options)
+                known.add(case["rules"][selected]["head"])
+            hits+=int(case["goal"] in known)
+        result[split]={"correct":hits,"total":len(items),
+                       "positive_recall":round(hits/len(items),6)}
+    return result
+
+
 def audit_tests(rows:list[dict],*,train_rows:list[dict]|None=None)->dict:
     if train_rows is None:
         train_rows=train.generate_train_dev()
@@ -170,7 +201,9 @@ def audit_tests(rows:list[dict],*,train_rows:list[dict]|None=None)->dict:
             "negatives":sum(x["label"]=="refuted" for x in rows),
             "distinct_WL_graphs":len(seen),
             "overlap_count":0,"max_proof_actions":train.ACTION_BUDGET,
-            "positive_max_reachable_novelties":10}
+            "positive_max_reachable_novelties":10,
+            "first_observed_random_control":simple_legal_success_rate(rows,"random_legal"),
+            "first_observed_goal_first_control":simple_legal_success_rate(rows,"goal_first")}
 
 
 def main():
