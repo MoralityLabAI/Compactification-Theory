@@ -166,6 +166,36 @@ not FLOP-normalized measurements or an estimate
 of cross-device variance. The archival JSON
 contains the recorded CPU cost and raw traces.
 
+## Separate post-hoc unary-path control
+
+After the first frozen model test, a
+[post-hoc structural audit](../fc07/POSTHOC_UNARY.md)
+identified another simple symbolic
+solution. The canonical goal chain is
+made of **single-premise implications**;
+the alternative goal producers that
+confused full backward ancestry all
+use conjunctions. Breadth-first search
+in the unary-rule subgraph finds the
+real goal path in at most five steps.
+
+[Independent post-hoc CI #43424550518](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43424550518)
+passed four regression tests and
+compiled **192/192** such positive
+proofs in Lean 4.19.0, with zero
+parameters, zero neural cell
+invocations and no false certificates.
+
+This stronger non-neural method
+was discovered *after* the originally
+registered test, so it does not alter
+FC-07's frozen learned-vs-backward-
+slice criterion. It materially limits
+any claim of general neural proof-
+search superiority: the source
+grammar retains an exact and cheaper
+unary-graph shortcut.
+
 ## Meaning and limitations
 
 This is the first RefutationBench FC experiment
