@@ -190,6 +190,37 @@ oracle remains the appropriate
 baseline for this small finite
 Horn fragment.
 
+## FC-10: actual Lean goal states and tactic compilation
+
+The [FC-10 experiment](fc10/README.md)
+moves from finite Horn graph simulation
+to **real Lean 4.19.0 tactic-state
+output**. CI compiled 156 training/
+development theorem references and
+48 virgin held-out references, saving
+the elaborator's printed goal state
+for each. A compact LR-01 model
+was trained directly on those goal
+texts and its tactic selections
+were checked by a fresh Lean
+compiler process on each original
+theorem.
+
+The [first frozen result](results/fc10_real_lean_tactic_states_20261113.md)
+found **31–35/48** kernel-accepted
+one-tactic proofs for the four
+LR-01 arms, compared with
+**36/48** for a train-only lexical
+control and **48/48** for
+Lean-native full tactic search.
+No model solved the unfamiliar
+list-associativity tactic family.
+The preregistered learning
+criterion failed. These are
+small generated Lean theorems;
+importing real research proof
+obligations remains a later stage.
+
 ## Run from the repository root
 
 ```bash
