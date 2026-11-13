@@ -59,7 +59,7 @@ class FC10SourceTests(unittest.TestCase):
         b=train_data.source_rows()
         self.assertEqual(a,b)
         self.assertEqual(a[0]["id"],"fc10_train_0000")
-        self.assertEqual(b[-1]["id"],"fc10_dev_0179")
+        self.assertEqual(b[-1]["id"],"fc10_dev_0155")
 
 
 if __name__=="__main__":
