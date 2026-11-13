@@ -88,6 +88,36 @@ the original source-only pre-model receipt reports:
 The held-out source cases were **not** changed after measuring these
 controls. The zero-neural stronger A* is the key comparison.
 
+## First frozen neural comparison
+
+[First correctly pinned model CI #43449947846](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43449947846)
+passed both dependent jobs and Lean-compiled **324
+model-selected positive theorem terms**,
+with another **383** verified negative
+countermodels and zero false finite
+formal certificates across 768
+seed/case evaluations.
+
+| Test group | Learned seed 17 | Learned seed 29 | CPU-budgeted symbolic h-max |
+| --- | ---: | ---: | ---: |
+| Familiar | 96/96 | 96/96 | **96/96** |
+| Deep | 64/96 | 68/96 | **96/96** |
+
+The **learning and CPU-efficiency criteria
+both failed**. The symbolic AND/OR search
+used only **9.2–13.5%** of its time allowance,
+with zero timeout or overrun, and its
+full CPU-runner time per case was
+approximately 4.5–4.8 ms versus
+9.2–11.3 ms for the learned actor.
+The [first-run results ledger](../results/fc09_cpu_matched_andor_20261113.md)
+records every paired comparison,
+exact source hash, CPU budget and
+Lean proof receipt. The time match
+was a *maximum allowance*, and this
+stronger symbolic algorithm solved
+all valid cases well below it.
+
 ## Per-case CPU-time matching
 
 The neural model follows the original FC-08 recipe: an 11,521-parameter
