@@ -88,6 +88,12 @@ def _draw(rng: random.Random, family: str, depth: int, good: bool) -> dict:
     for _ in range(rng.randint(2, 5)):
         head = rng.choice((h1,h2))
         choices = [guard, h1, h2, rng.randrange(depth)]
+        if not good and family == "fork_join" and head == h2:
+            # A decoy must not accidentally repair the missing fork.
+            choices = [guard, h2]
+        if not good and family == "anchored_cycle":
+            # Cyclic evidence remains unanchored in negative cases.
+            choices = [guard, h1, h2]
         prem = [rng.choice(choices)]
         if rng.random() < .35:
             prem.append(rng.choice(choices))
