@@ -10,7 +10,9 @@ from reference import (
     hidden_fourier, hidden_sensitivity, hidden_sign, lifted_fourier,
     lifted_sign, majority5_fourier, majority5_sign, rubinstein16,
     selector_global_singleton_sum, selector_sign, sensitive_zero_blocks,
-    smallest_parity_lift_check,
+    smallest_parity_lift_check, adaptive_unpaired_transcript,
+    conditional_unpaired_law, conditional_completed_pair_law,
+    adaptive_probe_control,
 )
 
 
@@ -103,6 +105,37 @@ class FiniteFourierProbes(unittest.TestCase):
         self.assertEqual(1-mu**2-(1-mu**2-c**2),c**2)
         self.assertGreater(c**2,Q(1,3))
         self.assertGreater(1-mu**2-c**2,0)
+
+    def test_unpaired_adaptive_transcript_exact_no_information(self):
+        for n in (1,2,3,4,5):
+            reference=conditional_unpaired_law(n,0)
+            self.assertEqual(len(reference),1<<n)
+            self.assertEqual(sum(reference.values()),1)
+            for z in range(1<<n):
+                self.assertEqual(conditional_unpaired_law(n,z),reference)
+        report=adaptive_probe_control(5)
+        self.assertEqual(report["conditional_source_states_checked"],62)
+        self.assertTrue(report["adaptive_unpaired_transcripts_source_independent"])
+
+    def test_single_completed_pair_proves_one_hidden_bit(self):
+        for n in range(1,6):
+            for i in range(n):
+                for z in range(1<<n):
+                    law=conditional_completed_pair_law(n,z,i)
+                    self.assertEqual(sum(law.values()),1)
+                    for (a,b),prob in law.items():
+                        self.assertEqual(a^b,(z>>i)&1)
+                        self.assertEqual(prob,Q(1,2))
+            self.assertFalse(
+                set(conditional_completed_pair_law(n,0)) &
+                set(conditional_completed_pair_law(n,1)))
+
+    def test_adaptive_probe_side_selection_uses_prior_result(self):
+        # First x_0 determines whether index 1 is read from x or y.
+        self.assertEqual(adaptive_unpaired_transcript(2,0,3),
+                         ((0,0,0),(0,1,0)))
+        self.assertEqual(adaptive_unpaired_transcript(2,1,2),
+                         ((0,0,1),(1,1,1)))
 
     def test_frozen_source_reference_receipt(self):
         r=exact_controls()
