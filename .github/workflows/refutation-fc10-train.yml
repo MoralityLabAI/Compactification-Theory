@@ -24,6 +24,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout immutable ORIGINAL train-only source in a separate path
+        uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/Compactification-Theory
+          ref: 631ccbb1dd393d2608b5d2c7e154aeb3ce5099b0
+          path: _fc10_train_only
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -32,9 +39,10 @@ jobs:
           python -m unittest research.refutation_bench.tests.test_fc10_source -v
       - name: Generate Lean TRAIN/DEV source and metadata before test generator exists
         run: |
-          python -m research.refutation_bench.fc10.train_data \
-            --out-dir /tmp/fc10_train_dev
-          test ! -e research/refutation_bench/fc10/test_data.py
+          test "$(git -C _fc10_train_only rev-parse HEAD)" = 631ccbb1dd393d2608b5d2c7e154aeb3ce5099b0
+          test ! -e _fc10_train_only/research/refutation_bench/fc10/test_data.py
+          (cd _fc10_train_only && python -m research.refutation_bench.fc10.train_data \
+            --out-dir /tmp/fc10_train_dev)
       - name: Install pinned Lean 4.19.0
         run: |
           curl --fail --location --retry 3 \
@@ -46,9 +54,9 @@ jobs:
         run: |
           lean /tmp/fc10_train_dev/TrainDev.lean 2>&1 | tee /tmp/fc10_train_dev/lean_actual_states.log
           if grep -E 'error:|sorryAx' /tmp/fc10_train_dev/lean_actual_states.log; then exit 1; fi
-          python -m research.refutation_bench.fc10.train_data \
+          (cd _fc10_train_only && python -m research.refutation_bench.fc10.train_data \
             --out-dir /tmp/fc10_train_dev \
-            --extract-log /tmp/fc10_train_dev/lean_actual_states.log
+            --extract-log /tmp/fc10_train_dev/lean_actual_states.log)
       - name: Check 156 actual Lean goal states parsed
         run: |
           python - <<'PY'
