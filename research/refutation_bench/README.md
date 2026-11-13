@@ -63,6 +63,22 @@ An [LR-01 recurrent student trained on the combined suite in GitHub Actions](res
 
 The [FC-02 formal curriculum](formal_curriculum/README.md) generates 1,536 balanced Horn-logic problems, with 768 positive Lean-compiled theorems and 768 independently verified finite countermodels. A [separate actual LR-01 recurrent training experiment](results/fc02_lr01_depth_extrapolation.md) measured depth and family transfer with 11,521 parameters. Both training seeds went from 50% OOD verdict accuracy at four inference passes to 85–88% at twelve passes, using unchanged weights. The results are on a public synthetic fragment, and the 8/12-pass follow-up was exploratory after an initial failure. The original benchmark seed, sourced cases and immutable baseline receipt remain independent.
 
+## FC-05: bidirectional exact certificates
+
+The [FC-05 source](fc05/README.md) and
+[first frozen model results](results/fc05_dual_certificates_20261113.md)
+add model-selected Horn inference traces, an independent strict
+proof replay checker and Lean 4.19.0 kernel compilation of all
+accepted positive terms. The first end-to-end run compiled **318
+model-selected proof terms**, issued **369** separately checked
+negative countermodels across two seeds and two held-out depth
+groups, and emitted zero false finite formal certificates.
+[Post-hoc analysis](fc05/POSTHOC_SATURATION.md) found the ten-rule
+budget is large enough for **every legal rule ordering** to complete
+valid proofs, so the trained proof head tied the random and
+goal-first baselines. This is certified acquisition infrastructure,
+with no measured learned proof-selection advantage.
+
 ## Run from the repository root
 
 ```bash
