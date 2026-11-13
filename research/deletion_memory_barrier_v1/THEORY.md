@@ -409,3 +409,61 @@ an *output-ranking diagnostic* from a learned model and not
 a measurement of its hidden chain of thought. Exact deletion
 laws and bounded-state reconstruction are compared to the
 prior-mass ceiling on that finite dataset.
+
+
+## 10. DMB-9: Protected first evidence has monotone recovery
+
+A common finite-state implementation risk is overwriting useful
+evidence with later low-information observations. The deterministic
+rolling monitor in the reference uses the update
+\(s\mapsto (3s+\mathrm{code}(t)+1)\bmod2^B\).
+Its Bayes-recovery accuracy need not be monotone in the number
+of traces because the terminal state can forget earlier evidence.
+
+Define a guarded monitor with states \(\{0,\ldots,2^B-1\}\).
+State zero means no nonempty trace has yet been seen. On the
+first nonempty deletion trace t, map it through any fixed
+hash \(g(t)\in\{1,\ldots,2^B-1\}\); keep that nonzero state
+unchanged thereafter. A static MAP decoder uses a declared
+prior over the source words. The hash, decoder table and
+their description lengths are charged outside mutable state.
+
+Let \(e=q^n\), the probability that a single trace is empty.
+This is independent of the source word, for all length-n
+source words. Let \(\pi_\star=\max_x\pi(x)\), and define \(A_g\)
+as the optimal MAP success from the protected hash of a
+single trace conditioned on that trace being nonempty.
+
+For m independent deletion traces,
+
+\[
+\boxed{
+P_{\mathrm{guarded}}(m)
+=e^m\pi_\star+(1-e^m)A_g.
+}\tag{DMB-9}
+\]
+
+**Proof.** The event that all m traces are empty has probability
+\(e^m\) for every source. In that event, the terminal state is
+zero and the best decoder succeeds with prior mass \(\pi_\star\).
+Otherwise, the first nonempty trace has precisely the
+single-trace distribution conditional on nonemptiness, because
+the independent geometric waiting time factors out. The
+terminal nonzero state thus yields MAP success \(A_g\),
+independent of m. Multiply by the two event probabilities.
+Since the decoder could ignore the hash and always guess
+the most likely word, \(A_g\ge\pi_\star\). Consequently
+\(P_{\mathrm{guarded}}(m)\) is nondecreasing in m and converges
+to \(A_g\). QED.
+
+At q=1 all traces are empty and success stays at
+\(\pi_\star\). With q<1, the gap to the plateau decays
+exactly as \(q^{nm}\). The finite Fraction implementation
+checks the explicit streaming-state Markov chain against this
+formula and compares it to the overwriting rolling hash.
+
+This theorem provides a concrete experiment for a monitor
+that protects earlier evidence. It proves monotonicity for
+this particular update grammar and fixed source prior.
+A stateful neural monitor or another hash transition can
+have different behavior and must be evaluated independently.
