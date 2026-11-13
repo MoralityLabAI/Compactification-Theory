@@ -100,6 +100,24 @@ simple symbolic dependency algorithm is stronger on this corpus.
 Broader conclusions require a follow-up that preregisters a
 nontrivial reverse-slice control.
 
+## FC-07: proof selection against misleading goal ancestry
+
+The [FC-07 corpus](fc07/README.md) adds alternative
+producers, shared decoy subgoals and syntactic
+cycles so a backward goal slice contains reachable
+distractions. The [first frozen model evaluation](results/fc07_misleading_ancestry_20261113.md)
+compiled **352 student-selected Lean proof terms**
+and verified 379 negative countermodels across
+two seeds and two held-out depths, with zero
+false finite formal certificates. The learned
+LR-01 actor beat a **preregistered symbolic
+backward-slice** baseline across all conditions.
+The separate CPU efficiency criterion failed
+at familiar depth, where the symbolic
+baseline remained cheaper per certificate.
+Exact shortest-proof search remains a
+100%-correct symbolic upper bound.
+
 ## Run from the repository root
 
 ```bash
