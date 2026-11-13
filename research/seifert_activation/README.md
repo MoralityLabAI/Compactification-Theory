@@ -1,6 +1,6 @@
 # SCM-01: Seifert-surface compactification and recurrent mechinterp
 
-**Status (2026-11-13):** mathematical proposal plus executed *synthetic, exact-algebra* CPU tests. No neural activation data, no surface isotopy certificate, no GPU experiments and no claims of hidden knots in a model. The code implements the **closed-braid boundary layer**, not the 4-dimensional Seifert-surface layer.
+**Status (2026-11-13):** mathematical proposal plus executed *synthetic, exact-algebra* CPU tests. No neural activation data, no surface isotopy certificate, no GPU experiments and no claims of hidden knots in a model. The code implements the **closed-braid boundary layer and the combinatorics of its canonical Seifert-algorithm surface**; it does not certify isotopy of surfaces in four dimensions.
 
 ## Why Miller's theorem matters
 
@@ -30,6 +30,12 @@ Given the Artin word `beta`, compute its reduced Burau representation `rho(beta)
 
 where `~` means equal up to multiplication by a unit `±t^k`. For a chosen Seifert surface with matrix `V`, also `Delta_L(t) ~ det(V - t V^T)`. These are invariants of the **boundary link**, and in particular *cannot* distinguish two Miller-type spanning surfaces with the same link. The first stage must establish the measurement's reliability before a surface-level experiment is sensible.
 
+For the **canonical Seifert-algorithm surface** of a braid presentation with `n` initial Seifert disks and `c` crossing bands, `chi = n-c`. If the crossing-band graph has `C` connected surface components and the braid closure has `mu` boundary components, its total genus is
+
+    g = (2*C - mu - n + c)/2.
+
+The code computes this genus exactly from a braid word, without requiring an explicit triangulated surface. For example, `sigma_1` and `sigma_1 sigma_1 sigma_1^-1` both close to the unknot, with Alexander polynomial 1, yet their *canonical constructed surfaces* have respective genera 0 and 1. The second presentation carries a canceling crossing pair whose Seifert-algorithm surface adds a handle. This is presentation-dependent and is *not* a knot invariant. It is an elementary same-boundary/different-surface control; Miller's same-boundary **and same-genus** examples demand subtler invariants.
+
 **Interpretation bound:** this construction measures a link in the *fixed 2D measurement chart plus the intervention angle*. It is not a knot invariant of the original high-dimensional hidden-state manifold. Linear mixing or arbitrary projection changes can change the link type. Evaluate a frozen ensemble of charts, report their disagreement, and reject near-collision / unresolved over-under cases. With finite angle sampling, even a collision-free sampled piecewise-linear braid is not a certificate for an unknown continuous neural path without separate derivative/Lipschitz bounds.
 
 ## Layer 2: same-boundary explanation surfaces in four dimensions
@@ -46,8 +52,8 @@ Let `C` denote a *verified* discrete class of a set of finitely many histories, 
 
 ## SCM-01 executable reference
 
-- `knot.py`: exact reduced Burau matrices, normalized Alexander polynomial over `Z[t,t^-1]`, conservative piecewise-linear crossing extraction, synthetic braid fixtures. Requires Python 3.11+ and `sympy`.
-- `tests/test_knot.py`: trefoil, figure-eight, Hopf link, unlink, braid relations, Markov stabilization, conjugation, trace extraction, affine-chart robustness, malformed open boundary and unresolved crossing.
+- `knot.py`: exact reduced Burau matrices, normalized Alexander polynomial over `Z[t,t^-1]`, canonical Seifert-surface Euler/genus statistics, conservative piecewise-linear crossing extraction, synthetic braid fixtures. Requires Python 3.11+ and `sympy`.
+- `tests/test_knot.py`: trefoil, figure-eight, Hopf link, unlink, exact surface genus, canceling-band genus counterexample, braid relations, Markov stabilization, conjugation, trace extraction, affine-chart robustness, malformed open boundary and unresolved crossing.
 - Run: `python -m unittest discover -s research/seifert_activation/tests -v` from repository root.
 - Synthetic fixtures validate code for *known mathematical braids*. They are not mechanistic evidence.
 
