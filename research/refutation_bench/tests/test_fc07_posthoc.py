@@ -53,10 +53,8 @@ class UnaryControlTests(unittest.TestCase):
         self.assertEqual(len(trace),5)
         broken=deepcopy(task)
         idx=trace[2]
-        broken["rules"][idx]["premises"]=["P11",task["rules"][idx]["premises"][0]]
-        # May coincide with a real guard name after random renaming.
-        # More robustly delete the chosen unary producer altogether.
-        broken=deepcopy(task)
+        # Remove a backbone unary rule and ask the restricted path
+        # policy to find a proof without repairing the graph.
         broken["rules"].pop(idx)
         # Other unary shortest paths cannot prove the goal in this source
         # construction: conjunctive alternative producers are omitted.
