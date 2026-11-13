@@ -22,3 +22,33 @@ The source papers' compact doubling witness is not reproduced by these finite ch
 [PROTOCOL.md](PROTOCOL.md) defines the future-observation metric experiment, owned separately from RC-01, IC-01, IRC-02 and SUD-01.
 
 The independently kernel-checked discrete bridge is in [MathCan PR #31](https://github.com/patrickdugan/MathCan/pull/31). It covers the integer one-sixth clearance and full-prefix recovery lemmas only.
+
+
+## Executed extensions: RC-01B and trained RRC-25
+
+[FHC-01B results](RESULTS_B.md) derive and measure the gap between
+exact semantic binary memory and the Euclidean dimension required
+for preserving full future-observation distances. The six-bit
+primitive looper needs just six predictive bits at horizon 63,
+while its exact 64-state future-trace isometry requires 63 real
+coordinates. A 48/16 calibration/heldout PCA split has the
+full-regular-simplex unseen-state collapse proved by FHC-8.
+The frozen CI pilot includes PCA, Gaussian projection and exact
+binary quotient comparisons with held-out pair witnesses.
+
+[FHC-01C results](RESULTS_C.md) evaluate the existing source-locked
+1,000-parameter RRC-25 trained recurrent GRU checkpoint. The
+benchmark [protocol](PROTOCOL_RRC25.md) defines a fixed zero-input
+recurrent continuation and measures the geometry of future logits.
+At horizon 16 the native hidden-state 12-coordinate norm exhibits
+39.528 worst-pair distortion on the frozen held-out cases, versus
+1.230 for a 12-coordinate PCA of future-logit traces fitted on
+separate dev cases. The latter has a significant future-computation
+and projection-description cost, which is charged in the receipt.
+
+All results retain distinct evidence labels: exact finite theorem,
+synthetic recurrent pilot, and trained-model retrospective geometry.
+They are not a construction of the #098 compact doubling counterexample.
+The companion [MathCan Lean PR #31](https://github.com/patrickdugan/MathCan/pull/31)
+checks the discrete one-sixth tolerance lemma, full-horizon prefix
+recovery and an explicit six-bit observable-mask orbit.
