@@ -79,6 +79,27 @@ valid proofs, so the trained proof head tied the random and
 goal-first baselines. This is certified acquisition infrastructure,
 with no measured learned proof-selection advantage.
 
+## FC-06: actual learned proof-rule choice under a binding budget
+
+The [FC-06 strict five-rule curriculum](fc06/README.md) generates 768
+training, 192 development and 384 new held-out cases. Every valid goal
+has a minimal proof of at most five novel rule applications, while the
+graph contains ten reachable new consequences. The
+[first frozen neural experiment](results/fc06_strict_five_step_20261113.md)
+produced **384 Lean-compiled model-selected positive proof terms**
+over two seeds, and checker-verified negatives, with zero false
+finite formal certificates. The learned policy outperformed the
+preregistered random and goal-first rule selectors on all four
+held-out seed/split combinations.
+
+A [post-hoc syntactic backward-goal-slice control](fc06/POSTHOC_BACKWARD_SLICE.md)
+also certifies every test positive with zero neural parameters, so
+FC-06 provides a verified model-selection transfer result against
+the registered heuristics and simultaneously shows that a
+simple symbolic dependency algorithm is stronger on this corpus.
+Broader conclusions require a follow-up that preregisters a
+nontrivial reverse-slice control.
+
 ## Run from the repository root
 
 ```bash
