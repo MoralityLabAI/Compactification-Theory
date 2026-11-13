@@ -365,3 +365,47 @@ plateaus as extra deletion traces arrive, while a decoder
 retaining full traces continues improving. Deletion-deck
 collisions identify cases where even unlimited memory requires
 many observations.
+
+
+## 9. DMB-8: optimal terminal-cardinality bound for structured priors
+
+Let X range over a finite source support
+\(\{x_1,\ldots,x_K\}\) with probabilities
+\(\pi_1\ge\pi_2\ge\cdots\ge\pi_K>0\).
+The decoder is permitted a terminal alphabet of at most S values,
+and independent public randomness. Then
+
+\[
+\boxed{
+P(\widehat X=X)\le
+\sum_{j=1}^{\min(S,K)}\pi_j.
+}\tag{DMB-8}
+\]
+
+**Proof.** Condition on all independent decoder randomness so
+the final decoder is a function from the S terminal messages
+to source words. Its range contains at most S distinct words.
+On any word outside that range, exact recovery is impossible.
+For words inside, each conditional correct-reconstruction
+probability is at most one. Their total prior probability is
+at most the sum of the S largest atoms. Average over decoder
+randomness. A randomized monitor changes the conditional
+success probabilities but cannot enlarge the decoder's range.
+QED.
+
+This recovers DMB-1 when the support has K=2^n equal atoms.
+For an empirical prior with repeated structured traces,
+DMB-8 is the appropriate ceiling; its effective ceiling
+depends on the *largest source probabilities*, not on the
+literal length of the binary trace.
+
+The finite empirical study in DMB-01B uses ranked candidate
+symbols from an existing source-locked 1,000-parameter RRC-25
+GRU. Each symbol is a four-bit candidate ID; two top-ranked
+candidates yield an eight-bit monitoring word. The source
+distribution is the empirical distribution of the source-generated
+words across a frozen set of held-out RRC-25 cases. This is
+an *output-ranking diagnostic* from a learned model and not
+a measurement of its hidden chain of thought. Exact deletion
+laws and bounded-state reconstruction are compared to the
+prior-mass ceiling on that finite dataset.
