@@ -1,0 +1,117 @@
+{
+  "cases": {
+    "FF-U_beta_0.01": {
+      "clean_post_tube_max": [
+        "309964686619468418734384990788431337667333797783/649037107316853453566312041152512000000000000000000",
+        "630875620966467737642216377946078578186431360737/649037107316853453566312041152512000000000000000000",
+        "117232068663605554370396992430951783031994093977/81129638414606681695789005144064000000000000000000"
+      ],
+      "derived_clean_local_pair_upper": [
+        "0",
+        "813/40000000000",
+        "30423/1000000000000"
+      ],
+      "independently_derived_clean_centers": true,
+      "injection_amplitude_upper": "3051606893360210278634620710994261593256802238936983/12980742146337069071326240823050240000000000000000000000",
+      "input_error_max": "71/500000000000000000",
+      "source_global_pair_upper": [
+        "0",
+        "14510973/1000000000000",
+        "27363937/1000000000000"
+      ],
+      "source_null_disk_by_visit": [
+        true,
+        true,
+        true
+      ]
+    },
+    "LOOP-T_beta_0.0": {
+      "clean_post_tube_max": [
+        "71/500000000000000000",
+        "71/500000000000000000",
+        "71/500000000000000000"
+      ],
+      "derived_clean_local_pair_upper": [
+        "0",
+        "0",
+        "0"
+      ],
+      "independently_derived_clean_centers": true,
+      "injection_amplitude_upper": "2350633649659709067/20000000000000000000000",
+      "input_error_max": "71/500000000000000000",
+      "source_global_pair_upper": [
+        "0",
+        "0",
+        "0"
+      ],
+      "source_null_disk_by_visit": [
+        true,
+        true,
+        true
+      ]
+    },
+    "LOOP-T_beta_0.01": {
+      "clean_post_tube_max": [
+        "309964686619376255465145997598024921357490141079/649037107316853453566312041152512000000000000000000",
+        "309964686619330173830526501002821713202568312727/324518553658426726783156020576256000000000000000000",
+        "929894059857944439856960006413261931452783109829/649037107316853453566312041152512000000000000000000"
+      ],
+      "derived_clean_local_pair_upper": [
+        "0",
+        "16461/1000000000000",
+        "6587/200000000000"
+      ],
+      "independently_derived_clean_centers": true,
+      "injection_amplitude_upper": "1525958429023414781363408308999334605880924942710679/12980742146337069071326240823050240000000000000000000000",
+      "input_error_max": "71/500000000000000000",
+      "source_global_pair_upper": [
+        "0",
+        "5894347/1000000000000",
+        "635689/50000000000"
+      ],
+      "source_null_disk_by_visit": [
+        true,
+        true,
+        true
+      ]
+    },
+    "LOOP-T_beta_0.1": {
+      "clean_post_tube_max": [
+        "193727929137058324548057047357489418424109369169/40564819207303340847894502572032000000000000000000",
+        "193727929137055444445893328820289217914426754897/20282409603651670423947251286016000000000000000000",
+        "581183787411163453235516267923667453233597650419/40564819207303340847894502572032000000000000000000"
+      ],
+      "derived_clean_local_pair_upper": [
+        "0",
+        "82831/500000000000",
+        "332629/1000000000000"
+      ],
+      "independently_derived_clean_centers": true,
+      "injection_amplitude_upper": "95546756950186771143794504734966025728397075154769/811296384146066816957890051440640000000000000000000000",
+      "input_error_max": "71/500000000000000000",
+      "source_global_pair_upper": [
+        "0",
+        "45814889/500000000000",
+        "173818731/500000000000"
+      ],
+      "source_null_disk_by_visit": [
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "date": "2026-11-13",
+  "floating_execution_certified": false,
+  "frequency_contract": "frozen_host_generated_float32_frequency_table_interpreted_as_exact_dyadic",
+  "schema": "scm08_cpu_reference_v1",
+  "seed": 617,
+  "source_scope": "untrained_RMP_like_mock_exact_dyadic_weights_and_real_functions",
+  "source_sha256": {
+    "clean_tubes.py": "86a6283090f0b0fb2665b0cb7c823fc3a5484d02c37bed69a0252ce93b71baf0",
+    "exact_input.py": "e6d2e5de89b56825c9ed1fc38e36a1221ec4ecbf15695f0d053a036a823d7248",
+    "scm08_audit.py": "6e1ed889229e4b21a05c78c5565679ce89f5ee1bbf28a87fa891f965ca872cca"
+  },
+  "torch": "2.10.0+cpu",
+  "trained_activation_evidence": false
+}
