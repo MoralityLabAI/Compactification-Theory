@@ -44,6 +44,17 @@ python -m research.refutation_bench.fc04.generator \
 lean /tmp/FC04.lean
 ~~~
 
+## First frozen-student outcome
+
+The [first preregistered FC-04 results](../results/fc04_adaptive_20261113.md)
+show that the validation-trained early-stopping policy met its registered
+criteria against the fixed 12-pass baseline for both seeds and both test
+depths, with 91–96 exact negative certificates per 96 invalid test cases
+and mean compute of 5.0–8.4 recurrent passes. The long-form receipt includes
+provisional-positive errors, abstentions and cases where fixed4 is
+more certificate-efficient. These numbers are specific to public
+finite Horn logic and the registered comparator.
+
 The model trial is implemented in the private `LoopedTransformers`
 repository, which trains and selects a stopping threshold on the earlier
 FC-02 corpus. The training GitHub Actions job never checks out this new
