@@ -1,0 +1,30 @@
+name: FHC-01 finite horizon and metric obstruction controls
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/finite_horizon_gap_v1/**'
+      - '.github/workflows/fhc-01.yml'
+  pull_request:
+    paths:
+      - 'research/finite_horizon_gap_v1/**'
+      - '.github/workflows/fhc-01.yml'
+  workflow_dispatch:
+jobs:
+  finite-geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact rational moment, packing, net and observability tests
+        run: python -m unittest discover -s research/finite_horizon_gap_v1 -p 'test_*.py' -v
+      - name: Emit finite control receipt
+        run: python research/finite_horizon_gap_v1/reference.py --check --out /tmp/fhc01_control.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fhc01-finite-controls
+          path: /tmp/fhc01_control.json
