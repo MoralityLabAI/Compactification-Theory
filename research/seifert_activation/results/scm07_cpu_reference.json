@@ -1,0 +1,155 @@
+{
+  "center_scope": "assumed_exact_ideal_center_zero_error_SYNTHETIC_ONLY",
+  "math_files_sha256": {
+    "local_jacobian.py": "1c1f2ddf9fb7b89c1e816c0c7526150483a078a7fa567b47483ebd0319974b1b",
+    "rmp_lipschitz.py": "1c904134f1fcbef3356b435e2a2d5df2e3a506977b347f6b51fc15b6de131acb"
+  },
+  "model": "untrained_128d_four_head_T64_tied_eight_visit_cpu_mock",
+  "parameters": {
+    "beta": "1/4",
+    "heads": 4,
+    "hidden": 128,
+    "injected_token": 4,
+    "observed_tokens": [
+      16,
+      32,
+      48
+    ],
+    "sequence": 64,
+    "visits": 8
+  },
+  "radii": {
+    "1/100": {
+      "disk_inequality_conditionally_passes": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false
+      ],
+      "new_causal_source_global_pair_max": [
+        0.0,
+        125.758863116127,
+        8246876.305403307,
+        478605009145.81134,
+        2.6579404672676876e+16,
+        1.4457625413819745e+21,
+        7.769933381817799e+25,
+        4.139763958538583e+30
+      ],
+      "new_interval_local_pair_max_conditional": [
+        0.0,
+        0.009345183526,
+        0.060538046655,
+        0.342808173843,
+        1.89944784279,
+        13.440496405504,
+        321668.3094840334,
+        18364508523.584587
+      ],
+      "previous_whole_sequence_pair_max": [
+        0.0,
+        1607.2877273992,
+        182672114.9796395,
+        20761125106784.812,
+        2.359551788994244e+18,
+        2.681687344163474e+23,
+        3.047802148437645e+28,
+        3.463900426810855e+33
+      ]
+    },
+    "1/10000": {
+      "disk_inequality_conditionally_passes": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "new_causal_source_global_pair_max": [
+        0.0,
+        1.257588631218,
+        82468.7630584388,
+        4786050091.727643,
+        265794046742057.84,
+        1.4457625414658802e+19,
+        7.769933382270285e+23,
+        4.139763958779899e+28
+      ],
+      "new_interval_local_pair_max_conditional": [
+        0.0,
+        9.3363286e-05,
+        0.000604354007,
+        0.003408341743,
+        0.018404742716,
+        0.097566888779,
+        0.51566110395,
+        2.833355494662
+      ],
+      "previous_whole_sequence_pair_max": [
+        0.0,
+        16.0728821611,
+        1826721.7052279704,
+        207611314193.9822,
+        2.3595525064379372e+16,
+        2.681688159555482e+21,
+        3.0478030751502687e+26,
+        3.4639014800420346e+31
+      ]
+    },
+    "1/1000000": {
+      "disk_inequality_conditionally_passes": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "new_causal_source_global_pair_max": [
+        0.0,
+        0.012575886393,
+        824.687636658413,
+        47860501.28808574,
+        2657940488576.136,
+        1.4457625531725933e+17,
+        7.769933445962695e+21,
+        4.139763993037084e+26
+      ],
+      "new_interval_local_pair_max_conditional": [
+        0.0,
+        9.33627e-07,
+        6.043457e-06,
+        3.4081571e-05,
+        0.000183993146,
+        0.000973999279,
+        0.005105218579,
+        0.026620507025
+      ],
+      "previous_whole_sequence_pair_max": [
+        0.0,
+        0.1607385958,
+        18268.3279123619,
+        2076239393.8592527,
+        235969599478012.66,
+        2.681851237506591e+19,
+        3.0479884171629513e+24,
+        3.46411212569604e+29
+      ]
+    }
+  },
+  "real_activation_certified": false,
+  "schema": "scm07_cpu_reference_v1",
+  "seed": 317,
+  "strict_causal_prefix_injected_at_63": true,
+  "torch": "2.10.0+cpu",
+  "trained_model_evidence": false
+}
