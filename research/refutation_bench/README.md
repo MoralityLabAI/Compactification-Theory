@@ -118,6 +118,22 @@ baseline remained cheaper per certificate.
 Exact shortest-proof search remains a
 100%-correct symbolic upper bound.
 
+### FC-07 post-hoc restriction
+
+After the first registered FC-07 test,
+a [zero-parameter unary-rule BFS control](fc07/POSTHOC_UNARY.md)
+proved all 192 distinct held-out
+positives using only original
+one-premise implications. Those
+proofs also compiled in Lean
+[under independent CI](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43424550518).
+The original trained-vs-backward-slice
+finding and failed CPU-efficiency
+criterion remain recorded; the
+additional symbolic result sets
+a stronger target for future claims
+about learned proof search.
+
 ## Run from the repository root
 
 ```bash
