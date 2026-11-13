@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import math
+import struct
 from pathlib import Path
 import sys
 from typing import Any, Sequence
@@ -33,7 +34,10 @@ def sha256_file(path: Path) -> str:
 
 
 def sha256_tensor(tensor: torch.Tensor) -> str:
-    raw = tensor.detach().cpu().to(torch.float64).contiguous().numpy().tobytes()
+    # Canonical little-endian float64 bytes, without requiring NumPy.
+    # PyTorch's CPU-only wheel may be installed without NumPy on fresh CI.
+    values = tensor.detach().cpu().to(torch.float64).contiguous().reshape(-1).tolist()
+    raw = struct.pack(f'<{len(values)}d', *values)
     return hashlib.sha256(raw).hexdigest()
 
 
