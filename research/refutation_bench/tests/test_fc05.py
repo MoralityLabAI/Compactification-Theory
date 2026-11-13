@@ -48,7 +48,11 @@ class FC05Tests(unittest.TestCase):
         for t in self.rows:
             if t["label"]!="established":
                 continue
-            trace=[i for i,_ in fc02.proof_trace(t)]
+            trace=[]
+            for rule_id,head in fc02.proof_trace(t):
+                trace.append(rule_id)
+                if head==t["goal"]:
+                    break
             # The full reference generator trace may exceed the cap if there
             # are excess decoys. Verify it only when the budget permits.
             if len(trace)>10:
