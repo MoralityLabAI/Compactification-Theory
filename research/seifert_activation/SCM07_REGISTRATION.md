@@ -21,6 +21,7 @@
 
 - `source_global_unconditional`: valid in exact real arithmetic for the pinned source graph and exact stored weights, without additional clean-center hypotheses. This means unconditional on data-dependent *centers*, not unconditional on architecture identity.
 - `conditional_on_external_ideal_center_enclosures`: sound only if an independent verifier has bounded the ideal clean states relative to the supplied center floats at *every* listed site and token.
+- The offline `scm07_audit.py` JSONL reader treats all imported derivative bounds as claims. It does not inspect checkpoint weights or source hashes; source-locked recomputation and provenance checking are separate requirements.
 - `observed_link_certified=false`: required until real output and trigonometric/forward numerical error envelopes have been verified; a numerical sample agreement at 32 and 64 angles is insufficient.
 
 ## Falsification gates

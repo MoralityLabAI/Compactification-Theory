@@ -20,6 +20,7 @@ The center-local numbers are conditional because PyTorch's floating clean center
 
 - Algebraic local LN inequality and attention-row triangle argument are proved in `SCM07_MATH.md`.
 - Weight-matrix norm upper bounds use SCM-06's dyadic-integer implementation. The new source-global bounds are valid in exact real arithmetic for the pinned decoder architecture.
+- The standalone SCM-07 JSONL auditor tests geometric inequalities **against supplied claimed bounds**. It never independently recomputes those bounds from the checkpoint. Source-locked recomputation must precede any claim that a specific model satisfied the derivative assumptions.
 - **No trained RMP checkpoint, D-shared dictionary, monitor bundle or activation trace is available in this tool runtime.** No 4D Seifert surface or Khovanov cobordism map is computed.
 - The SCM-05/06 numerical gap persists: ideal real activation output coordinates need externally verified forward-error intervals for a final observed-braid claim.
 

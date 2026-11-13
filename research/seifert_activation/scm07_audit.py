@@ -1,9 +1,10 @@
 """SCM-07: inspect existing RMP braid samples using derived tokenwise bounds.
 
-Source-global token bounds are real-analytic architecture theorems. Optional
-center-local bounds additionally assume independently verified ideal-center
-error envelopes. This reader cannot prove that PyTorch coordinates enclose the
-ideal real-valued output, so no observed-link certificate is marked final.
+Source-global token inequalities are real-analytic architecture theorems
+when recomputed from the pinned checkpoint. This standalone reader accepts
+external JSON bounds and does NOT independently recompute weight/source norms.
+Optional center-local bounds also assume independently verified clean centers.
+No supplied JSON can by itself certify a real observed link.
 """
 from __future__ import annotations
 
@@ -50,9 +51,15 @@ def audit_trace(trace: Mapping, bounds: Mapping, *, margin='1/10000000') -> dict
                           'status':result['reason'],
                           'worst_margins':{p:{'source':v['worst_source_margin_lower']}
                                            for p,v in result['pairs'].items()}})
+    # The standalone JSON reader receives *claimed* bounds and cannot attest
+    # their derivation from the pinned checkpoint. Its geometry may pass while
+    # the source-level proof remains unverified.
     return {'schema':'scm07_source_bound_sampling_audit_v1',
             'source_bound_scope':bounds['bound_scope'],
-            'source_global_derivative_proved':bounds['bound_scope']=='source_global_unconditional',
+            'source_global_bound_claimed':bounds['bound_scope']=='source_global_unconditional',
+            'source_global_derivative_proved':False,
+            'source_locked_bound_recomputed_by_this_auditor':False,
+            'requires_checkpoint_bound_recomputation':True,
             'ideal_center_enclosures_proved':False,
             'observed_link_certified':False,
             'requires_exact_ideal_activation_or_roundoff_enclosure':True,

@@ -218,6 +218,9 @@ class AuditControls(unittest.TestCase):
                'frames_by_visit':[[pts for _ in range(N+1)] for _ in range(3)]}
         report=audit_trace(trace,self.bounds)
         self.assertEqual(report['source_bound_scope'],'source_global_unconditional')
+        self.assertTrue(report['source_global_bound_claimed'])
+        self.assertFalse(report['source_global_derivative_proved'])
+        self.assertTrue(report['requires_checkpoint_bound_recomputation'])
         self.assertTrue(all(v['passes_ideal_sampling_inequality'] for v in report['visits']))
         self.assertFalse(report['observed_link_certified'])
 
