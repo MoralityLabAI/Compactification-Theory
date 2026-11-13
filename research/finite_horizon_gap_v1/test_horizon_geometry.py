@@ -140,6 +140,25 @@ class MeasuredFiniteMetric(unittest.TestCase):
                                 result["heldout_state_ids"][j]]) > 0))
         self.assertFalse(result["checkpoint_evaluated"])
 
+    def test_heldout_simplex_is_invisible_to_training_pca(self):
+        # Exact simplex geometry: training-centered differences are
+        # perpendicular to differences among any entirely unseen vertices.
+        train, test = split_indices()
+        future = features(63)
+        centered_train = future[train] - future[train].mean(axis=0)
+        for i in range(len(test)):
+            for j in range(i+1, len(test)):
+                unseen_difference = future[test[i]] - future[test[j]]
+                self.assertTrue(np.allclose(
+                    centered_train @ unseen_difference, 0, atol=1e-12))
+        _, s, vt = np.linalg.svd(centered_train, full_matrices=False)
+        self.assertEqual(int(np.sum(s > 1e-10)), len(train)-1)
+        # Every positive-variance PCA component annihilates every
+        # difference between two held-out vertices.
+        for d in (2, 4, 6, 8, 16, 32):
+            projected = future[test] @ vt[:d].T
+            self.assertLess(np.max(np.abs(projected - projected[:1])), 1e-12)
+
     def test_failed_pair_is_reproducible(self):
         train, test = split_indices()
         full, code = features(63), exact_binary_code(63)
