@@ -1,0 +1,81 @@
+name: FC-10 posthoc actual MathCan Lean theorem goal-state import
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc10/imported_probe.py'
+      - 'research/refutation_bench/tests/test_fc10_imported.py'
+      - '.github/workflows/refutation-fc10-imported-mathcan.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc10/imported_probe.py'
+      - 'research/refutation_bench/tests/test_fc10_imported.py'
+      - '.github/workflows/refutation-fc10-imported-mathcan.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  imported-mathcan-real-goals:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout FC-10 instrumentation, separate from registered first test
+        uses: actions/checkout@v4
+      - name: Checkout exact existing MathCan theorem source revision
+        uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _mathcan_pinned
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate pinned external source toolchain and safe instrumentation
+        run: |
+          test "$(git -C _mathcan_pinned rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          test "$(cat _mathcan_pinned/lean-toolchain)" = 'leanprover/lean4:v4.35.0'
+          python -m unittest research.refutation_bench.tests.test_fc10_imported -v
+      - name: Add trace_state instrumentation before original theorem proofs
+        run: |
+          python -m research.refutation_bench.fc10.imported_probe \
+            --source _mathcan_pinned \
+            --out /tmp/fc10_imported
+      - name: Install the EXACT external Lean 4.35.0 compiler
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean-4.35.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.35.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel compile original imported MathCan modules with goal-state probes
+        run: |
+          lean --version
+          for file in /tmp/fc10_imported/*.lean; do
+            lean "$file" 2>&1 | tee "${file%.lean}.log"
+            if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
+          done
+          python -m research.refutation_bench.fc10.imported_probe \
+            --out /tmp/fc10_imported --extract
+      - name: Ensure seven actual imported theorem states were recorded
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/fc10_imported/imported_goal_states.jsonl')
+          rows=[json.loads(x) for x in p.read_text().splitlines()]
+          assert len(rows)==7
+          assert len({(x['source_file'],x['theorem']) for x in rows})==7
+          assert all(x['actual_lean_goal_state'].count('⊢')==1 for x in rows)
+          print("FC10_REAL_IMPORTED_MATHCAN_GOAL_STATES",len(rows))
+          PY
+      - name: Archive pinned original source metadata and actual Lean goal states
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc10-posthoc-mathcan-goals-${{ github.run_id }}
+          path: /tmp/fc10_imported/
+          retention-days: 30
+          if-no-files-found: warn
