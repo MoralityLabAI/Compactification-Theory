@@ -103,7 +103,7 @@ class RationalInputTests(unittest.TestCase):
         c,e=exact_layernorm_point(norm,raw)
         actual=norm(torch.tensor([float(v) for v in raw],dtype=torch.float32))
         for i in range(4):
-            self.assertLessEqual(abs(float(c[i])-float(actual[i])),float(e[i])+2e-6)
+            self.assertLessEqual(abs(float(c[i])-float(actual[i].detach())),float(e[i])+2e-6)
         self.assertLess(max(e),Fraction(1,10**10))
 
     def test_encode_rounding_is_explicit(self):
