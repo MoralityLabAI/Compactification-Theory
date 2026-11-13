@@ -1,0 +1,44 @@
+{
+  "experiment": "SHAFT-COMP-19",
+  "type": "exact_six_symbol_capacity_control",
+  "states": 384,
+  "vocab": 6,
+  "families": {
+    "lag_rotate": {
+      "immediate_behavior_classes": 64,
+      "duplicated_immediate_classes": 64,
+      "history_behavior_classes": 64,
+      "joint_immediate_history_classes": 348,
+      "duplicated_immediate_is_exact_repetition": true,
+      "two_step_history_independent_of_start_previous": true,
+      "immediate_alias_split_by_history_witness": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ]
+    },
+    "lag_match": {
+      "immediate_behavior_classes": 64,
+      "duplicated_immediate_classes": 64,
+      "history_behavior_classes": 64,
+      "joint_immediate_history_classes": 384,
+      "duplicated_immediate_is_exact_repetition": true,
+      "two_step_history_independent_of_start_previous": true,
+      "immediate_alias_split_by_history_witness": [
+        [
+          0,
+          0
+        ],
+        [
+          3,
+          1
+        ]
+      ]
+    }
+  }
+}

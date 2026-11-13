@@ -1,0 +1,70 @@
+{
+  "experiment": "SHAFT-COMP-20",
+  "phase": "calibration_thresholds",
+  "registration_commit": "9201423bc6b5895ed1773a15b683d385b9481b08",
+  "calibration_seeds": {
+    "repeat_toggle": [
+      2001,
+      2002
+    ],
+    "successor_toggle": [
+      2011,
+      2012
+    ]
+  },
+  "pooled_eligible": 464,
+  "pooled_positives": 226,
+  "pooled_negatives": 238,
+  "pooled_thresholds": {
+    "duplicate": 2.333848476409912,
+    "goal": 1.1933250427246094,
+    "history": 2.2467072010040283
+  },
+  "calibration_operating_points": {
+    "duplicate": {
+      "false_positives": 23,
+      "negatives": 238,
+      "positives": 226,
+      "true_positives": 20
+    },
+    "goal": {
+      "false_positives": 23,
+      "negatives": 238,
+      "positives": 226,
+      "true_positives": 57
+    },
+    "history": {
+      "false_positives": 23,
+      "negatives": 238,
+      "positives": 226,
+      "true_positives": 22
+    }
+  },
+  "rule": "NumPy quantile 0.9 method higher, predict strictly > threshold",
+  "calibration_models": {
+    "2001": {
+      "accuracy_d12": 0.7872721552848816,
+      "accuracy_d32": 0.6392822265625,
+      "model_sha256": "02e1de5968fde789d50e082f61976623cf88c317aeac6bbc6bf09bc4e51636db",
+      "full_receipt_sha256": "3055cd4d3d179cf7a50339d6e55bab402bf096b931b5ac3ed0fddc80e2154172"
+    },
+    "2002": {
+      "accuracy_d12": 0.6949869990348816,
+      "accuracy_d32": 0.58270263671875,
+      "model_sha256": "dc0822da659ebff966d91d948af7cb93f175c782a7b10d6a758f86f271b49403",
+      "full_receipt_sha256": "ac34b2db4808ffcd547ae3dd90b62ea9fc158541a15355a5938e520e788bdf77"
+    },
+    "2011": {
+      "accuracy_d12": 0.6609700322151184,
+      "accuracy_d32": 0.56134033203125,
+      "model_sha256": "abbcb5d6204756f0b4eb1069cbb32f554ba3816a4c9acb9028ababe714ed1c95",
+      "full_receipt_sha256": "6406b7f2a089c47b9c903c0c63848e5d1f6333c0b591a6f06624b52bcf9ed17d"
+    },
+    "2012": {
+      "accuracy_d12": 0.6848958134651184,
+      "accuracy_d32": 0.57501220703125,
+      "model_sha256": "583a73d2c8ad5ed2c974c3969794107c2af4c9861e38015a43b646d9e7d5e1dd",
+      "full_receipt_sha256": "ad474e2c0f1368d34a388a8a90e33f51943dcfc091a3c917060dd4696943c546"
+    }
+  }
+}

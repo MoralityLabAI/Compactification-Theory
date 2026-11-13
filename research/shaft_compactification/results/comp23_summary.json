@@ -1,0 +1,259 @@
+{
+  "experiment": "SHAFT-COMP-23",
+  "status": "completed_registered_heldout",
+  "scope": "behaviorally supervised decoder test in new but explicitly state-supervised synthetic GRUs",
+  "registration_commit": "fae6c5c6843ee8f2a8f85686012ee559dc37d281",
+  "frozen_calibration_commit": "5bb2e00777aeea7a88b5b2e374abfa21d3892647",
+  "frozen_calibration_full_sha256": "730efbe3a5d5cb9cd772171988e32a8bac5a2e2b6a0cd79ed55331c44e36fbc4",
+  "executed_source_blob_sha": "d521b96255d3bc06e7771048a70325b094260aaf",
+  "local_source_sha256": "17bf025a2e24f01c78d0bf11590e04a24b20d268f55ed4469af7813b8f39736f",
+  "torch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "native_vocabulary": 6,
+  "known_task_goals": 64,
+  "base_training": {
+    "method": "COMP21 aux_state",
+    "steps": 3200,
+    "loss": "native task BCE + oracle latch BCE + 0.25 oracle previous CE",
+    "gate": 0.9
+  },
+  "decoder_training": {
+    "contexts_per_goal_per_depth": 12,
+    "depths": [
+      4,
+      8,
+      12
+    ],
+    "states_per_seed": 2304,
+    "steps": 600,
+    "optimizer": "Adam LR 0.04",
+    "targets": "identical native two-query 36 binary behavioral responses ONLY",
+    "oracle_labels_used_in_decoder_fitting": false
+  },
+  "decoders": {
+    "direct36": {
+      "parameters": 900,
+      "architecture": "Linear(24,36)"
+    },
+    "factorized900": {
+      "parameters": 900,
+      "architecture": "Linear(24,24)+tanh+Linear(24,12) then fixed trigger-law Bernoulli-XOR decoder"
+    },
+    "directmlp890": {
+      "parameters": 890,
+      "architecture": "Linear(24,14)+tanh+Linear(14,36)"
+    },
+    "oracle": {
+      "parameters": 0,
+      "architecture": "exact finite automaton"
+    }
+  },
+  "seeds": {
+    "calibration": {
+      "repeat_toggle": [
+        2301
+      ],
+      "successor_toggle": [
+        2311
+      ]
+    },
+    "heldout": {
+      "repeat_toggle": [
+        2302,
+        2303
+      ],
+      "successor_toggle": [
+        2312,
+        2313
+      ]
+    }
+  },
+  "heldout_depth40": {
+    "states": 4096,
+    "total_binary_decisions": 147456,
+    "methods": {
+      "direct36": {
+        "bits_correct": 76268,
+        "exact_correct": 0,
+        "bit_accuracy": 0.517225,
+        "exact_accuracy": 0
+      },
+      "factorized900": {
+        "bits_correct": 131773,
+        "exact_correct": 1698,
+        "bit_accuracy": 0.893643,
+        "exact_accuracy": 0.414551
+      },
+      "directmlp890": {
+        "bits_correct": 110910,
+        "exact_correct": 0,
+        "bit_accuracy": 0.752157,
+        "exact_accuracy": 0
+      },
+      "oracle": {
+        "bits_correct": 143165,
+        "exact_correct": 3059,
+        "bit_accuracy": 0.9709,
+        "exact_accuracy": 0.746826
+      }
+    }
+  },
+  "heldout_depth12": {
+    "states": 4096,
+    "methods": {
+      "direct36": {
+        "bits_correct": 76101,
+        "exact_correct": 1,
+        "bit_accuracy": 0.516093,
+        "exact_accuracy": 0.000244
+      },
+      "factorized900": {
+        "bits_correct": 131975,
+        "exact_correct": 1809,
+        "bit_accuracy": 0.895013,
+        "exact_accuracy": 0.44165
+      },
+      "directmlp890": {
+        "bits_correct": 111337,
+        "exact_correct": 1,
+        "bit_accuracy": 0.755052,
+        "exact_accuracy": 0.000244
+      },
+      "oracle": {
+        "bits_correct": 143497,
+        "exact_correct": 3154,
+        "bit_accuracy": 0.973151,
+        "exact_accuracy": 0.77002
+      }
+    }
+  },
+  "calibration_depth40": {
+    "states": 2048,
+    "methods": {
+      "direct36": {
+        "bits_correct": 37948,
+        "exact_correct": 0,
+        "bit_accuracy": 0.514703,
+        "exact_accuracy": 0
+      },
+      "factorized900": {
+        "bits_correct": 68009,
+        "exact_correct": 1051,
+        "bit_accuracy": 0.922431,
+        "exact_accuracy": 0.513184
+      },
+      "directmlp890": {
+        "bits_correct": 56310,
+        "exact_correct": 0,
+        "bit_accuracy": 0.763753,
+        "exact_accuracy": 0
+      },
+      "oracle": {
+        "bits_correct": 71775,
+        "exact_correct": 1420,
+        "bit_accuracy": 0.973511,
+        "exact_accuracy": 0.693359
+      }
+    }
+  },
+  "heldout_models": [
+    {
+      "seed": 2302,
+      "family": "repeat_toggle",
+      "base_acc12": 0.9976399540901184,
+      "base_acc32": 0.996246337890625,
+      "factorized_bit40": 0.908122,
+      "direct_bit40": 0.524604,
+      "direct_mlp_bit40": 0.765842,
+      "factorized_exact40": 0.504883,
+      "effective_exact40": 0.540039,
+      "previous_acc40": 0.996094
+    },
+    {
+      "seed": 2303,
+      "family": "repeat_toggle",
+      "base_acc12": 0.9991862177848816,
+      "base_acc32": 0.998779296875,
+      "factorized_bit40": 0.895237,
+      "direct_bit40": 0.504313,
+      "direct_mlp_bit40": 0.748454,
+      "factorized_exact40": 0.49707,
+      "effective_exact40": 0.52832,
+      "previous_acc40": 0.990234
+    },
+    {
+      "seed": 2312,
+      "family": "successor_toggle",
+      "base_acc12": 0.9190266728401184,
+      "base_acc32": 0.90570068359375,
+      "factorized_bit40": 0.887722,
+      "direct_bit40": 0.531548,
+      "direct_mlp_bit40": 0.737657,
+      "factorized_exact40": 0.197266,
+      "effective_exact40": 0.314453,
+      "previous_acc40": 0.989258
+    },
+    {
+      "seed": 2313,
+      "family": "successor_toggle",
+      "base_acc12": 0.9986979365348816,
+      "base_acc32": 0.998504638671875,
+      "factorized_bit40": 0.883491,
+      "direct_bit40": 0.508436,
+      "direct_mlp_bit40": 0.756673,
+      "factorized_exact40": 0.458984,
+      "effective_exact40": 0.472656,
+      "previous_acc40": 0.995117
+    }
+  ],
+  "primary": {
+    "statistic": "depth40 micro native two-query bit accuracy, factorized minus direct linear",
+    "difference": 0.376418,
+    "bootstrap95": [
+      0.371127,
+      0.381702
+    ],
+    "stratified_bootstrap_draws": 1000,
+    "per_model": {
+      "2302": 0.383518,
+      "2303": 0.390923,
+      "2312": 0.356174,
+      "2313": 0.375054
+    },
+    "positive_heldout_models": 4,
+    "preregistered_support": true,
+    "factorized_minus_mlp_bootstrap95": [
+      0.137586,
+      0.145264
+    ],
+    "factorized_minus_direct_full_signature_bootstrap95": [
+      0.398926,
+      0.428223
+    ]
+  },
+  "reproducibility": {
+    "summary_local_sha256": "c8b8ec0a43b3103ea1fd6890c7138bf348df874b82e8748a0441ca45deb779d5",
+    "raw_state_rows_local_sha256": "22ae3fc406d647e4d60d98dcb5077161e799b4c3c643b93868fea036a7d3e804",
+    "complete_six_model_replay_identical": true,
+    "per_model_full_json_sha256": {
+      "2301": "a1fe3111c17f2e577eb514a78187267dee75b7e323f6ad6efdb5e5baa6ce13a0",
+      "2302": "f998ac6f77a289de4504162853062cac7e02dc06da363f61f4e45b7f7c560751",
+      "2303": "abd8ee455fa428a7b43ebcdb29a1a21cd00afc3f1a3022df75de65e7df6a0f9b",
+      "2311": "5f37a7bfe68c084082d28d09508714008d056aeed809052106f9c4f91f21bf5e",
+      "2312": "b10bfe6b757c65ed37d278ebf11662d3fc07b436bfd695b1afcff29e69ccd7c7",
+      "2313": "510ef95f308e6a8fda7a51c52b59cdb87c9412118eb6614e81a4ae308e4dabfa"
+    }
+  },
+  "exact_finite_reference": {
+    "states_per_family": 768,
+    "behavioral_codes_per_family": 384,
+    "constructive_inversion": "column majority and unique flipped row",
+    "all_recovered": true
+  },
+  "scientific_limits": [
+    "Base GRUs trained with privileged latch and previous-label supervision",
+    "Decoder models share same native two-query behavioral training targets, but factorized architecture includes true transition law and nonlinear encoder",
+    "Four heldout seeds from one synthetic task family; CI skips expensive retraining",
+    "Full model weights retained throughout; no unknown objectives or device-persistence inference"
+  ]
+}

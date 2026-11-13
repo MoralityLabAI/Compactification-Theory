@@ -1,0 +1,264 @@
+{
+  "experiment": "SHAFT-COMP-13",
+  "status": "completed_negative_registered_primary",
+  "evidence": "trained local synthetic GRU, randomized independent diagnostic and outcome trajectories",
+  "registered_before_evaluation": true,
+  "source_protocol": "SHAFT_COMP_13_PROTOCOL.md",
+  "torch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "state_dimension": 24,
+  "monitor_outputs": 4,
+  "diagnostic_horizon": 5,
+  "rank_relative_threshold": 0.001,
+  "outcome_continuation_length": 32,
+  "calibration_model_seeds": [
+    101,
+    202
+  ],
+  "heldout_model_seeds": [
+    303,
+    404
+  ],
+  "goal_count": 16,
+  "pairs_per_goal": 16,
+  "pairs_per_depth_per_model": 256,
+  "total_pairs": 2048,
+  "raw_pairs_sha256": "2d522e9df3422bf423186a224939338e9aef52069c3d0356e8a69b401c562eaf",
+  "model_hashes": {
+    "101": {
+      "base": "20ca5ce2e003958a81ec16de17e3e95f99f74efac7fdc07b52c6897214af6f16",
+      "probe": "1fd2ed29cd3acd8c97bab32b9bacb5ee788dea01615457ec0c9201478e122c46"
+    },
+    "202": {
+      "base": "3ed16bfdba4cf1c50b177f0e1f119c123b53ce567426e7b79e7110b681730b01",
+      "probe": "27df5a93fd7a2ae75e550b8bd1a0a8a21fefd84c7d87bf294625faabd14669a9"
+    },
+    "303": {
+      "base": "aedd9a087ec34ae25b7678886f922dff43c0a0016493f0ce99fb9aafb80f1a87",
+      "probe": "95279ee3d9e7dd2065c28d180ef6adb6d4ef43990f2719dbfe243ccbddd718bf"
+    },
+    "404": {
+      "base": "cf3c90255b6193cf1d6ad911186c37f792a934f2a6670e9ed51cc168ac009504",
+      "probe": "0bd5388a925d47ab8d095247ed4ab3d277ecc9759a6338284f4095a11adc47ef"
+    }
+  },
+  "test_results": {
+    "calibration_pooled": {
+      "eligible": 819,
+      "total": 1024,
+      "positives": 56,
+      "prevalence": 0.068376,
+      "auroc": {
+        "rank_deficit": 0.461969,
+        "weak_singular": 0.461173,
+        "low_probe_margin": 0.55851,
+        "state_distance": 0.571358
+      }
+    },
+    "heldout_pooled": {
+      "eligible": 827,
+      "total": 1024,
+      "positives": 55,
+      "prevalence": 0.066505,
+      "auroc": {
+        "rank_deficit": 0.504439,
+        "weak_singular": 0.528026,
+        "low_probe_margin": 0.546302,
+        "state_distance": 0.499976
+      }
+    },
+    "uncertainty": {
+      "bootstrap_95_percentile": [
+        0.416862,
+        0.586862
+      ],
+      "bootstrap_trials_valid": 1000,
+      "permutation_null_mean": 0.503007,
+      "permutation_p_two_sided": 0.963037,
+      "permutation_trials": 1000,
+      "note": "stratified by seed/depth; only 2 held-out model seeds"
+    }
+  },
+  "per_model_depth": [
+    {
+      "seed": "101",
+      "depth": 12,
+      "eligible": 256,
+      "total": 256,
+      "positives": 18,
+      "rank_deficit_auc": 0.533497,
+      "current_probe_margin_auc": 0.598273,
+      "state_distance_auc": 0.509337,
+      "weak_singular_auc": 0.495331
+    },
+    {
+      "seed": "101",
+      "depth": 40,
+      "eligible": 151,
+      "total": 256,
+      "positives": 9,
+      "rank_deficit_auc": 0.339202,
+      "current_probe_margin_auc": 0.685446,
+      "state_distance_auc": 0.726135,
+      "weak_singular_auc": 0.457746
+    },
+    {
+      "seed": "202",
+      "depth": 12,
+      "eligible": 256,
+      "total": 256,
+      "positives": 17,
+      "rank_deficit_auc": 0.436623,
+      "current_probe_margin_auc": 0.462712,
+      "state_distance_auc": 0.508491,
+      "weak_singular_auc": 0.433424
+    },
+    {
+      "seed": "202",
+      "depth": 40,
+      "eligible": 156,
+      "total": 256,
+      "positives": 12,
+      "rank_deficit_auc": 0.494502,
+      "current_probe_margin_auc": 0.643519,
+      "state_distance_auc": 0.640625,
+      "weak_singular_auc": 0.450231
+    },
+    {
+      "seed": "303",
+      "depth": 12,
+      "eligible": 256,
+      "total": 256,
+      "positives": 18,
+      "rank_deficit_auc": 0.522993,
+      "current_probe_margin_auc": 0.468254,
+      "state_distance_auc": 0.379318,
+      "weak_singular_auc": 0.496965
+    },
+    {
+      "seed": "303",
+      "depth": 40,
+      "eligible": 153,
+      "total": 256,
+      "positives": 10,
+      "rank_deficit_auc": 0.547552,
+      "current_probe_margin_auc": 0.541958,
+      "state_distance_auc": 0.655245,
+      "weak_singular_auc": 0.553846
+    },
+    {
+      "seed": "404",
+      "depth": 12,
+      "eligible": 256,
+      "total": 256,
+      "positives": 17,
+      "rank_deficit_auc": 0.539011,
+      "current_probe_margin_auc": 0.696776,
+      "state_distance_auc": 0.500861,
+      "weak_singular_auc": 0.58602
+    },
+    {
+      "seed": "404",
+      "depth": 40,
+      "eligible": 162,
+      "total": 256,
+      "positives": 10,
+      "rank_deficit_auc": 0.363158,
+      "current_probe_margin_auc": 0.544737,
+      "state_distance_auc": 0.565789,
+      "weak_singular_auc": 0.432895
+    }
+  ],
+  "rank_score_binned_counts": {
+    "heldout": {
+      "2.5": {
+        "positive": 11,
+        "negative": 126
+      },
+      "1.5": {
+        "positive": 11,
+        "negative": 244
+      },
+      "2.0": {
+        "positive": 16,
+        "negative": 227
+      },
+      "3.0": {
+        "positive": 4,
+        "negative": 53
+      },
+      "1.0": {
+        "positive": 11,
+        "negative": 101
+      },
+      "4.0": {
+        "positive": 0,
+        "negative": 4
+      },
+      "3.5": {
+        "positive": 1,
+        "negative": 7
+      },
+      "0.5": {
+        "positive": 1,
+        "negative": 7
+      },
+      "4.5": {
+        "positive": 0,
+        "negative": 2
+      },
+      "0.0": {
+        "positive": 0,
+        "negative": 1
+      }
+    },
+    "calibration": {
+      "2.0": {
+        "positive": 12,
+        "negative": 212
+      },
+      "1.5": {
+        "positive": 23,
+        "negative": 260
+      },
+      "2.5": {
+        "positive": 10,
+        "negative": 107
+      },
+      "3.0": {
+        "positive": 0,
+        "negative": 29
+      },
+      "1.0": {
+        "positive": 8,
+        "negative": 126
+      },
+      "0.5": {
+        "positive": 3,
+        "negative": 16
+      },
+      "4.0": {
+        "positive": 0,
+        "negative": 3
+      },
+      "3.5": {
+        "positive": 0,
+        "negative": 9
+      },
+      "0.0": {
+        "positive": 0,
+        "negative": 1
+      }
+    }
+  },
+  "q5": {
+    "reference": "results/q5_registered_reference.json",
+    "source_repo": "MoralityLabAI/LoopedTransformers",
+    "branch": "rmp-v0-phase2",
+    "n_arms": 12,
+    "correct_under_original_rule": 9,
+    "original_rule": "F1/F8 < .05",
+    "checkpoint_run_status": "blocked_original_12_checkpoint_weights_absent_from_Git_tree",
+    "analysis": "Q5 gradient-fragility score differs from recurrent-state observability Gramian"
+  }
+}

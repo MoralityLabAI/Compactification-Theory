@@ -1,0 +1,128 @@
+{
+  "experiment": "SHAFT-COMP-20",
+  "status": "exact_exhaustive_automata",
+  "vocabulary": 6,
+  "goals": 64,
+  "families": {
+    "repeat_toggle": {
+      "state_count": 768,
+      "goal_signature_classes": 64,
+      "immediate_signature_classes": 64,
+      "two_query_signature_classes": 384,
+      "joint_goal_immediate_two_query_classes": 768,
+      "same_goal_latch_ordered_different_previous_pairs": 3840,
+      "pairs_two_query_distinguishes": 3840,
+      "pairs_persist_after_32_shared_steps": 3840,
+      "witness": {
+        "a": [
+          0,
+          0,
+          0
+        ],
+        "b": [
+          0,
+          0,
+          1
+        ],
+        "q_first": 0,
+        "same_current": true,
+        "two_queries_disagree": true,
+        "after_32_steps": [
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "output_differs_after_32": true
+      }
+    },
+    "successor_toggle": {
+      "state_count": 768,
+      "goal_signature_classes": 64,
+      "immediate_signature_classes": 64,
+      "two_query_signature_classes": 384,
+      "joint_goal_immediate_two_query_classes": 768,
+      "same_goal_latch_ordered_different_previous_pairs": 3840,
+      "pairs_two_query_distinguishes": 3840,
+      "pairs_persist_after_32_shared_steps": 3840,
+      "witness": {
+        "a": [
+          0,
+          0,
+          0
+        ],
+        "b": [
+          0,
+          0,
+          1
+        ],
+        "q_first": 1,
+        "same_current": true,
+        "two_queries_disagree": true,
+        "after_32_steps": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "output_differs_after_32": true
+      }
+    }
+  }
+}

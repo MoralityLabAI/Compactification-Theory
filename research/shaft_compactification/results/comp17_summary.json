@@ -1,0 +1,349 @@
+{
+  "experiment": "SHAFT-COMP-17",
+  "status": "completed_preregistered_synthetic_history_aware_transfer",
+  "registration_commit": "938560c3cad9d2d8cf298f349311900a2510e0fe",
+  "threshold_freeze_commit": "603eb2640f5f4f98c99630495249d005c9dd2729",
+  "source_script_sha256": "cc3f159b07cbcf50ad2a5e073078f7a53bee9f067a33bdd406da22fc77319f6b",
+  "family_seed_split": {
+    "xor_lag": {
+      "calibration": [
+        1301,
+        1302
+      ],
+      "heldout": [
+        1303,
+        1304
+      ]
+    },
+    "parity_gate": {
+      "calibration": [
+        1401,
+        1402
+      ],
+      "heldout": [
+        1403,
+        1404
+      ]
+    }
+  },
+  "architecture": {
+    "parameters": 3265,
+    "hidden": 24,
+    "one_query_probe_outputs": 4,
+    "two_query_probe_outputs": 16,
+    "probe_supervision": "frozen-model counterfactual outputs; no direct goal-ID targets",
+    "base_training_steps": 1200,
+    "probe_training_steps": 400,
+    "calibration_and_heldout_pairs_each": 2048,
+    "state_depths": [
+      12,
+      40
+    ],
+    "diagnostic_horizon": 5,
+    "outcome_horizon": 32
+  },
+  "environment": {
+    "torch": "2.10.0+cpu",
+    "numpy": "2.3.5",
+    "deterministic_algorithms": true
+  },
+  "calibration": {
+    "total": 2048,
+    "eligible": 492,
+    "positives": 55,
+    "auc": {
+      "history_direction": 0.73264,
+      "instant_direction": 0.583982,
+      "history_direction_norm": 0.686291,
+      "instant_direction_norm": 0.52694,
+      "pair_distance": 0.536634
+    }
+  },
+  "heldout": {
+    "total": 2048,
+    "eligible": 523,
+    "positives": 31,
+    "auc": {
+      "history_direction": 0.660504,
+      "instant_direction": 0.557042,
+      "history_direction_norm": 0.710923,
+      "instant_direction_norm": 0.610477,
+      "pair_distance": 0.453908
+    }
+  },
+  "heldout_families": {
+    "xor_lag": {
+      "total": 1024,
+      "eligible": 312,
+      "positives": 19,
+      "auc": {
+        "history_direction": 0.617029,
+        "instant_direction": 0.562781,
+        "history_direction_norm": 0.70397,
+        "instant_direction_norm": 0.619723,
+        "pair_distance": 0.428777
+      }
+    },
+    "parity_gate": {
+      "total": 1024,
+      "eligible": 211,
+      "positives": 12,
+      "auc": {
+        "history_direction": 0.73325,
+        "instant_direction": 0.556533,
+        "history_direction_norm": 0.739531,
+        "instant_direction_norm": 0.603434,
+        "pair_distance": 0.484506
+      }
+    }
+  },
+  "heldout_model_signs": [
+    {
+      "seed": 1303,
+      "family": "xor_lag",
+      "eligible": 139,
+      "positives": 11,
+      "auc_difference": 0.065341
+    },
+    {
+      "seed": 1304,
+      "family": "xor_lag",
+      "eligible": 173,
+      "positives": 8,
+      "auc_difference": 0.061363
+    },
+    {
+      "seed": 1403,
+      "family": "parity_gate",
+      "eligible": 109,
+      "positives": 8,
+      "auc_difference": 0.141089
+    },
+    {
+      "seed": 1404,
+      "family": "parity_gate",
+      "eligible": 102,
+      "positives": 4,
+      "auc_difference": 0.255102
+    }
+  ],
+  "inference": {
+    "auc_difference": 0.103462,
+    "bootstrap_95": [
+      0.019129,
+      0.194882
+    ],
+    "history_auc_95": [
+      0.551203,
+      0.757653
+    ],
+    "instant_auc_95": [
+      0.449479,
+      0.666921
+    ],
+    "permutation_p_two_sided": 0.023976,
+    "permutation_null_mean": 0.003247,
+    "valid_bootstraps": 1000,
+    "valid_permutations": 1000,
+    "unit_of_inference": "pair-resampling within four fixed heldout model instances"
+  },
+  "frozen_calibration_operating_points": {
+    "threshold_method": "90th percentile of pooled calibration negatives, method higher, strictly >",
+    "history_direction": {
+      "threshold": 18.48828887939453,
+      "negatives": 437,
+      "false_positives": 43,
+      "positives": 55,
+      "true_positives": 17
+    },
+    "instant_direction": {
+      "threshold": 12.010499954223633,
+      "negatives": 437,
+      "false_positives": 43,
+      "positives": 55,
+      "true_positives": 4
+    }
+  },
+  "heldout_fixed_operating_points": {
+    "history_direction": {
+      "threshold": 18.48828887939453,
+      "negatives": 492,
+      "false_positives": 20,
+      "positives": 31,
+      "true_positives": 6
+    },
+    "instant_direction": {
+      "threshold": 12.010499954223633,
+      "negatives": 492,
+      "false_positives": 40,
+      "positives": 31,
+      "true_positives": 3
+    }
+  },
+  "heldout_fpr_by_family": {
+    "xor_lag": {
+      "history_direction": {
+        "fp": 10,
+        "neg": 293,
+        "tp": 4,
+        "pos": 19
+      },
+      "instant_direction": {
+        "fp": 40,
+        "neg": 293,
+        "tp": 3,
+        "pos": 19
+      }
+    },
+    "parity_gate": {
+      "history_direction": {
+        "fp": 10,
+        "neg": 199,
+        "tp": 2,
+        "pos": 12
+      },
+      "instant_direction": {
+        "fp": 0,
+        "neg": 199,
+        "tp": 0,
+        "pos": 12
+      }
+    }
+  },
+  "decision": {
+    "prediction_transfer_supported": true,
+    "fixed_fpr_transfer_supported": true
+  },
+  "exact_auc_counts": {
+    "calibration_pooled": {
+      "positive": 55,
+      "negative": 437,
+      "scores": {
+        "history_direction": {
+          "strict_wins": 17609,
+          "ties": 0
+        },
+        "instant_direction": {
+          "strict_wins": 14036,
+          "ties": 0
+        },
+        "history_direction_norm": {
+          "strict_wins": 16495,
+          "ties": 0
+        },
+        "instant_direction_norm": {
+          "strict_wins": 12665,
+          "ties": 0
+        },
+        "pair_distance": {
+          "strict_wins": 12898,
+          "ties": 0
+        }
+      }
+    },
+    "heldout_pooled": {
+      "positive": 31,
+      "negative": 492,
+      "scores": {
+        "history_direction": {
+          "strict_wins": 10074,
+          "ties": 0
+        },
+        "instant_direction": {
+          "strict_wins": 8496,
+          "ties": 0
+        },
+        "history_direction_norm": {
+          "strict_wins": 10843,
+          "ties": 0
+        },
+        "instant_direction_norm": {
+          "strict_wins": 9311,
+          "ties": 0
+        },
+        "pair_distance": {
+          "strict_wins": 6923,
+          "ties": 0
+        }
+      }
+    },
+    "heldout_xor_lag": {
+      "positive": 19,
+      "negative": 293,
+      "scores": {
+        "history_direction": {
+          "strict_wins": 3435,
+          "ties": 0
+        },
+        "instant_direction": {
+          "strict_wins": 3133,
+          "ties": 0
+        },
+        "history_direction_norm": {
+          "strict_wins": 3919,
+          "ties": 0
+        },
+        "instant_direction_norm": {
+          "strict_wins": 3450,
+          "ties": 0
+        },
+        "pair_distance": {
+          "strict_wins": 2387,
+          "ties": 0
+        }
+      }
+    },
+    "heldout_parity_gate": {
+      "positive": 12,
+      "negative": 199,
+      "scores": {
+        "history_direction": {
+          "strict_wins": 1751,
+          "ties": 0
+        },
+        "instant_direction": {
+          "strict_wins": 1329,
+          "ties": 0
+        },
+        "history_direction_norm": {
+          "strict_wins": 1766,
+          "ties": 0
+        },
+        "instant_direction_norm": {
+          "strict_wins": 1441,
+          "ties": 0
+        },
+        "pair_distance": {
+          "strict_wins": 1157,
+          "ties": 0
+        }
+      }
+    }
+  },
+  "heldout_base_accuracy_12": {
+    "1303": 1,
+    "1304": 1,
+    "1403": 1,
+    "1404": 1
+  },
+  "heldout_base_accuracy_32": {
+    "1303": 0.986969,
+    "1304": 0.993744,
+    "1403": 0.993256,
+    "1404": 0.993103
+  },
+  "sha256_full_json": {
+    "calibration": "f07496403ef26dff938b6d9c87030ac245ae0e784bcc098a1c57edce39540790",
+    "heldout": "aa1a2cd4c561af5828bb8559b8c0a8fde77123c5fa8c2a5f49dce86333791403"
+  },
+  "sha256_replay_json": {
+    "calibration": "f07496403ef26dff938b6d9c87030ac245ae0e784bcc098a1c57edce39540790",
+    "heldout": "aa1a2cd4c561af5828bb8559b8c0a8fde77123c5fa8c2a5f49dce86333791403"
+  },
+  "boundaries": [
+    "Two output dimensions differ (4 vs 16), so probe capacity is a confounder for history-specific attribution.",
+    "Only 31 heldout divergence events across two synthetic task families and four models.",
+    "Low sensitivity at the fixed threshold: 6 of 31 divergences caught at 20 of 492 false positives.",
+    "All weights and goal embeddings remain present; no unknown agent goals or erased-checkpoint recovery demonstrated."
+  ]
+}

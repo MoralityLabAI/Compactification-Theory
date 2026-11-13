@@ -1,0 +1,155 @@
+{
+  "experiment": "SHAFT-COMP-24",
+  "state": "completed_registered_heldout",
+  "registration_commit": "92ad76ece8dafe37a6181b48ca53ee52f1554059",
+  "calibration_freeze_commit": "25c07861793ed747eb8b18e36a773fca56c3d753",
+  "calibration_freeze_sha256": "81fbcb7bc21c88810c8f70f7a1f1c0edb5d8485d8bf0e4c54f21f9d23ade5c92",
+  "full_calibration_sha256": "e007f5cdbc33fab71740392ec65b5f2dfc36f8bbf20fbca8fffe4700bcf057be",
+  "original_experiment_source_sha256": "fe4b10ebedcb8074614f493ebe148b492663309331bd4adce125f63c4fbfcbd2",
+  "heldout_full_receipt_sha256": "40c0e1edbfb81ff51509435be5a853e6de46c64fc52ce741b13cb164f1c2ec23",
+  "heldout_independent_replay_sha256": "40c0e1edbfb81ff51509435be5a853e6de46c64fc52ce741b13cb164f1c2ec23",
+  "environment": {
+    "torch": "2.10.0+cpu",
+    "numpy": "2.3.5",
+    "cpu_threads": 3
+  },
+  "method": "Observed prefix last input plus native four/six one-query and 36 two-query response bits; per (p,a) majority vote on B1[c] XOR B2[a,c], no oracle goals/latches/trigger bits in fitting.",
+  "family_calibration": {
+    "repeat_toggle": {
+      "source_seed": 2301,
+      "states": 2048,
+      "oracle_rule_entries_recovered": 36,
+      "entries": 36,
+      "minimum_votes_per_entry": 1872,
+      "minimum_majority_margin_from_tie": 0.44444444
+    },
+    "successor_toggle": {
+      "source_seed": 2311,
+      "states": 2048,
+      "oracle_rule_entries_recovered": 36,
+      "entries": 36,
+      "minimum_votes_per_entry": 1884,
+      "minimum_majority_margin_from_tie": 0.48467967
+    }
+  },
+  "heldout_seeds": [
+    2302,
+    2303,
+    2312,
+    2313
+  ],
+  "heldout_states_each_seed_depth": 1024,
+  "heldout_total_states": 8192,
+  "metrics_by_depth": {
+    "12": {
+      "states": 4096,
+      "bits_total": 147456,
+      "learned": {
+        "bits_correct": 145181,
+        "exact_correct": 3272
+      },
+      "oracle": {
+        "bits_correct": 145181,
+        "exact_correct": 3272
+      },
+      "zero": {
+        "bits_correct": 121887,
+        "exact_correct": 0
+      },
+      "wrong_family": {
+        "bits_correct": 97707,
+        "exact_correct": 0
+      },
+      "permuted_previous": {
+        "bits_correct": 98001,
+        "exact_correct": 0
+      }
+    },
+    "40": {
+      "states": 4096,
+      "bits_total": 147456,
+      "learned": {
+        "bits_correct": 144837,
+        "exact_correct": 3137
+      },
+      "oracle": {
+        "bits_correct": 144837,
+        "exact_correct": 3137
+      },
+      "zero": {
+        "bits_correct": 121675,
+        "exact_correct": 0
+      },
+      "wrong_family": {
+        "bits_correct": 97545,
+        "exact_correct": 0
+      },
+      "permuted_previous": {
+        "bits_correct": 97911,
+        "exact_correct": 0
+      }
+    }
+  },
+  "per_seed_depth40": [
+    {
+      "family": "repeat_toggle",
+      "seed": 2302,
+      "n": 1024,
+      "learned_bit": 0.99433051,
+      "learned_exact": 0.90820312,
+      "zero_bit": 0.83102756,
+      "delta": 0.16330295
+    },
+    {
+      "family": "repeat_toggle",
+      "seed": 2303,
+      "n": 1024,
+      "learned_bit": 0.99273003,
+      "learned_exact": 0.89160156,
+      "zero_bit": 0.82866753,
+      "delta": 0.1640625
+    },
+    {
+      "family": "successor_toggle",
+      "seed": 2312,
+      "n": 1024,
+      "learned_bit": 0.94346788,
+      "learned_exact": 0.29394531,
+      "zero_bit": 0.80821398,
+      "delta": 0.13525391
+    },
+    {
+      "family": "successor_toggle",
+      "seed": 2313,
+      "n": 1024,
+      "learned_bit": 0.99842665,
+      "learned_exact": 0.96972656,
+      "zero_bit": 0.83273655,
+      "delta": 0.1656901
+    }
+  ],
+  "primary": {
+    "depth": 40,
+    "metric": "native two-query bit accuracy difference learned-trigger minus zero-trigger",
+    "difference": 0.15707737,
+    "stratified_bootstrap95": [
+      0.15642632,
+      0.15770128
+    ],
+    "bootstrap_draws": 1000
+  },
+  "registered_support": {
+    "all_72_trigger_entries_exact": true,
+    "bootstrap_lower_positive": true,
+    "positive_gain_in_all_four_models": true,
+    "overall": true
+  },
+  "limitations": [
+    "Base frozen GRUs and oracle goals remain available; previous input p is known externally from observed token history.",
+    "XOR compositional family is given; discovering an arbitrary recurrent program was not attempted.",
+    "Confidence interval conditions on four previously examined model seeds; no fresh model-level holdout.",
+    "Known-rule and learned-rule prediction matrices coincide exactly, so re-fitting a separately trained factorized head is redundant and was not performed.",
+    "Native behavioral response errors constrain exact full 36-bit signature recovery, most prominently on successor seed 2312.",
+    "No inference about distributed persistence or checkpoint resurrection."
+  ]
+}

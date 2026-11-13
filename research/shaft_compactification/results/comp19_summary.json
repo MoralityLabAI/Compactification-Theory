@@ -1,0 +1,176 @@
+{
+  "experiment": "SHAFT-COMP-19",
+  "evidence": "newly trained synthetic 6-symbol 64-task GRU/LSTM models; two delayed 32-token futures checked at 8,16,32",
+  "preregistration_commit": "6b063812cfbf913910e1eed60f33b279a64bf87a",
+  "thresholds_freeze_commit": "671a60e3f5502b9c11c66292ea900af58632384e",
+  "source_script_sha256": "5cc5467e0864aaae94b6a708b2140778bec823c881211d65c5922f1a85525291",
+  "full_local_summary_sha256": "47deb7caf072981dcb9d0db2b909d3550345c7d0a0db3954d24d93b433813ca8",
+  "full_pair_receipt_sha256": "a30b53828983c6f175f63182e8f9f76cbeec5dc75335b1e7f0cde4f00eb755da",
+  "repeated_full_receipt_sha256": "a30b53828983c6f175f63182e8f9f76cbeec5dc75335b1e7f0cde4f00eb755da",
+  "torch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "six_symbols": true,
+  "distinct_task_goals": 64,
+  "calibration_model_seeds": [
+    1901,
+    1902,
+    1903,
+    1904
+  ],
+  "heldout_model_seeds": [
+    1911,
+    1912,
+    1913,
+    1914
+  ],
+  "training_steps": 1600,
+  "initial_state_depths": [
+    12,
+    40
+  ],
+  "generated_state_pairs_per_split": 8192,
+  "eligible_filter": "matching six native immediate output bits and six W1 immediate probe bits",
+  "fixed_source_thresholds": {
+    "history": 4.71539831161499,
+    "duplicate": 3.846395969390869
+  },
+  "calibration": {
+    "total": 8192,
+    "eligible": 1012,
+    "positives": 300,
+    "auc": {
+      "instant": 0.51536,
+      "duplicate": 0.514129,
+      "history": 0.568904,
+      "instant_norm": 0.672018,
+      "duplicate_norm": 0.672191,
+      "history_norm": 0.718291,
+      "distance": 0.379696
+    },
+    "primary_delta": 0.054775
+  },
+  "heldout": {
+    "total": 8192,
+    "eligible": 968,
+    "positives": 323,
+    "negatives": 645,
+    "auc": {
+      "instant": 0.573912,
+      "duplicate": 0.574363,
+      "history": 0.603586,
+      "instant_norm": 0.623937,
+      "duplicate_norm": 0.623779,
+      "history_norm": 0.656035,
+      "distance": 0.45147
+    },
+    "primary_delta": 0.029223
+  },
+  "heldout_cells": {
+    "gru_rotate": {
+      "seed": 1911,
+      "eligible": 212,
+      "positives": 67,
+      "history_auc": 0.578075,
+      "duplicate_auc": 0.498199,
+      "delta": 0.079876,
+      "task_accuracy_d12": 0.989421,
+      "task_accuracy_d32": 0.978699,
+      "history_fixed_false_positives": 3,
+      "history_fixed_true_positives": 0,
+      "history_fixed_negatives": 145,
+      "history_fixed_fpr": 0.02069,
+      "model_sha256": "815c885d5b3e0fd30043bf96ac6baed2b28ce6e2ce611a02348f2b03521bf521",
+      "receipt_sha256": "654af59855f6e17a65bcd2483df9441046c1c05bb4e83ce712a92cfc2926cdca"
+    },
+    "lstm_rotate": {
+      "seed": 1912,
+      "eligible": 305,
+      "positives": 139,
+      "history_auc": 0.644622,
+      "duplicate_auc": 0.599593,
+      "delta": 0.045029,
+      "task_accuracy_d12": 1,
+      "task_accuracy_d32": 0.99707,
+      "history_fixed_false_positives": 12,
+      "history_fixed_true_positives": 9,
+      "history_fixed_negatives": 166,
+      "history_fixed_fpr": 0.072289,
+      "model_sha256": "e22cd10e817a541d7e774e7dd6996d3b3d42e765c6c762f0d98abf3053a99843",
+      "receipt_sha256": "d55dad5d600b3f9b81e5aee97e3dc6ebba3a562b44595339f1b53a66f060ef34"
+    },
+    "gru_match": {
+      "seed": 1913,
+      "eligible": 163,
+      "positives": 51,
+      "history_auc": 0.614146,
+      "duplicate_auc": 0.580357,
+      "delta": 0.033789,
+      "task_accuracy_d12": 0.999512,
+      "task_accuracy_d32": 0.994568,
+      "history_fixed_false_positives": 0,
+      "history_fixed_true_positives": 0,
+      "history_fixed_negatives": 112,
+      "history_fixed_fpr": 0,
+      "model_sha256": "361bb6a3038f36346b09d54a87160287b9181c5c0a234b3789777e0cc0087746",
+      "receipt_sha256": "1434f4b7d8f3cc0c20b0437223c38b448bf67335485a8351ca35fc48a21bb235"
+    },
+    "lstm_match": {
+      "seed": 1914,
+      "eligible": 288,
+      "positives": 66,
+      "history_auc": 0.690895,
+      "duplicate_auc": 0.683729,
+      "delta": 0.007166,
+      "task_accuracy_d12": 1,
+      "task_accuracy_d32": 0.99823,
+      "history_fixed_false_positives": 20,
+      "history_fixed_true_positives": 18,
+      "history_fixed_negatives": 222,
+      "history_fixed_fpr": 0.09009,
+      "model_sha256": "58d53b9b398c2caa0041e7712231fb4db5d2b2ab4bad0e5426dff671248946b",
+      "receipt_sha256": "ca1902bd706384303229185e8f439a63df8538deb777d469e73682f48865ed98"
+    }
+  },
+  "exact_auc_comparisons": {
+    "heldout": {
+      "positive": 323,
+      "negative": 645,
+      "history_strict_wins": 125748,
+      "history_ties": 0,
+      "duplicate_strict_wins": 119660,
+      "duplicate_ties": 0
+    }
+  },
+  "inference": {
+    "bootstrap_trials": 1000,
+    "bootstrap_95_delta": [
+      0.001797,
+      0.056928
+    ],
+    "permutation_trials": 1000,
+    "permutation_p_two_sided": 0.003996,
+    "permutation_null_mean": -0.007453,
+    "positive_cell_count": 4,
+    "registered_primary_supported": true
+  },
+  "operating": {
+    "history": {
+      "false_positives": 35,
+      "negatives": 645,
+      "true_positives": 27,
+      "positives": 323,
+      "fpr": 0.054264,
+      "tpr": 0.083591
+    },
+    "duplicate": {
+      "false_positives": 54,
+      "negatives": 645,
+      "true_positives": 22,
+      "positives": 323,
+      "fpr": 0.083721,
+      "tpr": 0.068111
+    },
+    "history_fixed_source_fpr_pass_all_four_cells": true
+  },
+  "limitations": "one heldout seed per architecture/task cell; within-model conditional bootstrap; new endpoint is any divergence across two 32-token continuations at checks 8/16/32; not comparable directly with COMP-18 single step-32 endpoint; all tasks and weights known"
+}

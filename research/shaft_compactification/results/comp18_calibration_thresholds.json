@@ -1,0 +1,103 @@
+{
+  "experiment": "SHAFT-COMP-18",
+  "phase": "calibration_thresholds",
+  "registration_commit": "32e97781cc6c4c02eb6c8e1e27e7c655eab015e0",
+  "calibration_full_sha256": "bde722dd259590339282b93252bbaec7bba0ca1bf0ad83a440354a5ba9d920e0",
+  "selection": "numpy higher quantile 0.90, strict >",
+  "global_thresholds": {
+    "history": 5.020033836364746,
+    "instant": 6.589989185333252
+  },
+  "cell_thresholds": {
+    "gru_v4": {
+      "history": 4.609230041503906,
+      "instant": 7.996607303619385
+    },
+    "gru_v6": {
+      "history": 2.0375168323516846,
+      "instant": 3.6574907302856445
+    },
+    "lstm_v4": {
+      "history": 6.794493675231934,
+      "instant": 6.58950138092041
+    },
+    "lstm_v6": {
+      "history": 3.913827896118164,
+      "instant": 3.0125010013580322
+    }
+  },
+  "source_aggregate": {
+    "eligible": 381,
+    "total": 2048,
+    "positives": 51,
+    "auc": {
+      "distance": 0.529887,
+      "history": 0.646583,
+      "history_norm": 0.6571,
+      "instant": 0.571242,
+      "instant_norm": 0.58372
+    }
+  },
+  "source_operating_points": {
+    "history": {
+      "threshold": 5.020033836364746,
+      "negatives": 330,
+      "positives": 51,
+      "false_positives": 32,
+      "true_positives": 10,
+      "fpr": 0.09697,
+      "tpr": 0.196078
+    },
+    "instant": {
+      "threshold": 6.589989185333252,
+      "negatives": 330,
+      "positives": 51,
+      "false_positives": 32,
+      "true_positives": 8,
+      "fpr": 0.09697,
+      "tpr": 0.156863
+    }
+  },
+  "source_models": {
+    "1811": {
+      "cell": "gru_v4",
+      "accuracy_d12": 1,
+      "accuracy_d32": 0.992554,
+      "state_dim": 24,
+      "parameters": 3265,
+      "model_sha256": "a5f50f94a41af7c51fe306acf8ec02ac3e6d5af8c07aaeab9f26aae919a9fecd",
+      "immediate_probe_sha256": "3c99a1c5f0f938dc637771239876465bdd663e218d3b73c685175bc8fff6bd1b",
+      "history_probe_sha256": "5d04e8f48b13b75bad15b85ce076b9030ca193a96fb23fa9e2c6ff211ccd6d6b"
+    },
+    "1821": {
+      "cell": "gru_v6",
+      "accuracy_d12": 0.968099,
+      "accuracy_d32": 0.949158,
+      "state_dim": 24,
+      "parameters": 4609,
+      "model_sha256": "09d9044fa5c18b9b6d4d79639cc25e133ac2d0cea054736ff5f7b8e5714147f5",
+      "immediate_probe_sha256": "e49b3e2f952efe72e47a8832404b65d224fd5c4db7f9f5b224b0613acb3e5929",
+      "history_probe_sha256": "e648a01106cfa4677545e00bf16ef995ce63b0c6c1decde5d94f64dc209dcb09"
+    },
+    "1831": {
+      "cell": "lstm_v4",
+      "accuracy_d12": 1,
+      "accuracy_d32": 0.987976,
+      "state_dim": 48,
+      "parameters": 4369,
+      "model_sha256": "e41c5c451b3dadae1bb39cca06cbbec279bafe83bc2c21f263770809615751c4",
+      "immediate_probe_sha256": "67b6d226bdfbb7c72ce2996643dafa0fda595fd3e88aacb0e25ce9721f4ffdff",
+      "history_probe_sha256": "5c8f5a6e960012f82ebaae9b9ce714782ac46423f61f435f0de2563e5eb183f5"
+    },
+    "1841": {
+      "cell": "lstm_v6",
+      "accuracy_d12": 1,
+      "accuracy_d32": 0.995911,
+      "state_dim": 48,
+      "parameters": 6913,
+      "model_sha256": "523af053b961e6306c6a4a274f6d6f038d67e6add5a7a01c17342d546ced3071",
+      "immediate_probe_sha256": "1cd88b34c8a60521333d0999fdce3c011c4c768be7de0baef7981bb6133aa9ef",
+      "history_probe_sha256": "4d5973d7e0d5f49f5cbb6c00bc0721767875800c8355379c2f8cd9f07c70d4cb"
+    }
+  }
+}

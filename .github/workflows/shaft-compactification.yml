@@ -1,0 +1,530 @@
+name: SHAFT compactification (abstract finite reference)
+
+on:
+  pull_request:
+    paths:
+      - 'research/shaft_compactification/**'
+      - '.github/workflows/shaft-compactification.yml'
+  push:
+    paths:
+      - 'research/shaft_compactification/**'
+      - '.github/workflows/shaft-compactification.yml'
+  workflow_dispatch:
+
+jobs:
+  finite-cpu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Check optional GRU script syntax and frozen receipt schema
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/trained_recurrence.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('research/shaft_compactification/results/trained_recurrence.json').read_text())
+          assert r['training']['seeds'] == [101, 202]
+          for seed in ('101', '202'):
+              metrics = r['results'][seed]['depth']['64']
+              assert metrics['explicit_reseed_from_code_at_32']['last_eight_steps'] > 0.90
+              assert metrics['midrun_erasure_at_32']['last_eight_steps'] < 0.60
+          print('Trained GRU receipt schema verified; retraining remains opt-in')
+          PY
+      - name: Check SHAFT-COMP-07 script and frozen summary
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/predictive_state.py
+          python -m research.shaft_compactification.behavioral_budget > /tmp/shaft-budget.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          budget = json.loads(Path('/tmp/shaft-budget.json').read_text())
+          assert budget['ceiling_successes_for_16_uniform_goals'] == {str(k): 2**k for k in range(5)}
+          r = json.loads(Path('research/shaft_compactification/results/predictive_state_summary.json').read_text())
+          assert r['base_seeds'] == [101, 202]
+          assert r['probe_train_depths'] == [4, 8, 12]
+          for seed in ('101', '202'):
+              results = r['results'][seed]
+              assert results['exact_true_goal_by_depth']['12'] == 1.0
+              assert results['shuffled_label_exact_true_goal_at_12'] < 0.15
+          full = json.loads(Path('research/shaft_compactification/results/predictive_state.json').read_text())
+          assert full['training']['probe_supervision'].endswith('no goal IDs')
+          for seed in ('101', '202'):
+              for depth, measured in full['models'][seed]['independent_test'].items():
+                  assert measured['probe_exact_true_goal_rate'] == r['results'][seed]['exact_true_goal_by_depth'][depth]
+                  assert measured['probe_vs_true_goal_bit_accuracy'] == r['results'][seed]['probe_bit_accuracy_by_depth'][depth]
+                  assert measured['teacher_vs_true_goal_bit_accuracy'] == r['results'][seed]['teacher_bit_accuracy_by_depth'][depth]
+          for direction, record in full['cross_substrate'].items():
+              assert record['behavioral_code_transfer']['semantic_code_inferred_from_source'] == r['cross_substrate'][direction]['semantic_code_inferred_from_source']
+          print('SHAFT-COMP-07 source, counting identity, and full/summary receipt agreement verified')
+          PY
+      - name: SHAFT-COMP-08 exact reference and frozen receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/unknown_semantics.py
+          python -m research.shaft_compactification.gauge_identifiability > /tmp/shaft08-finite.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          exact = json.loads(Path('/tmp/shaft08-finite.json').read_text())
+          frozen = json.loads(Path('research/shaft_compactification/results/unknown_semantics.json').read_text())
+          assert exact == frozen['finite'], 'SHAFT-COMP-08 finite enumeration drift'
+          assert exact['candidate_count_by_anchor_number'] == {'0':48,'1':6,'2':2,'3':1}
+          assert exact['two_anchor_pair_count_examined'] == 256
+          assert frozen['trained']['heldout_contexts'] == 512
+          assert frozen['trained']['distinct_target_catalog_signatures'] == 16
+          assert frozen['trained']['anchor_sweep']['3']['first_consistent_candidate']['recovered_goal_fraction'] == 1
+          assert frozen['trained']['anchor_sweep']['3']['first_consistent_candidate']['target_task_accuracy'] == frozen['trained']['correct_goal_oracle_accuracy']
+          assert frozen['trained']['anchor_sweep']['2']['candidate_count'] == 2
+          print('SHAFT-COMP-08 exact counting reference and frozen trained receipt schema checked')
+          PY
+      - name: SHAFT-COMP-09 noise and systematic-missingness receipts
+        run: |
+          python -m research.shaft_compactification.noisy_gauge --trials 1024 > /tmp/shaft09.json
+          python -m research.shaft_compactification.structured_missingness > /tmp/shaft09-structured.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          actual = json.loads(Path('/tmp/shaft09.json').read_text())
+          expected = json.loads(Path('research/shaft_compactification/results/noisy_gauge_reference.json').read_text())
+          assert actual == expected, 'SHAFT-COMP-09 seeded noisy gauge receipt drift'
+          assert actual['three_anchor_minimax']['max_min_distance'] == 4
+          assert len(actual['three_anchor_minimax']['optimal_triples']) == 8
+          structured = json.loads(Path('/tmp/shaft09-structured.json').read_text())
+          for design in ('balanced', 'onehot'):
+              for budget in ('3', '6', '12', '24'):
+                  record = structured['results'][design][budget]
+                  assert record['compatible_gauges_with_queries_2_3_never_seen'] == 2
+                  assert record['consistent_global_relabeling']['unique_wrong_gauge']
+          print('SHAFT-COMP-09 deterministic receipts and structured error controls reproduced')
+          PY
+      - name: SHAFT-COMP-10 scripts and frozen model summary
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/activation_noise.py
+          python -m py_compile research/shaft_compactification/experiments/adaptive_anchor.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('research/shaft_compactification/results/comp10_summary.json').read_text())
+          assert r['base_model_seeds'] == [101, 202]
+          assert r['independent_test_trials_per_condition'] == 512
+          assert r['calibration_prefixes_per_goal'] == 192
+          assert len(r['conditions']) == 4
+          for entry in r['conditions']:
+              assert len(entry['replicates']) == 2
+              assert len(entry['selected']) == 3
+              for rep in entry['replicates']:
+                  metrics = rep['unique_at_six']
+                  assert 0 <= metrics['balanced_six'] <= 512
+                  assert 0 <= metrics['onehot'] <= 512
+                  assert 0 <= metrics['adaptive'] <= 512
+          assert all(len(x) == 64 for x in r['full_local_receipt_sha256'].values())
+          print('SHAFT-COMP-10 source syntax and local frozen metric schema verified')
+          PY
+      - name: SHAFT-COMP-11 finite proof fixture and experiment receipts
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/causal_probe.py
+          python -m py_compile research/shaft_compactification/experiments/natural_alias.py
+          python -m research.shaft_compactification.causal_finite > /tmp/shaft-comp11-finite.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          finite = json.loads(Path('/tmp/shaft-comp11-finite.json').read_text())
+          pinned = json.loads(Path('research/shaft_compactification/results/causal_finite.json').read_text())
+          assert finite == pinned, 'SHAFT-COMP-11 finite-state certificate drifted'
+          r = json.loads(Path('research/shaft_compactification/results/comp11_summary.json').read_text())
+          assert r['seeds'] == [101, 202]
+          assert r['states_per_depth_per_seed'] == 512
+          assert len(r['nullspace_results']) == 12 and len(r['natural_state_pairs']) == 6
+          assert all(x['code_preserved'] == 1 for x in r['nullspace_results'])
+          assert all(len(v) == 64 for v in r['frozen_full_receipt_hashes'].values())
+          for seed in ('101', '202'):
+              condition = next(x for x in r['natural_state_pairs']
+                               if x['seed'] == seed and x['depth'] == 12)
+              assert condition['code_agreement'] == 1
+              assert condition['diverged_0'] == 0
+              assert condition['diverged_32'] > 0
+          print('SHAFT-COMP-11 finite certificate and frozen neural schema checked')
+          PY
+      - name: SHAFT-COMP-12 exact observability reference and local receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/gramian_probe.py
+          python -m research.shaft_compactification.finite_observability > /tmp/shaft12_finite.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          obs=json.loads(Path('/tmp/shaft12_finite.json').read_text())
+          expected=json.loads(Path('research/shaft_compactification/results/finite_observability.json').read_text())
+          assert obs == expected, 'SHAFT-COMP-12 exact integer reference drift'
+          assert [row['exact_observability_rank'] for row in obs['results']] == [1,2,3,4,5,6,6,6,6]
+          summary=json.loads(Path('research/shaft_compactification/results/gramian_summary.json').read_text())
+          assert summary['total_recurrent_trajectories'] == 256
+          assert summary['full_rank_at_horizon5_1e5_total'] == 248
+          assert summary['full_rank_at_horizon6_1e5_total'] == 256
+          assert summary['measured_jacobian_max_disagreement_autograd'] < 1e-6
+          assert len(summary['full_raw_receipt_sha256']) == 64
+          for record in summary['results']:
+              assert record['ranks_e3'][:5] == [4,8,12,16,20]
+              assert record['rank_e5_h5'] >= 60
+              assert record['blind_002'] < record['randomnull_002']
+              assert record['blind_02'] < record['randomnull_02']
+          print('Exact six-bit Gramian reference and trained summary schema validated')
+          PY
+      - name: SHAFT-COMP-13 registered negative-result and Q5 baseline audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/observability_prediction.py
+          python -m py_compile research/shaft_compactification/experiments/q5_checkpoint_bridge.py
+          python -m research.shaft_compactification.rank_auc_reference
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('research/shaft_compactification/results/comp13_summary.json').read_text())
+          assert a['status'] == 'completed_negative_registered_primary'
+          assert a['heldout_model_seeds'] == [303, 404]
+          assert a['calibration_model_seeds'] == [101, 202]
+          assert a['rank_relative_threshold'] == 0.001
+          assert a['diagnostic_horizon'] == 5 and a['outcome_continuation_length'] == 32
+          assert a['raw_pairs_sha256'] and len(a['raw_pairs_sha256']) == 64
+          result=a['test_results']['heldout_pooled']
+          assert result['eligible'] == 827 and result['positives'] == 55
+          assert abs(result['auroc']['rank_deficit'] - 0.504439) < 1e-6
+          assert a['test_results']['uncertainty']['permutation_trials'] == 1000
+          assert len(a['model_hashes']) == 4
+          q5=json.loads(Path('research/shaft_compactification/results/q5_registered_reference.json').read_text())
+          assert len(q5['rows']) == 12
+          assert q5['correct'] == 9 and q5['n_extrap'] == 8
+          assert sum((r['f1_f8'] < .05) == r['extrap'] for r in q5['rows']) == 9
+          print('SHAFT-COMP-13 registered negative result, binned ROC-AUC, and Q5 baseline verified')
+          PY
+      - name: SHAFT-COMP-14 task-directional reference and frozen AUC audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/task_weighted_observability.py
+          python -m research.shaft_compactification.task_gramian_reference > /tmp/shaft14_finite.json
+          python -m research.shaft_compactification.task_auc_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from research.shaft_compactification.task_gramian_reference import reference
+          observed=json.loads(Path('/tmp/shaft14_finite.json').read_text())
+          assert observed == reference()
+          assert observed['aligned_directional_energy']==1
+          assert observed['hidden_directional_energy']==0
+          s=json.loads(Path('research/shaft_compactification/results/comp14_summary.json').read_text())
+          assert s['protocol_sha']=='221c225d2a3b9222b0cfd8b699a07f21b293452e'
+          assert s['heldout_model_seeds']==[505,606]
+          assert s['heldout']['eligible']==864 and s['heldout']['positives']==50
+          assert s['uncertainty']['permutation_count']==1000
+          assert len(s['full_receipt_sha256'])==64
+          assert abs(s['heldout']['auroc']['task_weighted']-.652604)<1e-6
+          assert abs(s['heldout']['auroc']['rank_deficit']-.481179)<1e-6
+          assert s['heldout']['auroc']['native_unweighted']>s['heldout']['auroc']['task_weighted']
+          print('SHAFT-COMP-14 preregistered metrics, exact AUC accounting and finite mathematics checked')
+          PY
+      - name: SHAFT-COMP-15 factorial preregistration, fixed receipts and exact audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/factorial_observability.py
+          python -m research.shaft_compactification.factorial_reference > /tmp/shaft_comp15_finite.json
+          python -m research.shaft_compactification.factorial_auc_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from research.shaft_compactification.factorial_reference import reference
+          finite=json.loads(Path('/tmp/shaft_comp15_finite.json').read_text())
+          assert finite == reference()
+          s=json.loads(Path('research/shaft_compactification/results/comp15_summary.json').read_text())
+          assert s['protocol_commit']=='0240f2f3378647d1106111b000e0aa425cdaee27'
+          assert s['heldout_seeds']==[707,808,909,1001]
+          assert s['calibration_seeds']==[101,202]
+          assert s['diagnostic_steps']==5 and s['outcome_steps']==32
+          assert s['rank_relative_threshold']==0.001
+          assert s['heldout']['eligible']==1534 and s['heldout']['positives']==118
+          assert abs(s['heldout']['auc']['learned_direction']-0.710225)<1e-6
+          assert abs(s['heldout']['auc']['learned_rank']-0.484385)<1e-6
+          assert s['inference']['positive_model_count']==4
+          assert s['inference']['primary_difference_bootstrap95'][0]>0
+          assert s['inference']['prespecified_support_criteria_met']
+          assert s['full_receipt_sha256']==s['independent_replay_sha256']
+          assert len(s['model_hashes'])==6
+          print('SHAFT-COMP-15 exact factorial/AUC reference and frozen preregistered result verified')
+          PY
+      - name: SHAFT-COMP-16 temporal transfer and preregistered negative audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/family_transfer.py
+          python -m py_compile research/shaft_compactification/experiments/merge_family_receipts.py
+          python -m research.shaft_compactification.temporal_family_reference > /tmp/shaft16_finite.json
+          python -m research.shaft_compactification.temporal_family_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          actual=json.loads(Path('/tmp/shaft16_finite.json').read_text())
+          pinned=json.loads(Path('research/shaft_compactification/results/temporal_family_reference.json').read_text())
+          assert actual==pinned,'SHAFT-COMP-16 temporal finite reference drift'
+          summary=json.loads(Path('research/shaft_compactification/results/comp16_summary.json').read_text())
+          assert summary['protocol_commit']=='83a436d3e301002491655a1d96af7bf1df88e4a7'
+          assert summary['calibration_source']['thresholds']=={'learned_direction':6.854760490520719,'learned_rank':2.5}
+          assert summary['heldout_pooled']['eligible']==371
+          assert summary['heldout_pooled']['positives']==28
+          assert summary['inference']['bootstrap_95'][0]<0<summary['inference']['bootstrap_95'][1]
+          assert not summary['decision']['directional_prediction_transfer_supported']
+          assert not summary['decision']['source_threshold_fpr_transfer_supported']
+          assert len(summary['model_training'])==8
+          assert len(summary['model_hashes'])==8
+          assert summary['full_receipt_sha256']=='a3fa526da6c72e30f924af747b70197dd731bc6683347acd253f8290810a71a1'
+          for family in ('lag_rotate','lag_match'):
+              assert summary['per_family_receipt_sha256'][family]==summary['replays'][family+'_sha256']
+          print('SHAFT-COMP-16 negative transfer and fixed FPR thresholds independently audited')
+          PY
+      - name: SHAFT-COMP-17 frozen history-probe and threshold audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/history_aware_transfer.py
+          python -m py_compile research/shaft_compactification/experiments/history_capacity_control.py
+          python -m research.shaft_compactification.temporal_probe_reference > /tmp/shaft17-finite.json
+          python -m research.shaft_compactification.history_probe_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          exact = json.loads(Path('/tmp/shaft17-finite.json').read_text())
+          frozen = json.loads(Path('research/shaft_compactification/results/temporal_probe_reference.json').read_text())
+          assert exact == frozen, 'COMP-17 temporal reference drift'
+          assert frozen['families']['xor_lag']['one_step_alias_pairs_split_by_two_steps'] == 72
+          assert frozen['families']['parity_gate']['one_step_alias_pairs_split_by_two_steps'] == 64
+          s=json.loads(Path('research/shaft_compactification/results/comp17_summary.json').read_text())
+          t=json.loads(Path('research/shaft_compactification/results/comp17_calibration_thresholds.json').read_text())
+          assert s['registration_commit'] == t['registration_commit']
+          assert s['threshold_freeze_commit'] == '603eb2640f5f4f98c99630495249d005c9dd2729'
+          assert s['sha256_full_json'] == s['sha256_replay_json']
+          assert t['thresholds']['history_direction'] == 18.48828887939453
+          assert t['thresholds']['instant_direction'] == 12.010499954223633
+          assert s['heldout']['eligible'] == 523 and s['heldout']['positives'] == 31
+          assert abs(s['inference']['auc_difference'] - 0.103462) < 1e-6
+          assert s['decision']['prediction_transfer_supported']
+          assert s['decision']['fixed_fpr_transfer_supported']
+          posthoc=json.loads(Path('research/shaft_compactification/results/comp17_posthoc_summary.json').read_text())
+          assert posthoc['heldout']['eligible'] == 523
+          assert abs(posthoc['heldout']['auc']['duplicate_immediate_16'] - 0.556517) < 1e-6
+          assert posthoc['status'] == 'exploratory_followup_after_registered_results'
+          print('SHAFT-COMP-17 finite, preregistered, paired-AUC and posthoc receipts verified')
+          PY
+      - name: SHAFT-COMP-18 frozen architecture-vocabulary transfer receipts
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/architecture_vocab_transfer.py
+          python -m py_compile research/shaft_compactification/experiments/merge_architecture_transfer.py
+          python -m research.shaft_compactification.finite_history_vocab > /tmp/shaft18_finite.json
+          python -m research.shaft_compactification.comp18_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('research/shaft_compactification/results/comp18_finite_reference.json').read_text())
+          actual=json.loads(Path('/tmp/shaft18_finite.json').read_text())
+          assert expected == actual, 'SHAFT-COMP-18 exact finite quotient receipt drift'
+          assert actual['results']['4']['joint_one_and_two_step_classes'] == 54
+          assert actual['results']['6']['joint_one_and_two_step_classes'] == 348
+          s=json.loads(Path('research/shaft_compactification/results/comp18_summary.json').read_text())
+          t=json.loads(Path('research/shaft_compactification/results/comp18_calibration_thresholds.json').read_text())
+          assert s['protocol_commit']==t['registration_commit']
+          assert s['heldout']['eligible']==794 and s['heldout']['positives']==109
+          assert abs(s['inference']['registered_auc_delta']-.122146)<1e-6
+          assert s['preregistered_decision']['positive_models']==8
+          assert s['preregistered_decision']['positive_cells']==4
+          assert s['preregistered_decision']['fixed_global_fpr_transfer_criteria_met']
+          assert t['global_thresholds']['history']==5.020033836364746
+          assert len(s['heldout']['full_merged_sha256'])==64
+          print('SHAFT-COMP-18 registered result and exact finite reference verified')
+          PY
+      - name: SHAFT-COMP-19 exact capacity-control and frozen result audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/capacity_history.py
+          python -m py_compile research/shaft_compactification/experiments/merge_capacity_history.py
+          python -m research.shaft_compactification.capacity_finite > /tmp/shaft19_finite.json
+          python -m research.shaft_compactification.comp19_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('research/shaft_compactification/results/comp19_finite.json').read_text())
+          actual=json.loads(Path('/tmp/shaft19_finite.json').read_text())
+          assert expected == actual, 'SHAFT-COMP-19 exact 384-state reference drift'
+          assert expected['families']['lag_rotate']['joint_immediate_history_classes'] == 348
+          assert expected['families']['lag_match']['joint_immediate_history_classes'] == 384
+          s=json.loads(Path('research/shaft_compactification/results/comp19_summary.json').read_text())
+          assert s['heldout']['eligible'] == 968 and s['heldout']['positives'] == 323
+          assert s['inference']['positive_cell_count'] == 4
+          assert s['inference']['permutation_p_two_sided'] == 0.003996
+          assert s['inference']['bootstrap_95_delta'][0] > 0
+          assert s['operating']['history_fixed_source_fpr_pass_all_four_cells']
+          print('SHAFT-COMP-19 exact reference and preregistered capacity result verified')
+          PY
+      - name: SHAFT-COMP-20 exact latch and trained neural negative receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/persistent_goal_control.py
+          python -m py_compile research/shaft_compactification/experiments/merge_comp20.py
+          python -m research.shaft_compactification.comp20_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('research/shaft_compactification/results')
+          r=json.loads((root/'comp20_summary.json').read_text())
+          f=json.loads((root/'comp20_frozen_calibration.json').read_text())
+          assert r['registration_commit']=='9201423bc6b5895ed1773a15b683d385b9481b08'
+          assert f['phase']=='calibration_thresholds'
+          assert r['fixed_thresholds']==f['pooled_thresholds']
+          assert len(r['models'])==8
+          assert r['heldout']['eligible']==1016 and r['heldout']['positives']==200
+          assert abs(r['heldout']['auc']['goal']-.492745)<1e-6
+          assert abs(r['heldout']['auc']['history']-.476740)<1e-6
+          assert r['uncertainty']['bootstrap95'][0]<0<r['uncertainty']['bootstrap95'][1]
+          assert r['operating_points']['combined']['history']['fpr']>.15
+          assert all(x['accuracy_d12']<.90 for x in r['models'].values())
+          print('SHAFT-COMP-20 exact finite reference and neural failure independently audited')
+          PY
+      - name: SHAFT-COMP-21 finite label oracle and capability-gated receipt
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/aux_latch_learning.py
+          python -m py_compile research/shaft_compactification/experiments/evaluate_latch_probe.py
+          python -m research.shaft_compactification.temporal_supervision_finite > /tmp/shaft21_exact.json
+          python -m research.shaft_compactification.comp21_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          source=json.loads(Path('/tmp/shaft21_exact.json').read_text())
+          assert source['traces_checked']==33152
+          for family in ('repeat_toggle','successor_toggle'):
+              row=source['separations'][family]
+              assert row['one_query_aliases']==3840
+              assert row['two_query_splits']==3840
+          s=json.loads(Path('research/shaft_compactification/results/comp21_summary.json').read_text())
+          frozen=json.loads(Path('research/shaft_compactification/results/comp21_calibration_freeze.json').read_text())
+          assert frozen['registration_commit']==s['registration_commit']
+          assert s['calibration_freeze_commit']=='051b7f9c9cc317f3c40e61fce591ecfba2b73b64'
+          assert s['heldout']['aux_gate_passed']==4
+          assert s['heldout']['baseline_gate_passed']==3
+          assert len(s['checks']['exact_replay_proofs'])==2
+          assert s['conditional_probe']['aux_eligible']==160
+          assert s['conditional_probe']['aux_positives']==56
+          assert s['conditional_probe']['history_minus_goal_95_bootstrap'][0]<0
+          assert s['conditional_probe']['history_minus_goal_95_bootstrap'][1]>0
+          print('COMP-21 finite oracle, frozen thresholds, exact AUC and model-gate receipts verified')
+          PY
+      - name: SHAFT-COMP-22 finite quotient and neural receipt audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/factorized_decoder.py
+          python -m research.shaft_compactification.factorized_latch_finite > /tmp/comp22_finite.json
+          python -m research.shaft_compactification.comp22_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          exact=json.loads(Path('/tmp/comp22_finite.json').read_text())
+          frozen=json.loads(Path('research/shaft_compactification/results/factorized_latch_reference.json').read_text())
+          assert exact == frozen, 'COMP-22 exact quotient reference drift'
+          for x in exact['result'].values():
+              assert x['minimal_behavioral_classes']==384
+              assert x['canonical_states_per_reduced_code']==2
+              assert x['two_query_signature_classes']==384
+          s=json.loads(Path('research/shaft_compactification/results/comp22_summary.json').read_text())
+          assert s['test_states']==16384 and len(s['frozen_models'])==4
+          assert s['pooled_by_depth']['40']['methods']['canonical']['native_exact_count']==596
+          assert s['pooled_by_depth']['40']['methods']['direct']['native_exact_count']==0
+          assert s['primary']['positive_models']==4
+          assert s['primary']['bootstrap95'][0]>0
+          print('SHAFT-COMP-22 exact gauge quotient and frozen trained-GRU results audited')
+          PY
+      - name: SHAFT-COMP-23 exact two-query recovery and frozen decoder audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/behavior_only_factorization.py
+          python -m research.shaft_compactification.behavior_only_finite > /tmp/shaft_comp23_finite.json
+          python -m research.shaft_compactification.comp23_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          finite=json.loads(Path('/tmp/shaft_comp23_finite.json').read_text())
+          assert set(finite['result'])=={'repeat_toggle','successor_toggle'}
+          for cell in finite['result'].values():
+              assert cell['canonical_states_checked']==768
+              assert cell['distinct_behavioral_codes']==384
+              assert cell['all_behavioral_codes_exactly_recovered']
+          r=json.loads(Path('research/shaft_compactification/results/comp23_summary.json').read_text())
+          f=json.loads(Path('research/shaft_compactification/results/comp23_calibration_freeze.json').read_text())
+          assert r['frozen_calibration_commit']=='5bb2e00777aeea7a88b5b2e374abfa21d3892647'
+          assert r['frozen_calibration_full_sha256']==f['full_local_calibration_freeze_sha256']
+          assert r['heldout_depth40']['states']==4096
+          assert r['heldout_depth40']['total_binary_decisions']==147456
+          assert r['primary']['positive_heldout_models']==4
+          assert r['primary']['bootstrap95'][0]>0
+          assert r['reproducibility']['complete_six_model_replay_identical']
+          print('SHAFT-COMP-23 exact majority inverse, count audit and pre-heldout calibration verified')
+          PY
+      - name: SHAFT-COMP-24 exact finite trigger reference and frozen audit
+        run: |
+          python -m py_compile research/shaft_compactification/experiments/identify_trigger.py
+          python -m research.shaft_compactification.trigger_identifiability >/tmp/comp24_finite.json
+          python -m research.shaft_compactification.comp24_audit
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          finite=json.loads(Path('/tmp/comp24_finite.json').read_text())
+          assert finite['family_state_checks']==768
+          assert finite['unknown_entries']==36
+          assert finite['unlabelled_row_permutations_checked']==8640
+          frozen=json.loads(Path('research/shaft_compactification/results/comp24_frozen_calibration.json').read_text())
+          assert frozen['registration_commit']=='92ad76ece8dafe37a6181b48ca53ee52f1554059'
+          assert frozen['full_calibration_sha256']=='e007f5cdbc33fab71740392ec65b5f2dfc36f8bbf20fbca8fffe4700bcf057be'
+          assert all(v['inference']['exact_tie_entries']==0 for v in frozen['families'].values())
+          assert all(v['calibration_states']==2048 for v in frozen['families'].values())
+          print('SHAFT-COMP-24 exact trigger identification and frozen heldout counts verified')
+          PY
+      - name: Run synthetic finite tests
+        run: python -m unittest discover -s research/shaft_compactification/tests -v
+      - name: Reproduce SHAFT-COMP-06 finite quotient receipt
+        run: |
+          python -m research.shaft_compactification.depth_quotient > /tmp/shaft-depth-reference.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected = json.loads(Path('research/shaft_compactification/results/depth_quotient.json').read_text())
+          actual = json.loads(Path('/tmp/shaft-depth-reference.json').read_text())
+          assert expected == actual, 'SHAFT-COMP-06 depth quotient receipt drift'
+          PY
+      - name: Compare deterministic reference receipt
+        run: |
+          python -m research.shaft_compactification.experiment > /tmp/shaft-comp-reference.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          prefix = Path('research/shaft_compactification/results/reference.json')
+          expected = json.loads(prefix.read_text())
+          observed = json.loads(Path('/tmp/shaft-comp-reference.json').read_text())
+          assert observed == expected, 'SHAFT-COMP-05 reference drift'
+          assert observed['heldout_distinguishable_pairs'] == observed['goal_pairs']
+          print('Reproduced synthetic reference')
+          PY
+
+  lean-kernel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lean 4 abstract observability proofs
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: research/shaft_compactification/lean
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: false
+      - name: Print Lean axiom dependencies
+        working-directory: research/shaft_compactification/lean
+        run: |
+          lake env lean Shaft/Observability.lean
+          lake env lean Shaft/CausalSufficiency.lean
+          lake env lean Shaft/FiniteObservability.lean
+          lake env lean Shaft/DiagnosticSchedule.lean
+          lake env lean Shaft/TaskObservability.lean
+          lake env lean Shaft/TaskFactorial.lean
+          lake env lean Shaft/HistoryProbe.lean
+          lake env lean Shaft/HistoryAlphabet.lean
+          lake env lean Shaft/PersistentLatch.lean
+          lake env lean Shaft/CapacityMatched.lean
+          lake env lean Shaft/TemporalFamily.lean
+          lake env lean Shaft/TemporalSupervision.lean
+          lake env lean Shaft/FactorizedLatch.lean
+          lake env lean Shaft/BehaviorOnlyIdentification.lean
+          lake env lean Shaft/TriggerIdentification.lean
