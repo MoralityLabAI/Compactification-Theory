@@ -229,6 +229,21 @@ def thinning_markov_cap(m: int, retention: Fraction) -> int:
     return (count.numerator+count.denominator-1)//count.denominator
 
 
+
+
+def structured_two_word_success(n: int, m: int, deletion: Fraction) -> Fraction:
+    """Constructive 1-bit monitor on prior {0^n,1^n}, each prob 1/2.
+
+    A retained 1 immediately sets terminal bit to 1; absent evidence
+    outputs 0. All-zero source is always correct. All-one source fails
+    precisely when every bit across m traces is deleted.
+    """
+    q=rate(deletion)
+    if type(n) is not int or n<1 or type(m) is not int or m<0:
+        raise ValueError("positive n, nonnegative trace count")
+    return 1-Fraction(1,2)*q**(n*m)
+
+
 def control_report() -> dict:
     n=4
     q=Fraction(4,5)
@@ -271,6 +286,7 @@ def control_report() -> dict:
         "best_unbounded_terminal_from_full_traces":full,
         "actual_bounded_state_success":source_laws,
         "thinning_overruns":thinnings,
+        "structured_prior_one_bit_example_n8_m1":str(structured_two_word_success(8,1,q)),
         "source_122_superpolynomial_hard_pair_reproduced":False,
         "source_140_gaussian_lower_bound_reproduced":False,
         "trained_neural_checkpoint_evaluated":False,
