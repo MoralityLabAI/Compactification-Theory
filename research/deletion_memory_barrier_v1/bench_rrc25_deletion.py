@@ -27,7 +27,7 @@ from research.rrc_compactification import compound25 as task
 from research.rrc_compactification import model25 as model
 from research.deletion_memory_barrier_v1.reference import (
     deletion_law, finite_prior_ceiling, optimal_terminal_success_weighted,
-    streaming_laws_for_words,
+    streaming_laws_for_words, guarded_first_nonempty_laws,
 )
 
 STATUS="FROZEN_TRAINED_RRC25_RANKING_DELETION_DIAGNOSTIC"
@@ -77,17 +77,22 @@ def one_prior_report(prior:dict[str,Fraction],q:Fraction,
     base=max(prior.values())
     for m in counts:
         for B in bits:
-            laws=streaming_laws_for_words(prior,q,m,B)
-            value=optimal_terminal_success_weighted(laws,prior)
             limit=finite_prior_ceiling(prior,B)
-            if not base<=value<=limit:
-                raise AssertionError("monitor prior ceiling violated")
-            rows.append({"m":m,"B":B,"success":str(value),
-                         "success_float":float(value),
-                         "prior_topK_ceiling":str(limit),
-                         "prior_topK_ceiling_float":float(limit),
-                         "terminal_state_alphabet":1<<B,
-                         "decoder_static_codebook_source_atoms":len(prior)})
+            for method,build_law in (
+                ("rolling_hash",streaming_laws_for_words),
+                ("protected_first_nonempty",guarded_first_nonempty_laws)
+            ):
+                laws=build_law(prior,q,m,B)
+                value=optimal_terminal_success_weighted(laws,prior)
+                if not base<=value<=limit:
+                    raise AssertionError("monitor prior ceiling violated")
+                rows.append({"m":m,"B":B,"method":method,
+                             "success":str(value),
+                             "success_float":float(value),
+                             "prior_topK_ceiling":str(limit),
+                             "prior_topK_ceiling_float":float(limit),
+                             "terminal_state_alphabet":1<<B,
+                             "decoder_static_codebook_source_atoms":len(prior)})
     unrestricted=full_one_trace_success(prior,q)
     if any(row["success_float"] > float(unrestricted)+1e-12
            for row in rows if row["m"]==1):
@@ -166,7 +171,7 @@ def main(argv=None)->int:
         compact.append({
             "q":q["deletion_q"],
             "full_one_trace_MAP":q["one_trace_MAP_float"],
-            "monitor":[{"m":x["m"],"B":x["B"],
+            "monitor":[{"m":x["m"],"B":x["B"],"method":x["method"],
                         "success":round(x["success_float"],6),
                         "upper":round(x["prior_topK_ceiling_float"],6)}
                        for x in q["monitor_grid"] if
