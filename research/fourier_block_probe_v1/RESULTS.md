@@ -75,6 +75,19 @@ MSE_{\mathrm{raw}}-(2401/4096)^2
 
 The squared-error gain equals 5764801/16777216.
 
+Adding the 24 predeclared fourth-order paired features yields
+the exact population optimum
+
+[
+mathrm{MSE}_{41}^{star}
+=1-(1695/4096)^2-(2401/4096)^2-24(343/4096)^2
+=oxed{2657907/8388608}approx0.3168472052.
+]
+
+Every within-block pair has Fourier coefficient magnitude
+343/4096. This is a population least-squares projection identity
+derived from orthogonality and verified by exact enumeration.
+
 For the sign decoder with its optimal coefficient, the exact
 population accuracy changes from 5791/8192 (70.69%) with
 the intercept alone to 6497/8192 (79.31%) with this one
