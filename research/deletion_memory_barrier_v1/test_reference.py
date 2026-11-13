@@ -138,14 +138,16 @@ class DeletionReferenceTests(unittest.TestCase):
             state={0:Q(1)}
             for m in range(4):
                 closed=guarded_first_nonempty_laws([x],q,m,B)[x]
-                self.assertEqual(closed,state)
+                self.assertEqual(closed,{s:p for s,p in state.items() if p})
                 updated=defaultdict(Q)
                 for s,sp in state.items():
                     for trace,p in trace_law.items():
+                        if not sp or not p:
+                            continue
                         dest=(1+(trace_code(trace)%(2**B-1))
                               if s==0 and trace else s)
                         updated[dest]+=sp*p
-                state=dict(updated)
+                state={s:p for s,p in updated.items() if p}
 
     def test_guarded_success_monotone_with_exponential_plateau(self):
         prior={"0110":Q(1,2),"1001":Q(1,4),
