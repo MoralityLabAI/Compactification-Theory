@@ -184,7 +184,10 @@ def certified_injection_amplitude(source:InputEnclosure, tubes:CleanTubes, *,
     coeff=tubes.post_coefficients[after_visit]
     norm=sqrt_upper(sum(((coeff*value)**2 for value in row),Fraction(0)),digits=16)
     error=tubes.post_radii[after_visit][injected_token]
-    return scale*(norm+error)*sqrt_upper(Fraction(1,len(row)),digits=16)
+    rms_upper=(norm+error)*sqrt_upper(Fraction(1,len(row)),digits=16)
+    # RMP capture uses .clamp_min(1e-6) on the token RMS before injecting.
+    # Treat its Python source literal as an exact stored binary float.
+    return scale*max(rms_upper,rational(float(1e-6)))
 
 
 def certified_zero_disk(source:InputEnclosure,tubes:CleanTubes,chart:torch.Tensor,
