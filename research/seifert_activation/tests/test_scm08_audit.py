@@ -39,6 +39,17 @@ class IndependentProofTests(unittest.TestCase):
                 recorded=float(clean[visit][token].square().mean().sqrt())
                 self.assertGreaterEqual(float(a)+1e-6,recorded)
 
+    def test_rmp_clamp_min_applies_to_zero_clean_state(self):
+        rows=((Fraction(0),)*4,)*5
+        source=InputEnclosure(center=torch.zeros(5,4,dtype=torch.float64),
+                             radii=(Fraction(0),)*5,exact_centers=rows,
+                             frequency_sha256='zero-synthetic')
+        model=ToyRMP(beta=0).eval()
+        tubes=clean_state_tubes(model,source)
+        amplitude=certified_injection_amplitude(source,tubes,
+                     injected_token=0,after_visit=0,radius_fraction=Fraction(1,2))
+        self.assertEqual(amplitude,Fraction(*float(1e-6).as_integer_ratio())/2)
+
     def test_reinjection_source_amplitude(self):
         model=ToyRMP(tied=False,beta=.05).eval()
         inp=rmp_input_enclosure(model,self.tokens)
