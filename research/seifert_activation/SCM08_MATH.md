@@ -119,3 +119,7 @@ then no pair collides in the disk for the specified **continuous real** model. T
     python research/seifert_activation/scm08_audit.py --help
 
 `results/scm08_cpu_reference.json` is a fixed synthetic CPU reference. It contains no trained-model evidence.
+
+## 8. Large-shape limitation
+
+A separate source-only mock uses the same 128-dimensional, four-head, 64-token, eight-visit shape as the earlier RMP synthetic checks. Its clean tube grows linearly to radius 17.498 by visit eight, and its source-derived local pair upper remains 2.6833e8 at a nominal 1e-6 relative injection. It correctly refuses all eight null-braid assertions. The attention/MLP convex image bounds used in (SCM-08.2) and (SCM-08.3) are valid over all inputs, which explains their cumulative looseness. A future interval verifier must enclose the *particular* clean intermediate trajectory, with independently proved nonlinear evaluation residuals, to recover a useful trained-model certificate.
