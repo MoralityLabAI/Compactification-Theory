@@ -7,7 +7,7 @@ Command:
 
     python -m unittest discover -s research/seifert_activation/tests -v
 
-Results: **20/20 passing unit tests**. The new tests include:
+Results: **21/21 passing unit tests**. The new tests include:
 
 - Exact independent pairwise winding and Artin linking, for positive/negative
   Hopf braid presentations, cancellation pairs and repeated twists.
@@ -21,7 +21,7 @@ Results: **20/20 passing unit tests**. The new tests include:
   cyclic injection after visit 0. The fixture produces pairwise winding 0 at
   visit 1 and +1 at visits 2-4, with unchanged final answer, so winding alone
   is *not* evidence of a causally relevant answer mechanism.
-- Agreement under 32-to-64 angular sampling in the mock, fixed injection axes
+- A radius threshold in the mock: winding 0 inside radius 0.4, an invalid\n  boundary trace at the projected collision radius, and winding +1 outside.\n- Agreement under 32-to-64 angular sampling in the mock, fixed injection axes
   under a changed readout chart, hash stability, and invalid chart rejection.
 
 **No trained RMP checkpoint was available in this environment.** No neural
