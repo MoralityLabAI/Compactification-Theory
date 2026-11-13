@@ -74,6 +74,34 @@ unvalidated spectral estimates **do not supply such a global upper bound**.
 The runner labels all current real-model outputs `polygonal_only` until a
 separate verified bound has been supplied and checked.
 
+## A compactification stability theorem for polygonal traces
+
+Let `z_i(theta)` and `z_hat_i(theta)` be original and reconstructed **closed**
+piecewise-linear strand paths in the same frozen 2D chart, sampled at matching
+angles. Define
+
+    m = min_{i<j,theta} ||z_i(theta)-z_j(theta)||,
+    e = max_{i<j,k} ||(z_hat_i-z_hat_j)(theta_k) -
+                       (z_i-z_j)(theta_k)||.
+
+Since the difference of two piecewise-linear paths is linear on every
+sample interval, convexity of the Euclidean norm bounds its magnitude
+throughout each interval by its larger endpoint error, at most `e`.
+If `e + clearance < m`, every pair remains distinct during the straight
+homotopy `z_i^s = z_i + s*(z_hat_i-z_i)`, for `0 <= s <= 1`.
+The two closed configuration-space paths are **freely homotopic**. They define
+the same braid **conjugacy class**, and isotopic closed links, even for `n>=3`
+where pairwise winding is incomplete. If the initial configuration is held
+fixed throughout the homotopy, their **based** pure braid elements agree.
+
+The quantity `e` measures error in *relative pair coordinates*: a common
+translation of every strand is a gauge direction and can be arbitrarily
+large without altering this certificate. The implementation is
+`compression_braid_certificate` and returns the minimum original separation,
+maximum relative reconstruction error, and acceptance for every pair.
+The certificate pertains to polygonal observations. Continuous-path claims
+require a separately verified angular sampling bound as described above.
+
 ## Implications for mechanistic interpretability
 
 The earliest valid, nonzero `w_ij` on a downstream recurrence visit marks a
