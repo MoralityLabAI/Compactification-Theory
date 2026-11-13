@@ -267,6 +267,48 @@ def thinning_markov_cap(m: int, retention: Fraction) -> int:
 
 
 
+
+
+def guarded_first_nonempty_laws(source_words, deletion: Fraction, count: int,
+                                memory_bits: int) -> dict[str,dict[int,Fraction]]:
+    """Protect first nonempty trace in state 1..2^B-1, with 0=unknown.
+
+    State 0 persists across empty traces. Once nonzero, no more
+    observations can overwrite the captured evidence.
+    """
+    group=list(dict.fromkeys(source_words))
+    if not group or len(set(map(len,group)))!=1 or any(
+            not isinstance(x,str) or not x or any(c not in "01" for c in x)
+            for x in group):
+        raise ValueError("uniform-length binary source words required")
+    q=rate(deletion)
+    if type(memory_bits) is not int or not 1<=memory_bits<=12:
+        raise ValueError("1..12 memory bits required")
+    if type(count) is not int or not 0<=count<=100000:
+        raise ValueError("invalid trace count")
+    length=len(group[0])
+    empty_one=q**length
+    unknown_probability=empty_one**count
+    out={}
+    for word in group:
+        single=deletion_law(word,q)
+        accum=defaultdict(Fraction)
+        if empty_one!=1:
+            for trace,prob in single.items():
+                if trace:
+                    state=1+(trace_code(trace)%(2**memory_bits-1))
+                    accum[state]+=prob/(1-empty_one)
+            if sum(accum.values())!=1:
+                raise AssertionError("conditional nonempty trace law invalid")
+        law={0:unknown_probability}
+        for state,p in accum.items():
+            law[state]=(1-unknown_probability)*p
+        if sum(law.values())!=1:
+            raise AssertionError("guarded monitor law did not normalize")
+        out[word]=law
+    return out
+
+
 def finite_prior_ceiling(prior: dict[str, Fraction], B: int,
                          m: int=0, clock: bool=False) -> Fraction:
     """Largest K=2^B (possibly indexed) prior atoms bound exact decoding."""
