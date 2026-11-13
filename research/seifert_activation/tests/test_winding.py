@@ -7,7 +7,7 @@ import unittest
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from knot import InvalidBraidTrace, synthetic_braid, extract_closed_braid
 from winding import (pairwise_windings, braid_pairwise_linking,
-                     verify_pure_braid, verified_sampling_bound)
+                     verify_pure_braid, verified_sampling_bound, compression_braid_certificate)
 
 
 class WindingTests(unittest.TestCase):
@@ -56,6 +56,25 @@ class WindingTests(unittest.TestCase):
                          pair_derivative_bounds={(0,1):100.0}))
         with self.assertRaises(ValueError):
             verified_sampling_bound(frames,interval_lengths=dt,pair_derivative_bounds={})
+
+    def test_topology_preserved_by_bounded_compression(self):
+        frames=synthetic_braid(2,[1,1])
+        compressed=[[(x+0.02*(k%3), y-0.01*(k%3)) for x,y in row]
+                    for k,row in enumerate(frames)]
+        # Keep the compressed trajectory closed as required.
+        compressed[-1]=compressed[0]
+        receipt=compression_braid_certificate(frames,compressed)
+        self.assertTrue(receipt['certified'],receipt)
+        self.assertEqual(pairwise_windings(frames),pairwise_windings(compressed))
+        # A common translation is a configuration-space gauge; relative error is zero.
+        translated=[[(x+100,y-100) for x,y in row] for row in frames]
+        self.assertTrue(compression_braid_certificate(frames,translated)['certified'])
+
+    def test_compression_certificate_refuses_collapse(self):
+        frames=synthetic_braid(2,[1,1])
+        collapsed=[[tuple(p) for p in row] for row in frames]
+        collapsed[1][0]=collapsed[1][1]
+        self.assertFalse(compression_braid_certificate(frames,collapsed)['certified'])
 
     def test_near_collision_rejected(self):
         frames=[[(0.0, 0.0),(1.e-8,0.0)],[(0.,0.),(0.0,1.e-8)],
