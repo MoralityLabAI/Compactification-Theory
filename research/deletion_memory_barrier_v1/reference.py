@@ -231,6 +231,35 @@ def thinning_markov_cap(m: int, retention: Fraction) -> int:
 
 
 
+
+
+def finite_prior_ceiling(prior: dict[str, Fraction], B: int,
+                         m: int=0, clock: bool=False) -> Fraction:
+    """Largest K=2^B (possibly indexed) prior atoms bound exact decoding."""
+    if (not prior or type(B) is not int or B<0 or
+            type(m) is not int or m<0 or
+            any(Fraction(v)<0 for v in prior.values())):
+        raise ValueError("normalized nonnegative source prior and valid bits")
+    weights=[Fraction(v) for v in prior.values()]
+    if sum(weights)!=1:
+        raise ValueError("prior must sum to one")
+    slots=(1<<B)*(m+1 if clock else 1)
+    return sum(sorted(weights,reverse=True)[:slots],Fraction())
+
+
+def optimal_terminal_success_weighted(laws: dict[str,dict[int,Fraction]],
+                                       prior: dict[str,Fraction]) -> Fraction:
+    """Exact Bayes success for any declared discrete prior and final states."""
+    if not laws or set(laws)!=set(prior):
+        raise ValueError("states/prior supports differ")
+    weights={x:Fraction(v) for x,v in prior.items()}
+    if sum(weights.values())!=1 or any(v<0 for v in weights.values()):
+        raise ValueError("prior must be normalized")
+    states=set().union(*(set(v) for v in laws.values()))
+    return sum((max(weights[x]*laws[x].get(s,Fraction())
+                    for x in laws) for s in states),Fraction())
+
+
 def structured_two_word_success(n: int, m: int, deletion: Fraction) -> Fraction:
     """Constructive 1-bit monitor on prior {0^n,1^n}, each prob 1/2.
 
