@@ -70,6 +70,24 @@ The large gap between heuristic success and exact shortest proofs
 establishes a meaningful rule-selection challenge. It does not
 predict whether the trained neural model will solve it.
 
+## First neural evaluation and stronger post-hoc control
+
+[First frozen-model CI #43415640416](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43415640416)
+successfully compiled **384 model-proposed positive Lean proof terms**
+over two seeds, with the same 96/96 valid proof success in both test
+splits, and 96/96 exact negatives per split/seed. Learned action
+ranking exceeded the two registered heuristic controls on positive
+certificate recall and on verified positives per 1,000 neural
+cell invocations. [Full result ledger](../results/fc06_strict_five_step_20261113.md)
+includes paired results, source hashes and CPU overhead.
+
+The [post-hoc backward-goal-slice analysis](POSTHOC_BACKWARD_SLICE.md)
+found a simpler zero-parameter graph procedure that also certifies
+all 192 distinct valid test cases. [Post-hoc CI #43416698132](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43416698132)
+independently Lean-compiled its proofs. The original registered
+result is preserved, with this stronger symbolic control added
+separately to qualify any broader learning claim.
+
 ## Reproducibility
 
 From the repository root:
