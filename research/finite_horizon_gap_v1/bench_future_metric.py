@@ -241,15 +241,31 @@ def main(argv=None) -> int:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(json.dumps(result, indent=2, sort_keys=True,
                                          allow_nan=False) + "\n")
-    brief = [
-        {"T": row["horizon"],
-         "binary_bits": row["exact_binary_memory_minimum"],
-         "real_isometry_dimension": row["exact_real_isometric_dimension_minimum"],
-         "quotient_test_optimal_D": next(x for x in row["methods"]
-                                         if x["method"] == "exact_binary_quotient")
-                                        ["heldout"]["optimal_rescaling_distortion_heldout"]}
-        for row in result["records"]
-    ]
+    brief = []
+    for row in result["records"]:
+        chosen = {}
+        for method in row["methods"]:
+            name = method["method"]
+            if (name in {"exact_binary_quotient", "full_trace_identity"} or
+                    name in {"pca_6", "pca_8", "pca_16", "pca_32",
+                             "gaussian_6", "gaussian_8", "gaussian_16",
+                             "gaussian_32"}):
+                metric = method["heldout"]
+                chosen[name] = {
+                    "d": method["encoded_dimension"],
+                    "heldout_optimal_D": metric["optimal_rescaling_distortion_heldout"],
+                    "fixed_scale_D2_violating_pairs":
+                        metric["violation_counts_calibration_scale"]["2.0"],
+                    "distinct_heldout_pairs": metric["pairs_distinct"],
+                    "witness_D2": metric["violation_witnesses"].get("2.0"),
+                }
+        brief.append({
+            "T": row["horizon"],
+            "minimum_binary_bits": row["exact_binary_memory_minimum"],
+            "minimum_real_isometry_dimension":
+                row["exact_real_isometric_dimension_minimum"],
+            "methods": chosen,
+        })
     print(json.dumps({"status": result["status"], "sha256": result["source_python_sha256"],
                       "cases": brief}, indent=2))
     return 0
