@@ -91,6 +91,31 @@ absent from training labels.
 failed.** Native Lean search remains
 stronger on this small benchmark.
 
+## Post-hoc imported research-theorem goals
+
+[The separate MathCan import probe](POSTHOC_MATHCAN_IMPORT.md)
+checked out seven existing research
+theorems from an immutable MathCan
+commit, instrumented copies with
+`trace_state`, and compiled the
+**original proof scripts under the
+source's pinned Lean 4.35.0**.
+[Imported-proof CI #43458916540](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43458916540)
+passed, extracting seven true
+research-theorem goal states,
+including finite-horizon clearance,
+list-prefix recovery, a deletion-
+memory injectivity lemma, and
+integer cosmology proxy identities.
+
+The imported goals are a **post-hoc
+source capability probe**, excluded
+from the first FC-10 model's
+train/dev/test set and success
+criterion. No neural transfer
+score on these real research
+goals is claimed yet.
+
 ## Exact tactic applications and models
 
 The stacked [LoopedTransformers FC-10 PR](https://github.com/MoralityLabAI/LoopedTransformers/pull/31)
