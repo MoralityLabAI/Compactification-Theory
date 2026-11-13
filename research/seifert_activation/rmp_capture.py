@@ -104,6 +104,15 @@ def capture_cycle(model: Any, tokens: torch.Tensor, chart: torch.Tensor, *,
     peak_delta = 0.0
     baseline = model.run(tokens)
     baseline_logits = baseline.logits.detach().float()
+    if len(baseline.visit_outputs) <= inject_after_visit:
+        raise ValueError('Invalid injection visit in clean baseline')
+    injection_baseline_rms = float(
+        baseline.visit_outputs[inject_after_visit][0, inject_token].float()
+        .pow(2).mean().sqrt().clamp_min(1e-6).item())
+    clean_chart_by_visit = [
+        (state[0, list(observed)].float() @ chart).cpu().tolist()
+        for state in baseline.visit_outputs
+    ]
     if baseline_logits.shape[0] != 1:
         raise ValueError('Unexpected model logits batch dimension')
     for k in range(angles + 1):
@@ -151,6 +160,9 @@ def capture_cycle(model: Any, tokens: torch.Tensor, chart: torch.Tensor, *,
         'injected_position': inject_token,
         'injected_after_visit': inject_after_visit,
         'radius_in_token_rms': radius,
+        'injection_baseline_rms': injection_baseline_rms,
+        'sequence_length': int(tokens.shape[1]),
+        'clean_chart_by_visit': clean_chart_by_visit,
         'chart_sha256': sha256_tensor(chart),
         'intervention_axes_sha256': sha256_tensor(axes),
         'baseline_prediction': int(baseline_logits[0,-1].argmax().item()),

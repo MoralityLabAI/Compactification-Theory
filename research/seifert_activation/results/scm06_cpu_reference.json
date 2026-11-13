@@ -1,0 +1,36 @@
+{
+  "checkpoint_backed_RMP_capture": "unavailable",
+  "machine_level_continuity_proven": false,
+  "real_arithmetic_certificate_scope": "real-valued network using stored floating weights exactly",
+  "realistic_shape_random_untrained_block": {
+    "L_attention_upper": "17919109420607/2000000000",
+    "L_block_upper": "5726027145403/312500000",
+    "L_mlp_upper": "1942831272799/10000000000",
+    "heads": 4,
+    "hidden": 128,
+    "sequence": 64
+  },
+  "scalar_norm_fixture": {
+    "diag_3_4_exact_upper": "4"
+  },
+  "schema": "scm06_cpu_reference_v1",
+  "source": "deterministic_random_untrained_synthetic_explicit_attention_only",
+  "tiny_model": {
+    "heads": 2,
+    "hidden": 4,
+    "pair_bounds_by_visit": [
+      "0",
+      "331141/10000000000",
+      "77537/1000000000"
+    ],
+    "prefix_control_all_zero": true,
+    "separated_baseline_disk_proves_null": [
+      true,
+      true,
+      true
+    ],
+    "sequence": 5,
+    "visits": 3
+  },
+  "trained_model_result": "not_run_missing_external_RMP_artifacts"
+}
