@@ -112,6 +112,11 @@ def exact_population():
         raise AssertionError("exact source prior/paired coefficient mismatch")
     baseline_accuracy=1-reject/2
     paired_accuracy=(1+reject)/2
+    fourth_coefficients=[hidden_fourier((1<<i)|(1<<j)) for i,j in PAIRS]
+    if len(fourth_coefficients)!=24 or set(map(abs,fourth_coefficients))!={Fraction(343,4096)}:
+        raise AssertionError("exact fourth-order feature basis changed")
+    fourth_population_mse=(1-mu**2-pair**2-
+                           sum((c*c for c in fourth_coefficients),Fraction()))
     return {
         "mean_sign":str(mu),
         "singleton_coefficient_max_abs":"0",
@@ -124,6 +129,8 @@ def exact_population():
         "paired_classification_accuracy_gain":
             str(paired_accuracy-baseline_accuracy),
         "fourth_order_pair_coefficient_0_1":str(hidden_fourier(3)),
+        "fourth_order_pair_count":len(fourth_coefficients),
+        "oracle_41_feature_mse":str(fourth_population_mse),
     }
 
 
