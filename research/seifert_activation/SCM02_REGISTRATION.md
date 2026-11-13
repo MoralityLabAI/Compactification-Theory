@@ -59,6 +59,14 @@ nonzero pair winding constitutes a *projected* discriminant candidate;
 continuous-path certification requires the independent derivative-bound
 contract in `SCM02_MATH.md`.
 
+**Topology-preserving compression subgate:** for original and compressed
+projected trajectories, run `compression_braid_certificate` in the exact same
+frozen chart. Log the minimum pairwise PL clearance, maximum relative
+reconstruction error and whether error + tolerance stays below clearance.
+A passing certificate preserves the braid conjugacy class of the measured
+polygonal trace. This is a mathematical sufficient condition; causal
+reasoning accuracy and continuous-path sampling need separate checks.
+
 **Gate C (causal usefulness, future protocol):** freeze at least 128 family-
 disjoint tasks after chart/feature/radius selection. Record named intermediate
 variables, task correctness under matched causal feature ablations or patching,
