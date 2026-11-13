@@ -103,6 +103,31 @@ class FC05Tests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             fc05.audit(rows,self.prior)
 
+    def test_posthoc_saturation_any_legal_order_has_ten_step_budget(self):
+        """Diagnostic added after FC-05 first test, not an eligibility rule.
+
+        The generated unreachable guard means at most len(atoms)-2
+        distinct noninitial reachable nodes; len(atoms) <= 12. Hence
+        every legal-novel action schedule eventually proves a valid goal.
+        """
+        for task in self.rows:
+            if task["label"]!="established":
+                continue
+            guard_candidates={a for a in task["atoms"] if a not in task["reachable"]}
+            self.assertGreaterEqual(len(guard_candidates),1)
+            known=set(task["facts"])
+            trace=[]
+            while task["goal"] not in known:
+                legal=[j for j,rule in enumerate(task["rules"])
+                       if rule["head"] not in known and
+                       set(rule["premises"]).issubset(known)]
+                self.assertTrue(legal)
+                chosen=max(legal)
+                trace.append(chosen)
+                known.add(task["rules"][chosen]["head"])
+                self.assertLessEqual(len(trace),10)
+            self.assertTrue(proofs.verify_trace(task,trace)["verified"])
+
     def test_determinism(self):
         repeat=fc05.generate_tests()
         key=lambda rows:hashlib.sha256(b"".join(
