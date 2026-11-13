@@ -1,0 +1,31 @@
+name: DMB-01 finite deletion and memory barrier audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/deletion_memory_barrier_v1/**'
+      - '.github/workflows/dmb-01.yml'
+  pull_request:
+    paths:
+      - 'research/deletion_memory_barrier_v1/**'
+      - '.github/workflows/dmb-01.yml'
+  workflow_dispatch:
+jobs:
+  exact-finite-channel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact masks, deck equivalence, streaming state, cap and thinning tests
+        run: python -m unittest discover -s research/deletion_memory_barrier_v1 -p 'test_*.py' -v
+      - name: Issue complete exact finite receipt
+        run: python research/deletion_memory_barrier_v1/reference.py --check --out /tmp/dmb01_exact.json
+      - name: Upload independent finite receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: dmb01-exact-control
+          path: /tmp/dmb01_exact.json
