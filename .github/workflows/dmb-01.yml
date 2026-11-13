@@ -1,0 +1,48 @@
+name: DMB-01 finite deletion and memory barrier audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/deletion_memory_barrier_v1/**'
+      - '.github/workflows/dmb-01.yml'
+  pull_request:
+    paths:
+      - 'research/deletion_memory_barrier_v1/**'
+      - '.github/workflows/dmb-01.yml'
+  workflow_dispatch:
+jobs:
+  exact-finite-channel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact masks, deck equivalence, streaming state, cap and thinning tests
+        run: python -m unittest discover -s research/deletion_memory_barrier_v1 -p 'test_reference.py' -v
+      - name: Issue complete exact finite receipt
+        run: python research/deletion_memory_barrier_v1/reference.py --check --out /tmp/dmb01_exact.json
+      - name: Upload independent finite receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: dmb01-exact-control
+          path: /tmp/dmb01_exact.json
+  trained-rrc25-trace-monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify frozen RRC25 ranking-source and structured finite prior
+        run: python -m unittest discover -s research/deletion_memory_barrier_v1 -p 'test_rrc25_deletion.py' -v
+      - name: Execute source-locked exact deletion-memory frontier
+        run: python research/deletion_memory_barrier_v1/bench_rrc25_deletion.py --test-per 6 --deletions 1/2 4/5 --counts 0 1 2 3 --bits 2 4 6 --out /tmp/dmb01b_rrc25_monitor.json
+      - name: Upload trained ranker diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: dmb01b-rrc25-ranking-monitor
+          path: /tmp/dmb01b_rrc25_monitor.json
