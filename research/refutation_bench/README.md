@@ -221,6 +221,20 @@ small generated Lean theorems;
 importing real research proof
 obligations remains a later stage.
 
+### FC-10 imported source prototype
+
+A [separate source import](fc10/POSTHOC_MATHCAN_IMPORT.md)
+also succeeded under MathCan's
+actual Lean **4.35.0** toolchain:
+seven existing theorem goal states
+were harvested and their original
+research proof scripts compiled
+in [independent CI](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43458916540).
+This is a post-hoc capability
+probe and is not counted among
+the generated FC-10 held-out
+model results.
+
 ## Run from the repository root
 
 ```bash
