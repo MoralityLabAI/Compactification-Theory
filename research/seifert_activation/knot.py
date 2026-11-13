@@ -189,3 +189,58 @@ def synthetic_braid(n: int, word: Sequence[int]) -> list[list[tuple[float,float]
         frames.append(row_for())
     return frames
 
+
+@dataclass(frozen=True)
+class SeifertSurfaceStats:
+    """Combinatorics of the oriented Seifert-algorithm surface of a braid."""
+    disks: int
+    bands: int
+    surface_components: int
+    boundary_components: int
+    euler_characteristic: int
+    total_genus: int
+
+
+def braid_seifert_surface(n: int, word: Sequence[int]) -> SeifertSurfaceStats:
+    """The canonical Seifert surface: n disks and one band per crossing.
+
+    In general this is *a* spanning surface, not a minimal-genus surface.
+    Its genus is presentation-dependent. Conjugation and stabilization can
+    change the presentation; crossing cancellation can increase the surface
+    genus without changing the link boundary.
+    """
+    if n < 2:
+        raise ValueError('n must be >=2')
+    parents = list(range(n))
+    slots = list(range(n))
+
+    def root(i):
+        while parents[i] != i:
+            parents[i] = parents[parents[i]]
+            i = parents[i]
+        return i
+
+    for g in word:
+        if g == 0 or abs(g) >= n:
+            raise ValueError(f'Invalid generator {g} for B_{n}')
+        i = abs(g) - 1
+        parents[root(i+1)] = root(i)
+        slots[i], slots[i+1] = slots[i+1], slots[i]
+    C = len({root(i) for i in range(n)})
+    # Each boundary component follows a cycle of the braid permutation.
+    visited = set()
+    mu = 0
+    for i in range(n):
+        if i in visited:
+            continue
+        mu += 1
+        j = i
+        while j not in visited:
+            visited.add(j)
+            j = slots[j]
+    chi = n - len(word)
+    two_genus = 2*C - mu - chi
+    if two_genus < 0 or two_genus % 2:
+        raise ArithmeticError('Inconsistent oriented braid surface genus')
+    return SeifertSurfaceStats(n, len(word), C, mu, chi, two_genus//2)
+
