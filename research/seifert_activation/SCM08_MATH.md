@@ -87,7 +87,7 @@ RMP's intervention amplitude is `a = relative_radius * RMS(X_clean_after_visit[j
     RMS(X_clean_after_visit[j0]) <=
         (||a_t*c_0,j0|| + r_t,j0) / sqrt(d).              (SCM-08.6)
 
-The implementation rounds both square roots upward using rational arithmetic. Its source-derived amplitude upper is substituted for the unverified float-RMS value in SCM-06/07. The operator norm of the intervention axes remains a separate exact dyadic upper bound.
+The implementation rounds both square roots upward using rational arithmetic. RMP clamps the measured RMS below at a Python-float threshold of `1e-6`, so the certified upper uses `max(RMS_upper, exact_binary_float(1e-6))` before scaling. Its source-derived amplitude upper is substituted for the unverified float-RMS value in SCM-06/07. The operator norm of the intervention axes remains a separate exact dyadic upper bound.
 
 ## 5. A source-only null-braid test
 
