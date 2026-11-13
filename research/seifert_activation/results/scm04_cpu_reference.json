@@ -1,0 +1,456 @@
+{
+  "certificate": "integer_polynomial_magnus_degree_three",
+  "neural_checkpoint_evidence": false,
+  "nilpotent_powers": {
+    "-1": {
+      "crossings": 8,
+      "mu123": -1,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    },
+    "-10": {
+      "crossings": 80,
+      "mu123": -10,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    },
+    "-1000": {
+      "crossings": 8000,
+      "mu123": -1000,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    },
+    "-2": {
+      "crossings": 16,
+      "mu123": -2,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    },
+    "0": {
+      "crossings": 0,
+      "mu123": 0,
+      "nonzero_magnus_terms": [
+        2,
+        2,
+        2
+      ]
+    },
+    "1": {
+      "crossings": 8,
+      "mu123": 1,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    },
+    "10": {
+      "crossings": 80,
+      "mu123": 10,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    },
+    "1000": {
+      "crossings": 8000,
+      "mu123": 1000,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    },
+    "2": {
+      "crossings": 16,
+      "mu123": 2,
+      "nonzero_magnus_terms": [
+        6,
+        6,
+        6
+      ]
+    }
+  },
+  "pair": [
+    {
+      "alexander": "t**4 - 4*t**3 + 6*t**2 - 4*t + 1",
+      "braid": [
+        1,
+        1,
+        2,
+        2,
+        -1,
+        -1,
+        -2,
+        -2
+      ],
+      "exact_longitude": {
+        "convention": "Artin xi->ui xi ui^-1, Magnus [X1 X2] of u3",
+        "indeterminacy_gcd": 0,
+        "invariant": "ordered_oriented_closed_link_milnor_mu123",
+        "longitude_lengths": [
+          8,
+          4,
+          12
+        ],
+        "mu123": 1,
+        "pairwise_linking": {
+          "1,2": 0,
+          "1,3": 0,
+          "2,3": 0
+        },
+        "raw_cyclic_coefficients": [
+          1,
+          1,
+          1
+        ],
+        "status": "exact_integer"
+      },
+      "name": "commutator",
+      "nilpotent_cubic": {
+        "convention": "Artin xi->ui xi ui^-1, Magnus [X1 X2] of u3",
+        "indeterminacy_gcd": 0,
+        "invariant": "ordered_oriented_closed_link_milnor_mu123",
+        "magnus_nonzero_terms": [
+          6,
+          6,
+          6
+        ],
+        "method": "degree_three_nilpotent_magnus_artin",
+        "mu123": 1,
+        "pairwise_linking": {
+          "1,2": 0,
+          "1,3": 0,
+          "2,3": 0
+        },
+        "raw_cyclic_coefficients": [
+          1,
+          1,
+          1
+        ],
+        "status": "exact_integer"
+      }
+    },
+    {
+      "alexander": "t**4 - 4*t**3 + 6*t**2 - 4*t + 1",
+      "braid": [
+        2,
+        2,
+        1,
+        1,
+        -2,
+        -2,
+        -1,
+        -1
+      ],
+      "exact_longitude": {
+        "convention": "Artin xi->ui xi ui^-1, Magnus [X1 X2] of u3",
+        "indeterminacy_gcd": 0,
+        "invariant": "ordered_oriented_closed_link_milnor_mu123",
+        "longitude_lengths": [
+          20,
+          32,
+          12
+        ],
+        "mu123": -1,
+        "pairwise_linking": {
+          "1,2": 0,
+          "1,3": 0,
+          "2,3": 0
+        },
+        "raw_cyclic_coefficients": [
+          -1,
+          -1,
+          -1
+        ],
+        "status": "exact_integer"
+      },
+      "name": "inverse_commutator",
+      "nilpotent_cubic": {
+        "convention": "Artin xi->ui xi ui^-1, Magnus [X1 X2] of u3",
+        "indeterminacy_gcd": 0,
+        "invariant": "ordered_oriented_closed_link_milnor_mu123",
+        "magnus_nonzero_terms": [
+          6,
+          6,
+          6
+        ],
+        "method": "degree_three_nilpotent_magnus_artin",
+        "mu123": -1,
+        "pairwise_linking": {
+          "1,2": 0,
+          "1,3": 0,
+          "2,3": 0
+        },
+        "raw_cyclic_coefficients": [
+          -1,
+          -1,
+          -1
+        ],
+        "status": "exact_integer"
+      }
+    }
+  ],
+  "phase_cut_count": 24,
+  "phase_cut_raw_signs": [
+    -1,
+    1
+  ],
+  "phase_cut_results": [
+    {
+      "corrected_mu123": 1,
+      "phase_index": 0,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 1,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 2,
+      "position_to_token_strands": [
+        1,
+        0,
+        2
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 3,
+      "position_to_token_strands": [
+        1,
+        0,
+        2
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 4,
+      "position_to_token_strands": [
+        1,
+        0,
+        2
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 5,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 6,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 7,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 8,
+      "position_to_token_strands": [
+        0,
+        2,
+        1
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 9,
+      "position_to_token_strands": [
+        0,
+        2,
+        1
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 10,
+      "position_to_token_strands": [
+        0,
+        2,
+        1
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 11,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 12,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 13,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 14,
+      "position_to_token_strands": [
+        1,
+        0,
+        2
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 15,
+      "position_to_token_strands": [
+        1,
+        0,
+        2
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 16,
+      "position_to_token_strands": [
+        1,
+        0,
+        2
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 17,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 18,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 19,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 20,
+      "position_to_token_strands": [
+        0,
+        2,
+        1
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 21,
+      "position_to_token_strands": [
+        0,
+        2,
+        1
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 22,
+      "position_to_token_strands": [
+        0,
+        2,
+        1
+      ],
+      "raw_mu123": -1
+    },
+    {
+      "corrected_mu123": 1,
+      "phase_index": 23,
+      "position_to_token_strands": [
+        0,
+        1,
+        2
+      ],
+      "raw_mu123": 1
+    }
+  ],
+  "schema": "scm04/cpu-reference/v1",
+  "source": "exact_synthetic_braids_only"
+}
