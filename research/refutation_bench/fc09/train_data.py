@@ -72,10 +72,11 @@ def construct(seed:int,depth:int,valid:bool,family:str,parent_fn)->dict:
     # Alternative AND/OR routes use useful backbone atoms plus reachable
     # distractors. None can derive the goal by a unary-only path.
     for j,atom in enumerate(decoys):
-        anchor=max(1,depth-2) if j%3 else depth-1
-        premises={anchor,atom}
-        if j%4==0 and depth>=4:
-            premises.add(rng.choice([1,2]))
+        # Every alternative requires a goal-side critical prerequisite.
+        # In depth 5, atom 4 alone is cheaply available from fact 0,
+        # so require BOTH 3 and 4 plus the decoy to prevent a 3-step bypass.
+        premises=({2,atom} if depth==3 else
+                  {3,atom} if depth==4 else {3,4,atom})
         rules.append({"premises":sorted(premises),"head":depth})
 
     rules.append({"premises":[GUARD],"head":GUARD})
