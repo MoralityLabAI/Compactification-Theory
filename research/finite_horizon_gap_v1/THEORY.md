@@ -420,3 +420,65 @@ OpenAI papers. Its exact results distinguish predictive
 sufficiency, exact metric isometry and approximate sampled
 distortion. Additional real-checkpoint studies remain a distinct
 gate.
+
+
+## 13. FHC-8: Disjoint held-out simplex vertices are invisible to PCA
+
+Let \(v_1,\ldots,v_N\) be the vertices of a regular Euclidean simplex,
+with the same positive distance between every distinct pair. Choose a
+proper training subset \(A\subset\{1,\ldots,N\}\) of at least two
+vertices, and suppose there are at least two vertices outside A.
+Write
+
+\[
+\bar v_A=|A|^{-1}\sum_{a\in A}v_a,\qquad
+U_A=\operatorname{span}\{v_a-\bar v_A:a\in A\}.
+\]
+
+For any i,j outside A and any a inside A, the simplex identity gives
+
+\[
+\begin{aligned}
+\langle v_i-v_j, v_a-\bar v_A\rangle
+&=\langle v_i,v_a\rangle-\langle v_j,v_a\rangle\\
+&\quad-\frac1{|A|}\sum_{b\in A}
+(\langle v_i,v_b\rangle-\langle v_j,v_b\rangle)=0.
+\end{aligned}
+\]
+
+Each parenthesized difference vanishes because i and j are both
+distinct from every a,b in A, and all pairwise distinct-simplex
+inner products are the same after translation to the global center.
+Thus
+
+\[
+\boxed{P_{U_A}v_i=P_{U_A}v_j
+\quad\text{for every }i,j\notin A.}\tag{FHC-8}
+\]
+
+Every positive-variance PCA component fitted to the centered training
+vertices belongs to U_A. Consequently *any PCA code restricted to
+positive-variance training components collapses all held-out vertices
+to a single point*, however many such components are retained.
+If its true future metric distinguishes any two unseen vertices,
+its worst-case test distortion is infinite.
+
+**Concrete RC-01 result.** At T=63 the 64 future traces in FHC-6 form
+a regular simplex. Fit PCA to 48 calibration vertices and evaluate
+the remaining 16 vertices. Its nonzero training span has dimension
+47. For every d<=47, PCA projects all 16 held-out vertices to one
+point up to floating-point roundoff. The frozen empirical pilot
+tests d=2,4,6,8,16,32; all 120 nontrivial held-out pairs collapse
+at every tested PCA width. The exact finite proof is independent
+of random seed and applies to any disjoint training subset with
+at least two unseen vertices.
+
+This is a negative control for *training-subset PCA on maximally
+symmetric data*. It does not assert a general weakness of PCA on
+ordinary hidden states. A random projection selected independently
+of the training subset has a different inductive bias and can
+preserve many unseen distances. Source result #094 allows
+nonlinear embeddings and does not require them to be trained using
+PCA. The comparison motivates finite-set, held-out geometry
+checks before interpreting a compact representation as sufficient
+for new semantic states.
