@@ -11,7 +11,7 @@ from reference import (
     optimal_full_trace_success, terminal_state_ceiling,
     hard_pair_success_ceiling, universal_information_ceiling,
     gaussian_cap_upper, gaussian_terminal_ceiling,
-    binomial_tail, thinning_markov_cap, control_report,
+    binomial_tail, thinning_markov_cap, structured_two_word_success, control_report,
 )
 
 
@@ -118,6 +118,14 @@ class DeletionReferenceTests(unittest.TestCase):
         with self.assertRaises(ValueError): gaussian_cap_upper(1,.1)
         with self.assertRaises(ValueError): binomial_tail(1,Q(2),0)
         with self.assertRaises(ValueError): retained_length_tail(4,Q(1,2),5)
+
+    def test_one_bit_monitor_recovers_compressible_prior(self):
+        self.assertEqual(structured_two_word_success(8,0,Q(4,5)),Q(1,2))
+        self.assertEqual(structured_two_word_success(8,1,Q(4,5)),
+                         1-Q(1,2)*Q(4,5)**8)
+        self.assertGreater(structured_two_word_success(8,1,Q(4,5)),Q(9,10))
+        self.assertGreater(structured_two_word_success(8,3,Q(4,5)),
+                           structured_two_word_success(8,1,Q(4,5)))
 
     def test_complete_fixed_receipt(self):
         r=control_report()
