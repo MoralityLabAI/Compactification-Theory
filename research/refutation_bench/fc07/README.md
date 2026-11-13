@@ -77,6 +77,29 @@ selecting test cases based on a desired neural/heuristic
 gap. Random legal and goal-first controls are also
 included in the paired neural evaluation.
 
+## First trained-student outcome
+
+[First frozen CI #43422916239](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43422916239)
+kernel-compiled **352 student-proposed positive proof
+terms**, with 379 exact negative countermodels across
+two seeds and two held-out test groups. The learned
+actor proved 94/96 and 93/96 positives at familiar
+depth, and 85/96 and 80/96 at greater depth.
+The preregistered backward-slice control proved
+47/96 at familiar depth and 22/96 or 21/96
+at greater depth under the same stopping gate.
+No false finite formal certificates were issued.
+
+The [first-run research ledger](../results/fc07_misleading_ancestry_20261113.md)
+records all paired positive wins, false-proof
+checks, CPU and recurrent-call costs.
+The **learning criterion passed** on both seeds
+and depths; the separate **compute-cost
+criterion failed**, because backward slicing
+was cheaper per certified positive at familiar
+depth, even though the student was more
+efficient at greater depth.
+
 ## Reproduction
 
 From the repository root:
