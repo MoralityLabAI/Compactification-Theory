@@ -4,7 +4,7 @@ import unittest
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from knot import (t, burau, extract_closed_braid, normalized_alexander,
-                  synthetic_braid, InvalidBraidTrace)
+                  synthetic_braid, InvalidBraidTrace, braid_seifert_surface)
 
 
 class ExactBraidTests(unittest.TestCase):
@@ -29,6 +29,20 @@ class ExactBraidTests(unittest.TestCase):
         trefoil = normalized_alexander(2, [1,1,1])
         self.assertEqual(trefoil, normalized_alexander(3, [1,1,1,2]))
         self.assertEqual(trefoil, normalized_alexander(3, [2,1,1,1,-2,2]))
+
+    def test_canonical_seifert_surfaces(self):
+        trefoil = braid_seifert_surface(2, [1, 1, 1])
+        self.assertEqual((trefoil.boundary_components, trefoil.total_genus), (1, 1))
+        self.assertEqual(braid_seifert_surface(3, [1, -2, 1, -2]).total_genus, 1)
+        self.assertEqual(braid_seifert_surface(2, [1, 1]).total_genus, 0)
+        unlink = braid_seifert_surface(2, [])
+        self.assertEqual((unlink.surface_components, unlink.boundary_components,
+                          unlink.total_genus), (2, 2, 0))
+        # Same unknot boundary under braid cancellation, distinct surface genus.
+        self.assertEqual(normalized_alexander(2, [1]),
+                         normalized_alexander(2, [1, 1, -1]))
+        self.assertEqual(braid_seifert_surface(2, [1]).total_genus, 0)
+        self.assertEqual(braid_seifert_surface(2, [1, 1, -1]).total_genus, 1)
 
     def test_trace_matches_exact_words(self):
         for n, word in ((2,[1,1,1]), (3,[1,-2,1,-2]), (3,[1,2,-1,2]),
