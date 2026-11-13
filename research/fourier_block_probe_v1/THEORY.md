@@ -270,3 +270,69 @@ diagnostic of the evaluation pipeline. It cannot establish
 a hidden reasoning mode, model belief or sentience in a
 trained language model. No original Q5 checkpoint is
 claimed available by this finite campaign.
+
+
+## FPB-5: Adaptive monitors learn nothing without completing a pair
+
+Let X,Y be independent uniform n-bit strings and let Z=X xor Y.
+Consider an adaptive monitor with its own randomness independent
+of (X,Y). It may query individual input bits of X or Y, stopping
+at a time determined by previous observations. Suppose that along
+**every possible execution path** it queries at most one side
+of each paired coordinate i: observing X_i precludes observing
+Y_i, and vice versa. Repeated queries to the same side
+are harmless.
+
+Then its entire observation transcript T, **including which
+coordinates it chose, observed bit values, and stopping decisions**,
+has a distribution independent of Z:
+
+\[
+\boxed{I(Z;T)=0,\qquad I(H(Z);T)=0}\tag{FPB-5}
+\]
+
+for every deterministic or randomized hidden target H.
+
+**Proof.** Condition on an arbitrary fixed source value Z=z.
+Generate X uniformly and set Y=X xor z. For a coordinate i
+whose pair has not yet been queried, both X_i and Y_i are
+unbiased and independent of all observations from previous
+coordinates; this remains true conditional on any fixed z.
+The monitor's next queried side is a function of its current
+transcript and independent random coins. Consequently,
+conditional on any possible transcript so far, the law of the
+next newly observed bit is a fair coin for every z. A repeat
+query to the same side reveals its already-known value.
+The conditional laws of future query choices and stopping
+decisions therefore remain the same for all z. Induction over
+the query sequence, including stopping, proves the same law
+for the full transcript under every z. QED.
+
+Querying both X_i and Y_i for one index instead reveals the
+corresponding hidden bit exactly, since
+
+\[
+\boxed{Z_i=X_i\oplus Y_i.}
+\]
+
+An adaptive monitor can read as many as n distinct raw input
+bits while remaining in the independent regime; the key
+resource is the number of **completed matched pairs**.
+The rule is structural, so it applies to arbitrary nonlinear
+decoders of the unpaired transcript. It does not prohibit a
+monitor from intentionally querying both sides of a pair.
+
+The exact finite reference tests one genuinely adaptive
+unpaired policy: it queries X_0, then chooses X_i or Y_i for
+the next index depending on the previously observed bit.
+The conditional transcript laws are enumerated for every
+hidden z through n=5; all agree exactly. A completed-pair
+oracle is checked independently and reveals one hidden
+parity bit with disjoint conditional transcript supports.
+
+This gives a falsifiable feature-acquisition budget for a
+mechanistic monitor: a collection of individually salient
+observations can be useless until the correct interaction
+grammar permits two-sided access to the same hidden factor.
+A real model's feature pairing and latent source law would
+need separate evidence before importing the theorem.
