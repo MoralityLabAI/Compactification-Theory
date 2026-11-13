@@ -1,0 +1,26 @@
+name: SUD-01 conditional semantic dimension audit
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/semantic_uncertainty_dimension_v1/**'
+      - '.github/workflows/sud-01.yml'
+  pull_request:
+    paths:
+      - 'research/semantic_uncertainty_dimension_v1/**'
+      - '.github/workflows/sud-01.yml'
+  workflow_dispatch:
+jobs:
+  finite-channel-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Seven finite reference tests
+        run: python -m unittest discover -s research/semantic_uncertainty_dimension_v1 -p 'test_*.py' -v
+      - name: Exhaustive four-input balanced Boolean sweep
+        run: python research/semantic_uncertainty_dimension_v1/reference.py --n 4 --p 0.1 --exhaustive
