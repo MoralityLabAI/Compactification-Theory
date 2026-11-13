@@ -21,6 +21,12 @@ Results: **23/23 passing unit tests**. The new tests include:
   cyclic injection after visit 0. The fixture produces pairwise winding 0 at
   visit 1 and +1 at visits 2-4, with unchanged final answer, so winding alone
   is *not* evidence of a causally relevant answer mechanism.
+- A known collision threshold in the mock: winding 0 for radius 0.2,
+  a rejected collision at radius 0.4 and winding +1 at radius 0.8.
+- A topology-preserving compression certificate with known pairwise
+  clearance and relative reconstruction error. Tests accept small compressed
+  perturbations and even large shared translations, while a strand collapse
+  receives no certificate.
 - Agreement under 32-to-64 angular sampling in the mock, fixed injection axes
   under a changed readout chart, hash stability, and invalid chart rejection.
 
