@@ -72,6 +72,29 @@ proofs, out of 96 valid cases in each held-out split:
 The test set was kept without model-informed filtering or
 altering its initial baseline scores.
 
+## First frozen LR-01 outcome
+
+[First model CI #43444713589](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43444713589)
+passed both training-only and held-out jobs. The student
+generated **352 positive Lean-compiled proof terms**
+and **380 exact negative Boolean certificates**
+across two seeds and two held-out depth groups,
+with zero false formal certificates.
+
+| Seed | Familiar positive /96 | Deeper positive /96 | Best-first familiar/deeper |
+| --- | ---: | ---: | --- |
+| 17 | **94** | **72** | 89 / 28 |
+| 29 | **96** | **90** | 89 / 28 |
+
+The preregistered **learning criterion passed** against
+24-popped-state symbolic best-first across both seeds
+and depths. The independent **CPU-cost criterion failed**
+in three of four comparisons; the learned actor
+requires more neural passes per action.
+The [full first-run receipt](../results/fc08_conjunctive_first_run_20261113.md)
+includes original source hashes, paired outcome
+counts, verifier costs, abstentions, and archive checks.
+
 ## Neural trial and dual exact certificates
 
 The stacked [LoopedTransformers FC-08 PR](https://github.com/MoralityLabAI/LoopedTransformers/pull/29)
