@@ -147,3 +147,49 @@ def verified_sampling_bound(frames: Sequence[Sequence[Sequence[float]]],
             if math.hypot(dx, dy) <= bound * dt + clearance:
                 return False
     return True
+
+
+def compression_braid_certificate(original: Sequence[Sequence[Sequence[float]]],
+                                  reconstructed: Sequence[Sequence[Sequence[float]]],
+                                  *, clearance: float = 1e-7) -> dict:
+    """Sufficient PL homotopy certificate for a compressed activation trace.
+
+    For each pair, let m be the minimum norm of its original piecewise-linear
+    difference path. Let e be the maximum error in the *relative* pair vector
+    at sample endpoints; its linear interpolation has norm <= e everywhere.
+    When e + clearance < m for every pair, the straight homotopy from the
+    original to reconstructed 2D configurations is collision-free, so their
+    braid **free-homotopy / conjugacy classes** agree, and their closures
+    define isotopic links (stronger than matching pair windings). A based
+    braid element agrees when the initial configuration is also identical.
+    This concerns PL sampled charts; for an unknown continuous trajectory,
+    the sampling-certificate assumptions in SCM02_MATH.md still apply.
+    A false result means uncertified, not that the topology differs.
+    """
+    if len(original) < 2 or len(original) != len(reconstructed):
+        raise ValueError('Sample counts must match and include a closing frame')
+    n = len(original[0])
+    if n < 2:
+        raise ValueError('Need at least two strands')
+    for frames in (original, reconstructed):
+        if any(len(frame) != n for frame in frames):
+            raise ValueError('Strand counts must match')
+        points = [[_point(p) for p in frame] for frame in frames]
+        if any(math.dist(points[0][i], points[-1][i]) > clearance for i in range(n)):
+            raise InvalidBraidTrace('Both paths must be closed with labeled strands')
+    a = [[_point(p) for p in frame] for frame in original]
+    b = [[_point(p) for p in frame] for frame in reconstructed]
+    results={}
+    for i in range(n):
+        for j in range(i+1,n):
+            f=[(row[i][0]-row[j][0],row[i][1]-row[j][1]) for row in a]
+            fhat=[(row[i][0]-row[j][0],row[i][1]-row[j][1]) for row in b]
+            minimum=min(_segment_clearance(x,y) for x,y in zip(f,f[1:]))
+            error=max(math.dist(x,y) for x,y in zip(f,fhat))
+            results[f'{i},{j}']={
+                'min_original_pair_clearance':minimum,
+                'max_relative_reconstruction_error':error,
+                'certified':bool(error+clearance<minimum),
+            }
+    return {'certified':all(x['certified'] for x in results.values()),
+            'pairs':results,'domain':'piecewise_linear_frozen_chart'}
