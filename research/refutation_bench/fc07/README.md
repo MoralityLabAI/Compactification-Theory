@@ -100,6 +100,24 @@ was cheaper per certified positive at familiar
 depth, even though the student was more
 efficient at greater depth.
 
+## Post-hoc stronger control
+
+[The post-hoc unary-implication BFS](POSTHOC_UNARY.md)
+restricts the graph to one-premise Horn rules
+and finds a proof path from the initial fact to
+the goal. The canonical backbone uses only
+single-premise rules, while every alternate
+backbone producer needs a conjunction.
+That zero-parameter control certified
+**192/192 distinct positive test cases**
+and compiled them in [separate Lean CI](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43424550518).
+It was introduced after the first registered
+FC-07 model evaluation, which remains
+unchanged. Consequently, the learned
+model beats the registered backward
+slice but is weaker than this simpler
+symbolic path algorithm.
+
 ## Reproduction
 
 From the repository root:
