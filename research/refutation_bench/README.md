@@ -134,6 +134,32 @@ additional symbolic result sets
 a stronger target for future claims
 about learned proof search.
 
+## FC-08: conjunctive proof search and bounded symbolic controls
+
+The [FC-08 conjunctive curriculum](fc08/README.md)
+provides 768 train-only cases, 192 validation
+cases and **384 new held-out cases** with
+no unary-only goal path. The positive theorem
+must use a conjunctive rule and fit a strict
+five-action certificate budget. Exact source
+CI compiled 480 training/development and
+192 held-out Lean reference theorems.
+
+In the [first frozen model trial](results/fc08_conjunctive_first_run_20261113.md),
+the LR-01 actor selected **352 accepted positive
+Lean proofs** over two seeds and two test
+splits, with 380 exact negative countermodels.
+At familiar depth the learned model certified
+94/96 and 96/96 positives, compared with
+89/96 for a **preregistered 24-state symbolic
+best-first search**. On deeper tasks it
+certified 72/96 and 90/96, compared
+with best-first's 28/96. The proof-success
+criterion passed; the CPU cost-per-certificate
+criterion failed in three of four comparisons.
+The unrestricted exact symbolic solver
+remains 100% correct on this finite logic.
+
 ## Run from the repository root
 
 ```bash
