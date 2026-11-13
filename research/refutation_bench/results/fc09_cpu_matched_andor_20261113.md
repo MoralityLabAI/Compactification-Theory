@@ -216,6 +216,51 @@ are host-dependent and do not
 establish a general hardware-neutral
 FLOP comparison.
 
+## Independent replay of archived output certificates
+
+An additional post-run container audit independently
+loaded the **original source-test CI ZIP**
+and the **original model-evaluation CI ZIP**,
+without using the model runner or its internal
+source certificate-checker implementation.
+
+It checked all **6,144 response rows** from
+32 distinct per-policy JSONL files,
+requiring exactly 192 unique case IDs
+per output. For each released positive
+certificate it replayed the original
+source-rule IDs in order, checking every
+antecedent, novelty, goal derivation and
+the five-step cap. For every negative
+certificate it required an assignment
+of all twelve atoms, all facts true,
+all Horn implications satisfied and
+the asserted goal false. The results
+agreed with the independent source
+labels throughout: **324 valid model
+positive proofs, 383 full negative
+countermodels and zero false
+formal certificates**.
+
+For the 4 CPU-budgeted symbolic conditions,
+every `symbolic_allowed_ms` matched
+the corresponding frozen model's
+`actor_forward_ms` for the same case.
+There were **zero overrun cases**.
+The audit also confirmed that the
+generated Lean file has **324 actual
+theorem declarations** and the
+SHA256 specified in the original score
+receipt. It did not substitute any
+source reference theorem to
+repair a model trace.
+
+The [machine-readable independent
+audit receipt](fc09_independent_artifact_audit.json)
+is committed alongside this report.
+Its original ZIP sources remain in
+their separately linked CI artifacts.
+
 ## Artifact audit and limits
 
 The full successful-run artifact
