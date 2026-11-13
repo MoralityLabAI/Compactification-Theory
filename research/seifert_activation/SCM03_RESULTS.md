@@ -6,7 +6,7 @@ Ran:
 
     python -m unittest discover -s research/seifert_activation/tests -q
 
-**Result:** 32/32 tests passed: 23 existing SCM-01/02 cases and 9 new SCM-03 tests. The nine test methods cover free word cancellation, braid relation and inversion, seeded random cancellations, same-winding nontrivial commutator, based-versus-conjugate scope, 16 commutator variants, analyzer discrimination, and size-budget refusal. All 16 commutators [sigma1^(2a), sigma2^(2b)] for a,b in {-2,-1,1,2} had zero pairwise winding and nonidentity exact Artin action.
+**Result:** 33/33 tests passed: 23 existing SCM-01/02 cases and 10 new SCM-03 tests. The ten test methods cover free word cancellation, braid relation and inversion, seeded random cancellations, same-winding nontrivial commutator, based-versus-conjugate scope, 16 commutator variants, analyzer discrimination, size-budget refusal, and NumPy-independent provenance hashing. All 16 commutators [sigma1^(2a), sigma2^(2b)] for a,b in {-2,-1,1,2} had zero pairwise winding and nonidentity exact Artin action.
 
 | B3 history | Pairwise winding | Alexander | Canonical genus | Artin based action |
 | --- | --- | --- | ---: | --- |
@@ -19,3 +19,5 @@ The C/C^-1 comparison has matching winding, Alexander and canonical Seifert genu
 The RMP capture defaults to three observed downstream positions, records the exact short Artin images and a content fingerprint, and reports image-budget exhaustion as inconclusive. The older independent winding/Alexander/Seifert checks remain intact.
 
 **Neural validation status:** pending. No actual LOOP-T/FF-U activation capture, causal result, compression gain, or 4D Seifert-surface distinction was measured.
+
+**CI repair:** The initial hosted run exposed a clean PyTorch environment without NumPy, causing five SCM-02 mock-capture tests to fail during tensor hashing. SCM-03 now produces canonical little-endian float64 hash bytes using Python's struct module, with a regression that deliberately disables Tensor.numpy. The amended hosted CI run is checked separately.
