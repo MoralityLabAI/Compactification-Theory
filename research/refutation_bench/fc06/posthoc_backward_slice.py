@@ -89,9 +89,16 @@ def evaluate_records(tasks:list[dict])->dict:
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out",type=Path,required=True)
+    parser.add_argument("--lean",type=Path)
     args=parser.parse_args()
     rows=test_data.generate_tests()
     report=evaluate_records(rows)
+    if args.lean:
+        accepted=[(t,priority_trace(t)) for t in rows if t["label"]=="established"]
+        args.lean.parent.mkdir(parents=True,exist_ok=True)
+        args.lean.write_text(proofs.lean_document(accepted),encoding="utf8")
+        report["lean_source_sha256"]=hashlib.sha256(args.lean.read_bytes()).hexdigest()
+        report["lean_theorem_count"]=len(accepted)
     args.out.parent.mkdir(parents=True,exist_ok=True)
     args.out.write_text(json.dumps(report,indent=2,sort_keys=True)+"\n")
     print(json.dumps({k:v for k,v in report.items() if k!="rows"},indent=2,sort_keys=True))
