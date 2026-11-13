@@ -4,7 +4,7 @@
 
 ## Executed checks
 
-`python -m unittest discover -s tests -q` passed **160/160 tests**: 130 historical SCM-01 through SCM-07 cases plus 30 new SCM-08 cases. Dedicated input tests verify rational pi/Machin bounds, sin/cos Taylor intervals, LayerNorm point enclosures, rounding propagation and input-token source hashing. Clean tube tests cover beta=0, tied and untied recurrence, FF-U reinjection, exact attention image bounds, source-derived RMS and mathematically proven null-braid cases. Auditor tests verify refusal on mismatched task hashes and output overwrite.
+`python -m unittest discover -s tests -q` passed **161/161 tests**: 130 historical SCM-01 through SCM-07 cases plus 31 new SCM-08 cases. Dedicated input tests verify rational pi/Machin bounds, sin/cos Taylor intervals, LayerNorm point enclosures, rounding propagation and input-token source hashing. Clean tube tests cover beta=0, tied and untied recurrence, FF-U reinjection, exact attention image bounds, source-derived RMS and mathematically proven null-braid cases. Auditor tests verify refusal on mismatched task hashes and output overwrite.
 
 A 128-dimensional, 64-token input bootstrap completed in 7.41 seconds on this CPU host and produced a maximum rational center uncertainty of 7.87e-16 in the ideal source graph. This performance probe does not execute an eight-visit trained model.
 
