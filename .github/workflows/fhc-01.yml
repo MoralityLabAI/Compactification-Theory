@@ -47,3 +47,22 @@ jobs:
         with:
           name: fhc01b-heldout-future-metric
           path: /tmp/fhc01b_heldout.json
+  trained-rrc25-future-geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install fixed numeric dependency
+        run: python -m pip install numpy==2.1.3
+      - name: Verify original RRC25 checkpoint and native zero-continuation adapter
+        run: python -m unittest discover -s research/finite_horizon_gap_v1 -p 'test_rrc25_future.py' -v
+      - name: Measure frozen trained RRC25 future-logit frontier
+        run: python research/finite_horizon_gap_v1/bench_rrc25_future.py --seed 940199 --horizons 1 2 4 8 16 --widths 2 4 8 12 16 --out /tmp/fhc01c_trained_rrc25.json
+      - name: Upload source-locked RRC25 geometry receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: fhc01c-trained-rrc25-geometry
+          path: /tmp/fhc01c_trained_rrc25.json
