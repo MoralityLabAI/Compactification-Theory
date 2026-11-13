@@ -5,13 +5,16 @@ import pathlib
 import random
 import sys
 import unittest
+from unittest.mock import patch
+
+import torch
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 from knot import extract_closed_braid, normalized_alexander, synthetic_braid
 from nonabelian import (ArtinWordBudgetExceeded, artin_action,
                        artin_witness, free_reduce, inverse_free_word)
 from winding import verify_pure_braid
-from rmp_capture import analyze_cycle, compare_double_resolution
+from rmp_capture import analyze_cycle, compare_double_resolution, sha256_tensor
 
 
 class ArtinActionTests(unittest.TestCase):
@@ -99,6 +102,12 @@ class ArtinActionTests(unittest.TestCase):
                 self.assertEqual(verify_pure_braid(frames,observed),
                                  {(0,1):0,(0,2):0,(1,2):0})
                 self.assertFalse(artin_witness(3,observed.word)['is_identity'])
+
+    def test_hashing_does_not_require_numpy(self):
+        t = torch.tensor([[1., 2.], [3., 4.]], dtype=torch.float32)
+        expected = sha256_tensor(t)
+        with patch.object(torch.Tensor, 'numpy', side_effect=RuntimeError('NumPy unavailable')):
+            self.assertEqual(sha256_tensor(t), expected)
 
     def test_size_budget_fails_closed(self):
         with self.assertRaises(ArtinWordBudgetExceeded):
