@@ -28,3 +28,30 @@ From repository root, with Python 3.10+ and only the standard library:
 All tests are exact finite controls and elementary analytic checks. No trained neural checkpoint is run; no asymptotic hard pairs or original OpenAI source proofs are reproduced.
 
 The research owner is Compactification Theory, with applications to RC-01, LoopedTransformers, RefutationBench and StegoBench. The source #122/#140 manuscripts are research claims under community review.
+
+
+## Executed learned-ranker diagnostic
+
+[Registered RRC-25 study](PROTOCOL_RRC25.md) |
+[Executable source-locked analysis](bench_rrc25_deletion.py)
+
+The existing trained RRC-25 GRU supplies an eight-bit diagnostic
+stream from its two top-ranked candidate IDs. The test distribution
+has 36 source-generator cases across six families; the original
+checkpoint and training source hashes are verified before any
+output is computed. This is an observed ranker-output code,
+not recovered hidden chain of thought.
+
+The finite prior over output words is used explicitly in DMB-8's
+top-K prior-mass ceiling. Exact Fraction deletion laws and terminal
+MAP decoding compare a 2/4/6-bit rolling-hash monitor with a
+protected-first-nonempty-evidence monitor under deletion rates
+1/2 and 4/5 and independent trace counts 0..3.
+
+DMB-9 proves that the protected monitor's success is
+\(q^{nm}\pi_\star+(1-q^{nm})A_g\), hence nondecreasing
+with more traces. The rolling monitor may forget earlier
+information. All decoding tables and their nominal
+description size remain separate from mutable monitor bits.
+The study is a retrospective finite-prior diagnostic and does
+not estimate reconstruction of natural-language reasoning.
