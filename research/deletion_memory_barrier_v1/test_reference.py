@@ -11,7 +11,9 @@ from reference import (
     optimal_full_trace_success, terminal_state_ceiling,
     hard_pair_success_ceiling, universal_information_ceiling,
     gaussian_cap_upper, gaussian_terminal_ceiling,
-    binomial_tail, thinning_markov_cap, structured_two_word_success, control_report,
+    binomial_tail, thinning_markov_cap, structured_two_word_success,
+    guarded_first_nonempty_laws, finite_prior_ceiling,
+    optimal_terminal_success_weighted, trace_code, control_report,
 )
 
 
@@ -126,6 +128,43 @@ class DeletionReferenceTests(unittest.TestCase):
         self.assertGreater(structured_two_word_success(8,1,Q(4,5)),Q(9,10))
         self.assertGreater(structured_two_word_success(8,3,Q(4,5)),
                            structured_two_word_success(8,1,Q(4,5)))
+
+    def test_guarded_first_nonempty_monitor_law_exact(self):
+        from collections import defaultdict
+        x="0110"
+        B=3
+        for q in (Q(0),Q(1,2),Q(4,5),Q(1)):
+            trace_law=deletion_law(x,q)
+            state={0:Q(1)}
+            for m in range(4):
+                closed=guarded_first_nonempty_laws([x],q,m,B)[x]
+                self.assertEqual(closed,state)
+                updated=defaultdict(Q)
+                for s,sp in state.items():
+                    for trace,p in trace_law.items():
+                        dest=(1+(trace_code(trace)%(2**B-1))
+                              if s==0 and trace else s)
+                        updated[dest]+=sp*p
+                state=dict(updated)
+
+    def test_guarded_success_monotone_with_exponential_plateau(self):
+        prior={"0110":Q(1,2),"1001":Q(1,4),
+               "0000":Q(1,8),"1111":Q(1,8)}
+        for q in (Q(1,2),Q(4,5)):
+            for B in (2,3,4):
+                values=[]
+                for m in range(7):
+                    laws=guarded_first_nonempty_laws(prior,q,m,B)
+                    value=optimal_terminal_success_weighted(laws,prior)
+                    self.assertLessEqual(value,finite_prior_ceiling(prior,B))
+                    values.append(value)
+                self.assertEqual(values[0],max(prior.values()))
+                self.assertTrue(all(a<=b for a,b in zip(values,values[1:])))
+                e=q**4
+                if e<1:
+                    plateau=(values[1]-e*values[0])/(1-e)
+                    for m,val in enumerate(values):
+                        self.assertEqual(val,e**m*values[0]+(1-e**m)*plateau)
 
     def test_complete_fixed_receipt(self):
         r=control_report()
