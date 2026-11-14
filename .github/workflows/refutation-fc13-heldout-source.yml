@@ -53,6 +53,10 @@ jobs:
             -o /tmp/lean435.tar.zst
           tar --zstd -xf /tmp/lean435.tar.zst -C /tmp
           echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Build pinned original MathCan imports and export its Lean module path
+        run: |
+          (cd _mathcan && lake build MathCan)
+          echo "LEAN_PATH=$(cd _mathcan && lake env printenv LEAN_PATH)" >> "$GITHUB_ENV"
       - name: Compile original theorems and extract sixteen genuine Lean initial states
         run: |
           for file in /tmp/fc13_orig/*.lean; do
