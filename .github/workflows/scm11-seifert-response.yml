@@ -1,0 +1,37 @@
+name: SCM-11 Source-local attention response
+
+on:
+  push:
+    paths:
+      - "research/seifert_activation/**"
+      - ".github/workflows/scm11-seifert-response.yml"
+  pull_request:
+    paths:
+      - "research/seifert_activation/**"
+      - ".github/workflows/scm11-seifert-response.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  causal-attention-reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install CPU exact algebra and validated interval dependencies
+        run: |
+          python -m pip install sympy==1.14.0 numpy==2.3.5 mpmath==1.3.0
+          python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Compile SCM-11 proof modules
+        run: |
+          python -m compileall -q research/seifert_activation/refined_response.py research/seifert_activation/gauge_null.py research/seifert_activation/scm11_audit.py research/seifert_activation/scm11_reference.py
+      - name: Independent high-precision intervention and provenance regressions
+        run: |
+          OMP_NUM_THREADS=1 python -m unittest discover -s research/seifert_activation/tests -p 'test_scm11_response.py' -v
+      - name: Full 64x128x8 frozen source reference
+        run: |
+          OMP_NUM_THREADS=1 python research/seifert_activation/scm11_reference.py --out research/seifert_activation/results/scm11_cpu_reference.json --check
