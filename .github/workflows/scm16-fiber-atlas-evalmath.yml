@@ -1,0 +1,114 @@
+name: SCM-16 fiber atlas and exact EvalMath long-run
+on:
+  push:
+    paths:
+      - 'research/dimensional_atlas/gym/scm16/**'
+      - '.github/workflows/scm16-fiber-atlas-evalmath.yml'
+  pull_request:
+    paths:
+      - 'research/dimensional_atlas/gym/scm16/**'
+      - '.github/workflows/scm16-fiber-atlas-evalmath.yml'
+permissions:
+  contents: read
+jobs:
+  fiber-unit-and-synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install CPU PyTorch
+        run: python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: SCM-15 regression and SCM-16 fiber tests
+        run: |
+          python -m unittest discover -s research/dimensional_atlas/gym/tests -v
+          python -m unittest discover -s research/dimensional_atlas/gym/scm16/tests -v
+      - name: Audit committed public synthetic receipt
+        run: |
+          python -m research.dimensional_atlas.gym.scm16.verify_receipt \
+            --receipt research/dimensional_atlas/gym/scm16/results/scm16_toy_3seed_receipt.json \
+            --public research/dimensional_atlas/gym/scm16/results/scm16_toy_generated_public.json
+      - name: Source-locked three-seed long toy replay
+        run: |
+          OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+            python -m research.dimensional_atlas.gym.scm16.campaign \
+            --backend toy --output /tmp/scm16-toy-ci.json \
+            --seed 160 --seed-count 3 --train-count 384 --discovery-count 96 \
+            --readout-count 96 --mining-tasks 24 --peaks 4 \
+            --replay-per-peak 4 --challenge-per-peak 4 \
+            --base-steps 120 --sae-steps 60 --vpd-steps 180 --replay-steps 60 \
+            --hidden 32 --heads 4 --visits 4 --readout-dim 8 \
+            --sae-width 64 --sae-k 6 --vpd-rank 4 --batch 24 --budget 12
+      - name: Check receipts and gold separation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/scm16-toy-ci.json').read_text())
+          assert len(r['results'])==3 and r['readout_count']==96
+          assert r['mining']['verifier_queries']==1536
+          assert r['fresh_challenge_count']==16
+          assert all(s['fiber_mediation_diagnostic']['last_visit_fiber_is_readout_null'] for s in r['results'])
+          p=json.loads(Path('/tmp/scm16-toy-ci.generated.public.json').read_text())
+          assert all('future' not in x and 'source_program' not in x for x in p)
+          print('SCM-16 toy verification passed')
+          PY
+  pinned-evalmath-three-seed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/EvalMath
+          ref: 88bb6cf8d2fe172e37d25964dfb2c285d9033841
+          path: external/EvalMath
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install CPU PyTorch
+        run: python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Train and evaluate against pinned EvalMath exact oracle
+        run: |
+          OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
+            python -m research.dimensional_atlas.gym.scm16.campaign \
+            --backend evalmath --output /tmp/scm16-evalmath-ci.json \
+            --evalmath-source external/EvalMath/src/spiral_ln/algebraic_reasoning_oracle.py \
+            --seed 160 --seed-count 3 --train-count 384 --discovery-count 96 \
+            --mining-tasks 24 --peaks 4 --replay-per-peak 4 --challenge-per-peak 4 \
+            --base-steps 120 --sae-steps 60 --vpd-steps 180 --replay-steps 60 \
+            --hidden 32 --heads 4 --visits 4 --readout-dim 8 \
+            --sae-width 64 --sae-k 6 --vpd-rank 4 --batch 24 --budget 12
+      - name: Read-only audit of pinned EvalMath source receipts
+        run: |
+          python -m research.dimensional_atlas.gym.scm16.verify_receipt \
+            --receipt /tmp/scm16-evalmath-ci.json \
+            --public /tmp/scm16-evalmath-ci.generated.public.json
+      - name: Verify exact gold boundary and print aggregate results
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/scm16-evalmath-ci.json').read_text())
+          assert r['backend']=='evalmath'
+          assert r['oracle_sha256']=='c0df77faae6351e522f35d36fa6031d6270ecced2fd92d0477cb5e08992ccb0b'
+          assert len(r['results'])==3 and r['readout_count']==192
+          p=json.loads(Path('/tmp/scm16-evalmath-ci.generated.public.json').read_text())
+          assert all('future' not in x and 'source_program' not in x for x in p)
+          for s in r['results']:
+              print(s['seed'], 'official future correct',
+                    {k:v['overall']['future_correct'] for k,v in s['official'].items()},
+                    'fresh', {k:v['overall']['future_correct'] for k,v in s['new_challenges'].items()})
+          print('SCM-16 pinned EvalMath verification passed')
+          PY
+      - name: Archive PUBLIC evidence, never private generated gold
+        uses: actions/upload-artifact@v4
+        with:
+          name: scm16-evalmath-public-evidence
+          path: |
+            /tmp/scm16-evalmath-ci.json
+            /tmp/scm16-evalmath-ci.generated.public.json
+          if-no-files-found: error
