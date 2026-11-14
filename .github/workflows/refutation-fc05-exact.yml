@@ -1,0 +1,60 @@
+name: FC-05 dual-certificate source and model-trace checks
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc05/**'
+      - 'research/refutation_bench/tests/test_fc05.py'
+      - '.github/workflows/refutation-fc05-exact.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc05/**'
+      - 'research/refutation_bench/tests/test_fc05.py'
+      - '.github/workflows/refutation-fc05-exact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-exact:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate all tests, model-trace checker and non-overlap
+        run: |
+          python -m unittest -v research.refutation_bench.tests.test_fc05
+      - name: Regenerate audited corpus and positive Lean term references
+        run: |
+          python -m research.refutation_bench.fc05.generator \
+            --out /tmp/FC05.jsonl \
+            --lean /tmp/FC05_reference.lean \
+            --receipt /tmp/FC05_receipt.json
+      - name: Install Lean 4.19.0 for independent kernel checks
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile 192 complete positive reference proofs
+        run: |
+          lean /tmp/FC05_reference.lean 2>&1 | tee /tmp/FC05_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC05_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC05_lean.log)" -ge 2
+      - name: Upload source and exact verification receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc05-source-${{ github.run_id }}
+          path: |
+            /tmp/FC05.jsonl
+            /tmp/FC05_reference.lean
+            /tmp/FC05_receipt.json
+            /tmp/FC05_lean.log
+          retention-days: 14
+          if-no-files-found: warn

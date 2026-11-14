@@ -1,0 +1,57 @@
+name: FC-06 posthoc zero-neural ancestor control
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc06/posthoc_backward_slice.py'
+      - 'research/refutation_bench/tests/test_fc06_posthoc.py'
+      - '.github/workflows/refutation-fc06-posthoc.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc06/posthoc_backward_slice.py'
+      - 'research/refutation_bench/tests/test_fc06_posthoc.py'
+      - '.github/workflows/refutation-fc06-posthoc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  posthoc-control:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent ancestry check on untouched FC-06 case corpus
+        run: python -m unittest research.refutation_bench.tests.test_fc06_posthoc -v
+      - name: Generate plain backward-slice traces and Lean source
+        run: |
+          python -m research.refutation_bench.fc06.posthoc_backward_slice \
+            --out /tmp/FC06_ancestry_control.json \
+            --lean /tmp/FC06_ancestry.lean
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile all non-neural first-order syntactic ancestry proofs
+        run: |
+          lean /tmp/FC06_ancestry.lean 2>&1 | tee /tmp/FC06_ancestry_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC06_ancestry_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC06_ancestry_lean.log)" -ge 2
+      - name: Archive the posthoc counter-control
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc06-posthoc-ancestry-${{ github.run_id }}
+          path: |
+            /tmp/FC06_ancestry_control.json
+            /tmp/FC06_ancestry.lean
+            /tmp/FC06_ancestry_lean.log
+          retention-days: 30
+          if-no-files-found: warn

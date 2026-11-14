@@ -1,0 +1,59 @@
+name: FC-06 train-only strict-budget exact curriculum
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc06/train_data.py'
+      - 'research/refutation_bench/tests/test_fc06_train.py'
+      - '.github/workflows/refutation-fc06-train-source.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc06/train_data.py'
+      - 'research/refutation_bench/tests/test_fc06_train.py'
+      - '.github/workflows/refutation-fc06-train-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certify-train:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run exact proof-budget and split tests
+        run: python -m unittest research.refutation_bench.tests.test_fc06_train -v
+      - name: Produce canonical train/dev data and exact Lean theorem source
+        run: |
+          python -m research.refutation_bench.fc06.train_data \
+            --out /tmp/FC06_train.jsonl \
+            --lean /tmp/FC06_train.lean \
+            --receipt /tmp/FC06_train_receipt.json
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile every train/dev positive reference proof
+        run: |
+          lean /tmp/FC06_train.lean 2>&1 | tee /tmp/FC06_train_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC06_train_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC06_train_lean.log)" -ge 2
+      - name: Save source hash and proof receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc06-train-source-${{ github.run_id }}
+          path: |
+            /tmp/FC06_train.jsonl
+            /tmp/FC06_train.lean
+            /tmp/FC06_train_receipt.json
+            /tmp/FC06_train_lean.log
+          retention-days: 30
+          if-no-files-found: warn

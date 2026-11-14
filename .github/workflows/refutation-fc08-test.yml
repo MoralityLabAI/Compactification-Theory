@@ -1,0 +1,62 @@
+name: FC-08 preregistered conjunctive held-out source and static search
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc08/test_data.py'
+      - 'research/refutation_bench/fc08/controls.py'
+      - 'research/refutation_bench/tests/test_fc08_test.py'
+      - '.github/workflows/refutation-fc08-test.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc08/test_data.py'
+      - 'research/refutation_bench/fc08/controls.py'
+      - 'research/refutation_bench/tests/test_fc08_test.py'
+      - '.github/workflows/refutation-fc08-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certify-heldout:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify graph split, exact certificates and frozen symbolic controls
+        run: |
+          python -m unittest research.refutation_bench.tests.test_fc08_test -v
+      - name: Freeze reproducible source examples and baseline outcomes
+        run: |
+          python -m research.refutation_bench.fc08.test_data \
+            --out /tmp/FC08_test.jsonl \
+            --lean /tmp/FC08_test.lean \
+            --receipt /tmp/FC08_test_receipt.json
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile all held-out positive reference theorems
+        run: |
+          lean /tmp/FC08_test.lean 2>&1 | tee /tmp/FC08_test_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC08_test_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC08_test_lean.log)" -ge 2
+      - name: Preserve all source hashes and preregistered symbolic scores
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc08-test-source-${{ github.run_id }}
+          path: |
+            /tmp/FC08_test.jsonl
+            /tmp/FC08_test.lean
+            /tmp/FC08_test_receipt.json
+            /tmp/FC08_test_lean.log
+          retention-days: 30
+          if-no-files-found: warn

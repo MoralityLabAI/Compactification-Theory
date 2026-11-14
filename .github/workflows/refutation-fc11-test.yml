@@ -1,0 +1,74 @@
+name: FC-11 ORIGINAL held-out MathCan multi-step tactic states
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc11/test_data.py'
+      - 'research/refutation_bench/tests/test_fc11_test.py'
+      - '.github/workflows/refutation-fc11-test.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc11/test_data.py'
+      - 'research/refutation_bench/tests/test_fc11_test.py'
+      - '.github/workflows/refutation-fc11-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-heldout-goals:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _original_mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate imported test selection and train-family isolation
+        run: |
+          test "$(git -C _original_mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          python -m unittest research.refutation_bench.tests.test_fc11_test -v
+      - name: Instrument the original held-out theorem proofs
+        run: |
+          python -m research.refutation_bench.fc11.test_data \
+            --source _original_mathcan --out /tmp/fc11_test
+      - name: Install original Lean 4.35.0 toolchain
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean-4.35.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.35.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile untouched proof scripts with intermediate goal tracing
+        run: |
+          for file in /tmp/fc11_test/*.lean; do
+            lean "$file" 2>&1 | tee "${file%.lean}.log"
+            if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
+          done
+          python -m research.refutation_bench.fc11.test_data \
+            --out /tmp/fc11_test --extract
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('/tmp/fc11_test')
+          rows=[json.loads(x) for x in (root/'actual_goal_states.jsonl').read_text().splitlines()]
+          assert len(rows)>=20
+          assert len({x['stage_id'] for x in rows})==len(rows)
+          assert all(x['actual_lean_goal_state'].count('⊢')>=1 for x in rows)
+          print('FC11_ACTUAL_HELDOUT_TACTIC_STATES',len(rows))
+          PY
+      - name: Archive original held-out proof trajectory and compiler logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc11-original-heldout-mathcan-${{ github.run_id }}
+          path: /tmp/fc11_test/
+          retention-days: 30
+          if-no-files-found: warn

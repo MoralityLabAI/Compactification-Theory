@@ -1,0 +1,43 @@
+name: FC-11 exact native Lean first tactic baseline smoke
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc11/native_first_smoke.lean'
+      - '.github/workflows/refutation-fc11-native-smoke.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc11/native_first_smoke.lean'
+      - '.github/workflows/refutation-fc11-native-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-tactic-first:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install original MathCan Lean 4.35.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean-4.35.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.35.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel compile exact three-stage native first syntax
+        run: |
+          lean research/refutation_bench/fc11/native_first_smoke.lean 2>&1 | tee /tmp/fc11_native_first.log
+          if grep -E 'error:|sorryAx' /tmp/fc11_native_first.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/fc11_native_first.log)" -ge 1
+          echo FC11_NATIVE_THREE_ACTION_SEARCH_COMPILED
+      - name: Preserve native Lean tactic search proof receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc11-native-first-smoke-${{ github.run_id }}
+          path: /tmp/fc11_native_first.log
+          retention-days: 30
+          if-no-files-found: warn
