@@ -102,6 +102,40 @@ def supercritical_limit(q: int, b: int, eigenvalue) -> dict:
             "limiting_advantage_over_guess":str(floor-Fraction(1,q))}
 
 
+
+
+def sparse_schedule(q: int, b: int, eigenvalue, depth: int)->dict:
+    """Set r_L=(b*lambda**2)^(-L), retaining lambda^(-2L) leaves in mean.
+
+    When t>1 this is a valid retention probability for all depths.
+    V_drop,L=V_L+1-t^(-L), tending to V_infty+1.
+    """
+    lam=validate(q,b,eigenvalue)
+    if type(depth) is not int or depth<0:
+        raise ValueError("nonnegative integer depth required")
+    t=b*lam**2
+    if t<=1:
+        raise ValueError("sparse KS schedule applies only when t>1")
+    r=t**(-depth)
+    V=dropout_moment_factor(b,lam,depth,r)
+    expected=r*b**depth
+    if V != moment_factor(b,lam,depth) + 1-t**(-depth):
+        raise AssertionError("sparse schedule moment algebra differs")
+    limit=supercritical_limit(q,b,lam)
+    Vinf=Fraction(limit["limiting_variance_factor"])+1
+    floorinf=Fraction(1,q)+Fraction(q-1,q)/Vinf
+    return {
+        "q":q,"b":b,"lambda":str(lam),"t":str(t),"depth":depth,
+        "retention_probability":str(r),
+        "expected_observed_leaves":str(expected),
+        "full_leaf_count":b**depth,
+        "moment":str(V),
+        "count_recovery_floor":str(bayes_floor(q,b,lam,depth,r)),
+        "limiting_sparse_moment":str(Vinf),
+        "limiting_sparse_recovery_floor":str(floorinf),
+        "counter_memory_bits":bit_budget(q,b,depth,r)["persistent_bit_upper_bound"],
+    }
+
 def bit_budget(q: int, b: int, depth: int, retention=1) -> dict:
     if type(depth) is not int or depth < 0:
         raise ValueError("depth>=0 required")
@@ -276,6 +310,12 @@ def reference_report()->dict:
                     raise AssertionError("LCA covariance and recursion differ")
     limits=[supercritical_limit(q,2,Fraction(4,5)) for q in (2,3)]
     assert [x["limiting_recovery_lower_bound"] for x in limits]==["23/32","5/8"]
+    sparsity=[
+        sparse_schedule(q,2,Fraction(4,5),L)
+        for q in (2,3) for L in (0,1,2,3,8,16)
+    ]
+    assert sparse_schedule(3,2,Fraction(4,5),16)["limiting_sparse_recovery_floor"]=="37/69"
+    assert sparse_schedule(2,2,Fraction(4,5),16)["limiting_sparse_recovery_floor"]=="15/23"
     critical={
         "degree":5,"branching":4,"lambda":"1/2",
         "t":"1",
@@ -290,6 +330,7 @@ def reference_report()->dict:
         "source_sha256":hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         "source_result_families":[229,236],
         "analytic_supercritical":limits,
+        "sparse_schedule":sparsity,
         "critical_branch":critical,
         "cases":rows,
         "reproduces_source_229_full_infinite_tree_proof":False,
