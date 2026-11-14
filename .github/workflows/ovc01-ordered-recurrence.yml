@@ -1,0 +1,30 @@
+name: OVC-01 ordered recurrence certificates
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/ordered_recurrence_certificates_v1/**'
+      - '.github/workflows/ovc01-ordered-recurrence.yml'
+  pull_request:
+    paths:
+      - 'research/ordered_recurrence_certificates_v1/**'
+      - '.github/workflows/ovc01-ordered-recurrence.yml'
+  workflow_dispatch:
+jobs:
+  exact-ordered-certificate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check exact matrices against independent algebra and path oracles
+        run: python -m unittest discover -s research/ordered_recurrence_certificates_v1 -p 'test_*.py' -v
+      - name: Emit ordered rewrite and resource certificates
+        run: python research/ordered_recurrence_certificates_v1/reference.py --out /tmp/ovc01_exact.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ovc01-exact-ordered-recurrence
+          path: /tmp/ovc01_exact.json
