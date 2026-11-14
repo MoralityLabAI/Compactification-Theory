@@ -41,6 +41,9 @@ def source_manifest(args)->dict:
     if args.model not in CELLS:raise ValueError("unknown registered model")
     missing=[];digests={}
     required={f'RMP_source/{path}':args.rmp_root/path for path in RMP_FILES}
+    own=Path(__file__).resolve().parent
+    required.update({f'SCM17_source/{name}':own/name
+                     for name in ('campaign.py','rmp_fiber.py')})
     required.update({'checkpoint':args.artifacts/CELLS[args.model][0]/'checkpoints'/f'{CELLS[args.model][1]}.pt',
        'training_config':args.runs/CELLS[args.model][0]/'result.json',
        'dictionary_metrics':args.metrics,
