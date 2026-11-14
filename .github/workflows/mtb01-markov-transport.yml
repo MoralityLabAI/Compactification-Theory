@@ -24,7 +24,11 @@ jobs:
         run: python -m unittest discover -s research/markov_transport_budget_v1 -p 'test_*.py' -v
       - name: Produce source-hashed drift, margin and l1 obstruction receipt
         run: python research/markov_transport_budget_v1/reference.py --out /tmp/mtb01_exact.json
+      - name: Produce separate stationary nonreversible failure receipt
+        run: python research/markov_transport_budget_v1/nonreversible.py --out /tmp/mtb01_nonreversible.json
       - uses: actions/upload-artifact@v4
         with:
           name: mtb01-exact-markov-transport
-          path: /tmp/mtb01_exact.json
+          path: |
+            /tmp/mtb01_exact.json
+            /tmp/mtb01_nonreversible.json
