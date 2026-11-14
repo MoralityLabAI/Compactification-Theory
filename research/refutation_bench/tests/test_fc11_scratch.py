@@ -43,6 +43,12 @@ class FC11ScratchTests(unittest.TestCase):
         self.assertEqual(scratch._extract_after_states(log),["P : Prop\n⊢ P"])
         with self.assertRaises(AssertionError):
             scratch._extract_after_states("FC11_AFTER_BEGIN\nnot a goal\nFC11_AFTER_END")
+        nested=("FC11_AFTER_BEGIN\nFC11_AFTER_BEGIN\n"
+                "P : Prop\n⊢ P\nQ : Prop\n⊢ Q\n"
+                "FC11_AFTER_END\nFC11_AFTER_END")
+        extracted=scratch._extract_after_states(nested)
+        self.assertEqual(len(extracted),1)
+        self.assertEqual(extracted[0].count("⊢"),2)
         with self.assertRaises(AssertionError):
             scratch._extract_after_states("FC11_AFTER_BEGIN\n⊢ P")
 
