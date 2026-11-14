@@ -125,7 +125,6 @@ def experiment(horizons=HORIZONS,trials=TRIALS,seed=SEED):
         sequences=[
             fixed_sequence(seed+1000003*T+7919*i,T)
             for i in range(trials)]
-        true_rate=sum(unsat(sum((1<<c for c in sequence),0)) for sequence in []) if False else None
         # OR accumulation rather than arithmetic sum handles repeated clauses.
         true_rate=F(sum(
             unsat(_mask(sequence)) for sequence in sequences),trials)
