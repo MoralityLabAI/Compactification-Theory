@@ -56,7 +56,30 @@ def generate(actual_goal:str)->dict[str,list[str]]:
     out={f:[] for f in FAMILIES}
     for f in FAMILIES[:6]:
         out[f]=[f]
-    for name in names:
+    # Prefer hypothesis-like names over mere Nat/Type/List parameters.
+    # All candidates still refer only to names extracted from the printed
+    # original Lean local context. This ordering was amended before test
+    # source generation after a TRAIN-only probe found zero bare-exact wins.
+    def is_hypothesis(typ:str)->bool:
+        return bool(any(x in typ for x in ("∀","→","=","≠","≤","<","∧","∨","∃","obsEqOn","Prop")) and
+                    typ not in ("Prop","Type","Type u","Type v","Type w"))
+    priority=[n for n,t in local if is_hypothesis(t)]
+    rest=[n for n,t in local if not is_hypothesis(t)]
+    ordered=list(dict.fromkeys(priority+rest))
+    # Function hypotheses in the original compiler context can consume a
+    # locally named List and its local validity certificate. For symmetric
+    # equality goals, both orientations are tried in deterministic order.
+    list_names=[n for n,t in local if "List " in t]
+    validity=[n for n,t in local if "∀" in t and "→" in t]
+    if list_names and validity:
+        word=list_names[-1]
+        cert=validity[-1]
+        for h,t in local:
+            if h in (word,cert) or not ("obsEqOn" in t or t.startswith("∀")):
+                continue
+            out["exact_local"].append(f"exact ({h} {word} {cert}).symm")
+            out["exact_local"].append(f"exact {h} {word} {cert}")
+    for name in ordered:
         out["exact_local"].append("exact "+name)
         out["apply_local"].append("apply "+name)
         out["simpa_local"].append("simpa using "+name)
