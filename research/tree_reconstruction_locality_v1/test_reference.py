@@ -9,6 +9,7 @@ from reference import (
     bayes_floor, bit_budget, covariance_oracle, dropout_moment_factor,
     exact_broadcast, leaf_pair_covariance_factor, moment_closed,
     moment_factor, reference_report, supercritical_limit, transition,
+    sparse_schedule,
     validate,
 )
 
@@ -137,6 +138,41 @@ class ExactBroadcastTreeTests(unittest.TestCase):
             erased=bit_budget(3,2,depth,Q(1,2))
             self.assertEqual(erased["persistent_bit_upper_bound"],
                              3*(depth+1))
+
+    def test_sparse_schedule_exact_work_and_phase_advantage(self):
+        for q in (2,3):
+            for L in (0,1,2,3,8,16,40):
+                item=sparse_schedule(q,2,Q(4,5),L)
+                self.assertEqual(
+                    Q(item["retention_probability"]),Q(25,32)**L)
+                self.assertEqual(
+                    Q(item["expected_observed_leaves"]),Q(25,16)**L)
+                self.assertLessEqual(
+                    Q(item["moment"]),Q(item["limiting_sparse_moment"]))
+                self.assertGreaterEqual(
+                    Q(item["count_recovery_floor"]),
+                    Q(item["limiting_sparse_recovery_floor"]))
+                self.assertEqual(
+                    Q(item["count_recovery_floor"]),
+                    bayes_floor(q,2,Q(4,5),L,Q(25,32)**L))
+        self.assertEqual(
+            sparse_schedule(3,2,Q(4,5),40)["limiting_sparse_recovery_floor"],
+            "37/69")
+        self.assertEqual(
+            sparse_schedule(2,2,Q(4,5),40)["limiting_sparse_recovery_floor"],
+            "15/23")
+
+    def test_sparse_schedule_finite_exact_bayes_cases(self):
+        for q,depth in ((2,3),(3,2)):
+            r=Q(25,32)**depth
+            row=exact_broadcast(q,2,Q(4,5),depth,r)
+            self.assertEqual(Q(row["moment_factor"]),
+                             Q(sparse_schedule(q,2,Q(4,5),depth)["moment"]))
+            self.assertGreaterEqual(Q(row["count_MAP"]),
+                                    Q(row["count_lower_bound"]))
+            self.assertLessEqual(Q(row["count_MAP"]),Q(row["full_leaf_MAP"]))
+        with self.assertRaises(ValueError):
+            sparse_schedule(3,4,Q(1,2),3)
 
     def test_full_reference_receipt_has_source_boundaries(self):
         r=reference_report()
