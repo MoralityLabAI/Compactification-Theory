@@ -1,0 +1,80 @@
+name: FC-11 pinned ORIGINAL MathCan multi-step train tactics
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc11/source_core.py'
+      - 'research/refutation_bench/fc11/train_data.py'
+      - 'research/refutation_bench/tests/test_fc11_train.py'
+      - '.github/workflows/refutation-fc11-train.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc11/source_core.py'
+      - 'research/refutation_bench/fc11/train_data.py'
+      - 'research/refutation_bench/tests/test_fc11_train.py'
+      - '.github/workflows/refutation-fc11-train.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-trace-training:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _original_mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source pins, metadata isolation and genuine trace parser
+        run: |
+          test "$(git -C _original_mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          test "$(cat _original_mathcan/lean-toolchain)" = 'leanprover/lean4:v4.35.0'
+          python -m unittest research.refutation_bench.tests.test_fc11_train -v
+          test ! -e research/refutation_bench/fc11/test_data.py
+      - name: Instrument the original train theorem proofs without modifying their tactic scripts
+        run: |
+          python -m research.refutation_bench.fc11.train_data \
+            --source _original_mathcan --out /tmp/fc11_train
+      - name: Install source-matched Lean 4.35.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean-4.35.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.35.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile original proof bodies with actual intermediate goal-state traces
+        run: |
+          for file in /tmp/fc11_train/*.lean; do
+            lean "$file" 2>&1 | tee "${file%.lean}.log"
+            if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
+          done
+          python -m research.refutation_bench.fc11.train_data \
+            --out /tmp/fc11_train --extract
+      - name: Require all compiler-emitted stages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path("/tmp/fc11_train")
+          cases=[json.loads(l) for l in (root/"actual_goal_states.jsonl").read_text().splitlines()]
+          assert len(cases)>=25
+          assert len({x["stage_id"] for x in cases})==len(cases)
+          assert all("⊢" in x["actual_lean_goal_state"] for x in cases)
+          print("FC11_ORIGINAL_MATHCAN_TRAIN_STATES",len(cases))
+          PY
+      - name: Archive original compiler trajectory and exact theorem metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc11-original-train-mathcan-${{ github.run_id }}
+          path: /tmp/fc11_train/
+          retention-days: 30
+          if-no-files-found: warn
