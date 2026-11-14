@@ -15,6 +15,9 @@ from reference import (
     hitting_moments_independent_dp_float, one_gadget_coupon_moments,
     minimal_monitor_states, monitor_bits, encode_monitor, step_monitor,
     separating_suffix, promised_unique_witness_success_ceiling, source_report,
+    minimal_certifying_states, certifying_bits, promised_unique_witness_bits,
+    certifying_initial_state, certifying_transition, certifying_output,
+    assert_certificate_sound,
 )
 
 
@@ -172,12 +175,57 @@ class SATThresholdControls(unittest.TestCase):
         self.assertEqual(promised_unique_witness_success_ceiling(8,2),F(1,2))
         self.assertEqual(promised_unique_witness_success_ceiling(8,3),1)
 
+    def test_certifying_automaton_has_exact_r_absorbing_states(self):
+        self.assertEqual(minimal_certifying_states(),65027)
+        self.assertEqual(certifying_bits(),16)
+        self.assertEqual(minimal_certifying_states(3,8),255**3+3)
+        self.assertEqual(promised_unique_witness_bits(8),3)
+        self.assertEqual(promised_unique_witness_bits(1),0)
+        for g in range(R):
+            state=certifying_initial_state()
+            full=0
+            for i in range(GADGET_CLAUSES):
+                clause=g*GADGET_CLAUSES+i
+                state=certifying_transition(state,clause)
+                full |= 1<<clause
+                self.assertTrue(assert_certificate_sound(full,certifying_output(state)))
+            self.assertEqual(certifying_output(state),("UNSAT",g))
+            for j in range(M):
+                self.assertEqual(certifying_transition(state,j),state)
+
+    def test_every_losing_state_transition_matches_valid_mask_certificate(self):
+        for mask in range(1<<M):
+            if unsat(mask):
+                continue
+            state=encode_monitor(mask)
+            self.assertEqual(certifying_output(state),("SAT",None))
+            for clause in range(M):
+                result=certifying_transition(state,clause)
+                combined=mask|(1<<clause)
+                proof=certifying_output(result)
+                self.assertEqual(proof[0]=="UNSAT",unsat(combined))
+                self.assertTrue(assert_certificate_sound(combined,proof))
+
+    def test_certifying_monitor_sound_over_arbitrary_repeated_streams(self):
+        rng=random.Random(175236)
+        for _ in range(200):
+            state=certifying_initial_state()
+            mask=0
+            for j in range(rng.randrange(1,250)):
+                clause=rng.randrange(M)
+                state=certifying_transition(state,clause)
+                mask |= 1<<clause
+                self.assertTrue(assert_certificate_sound(mask,certifying_output(state)))
+            self.assertEqual(state<255**2,not unsat(mask))
+
     def test_report_source_scope_and_independent_receipts(self):
         report=source_report()
         self.assertEqual(report["source_families"],[175,235])
         self.assertEqual(report["status"],"EXACT_FINITE_SAT_CORE_CONTROL")
         self.assertEqual(report["with_replacement_first_UNSAT_median_draw"],31)
         self.assertEqual(report["streaming_exact_min_bits"],16)
+        self.assertEqual(report["streaming_certifying_min_states"],65027)
+        self.assertEqual(report["promise_exactly_one_full_gadget_unique_witness_bits_r8"],3)
         self.assertFalse(report["general_source_175_constant_gap_proved_here"])
         self.assertFalse(report["general_source_235_limiting_density_proved_here"])
         self.assertFalse(report["trained_reasoner_evaluated"])
