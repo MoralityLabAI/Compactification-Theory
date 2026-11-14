@@ -287,6 +287,73 @@ def separating_suffix(a:int,b:int,r:int=R,k:int=GADGET_CLAUSES):
             "A_unsat_after_suffix":True,"B_sat_after_suffix":True}
 
 
+
+
+def minimal_certifying_states(r:int=R,k:int=GADGET_CLAUSES)->int:
+    """Exact DFA states for SAT decision or a VALID complete-core ID."""
+    valid(r,k)
+    return ((1<<k)-1)**r+r
+
+
+def certifying_bits(r:int=R,k:int=GADGET_CLAUSES)->int:
+    return (minimal_certifying_states(r,k)-1).bit_length()
+
+
+def promised_unique_witness_bits(r:int)->int:
+    if type(r) is not int or r<1:
+        raise ValueError("positive gadget count required")
+    return (r-1).bit_length()
+
+
+def certifying_initial_state()->int:
+    return 0
+
+
+def certifying_transition(state:int,clause:int,r:int=R,k:int=GADGET_CLAUSES)->int:
+    """Exact finite-state witness-producing online stream decoder.
+
+    Losing states encode partial supports by base-(2^k-1) digits.
+    Once any gadget completes, the state remembers the FIRST
+    certified gadget and never forgets its validity under additions.
+    """
+    valid(r,k)
+    base=(1<<k)-1
+    absorbing=base**r
+    if (type(state) is not int or not 0<=state<absorbing+r or
+            type(clause) is not int or not 0<=clause<r*k):
+        raise ValueError("invalid witness monitor transition")
+    if state>=absorbing:
+        return state
+    g,i=divmod(clause,k)
+    old=(state//(base**g))%base
+    new=old|(1<<i)
+    if new==base:
+        return absorbing+g
+    return state+(new-old)*base**g
+
+
+def certifying_output(state:int,r:int=R,k:int=GADGET_CLAUSES):
+    valid(r,k)
+    end=((1<<k)-1)**r
+    if type(state) is not int or not 0<=state<end+r:
+        raise ValueError("invalid certifying monitor state")
+    if state<end:
+        return ("SAT",None)
+    return ("UNSAT",state-end)
+
+
+def assert_certificate_sound(mask:int,output,r:int=R,k:int=GADGET_CLAUSES)->bool:
+    """Host checks the claimed public full-core identifier against source."""
+    valid(r,k)
+    claim,group=output
+    if claim=="SAT" and group is None:
+        return not unsat(mask,r,k)
+    if claim=="UNSAT" and type(group) is int and 0<=group<r:
+        return mask & gadget_full_mask(group,k)==gadget_full_mask(group,k)
+    return False
+
+
+
 def promised_unique_witness_success_ceiling(r:int, B:int)->F:
     if type(r) is not int or r<1 or type(B) is not int or B<0:
         raise ValueError("positive family and nonnegative bits")
@@ -343,7 +410,10 @@ def source_report()->dict:
         "streaming_exact_min_bits":monitor_bits(),
         "streaming_exact_encoded_states_enumerated":len(enc),
         "minimal_unsat_proof_clause_count":8,
-        "promise_exactly_one_full_gadget_unique_witness_bits_r8":monitor_bits(8,1),
+        "streaming_certifying_min_states":minimal_certifying_states(),
+        "streaming_certifying_min_bits":certifying_bits(),
+        "promise_exactly_one_full_gadget_unique_witness_bits_r8":
+            promised_unique_witness_bits(8),
         "general_source_175_constant_gap_proved_here":False,
         "general_source_235_limiting_density_proved_here":False,
         "full_random_n6_three_SAT_clause_model":False,
