@@ -58,28 +58,34 @@ def make_source(original:str,theorem:str,actions:list[str],*,
 
 
 def _extract_after_states(log:str)->list[str]:
-    opened=False
+    """Lean can group per-goal trace messages with nested BEGIN/END markers.
+
+    Keep every compiler-emitted turnstile and reject unbalanced markers.
+    This is scratch state observation only, never an accepted proof.
+    """
+    depth=0
     buf=[]
     goals=[]
     for line in log.splitlines():
         if line.strip()=="FC11_AFTER_BEGIN":
-            if opened:
-                raise AssertionError("nested scratch compiler trace")
-            opened=True
-            buf=[]
+            if depth==0:
+                buf=[]
+            depth+=1
             continue
         if line.strip()=="FC11_AFTER_END":
-            if not opened:
+            if depth<=0:
                 raise AssertionError("mismatched scratch compiler trace")
-            text="\n".join(buf).strip()
-            if text.count("⊢")<1:
-                raise AssertionError("scratch compiler emitted no actual goal")
-            goals.append(text)
-            opened=False
+            depth-=1
+            if depth==0:
+                text="\n".join(buf).strip()
+                if text.count("⊢")<1:
+                    raise AssertionError("scratch compiler emitted no actual goal")
+                goals.append(text)
+                buf=[]
             continue
-        if opened:
+        if depth>0:
             buf.append(line)
-    if opened:
+    if depth!=0:
         raise AssertionError("incomplete scratch compiler trace")
     return goals
 
