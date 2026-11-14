@@ -1,0 +1,30 @@
+name: MTB-01 Markov transport drift and geometry
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/markov_transport_budget_v1/**'
+      - '.github/workflows/mtb01-markov-transport.yml'
+  pull_request:
+    paths:
+      - 'research/markov_transport_budget_v1/**'
+      - '.github/workflows/mtb01-markov-transport.yml'
+  workflow_dispatch:
+jobs:
+  exact-markov-transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Three-oracle finite Markov and affine Brenier checks
+        run: python -m unittest discover -s research/markov_transport_budget_v1 -p 'test_*.py' -v
+      - name: Produce source-hashed drift, margin and l1 obstruction receipt
+        run: python research/markov_transport_budget_v1/reference.py --out /tmp/mtb01_exact.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mtb01-exact-markov-transport
+          path: /tmp/mtb01_exact.json
