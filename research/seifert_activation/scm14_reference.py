@@ -97,10 +97,13 @@ def main(argv=None):
         if old['schema']!=data['schema'] or old['source_sha256']!=data['source_sha256']:
             raise SystemExit('SCM14 source identity drifted')
         for original,new in zip(old['cases'],data['cases']):
-            for name in ('model_sha256','frequency_sha256','shape','amplitude_upper',
-                         'local_at_most_global'):
+            for name in ('model_sha256','frequency_sha256','shape','injection_token',
+                         'observed_tokens','local_at_most_global'):
                 if original[name]!=new[name]:
                     raise SystemExit('SCM14 replay mismatch: '+name)
+            amp0,amp1=float(Fraction(original['amplitude_upper'])),float(Fraction(new['amplitude_upper']))
+            if not math.isclose(amp0,amp1,rel_tol=.05,abs_tol=1e-15):
+                raise SystemExit('SCM14 source-derived injection amplitude outside registered replay envelope')
             # The interval proof is independently recomputed on every host.
             # Center estimates may differ slightly across permitted BLAS
             # implementations. Compare declared synthetic envelopes with a
