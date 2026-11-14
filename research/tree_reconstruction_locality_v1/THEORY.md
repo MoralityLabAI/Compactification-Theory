@@ -382,3 +382,94 @@ transformer's hidden chain of thought
 or a model's self-ascribed beliefs, and
 it does not instantiate a finite algorithm
 for the #236 infinite factor-of-IID proof.
+
+
+## 8. KSR-6: Sparse observations retain a nonvanishing root signal
+
+KSR-3 yields a sharper resource interpretation. In the
+supercritical phase t=b*lambda^2>1, choose the
+depth-dependent independent leaf retention probability
+
+\[
+\boxed{r_L=t^{-L}.}\tag{KSR-6a}
+\]
+
+This choice is valid since t>1. Substituting into the
+dropout formula gives
+
+\[
+\boxed{
+V_L(r_L)=V_L+1-t^{-L}
+\longrightarrow V_\infty+1.
+}\tag{KSR-6b}
+\]
+
+The count-only Bayes bound of KSR-3 therefore implies
+
+\[
+\boxed{
+\liminf_{L\to\infty}P_{\mathrm{MAP,retained-count}}
+\ge \frac1q+\frac{q-1}{q(V_\infty+1)}
+>\frac1q.
+}\tag{KSR-6c}
+\]
+
+The expected number of *observed* leaves is
+
+\[
+\boxed{r_L b^L=\lambda^{-2L},}\tag{KSR-6d}
+\]
+
+compared with b^L total leaves. Since t>1 means
+lambda^{-2}<b, the expected observation count
+grows with a strictly smaller exponential base
+than the full breadth. It still generally grows
+exponentially with depth, and the lower bound is
+an existence result for an appropriate statistical
+decoder rather than a cheap inference algorithm.
+
+For b=2, lambda=4/5, t=32/25, the sparse
+schedule is r_L=(25/32)^L, with expected observed
+leaves (25/16)^L. The limiting moment is
+
+\[
+V_\infty+1=\frac{23}{7},
+\]
+
+so the count-monitor accuracy floor is 15/23
+for q=2 and 37/69 for q=3, both strictly
+above their random guessing levels.
+
+**Exact integer certificate.** Write
+\(A_L=32^L V_L\) and \(B_L=32^L V_L(r_L)\).
+The sparse numerator obeys
+
+\[
+B_0=1,\quad B_{L+1}=25 B_L+23\cdot32^L,
+\]
+
+with the closed finite identity
+
+\[
+\boxed{7B_L+16\cdot25^L=23\cdot32^L.}\tag{KSR-6e}
+\]
+
+This bounds the moment \(V_L(r_L)\le23/7\)
+for every finite L, giving the same 15/23
+and 37/69 posterior lower bounds at **each**
+finite depth. The integer identity is checked
+independently in MathCan Lean, separate from
+the posterior probability proof.
+
+For a model-monitoring application, this
+makes observation bandwidth, live state memory,
+and posterior-decoder description separate
+resources. A sparse semantic sensor that
+collects progressively fewer of the tree's
+terminal events may still retain a root
+information signal in the declared
+supercritical broadcast model.
+
+The result makes no assertion that a
+transformer's activation graph follows
+an independent broadcast process.
