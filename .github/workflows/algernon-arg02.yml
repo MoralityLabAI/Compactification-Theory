@@ -1,0 +1,61 @@
+name: Algernon ARG-02 recurrent Qwen evaluation
+on:
+  push:
+    paths:
+      - 'research/algernon/algebraic_reasoning_gym/**'
+      - '.github/workflows/algernon-arg02.yml'
+  pull_request:
+    paths:
+      - 'research/algernon/algebraic_reasoning_gym/**'
+      - '.github/workflows/algernon-arg02.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  protocol-and-grading:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/EvalMath
+          ref: 88bb6cf8d2fe172e37d25964dfb2c285d9033841
+          path: .arg02_evalmath
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install numpy==2.5.3
+      - name: ARG-01 receipt still verifies
+        run: PYTHONPATH=.:.arg02_evalmath/src python -m research.algernon.algebraic_reasoning_gym.gym --check
+      - name: Splits, public-only prompts, grading, statistics, probes
+        run: PYTHONPATH=.:.arg02_evalmath/src python -m unittest research.algernon.algebraic_reasoning_gym.arg02.test_arg02 -v
+      - name: Committed answer tape regrades to the committed receipt
+        run: |
+          for R in research/algernon/algebraic_reasoning_gym/arg02/results research/algernon/algebraic_reasoning_gym/arg02/results_nanbeige; do
+            if [ -f $R/arg02_receipt.json ]; then
+              PYTHONPATH=.:.arg02_evalmath/src python -m research.algernon.algebraic_reasoning_gym.arg02.analyze replay \
+                --tape $R/arg02_answer_tape.jsonl.gz --check $R/arg02_receipt.json
+            else
+              echo "no receipt in $R"
+            fi
+          done
+  cpu-recurrence-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/EvalMath
+          ref: 88bb6cf8d2fe172e37d25964dfb2c285d9033841
+          path: .arg02_evalmath
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: pip install transformers==5.17.0 numpy==2.5.3
+      - name: Block-loop identities, HF parity, leakage guard, end-to-end smoke (tiny random Qwen3.5)
+        run: PYTHONPATH=.:.arg02_evalmath/src python -m unittest research.algernon.algebraic_reasoning_gym.arg02.test_arg02_torch -v

@@ -2,6 +2,8 @@
 
 **ARG-01 CPU algebraic reasoning gym:** [Frozen RRC-19 recurrent proposer with independent, pinned EvalMath verification](algebraic_reasoning_gym/README.md), [results](algebraic_reasoning_gym/REPORT.md), and [Qwen/looped-model workorder](algebraic_reasoning_gym/QWEN_WORKORDER.md). The CPU baseline is executed; a Qwen latent graft remains unrun.
 
+**ARG-02 recurrent Qwen evaluation:** [Qwen3.5-0.8B with an explicit block-loop recurrence, open-loop, donor-shuffle, repeated-forward, 2B feedforward and external-controller controls](algebraic_reasoning_gym/arg02/README.md), [registered protocol](algebraic_reasoning_gym/arg02/PROTOCOL.md), [report](algebraic_reasoning_gym/arg02/REPORT.md). Executed 2026-11-11: negative. The untrained loop at the selected depth 16 recovers 67/168 vs 68 for one pass; Qwen3.5-2B one pass 79; complete certified class search 159. [Nanbeige4.2-3B follow-up](algebraic_reasoning_gym/arg02/REPORT_NANBEIGE.md) (natively looped, 2026-11-13): loop 8 recovers 71/168 vs 44 for one loop and beats an equal-compute ensemble and a shuffled-state control, but not the open-loop control, so the mechanism claim is not met.
+
 
 **Algernon-02 executable experiment:** [Circuit Mirror](circuit_mirror/README.md) combines a typed pointer-machine transition, an exact BN254 R1CS-style checker, generated Circom source, a tiny trained recurrent readout, and retained CPU-only experiment receipts. [Experimental falsification criteria](circuit_mirror/EXPERIMENT.md).
 

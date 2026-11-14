@@ -1,0 +1,188 @@
+{
+  "schema": "algernon.arg02.config.v1",
+  "depths": [
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "block_candidates": [
+    [
+      12,
+      16
+    ],
+    [
+      8,
+      12
+    ],
+    [
+      16,
+      20
+    ],
+    [
+      4,
+      8
+    ]
+  ],
+  "shot_options": [
+    0,
+    4
+  ],
+  "budget": 12,
+  "ensemble_variants": [
+    "canonical",
+    "swap",
+    "space",
+    "swap_space"
+  ],
+  "perturb": {
+    "step": 1,
+    "sigma": 0.25,
+    "depth": 16,
+    "readout_steps": [
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "seed_base": 2026111105
+  },
+  "controller": {
+    "rounds": 12
+  },
+  "cuda_memory_fraction": 0.45,
+  "min_power_w": 100,
+  "clusters": "source family x topology",
+  "decision": {
+    "metric": "future_correct at 12 exact checks on the 168 test positives",
+    "ci": "cluster bootstrap 95%, 10000 resamples, seed 2026111104",
+    "alpha": 0.05,
+    "H1_depth": "loop(d*) - loop(1) > 0 with CI lower bound > 0 and exact McNemar p < alpha",
+    "H2a_feedback": "loop(d*) - open(d*) > 0, CI lower bound > 0",
+    "H2b_state": "loop(d*) - shuffle(d*) > 0, CI lower bound > 0",
+    "H3a_repeat": "loop(d*) - ensemble(m(d*)) > 0, CI lower bound > 0",
+    "H3b_ff": "loop(d*) - Qwen3.5-2B single pass > 0, CI lower bound > 0",
+    "H3c_efficiency": "future-correct per end-to-end second of loop(d*) above loop(1) and ensemble(m(d*))",
+    "H4_symbolic": "loop(d*) future-correct >= complete certified class search and higher future-correct per end-to-end second",
+    "mechanism_claim": "H1 and H2a and H2b and H3a and H3b"
+  },
+  "smoke_overrides": {
+    "block_candidates": [
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        6
+      ]
+    ],
+    "depths": [
+      1,
+      2,
+      4
+    ],
+    "shot_options": [
+      0,
+      1
+    ],
+    "perturb": {
+      "step": 1,
+      "sigma": 0.25,
+      "depth": 4,
+      "readout_steps": [
+        1,
+        2,
+        4
+      ],
+      "seed_base": 2026111105
+    },
+    "controller": {
+      "rounds": 3
+    },
+    "note": "tiny random 8-layer Qwen3.5 on CPU; exercises every code path, scores are meaningless"
+  },
+  "profiles": {
+    "nanbeige": {
+      "model_key": "nanbeige",
+      "ff_key": null,
+      "depths": [
+        1,
+        2,
+        4,
+        8
+      ],
+      "block_candidates": [
+        [
+          0,
+          22
+        ]
+      ],
+      "ensemble_variants": [
+        "canonical",
+        "swap",
+        "space",
+        "swap_space",
+        "rot1",
+        "swap_rot1",
+        "space_rot1",
+        "swap_space_rot1",
+        "rot2",
+        "swap_rot2",
+        "space_rot2",
+        "swap_space_rot2",
+        "rot3",
+        "swap_rot3",
+        "space_rot3",
+        "swap_space_rot3"
+      ],
+      "perturb": {
+        "step": 1,
+        "sigma": 0.25,
+        "depth": 8,
+        "readout_steps": [
+          1,
+          2,
+          4,
+          8
+        ],
+        "seed_base": 2026111105
+      },
+      "note": "Nanbeige4.2-3B, natively looped (trained at 2 loops); depth = number of full-stack loops; no same-family feedforward checkpoint on this machine, so the repeated-forward ensemble (m(d) = d forwards, up to 16 prompt variants) is the equal-compute control",
+      "smoke_overrides": {
+        "block_candidates": [
+          [
+            0,
+            2
+          ]
+        ],
+        "depths": [
+          1,
+          2,
+          4
+        ],
+        "shot_options": [
+          0,
+          1
+        ],
+        "perturb": {
+          "step": 1,
+          "sigma": 0.25,
+          "depth": 4,
+          "readout_steps": [
+            1,
+            2,
+            4
+          ],
+          "seed_base": 2026111105
+        },
+        "controller": {
+          "rounds": 3
+        }
+      },
+      "cuda_memory_fraction": 0.8
+    }
+  }
+}
