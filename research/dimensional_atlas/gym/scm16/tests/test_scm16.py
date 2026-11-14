@@ -13,6 +13,7 @@ from research.dimensional_atlas.gym.scm16.landscape import (neighbors,prefix_sco
                          local_maxima,mine_discovery,generate_fresh_challenges)
 from research.dimensional_atlas.gym.scm16.campaign import (evaluate,paired_counts,
                          base_digest,run,fiber_mediation)
+from research.dimensional_atlas.gym.scm16.verify_receipt import verify
 
 class FiberStructureTests(unittest.TestCase):
     def setUp(self):
@@ -131,6 +132,11 @@ class GymIntegrationTests(unittest.TestCase):
         self.assertEqual(sum(paired_counts(a,b).values()),6)
         c=evaluate(model,tasks,budget=3,policy='zero_codes')
         self.assertEqual(a['records'],c['records'])
+
+    def test_committed_public_receipt_integrity(self):
+        root=Path(__file__).resolve().parents[1] / 'results'
+        r=verify(root/'scm16_toy_3seed_receipt.json',root/'scm16_toy_generated_public.json')
+        self.assertEqual(r['seed_count'],3)
 
     def test_minimal_two_seed_full_run_and_protected_gold(self):
         with tempfile.TemporaryDirectory() as temp:
