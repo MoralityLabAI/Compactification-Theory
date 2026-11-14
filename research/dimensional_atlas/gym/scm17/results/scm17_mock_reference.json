@@ -1,0 +1,150 @@
+{
+  "n_test_per_model": 24,
+  "results": {
+    "ffu_injection_mock": {
+      "baseline": {
+        "accuracy": 0.125,
+        "correct": 3,
+        "mean_ce": 5.004669825236003,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "6f22d9568b7059b04e1dcc17b47315989ded6b27769c641d5f030cd1a363c36a"
+      },
+      "fiber_probe": {
+        "central_slope_by_visit": [
+          0.05030632019042969,
+          0.026702880859375,
+          0.011444091796875,
+          -0.0002384185791015625
+        ],
+        "epsilon": 0.001,
+        "frame_retained_energy": 1.0,
+        "minus_margin_delta": [
+          -5.054473876953125e-05,
+          -2.6226043701171875e-05,
+          -1.0967254638671875e-05,
+          4.76837158203125e-07
+        ],
+        "plus_margin_delta": [
+          5.0067901611328125e-05,
+          2.7179718017578125e-05,
+          1.1920928955078125e-05,
+          0.0
+        ],
+        "selected_clean_margin_logits": [
+          11,
+          8
+        ],
+        "status": "finite_float_causal_probe_only"
+      },
+      "frame_rank": 2,
+      "joint": {
+        "accuracy": 0.125,
+        "correct": 3,
+        "mean_ce": 5.004632234573364,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "6f22d9568b7059b04e1dcc17b47315989ded6b27769c641d5f030cd1a363c36a"
+      },
+      "retained_gradient_energy": 1.0,
+      "shuffled": {
+        "accuracy": 0.125,
+        "correct": 3,
+        "mean_ce": 5.004632631937663,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "6f22d9568b7059b04e1dcc17b47315989ded6b27769c641d5f030cd1a363c36a"
+      },
+      "source_frozen": true,
+      "train": {
+        "optimizer_calls": 24,
+        "source_model_forward_visits": 768,
+        "steps": 24,
+        "train_first_ce": 3.1028339862823486,
+        "train_last_ce": 5.525367259979248
+      },
+      "zero_sae": {
+        "accuracy": 0.125,
+        "correct": 3,
+        "mean_ce": 5.004669825236003,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "6f22d9568b7059b04e1dcc17b47315989ded6b27769c641d5f030cd1a363c36a"
+      }
+    },
+    "tied_mock": {
+      "baseline": {
+        "accuracy": 0.041666666666666664,
+        "correct": 1,
+        "mean_ce": 6.005117416381836,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "30d5f316251a14bc942ef578bd9dda3b611e68090c18dc6c330ac7ae20f252ea"
+      },
+      "fiber_probe": {
+        "central_slope_by_visit": [
+          -0.032782554626464844,
+          -0.019431114196777344,
+          -0.009179115295410156,
+          -0.0002384185791015625
+        ],
+        "epsilon": 0.001,
+        "frame_retained_energy": 1.0,
+        "minus_margin_delta": [
+          3.24249267578125e-05,
+          1.9073486328125e-05,
+          8.58306884765625e-06,
+          -2.384185791015625e-07
+        ],
+        "plus_margin_delta": [
+          -3.314018249511719e-05,
+          -1.9788742065429688e-05,
+          -9.775161743164062e-06,
+          -7.152557373046875e-07
+        ],
+        "selected_clean_margin_logits": [
+          8,
+          13
+        ],
+        "status": "finite_float_causal_probe_only"
+      },
+      "frame_rank": 2,
+      "joint": {
+        "accuracy": 0.041666666666666664,
+        "correct": 1,
+        "mean_ce": 6.005248546600342,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "30d5f316251a14bc942ef578bd9dda3b611e68090c18dc6c330ac7ae20f252ea"
+      },
+      "retained_gradient_energy": 1.0,
+      "shuffled": {
+        "accuracy": 0.041666666666666664,
+        "correct": 1,
+        "mean_ce": 6.005248069763184,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "30d5f316251a14bc942ef578bd9dda3b611e68090c18dc6c330ac7ae20f252ea"
+      },
+      "source_frozen": true,
+      "train": {
+        "optimizer_calls": 24,
+        "source_model_forward_visits": 768,
+        "steps": 24,
+        "train_first_ce": 3.07643723487854,
+        "train_last_ce": 4.6444196701049805
+      },
+      "zero_sae": {
+        "accuracy": 0.041666666666666664,
+        "correct": 1,
+        "mean_ce": 6.005117416381836,
+        "model_forward_visits": 96,
+        "n": 24,
+        "predictions_sha256": "30d5f316251a14bc942ef578bd9dda3b611e68090c18dc6c330ac7ae20f252ea"
+      }
+    }
+  },
+  "schema": "scm17/mock-bridge/v1",
+  "source_type": "randomly_initialized_mock_visit_hook_not_trained_RMP",
+  "trained_RMP_evidence": false
+}
