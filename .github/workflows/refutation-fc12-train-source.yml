@@ -24,6 +24,13 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Audit historical train-only freeze before heldout selector existed
+        uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/Compactification-Theory
+          ref: 8d192f0b323eade0fc764611f420414d70a0d81b
+          path: _fc12_train_freeze
+          persist-credentials: false
       - name: Checkout immutable original MathCan Lean4.35 source
         uses: actions/checkout@v4
         with:
@@ -37,7 +44,9 @@ jobs:
       - name: Test context-only parameter scripts, freeze source family separation
         run: |
           python -m unittest research.refutation_bench.tests.test_fc12_train -v
-          test ! -e research/refutation_bench/fc12/test_data.py
+          test "$(git -C _fc12_train_freeze rev-parse HEAD)" = 8d192f0b323eade0fc764611f420414d70a0d81b
+          test ! -e _fc12_train_freeze/research/refutation_bench/fc12/test_data.py
+          echo 'FC12_SOURCE_SPLIT_HISTORICAL_FREEZE_VERIFIED'
           test "$(git -C _mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
           test "$(cat _mathcan/lean-toolchain)" = 'leanprover/lean4:v4.35.0'
       - name: Instrument only selected source-train proofs
