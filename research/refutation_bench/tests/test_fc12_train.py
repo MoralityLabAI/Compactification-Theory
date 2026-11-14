@@ -25,13 +25,23 @@ class FC12TrainingSourceTests(unittest.TestCase):
           "⊢ xs = ys"
         )
         actions=core.generate(state)
-        self.assertIn("exact xs",actions["exact_local"])
-        self.assertIn("exact ys",actions["exact_local"])
+        self.assertIn("exact h",actions["exact_local"])
+        self.assertIn("exact both",actions["exact_local"])
         self.assertIn("rw [h]",actions["rw_local"])
         self.assertIn("rcases both with ⟨fc12_left, fc12_right⟩",actions["rcases_local"])
         self.assertIn("induction xs",actions["induction_list"])
         self.assertIn("simpa using h",actions["simpa_local"] if len(actions["simpa_local"])>2 else actions["exact_local"] + actions["simpa_local"])
         self.assertTrue(all(len(v)<=4 for v in actions.values()))
+
+    def test_contextual_function_hypotheses_have_local_application_candidates(self):
+        state=("h : obsEqOn allowed step readout s t\n"
+               "word : List Action\n"
+               "valid : ∀ (a : Action), a ∈ word → allowed a\n"
+               "⊢ readout (runActions step word t) = readout (runActions step word s)")
+        scripts=core.generate(state)["exact_local"]
+        self.assertIn("exact (h word valid).symm",scripts)
+        self.assertIn("exact h word valid",scripts)
+        self.assertLessEqual(len(scripts),4)
 
     def test_poisoned_reference_metadata_does_not_affect_action(self):
         goal="h : Nat.succ 0 = 1\n⊢ Nat.succ 0 = 1"
