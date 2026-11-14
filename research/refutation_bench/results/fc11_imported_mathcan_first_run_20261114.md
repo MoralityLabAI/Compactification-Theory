@@ -14,6 +14,47 @@ GraphAuthorization arithmetic theorems that independently compiled
 successfully with a 20-second allowance. It does not support a robust
 learned proof-search superiority claim.
 
+## Original comparator defect and post-hoc validation
+
+The earlier [first completed model CI #43541890610](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43541890610)
+produced genuine model-selected kernel proofs (seed17 4/14,
+seed29 1/14), but its native comparator emitted invalid Lean
+source by declaring a tactic macro before a subsequent import.
+Its recorded native success count of 0/14 was **not a valid
+baseline observation**. The source/test cases and original
+frozen trained models were retained without modification.
+
+[Corrected frozen-weight replay #43543404745](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43543404745)
+reused the original SHA256-verified weights from model
+training run #43541360928. The corrected native control
+compiled 3/14 within seed17's model-derived per-case
+allowances and 4/14 within seed29's allowances.
+The learner's 4/14 versus 3/14 edge for seed17 depends
+on two native timeout cases whose total wall-time overrun
+was just 115.70 milliseconds. The comparator repair
+happened **after** the original evaluation and is
+therefore an explicitly post-hoc follow-up.
+
+The separate [relaxed native search CI #43543846501](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43543846501)
+compiled **5/14** original held-out theorems with a
+20-second allowance each and zero timeouts: all four
+GraphAuthorization arithmetic proofs plus
+Intervention.obsEqOn_refl. This exceeds both trained
+actors' four and one certified proof successes.
+It provides a stronger comparison within the same
+eight-script registry.
+
+The [cross-run action and model timing audit](fc11_probe_and_replay_audit_20261114.json)
+replayed all 248 training-stage action booleans from two
+independently compiled artifacts, validated original
+checkpoint SHA256s and checked the 28 model and 28
+matched native test records. Eleven of 31 training
+states had no progressive action in the registered
+vocabulary. Native time allowances matched model
+elapsed times case by case, and all model positives
+were recorded as distinct sorry-free Lean compilations.
+The source reference proof oracle remains 14/14.
+
 ## Source, provenance and Lean kernel
 
 FC-11 preregistration was frozen FIRST at
