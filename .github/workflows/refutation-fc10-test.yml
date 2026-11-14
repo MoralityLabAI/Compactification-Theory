@@ -1,0 +1,66 @@
+name: FC-10 virgin REAL Lean tactic-state test and kernel proof checks
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc10/test_data.py'
+      - 'research/refutation_bench/tests/test_fc10_test.py'
+      - '.github/workflows/refutation-fc10-test.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc10/test_data.py'
+      - 'research/refutation_bench/tests/test_fc10_test.py'
+      - '.github/workflows/refutation-fc10-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  heldout-lean-goals:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify held-out theorem families, unique sources and compiler trace schema
+        run: |
+          python -m unittest research.refutation_bench.tests.test_fc10_test -v
+      - name: Emit 48 held-out original Lean theorems
+        run: |
+          python -m research.refutation_bench.fc10.test_data \
+            --out-dir /tmp/fc10_test
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile all reference theorems and capture 48 actual goal states
+        run: |
+          lean /tmp/fc10_test/Test.lean 2>&1 | tee /tmp/fc10_test/lean_actual_states.log
+          if grep -E 'error:|sorryAx' /tmp/fc10_test/lean_actual_states.log; then exit 1; fi
+          python -m research.refutation_bench.fc10.test_data \
+            --out-dir /tmp/fc10_test \
+            --extract-log /tmp/fc10_test/lean_actual_states.log
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('/tmp/fc10_test')
+          parsed=[json.loads(x) for x in (root/'test_states.jsonl').read_text().splitlines()]
+          assert len(parsed)==48
+          assert len({r['goal_state_sha256'] for r in parsed})==48
+          assert all(r['goal_state'].count('⊢')==1 for r in parsed)
+          print('FC10_REAL_HELDOUT_LEAN_GOALS',len(parsed))
+          PY
+      - name: Archive untouched held-out goals and compiler proofs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc10-real-lean-heldout-${{ github.run_id }}
+          path: /tmp/fc10_test/
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,57 @@
+name: FC-07 posthoc zero-neural unary Horn path control
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc07/posthoc_unary.py'
+      - 'research/refutation_bench/tests/test_fc07_posthoc.py'
+      - '.github/workflows/refutation-fc07-posthoc.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc07/posthoc_unary.py'
+      - 'research/refutation_bench/tests/test_fc07_posthoc.py'
+      - '.github/workflows/refutation-fc07-posthoc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-unary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test input-only unary graph search and exact certificate replay
+        run: python -m unittest research.refutation_bench.tests.test_fc07_posthoc -v
+      - name: Generate posthoc untrained unary-path traces and Lean terms
+        run: |
+          python -m research.refutation_bench.fc07.posthoc_unary \
+            --out /tmp/FC07_unary_control.json \
+            --lean /tmp/FC07_unary_control.lean
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile all independent unary-path theorems
+        run: |
+          lean /tmp/FC07_unary_control.lean 2>&1 | tee /tmp/FC07_unary_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC07_unary_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC07_unary_lean.log)" -ge 2
+      - name: Keep the stronger posthoc control separate from first test
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc07-posthoc-unary-${{ github.run_id }}
+          path: |
+            /tmp/FC07_unary_control.json
+            /tmp/FC07_unary_control.lean
+            /tmp/FC07_unary_lean.log
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,45 @@
+name: FC-10 actual Lean tactic-state smoke
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc10/smoke.lean'
+      - '.github/workflows/refutation-fc10-smoke.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc10/smoke.lean'
+      - '.github/workflows/refutation-fc10-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lean-tactic-traces:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile real Lean tactics and emit tactic states
+        run: |
+          lean research/refutation_bench/fc10/smoke.lean 2>&1 | tee /tmp/fc10_smoke.log
+          grep -F 'FC10_BEGIN:smoke_omega' /tmp/fc10_smoke.log
+          grep -F 'FC10_BEGIN:smoke_and' /tmp/fc10_smoke.log
+          grep -F 'FC10_BEGIN:smoke_list' /tmp/fc10_smoke.log
+          grep -F '⊢' /tmp/fc10_smoke.log
+          if grep -E 'error:|sorryAx' /tmp/fc10_smoke.log; then exit 1; fi
+      - name: Archive actual Lean goal-state traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc10-lean-tactic-smoke-${{ github.run_id }}
+          path: /tmp/fc10_smoke.log
+          retention-days: 30
+          if-no-files-found: warn

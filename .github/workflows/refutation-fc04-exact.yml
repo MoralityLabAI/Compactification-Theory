@@ -1,0 +1,60 @@
+name: FC-04 preregistered fresh Horn families (exact Lean + witness)
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc04/**'
+      - 'research/refutation_bench/tests/test_fc04.py'
+      - '.github/workflows/refutation-fc04-exact.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc04/**'
+      - 'research/refutation_bench/tests/test_fc04.py'
+      - '.github/workflows/refutation-fc04-exact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certify-fc04:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact truth-table and split regression
+        run: |
+          python -m unittest -v research.refutation_bench.tests.test_fc04
+      - name: Generate canonical records and kernel proof terms
+        run: |
+          python -m research.refutation_bench.fc04.generator \
+            --out /tmp/FC04.jsonl \
+            --lean /tmp/FC04.lean \
+            --receipt /tmp/FC04_receipt.json
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile every positive claim and audit end-point axioms
+        run: |
+          lean /tmp/FC04.lean 2>&1 | tee /tmp/FC04_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC04_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC04_lean.log)" -ge 2
+      - name: Upload exact generator and Lean receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc04-exact-${{ github.run_id }}
+          path: |
+            /tmp/FC04.jsonl
+            /tmp/FC04.lean
+            /tmp/FC04_receipt.json
+            /tmp/FC04_lean.log
+          retention-days: 14
+          if-no-files-found: warn

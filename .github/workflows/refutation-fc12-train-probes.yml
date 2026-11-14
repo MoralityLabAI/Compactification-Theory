@@ -1,0 +1,94 @@
+name: FC-12 actual Lean4.35 typed tactic effects on frozen train source
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc12/probe_train.py'
+      - 'research/refutation_bench/fc12/scratch.py'
+      - 'research/refutation_bench/tests/test_fc12_scratch.py'
+      - '.github/workflows/refutation-fc12-train-probes.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc12/probe_train.py'
+      - 'research/refutation_bench/fc12/scratch.py'
+      - 'research/refutation_bench/tests/test_fc12_scratch.py'
+      - '.github/workflows/refutation-fc12-train-probes.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prove-real-training-action-coverage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout frozen train-only generation revision predating FC12 heldout
+        uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/Compactification-Theory
+          ref: b1c2550f068129614d9b5c367eebc32250d9dc97
+          path: _fc12_train_source
+          persist-credentials: false
+      - name: Checkout original MathCan at exact Lean4.35 revision
+        uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit strict source isolation and compiler action grammar
+        run: |
+          test "$(git -C _fc12_train_source rev-parse HEAD)" = b1c2550f068129614d9b5c367eebc32250d9dc97
+          test ! -e _fc12_train_source/research/refutation_bench/fc12/test_data.py
+          test "$(git -C _mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          python -m unittest research.refutation_bench.tests.test_fc12_scratch -v
+      - name: Install source-matched Lean4.35
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean435.tar.zst
+          tar --zstd -xf /tmp/lean435.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Regenerate original train-only goal state corpus and check frozen hash
+        run: |
+          (cd _fc12_train_source && python -m research.refutation_bench.fc12.train_data \
+              --source "$GITHUB_WORKSPACE/_mathcan" --out /tmp/fc12_train)
+          for file in /tmp/fc12_train/*.lean; do
+            lean "$file" > "${file%.lean}.log" 2>&1
+            if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
+          done
+          (cd _fc12_train_source && python -m research.refutation_bench.fc12.train_data \
+              --out /tmp/fc12_train --extract)
+          echo '403331aba9c9f127f6ac169bb8b732de8a7b56e934f6cb78b4375d1c59732bf0  /tmp/fc12_train/actual_goal_states.jsonl' | sha256sum --check
+      - name: Probe ALL twelve typed tactic families on real training goals
+        run: |
+          python -m research.refutation_bench.fc12.probe_train \
+            --source _mathcan --states /tmp/fc12_train/actual_goal_states.jsonl \
+            --out /tmp/fc12_probe --workers 4
+      - name: Audit mandatory positive coverage from real Lean effects
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/fc12_probe/FC12_probe_receipt.json').read_text())
+          assert not r['missing_mandatory_positive_families']
+          assert r['all_candidate_outcomes_compiler_probed']
+          assert r['formal_proofs_claimed_from_scratch']==0
+          print('FC12_TRAIN_REAL_COMPILER_ACTION_COVERAGE',json.dumps(r['progress_by_family'],sort_keys=True))
+          PY
+      - name: Preserve every attempted tactic, kernel response, source hash and failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc12-train-typed-actions-${{ github.run_id }}
+          path: |
+            /tmp/fc12_train/FC12_train_source_receipt.json
+            /tmp/fc12_train/FC12_train_goal_receipt.json
+            /tmp/fc12_probe/
+          retention-days: 30
+          if-no-files-found: warn
