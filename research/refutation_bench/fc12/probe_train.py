@@ -90,6 +90,15 @@ def run(source:Path,goalfile:Path,out:Path,*,workers:int=4)->dict:
     if len(results)!=len(candidates):
         raise AssertionError("lost compiler tactic outcomes")
     digest=core.canonical_rows(out/"train_candidate_outcomes.jsonl",results)
+    # Compiler wall-clock times and temporary filenames vary between runners.
+    # Commit a second content digest for ONLY semantic candidate effects.
+    semantic_keys=("stage_id","family","script","accepted","progress",
+                   "closed_in_scratch","remaining_goal_count",
+                   "compiler_returncode","candidate_source_sha256")
+    semantic=[{k:record.get(k) for k in semantic_keys} for record in results]
+    semantic_sha=hashlib.sha256("".join(
+        json.dumps(x,sort_keys=True,ensure_ascii=False)+"\\n" for x in semantic
+    ).encode("utf8")).hexdigest()
     positives=Counter()
     closings=Counter()
     per_family=Counter()
@@ -117,6 +126,7 @@ def run(source:Path,goalfile:Path,out:Path,*,workers:int=4)->dict:
        "formal_proofs_claimed_from_scratch":0,
        "original_training_source_files":sorted(TRAIN_MODULES),
        "compiler_results_sha256":digest,
+       "semantic_outcomes_sha256":semantic_sha,
        "elapsed_s":round(time.perf_counter()-began,3),
     }
     (out/"FC12_probe_receipt.json").write_text(json.dumps(result,indent=2,sort_keys=True)+"\n")
