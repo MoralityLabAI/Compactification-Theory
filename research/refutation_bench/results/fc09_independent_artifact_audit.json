@@ -1,0 +1,17 @@
+{
+  "status": "independent local replay succeeded",
+  "model_artifact": "fc09_cpu_matched_43449947846.zip",
+  "source_artifact": "fc09_heldout_source_43449281226.zip",
+  "model_case_rows_rechecked": 6144,
+  "source_tasks": 384,
+  "all_learner_positive_proofs_replayed": 324,
+  "all_learner_countermodels_reverified": 383,
+  "false_verified_certificates": 0,
+  "time_allowance_matches_frozen_actor_forward_ms": true,
+  "time_budget_overrun_cases": 0,
+  "model_lean_theorem_declarations": 324,
+  "lean_source_sha256": "20ea7e2c1aa3e9c55de3a9b07eb83c01380b0d9fb63b26e3d80ec6aadccf519a",
+  "model_ci_run": 43449947846,
+  "source_ci_run": 43449281226,
+  "scope_note": "Independent post-run replay of original action lists and Boolean assignments against archived source graphs; the Lean 4.19.0 kernel CI independently compiled the identical positive proof terms."
+}

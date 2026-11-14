@@ -1,0 +1,55 @@
+name: FC-11 actual Lean scratch-and-kernel candidate safety
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc11/scratch.py'
+      - 'research/refutation_bench/tests/test_fc11_scratch.py'
+      - '.github/workflows/refutation-fc11-scratch.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc11/scratch.py'
+      - 'research/refutation_bench/tests/test_fc11_scratch.py'
+      - '.github/workflows/refutation-fc11-scratch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-candidate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test no proof repair, original reference prefix and scratch parsing
+        run: |
+          python -m unittest research.refutation_bench.tests.test_fc11_scratch -v
+      - name: Install pinned original Lean 4.35.0 compiler
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean-4.35.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.35.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Probe intermediate goal with scratch sorry, then separately compile real proof
+        run: |
+          python - <<'PY'
+          from research.refutation_bench.fc11 import scratch
+          src=("import Init\nnamespace Scratch\n"
+               "theorem id (P : Prop) : P → P := by\n"
+               "  intro h\n  exact h\nend Scratch\n")
+          mid=scratch.compile_candidate(src,"id",["intro"],probe=True)
+          print("FC11_REAL_SCRATCH_GOAL",mid)
+          assert mid["accepted"] and mid["real_remaining_goal_count"]==1
+          assert mid["scratch_probe_with_sorry"]
+          ok=scratch.compile_candidate(src,"id",["intro","assumption"],probe=False)
+          print("FC11_REAL_KERNEL_ACCEPT",ok)
+          assert ok["accepted"] and ok["closed_without_trusted_assumptions"]
+          bad=scratch.compile_candidate(src,"id",["decide"],probe=False)
+          print("FC11_REAL_KERNEL_REJECT",bad)
+          assert not bad["accepted"]
+          PY
