@@ -1,0 +1,31 @@
+name: SCT-01 SAT core thresholds and streaming memory
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/sct01_threshold_witness/**'
+      - '.github/workflows/sct01-sat-core.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/sct01_threshold_witness/**'
+      - '.github/workflows/sct01-sat-core.yml'
+  workflow_dispatch:
+jobs:
+  exact-sat-witness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Enumerate SAT subformulas, check cover costs, stopping times and monitor states
+        run: python -m unittest discover -s research/refutation_bench/sct01_threshold_witness -p 'test_*.py' -v
+      - name: Emit exact finite SAT threshold receipt
+        run: python research/refutation_bench/sct01_threshold_witness/reference.py --out /tmp/sct01_exact.json
+      - name: Upload source-locked exact witness and hitting-time certificate
+        uses: actions/upload-artifact@v4
+        with:
+          name: sct01-sat-core-threshold
+          path: /tmp/sct01_exact.json
