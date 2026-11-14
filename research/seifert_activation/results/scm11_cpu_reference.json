@@ -1,0 +1,78 @@
+{
+  "backend_sha256": {
+    "ball_centered.py": "0182c9a82e8583677f3d9f1a5c2d57acc5463c139032b923df0acd413fb39066",
+    "fast_centered.py": "de41650f9e215b45aca86958010a45b76898af87d54f348269dde72cda298c78",
+    "gauge_null.py": "665261cf086b291782e3d6d11a87617f790cbc6c0b7bd3f5a3c9fd7780c24afd",
+    "refined_response.py": "741d46b197ef13350cac61be714faace18278c11d94e93746c15df1fd57bb1dc",
+    "validated_forward.py": "e9ebe4c5c6ff1d93ca3f2f8101403e9730e6e47a77c74acda6531326c7bb8d0e"
+  },
+  "cases": [
+    {
+      "CPU_IEEE_BLAS_assumed": true,
+      "all_source_refined_bounds_at_most_legacy": true,
+      "case": "synthetic_tied_beta_010",
+      "frequency_sha256": "476007c2e71a7330d37aaa2fe42e412a8f3c01e456b84fc5ee022cb10e679af1",
+      "injection": {
+        "after_visit": 0,
+        "radius_relative_to_token_rms": "1/1000000",
+        "token": 4
+      },
+      "legacy_max_pair_radius": [
+        0.0,
+        0.001758098031,
+        16.0072663524,
+        156421899.08249444,
+        1.017220748255979e+17,
+        6.631565247222944e+25,
+        4.333776441868748e+34,
+        2.8372493098874216e+43
+      ],
+      "model_sha256": "e258f0df99f47f48ec8ca1e13e21335d249e355df9e106407857d9c21fb07ed9",
+      "observed_neural_link_certified": false,
+      "observed_tokens": [
+        16,
+        32,
+        48
+      ],
+      "physical_float_execution_certified": false,
+      "refined_max_pair_radius": [
+        0.0,
+        9.1357249299148e-07,
+        8.09770596578636e-06,
+        5.333395112263155e-05,
+        0.0003147945867831122,
+        0.001751974302216049,
+        0.009402586166665441,
+        0.04955216864114596
+      ],
+      "refined_over_legacy_at_visit8": 1.7464862346944103e-45,
+      "shape": {
+        "heads": 4,
+        "hidden": 128,
+        "tokens": 64,
+        "visits": 8
+      },
+      "source_amplitude_upper": "756960488046674332220782228947362584503/625000000000000000000000000000000000000000000",
+      "source_null_braid_visits": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "trained_RMP_checkpoints_tested": false
+    }
+  ],
+  "date": "2026-11-14",
+  "evidence": "frozen_synthetic_source_only_conditional_CPU_IEEE_BLAS",
+  "numeric_contract": {
+    "blas_dot_gamma_assumed": true,
+    "ieee_binary64_preflight_passed": true,
+    "numpy_version": "2.3.5",
+    "physical_torch_cuda_execution_certified": false
+  },
+  "schema": "scm11_fullshape_source_attention_diameter_v1"
+}
