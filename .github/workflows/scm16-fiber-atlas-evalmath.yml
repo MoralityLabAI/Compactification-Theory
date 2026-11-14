@@ -25,6 +25,11 @@ jobs:
         run: |
           python -m unittest discover -s research/dimensional_atlas/gym/tests -v
           python -m unittest discover -s research/dimensional_atlas/gym/scm16/tests -v
+      - name: Audit committed public synthetic receipt
+        run: |
+          python -m research.dimensional_atlas.gym.scm16.verify_receipt \
+            --receipt research/dimensional_atlas/gym/scm16/results/scm16_toy_3seed_receipt.json \
+            --public research/dimensional_atlas/gym/scm16/results/scm16_toy_generated_public.json
       - name: Source-locked three-seed long toy replay
         run: |
           OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
@@ -77,6 +82,11 @@ jobs:
             --base-steps 120 --sae-steps 60 --vpd-steps 180 --replay-steps 60 \
             --hidden 32 --heads 4 --visits 4 --readout-dim 8 \
             --sae-width 64 --sae-k 6 --vpd-rank 4 --batch 24 --budget 12
+      - name: Read-only audit of pinned EvalMath source receipts
+        run: |
+          python -m research.dimensional_atlas.gym.scm16.verify_receipt \
+            --receipt /tmp/scm16-evalmath-ci.json \
+            --public /tmp/scm16-evalmath-ci.generated.public.json
       - name: Verify exact gold boundary and print aggregate results
         run: |
           python - <<'PY'
