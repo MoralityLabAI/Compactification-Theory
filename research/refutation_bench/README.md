@@ -79,6 +79,195 @@ valid proofs, so the trained proof head tied the random and
 goal-first baselines. This is certified acquisition infrastructure,
 with no measured learned proof-selection advantage.
 
+## FC-06: actual learned proof-rule choice under a binding budget
+
+The [FC-06 strict five-rule curriculum](fc06/README.md) generates 768
+training, 192 development and 384 new held-out cases. Every valid goal
+has a minimal proof of at most five novel rule applications, while the
+graph contains ten reachable new consequences. The
+[first frozen neural experiment](results/fc06_strict_five_step_20261113.md)
+produced **384 Lean-compiled model-selected positive proof terms**
+over two seeds, and checker-verified negatives, with zero false
+finite formal certificates. The learned policy outperformed the
+preregistered random and goal-first rule selectors on all four
+held-out seed/split combinations.
+
+A [post-hoc syntactic backward-goal-slice control](fc06/POSTHOC_BACKWARD_SLICE.md)
+also certifies every test positive with zero neural parameters, so
+FC-06 provides a verified model-selection transfer result against
+the registered heuristics and simultaneously shows that a
+simple symbolic dependency algorithm is stronger on this corpus.
+Broader conclusions require a follow-up that preregisters a
+nontrivial reverse-slice control.
+
+## FC-07: proof selection against misleading goal ancestry
+
+The [FC-07 corpus](fc07/README.md) adds alternative
+producers, shared decoy subgoals and syntactic
+cycles so a backward goal slice contains reachable
+distractions. The [first frozen model evaluation](results/fc07_misleading_ancestry_20261113.md)
+compiled **352 student-selected Lean proof terms**
+and verified 379 negative countermodels across
+two seeds and two held-out depths, with zero
+false finite formal certificates. The learned
+LR-01 actor beat a **preregistered symbolic
+backward-slice** baseline across all conditions.
+The separate CPU efficiency criterion failed
+at familiar depth, where the symbolic
+baseline remained cheaper per certificate.
+Exact shortest-proof search remains a
+100%-correct symbolic upper bound.
+
+### FC-07 post-hoc restriction
+
+After the first registered FC-07 test,
+a [zero-parameter unary-rule BFS control](fc07/POSTHOC_UNARY.md)
+proved all 192 distinct held-out
+positives using only original
+one-premise implications. Those
+proofs also compiled in Lean
+[under independent CI](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43424550518).
+The original trained-vs-backward-slice
+finding and failed CPU-efficiency
+criterion remain recorded; the
+additional symbolic result sets
+a stronger target for future claims
+about learned proof search.
+
+## FC-08: conjunctive proof search and bounded symbolic controls
+
+The [FC-08 conjunctive curriculum](fc08/README.md)
+provides 768 train-only cases, 192 validation
+cases and **384 new held-out cases** with
+no unary-only goal path. The positive theorem
+must use a conjunctive rule and fit a strict
+five-action certificate budget. Exact source
+CI compiled 480 training/development and
+192 held-out Lean reference theorems.
+
+In the [first frozen model trial](results/fc08_conjunctive_first_run_20261113.md),
+the LR-01 actor selected **352 accepted positive
+Lean proofs** over two seeds and two test
+splits, with 380 exact negative countermodels.
+At familiar depth the learned model certified
+94/96 and 96/96 positives, compared with
+89/96 for a **preregistered 24-state symbolic
+best-first search**. On deeper tasks it
+certified 72/96 and 90/96, compared
+with best-first's 28/96. The proof-success
+criterion passed; the CPU cost-per-certificate
+criterion failed in three of four comparisons.
+The unrestricted exact symbolic solver
+remains 100% correct on this finite logic.
+
+## FC-09: a negative learned-vs-symbolic compute result
+
+The [FC-09 conjunctive benchmark](fc09/README.md)
+compares a frozen LR-01 rule actor
+against a stronger symbolic h-max
+AND/OR planner under a per-case
+CPU-runner time allowance taken from
+the actor's actual rule-scoring
+forward time. Both positive and negative
+certificates retain independent
+exact verification.
+
+In the [first frozen model test](results/fc09_cpu_matched_andor_20261113.md),
+the actor produced **324 kernel-compiled
+positive proofs** and 383 exact
+negative countermodels across two
+seeds and two held-out depth sets.
+The symbolic planner certified
+**96/96 positives on every test
+condition**, while the actor
+certified 96,64,96,68, respectively.
+It used **9–14% of the allowed
+search time** and less than half
+the total CPU-runner time per case.
+Both preregistered neural success
+criteria failed. The exact symbolic
+oracle remains the appropriate
+baseline for this small finite
+Horn fragment.
+
+## FC-10: actual Lean goal states and tactic compilation
+
+The [FC-10 experiment](fc10/README.md)
+moves from finite Horn graph simulation
+to **real Lean 4.19.0 tactic-state
+output**. CI compiled 156 training/
+development theorem references and
+48 virgin held-out references, saving
+the elaborator's printed goal state
+for each. A compact LR-01 model
+was trained directly on those goal
+texts and its tactic selections
+were checked by a fresh Lean
+compiler process on each original
+theorem.
+
+The [first frozen result](results/fc10_real_lean_tactic_states_20261113.md)
+found **31–35/48** kernel-accepted
+one-tactic proofs for the four
+LR-01 arms, compared with
+**36/48** for a train-only lexical
+control and **48/48** for
+Lean-native full tactic search.
+No model solved the unfamiliar
+list-associativity tactic family.
+The preregistered learning
+criterion failed. These are
+small generated Lean theorems;
+importing real research proof
+obligations remains a later stage.
+
+### FC-10 imported source prototype
+
+A [separate source import](fc10/POSTHOC_MATHCAN_IMPORT.md)
+also succeeded under MathCan's
+actual Lean **4.35.0** toolchain:
+seven existing theorem goal states
+were harvested and their original
+research proof scripts compiled
+in [independent CI](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43458916540).
+This is a post-hoc capability
+probe and is not counted among
+the generated FC-10 held-out
+model results.
+
+## FC-11: imported original Lean theorem trajectories
+
+The [FC-11 imported source](fc11/README.md)
+uses **original MathCan research
+theorems** under Lean4.35.0. It
+compiled 16 train-only source
+theorems and 14 from disjoint
+held-out modules, extracting
+31 training and 29 test
+intermediate tactic states.
+All eight registered candidate
+actions received real train
+compiler probes (248 total).
+
+[First frozen held-out result](results/fc11_imported_mathcan_first_run_20261114.md):
+the original LR-01 actor
+kernel-proved **4/14** original
+test theorems under seed17 and
+**1/14** under seed29.
+The CPU-limited native control
+proved 3/14 and 4/14 under
+the corresponding actor time
+allowances. Model CPU cost
+per certified theorem was higher
+for both seeds. A [separate full-time
+native control](results/fc11_posthoc_full_native_20261114.md)
+kernel-proved **5/14**, showing
+that the narrow seed17 advantage
+was a deadline artifact.
+Neither learned seed completed
+a held-out multistep Intervention
+or HookState proof.
+
 ## Run from the repository root
 
 ```bash

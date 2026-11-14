@@ -1,0 +1,46 @@
+{
+  "experiment": "FC13_preregistered_first_hard_deadline_transfer",
+  "registered_learning_criterion": false,
+  "registered_compute_criterion": false,
+  "original_mathcan_sha": "c84e2025334e9a967c1297425a490f98d5b3d189",
+  "preregistration_commit": "309fed65caf67da46db8cb981757a9326bc59fbc",
+  "model_score_run": 43554219466,
+  "independent_replay_run": 43554487985,
+  "source_oracle_run": 43554159459,
+  "train_run": 43547762837,
+  "heldout_cases": 16,
+  "original_oracle_certified": 16,
+  "deadline_ms": 20000,
+  "max_subprocesses_per_theorem": 12,
+  "results": [
+    {
+      "seed": 17,
+      "model": 3,
+      "native": 6,
+      "model_total_wall_ms": 97304.86744,
+      "native_total_wall_ms": 95204.13884,
+      "model_ms_per_proof": 32434.95581,
+      "native_ms_per_proof": 15867.35647,
+      "model_only": 0,
+      "native_only": 3
+    },
+    {
+      "seed": 29,
+      "model": 6,
+      "native": 6,
+      "model_total_wall_ms": 88289.66156,
+      "native_total_wall_ms": 95399.48772,
+      "model_ms_per_proof": 14714.94359,
+      "native_ms_per_proof": 15899.91462,
+      "model_only": 0,
+      "native_only": 0
+    }
+  ],
+  "independent_replay": {
+    "cases": 64,
+    "false_positive_certificates": 0,
+    "unscored_semantically_valid_count": 0,
+    "jsonl_sha256": "2ea167295cc33d7d1fefb2b422015d0cd9187e9649262c8f31c282869569d97c",
+    "frozen_report_sha256": "f8e677e8e5f2d86820e718be885d23b2e1d2c9d50dd80728d3166a17b1bc05c9"
+  }
+}
