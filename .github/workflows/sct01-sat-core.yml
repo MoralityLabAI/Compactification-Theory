@@ -24,8 +24,12 @@ jobs:
         run: python -m unittest discover -s research/refutation_bench/sct01_threshold_witness -p 'test_*.py' -v
       - name: Emit exact finite SAT threshold receipt
         run: python research/refutation_bench/sct01_threshold_witness/reference.py --out /tmp/sct01_exact.json
+      - name: Run fixed 1024-case per-horizon adversarial streaming policy sweep
+        run: python research/refutation_bench/sct01_threshold_witness/arena.py --trials 1024 --out /tmp/sct01_stream.json
       - name: Upload source-locked exact witness and hitting-time certificate
         uses: actions/upload-artifact@v4
         with:
           name: sct01-sat-core-threshold
-          path: /tmp/sct01_exact.json
+          path: |
+            /tmp/sct01_exact.json
+            /tmp/sct01_stream.json
