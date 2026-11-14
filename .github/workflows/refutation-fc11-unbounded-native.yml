@@ -1,0 +1,62 @@
+name: FC-11 posthoc stronger Lean-native tactic search on original research theorems
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc11/native_unbounded.py'
+      - '.github/workflows/refutation-fc11-unbounded-native.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc11/native_unbounded.py'
+      - '.github/workflows/refutation-fc11-unbounded-native.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  imported-unbounded-native-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout pinned ORIGINAL MathCan source revision
+        uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install original MathCan Lean4.35.0 toolchain
+        run: |
+          test "$(git -C _mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean-4.35.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.35.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile 14 original held-out research theorems with source-only native search
+        run: |
+          python -m research.refutation_bench.fc11.native_unbounded \
+            --source _mathcan --out /tmp/fc11_native_unbounded
+      - name: Assert exact original 14-theorem source without sorry
+        run: |
+          python - <<'PY'
+          import json,pathlib
+          r=json.loads(pathlib.Path('/tmp/fc11_native_unbounded/native_unbounded_receipt.json').read_text())
+          assert r['heldout_original_theorems']==14
+          assert r['no_reference_script_used_in_search']
+          assert r['all_generated_sources_have_no_sorry']
+          print("FC11_POSTHOC_NATIVE_FULL_BUDGET_CERTIFICATES",r['native_full_20s_kernel_accepted'])
+          PY
+      - name: Archive original native Lean proof sources, kernel logs and outcomes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc11-posthoc-unbounded-native-${{ github.run_id }}
+          path: /tmp/fc11_native_unbounded/
+          retention-days: 30
+          if-no-files-found: warn
