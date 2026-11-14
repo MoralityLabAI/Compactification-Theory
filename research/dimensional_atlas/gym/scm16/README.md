@@ -53,8 +53,13 @@ The command refuses overwriting the output or either generated sidecar. EvalMath
 - [`RESULTS.md`](RESULTS.md): local execution receipts and evidence boundaries.
 - [`results/scm16_toy_3seed_receipt.json`](results/scm16_toy_3seed_receipt.json): complete public research receipt from the mod-17 backend; contains no new-eval private gold.
 - [`results/scm16_toy_generated_public.json`](results/scm16_toy_generated_public.json): source-selected, disjoint new evaluation questions, with gold stored out-of-tree.
+- [`results/scm16_evalmath_3seed_receipt.json`](results/scm16_evalmath_3seed_receipt.json): hosted three-seed pinned-EvalMath receipt on the already-public 192-case roster.
+- [`results/scm16_evalmath_generated_public.json`](results/scm16_evalmath_generated_public.json): 16 fresh EvalMath-derived public challenges, without their private gold.
+- `verify_receipt.py`: read-only source, readout-kernel and public-challenge integrity auditor.
 - `fiber.py`: adapter and exact kernel, including stage-specific state patches.
 - `landscape.py`: independently executed exact program-neighborhood tests.
 - `campaign.py`: learning and EvalMath orchestration with fixed holdout boundary.
+
+**Hosted EvalMath result (2026-11-14):** tied 235/576, joint VPD 237/576 and shuffled visits 235/576; the 16 fresh challenges tied at 31/48 across three seed-task evaluations. The public exact-symbolic 64-program baseline reached 163/192 with a larger verifier budget. See [SCM-16 hosted CI run #6](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43565693173) and `RESULTS.md`. These exploratory numbers do not establish a capability gain.
 
 SCM-05–14's braid and curvature bounds are **not integrated** into this training objective yet. The atlas probe is a finite-difference diagnostic; it makes no certified braid or four-dimensional isotopy claim. Future work can export the trained RMP `C3` checkpoints and transfer this intervention design to real looped models.
