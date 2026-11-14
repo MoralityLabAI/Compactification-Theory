@@ -24,7 +24,11 @@ jobs:
         run: python -m unittest discover -s research/noisy_threshold_horizon_v1 -p 'test_*.py' -v
       - name: Source-locked horizon receipt
         run: python research/noisy_threshold_horizon_v1/reference.py --out /tmp/nhb01_exact.json
+      - name: Certify optimal decisions and all-threshold minimum memory
+        run: python research/noisy_threshold_horizon_v1/decision_memory.py --out /tmp/nhb01_decisions.json
       - uses: actions/upload-artifact@v4
         with:
           name: nhb01-noisy-horizon
-          path: /tmp/nhb01_exact.json
+          path: |
+            /tmp/nhb01_exact.json
+            /tmp/nhb01_decisions.json
