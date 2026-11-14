@@ -53,7 +53,46 @@ def assert_source_contract(source:Path):
 
 def emit(source:Path,out:Path):
     assert_source_contract(source)
-    report=original.emit_source(source,TEST_MODULES,out,phase="fc13-preregistered-four-unseen-original-source-modules")
+    # FC-13 imports transitive original MathCan modules. FC-11's wrapper
+    # assumed each selected source file began with "import Init", which
+    # excludes these files. Keep their exact original imports, declarations
+    # and reference proof bodies; insert a harmless Init import only in the
+    # independent tracing copy to satisfy the existing FC-11 tracer.
+    out.mkdir(parents=True,exist_ok=True)
+    staged=[]
+    files=[]
+    for source_file,theorems in TEST_MODULES.items():
+        pristine=(source/source_file).read_text(encoding="utf8")
+        if not re.match(r"^import MathCan\.[A-Za-z_0-9]+\n",pristine):
+            raise AssertionError("expected original MathCan dependency import")
+        instrumented,records=original.instrument("import Init\n"+pristine,source_file,theorems)
+        output_file=Path(source_file).name
+        (out/output_file).write_text(instrumented,encoding="utf8")
+        staged.extend(records)
+        files.append({
+            "file":source_file,
+            "original_sha256":original.sha(pristine),
+            "instrumented_sha256":original.sha(instrumented),
+            "original_imports_preserved":True,
+            "original_proofs_unchanged":True,
+            "instrumented_file":output_file,
+            "theorems":list(theorems),
+            "stage_count":len(records),
+        })
+    manifest_sha=original.write_rows(out/"stage_manifest.jsonl",staged)
+    report={
+        "phase":"fc13-preregistered-four-unseen-original-source-modules",
+        "source_repo":"patrickdugan/MathCan",
+        "source_commit":original.SOURCE_COMMIT,
+        "source_lean_version":original.TOOLCHAIN,
+        "files":files,
+        "theorems":sum(len(v) for v in TEST_MODULES.values()),
+        "stages":len(staged),
+        "stage_manifest_sha256":manifest_sha,
+        "original_proof_bodies_modified":False,
+        "compiler_imports_preserved":True,
+        "requires_original_lake_dependencies":True,
+    }
     if report["theorems"]!=16 or report["stages"]<16:
         raise AssertionError("expected 16 full original theorem reference scripts")
     report.update(
