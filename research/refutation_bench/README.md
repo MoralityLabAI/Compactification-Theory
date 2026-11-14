@@ -160,6 +160,36 @@ criterion failed in three of four comparisons.
 The unrestricted exact symbolic solver
 remains 100% correct on this finite logic.
 
+## FC-09: a negative learned-vs-symbolic compute result
+
+The [FC-09 conjunctive benchmark](fc09/README.md)
+compares a frozen LR-01 rule actor
+against a stronger symbolic h-max
+AND/OR planner under a per-case
+CPU-runner time allowance taken from
+the actor's actual rule-scoring
+forward time. Both positive and negative
+certificates retain independent
+exact verification.
+
+In the [first frozen model test](results/fc09_cpu_matched_andor_20261113.md),
+the actor produced **324 kernel-compiled
+positive proofs** and 383 exact
+negative countermodels across two
+seeds and two held-out depth sets.
+The symbolic planner certified
+**96/96 positives on every test
+condition**, while the actor
+certified 96,64,96,68, respectively.
+It used **9–14% of the allowed
+search time** and less than half
+the total CPU-runner time per case.
+Both preregistered neural success
+criteria failed. The exact symbolic
+oracle remains the appropriate
+baseline for this small finite
+Horn fragment.
+
 ## Run from the repository root
 
 ```bash

@@ -1,0 +1,62 @@
+name: FC-09 virgin AND/OR test and pre-model symbolic control receipts
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc09/test_data.py'
+      - 'research/refutation_bench/fc09/controls.py'
+      - 'research/refutation_bench/tests/test_fc09_test.py'
+      - '.github/workflows/refutation-fc09-test.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc09/test_data.py'
+      - 'research/refutation_bench/fc09/controls.py'
+      - 'research/refutation_bench/tests/test_fc09_test.py'
+      - '.github/workflows/refutation-fc09-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certify-heldout-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check every exact held-out proof, source WL split and hmax control
+        run: |
+          python -m unittest research.refutation_bench.tests.test_fc09_test -v
+      - name: Generate immutable test JSONL and source-only control outcomes
+        run: |
+          python -m research.refutation_bench.fc09.test_data \
+            --out /tmp/FC09_test.jsonl \
+            --lean /tmp/FC09_test.lean \
+            --receipt /tmp/FC09_test_receipt.json
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile every valid source reference proof
+        run: |
+          lean /tmp/FC09_test.lean 2>&1 | tee /tmp/FC09_test_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC09_test_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC09_test_lean.log)" -ge 2
+      - name: Retain source and symbolic control receipts before model evaluation
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc09-heldout-source-${{ github.run_id }}
+          path: |
+            /tmp/FC09_test.jsonl
+            /tmp/FC09_test.lean
+            /tmp/FC09_test_receipt.json
+            /tmp/FC09_test_lean.log
+          retention-days: 30
+          if-no-files-found: warn
