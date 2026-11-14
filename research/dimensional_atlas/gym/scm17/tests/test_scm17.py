@@ -91,6 +91,14 @@ class FiberTransferTests(unittest.TestCase):
         self.assertGreater(max(abs(x) for x in probe['central_slope_by_visit'][:-1]),
                            abs(probe['central_slope_by_visit'][-1])+1e-4)
 
+    def test_zero_dimensional_fiber_rejected(self):
+        # An exact full-span decision frame leaves no orthogonal directions.
+        from research.dimensional_atlas.gym.scm17.rmp_fiber import DecisionFrame
+        q=torch.eye(6)
+        fake=DecisionFrame(q,(1.,)*6,1.,6,'a'*64,'test')
+        with self.assertRaisesRegex(ValueError,'no nontrivial'):
+            SAEVisitFiber(FakeDictionary(),fake,rank=2,visits=4)
+
     def test_trained_dictionary_is_frozen(self):
         sae=FakeDictionary()
         adapter=SAEVisitFiber(sae,self.frame,rank=3,visits=4)
