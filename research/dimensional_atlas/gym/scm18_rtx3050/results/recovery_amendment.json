@@ -1,0 +1,24 @@
+{
+  "cache_limit_entries": 65536,
+  "changes": [
+    "memoize pure exact-integer execute results on CPU",
+    "persist each completed policy/dataset receipt"
+  ],
+  "driver_sha256": "810fcccf428dda091e2ec350c99091dc3820fee95735d7b66e90408ca41bb3f9",
+  "freeze_sha256": "7ef445f0fdcf248de4f8be06f2805b00f4006df04a0c7639150334fbc8d8ccbe",
+  "interrupted_attempt": {
+    "combined_receipt_written": false,
+    "completed_checkpoint_summaries_observed": 32,
+    "interpretation": "This failed attempt is excluded from completed-matrix work totals; its additional compute is explicitly unaccounted, not zero.",
+    "total_attempted_forwards_and_verifier_calls": "unrecoverable_from_terminated_process"
+  },
+  "status": "performance_and_durability_only_after_interrupted_final_attempt",
+  "unchanged": [
+    "all models/dictionaries/frames",
+    "model/rank/objective selection",
+    "batch-one FP32 evaluator",
+    "case identities",
+    "paid verifier budgets",
+    "exact oracle source"
+  ]
+}

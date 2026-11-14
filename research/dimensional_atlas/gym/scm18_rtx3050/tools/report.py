@@ -26,6 +26,7 @@ def main():
     provenance=load(r/'provenance.json');freeze=load(r/'freeze.json')
     extra=load(r/'interchange_methods.json')
     native=load(r/'native_mediation.json')
+    interrupted=load(r/'interrupted_final_attempt.json')
     grouped=defaultdict(list)
     for row in final['results']:
         ck=row['checkpoint']
@@ -140,6 +141,7 @@ def main():
              'joint_minus_tied_official_pp':delta,'joint_minus_tied_fresh_pp':fresh_delta,
              'valid_mediation_pairs':eligible,'full_swap_control':full,
              'native_valid_pairs_by_seed':{str(v['seed']):v['valid_pairs'] for v in native['trials']},
+             'interrupted_attempt':interrupted,'complete_all_attempts_compute_accounting':False,
              'positive_mechanism_claim':False,'topology_certified':False}
     (r/'summary.json').write_text(json.dumps(summary,indent=2,sort_keys=True)+'\n',encoding='utf-8')
     md=['# SCM-18 executed results','',
@@ -208,6 +210,9 @@ def main():
         'No new direction search or model selection is performed. Patch norms differ across '
         'head/fiber sectors and are recorded. The denominators are model/pair eligibility '
         'counts on sixteen shared pairs, not independent sets of sixteen per seed.','',
+        f"Of the sixteen shared pairs, {native['trials'][0]['eligibility']['different_oracle_futures']} "
+        'have differing oracle futures and public encoded inputs. All seeds failed the '
+        'both-clean-correct eligibility gate, so semantic fidelity could not be estimated.','',
         '| Seed | Eligible / 16 | Visit-1 native write fiber fidelity | Visit-1 SAE/VPD fiber fidelity | Visit-1 full-state control |',
         '|---:|---:|---:|---:|---:|',
         *[f"| {trial['seed']} | {trial['valid_pairs']} | "+' | '.join(
@@ -221,6 +226,9 @@ def main():
         'general smallest sufficient subspace. SAE curves count selected features; fiber curves '
         'preserve the head-readable space in addition to the selected fiber directions. '
         'Full-dimensional PCA is an identity control up to FP32 roundoff.','',
+        'These are direct state projections/reconstructions; no separate norm-restoration '
+        'or manifold-matching control is fitted. Accuracy changes can therefore reflect '
+        'state-distribution or norm shifts as well as information removal.','',
         'The additional `interchange_methods.json` audit covers PCA, SAE groups, SAE '
         'reconstruction, head-readable projection, fiber preservation and native SAE-conditioned '
         'VPD correction differences. It uses the same frozen calibration frame and validity '
@@ -237,9 +245,10 @@ def main():
         '| Low-rank adapter skill gain | Per-seed outcomes and matched controls above | Exploratory; strict positive criterion not met |',
         f'| Named variable mediation | {eligible}/16 eligible pairs | Limited/absent causal evidence |',
         '| Nonlinear RMP transfer | Missing checkpoint, integrity receipt, selected dictionary and monitor bundle; tracked metadata retrieved | Not executed; existing gate preserved |',
+        '| Final-process interruption | Lost combined receipt during a tool refresh; identical frozen matrix recovered with durable per-dataset receipts | Failed-attempt compute has an explicit accounting gap |',
         '| SCM-12/13 topology | Conditional surrogate routines invoked on sampled projections | Neural conclusion inconclusive without continuum bounds |','',
         '## Resource accounting and limits','',
-        f"Main campaign peak PyTorch allocation: **{peak_alloc:.2f} MiB**; reservation: "
+        f"Recorded completed-run peak PyTorch allocation: **{peak_alloc:.2f} MiB**; reservation: "
         f"**{peak_reserved:.2f} MiB**. Minimum sampled device-free memory: **{min_free:.2f} MiB**. "
         'The 3000 MiB allocator cap and every-forward memory checks preserved the registered '
         '500 MiB headroom at all samples. Memory outside the PyTorch allocator is included '
@@ -248,12 +257,23 @@ def main():
         'Main campaign work totals (screening + training + calibration + final evaluation + diagnostics):','',
         '```json',json.dumps(dict(total_work),indent=2,sort_keys=True),'```','',
         'Original reproduction receipts are additional work and are excluded from these totals. '
-        'Actual independent-oracle make_case/execute/check_candidate/grade/roster counts are '
-        'recorded per process; grade performs an internal acceptance recheck, which is included '
-        'in source-call accounting. Paid search budgets are reported separately. Backward work '
+        'Independent-oracle make_case/check_candidate/grade/roster requests are recorded; grade '
+        'performs an internal acceptance recheck. Recovery memoizes pure integer execute results '
+        'on CPU without changing the oracle source, evaluator, cases or budgets. Logical execute '
+        'requests, physical exact cache misses and cache hits are separate in `final.json/recovery`. '
+        'Cached-oracle wall times cannot be used as fair per-arm timing comparisons. Paid search '
+        'budgets remain separate. Backward work '
         'is counted as optimizer steps rather than estimated FLOPs. Causal adapter training '
         'uses two additional forwards per update, so training cost is not equal across objectives. '
         'SAE dictionary updates operate on CPU-cached frozen training activations.','',
+        'The original final process disappeared during a tool refresh before writing its '
+        'combined receipt. Its 32 observed completed checkpoint summaries imply '
+        f"{interrupted['forward_examples_lower_bound']:,}–{interrupted['forward_examples_upper_bound']:,} "
+        'additional example-forwards; its exact verifier count and peak memory are unavailable. '
+        '**Whole-campaign compute accounting is incomplete for that failed attempt.** '
+        'The completed replacement matrix has exact per-dataset counts and uses the same '
+        'frozen models/source manifest. `recovery_amendment.json` records the performance-only '
+        'change. Progress receipts permit restarting without discarding completed datasets.','',
         'Private weights and new challenge gold remain outside Git. Public hashes alone are '
         'not access-control guarantees: isolation here is an audited program/data-flow boundary '
         'on one local machine. No historically sealed RMP evaluation was opened.','',

@@ -1,0 +1,71 @@
+{
+  "checks": [
+    "source/weight/frame immutability",
+    "split signature separation",
+    "development-only architecture/rank selection",
+    "same paired cases and verifier budgets",
+    "equal-size random-dictionary control",
+    "zero-code baseline equality",
+    "CPU/GPU full original reproduction",
+    "sampled VRAM headroom",
+    "explicit causal-fidelity denominators",
+    "topology certificate boundary",
+    "no new gold fields in public challenge artifacts"
+  ],
+  "config_sha256": "db787f90842372857b707dc5d984f47f1db536dd5fbb474dab91398e3803e9d7",
+  "equivalent_only_after_checkout_line_endings": [],
+  "exact_source_bytes_available": true,
+  "final_checkpoint_count": 39,
+  "freeze_sha256": "7ef445f0fdcf248de4f8be06f2805b00f4006df04a0c7639150334fbc8d8ccbe",
+  "frozen_models": 51,
+  "official_roster_calls_before_freeze": 0,
+  "private_checkpoint_files_verified": true,
+  "source_bytes": {
+    "research/dimensional_atlas/gym/model.py": {
+      "has_crlf": true,
+      "lf_normalized_sha256": "3f6e93b032c9916b70c935252445840b5c4d8f31fd2b079c6f3dbe5aa55c9fcd",
+      "sha256": "2982dfdbbf1ff4ddde64503f4dfe766c451e8fe629956321c636b97ff09df5c5"
+    },
+    "research/dimensional_atlas/gym/scm16/fiber.py": {
+      "has_crlf": true,
+      "lf_normalized_sha256": "ce3e16a5479ca24bed965ba46c4f24827317f884fe75aed32147eb85f1a0b35e",
+      "sha256": "1d0435cfe192ecb1972f052bad93cd4b20aac74ca7b4910b4b2fc555fd5930a1"
+    },
+    "research/dimensional_atlas/gym/scm18_rtx3050/PROTOCOL.md": {
+      "has_crlf": false,
+      "lf_normalized_sha256": "4dfdd87f1cb14c852a5647fe2410a13fc3936f31aa0933e0df4d9112bbad2e57",
+      "sha256": "4dfdd87f1cb14c852a5647fe2410a13fc3936f31aa0933e0df4d9112bbad2e57"
+    },
+    "research/dimensional_atlas/gym/scm18_rtx3050/__init__.py": {
+      "has_crlf": false,
+      "lf_normalized_sha256": "f1001d47d794d97aa267c574345c51aebfe51487c46cad43d895360728b45131",
+      "sha256": "f1001d47d794d97aa267c574345c51aebfe51487c46cad43d895360728b45131"
+    },
+    "research/dimensional_atlas/gym/scm18_rtx3050/campaign.py": {
+      "has_crlf": false,
+      "lf_normalized_sha256": "ff689549aaac1a2f10627e12a2280c479e441ab91b78007d09ba3dd25d52cd0b",
+      "sha256": "ff689549aaac1a2f10627e12a2280c479e441ab91b78007d09ba3dd25d52cd0b"
+    },
+    "research/dimensional_atlas/gym/scm18_rtx3050/config.json": {
+      "has_crlf": false,
+      "lf_normalized_sha256": "db787f90842372857b707dc5d984f47f1db536dd5fbb474dab91398e3803e9d7",
+      "sha256": "db787f90842372857b707dc5d984f47f1db536dd5fbb474dab91398e3803e9d7"
+    },
+    "research/dimensional_atlas/gym/scm18_rtx3050/core.py": {
+      "has_crlf": false,
+      "lf_normalized_sha256": "f82b9630df5b0084be8554389d56d9b7ef7ab2ee8830da85e90bed5f699a6bd5",
+      "sha256": "f82b9630df5b0084be8554389d56d9b7ef7ab2ee8830da85e90bed5f699a6bd5"
+    },
+    "research/dimensional_atlas/gym/scm18_rtx3050/diagnostics.py": {
+      "has_crlf": false,
+      "lf_normalized_sha256": "e02e5fb225ba9a5d1c586d148826e03d05f1b7bb1ba094a32e7c4f90fcce8992",
+      "sha256": "e02e5fb225ba9a5d1c586d148826e03d05f1b7bb1ba094a32e7c4f90fcce8992"
+    },
+    "research/dimensional_atlas/gym/tasks.py": {
+      "has_crlf": true,
+      "lf_normalized_sha256": "ad30fcff40ab582efbd9224b5e027c7e49d2c25f8e7e42b2ed79fe45a204cda7",
+      "sha256": "ea9f3a2ea9312ac081c04a478d8235dc05dc274a439ecd40bd9274cb8ab47bc2"
+    }
+  },
+  "status": "passed"
+}

@@ -92,6 +92,13 @@ shims. These supplemental reproductions run after the main freeze.
 all three frozen seeds using their native head, fiber and trained adapter write
 directions. It tests the same sixteen pairs, with no new direction/model search.
 
+The first long final process was interrupted before its combined receipt.
+`tools/recover_final.py` reuses the original evaluator and unchanged freeze,
+persists completed policy/dataset scores, and memoizes only deterministic exact
+integer oracle execution. Logical requests and physical cache hits/misses are
+separate. `interrupted_final_attempt.json` reports the irrecoverable accounting
+gap of that failed attempt. No models or decisions were retuned during recovery.
+
 All inference ablations reuse the same trained factors and frozen base. The
 separately fiber-trained and random-dictionary controls have matching factor
 shapes and optimizer budgets. An untied comparator starts with cloned core

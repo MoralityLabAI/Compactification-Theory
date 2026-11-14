@@ -12,11 +12,24 @@ def load(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def verify(root,private=None,allow_line_endings=False):
     r=root/'results';f=load(r/'freeze.json');t=load(r/'training.json');reg=load(r/'registration.json')
     final=load(r/'final.json');diag=load(r/'diagnostics.json');extra=load(r/'interchange_methods.json')
+    native=load(r/'native_mediation.json')
     config=load(root/'config.json');repo=root.parents[3]
     assert f['config_sha256']==sha(root/'config.json')==reg['config_sha256']==t['config_sha256']
     assert f['registration_sha256']==sha(r/'registration.json')
     assert f['training_sha256']==sha(r/'training.json')
     assert final['freeze_sha256']==sha(r/'freeze.json')==extra['freeze_sha256']
+    assert native['freeze_sha256']==sha(r/'freeze.json')
+    assert native['source_sha256']==sha(root/'tools/native_mediation.py')
+    if 'recovery' in final:
+        assert final['recovery']['amendment_sha256']==sha(r/'recovery_amendment.json')
+        assert final['recovery']['driver_sha256']==sha(root/'tools/recover_final.py')
+        expected=load(r/'recovery_expected_counts.json')['expected']
+        for row in final['results']:
+            name=row['checkpoint']['file']
+            if name in expected:
+                for policy,values in expected[name].items():
+                    for key,value in values.items():
+                        assert row['policies'][policy]['official']['overall'][key]==value,'recovery changed an observed primary outcome'
     assert f['sources']==reg['sources'],'source changed during registered fitting'
     endings={}
     equivalent_only=[]
@@ -72,10 +85,12 @@ def verify(root,private=None,allow_line_endings=False):
     assert oldcpu['resources']['work']==oldgpu['resources']['work']
     resources=[v['resources'] for v in t['screen']+t['records']]+[t['frame_resources']]
     resources += [v['resources'] for v in final['results']]+[diag['resources'],diag['untied_resources'],extra['resources'],gpu['resources'],oldgpu['resources']]
+    resources += [v['resources'] for v in native['trials']]
+    assert {v['seed'] for v in native['trials']}==set(config['seeds'])
     for resource in resources:
         assert resource['peak_allocated_mb']<=resource['peak_reserved_mb']<=config['max_allocator_mb']
         assert resource['minimum_sampled_free_mb']>=config['min_free_vram_mb']
-    for v in diag['interchange']['records']+extra['records']:
+    for v in diag['interchange']['records']+extra['records']+[row for trial in native['trials'] for row in trial['records']]:
         n=v['valid_counterfactual_tests'];correct=v['correct_counterfactual_outcomes']
         assert 0<=correct<=n
         assert v['causal_fidelity']==(correct/n if n else None)
