@@ -134,6 +134,37 @@ access boundary is a documented
 **train-only selector**, rather
 than a private blind test.
 
+## First original-theorem model experiment
+
+[First valid checkpoint-replay CI #43543404745](https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43543404745)
+kernel-compiled 4/14 held-out theorems
+from LR-01 seed17 and 1/14 from
+seed29, both exclusively in the
+GraphAuthorization arithmetic
+family. The per-theorem
+CPU-budget-limited native `first`
+control certified 3/14 and 4/14
+under the two model time allowances.
+The registered count predicate
+technically passed for seed17,
+while the compute-cost criterion
+failed. All positive outputs
+were separately compiled
+without scratch `sorry`.
+
+A [post-hoc full-time native Lean audit](../results/fc11_posthoc_full_native_20261114.md)
+kernel-compiled **5/14** original
+theorems, with no timeouts.
+Its generated source scripts
+matched **all 28/28 exact source
+SHA256s** in the CPU-matched
+evaluation. This demonstrates that
+the small student count advantage
+was timing-sensitive. The
+[permanent first-run report](../results/fc11_imported_mathcan_first_run_20261114.md)
+and [independent artifact audit](../results/fc11_independent_audit_43543404745.json)
+preserve the complete evidence.
+
 ## Reproduce source audit
 
 From Compactification-Theory root
