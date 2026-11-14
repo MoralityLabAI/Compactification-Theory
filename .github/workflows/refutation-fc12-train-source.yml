@@ -1,0 +1,70 @@
+name: FC-12 original research Lean train-only typed candidate source
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc12/core.py'
+      - 'research/refutation_bench/fc12/train_data.py'
+      - 'research/refutation_bench/tests/test_fc12_train.py'
+      - '.github/workflows/refutation-fc12-train-source.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc12/core.py'
+      - 'research/refutation_bench/fc12/train_data.py'
+      - 'research/refutation_bench/tests/test_fc12_train.py'
+      - '.github/workflows/refutation-fc12-train-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certify-train-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout immutable original MathCan Lean4.35 source
+        uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test context-only parameter scripts, freeze source family separation
+        run: |
+          python -m unittest research.refutation_bench.tests.test_fc12_train -v
+          test ! -e research/refutation_bench/fc12/test_data.py
+          test "$(git -C _mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          test "$(cat _mathcan/lean-toolchain)" = 'leanprover/lean4:v4.35.0'
+      - name: Instrument only selected source-train proofs
+        run: |
+          python -m research.refutation_bench.fc12.train_data \
+            --source _mathcan --out /tmp/fc12_train
+      - name: Install exact original source Lean4.35 compiler
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean435.tar.zst
+          tar --zstd -xf /tmp/lean435.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile all original proof bodies and capture real intermediate states
+        run: |
+          for file in /tmp/fc12_train/*.lean; do
+            lean "$file" > "${file%.lean}.log" 2>&1
+            if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
+          done
+          python -m research.refutation_bench.fc12.train_data \
+            --out /tmp/fc12_train --extract
+          sha256sum /tmp/fc12_train/actual_goal_states.jsonl
+      - name: Archive original train proof steps, actual Lean state hash and action grammar
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc12-train-only-source-${{ github.run_id }}
+          path: /tmp/fc12_train/
+          retention-days: 30
+          if-no-files-found: warn
