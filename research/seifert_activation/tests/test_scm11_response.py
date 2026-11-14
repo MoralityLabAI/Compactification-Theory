@@ -94,6 +94,29 @@ class AttentionLemmaTests(unittest.TestCase):
                              d*(max(var)-min(var))/2)+d*radius
                 self.assertLessEqual(true,improved+mp.mpf('1e-75'))
 
+    def test_source_probability_enclosures_against_90digit_softmax(self):
+        with mp.workdps(90):
+            torch.manual_seed(109)
+            model=ToyRMP(tied=True,visits=2,positions=False).eval()
+            src=rmp_input_enclosure(model,torch.tensor([1,2,3,4]))
+            center=src.center
+            headrefs=reference_attention(model.blocks[0],center)
+            b=model.blocks[0]
+            normed=[m_ln(b.norm1,[mf(x) for x in row]) for row in center]
+            qkv=[m_linear(b.qkv.weight,row) for row in normed]
+            d=model.hidden_size;dh=b.head_size
+            for head,ref in enumerate(headrefs):
+                for i in range(len(center)):
+                    q=qkv[i][head*dh:(head+1)*dh]
+                    scores=[]
+                    for j in range(i+1):
+                        key=qkv[j][d+head*dh:d+(head+1)*dh]
+                        scores.append(sum((x*y for x,y in zip(q,key)),mp.mpf(0))/mp.sqrt(dh))
+                    exps=[mp.exp(x-max(scores)) for x in scores]
+                    den=sum(exps,mp.mpf(0))
+                    for j,pv in enumerate(exps):
+                        self.assertLessEqual(pv/den,mfrac(ref.probability_upper[i][j]))
+
     def test_reference_probabilities_and_anchor(self):
         model=ToyRMP(tied=True,visits=2,positions=False).eval()
         source=rmp_input_enclosure(model,torch.tensor([1,2,3,4]))
@@ -180,7 +203,7 @@ class GaugeTests(unittest.TestCase):
         x=torch.randn(1,5,4,dtype=torch.float64)
         shifts=torch.tensor([0.7,-0.3,4.,0.1,-2.],dtype=torch.float64).reshape(1,5,1)
         expected=b(x)+b.alpha**2*shifts.expand_as(x)
-        self.assertLess(float((b(x+shifts)-expected).abs().max()),1e-9)
+        self.assertLess(float((b(x+shifts)-expected).abs().max().detach()),1e-9)
 
     def test_all_downstream_gauge_patch_invisible(self):
         model=self.model.double()
@@ -189,7 +212,7 @@ class GaugeTests(unittest.TestCase):
         for idx in model.module_indices:
             clean=model.blocks[idx](clean)
             mod=model.blocks[idx](mod)
-        self.assertLess(float((clean[0,1:]-mod[0,1:]).abs().max()),1e-8)
+        self.assertLess(float((clean[0,1:]-mod[0,1:]).abs().max().detach()),1e-8)
 
     def test_source_null_control_and_refusals(self):
         axes=torch.stack((torch.ones(4),torch.arange(4,dtype=torch.float32)),dim=1)
@@ -202,8 +225,6 @@ class GaugeTests(unittest.TestCase):
             gauge_axis_null_control(self.model,axes,injected_token=0,
                                      observed_tokens=[1,2,3],sequence=5)
 
-
-if __name__=='__main__':unittest.main()
 
 class SourceAuditTests(unittest.TestCase):
     def test_checked_receipt_and_hash_refusals(self):
@@ -245,3 +266,6 @@ class SourceAuditTests(unittest.TestCase):
                 run(inp,out,rmp_root=p/'missing',runs=p/'runs',artifacts=p/'arts',
                     dictionary=p/'dict.pt',monitor_bundle=p/'bundle')
             self.assertFalse(out.exists())
+
+
+if __name__=='__main__':unittest.main()
