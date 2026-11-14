@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "NS-ZIP",
+      "kind": "git_archive",
+      "filename": "RH Lean Certified.zip",
+      "url": "https://raw.githubusercontent.com/startigerjln/Nielsen-and-Semita-Riemann-Proof-in-Lean4/df4382089188aca16d2a54de0fc5f9cf98da33b7/RH%20Lean%20Certified.zip",
+      "sha256": "cade46dd88c77266877c51168bfcc548715ef197cdf931a0dae0bbded8939fd5",
+      "commit": "df4382089188aca16d2a54de0fc5f9cf98da33b7",
+      "notes": "Original uploaded ZIP, read at the pinned repository commit on 2026-11-12. Evidence names internal archive members and their 1-based source lines. The benchmark vendors auditor paraphrases only. Source inspection provides no compiler execution certificate."
+    },
+    {
+      "source_id": "NS-PDF",
+      "kind": "pdf",
+      "filename": "RH final Nielsen semita.pdf",
+      "url": "https://raw.githubusercontent.com/startigerjln/Nielsen-and-Semita-Riemann-Proof-in-Lean4/df4382089188aca16d2a54de0fc5f9cf98da33b7/RH%20final%20Nielsen%20semita.pdf",
+      "sha256": "ca0d2d0abcabf9b99918a617cbf4aedac1d9b24c5dda11ed483bb1abc15067b7",
+      "commit": "df4382089188aca16d2a54de0fc5f9cf98da33b7",
+      "notes": "Page numbers refer to the printed pages in the standalone PDF. It is byte-identical to unified.pdf inside NS-ZIP. The corresponding unified.tex source is also inside NS-ZIP. Verdicts concern submitted arguments; they do not decide the Riemann hypothesis."
+    }
+  ]
+}

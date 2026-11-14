@@ -1,0 +1,56 @@
+{
+  "experiment": "FC10",
+  "audit": "independent archive/source digest and tactic response consistency",
+  "first_frozen_model_ci": "https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43456144563",
+  "lean_version": "4.19.0",
+  "report_scope": "Original kernel results from GitHub CI; independent local replay reconstructs each submitted tactic's Lean source and checks SHA256, declared acceptance consistency and frozen model hashes. Local replay is not a replacement for Lean kernel compilation.",
+  "train_real_goal_states": 156,
+  "test_real_goal_states": 48,
+  "policy_files": 10,
+  "policy_case_rows": 480,
+  "compiler_trial_cache_unique_goal_tactic_pairs": 209,
+  "all_compiler_candidate_source_digests_matched": true,
+  "model_checkpoint_digests_matched": true,
+  "inconsistent_duplicate_candidate_outcomes": 0,
+  "invalid_policy_case_ids": 0,
+  "source_trace_turnstile_count": 48,
+  "symbolic_registry_proofs": 48,
+  "symbolic_candidate_compilations": 204,
+  "lean_native_first_batch_proofs": 48,
+  "native_first_source_sha256": "cb806a089aeab890934f1595835b1cb2bd4f4e1f87b4745914b41dd2c2c6df21",
+  "neural_preregistered_success": false,
+  "families": {
+    "nat_le_arith": {
+      "cases": 12,
+      "lexical_top1": 12,
+      "one_seed17": 12,
+      "four_seed17": 12,
+      "one_seed29": 12,
+      "four_seed29": 12
+    },
+    "nat_sub_arith": {
+      "cases": 12,
+      "lexical_top1": 12,
+      "one_seed17": 12,
+      "four_seed17": 12,
+      "one_seed29": 12,
+      "four_seed29": 12
+    },
+    "prop_and_nested": {
+      "cases": 12,
+      "lexical_top1": 12,
+      "one_seed17": 9,
+      "four_seed17": 7,
+      "one_seed29": 11,
+      "four_seed29": 11
+    },
+    "list_assoc": {
+      "cases": 12,
+      "lexical_top1": 0,
+      "one_seed17": 0,
+      "four_seed17": 0,
+      "one_seed29": 0,
+      "four_seed29": 0
+    }
+  }
+}

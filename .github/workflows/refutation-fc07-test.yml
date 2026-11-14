@@ -1,0 +1,59 @@
+name: FC-07 virgin alternative-producer test, exact Lean and backward slice
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc07/test_data.py'
+      - 'research/refutation_bench/tests/test_fc07_test.py'
+      - '.github/workflows/refutation-fc07-test.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc07/test_data.py'
+      - 'research/refutation_bench/tests/test_fc07_test.py'
+      - '.github/workflows/refutation-fc07-test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-exact-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify exact test labels, minimum proofs and ancestry-control counts
+        run: python -m unittest research.refutation_bench.tests.test_fc07_test -v
+      - name: Canonical test JSONL, Lean terms, provenance and baseline receipt
+        run: |
+          python -m research.refutation_bench.fc07.test_data \
+            --out /tmp/FC07_test.jsonl \
+            --lean /tmp/FC07_test.lean \
+            --receipt /tmp/FC07_test_receipt.json
+      - name: Install Lean 4.19.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst \
+            -o /tmp/lean-4.19.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.19.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Kernel-compile all held-out valid theorem terms without sorry
+        run: |
+          lean /tmp/FC07_test.lean 2>&1 | tee /tmp/FC07_test_lean.log
+          if grep -E 'error:|sorryAx' /tmp/FC07_test_lean.log; then exit 1; fi
+          test "$(grep -c 'does not depend on any axioms' /tmp/FC07_test_lean.log)" -ge 2
+      - name: Archive exact and backward-ancestry control receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc07-test-source-${{ github.run_id }}
+          path: |
+            /tmp/FC07_test.jsonl
+            /tmp/FC07_test.lean
+            /tmp/FC07_test_receipt.json
+            /tmp/FC07_test_lean.log
+          retention-days: 30
+          if-no-files-found: warn
