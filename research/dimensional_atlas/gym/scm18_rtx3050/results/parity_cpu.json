@@ -1,0 +1,63 @@
+{
+  "arms": {
+    "joint": {
+      "correct": 6,
+      "n": 12,
+      "paid_queries": 91
+    },
+    "shuffled": {
+      "correct": 6,
+      "n": 12,
+      "paid_queries": 91
+    },
+    "tied": {
+      "correct": 6,
+      "n": 12,
+      "paid_queries": 91
+    },
+    "zero": {
+      "correct": 6,
+      "n": 12,
+      "paid_queries": 91
+    }
+  },
+  "example_sha256": "f693ad1333779b2c4a6c829a584bc42403c5cded9eb7e892defad7867ddfb0d2",
+  "frozen_model_sha256": "f9f091a5bc2e4701a3c2182c7fc090a314fae61b4887360f342fb58900757151",
+  "initial_sha256": "f7a1e1bc57b50c0c0d6ea6317a058bad545ef6bd64cc6dfdeb2bf2725ad3f833",
+  "optimizer_steps": 8,
+  "oracle_sha256": "c0df77faae6351e522f35d36fa6031d6270ecced2fd92d0477cb5e08992ccb0b",
+  "oracle_source_calls": {
+    "check_candidate": 392,
+    "execute": 920,
+    "grade": 28,
+    "make_case": 36
+  },
+  "phases": {
+    "base": {
+      "last_loss": 4.0403337478637695,
+      "steps": 3
+    },
+    "sae": {
+      "last_loss": 0.9977763295173645,
+      "steps": 2
+    },
+    "vpd": {
+      "last_loss": 3.890745162963867,
+      "steps": 3
+    }
+  },
+  "resources": {
+    "device": "cpu",
+    "memory_sampling": "every_model_call_and_receipt_not_continuous",
+    "minimum_sampled_free_mb": null,
+    "peak_allocated_mb": 0,
+    "peak_reserved_mb": 0,
+    "seconds": 4.6179936999687925,
+    "work": {
+      "forward_examples": 80,
+      "model_calls": 56,
+      "recurrent_example_visits": 320
+    }
+  },
+  "scope": "minimal original SCM-15 optimizer on pinned EvalMath discovery; not final benchmark"
+}
