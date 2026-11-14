@@ -25,3 +25,18 @@ python -m research.dimensional_atlas.gym.run --backend toy \
   --steps 40 --sae-steps 25 --vpd-steps 45 --replay-steps 20 \
   --output /tmp/scm15_atlas_vpd.json
 ```
+
+## Hosted pinned EvalMath ARG-01 smoke
+
+**Executed on GitHub Actions:** November 14, 2026, workflow `SCM-15 dimensional atlas and math gym`, run #4, job `pinned-evalmath-oracle-smoke` (success). The job checked out `MoralityLabAI/EvalMath` at the pinned commit `88bb6cf8d2fe172e37d25964dfb2c285d9033841`. Source hash checking against `c0df77faae6351e522f35d36fa6031d6270ecced2fd92d0477cb5e08992ccb0b` passed before training. The public EvalMath roster was loaded after the short adaptation and discovery phases.
+
+This is a **minimal integration smoke**, with 24 freshly generated training examples, 12 discovery examples, two recurrent visits, three baseline optimizer steps, two SAE steps, three AT-VPD steps and two frontier-replay steps. The finite-query evaluator tested 192 already-public cases, including source-family shifts, negatives and intentionally paired observational-prefix collisions. Its cases are not all independent.
+
+| Arm | Exact future correct | Prefix acceptance | False future acceptances | Mean verifier queries |
+| --- | ---: | ---: | ---: | ---: |
+| Tied baseline | 81/192 (42.1875%) | 94/192 (48.9583%) | 13 | 8.7083 |
+| AT-VPD | 81/192 (42.1875%) | 94/192 (48.9583%) | 13 | 8.7135 |
+| Reversed visit gates | 81/192 (42.1875%) | 94/192 (48.9583%) | 13 | 8.7135 |
+| Zero SAE codes | 81/192 (42.1875%) | 94/192 (48.9583%) | 13 | 8.7083 |
+
+The discovery-only proxy selected two local peaks and generated four fresh public challenge cases with their hidden labels kept in a separate runner-local sidecar. No improvement over the tied baseline was established. This run validates the externally pinned independent oracle integration, the exact paid-query accounting, and the generation interface.
