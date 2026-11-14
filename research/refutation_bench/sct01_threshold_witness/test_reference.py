@@ -7,7 +7,7 @@ import unittest
 from fractions import Fraction as F
 
 from reference import (
-    K, R, M, ALL_CLAUSES, gadget_full_mask, core_masks, unsat,
+    K, R, M, GADGET_CLAUSES, ALL_CLAUSES, gadget_full_mask, core_masks, unsat,
     clause_false_assignment_bits, exhaustive_sat_oracle, brute_sat,
     bernoulli_unsat, histogram_probability, optimal_cover_cost,
     cover_threshold_float, median_threshold_float, complete_group_by_time,
