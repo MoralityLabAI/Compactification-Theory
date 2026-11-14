@@ -107,6 +107,8 @@ class SAEVisitFiber(nn.Module):
         if visits<1 or rank<1 or not math.isfinite(amplitude) or amplitude<=0:
             raise ValueError('invalid adapter dimensions or amplitude')
         dim, feature_count=frame.q.shape[0],int(dictionary.decoder.shape[0])
+        if frame.q.shape[1]>=dim:
+            raise ValueError('no nontrivial local decision fiber remains')
         if dictionary.decoder.ndim!=2 or dictionary.decoder.shape[1]!=dim:
             raise ValueError('dictionary hidden dimension mismatch')
         self.dictionary=dictionary
