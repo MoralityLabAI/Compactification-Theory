@@ -235,6 +235,39 @@ probe and is not counted among
 the generated FC-10 held-out
 model results.
 
+## FC-11: imported original Lean theorem trajectories
+
+The [FC-11 imported source](fc11/README.md)
+uses **original MathCan research
+theorems** under Lean4.35.0. It
+compiled 16 train-only source
+theorems and 14 from disjoint
+held-out modules, extracting
+31 training and 29 test
+intermediate tactic states.
+All eight registered candidate
+actions received real train
+compiler probes (248 total).
+
+[First frozen held-out result](results/fc11_imported_mathcan_first_run_20261114.md):
+the original LR-01 actor
+kernel-proved **4/14** original
+test theorems under seed17 and
+**1/14** under seed29.
+The CPU-limited native control
+proved 3/14 and 4/14 under
+the corresponding actor time
+allowances. Model CPU cost
+per certified theorem was higher
+for both seeds. A [separate full-time
+native control](results/fc11_posthoc_full_native_20261114.md)
+kernel-proved **5/14**, showing
+that the narrow seed17 advantage
+was a deadline artifact.
+Neither learned seed completed
+a held-out multistep Intervention
+or HookState proof.
+
 ## Run from the repository root
 
 ```bash
