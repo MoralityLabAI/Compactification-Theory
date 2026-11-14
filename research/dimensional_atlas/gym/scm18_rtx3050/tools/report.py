@@ -114,6 +114,11 @@ def main():
     axs[1].legend(fontsize=6,frameon=False)
     fig4.suptitle('Four cases · fiber x includes 16 head dimensions · SAE reconstruction x counts features',fontsize=10)
     fig4.tight_layout();fig4.savefig(fig/'compactification.png');fig4.savefig(fig/'compactification.svg');plt.close(fig4)
+    # Matplotlib puts trailing spaces inside multiline path attributes.
+    # Newlines remain XML/path separators after whitespace normalization.
+    for svg in fig.glob('*.svg'):
+        normalized='\n'.join(line.rstrip() for line in svg.read_text(encoding='utf-8').splitlines())+'\n'
+        svg.write_text(normalized,encoding='utf-8',newline='\n')
 
     resources=[v['resources'] for v in training['screen']+training['records']]+[training['frame_resources']]
     resources += [v['resources'] for v in final['results']]+[diag['resources'],diag['untied_resources']]
