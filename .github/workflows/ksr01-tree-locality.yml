@@ -1,0 +1,31 @@
+name: KSR-01 tree reconstruction and locality
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/tree_reconstruction_locality_v1/**'
+      - '.github/workflows/ksr01-tree-locality.yml'
+  pull_request:
+    paths:
+      - 'research/tree_reconstruction_locality_v1/**'
+      - '.github/workflows/ksr01-tree-locality.yml'
+  workflow_dispatch:
+jobs:
+  exact-broadcast-posterior:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact rational broadcast, LCA, count Bayes and dropout checks
+        run: python -m unittest discover -s research/tree_reconstruction_locality_v1 -p 'test_reference.py' -v
+      - name: Issue all-source finite reconstruction receipt
+        run: python research/tree_reconstruction_locality_v1/reference.py --check --out /tmp/ksr01_exact.json
+      - name: Upload finite source and count-oracle receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: ksr01-exact-reconstruction
+          path: /tmp/ksr01_exact.json
