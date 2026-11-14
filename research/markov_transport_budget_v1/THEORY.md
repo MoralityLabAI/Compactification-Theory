@@ -380,3 +380,83 @@ or production financial system was used in this exact
 synthetic campaign. The source #327 superreflexivity
 equivalence and #374 sharp one-third construction have
 not been reproved in Lean or in the finite Python code.
+
+
+## MTB-7: Stationarity without reversibility permits ballistic drift
+
+The Markov-type inequality in source #327 concerns **stationary
+reversible** processes. The condition matters even for Hilbert
+target space \(\mathbb R^2\).
+
+Fix integer m>=2. Enumerate the 4m distinct integer-lattice
+vertices of a square perimeter with side length m, each edge
+of Euclidean length one. Let X_0 be uniform over these vertices,
+and deterministically advance one vertex clockwise at each
+step.
+
+The process is stationary: the update is a permutation of the
+uniform distribution. It is nonreversible for 4m>=8:
+the stationary flow from vertex 0 to vertex 1 has mass
+1/(4m), whereas the reverse edge has mass zero.
+
+Every step has squared Euclidean movement one:
+
+\[
+\boxed{\mathbb E\|X_1-X_0\|_2^2=1.}\tag{MTB-7a}
+\]
+
+After m steps each point is displaced a quarter of the
+perimeter. If the initial point lies on the first side at
+position x∈{0,...,m−1}, its squared displacement is
+
+\[
+(m-x)^2+x^2.
+\]
+
+The remaining three sides have the same distribution by
+rotational symmetry. Averaging over the m positions gives
+
+\[
+\boxed{
+\mathbb E\|X_m-X_0\|_2^2
+=\frac1m\sum_{x=0}^{m-1}
+[(m-x)^2+x^2]
+=\frac{2m^2+1}{3}.
+}\tag{MTB-7b}
+\]
+
+If the source Hilbert Markov-type-2 inequality with constant
+one were applied to this *nonreversible* stationary chain,
+it would assert a bound of m on the preceding quadratic drift.
+The actual ratio is
+
+\[
+\boxed{
+\frac{\mathbb E\|X_m-X_0\|_2^2}
+{m\mathbb E\|X_1-X_0\|_2^2}
+=\frac{2m^2+1}{3m}\to\infty.
+}\tag{MTB-7c}
+\]
+
+This is a source-independent exact finite counterexample
+to the **misapplication** of a reversible Markov-type
+estimate to a directed stationary evolution. It does
+not contradict Markov type two of Hilbert space.
+
+The independent [nonreversible.py](nonreversible.py) oracle
+enumerates every point of each directed perimeter for
+m=2,4,8,16,32,64,128, verifies period and unit step
+length, computes exact rational quarter-drift and
+reports a concrete detailed-balance violation.
+This control was added after the original MTB-01
+protocol and initial finite experiments; it is
+versioned separately as MTB-01B.
+
+For recurrent AI monitoring, the combination of
+MTB-5 and MTB-7 establishes two independent
+ways a drift guarantee can fail: the chosen
+representation norm may have unbounded type
+constants across width, and the state-transition
+process may be directional even if its marginal
+distribution is stationary. Both are explicit
+assumption gates for source-conditioned claims.
