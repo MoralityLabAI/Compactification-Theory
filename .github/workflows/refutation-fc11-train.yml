@@ -30,6 +30,13 @@ jobs:
           ref: c84e2025334e9a967c1297425a490f98d5b3d189
           path: _original_mathcan
           persist-credentials: false
+      - name: Checkout immutable TRAIN-ONLY selector before test_data existed
+        uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/Compactification-Theory
+          ref: 2e7e749d4c7f8610a4083f4f8551d084102ea55a
+          path: _fc11_train_only
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -38,11 +45,12 @@ jobs:
           test "$(git -C _original_mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
           test "$(cat _original_mathcan/lean-toolchain)" = 'leanprover/lean4:v4.35.0'
           python -m unittest research.refutation_bench.tests.test_fc11_train -v
-          test ! -e research/refutation_bench/fc11/test_data.py
+          test "$(git -C _fc11_train_only rev-parse HEAD)" = 2e7e749d4c7f8610a4083f4f8551d084102ea55a
+          test ! -e _fc11_train_only/research/refutation_bench/fc11/test_data.py
       - name: Instrument the original train theorem proofs without modifying their tactic scripts
         run: |
-          python -m research.refutation_bench.fc11.train_data \
-            --source _original_mathcan --out /tmp/fc11_train
+          (cd _fc11_train_only && python -m research.refutation_bench.fc11.train_data \
+            --source "$GITHUB_WORKSPACE/_original_mathcan" --out /tmp/fc11_train)
       - name: Install source-matched Lean 4.35.0
         run: |
           curl --fail --location --retry 3 \
@@ -56,8 +64,8 @@ jobs:
             lean "$file" 2>&1 | tee "${file%.lean}.log"
             if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
           done
-          python -m research.refutation_bench.fc11.train_data \
-            --out /tmp/fc11_train --extract
+          (cd _fc11_train_only && python -m research.refutation_bench.fc11.train_data \
+            --out /tmp/fc11_train --extract)
       - name: Require all compiler-emitted stages
         run: |
           python - <<'PY'
