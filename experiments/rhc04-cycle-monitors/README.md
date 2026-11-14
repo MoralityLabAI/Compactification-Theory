@@ -1,0 +1,11 @@
+# RHC-04: do cycle-sensitive monitors beat trace monitors at matched FPR?
+
+Research note, 2026-11-14. Experimental code and data: [EvalMath branch `feat/rhc04-instrumented-runtime`](https://github.com/MoralityLabAI/EvalMath/tree/feat/rhc04-instrumented-runtime/results/rhc04_instrumented_5080) (report: `research_report.md`); runtime: [Control-Harness `mesh_escape_pit_runtime_v1`](https://github.com/MoralityLabAI/Control-Harness/tree/main/environments/mesh_escape_pit_runtime_v1), commit `6537cc2`.
+
+**Question.** Two trajectories with the same endpoint differ by a cycle `z` with `boundary z = 0`; every exact reward cochain `d phi` pairs to zero with `z`, a non-exact cochain `omega` need not. Does a monitor that scores `<omega, flow>` on the runtime's signed edge flow detect reward hacking that endpoint monitoring cannot, and does it beat an ordinary visible-trace monitor, on attack families it never saw?
+
+**Result (instrumented runtime, scripted and Qwen3.5-4B actors, 10% held-out-matched FPR).** It beats the endpoint monitor (+0.32 [0.24, 0.39] scripted, +0.47 [0.23, 0.75] model). It does not beat the trace monitor (scripted -0.042 [-0.344, 0.003], model -0.155 [-0.497, -0.066]); a privileged full-state monitor is far ahead of both. Reason: the net-flow class is a function of the visible trace, so its exact ceiling cannot exceed the trace ceiling (family-minimax 1/5 against 10/13 in the endpoint-matched cohort). Hidden-edge attacks and context-only collisions lie in the cochain's measurement kernel (visible flow identical to a legitimate episode in 40/40 hidden-shadow attempts), and a cochain selected on training families fails on an unseen family whose signal sits on edges they never separated.
+
+**Open.** Robustness to zero-net-flow padding is the only remaining route to a cycle advantage; the smallest test is padding scripted attacks with benign detours and tracking trace versus cycle detection (CPU only). Model-track samples are small (20 attempts, 21 negatives) and the adaptive phase (36 episodes) shows drift, not evasion.
+
+Evidence kept apart: exact rational certificates (finite channel laws), finite scripted results, model-generated behaviour. Runtime is a fictional archive state machine, exploitable on purpose.
