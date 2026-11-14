@@ -1,0 +1,89 @@
+{
+  "source_repo_commit": "c84e2025334e9a967c1297425a490f98d5b3d189",
+  "lean_toolchain": "4.35.0",
+  "report_type": "Independent post-hoc ZIP audit; original first-run source and models unchanged",
+  "train_source_revision": "2e7e749d4c7f8610a4083f4f8551d084102ea55a",
+  "test_source_revision": "b821e0d85423606cf971b1f80db8092ede693d81",
+  "train_goal_states_sha256": "47fae96eac1f9b176519faaa0a64cbf016203b6f23ba56e40a2295e9fedaa97d",
+  "test_goal_states_sha256": "a8e7bee63f80c03c640ccdbb9bada1f8d943e33fb403e37ad1fc7dbf536e11ad",
+  "train_action_probe_runs": [
+    43541101044,
+    43541360928
+  ],
+  "original_model_ci": 43541890610,
+  "original_model_first_baseline_invalid": true,
+  "corrected_frozen_replay_ci": 43543404745,
+  "relaxed_native_ci": 43543846501,
+  "training_probes": 248,
+  "independent_training_boolean_action_outcomes_reproduced": true,
+  "training_states_without_any_registered_progress": 11,
+  "train_action_effects": {
+    "omega": {
+      "trials": 31,
+      "progress": 9,
+      "closed": 9
+    },
+    "decide": {
+      "trials": 31,
+      "progress": 2,
+      "closed": 2
+    },
+    "rfl": {
+      "trials": 31,
+      "progress": 1,
+      "closed": 1
+    },
+    "simp_all": {
+      "trials": 31,
+      "progress": 16,
+      "closed": 5
+    },
+    "aesop": {
+      "trials": 31,
+      "progress": 0,
+      "closed": 0
+    },
+    "assumption": {
+      "trials": 31,
+      "progress": 0,
+      "closed": 0
+    },
+    "intro": {
+      "trials": 31,
+      "progress": 3,
+      "closed": 0
+    },
+    "constructor": {
+      "trials": 31,
+      "progress": 2,
+      "closed": 1
+    }
+  },
+  "corrected_frozen_model_results": {
+    "seed17": {
+      "learner_accepted": 4,
+      "native_deadline_accepted": 3,
+      "native_timeouts": 2,
+      "native_total_overrun_ms": 115.70367,
+      "learner_total_wall_ms": 22920.83533,
+      "native_total_wall_ms": 14475.84794
+    },
+    "seed29": {
+      "learner_accepted": 1,
+      "native_deadline_accepted": 4,
+      "native_timeouts": 1,
+      "native_total_overrun_ms": 76.76199,
+      "learner_total_wall_ms": 32006.76992,
+      "native_total_wall_ms": 14662.53311
+    }
+  },
+  "relaxed_native_accepted_of14": 5,
+  "heldout_original_theorems": 14,
+  "heldout_original_goal_states": 29,
+  "corrected_replay_model_candidate_records": 28,
+  "corrected_replay_symbolic_candidate_records": 28,
+  "original_checkpoint_sha256_verified": true,
+  "all_accepted_neural_proofs_marked_sorry_free": true,
+  "matched_native_time_allowances_verified_per_theorem": true,
+  "replay_logic_scope": "Source metadata and Lean compiler-output consistency; Lean 4.35 CI is actual formal authority."
+}

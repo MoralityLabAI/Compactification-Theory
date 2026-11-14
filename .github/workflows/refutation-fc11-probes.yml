@@ -1,0 +1,96 @@
+name: FC-11 TRAIN-ONLY actual Lean tactic-effect matrix
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc11/probe_train.py'
+      - 'research/refutation_bench/fc11/scratch.py'
+      - '.github/workflows/refutation-fc11-probes.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc11/probe_train.py'
+      - 'research/refutation_bench/fc11/scratch.py'
+      - '.github/workflows/refutation-fc11-probes.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  all-original-tactic-probes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout truly frozen training SELECTOR, before held-out selection existed
+        uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/Compactification-Theory
+          ref: 2e7e749d4c7f8610a4083f4f8551d084102ea55a
+          path: _fc11_train_only
+          persist-credentials: false
+      - name: Checkout exact original MathCan source
+        uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _original_mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check original training-only selection and source commit
+        run: |
+          test "$(git -C _fc11_train_only rev-parse HEAD)" = 2e7e749d4c7f8610a4083f4f8551d084102ea55a
+          test ! -e _fc11_train_only/research/refutation_bench/fc11/test_data.py
+          test "$(git -C _original_mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          test "$(cat _original_mathcan/lean-toolchain)" = 'leanprover/lean4:v4.35.0'
+      - name: Install exact original Lean 4.35.0
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean-4.35.0-linux.tar.zst
+          tar --zstd -xf /tmp/lean-4.35.0-linux.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Regenerate and verify actual 31 states from frozen TRAIN-ONLY source
+        run: |
+          (cd _fc11_train_only && python -m research.refutation_bench.fc11.train_data \
+             --source "$GITHUB_WORKSPACE/_original_mathcan" --out /tmp/fc11_train)
+          for file in /tmp/fc11_train/*.lean; do
+            lean "$file" > "${file%.lean}.log" 2>&1
+            if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
+          done
+          (cd _fc11_train_only && python -m research.refutation_bench.fc11.train_data \
+             --out /tmp/fc11_train --extract)
+          echo "EXPECTED_TRAIN_GOAL_SHA 47fae96eac1f9b176519faaa0a64cbf016203b6f23ba56e40a2295e9fedaa97d"
+          sha256sum /tmp/fc11_train/actual_goal_states.jsonl
+      - name: Apply every tactic on every real original training goal state
+        run: |
+          python -m research.refutation_bench.fc11.probe_train \
+            --source _original_mathcan \
+            --states /tmp/fc11_train/actual_goal_states.jsonl \
+            --out /tmp/fc11_probes
+      - name: Assert all eight action labels have real Lean training exposure
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          root=Path('/tmp/fc11_probes')
+          r=json.loads((root/'train_probe_receipt.json').read_text())
+          assert r['source_stage_count']==31
+          assert r['total_actual_compiler_tactic_probes']==248
+          assert r['all_tactic_classes_represented']
+          assert r['scratch_probes_not_kernel_certificates']
+          print("FC11_TRAIN_ACTIONS_REAL_COMPILER_CHECKED",r['total_actual_compiler_tactic_probes'])
+          PY
+      - name: Archive ALL training attempts, compiler results and frozen source hashes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc11-source-only-tactic-probes-${{ github.run_id }}
+          path: |
+            /tmp/fc11_probes/
+            /tmp/fc11_train/train_receipt.json
+            /tmp/fc11_train/train_extraction.json
+          retention-days: 30
+          if-no-files-found: warn

@@ -1,0 +1,55 @@
+{
+  "status": "independent after-run consistency audit passed",
+  "original_run": "https://github.com/MoralityLabAI/LoopedTransformers/actions/runs/43543404745",
+  "preregistration_sha": "b57e2500e829b12fdfc257077b8e410171c93b98",
+  "original_source_commit": "c84e2025334e9a967c1297425a490f98d5b3d189",
+  "source_toolchain": "leanprover/lean4:v4.35.0",
+  "train_source_commit": "2e7e749d4c7f8610a4083f4f8551d084102ea55a",
+  "heldout_source_commit": "b821e0d85423606cf971b1f80db8092ede693d81",
+  "heldout_real_goal_sha256": "a8e7bee63f80c03c640ccdbb9bada1f8d943e33fb403e37ad1fc7dbf536e11ad",
+  "verified_original_checkpoint_hashes": [
+    "f79fcbbdd4d86edb77d7b43ade42198bdde3ac7b0f527d181ee781df848af365",
+    "f9c052406e08d5bbe24712f649ce564c772a07e4b7e9f448e21d39eae848b182"
+  ],
+  "training_checkpoints": 2,
+  "model_parameters_each": 62401,
+  "train_real_compiler_goal_states": 31,
+  "heldout_real_compiler_goal_states": 29,
+  "heldout_original_theorems": 14,
+  "model_prediction_rows": 28,
+  "native_prediction_rows": 28,
+  "candidate_action_bank_consistent": true,
+  "model_accepted_are_final_sorry_free_compilations": true,
+  "native_allowed_ms_equals_original_frozen_neural_elapsed_ms": true,
+  "individual_model_comparisons": [
+    {
+      "model": "fc11_s17",
+      "accepted": 4,
+      "matched_native_accepted": 3,
+      "matched_native_timeouts": 2,
+      "neural_only": 2,
+      "native_only": 1,
+      "both_proved": 2,
+      "neural_wall_ms": 22920.8353,
+      "native_wall_ms": 14475.8479,
+      "neural_ms_per_proof": 5730.2088,
+      "native_ms_per_proof": 4825.2826
+    },
+    {
+      "model": "fc11_s29",
+      "accepted": 1,
+      "matched_native_accepted": 4,
+      "matched_native_timeouts": 1,
+      "neural_only": 1,
+      "native_only": 4,
+      "both_proved": 0,
+      "neural_wall_ms": 32006.7699,
+      "native_wall_ms": 14662.5331,
+      "neural_ms_per_proof": 32006.7699,
+      "native_ms_per_proof": 3665.6333
+    }
+  ],
+  "registered_learning_criterion": true,
+  "registered_compute_criterion": false,
+  "limitation": "Independent audit verifies original archive source/checkpoint digests and compiler-result consistency. Lean 4.35 GitHub CI remains the actual kernel authority. The narrow model seed17 advantage is deadline/startup-sensitive; a stronger unrestricted native-search audit is separate."
+}
