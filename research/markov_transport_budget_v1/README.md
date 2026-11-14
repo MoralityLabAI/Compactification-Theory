@@ -61,7 +61,7 @@ and full bitmask enumeration for small n.
 [Verified GitHub Actions](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43592117700)
 ran 23 tests and saved both full JSON receipts.
 
-The separate [MathCan MTB-01 companion PR](https://github.com/patrickdugan/MathCan/pulls)
+The separate [MathCan MTB-01 PR #42](https://github.com/patrickdugan/MathCan/pull/42)
 contains a finite Lean/Init proof of the
 four-bit cube's exact moments, the
 affine two-step drift/decision numerator,
