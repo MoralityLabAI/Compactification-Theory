@@ -25,6 +25,8 @@ def valid_script(script:str)->bool:
     name=r"[A-Za-z_][A-Za-z0-9_']*"
     return any(re.fullmatch(pattern,script) for pattern in (
         rf"exact {name}",
+        rf"exact {name} {name} {name}",
+        rf"exact \({name} {name} {name}\)\.symm",
         rf"apply {name}",
         rf"simpa using {name}",
         rf"rw \[{name}\]",
