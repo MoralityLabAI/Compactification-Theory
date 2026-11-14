@@ -38,7 +38,7 @@ python -m research.dimensional_atlas.gym.scm17.campaign --mode preflight \
   --output /path/to/new/s17-loop.json
 ```
 
-Repeat with `--model 'FF-U s3'` and its own selected dictionary and output. The preflight returns `blocked_external_artifacts` and precise missing labels when resources are absent. When preflight is ready, run `--mode freeze --lock-file /path/to/new/scm17.lock.json` to freeze source hashes. For training, use `--mode train --lock-file /path/to/new/scm17.lock.json --device cpu --steps 60`. It refuses output overwrite, checks the RMP source and checkpoint receipt, loads the D-shared dictionary with `weights_only=True` and validates the registered selection metadata. Heavy outputs and adapter weights remain outside GitHub.
+Repeat with `--model 'FF-U s3'` and its own selected dictionary and output. The manifest also pins the local SCM-17 adapter and campaign source, so later code changes invalidate an existing lock. The preflight returns `blocked_external_artifacts` and precise missing labels when resources are absent. When preflight is ready, run `--mode freeze --lock-file /path/to/new/scm17.lock.json` to freeze source hashes. For training, use `--mode train --lock-file /path/to/new/scm17.lock.json --device cpu --steps 60`. It refuses output overwrite, checks the RMP source and checkpoint receipt, loads the D-shared dictionary with `weights_only=True` and validates the registered selection metadata. Heavy outputs and adapter weights remain outside GitHub.
 
 ## Local and hosted tests
 
