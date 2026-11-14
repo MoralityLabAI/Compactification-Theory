@@ -1,0 +1,73 @@
+{
+  "input_sha256": {
+    "FF-U s3/random-orthogonal": "09dddc6ff34b1d0d98f8ee965afe2b9f6c959d84805c976f8c5d0e0fb40f671e",
+    "FF-U s3/sae": "b5122dc9f586913815088df5adbf6d7bfcb7b4cf77186d041d721c8dbecc43b3",
+    "LOOP-T s1/random-orthogonal": "27503d0ba86ff518567b7dd036a651c911bad51a94e669c2c8da23c5fabc6e13",
+    "LOOP-T s1/sae": "77c92770159632b5b0eb99ac810c80d1eed80c2b1c57adbb5dfaa0b15e9a5f67"
+  },
+  "limits": {
+    "angular_agreement_is_not_continuous_path_proof": true,
+    "causal_feature_claims_require_heldout_interventions": true,
+    "source_level_theorems_do_not_certify_GPU_float_capture": true
+  },
+  "models": {
+    "FF-U s3": {
+      "exact_sign_test_p_descriptive": 1.0,
+      "mean_prediction_flip_fraction": 0.0859375,
+      "n_clean_correct": 0,
+      "n_random_chart_nontrivial": 8,
+      "n_random_only": 8,
+      "n_sae_nontrivial": 8,
+      "n_sae_only": 8,
+      "n_tasks": 64,
+      "n_topology_comparable": 64,
+      "n_unresolved_random": 0,
+      "n_unresolved_sae": 0
+    },
+    "LOOP-T s1": {
+      "exact_sign_test_p_descriptive": 1.0,
+      "mean_prediction_flip_fraction": 0.0859375,
+      "n_clean_correct": 0,
+      "n_random_chart_nontrivial": 8,
+      "n_random_only": 8,
+      "n_sae_nontrivial": 8,
+      "n_sae_only": 8,
+      "n_tasks": 64,
+      "n_topology_comparable": 64,
+      "n_unresolved_random": 0,
+      "n_unresolved_sae": 0
+    }
+  },
+  "n_matched_tasks": 64,
+  "rank_one_exact_reference": {
+    "error_bounds_source_verified": false,
+    "observed_neural_topology_certified": false,
+    "per_pair": {
+      "0,1": {
+        "lower_clearance": "29/10",
+        "max_relative_error_plus_margin": "21/100",
+        "pass": true
+      },
+      "0,2": {
+        "lower_clearance": "29/10",
+        "max_relative_error_plus_margin": "21/100",
+        "pass": true
+      },
+      "1,2": {
+        "lower_clearance": "4101219330881/1000000000000",
+        "max_relative_error_plus_margin": "21/100",
+        "pass": true
+      }
+    },
+    "result": "conditional_null_braid",
+    "scalar_interval": [
+      "-1",
+      "1"
+    ],
+    "schema": "scm12/rank-one-null/v1",
+    "valid_for": "continuous_exact_real_chart_loops_under_proven_uniform_error_claims"
+  },
+  "reference_evidence": "synthetic_only; none of these 64 tasks were run on trained RMP",
+  "schema": "scm12/paired-control-analysis/v1",
+  "source_classification": "synthetic_only"
+}
