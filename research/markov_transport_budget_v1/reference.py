@@ -332,7 +332,7 @@ def main(argv=None):
                        x["markov_type2_constant_lower_float"],
                        "Jensen_p1_5_lower":
                        x["Jensen_type3_over2_lower_float"]}
-                     for x in bounds],
+                     for x in report["hypercube_n_step_lower_bounds"]],
     },indent=2))
     return 0
 
