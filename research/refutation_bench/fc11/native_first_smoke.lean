@@ -6,7 +6,7 @@ theorem fc11_native_prop (P : Prop) (hp : P) : P := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -15,7 +15,7 @@ theorem fc11_native_prop (P : Prop) (hp : P) : P := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -24,7 +24,7 @@ theorem fc11_native_prop (P : Prop) (hp : P) : P := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -35,7 +35,7 @@ theorem fc11_native_imp (P : Prop) : P → P := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -44,7 +44,7 @@ theorem fc11_native_imp (P : Prop) : P → P := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -53,7 +53,7 @@ theorem fc11_native_imp (P : Prop) : P → P := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -64,7 +64,7 @@ theorem fc11_native_arith (a b : Nat) (hab : a ≤ b) : a + 3 ≤ b + 3 := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -73,7 +73,7 @@ theorem fc11_native_arith (a b : Nat) (hab : a ≤ b) : a + 3 ≤ b + 3 := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
@@ -82,7 +82,7 @@ theorem fc11_native_arith (a b : Nat) (hab : a ≤ b) : a + 3 ≤ b + 3 := by
   | decide
   | rfl
   | simp_all
-  | aesop
+  | fail "aesop unavailable under source Lean4.35 Init imports"
   | assumption
   | intro
   | constructor
