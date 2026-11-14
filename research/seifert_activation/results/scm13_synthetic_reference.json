@@ -1,0 +1,34 @@
+{
+  "evidence": "exact-rational geometry and deliberately synthetic polygonal braids",
+  "first_harmonic_screen": {
+    "observed": 1,
+    "predicted": 1,
+    "status": "empirical_only_unverified_full_circle_error"
+  },
+  "nonabelian_commutator": {
+    "artin_nonidentity": true,
+    "interpretation": "nontrivial zero-winding braid requires departure from any certified full-rank affine-disk approximation",
+    "pairwise_windings": {
+      "0,1": 0,
+      "0,2": 0,
+      "1,2": 0
+    }
+  },
+  "schema": "scm13/synthetic-reference/v1",
+  "seeded_affine_cases": {
+    "mismatched": 0,
+    "null": 55,
+    "passed": 80,
+    "seed": 1313,
+    "winding_nonzero": 25
+  },
+  "trained_neural_evidence": false,
+  "two_strand_above_radius_2": {
+    "result": "conditional_affine_braid_preserved",
+    "winding": 1
+  },
+  "two_strand_below_radius_2": {
+    "result": "conditional_full_null_braid",
+    "winding": 0
+  }
+}
