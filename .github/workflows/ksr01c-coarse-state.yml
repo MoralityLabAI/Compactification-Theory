@@ -24,6 +24,8 @@ jobs:
           python-version: '3.12'
       - name: Verify covariance and correlated sibling counterexamples
         run: python -m unittest discover -s research/tree_reconstruction_locality_v1 -p test_dependence.py -v
+      - name: Check minimal one-step state-refinement certificates
+        run: python -m unittest discover -s research/tree_reconstruction_locality_v1 -p test_refinement.py -v
       - name: Emit exact falsification witness
         run: python research/tree_reconstruction_locality_v1/dependence.py > /tmp/ksr01c_dependence.json
       - uses: actions/upload-artifact@v4
@@ -42,7 +44,11 @@ jobs:
         run: python -m unittest discover -s research/tree_reconstruction_locality_v1 -p test_rrc25_audit.py -v
       - name: Audit all registered root states and branching continuations
         run: python research/tree_reconstruction_locality_v1/audit_rrc25.py --out /tmp/ksr01c_rrc25.json
+      - name: Certify the minimum finite one-step refinement
+        run: python research/tree_reconstruction_locality_v1/refinement.py --audit /tmp/ksr01c_rrc25.json --out /tmp/ksr01c_refinement.json
       - uses: actions/upload-artifact@v4
         with:
           name: ksr01c-frozen-rrc25-coarse-state
-          path: /tmp/ksr01c_rrc25.json
+          path: |
+            /tmp/ksr01c_rrc25.json
+            /tmp/ksr01c_refinement.json
