@@ -6,7 +6,7 @@
 
 The new centered-attention inequality removes a common source-value offset and retains the source attention distribution when bounding perturbed values. A separate LayerNorm equivariance theorem propagates per-token channel-constant shifts by `alpha²` through each pre-norm block. The source-level gauge null-control reports the requisite full-path collision-free condition separately.
 
-Thirteen new local CPU tests pass: analytic attention counterexamples, 60 random high-precision probability changes, source-certification of Q/K/V and p0 upper bounds, 80-digit small-model real-forward intervention containment in tied and untied/reinjection networks, source-audit provenance refusals, no-CUDA/no-link claims, and exact LayerNorm shift equivariance. The SCM-10 predecessor recorded 202 tests; complete combined hosted SCM-11 suite status is maintained by the new PR CI checks.
+Fourteen new local CPU tests pass: analytic attention counterexamples, 60 random high-precision probability changes, independent 90-digit verification of the certified reference softmax probabilities, source-certification of Q/K/V and p0 upper bounds, 80-digit small-model real-forward intervention containment in tied and untied/reinjection networks, source-audit provenance refusals, no-CUDA/no-link claims, and exact LayerNorm shift equivariance. The SCM-10 predecessor recorded 202 tests; complete combined hosted SCM-11 suite status is maintained by the new PR CI checks.
 
 ## Full-shape synthetic comparison
 
