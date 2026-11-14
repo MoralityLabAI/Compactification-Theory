@@ -49,7 +49,11 @@ def make_source(original:str,theorem:str,actions:list[str],*,
             '    trace "FC11_AFTER_END"',
             "  all_goals sorry",
         ]
-    source=raw[:begin]+body+raw[end:]
+    # The original theorem is proved in its unmodified preceding declaration
+    # context. Omit later unrelated theorems (which may be computationally
+    # heavy) and close the original enclosing module namespace explicitly.
+    endings=[line for line in raw[end:] if re.fullmatch(r"end\s+[A-Za-z_0-9.]+",line.strip())]
+    source=raw[:begin]+body+([endings[-1]] if endings else [])
     return "import Lean\n"+"\n".join(source)+"\n"
 
 
