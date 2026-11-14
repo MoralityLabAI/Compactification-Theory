@@ -1,0 +1,72 @@
+name: FC-13 preregistered first-four original theorem holdout
+
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/fc13/**'
+      - '.github/workflows/refutation-fc13-heldout-source.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/fc13/**'
+      - '.github/workflows/refutation-fc13-heldout-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-unseen-source-oracle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout untouched original MathCan 4.35 proof corpus
+        uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: c84e2025334e9a967c1297425a490f98d5b3d189
+          path: _mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate preregistered independent modules and original source commit
+        run: |
+          test "$(git -C _mathcan rev-parse HEAD)" = c84e2025334e9a967c1297425a490f98d5b3d189
+          python - <<'PY'
+          from pathlib import Path
+          from research.refutation_bench.fc13.test_data import TEST_MODULES,assert_source_contract
+          from research.refutation_bench.fc11 import train_data as t11,test_data as e11
+          assert_source_contract(Path("_mathcan"))
+          assert set(TEST_MODULES).isdisjoint(t11.TRAIN_SOURCE)
+          assert set(TEST_MODULES).isdisjoint(e11.TEST_SOURCE)
+          print("FC13_ORIGINAL_HELDOUT_FOUR_FRESH_MODULES",list(TEST_MODULES))
+          PY
+      - name: Construct original proofs with read-only Lean tracing
+        run: |
+          python -m research.refutation_bench.fc13.test_data \
+            --source _mathcan --out /tmp/fc13_orig
+      - name: Install original Lean4.35 compiler
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o /tmp/lean435.tar.zst
+          tar --zstd -xf /tmp/lean435.tar.zst -C /tmp
+          echo /tmp/lean-4.35.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile original theorems and extract sixteen genuine Lean initial states
+        run: |
+          for file in /tmp/fc13_orig/*.lean; do
+            lean "$file" > "${file%.lean}.log" 2>&1
+            if grep -E 'error:|sorryAx' "${file%.lean}.log"; then exit 1; fi
+          done
+          python -m research.refutation_bench.fc13.test_data \
+            --out /tmp/fc13_orig --extract
+          sha256sum /tmp/fc13_orig/actual_goal_states.jsonl | tee /tmp/fc13_orig/FC13_test_goals.sha256
+      - name: Archive genuine Lean states and original certificate logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fc13-original-source-${{ github.run_id }}
+          path: /tmp/fc13_orig/
+          retention-days: 30
+          if-no-files-found: warn
