@@ -9,7 +9,7 @@ class FC12HeldoutSourceTests(unittest.TestCase):
         test_data.check_selection()
         self.assertEqual(len(test_data.TEST_MODULES),4)
         self.assertEqual(sum(len(x) for x in test_data.TEST_MODULES.values()),16)
-        self.assertTrue(set(test_data.TRAIN_MODULES).isdisjoint(test_data.TEST_MODULES))
+        self.assertTrue(set(train_data.TRAIN_MODULES).isdisjoint(test_data.TEST_MODULES))
 
     def test_heldout_family_names_were_not_training(self):
         self.assertNotIn("MathCan/Hodge.lean",train_data.TRAIN_MODULES)
