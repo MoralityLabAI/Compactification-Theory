@@ -1,0 +1,81 @@
+name: SCM-15 dimensional atlas and math gym
+on:
+  push:
+    paths:
+      - 'research/dimensional_atlas/**'
+      - '.github/workflows/scm15-dimensional-atlas.yml'
+  pull_request:
+    paths:
+      - 'research/dimensional_atlas/**'
+      - '.github/workflows/scm15-dimensional-atlas.yml'
+permissions:
+  contents: read
+jobs:
+  cpu-gym:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned CPU torch
+        run: python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Unit tests
+        run: python -m unittest discover -s research/dimensional_atlas/gym/tests -v
+      - name: Tiny end-to-end training and feedback smoke
+        run: |
+          python -m research.dimensional_atlas.gym.run --backend toy --seed 9 \
+            --train-count 20 --discovery-count 8 --readout-count 8 \
+            --hidden 16 --visits 2 --sae-width 20 --sae-k 3 --vpd-rank 2 \
+            --steps 2 --sae-steps 2 --vpd-steps 2 --replay-steps 2 \
+            --batch 4 --budget 4 --peaks 2 --output /tmp/scm15-ci.json
+      - name: Fail closed on gold leakage into public generated evals
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          public=json.loads(Path('/tmp/scm15-ci.generated.public.json').read_text())
+          receipt=json.loads(Path('/tmp/scm15-ci.json').read_text())
+          assert receipt['backend']=='toy'
+          assert all('future' not in row and 'source_graph' not in row for row in public)
+          assert receipt['new_evaluation_count']==len(public)
+          PY
+  pinned-evalmath-oracle-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/EvalMath
+          ref: 88bb6cf8d2fe172e37d25964dfb2c285d9033841
+          path: external/EvalMath
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned CPU torch
+        run: python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Exact-source-pinned EvalMath train and score smoke
+        run: |
+          python -m research.dimensional_atlas.gym.run --backend evalmath \
+            --evalmath-source external/EvalMath/src/spiral_ln/algebraic_reasoning_oracle.py \
+            --train-count 24 --discovery-count 12 --hidden 16 --visits 2 \
+            --sae-width 20 --sae-k 3 --vpd-rank 2 --batch 4 --peaks 2 \
+            --steps 3 --sae-steps 2 --vpd-steps 3 --replay-steps 2 \
+            --output /tmp/scm15-evalmath.json
+      - name: Verify independent oracle was used, keep private gold local
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/scm15-evalmath.json').read_text())
+          assert r['math_source_verified'] is True
+          assert r['status']=='executed_pinned_evalmath_gym'
+          assert r['results']['tied_base']['n'] >= 190
+          assert r['results']['sae_atvpd']['n'] == r['results']['tied_base']['n']
+          public=json.loads(Path('/tmp/scm15-evalmath.generated.public.json').read_text())
+          assert all('future' not in row and 'source_graph' not in row for row in public)
+          print('SCM-15 pinned EvalMath exact-verifier smoke passed, readout n=',r['results']['tied_base']['n'])
+          PY
