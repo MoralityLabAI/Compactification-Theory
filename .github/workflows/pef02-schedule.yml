@@ -1,0 +1,34 @@
+name: PEF-02S ordered-loop precision and gap audit
+
+on:
+  push:
+    paths:
+      - 'research/precision_entropy_frontier/pef02_schedule.py'
+      - 'research/precision_entropy_frontier/test_pef02_schedule.py'
+      - 'research/precision_entropy_frontier/PEF02_SCHEDULE.md'
+      - '.github/workflows/pef02-schedule.yml'
+  pull_request:
+    paths:
+      - 'research/precision_entropy_frontier/pef02_schedule.py'
+      - 'research/precision_entropy_frontier/test_pef02_schedule.py'
+      - 'research/precision_entropy_frontier/PEF02_SCHEDULE.md'
+      - '.github/workflows/pef02-schedule.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact tests across contraction schedules
+        run: python -m unittest discover -s research/precision_entropy_frontier -p 'test_pef02_schedule.py' -v
+      - name: Produce mixed-schedule receipt
+        run: python research/precision_entropy_frontier/pef02_schedule.py --suite --out artifacts/pef02s/schedule.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pef02-mixed-schedule-certificate
+          path: artifacts/pef02s/schedule.json
