@@ -85,8 +85,7 @@ class SAESelectionTests(unittest.TestCase):
                 self.assertIn('positive',case['rays'])
                 self.assertIn('negative',case['rays'])
                 self.assertIn('1/5',case['rays']['positive']['guards'])
-                self.assertTrue(case['rays']['positive']['guards']['1/50']['top1'] or
-                                not case['rays']['positive']['guards']['1/50']['top1'])
+                self.assertIsInstance(case['rays']['positive']['guards']['1/50']['top1'],bool)
 
     def test_all_token_fp64_survey_explicitly_not_exact(self):
         report=descriptive_all_token_radii(self.sae,self.stage,
