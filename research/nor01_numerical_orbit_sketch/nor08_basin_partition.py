@@ -107,6 +107,10 @@ def run(samples_per_family=SAMPLES_PER_FAMILY,steps=ZERO_STEPS):
                    "same_mode":0,"other":0}
     for case in cases:
         h,parity,heads=survey.prefix_hidden(case,checkpoint)
+        public_header=compound25.possible_headers(case)[0]
+        feature_tensor=compound25.features(case,public_header)
+        feature_sha=sha256(json.dumps(feature_tensor,separators=(",",":")).encode()).hexdigest()
+        hidden_sha=sha256(json.dumps(h,separators=(",",":")).encode()).hexdigest()
         original=predict_after_hidden(h[:],checkpoint,p1,p2,steps)
         perturbed=h[:]
         perturbed[PERTURBED_COORDINATE]=-perturbed[PERTURBED_COORDINATE]
@@ -129,6 +133,8 @@ def run(samples_per_family=SAMPLES_PER_FAMILY,steps=ZERO_STEPS):
             "family":key,
             "case_id_sha256":sha256(case.identifier.encode()).hexdigest(),
             "public_visible_sha256":sha256(json.dumps(case.visible,separators=(",",":")).encode()).hexdigest(),
+            "public_feature_tensor_sha256":feature_sha,
+            "native_initial_hidden_sha256":hidden_sha,
             "native_head_parity":parity,
             "public_header_candidates":heads,
             "mode":original_mode,
@@ -143,6 +149,13 @@ def run(samples_per_family=SAMPLES_PER_FAMILY,steps=ZERO_STEPS):
     diag=sum(matrix[family]["second"] for family in ("squared",))
     diag+=sum(matrix[f]["first"] for f in matrix if f!="squared")
     unresolved=sum(row["mode"]=="unresolved" for row in records)
+    diversity={
+        family:{
+            "distinct_visible":len({r["public_visible_sha256"] for r in records if r["family"]==family}),
+            "distinct_features":len({r["public_feature_tensor_sha256"] for r in records if r["family"]==family}),
+            "distinct_hidden":len({r["native_initial_hidden_sha256"] for r in records if r["family"]==family}),
+        } for family in matrix
+    }
     return {
         "schema":"nor08c.heldout.basin_partition_and_coordinate_causality.v1",
         "trained_checkpoint_sha256":SOURCE_SHA,
@@ -156,6 +169,9 @@ def run(samples_per_family=SAMPLES_PER_FAMILY,steps=ZERO_STEPS):
         "coordinate_intervention_counts":interventions,
         "squared_versus_rest_mode_rule_accuracy":diag/total,
         "unresolved_mode_count":unresolved,
+        "unique_public_feature_tensors":len({r["public_feature_tensor_sha256"] for r in records}),
+        "unique_native_initial_hidden_states":len({r["native_initial_hidden_sha256"] for r in records}),
+        "per_family_input_diversity":diversity,
         "unconditioned_majority_family_baseline_accuracy":5/6,
         "source_future_labels_used":False,
         "new_training_performed":False,
