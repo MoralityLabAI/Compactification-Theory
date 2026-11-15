@@ -1,4 +1,4 @@
-name: SMC-01/02/03/04 mixing and calibration
+name: SMC-01/02/03/04/05 mixing and sparse geometry
 
 on:
   push:
@@ -70,12 +70,15 @@ jobs:
           PY
       - name: Replay SMC-04 unknown frame identification and risk bound
         run: python research/synchronized_mixing_v1/run_smc04.py --smoke --output smc04-smoke-report.json
+      - name: Replay SMC-05 sparse feature geometry discovery
+        run: python research/synchronized_mixing_v1/run_discovery.py --output smc05-smoke-results.json
       - uses: actions/upload-artifact@v4
         with:
-          name: smc01-02-03-04-exact-results
+          name: smc01-02-03-04-05-exact-results
           path: |
             smc01-results.json
             smc02-lift-results.json
             smc03-controls.json
             smc03-family-controls.json
             smc04-smoke-report.json
+            smc05-smoke-results.json
