@@ -88,3 +88,33 @@ Each new cohort reports the original ranker and all four fixed readout heads. Tr
 A separate **retrospective ablation** tests the already fitted basin head on the first 72 cases with its basin coordinate set to zero, replaced by the shuffled-label probe coordinate, or permuted as a block across distinct feature hashes. These tests hold all fitted readout weights and \(\lambda=.25\) fixed. Their effect estimates are diagnostic rather than prospective.
 
 The [NOR-12B CI workflow](../../.github/workflows/nor12b-confirmation.yml) checks frozen training hashes and runs the four new cohorts, preserving their data and the retrospective ablation in a second archived artifact.
+
+
+## Independently executed NOR-12B results
+
+The [four fresh-cohort CI run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43709095616) completed both jobs. Its complete confirmation artifact, SHA-256 **70e624e5b1b40d798c398bb1a35e804569557bcb49c88ef18e29454135d0e6e0**, contains four nonoverlapping 72-case test cohorts. There are 288 synthetic cases representing **241 unique model-visible feature tensors**, with a repeated late-source feature cluster. All original readout weights were reproduced and their precommitted SHA-256 values checked before the fresh cases were evaluated. The development-selected scales remained fixed.
+
+| Frozen readout | Future correct /288 | False accepts | Paired gains / losses | Unadjusted case-level McNemar p |
+| --- | ---: | ---: | ---: | ---: |
+| Original GRU | 160 | 26 | 0 / 0 | n/a |
+| Basin residual, \(\lambda=.25\) | **167** | 20 | 15 / 8 | 0.2100 |
+| Random-feature residual, \(\lambda=.5\) | **167** | **18** | 18 / 11 | 0.2649 |
+| Shuffled-basin residual, \(\lambda=1\) | 160 | 20 | 20 / 20 | 1.000 |
+| Hidden-only residual, \(\lambda=1\) | 160 | 20 | 20 / 20 | 1.000 |
+
+The basin-feature and random-feature residual heads each gained seven future-correct cases in aggregate over the original. For the basin head, twelve gains and three losses occurred among nonlate cases, while the full 288-case test registered 15 gains and eight losses. Feature-group sign statistics were 12 positive groups and 4 negative groups, giving a **post-hoc unadjusted \(p\approx0.0768\)**. All case and cluster statistics have multiple-comparison and repeated-feature caveats. A posterior subset statistic for nonlate cases should be viewed as exploratory.
+
+The **first-split basin-feature ablation** produced the same 44/72 future-correct count for each of these four settings: true frozen basin probability, the basin feature forced to zero, the pretrained shuffled-label probe substituted, and a deterministic permutation across unique feature groups. Paid-check counts differed slightly (191, 189, 189 and 193 respectively). In the initial test, both originally gained cases were from the **same single late-source feature tensor**.
+
+Consequently the results support the possibility that **task-supervised residual re-ranking** improves some held-out native proof-template outcomes, with no confirmed marginal advantage from the trained basin-probability scalar. The global first-run development selector actually chose the random-feature residual. The evidence does not yet establish a broadly useful basin-aware reasoning controller.
+
+The [executed NOR-12B summary](results/nor12b_confirmation_summary.json) pins both experiment SHA-256 values, all source manifests, fixed model scales, paired outcomes, effective input counts and the retrospective ablation. [NOR-12C](receipt_audit.py) independently checks their arithmetic and provenance under the [fast audit workflow](../../.github/workflows/nor12c-receipts.yml).
+
+## Next architectural hypothesis
+
+The present residual is a **linear** function of hidden coordinates plus an **additive basin scalar per class**. This offers only a basin-dependent class offset. A more expressive test of genuinely *basin-conditioned reasoning* would introduce an interaction term
+\[
+s_j(h,q)=b_j(h)+u_j^\top h
+   +(2q(h)-1)v_j^\top h+\beta_j,
+\]
+with the frozen probe \(q(h)\) controlling different readout slopes across the basins. It must be compared against **parameter-matched** readouts with a shuffled-label gate and a random scalar gate. The original latent state and four-paid-check verifier should remain unchanged, and the model should be tested on new independent public-input cohorts before attributing any gain to basin identity.
