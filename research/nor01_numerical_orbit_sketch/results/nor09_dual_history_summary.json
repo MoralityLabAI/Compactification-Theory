@@ -1,0 +1,43 @@
+{
+  "schema": "nor09.certified.two_natural_sources.frozen_audit.v1",
+  "execution_date_utc": "2026-11-15",
+  "trained_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "original_successful_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43703511992",
+  "original_artifact_id": 14157735145,
+  "source_captures": {
+    "signed_extra_zero_steps": 1308,
+    "squared_extra_zero_steps": 660,
+    "signed_trace_sha256": "58a698820790ea017b285ce9bf6e086f5042d7b2b20233cbbd9f4b008b1954bd",
+    "squared_trace_sha256": "bbfb0c62be1c9989b9c100d1540450e776ffb997a158c99f585dc7a0cfeb73cc"
+  },
+  "stride": 24,
+  "certified_cross_basin_gap_lower_fraction": "1255227833947460617/250000000000000000",
+  "required_terminal_code_labels": 2,
+  "fixed_width_label_bits_lower_bound": 1,
+  "exact_certified_tail_pairwise_error_ceilings": {
+    "64": "5479647003901628489/500000000000000000000000000000",
+    "96": "2067411723662471/62500000000000000000000000000",
+    "128": "16533416166526937/500000000000000000000000000000",
+    "256": "16533365670362959/500000000000000000000000000000"
+  },
+  "sampled_clocks": {
+    "64": {
+      "signed": 2844,
+      "squared": 2196
+    },
+    "96": {
+      "signed": 3612,
+      "squared": 2964
+    },
+    "128": {
+      "signed": 4380,
+      "squared": 3732
+    },
+    "256": {
+      "signed": 7452,
+      "squared": 6804
+    }
+  },
+  "certificate_floor_note": "Using the known rational center of the first fixed point gives a nonzero certified anchor-offset floor of approximately 3.30667e-14 for the doubled pairwise tail envelope.",
+  "theorem_scope": "Exact captured nonlinear 24-step checkpoint histories, pooled finite-anchor additive distortion E_M separately accounted; existential Lp embedding unimplemented; no native theorem-proving gain claimed"
+}

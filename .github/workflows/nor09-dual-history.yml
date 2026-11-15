@@ -1,0 +1,72 @@
+name: NOR-09 two captured nonlinear histories and basin-label metric bound
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor09_dual_history.py'
+      - 'research/nor01_numerical_orbit_sketch/nor09_receipt_audit.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor09_dual_history.py'
+      - 'research/nor01_numerical_orbit_sketch/results/nor09_dual_history.json'
+      - '.github/workflows/nor09-dual-history.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor09_dual_history.py'
+      - 'research/nor01_numerical_orbit_sketch/nor09_receipt_audit.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor09_dual_history.py'
+      - 'research/nor01_numerical_orbit_sketch/results/nor09_dual_history.json'
+      - '.github/workflows/nor09-dual-history.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-captured-history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source-locked capture clocks, rational contraction and finite label gap
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor09_dual_history -v
+      - name: Produce certified two-anchor all-tail error estimates
+        run: python research/nor01_numerical_orbit_sketch/nor09_dual_history.py --check --out /tmp/nor09_dual_history.json
+      - name: Independently recompute rational compression gate
+        run: |
+          python - <<'PY'
+          import json
+          from fractions import Fraction as Q
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nor09_dual_history.json').read_text())
+          assert r['schema']=='nor09.certified.two_natural_sources.24_step_history.v1'
+          assert r['trained_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['signed_capture_zero_input_steps']==1308
+          assert r['squared_capture_zero_input_steps']==660
+          assert r['required_fixed_width_label_bits']==1
+          assert Q(r['certified_cross_ball_gap_lower_fraction'])>5
+          x={a['extra_24_step_blocks']:a for a in r['rows']}
+          for m in (0,8,16,32,64,96,128,256):
+              row=x[m]
+              R1=Q(row['signed_to_rational_anchor_upper_fraction'])
+              R2=Q(row['squared_to_rational_anchor_upper_fraction'])
+              total=Q(row['two_anchor_clipped_tail_pairwise_error_upper_fraction'])
+              assert total>=2*max(R1,R2)
+              assert Q(row['one_code_cross_basin_additive_error_lower_fraction'])>5
+          assert Q(x[64]['two_anchor_clipped_tail_pairwise_error_upper_fraction'])<Q(12,10**12)
+          assert Q(x[128]['two_anchor_clipped_tail_pairwise_error_upper_fraction'])<Q(4,10**14)
+          for m in (0,16,32,64,96,128):
+              print('NOR09 blocks',m,'signed clock',x[m]['signed_original_zero_input_steps'],
+                    'squared clock',x[m]['squared_original_zero_input_steps'],
+                    'two-anchor max additive tail error',
+                    x[m]['two_anchor_clipped_tail_pairwise_error_upper_float'])
+          print('NOR09 forced one-code cross-basin additive error >',
+                float(Q(r['certified_cross_ball_gap_lower_fraction'])))
+          PY
+      - name: Audit frozen 64/96/128/256-block rational receipt against source files
+        run: python -m research.nor01_numerical_orbit_sketch.nor09_receipt_audit --check
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor09-two-captured-source-history-tail-bounds
+          path: /tmp/nor09_dual_history.json
