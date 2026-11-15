@@ -32,11 +32,13 @@ jobs:
         run: |
           python - <<'PY'
           import json
-          from research.synchronized_mixing_v1.transport_lift import exact_sweep, check_four_slot_spectrum
+          from research.synchronized_mixing_v1.transport_lift import exact_sweep, check_four_slot_spectrum, gauge_intervention_audit
           report = {
               "four_vertex": exact_sweep(2, horizon=16),
               "six_vertex": exact_sweep(3, horizon=3),
               "spectrum": check_four_slot_spectrum(),
+              "gauge_four_vertex": gauge_intervention_audit(2, horizon=10),
+              "gauge_six_vertex": gauge_intervention_audit(3, horizon=3),
           }
           with open("smc02-lift-results.json", "w") as f:
               json.dump(report, f, indent=2)
