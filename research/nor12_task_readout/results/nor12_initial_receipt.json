@@ -1,0 +1,90 @@
+{
+  "schema": "nor12.public_demo_supervised_residual_readout.frozen_first_run.v1",
+  "source_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "frozen_probe_json_sha256": "56101a9a7a7c66991696d71b8a7f5d50362ab8fe73500e431ff30b97f01920ad",
+  "full_result_json_sha256": "a1995f628038ab6bd447c7d4438ee861ca3c10ef90ca5a87c4063bf99811db95",
+  "executed_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43708298739",
+  "workflow_artifact_id": 14159088409,
+  "training": {
+    "train": 96,
+    "dev": 36,
+    "test": 72,
+    "test_unique_feature_tensors": 61,
+    "public_oracle_train_checks": 1536,
+    "readout_heads": 4,
+    "slots_each": 224,
+    "epochs": 200,
+    "lr": 0.025,
+    "ridge": 0.065
+  },
+  "manifests": {
+    "train": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+    "dev": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+    "test": "0058fb02ceb109b7ac36d6f3799c5fd097e247ff6a7ed1c5998420bd4681f545"
+  },
+  "fitted_weight_sha256_by_kind": {
+    "basin": "6bf06c8e3ac95764347305e2a8799e4f849b226c960325171ad92d84913efdb2",
+    "shuffled_basin": "71824d72fdd2e13d188991ca01191e93d786c32e0d8548cd6a32dd49fdc1afcc",
+    "random_feature": "ba966464e1ea45bbdc4110803c9e21bbe4a6cccfd20c92077929462f309df02f",
+    "hidden_only": "7de99766ed69d29054ad6a38a164e4d232c40f9560d70f13b2b7a09b321625ce"
+  },
+  "fixed_development_scales": {
+    "basin": 0.25,
+    "shuffled_basin": 1,
+    "random_feature": 0.5,
+    "hidden_only": 1
+  },
+  "global_development_choice": {
+    "kind": "random_feature",
+    "scale": 0.5,
+    "dev_future_correct": 28,
+    "dev_false_accept": 0,
+    "dev_paid_checks": 103
+  },
+  "heldout_case_counts": {
+    "original": {
+      "future_correct": 42,
+      "false_accept": 6,
+      "paid_checks": 196
+    },
+    "basin": {
+      "future_correct": 44,
+      "false_accept": 5,
+      "paid_checks": 191,
+      "paired_gains": 2,
+      "paired_losses": 0
+    },
+    "shuffled_basin": {
+      "future_correct": 42,
+      "false_accept": 5,
+      "paid_checks": 187,
+      "paired_gains": 4,
+      "paired_losses": 4
+    },
+    "random_feature": {
+      "future_correct": 43,
+      "false_accept": 6,
+      "paid_checks": 188,
+      "paired_gains": 2,
+      "paired_losses": 1
+    },
+    "hidden_only": {
+      "future_correct": 42,
+      "false_accept": 5,
+      "paid_checks": 187,
+      "paired_gains": 4,
+      "paired_losses": 4
+    },
+    "development_selected": {
+      "future_correct": 43,
+      "false_accept": 6,
+      "paid_checks": 188
+    }
+  },
+  "basin_head_case_improvement_caveat": "Both of the two newly correct cases are late_source with the same 9x8 public feature tensor digest dc3ab9200911...; no other family changed future_correct count.",
+  "unmodified_original_model": true,
+  "private_future_used_for_readout_training": false,
+  "private_future_used_for_dev_policy_selection": true,
+  "test_alias_cases_counted_separately": true,
+  "independent_confirmation_completed": false
+}
