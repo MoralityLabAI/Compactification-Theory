@@ -127,3 +127,36 @@ patrickdugan/MathCan/MathCan/PrecisionEntropy.lean.
 
 Any actual trained-model capability or mechanistic-retrodiction result
 will require a new frozen protocol and independent native baselines.
+
+
+## PEF-02: robust, gauge-calibrated and schedule-sensitive history
+
+Follow-on mathematics and exact CPU checks are recorded in
+[PEF02_DERIVATION.md](PEF02_DERIVATION.md) and
+[PEF02_SCHEDULE.md](PEF02_SCHEDULE.md).
+
+For constant k and L>=t>=1, the sharp analog cross-suffix gap is
+g=(2^k-2)*2^(-kt)+2^(-kL). Integer floor quantization at every step
+exactly equals endpoint-only floor quantization for this toy, while
+nearest rounding has an explicit discrepancy.
+
+For a stationary binary Markov source with persistence s, Bayes
+whole-history success max(s,1-s)^(L-t) can be much higher than the
+fair-source baseline even though old-bit interventions with the recent
+suffix fixed have no effect on the readout.
+
+With varying chronological contraction widths k_j, the ordered schedule
+determines the finite readout margins. At L=3 and B=6, schedules
+(2,2,4) and (2,4,2) both retain two bits while their exact gaps
+are 9/256 and 57/256. Schedule (4,2,2) retains all three bits.
+
+Reproduce:
+    python -m unittest discover -s research/precision_entropy_frontier -p 'test_pef02.py' -v
+    python -m unittest discover -s research/precision_entropy_frontier -p 'test_pef02_schedule.py' -v
+    python research/precision_entropy_frontier/pef02.py --suite
+    python research/precision_entropy_frontier/pef02_schedule.py --suite
+
+These are finite affine recurrences, with no measured trained-model
+capability gain. The prospective experiment should compare causal
+history interventions and observational prior probes on frozen looped
+transformer activations with calibrated numerical readouts.
