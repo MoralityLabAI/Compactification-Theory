@@ -26,7 +26,7 @@ class LocalArbTests(unittest.TestCase):
         cert=certified_radius(IdentityNet(),[None],G,{'q':[arb(1)]},3,
                               d,Fraction(1),'1e-4')
         self.assertEqual(cert['certified_displacement_sign'],'positive')
-        self.assertEqual(cert['linear_signed_margin_mid_fp64'],0.0003)
+        self.assertAlmostEqual(cert['linear_signed_margin_mid_fp64'],0.0003,places=12)
         self.assertEqual(cert['rigorous_remainder_upper_arb'],'0')
         self.assertIsNone(cert['rigorous_remainder_log10'])
         self.assertFalse(cert['ln_epsilon_floor_used'])
