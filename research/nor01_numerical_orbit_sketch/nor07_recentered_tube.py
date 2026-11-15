@@ -93,7 +93,8 @@ def recentered_tube(weights, center, radius, length):
     within radius r obeys
 
       delta_j <= ||P[j,0]|| r
-                 + sum_{k<j} ||P[j,k+1]||(e_k+M*delta_k^2/2).
+                 + sum_{k<j} ||P[j,k+1]||*
+                       (e_k+point_J_error_k*delta_k+M*delta_k^2/2).
 
     True product A_j=D(F^j)(x) satisfies
       ||A_j-P[j,0]|| <= sum_{k<j} ||P[j,k+1]||
@@ -115,7 +116,8 @@ def recentered_tube(weights, center, radius, length):
     forcing=[]
     for j in range(1,length+1):
         # All earlier delta values are certified before constructing delta_j.
-        w = [step_e[k]+M*delta[k]*delta[k]/2 for k in range(j)]
+        w = [step_e[k]+point_j_err[k]*delta[k]+M*delta[k]*delta[k]/2
+             for k in range(j)]
         forcing.extend(w[len(forcing):])
         radius_j = norms[(j,0)]*radius + sum(
             (norms[(j,k+1)]*w[k] for k in range(j)), ZERO)
@@ -138,7 +140,8 @@ def recentered_tube(weights, center, radius, length):
     point_delta=[ZERO]
     for j in range(1,length+1):
         dj = sum((norms[(j,k+1)]*
-                  (step_e[k]+M*point_delta[k]*point_delta[k]/2)
+                  (step_e[k]+point_j_err[k]*point_delta[k]+
+                   M*point_delta[k]*point_delta[k]/2)
                   for k in range(j)),ZERO)
         point_delta.append(dj)
     point_center_gap=sqrt_upper(sum(
