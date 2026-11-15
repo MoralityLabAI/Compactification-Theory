@@ -1,0 +1,88 @@
+{
+  "schema": "nor15c.first_independent_feature_fibre_oracle_receipt.v1",
+  "executed_date_utc": "2026-11-15",
+  "first_hosted_ci": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43723763342",
+  "first_artifact_id": 14165597500,
+  "artifact_name": "nor15c-exact-feature-fibre-160-test-80-dev-four-check-ceiling",
+  "full_json_sha256": "11b90206703a3e21c7163435de9f95d6c212cb320bf0a663bc86d0ce4981236e",
+  "full_json_bytes": 205705,
+  "checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "frozen_probe_sha256": "56101a9a7a7c66991696d71b8a7f5d50362ab8fe73500e431ff30b97f01920ad",
+  "train_manifest": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "dev_visible_manifest": "8d89e071e7434c17f3aecea38edb060230f22cdd79e095786860909fc2482719",
+  "test_visible_manifest": "8c00793e53d852c5c70d455a46522635979c83bdb3958e1706a10577b8368689",
+  "shared_model_input_digest": "dc3ab9200911a1c997f12fc1fbb0301db7a7fa814b4185e40737be024b59c02e",
+  "dev_source_cases": 80,
+  "test_source_cases": 160,
+  "distinct_public_visible_source_cases": 240,
+  "shared_model_input_groups": 1,
+  "diagnostic_public_template_checks": 3840,
+  "diagnostic_private_future_grades": 3840,
+  "restricted_policy_orders_exhaustively_evaluated": 43680,
+  "score_fields": [
+    "cases",
+    "future_correct",
+    "false_accept",
+    "abstained",
+    "paid_checks",
+    "verified"
+  ],
+  "original_top4": [
+    3,
+    12,
+    0,
+    7
+  ],
+  "dev_hindsight_top4": [
+    4,
+    15,
+    3,
+    11
+  ],
+  "test_hindsight_top4": [
+    1,
+    10,
+    13,
+    3
+  ],
+  "dev_hindsight_score": [
+    80,
+    25,
+    44,
+    11,
+    168,
+    69
+  ],
+  "test_original_score": [
+    160,
+    30,
+    77,
+    53,
+    387,
+    107
+  ],
+  "test_development_chosen_score": [
+    160,
+    34,
+    94,
+    32,
+    394,
+    128
+  ],
+  "test_hindsight_best_score": [
+    160,
+    49,
+    79,
+    32,
+    368,
+    128
+  ],
+  "public_mask_equivalence_groups": 26,
+  "full_mask_per_pattern_hindsight_correct": 84,
+  "per_case_future_clairvoyant_correct": 160,
+  "fully_ambiguous_public_mask_65535_cases": 41,
+  "fully_ambiguous_public_mask_65535_best_pattern_correct": 6,
+  "future_access_caveat": "Both development-selected and test-hindsight rank orders were selected using withheld future grades; original model policy did not use these labels for fitting.",
+  "population_bound_claimed": false,
+  "conditional_information_proof_claimed": false
+}
