@@ -39,3 +39,19 @@ The preregistered interpretive question is whether the performance ceiling of th
       --out /tmp/nor15c_full.json
 
 The companion CI independently checks all source hashes, reconstructs the exact enumeration from stored masks without calling the original enumeration function, and verifies native original outcomes. The full JSON and SHA-256 will be committed as a separate immutable receipt after the first hosted execution.
+
+
+## Frozen first hosted result
+
+[First successful exhaustive GitHub Actions run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43724030933) reproduced all 40 aliased NOR-15B late_source cases and passed both the independent numeric-mask enumerator and the original-ranking parity assertion. The full 23,205-byte JSON is SHA-256-pinned as \`f2dc2865fca360e4ccb717c0e84cde6fe5c1f4a1bea29111b5b1d250753e5f29\` in [results/nor15c_frozen_receipt.json](results/nor15c_frozen_receipt.json).
+
+| Fixed-order policy on 40 model-identical examples | Future-correct | False accepts | Verified proposals | Paid checks |
+| --- | ---: | ---: | ---: | ---: |
+| Frozen original RRC25 GRU ranking \`[3,12,0,7]\` | 8 | 20 | 28 | 89 |
+| Best of **all 43,680** ordered top-four lists, selected in hindsight \`[7,2,14,12]\` | **15** | 16 | 31 | 95 |
+
+The public verifier had **14 distinct acceptance-mask patterns** among these 40 examples. In **31 cases**, more than one of the 16 candidate templates passed the observed demonstration check. Every case had at least one future-correct candidate when all 16 were examined retrospectively. The full 16-template audit cost 640 additional public checks, while 291 public-accepted candidates incurred retrospective future graders. These charges are entirely separate from the original native four-verification budget.
+
+There were 158 distinct attainable (future-correct count, false-accept count) outcomes among the 43,680 ordered four-candidate rankings. The exact minimum-false-accept frontier is recorded for every achievable correctness count from 0 to 15.
+
+The restricted policy family therefore has a sharp *sample-specific maximum of 15/40 correct* under any fixed top-four, stop-at-first-public-accept rule. The gap from that bound to perfect performance is driven by the interaction between public-template ambiguity, ranking budget, and source-specific future correctness. This cannot be interpreted as a universal limit for adaptive verifiers, models that observe richer public inputs, or policies permitted to continue after a public acceptance. The hindsight optimum uses withheld future labels and remains non-deployable.
