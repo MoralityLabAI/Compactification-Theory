@@ -14,8 +14,10 @@ from selection_cells_exact import (
 )
 from smc11_selection import (
     goal_selection_cases,descriptive_all_token_radii,
-    compose_with_previous,load_smc10_receipt
+    compose_with_previous,load_smc10_receipt,
+    frozen_active_direction_dyadics,
 )
+from smc08_curvature import sae_direction_set
 from smc07_real_sae import fit_sae,split_ids
 from test_smc07_real_sae import Toy
 
@@ -86,6 +88,23 @@ class SAESelectionTests(unittest.TestCase):
                 self.assertIn('negative',case['rays'])
                 self.assertIn('1/5',case['rays']['positive']['guards'])
                 self.assertIsInstance(case['rays']['positive']['guards']['1/50']['top1'],bool)
+
+
+    def test_ray_matches_exact_smc09_normalized_fp64_components(self):
+        # The causal verifier freezes the FP64 dyadics from
+        # sae_direction_set before exact Arb normalization. The geometry
+        # oracle must use precisely those same source dyadics.
+        singular=torch.ones(48,dtype=torch.float64)
+        for pid in self.split['test']:
+            goal=int(torch.where(self.inputs[pid]==0)[0][0])
+            directions,chosen=sae_direction_set(
+                self.sae,self.stage[pid,goal],self.mu,self.std,
+                71,pid,singular)
+            expected=tuple(directions['sae_active'].cpu().tolist())
+            found=frozen_active_direction_dyadics(
+                self.sae,self.std,chosen['active_feature_id'])
+            self.assertEqual(found,expected)
+            self.assertEqual(len(found),48)
 
     def test_all_token_fp64_survey_explicitly_not_exact(self):
         report=descriptive_all_token_radii(self.sae,self.stage,
