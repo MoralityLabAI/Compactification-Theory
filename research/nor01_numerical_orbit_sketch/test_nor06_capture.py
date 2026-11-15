@@ -40,11 +40,11 @@ class VerifiedBasinCapture(unittest.TestCase):
         for _ in range(cap.BLOCK):
             direct=gates(self.weights,direct)[0]
         for true_interval,cnext in zip(direct,d,strict=True):
-            # Axis-aligned direct forward interval must be contained in
-            # the Euclidean radius envelope, which was derived from the
-            # tighter recentered tube and interval Jacobian product.
-            self.assertGreaterEqual(cnext+rr,true_interval.hi)
-            self.assertLessEqual(cnext-rr,true_interval.lo)
+            # Independently sound enclosures of the same true state must
+            # overlap. The direct interval may be looser than the radius
+            # envelope, so full inclusion would be an invalid requirement.
+            self.assertLessEqual(cnext-rr,true_interval.hi)
+            self.assertGreaterEqual(cnext+rr,true_interval.lo)
 
     def test_short_source_capture_does_not_claim_false_success(self):
         r=cap.run(family="signed",max_blocks=2,record_stride=1)
