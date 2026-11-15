@@ -233,3 +233,37 @@ def metric_quotient_observer(
     assert all(lifted[i] == lifted[j] or L * d[i][j] >= 1
                for i in range(n) for j in range(n))
     return k, lifted, components
+
+
+def critical_lipschitz(
+    distance: tuple[tuple[object, ...], ...],
+    edges: Iterable[tuple[int, int]],
+):
+    """Exact positive L threshold for the existence of any binary observer.
+
+    Floyd--Warshall in the (min,max) bottleneck semiring computes
+    rho(u,v) = min_{paths u->v} max_{edge in path} d(edge).
+    Feasibility is L >= max_{tested uv} 1 / rho(u,v), at equality too.
+    Returns Fraction(0) when there are no tested edges.
+    """
+    from fractions import Fraction
+    n = len(distance)
+    ee = check_graph(n, edges)
+    d = [[Fraction(x) for x in row] for row in distance]
+    if any(len(row) != n for row in d):
+        raise ValueError("metric must be square")
+    for i in range(n):
+        for j in range(n):
+            if (d[i][j] < 0 or d[i][j] != d[j][i] or
+                    (i == j and d[i][j] != 0) or
+                    (i != j and d[i][j] == 0)):
+                raise ValueError("metric invalid")
+            for k in range(n):
+                if d[i][j] > d[i][k] + d[k][j]:
+                    raise ValueError("triangle inequality violated")
+    for via in range(n):
+        for i in range(n):
+            for j in range(n):
+                d[i][j] = min(d[i][j], max(d[i][via], d[via][j]))
+    return max((Fraction(1) / d[i][j] for i, j in ee),
+               default=Fraction(0))

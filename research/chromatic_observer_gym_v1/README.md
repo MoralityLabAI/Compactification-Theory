@@ -9,13 +9,15 @@ Inspired by two distinct mathematical mechanisms from the October OpenAI collect
 
 For compact models, the practical question is often which **specific evaluator-relevant distinctions** the latents must preserve. Define a graph with one vertex per synthetic activation state, and an edge for each required distinction. Assign bits to each vertex and require different codes across tested edges.
 
-The direct result proved in [the MathCan theorem note](https://github.com/patrickdugan/MathCan/blob/main/research/compactification/CHROMATIC_OBSERVER_THEOREM.md) is
+The direct result proved in [the MathCan theorem note](https://github.com/patrickdugan/MathCan/blob/feat/coe01-chromatic-observer-20261115/research/compactification/CHROMATIC_OBSERVER_THEOREM.md) is
 
 ```
 min_ordinary_probe_bits(G) = ceil(log2(chromatic_number(G))).
 ```
 
-A separation margin `r` in Hamming distance survives any `r-1` erased readout features, or `t` adversarial bit flips when `r>=2*t+1`. Any graph can use a repeated-color code of width `r*ceil(log2 χ)`, while an exhaustive solver can find smaller codes for finite cases. The stronger **metric-quotient theorem** first identifies all points connected by short metric edges `d(x,y)<1/L`. Tested edges internal to such a component make a binary L-Lipschitz observer impossible. Otherwise the same chromatic formula applies to the quotient evaluator graph. The abstract feature map embeds tested states in a Hilbert star `0,e_1,...,e_n`, and each bit can extend to the entire Hilbert space by a 1-Lipschitz clipped McShane formula. This is a forward-observable result. It does not certify latent-state reconstruction or inverse bi-Lipschitz geometry.
+A separation margin `r` in Hamming distance survives any `r-1` erased readout features, or `t` adversarial bit flips when `r>=2*t+1`. Any graph can use a repeated-color code of width `r*ceil(log2 χ)`, while an exhaustive solver can find smaller codes for finite cases. The stronger **metric-quotient theorem** first identifies all points connected by short metric edges `d(x,y)<1/L`. Tested edges internal to such a component make a binary L-Lipschitz observer impossible. Otherwise the same chromatic formula applies to the quotient evaluator graph. A **critical regularity threshold** follows from the quotient: `rho(u,v)` is the minimum, over all paths from u to v, of the largest metric jump on that path. The smallest feasible positive Lipschitz constant is exactly `L_* = max_(uv in E) 1/rho(u,v)`, including equality. Above this value, the minimum bit width is a nonincreasing staircase; it changes only at reciprocals of sampled pair distances. `critical_lipschitz` computes the threshold in exact rational arithmetic using a min/max Floyd-Warshall recurrence.
+
+The abstract feature map embeds tested states in a Hilbert star `0,e_1,...,e_n`, and each bit can extend to the entire Hilbert space by a 1-Lipschitz clipped McShane formula. This is a forward-observable result. It does not certify latent-state reconstruction or inverse bi-Lipschitz geometry.
 
 ## Reproduction
 
@@ -26,7 +28,7 @@ python -m unittest discover -s research/chromatic_observer_gym_v1 -p 'test_*.py'
 python research/chromatic_observer_gym_v1/observer_codes.py
 ```
 
-The test suite has eight regression methods, including complete enumeration of all 64 undirected simple graphs on four vertices, exact chromatic palette bounds, independent Hamming-erasure/flip checks, exact rational metric-quotient checks and 300 deterministic input-pair Lipschitz extension checks.
+The test suite has eleven regression methods, including complete enumeration of all 64 undirected simple graphs on four vertices, exact chromatic palette bounds, independent Hamming-erasure/flip checks, exact rational metric-quotient and bottleneck-threshold checks (including 64 evaluator graphs) and 300 deterministic input-pair Lipschitz extension checks.
 
 | Evaluator interface | States | χ | Bare bit width | Margin 3 width |
 | --- | ---: | ---: | ---: | ---: |
@@ -49,5 +51,5 @@ The present run contains no model training, causal interventions, source-paper p
 - OpenAI source repository pin: `openai/math@4eaee87548250b2682affda7d05d947c05554bae`.
 - Application starting commit: `MoralityLabAI/Compactification-Theory@28d8186d2393f0f80d0d4302e86b0bb82ef61190`.
 - Pure math starting commit: `patrickdugan/MathCan@fca46bfb3430ac85ffca16f6a6a83bb0b0231e41`.
-- Local test environment: Python 3.13 standard library; `python -m unittest discover` eight tests passed on 2026-11-15.
-- Lean kernel target: v4.35.0 (repository pinned), build audited in separate MathCan CI; current local container has no Lean compiler, so no claim of local Lean kernel verification before CI.
+- Local test environment: Python 3.13 standard library; `python -m unittest discover` eleven tests passed on 2026-11-15.
+- Lean kernel target: v4.35.0 (repository pinned), the COE-01 Lean workflow passed on GitHub Actions at MathCan commit `c55e66d3325796c53db1dcdbe9e5c284e8f569d2`; only the finite lemmas in that module are Lean certified. General graph and Lipschitz theorems have the written proofs in MathCan.

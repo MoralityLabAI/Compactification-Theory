@@ -7,11 +7,13 @@ import unittest
 try:
     from .observer_codes import (check_graph, optimal_coloring, minimum_observer,
         validate_code, hamming, complete_edges, clique_bound_holds,
-        extend_probe, vertex_point, metric_quotient_observer)
+        extend_probe, vertex_point, metric_quotient_observer,
+        critical_lipschitz)
 except ImportError:
     from observer_codes import (check_graph, optimal_coloring, minimum_observer,
         validate_code, hamming, complete_edges, clique_bound_holds,
-        extend_probe, vertex_point, metric_quotient_observer)
+        extend_probe, vertex_point, metric_quotient_observer,
+        critical_lipschitz)
 
 
 class TestChromaticObserver(unittest.TestCase):
@@ -121,6 +123,53 @@ class TestChromaticObserver(unittest.TestCase):
             metric_quotient_observer(((F(0), F(1), F(3)),
                                      (F(1), F(0), F(1)),
                                      (F(3), F(1), F(0))), [], 1)
+
+    def test_exact_bottleneck_feasibility_threshold(self):
+        from fractions import Fraction as F
+        xs = [F(0), F(3, 5), F(6, 5)]
+        d = tuple(tuple(abs(a - b) for b in xs) for a in xs)
+        self.assertEqual(critical_lipschitz(d, [(0, 2)]), F(5, 3))
+        self.assertEqual(critical_lipschitz(d, []), 0)
+        with self.assertRaises(ValueError):
+            metric_quotient_observer(d, [(0, 2)], F(49, 30))
+        k, words, _ = metric_quotient_observer(d, [(0, 2)], F(5, 3))
+        self.assertEqual(k, 1)
+        self.assertNotEqual(words[0], words[2])
+
+    def test_chromatic_staircase_monotone(self):
+        from fractions import Fraction as F
+        # Merging the endpoints of P4 creates a triangle, raising χ from 2
+        # to 3. Increasing the Lipschitz budget separates those endpoints.
+        xs = [F(0), F(3), F(6), F(1, 5)]
+        d = tuple(tuple(abs(a - b) for b in xs) for a in xs)
+        edges = [(0, 1), (1, 2), (2, 3)]
+        k1, _, comps1 = metric_quotient_observer(d, edges, 1)
+        k2, _, comps2 = metric_quotient_observer(d, edges, 5)
+        self.assertEqual((k1, k2), (2, 1))
+        self.assertEqual(comps1[0], comps1[3])
+        self.assertNotEqual(comps2[0], comps2[3])
+        ks = [metric_quotient_observer(d, edges, F(L))[0] for L in (1, 2, 4, 5, 6)]
+        self.assertEqual(ks, sorted(ks, reverse=True))
+
+    def test_bottleneck_threshold_against_64_evaluator_graphs(self):
+        from fractions import Fraction as F
+        from itertools import combinations
+        xs = [F(0), F(2, 5), F(5, 7), F(13, 10)]
+        d = tuple(tuple(abs(a - b) for b in xs) for a in xs)
+        pairs = tuple(combinations(range(4), 2))
+        for mask in range(1 << len(pairs)):
+            edges = tuple(edge for i, edge in enumerate(pairs) if (mask >> i) & 1)
+            threshold = critical_lipschitz(d, edges)
+            for L in (F(1, 10), F(2, 3), F(1), F(3), F(5), F(20), threshold):
+                if L == 0:
+                    continue  # E=empty has threshold zero, and positive probes are defined
+                if L < threshold:
+                    with self.assertRaises(ValueError):
+                        metric_quotient_observer(d, edges, L)
+                else:
+                    k, words, _ = metric_quotient_observer(d, edges, L)
+                    self.assertLessEqual(k, 2)
+                    self.assertTrue(validate_code(4, edges, k, words))
 
     def test_invalid_graph_rejected(self):
         with self.assertRaises(ValueError):
