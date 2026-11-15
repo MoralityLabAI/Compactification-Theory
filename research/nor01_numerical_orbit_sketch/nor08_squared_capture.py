@@ -18,6 +18,13 @@ import json
 from fractions import Fraction as Q
 from hashlib import sha256
 from pathlib import Path
+import sys
+
+ROOT=Path(__file__).resolve().parents[2]
+LOCAL=Path(__file__).resolve().parent
+for directory in (ROOT,LOCAL):
+    if str(directory) not in sys.path:
+        sys.path.insert(0,str(directory))
 
 from research.rrc_compactification import bench25
 from research.nor01_numerical_orbit_sketch import nor06_capture as capture
