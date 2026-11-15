@@ -15,6 +15,19 @@ permissions:
   contents: read
 
 jobs:
+  frozen-evidence-original-byte-hash:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently audit original source-controlled full evidence against frozen SHA and all orderings
+        run: |
+          python research/nor15c_verifier_alias/audit_result.py --check \
+            --full research/nor15c_verifier_alias/results/nor15c_full.json
+
   exhaustive-policy-unit-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 8
