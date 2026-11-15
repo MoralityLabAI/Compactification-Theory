@@ -3,6 +3,7 @@ import json
 import random
 import unittest
 from itertools import combinations
+from fractions import Fraction
 from pathlib import Path
 from transport_lift import all_matchings,relabel
 from approx_geometry import (infer_model_shape,bounded_cover,SearchBudgetExhausted,
@@ -60,7 +61,6 @@ class SAEGeometryTests(unittest.TestCase):
             for frame_seed in (43,77,91):
                 truth=hidden_fixture(cat,frame_seed)
                 train_ids,test_ids=calibration_cohort(cat,truth)
-                inputs=[random.Random(frame_seed+29+991).choice(train_ids)]
                 rng=random.Random(frame_seed+29+991)
                 inputs=[rng.choice(train_ids) for _ in range(12)]
                 data=tuple((i,abstract[predict(cat,truth,i)]) for i in inputs)
@@ -68,9 +68,9 @@ class SAEGeometryTests(unittest.TestCase):
                 self.assertEqual(len(version),1)
                 predicted=tuple(predict(cat,version[0],i) for i in test_ids)
                 actual=tuple(abstract[predict(cat,truth,i)] for i in test_ids)
-                tpr=sum(a==b for a,b in zip(predicted,actual))/len(test_ids)
-                fpr=sum(a==abstract[g] for a in predicted for g in (12,13,14))/(3*len(test_ids))
-                self.assertEqual(str(__import__('fractions').Fraction(1+__import__('fractions').Fraction(sum(a==b for a,b in zip(predicted,actual)),len(test_ids))-__import__('fractions').Fraction(sum(a==abstract[g] for a in predicted for g in (12,13,14)),3*len(test_ids)))/2),expected)
+                tpr=Fraction(sum(a==b for a,b in zip(predicted,actual)),len(test_ids))
+                fpr=Fraction(sum(a==abstract[g] for a in predicted for g in (12,13,14)),3*len(test_ids))
+                self.assertEqual(str((1+tpr-fpr)/2),expected)
 
     def test_common_feature_gauge_scramble_preserves_fitted_incidence(self):
         data=self.scores['103'][:12]
@@ -89,6 +89,55 @@ class SAEGeometryTests(unittest.TestCase):
             candidate,margin=decode_soft(rec['geometry'],row)
             self.assertGreater(margin,1)
             self.assertEqual(len(candidate),3)
+
+    def test_twelve_state_single_swap_can_pass_with_wrong_geometry(self):
+        states=tuple(all_matchings(range(6)))
+        edges=tuple(combinations(range(6),2))
+        masks=tuple(tuple(int(e in m) for e in edges) for m in states)
+        selected=[i for i in range(15) if i not in (0,1,5)]
+        true_rows=[masks[i] for i in selected]
+        correct=bounded_cover(true_rows)
+        alternative=list(true_rows)
+        j=selected.index(12)
+        changed=list(alternative[j]);changed[12],changed[0]=0,1
+        alternative[j]=tuple(changed)
+        changed_geometry=bounded_cover(alternative)
+        self.assertNotEqual(set(map(frozenset,correct['vertex_stars'])),
+                            set(map(frozenset,changed_geometry['vertex_stars'])))
+
+    def test_thirteen_distinct_states_detect_single_swap(self):
+        states=tuple(all_matchings(range(6)))
+        edges=tuple(combinations(range(6),2))
+        masks=tuple(tuple(int(e in m) for e in edges) for m in states)
+        selected=[i for i in range(15) if i not in (0,1)]
+        original=[masks[i] for i in selected]
+        self.assertEqual(bounded_cover(original)['n_automorphisms'],720)
+        j=selected.index(12)
+        changed=list(original);row=list(changed[j]);row[12],row[0]=0,1
+        changed[j]=tuple(row)
+        with self.assertRaises(ValueError):bounded_cover(changed)
+
+    def test_aggregate_records_all_abstentions_and_controls(self):
+        agg=json.loads((HERE/'smc06_full_10seed_results.json').read_text())
+        runs=agg['runs']
+        self.assertEqual(len(runs),10)
+        self.assertEqual(sum(r['geometry_status']=='certified' for r in runs),6)
+        self.assertEqual(sum(r['geometry_status']=='abstain' for r in runs),4)
+        self.assertEqual(sum(r['geometry_status']=='certified' and not r['repairs'] for r in runs),5)
+        self.assertEqual(agg['aggregate']['conditional_accuracy_mean'],'22/27')
+        self.assertTrue(all(r['geometry_status']=='abstain' for r in agg['anchor_ablation']))
+        for item in agg['controls']:
+            self.assertFalse(item['controls']['pca_absolute_15']['accepted'])
+            self.assertFalse(item['controls']['untrained_relu_15']['accepted'])
+
+    def test_frozen_checkpoint_dimensions(self):
+        check=json.loads((HERE/'sae_seed103_checkpoint.json').read_text())
+        self.assertEqual(check['steps'],9000)
+        self.assertEqual(len(check['encoder_weight']),15)
+        self.assertEqual(len(check['encoder_weight'][0]),40)
+        self.assertEqual(len(check['decoder_weight']),40)
+        self.assertEqual(len(check['decoder_weight'][0]),15)
+        self.assertEqual(len(check['scores_15_by_15']),15)
 
     def test_bounded_search_fails_closed(self):
         rows=top_cardinality(self.scores['103'][:12])
