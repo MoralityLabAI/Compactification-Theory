@@ -52,6 +52,28 @@ def audit():
     assert odds==Q(r["posthoc_squared_second_enrichment_odds_ratio"])==7
     p=exact_p_tail(72,27,12,9)
     assert p==Q(r["posthoc_one_sided_hypergeometric_p_fraction"])
+    # These raw case-level counts overstate effective sample size:
+    # 12 late_source cases share one exact 9x8 source feature tensor and
+    # one exact 12D initial hidden state. Count their unique input once.
+    diversity=r["effective_input_diversity"]
+    fam=diversity["source_family_feature_counts"]
+    assert diversity["unique_public_feature_tensors"]==61
+    assert diversity["unique_native_initial_hidden_states"]==61
+    assert fam["late_source"]=={"visible":12,"features":1,"hidden":1}
+    assert all(fam[name]["features"]==12 and fam[name]["hidden"]==12
+               for name in fam if name!="late_source")
+    assert diversity["deduplicated_feature_unit_count"]==61
+    dedup_first=total_first-(matrix["late_source"]["first"]-1)
+    dedup_second=total_second
+    assert diversity["deduplicated_mode_totals"]=={"first":34,"second":27}
+    assert (dedup_first,dedup_second)==(34,27)
+    dedup_correct=accurate-11
+    assert Q(dedup_correct,61)==Q(diversity["deduplicated_squared_vs_rest_rule_accuracy"])
+    assert Q(diversity["deduplicated_majority_family_baseline_accuracy"])==Q(49,61)
+    dedup_odds=Q(9*(42-11),3*18)
+    assert dedup_odds==Q(diversity["deduplicated_squared_second_enrichment_odds_ratio"])==Q(31,6)
+    dedup_p=exact_p_tail(61,27,12,9)
+    assert dedup_p==Q(diversity["deduplicated_posthoc_one_sided_hypergeometric_p_fraction"])
     assert r["retraining_performed"] is False
     assert r["source_future_labels_used"] is False
     assert r["source_to_second_basin_rational_capture_certified_by_this_probe"] is False
@@ -63,7 +85,11 @@ def audit():
             "intervention_label_switches":2,
             "posthoc_suggestive_squared_enrichment_odds_ratio":float(odds),
             "posthoc_unadjusted_fisher_right_tail":float(p),
-            "scope":"frozen empirical contingency, exploratory post-hoc association; source basin membership separate"}
+            "effective_unique_feature_inputs":61,
+            "effective_fixed_rule_accuracy":float(Q(40,61)),
+            "effective_majority_baseline":float(Q(49,61)),
+            "feature_deduped_exploratory_one_sided_tail":float(dedup_p),
+            "scope":"72 visible-distinct cases have 61 unique feature tensors; exploratory post-hoc association, not a formal source-identity claim"}
 
 
 def main():
