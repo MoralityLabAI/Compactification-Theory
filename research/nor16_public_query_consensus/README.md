@@ -44,3 +44,38 @@ The central capability question is whether prospective query-output consensus im
       --out /tmp/nor16_full.json
 
 The first full hosted CI run will emit a source-locked JSON receipt. This protocol precedes that execution; no NOR-16 result is claimed at registration time.
+
+
+## Frozen first executed results
+
+The first independent 288-source evaluation passed hosted CI [run 43727133397](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43727133397), artifact 14166259770. Its original JSON has SHA-256
+
+    b1ca49c9fb0d95510f020d4318d29a10abc25759fa110370eef967d538a20cef
+
+at **1,331,006 bytes**, pinned by [results/nor16_first_frozen_receipt.json](results/nor16_first_frozen_receipt.json). A separate [independent full-result arithmetic auditor](receipt_audit.py) reconstructed all 1,440 policy decisions, 4,608 candidate prediction digests, 140 primary observation-collision witnesses, the four exact paired sign tests and original source manifests in [green replay CI run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43727969329). No fitted parameters or seed-selection changes occurred between registration and evaluation.
+
+### Primary: 192 distinct public late_source cases with one original GRU input tensor
+
+| Candidate ranking and check policy | Future-correct /192 | False accepts /192 | Paid exact public demo checks | Additional simulated query candidate continuations |
+| --- | ---: | ---: | ---: | ---: |
+| Frozen original top-four | 33 | 99 | 466 | 0 |
+| Consensus output-group top-four | 36 | 96 | 465 | 3,072 |
+| Matched public-query-hash control top-four | 32 | 101 | 456 | 3,072 |
+| Full sixteen-check original rank among accepted | 78 | 114 | 3,072 | 3,072 |
+| Full sixteen-check uniform-posterior MAP among accepted | **80** | 112 | 3,072 | 3,072 |
+
+The equal-budget four-check consensus gained 3 cases with no losses relative to the original (unadjusted exact paired sign p=0.25). Relative to the hash control it gained 29 and lost 25 (p≈0.6835). **Its preregistered two-control positive criterion failed.** Compared at equal *sixteen-check* verification cost, the conditional MAP gained 3 cases and lost 1 relative to original-rank first acceptance (p=0.625). The apparent +47 future-correct gain for full-mask MAP relative to original four-check (47 paired gains, zero losses, p≈1.4×10^-14) consumes twelve extra exact public checks per case and therefore tests a broader inference budget.
+
+The original sixteen-check order reached 78/192. The posterior-MAP sixteen-check policy achieved 80/192 with 112 incorrect accepted proofs. More public checks recover additional exact public accepted candidates, but **a public acceptance remains an unreliable certificate for held-out future correctness**. The posterior-MAP arms use 16 full query-input candidate continuations plus four cached unary transforms per source, in addition to their template-check budgets.
+
+### Counterfactual public information limit
+
+Of 192 distinct late_source public observations, **140 contain at least two programs** that satisfy both complete degree-192 demonstration pairs and predict *different* query outputs on exactly the same degree-256 public query input. Every pair is an explicit counterfactual construction in which both possible worlds have identical public observations and different latent future answers. This is an observation-level identifiability obstruction for those constructed worlds; it does not require an information-theoretic estimator.
+
+The 192 cases yielded **27 distinct exact public acceptance masks**; 59 cases publicly accepted all sixteen candidate templates. Under the declared uniform prior over accepted U/V templates, the sum of individually optimal posterior expected future-correct probabilities was exactly **78.9375**, close to the realized 80/192 for the sixteen-check MAP arm. This is a conditional expectation under the synthetic generator's prior, not a separate held-out success count or a confidence interval.
+
+### Secondary input-family checks
+
+Among 48 signed cases, the frozen and consensus four-check policies each recovered 37 future-correct; among 48 rational cases each recovered 9. Both sixteen-check policies recovered all 96 of these nonlate sources, with zero false accepts. The matched hash control recovered only 16 signed cases, illustrating the value of the frozen rank as the default on nonlate inputs.
+
+The general interpretive limit is now sharper: a recurrence with a collapsed hidden representation can still be assisted by richer public verification, while full public observations can leave different latent programs observationally equivalent. A source-independent richer observation benchmark and explicitly risk-sensitive abstention rule would be necessary for stronger practical verification claims. **MathCan [NOR-16 #88](https://github.com/patrickdugan/MathCan/pull/88)** kernel-proves finite uniform-prior mass and complete-public-collision bounds.
