@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "seed": 15112026,
+  "counts": {
+    "jet_dimension": 12,
+    "translation_group_identity": 240,
+    "corrected_jet_invariant": 1440,
+    "correction_alphabet": 1440,
+    "integer_neighbor_transport": 1440,
+    "base4_digit_exact": 36868,
+    "sentinel_digit_robustness": 36868,
+    "no_sentinel_counterexample": 1,
+    "old_sign_counterexample": 1,
+    "bounded_lookup_nodes": 126,
+    "bounded_lookup_interpolation": 360,
+    "lookup_parameter_accounting": 6,
+    "triangular_square_error": 774,
+    "multiplication_error": 600,
+    "shifted_grid_coverage": 1080,
+    "median_stitching": 1080,
+    "quadratic_packed_stream": 1,
+    "quadratic_uniform_grid": 1025
+  },
+  "total_assertions": 83362,
+  "counterexamples": {
+    "no_sentinel_robustness": {
+      "code": "1/2",
+      "perturbation": "-1/1048576",
+      "decoded": "65535/65536"
+    },
+    "wrong_sign": {
+      "t": 1,
+      "u": 0,
+      "v": 0,
+      "r": 1,
+      "old_error": -2,
+      "correct_error": 0
+    }
+  },
+  "quadratic": {
+    "points": 1025,
+    "h": "1/32",
+    "bits": 248,
+    "stored_fraction_bits": 498,
+    "maximum_error": "1/1024",
+    "bound": "1/1024"
+  },
+  "source_sha256": "fc033343ede0f7294fba88b02d912e8438e5a552182bd85166d5f54981d55f25",
+  "scope": "New finite exact-arithmetic controls, not a universal theorem or historical reproduction"
+}

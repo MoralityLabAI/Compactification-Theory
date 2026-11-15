@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "commands": [
+    {
+      "name": "final_quantization_controls",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\Compactification-Theory\\research\\quantization\\quantization_controls.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "final_auditor_tests",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\MathCan\\research\\oxilean_v015",
+        "-p",
+        "test_audit_export.py",
+        "-v"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "native_scope": "Previously successful unchanged Lean 4.35 and leanchecker runs; no pinned 4.32 replay",
+  "controls": {
+    "verified": 73,
+    "unsupported": 0,
+    "rejected": 32
+  },
+  "assertions": 83362,
+  "auditor_tests": 5
+}
