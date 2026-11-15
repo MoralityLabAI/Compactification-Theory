@@ -1,3 +1,5 @@
+**NOR-02:** [Noncommuting matrix-valued recurrence filters and curvature-aware Lp history sketches](research/nor01_numerical_orbit_sketch/README.md#nor-02-matrix-valued-curvature-filter-15-november-2026) extend NOR-01 to 128-to-24 states with exact rational disk geometry, a (t^{-r/2}) spectral-tail improvement, and the [MathCan filtered-orbit theorem](https://github.com/patrickdugan/MathCan/tree/research/nor01-orbit-stitching-20261115/research/nor02). Ten additional exact/empirical controls isolate the linear surrogate from trained-model claims.
+
 **NOR-01:** [Numerical-range-gated recurrent Lp orbit sketches](research/nor01_numerical_orbit_sketch/README.md) combine OpenAI Math #094 and #325 with an exact rational nonnormal tail gate, a reproducible 64-to-24 Gaussian L4 sketch, seven deterministic checks, and the [MathCan NOR-01 stitching theorem](https://github.com/patrickdugan/MathCan/pull/45). The finite pilot is a linear surrogate; analytic transfer to trained loops remains open.
 
 # Compactification Theory
