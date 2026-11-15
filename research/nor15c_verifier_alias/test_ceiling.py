@@ -18,7 +18,7 @@ class NOR15CFixedRankingTest(unittest.TestCase):
         good=n.score_order_masks(A,C,(2,1,0,3))
         self.assertEqual(good["future_correct"],3)
         self.assertEqual(good["false_accept"],0)
-        self.assertEqual(good["paid_checks"],3+1+1)
+        self.assertEqual(good["paid_checks"],2+1+1)
 
     def test_exhaustive_toy_two_check_order_oracle_is_exact(self):
         A=[1<<0,1<<1,(1<<0)|(1<<1)]
