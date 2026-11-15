@@ -1,0 +1,68 @@
+name: NOR-06B exact rational basin capture
+
+on:
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor06_capture.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor06_capture.py'
+      - '.github/workflows/nor06-rational-capture.yml'
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor06_capture.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor06_capture.py'
+      - '.github/workflows/nor06-rational-capture.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  interval-and-mutation-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Source-locked interval soundness and independent enclosure overlap
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor06_capture -v
+
+  finite-basin-audit:
+    needs: interval-and-mutation-controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recaptured 144-block signed case with rational interval propagation
+        run: python research/nor01_numerical_orbit_sketch/nor06_capture.py --family signed --max-blocks 144 --stride 6 --check --out /tmp/nor06_signed.json
+      - name: Independent squared-family failure control through 12 blocks
+        run: python research/nor01_numerical_orbit_sketch/nor06_capture.py --family squared --max-blocks 12 --stride 2 --check --out /tmp/nor06_squared.json
+      - name: Audit proof boundary and report measured-vs-certified status
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from fractions import Fraction as Q
+          for family in ('signed','squared'):
+              r=json.loads(Path(f'/tmp/nor06_{family}.json').read_text())
+              assert r['checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+              assert r['schema']=='nor06.rational_source_basin_capture.v1'
+              witness=r['certified_capture']
+              if witness:
+                  assert Q(witness['center_distance_upper_fraction'])+Q(witness['tracked_error_radius_fraction'])<=Q(r['nor04_ball_radius_fraction'])
+              print('NOR06B',family,'certified',bool(witness),
+                    'processed_blocks',r['actual_processed_blocks'],
+                    'final_center_distance_upper',r['sampled_trace'][-1]['center_distance_upper'],
+                    'final_error_radius_upper',r['sampled_trace'][-1]['tracked_error_radius_upper'],
+                    'enclosure_sha256',r['exact_trace_sha256'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor06-certified-capture-or-explicit-failure
+          path: |
+            /tmp/nor06_signed.json
+            /tmp/nor06_squared.json

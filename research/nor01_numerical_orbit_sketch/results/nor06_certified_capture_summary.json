@@ -1,0 +1,43 @@
+{
+  "schema": "nor06.rational_capture_summary.v1",
+  "execution_date_utc": "2026-11-15",
+  "source_paper_pair": [
+    "OpenAI Math #094",
+    "OpenAI Math #325"
+  ],
+  "proof_context": [
+    "NOR-04 nonlinear invariant ball",
+    "NOR-05 period-one fixed point",
+    "MathCan NOR-06 capture theorem"
+  ],
+  "source_commit": "ed1b37b5d3d3723dda12df32441e35e48eb49a52",
+  "successful_workflow_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43695479529",
+  "workflow_artifact_id": 14154164871,
+  "original_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "fixed_ball_radius_fraction": "1/100000000000",
+  "signed": {
+    "family": "signed",
+    "source_case_identifier_sha256": "6f0b99b465b751b7efe7e1ac25a229c3d30871d8df1717569d11a9c0586d19ef",
+    "public_features_sha256": "2ba283d8a67e2aeb4d7c6e8920a11d93723df88a921342171036b267902466da",
+    "public_visible_sha256": "7c109229bcec10496a6251ab43ffbf778c35122d22ae112bcb00b52d4c15e7cd",
+    "certified": true,
+    "block_stride": 12,
+    "block_index": 109,
+    "zero_input_steps": 1308,
+    "center_distance_upper_fraction": "957509766970587967489/100000000000000000000000000000000",
+    "trajectory_error_upper_fraction": "9579/1562500000000000000000000000000",
+    "exact_ball_clearance_fraction": "8498046605882283891/20000000000000000000000000000000",
+    "exact_trace_sha256": "58a698820790ea017b285ce9bf6e086f5042d7b2b20233cbbd9f4b008b1954bd"
+  },
+  "squared": {
+    "family": "squared",
+    "source_case_identifier_sha256": "d9a5d95bf12d461ad99206473092633970610d83625c90118adfa5d452da0748",
+    "public_features_sha256": "5dbf32c0ddf600b8d45dd5ff703caac5fcb46f2cf4194450e2f5e77276a1a84e",
+    "certified_capture": false,
+    "blocks_checked": 12,
+    "center_distance_upper_fraction": "502520549934657798270382763569491/100000000000000000000000000000000",
+    "trajectory_error_upper_fraction": "6132611/100000000000000000000000000000000",
+    "exact_trace_sha256": "17a2ab54fa63d07fb99237b8aaf34228c0c7b7d86c34fdbbeca9e6daffc055a6"
+  },
+  "scope": "Exact rational shadowing of original trained zero-input GRU, given public signed-family RRC25 nine-row features; no claim of task recovery gain, global basin volume, or squared family never entering."
+}

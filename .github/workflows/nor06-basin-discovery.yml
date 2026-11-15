@@ -1,0 +1,50 @@
+name: NOR-06 trained RRC25 input-conditioned basin discovery
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor06_basin_survey.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor06_basin_survey.py'
+      - '.github/workflows/nor06-basin-discovery.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor06_basin_survey.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor06_basin_survey.py'
+      - '.github/workflows/nor06-basin-discovery.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  locked-survey:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit source lock, nonleakage, and deterministic native GRU replay
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor06_basin_survey -v
+      - name: Measure six-family float64 basin-entry horizon without fitting
+        run: python research/nor01_numerical_orbit_sketch/nor06_basin_survey.py --check --max-steps 4800 --out /tmp/nor06_survey.json
+      - name: Print every family and mark precise certificate boundary
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nor06_survey.json').read_text())
+          assert r['mode']=='FP64 discovery only; basin membership remains unverified'
+          assert r['limits']['certified_entry'] is False
+          assert r['checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          for row in r['rows']:
+              print(row['family'], 'float64_first_entry',row['first_measured_ball_entry_step'],
+                    'initial_center_distance',row['initial_center_distance'],
+                    'minimum_center_distance',row['smallest_measured_center_distance'])
+          print('FLOAT64 DISCOVERY HITS',r['found_measured_entries'],'/6; certified entries: 0')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor06-public-inputs-discovery-not-certified
+          path: /tmp/nor06_survey.json
