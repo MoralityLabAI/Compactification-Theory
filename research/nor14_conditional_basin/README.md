@@ -90,7 +90,9 @@ Status: experimental protocol and runner are committed for independent GitHub Ac
 
     57b4b82550dce6228356dae924264a95f38d66b3974c038b574eadcad9f7df2d
 
-Its compact pinned receipt is [results/nor14_first_full_receipt.json](results/nor14_first_full_receipt.json), with an [independent arithmetic auditor](receipt_audit.py) for the published full artifact. The earlier protocol, architecture and seed declarations above predate inspection of these outcomes.
+The complete output is now preserved in Git as [results/nor14_full.zip](results/nor14_full.zip), holding the original **1,380,694-byte JSON**. Its decompressed SHA-256 is verified against the pinned receipt in CI, including 3,456 native decision records and 20 paired contrasts.
+
+Its compact pinned receipt is [results/nor14_first_full_receipt.json](results/nor14_first_full_receipt.json), with an [independent arithmetic auditor](receipt_audit.py) that accepts `--archive research/nor14_conditional_basin/results/nor14_full.zip`. The earlier protocol, architecture and seed declarations above predate inspection of these outcomes.
 
 | Readout | Primary future-correct /240 nonlate unique inputs | All future-correct /288 | All false accepts | All inference checks |
 | --- | ---: | ---: | ---: | ---: |
