@@ -9,7 +9,7 @@ import unittest
 import torch
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from selection_cells_exact import (
-    affine_normalized_encoder,topk_selection_certificate,strict_guard,
+    affine_normalized_encoder,topk_selection_certificate,topk_ray_certificate,strict_guard,
     sharp_boundary_displacement,scores_at
 )
 from smc11_selection import (
@@ -55,6 +55,20 @@ class SAESelectionTests(unittest.TestCase):
         vals=scores_at(rows,ofs,w)
         self.assertEqual(vals[1],vals[2])
 
+
+    def test_forward_ray_sharp_bound_and_polarity(self):
+        rows=((Q(1),),(Q(-1),),(Q(2),))
+        offs=(Q(2),Q(1),Q(0))
+        base=topk_selection_certificate(rows,offs,(0,),k=2)
+        forward=topk_ray_certificate(base,rows,(Q(1),))
+        reverse=topk_ray_certificate(base,rows,(Q(-1),))
+        self.assertEqual(forward['top1']['radius_squared'],Q(4))
+        self.assertEqual(reverse['top1']['radius_squared'],Q(1,4))
+        self.assertEqual(forward['topk']['radius_squared'],Q(1,9))
+        self.assertEqual(reverse['topk']['radius_squared'],Q(4))
+        self.assertTrue(strict_guard(forward['top1']['radius_squared'],Q(4,5)))
+        self.assertFalse(strict_guard(reverse['top1']['radius_squared'],Q(4,5)))
+
     def test_toy_trained_sae_selection_pipeline_abstains_on_ties(self):
         cases=goal_selection_cases(self.stage,self.inputs,self.sae,
                                     self.mu,self.std,self.split['test'],71)
@@ -68,6 +82,11 @@ class SAESelectionTests(unittest.TestCase):
                 self.assertGreater(case['top4_radius_approx'],0)
                 self.assertTrue(case['budget_guards']['0']['top1'])
                 self.assertTrue(case['budget_guards']['0']['top4'])
+                self.assertIn('positive',case['rays'])
+                self.assertIn('negative',case['rays'])
+                self.assertIn('1/5',case['rays']['positive']['guards'])
+                self.assertTrue(case['rays']['positive']['guards']['1/50']['top1'] or
+                                not case['rays']['positive']['guards']['1/50']['top1'])
 
     def test_all_token_fp64_survey_explicitly_not_exact(self):
         report=descriptive_all_token_radii(self.sae,self.stage,
