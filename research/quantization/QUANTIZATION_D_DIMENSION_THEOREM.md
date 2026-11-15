@@ -6,7 +6,10 @@ real inputs in the cube, with explicit circuit and parameter accounting.
 `spatial_circuit.py` generates the layered ReLU circuits and exact resource
 certificates. Its finite regression tests are implementation checks, not the
 proof of the real-domain assertion. The full analytic/network theorem is not
-formalized in Lean. The scaled-integer clipping and capture identities are.
+formalized in Lean. The integer components and the ordered-field safe-cell
+address/routing/clipped-capture semantics are now proved and independently
+replayed. See LEAN_FORMALIZATION_STATUS.md for exact scope and remaining
+analytic, decoder, and compiler obligations.
 
 ## 1. Parameters and statement
 
