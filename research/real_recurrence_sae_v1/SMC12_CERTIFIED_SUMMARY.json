@@ -1,0 +1,118 @@
+{
+  "schema": "SMC-12/source-locked-48-exact-cones-and-288-dictionary-controls-v1",
+  "date": "2026-11-15",
+  "source_model": "independently pretrained 44,001-parameter TRM-inspired Sudoku recurrence",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "original_source_same_fit_receipt": {
+    "run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721281348",
+    "artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721281348/artifacts/14164917026",
+    "archive_zip_sha256": "1b62914ba7fecd91614eab36c1f799e2fc0d6d4e3279d0e1ac03a0ee5ee2a2fb",
+    "joint_full_json_sha256": "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087",
+    "frozen_sae_file_sha256": {
+      "71": "00542304e1f15f606a20519d59c7617d574a4f0266c9a33b2220cf146015c3da",
+      "89": "ba0bfd9d82d68bd3398bb37e8b7539d93dff6d4e21f153d44bfa9f1ccae2ebcb",
+      "113": "087787bcfdd4d4350b56595049c07a7fd62bfd7db69f52258905a872e1f5b5af"
+    }
+  },
+  "verified_new_run": {
+    "run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43724511859",
+    "artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43724511859/artifacts/14165469079",
+    "artifact_zip_sha256": "d76b811d2781c0b4e07cce0a76afbcbcc99279440fad025c7580c49939723a7d",
+    "cones_full_json_sha256": "d63d3e96e9d4b39fce0ab372545800dacaf2b9178c16d99fa51ca0b436efa5d2",
+    "dictionary_control_json_sha256": "6331746aec8a6112b54b11ff7bf6fb707720a7e12ee035da63f6f49917404440"
+  },
+  "trained_seeds": [
+    71,
+    89,
+    113
+  ],
+  "exact_selected_goal_cones": {
+    "source_cases": 48,
+    "strict_positive_interior": 48,
+    "score_constraints_per_case": 96,
+    "minimum": {
+      "seed": 113,
+      "puzzle": 7,
+      "selected_feature": 93,
+      "limiting_competitor": 25,
+      "normalized_min_score_slope_squared_approx": 0.046998674762774896,
+      "relative_raw_decoder_error_threshold_approx": 0.21679177743349698,
+      "angular_deg_approx": 12.520668208329745,
+      "unit_vector_chord_threshold_approx": 0.2180923303993298
+    },
+    "relative_raw_margin": {
+      "min": 0.21679177743349698,
+      "median": 0.46391352674825154,
+      "max": 0.5614604742842215
+    },
+    "angular_deg": {
+      "min": 12.520668208329745,
+      "median": 27.63993000490892,
+      "max": 34.15685955988872
+    },
+    "chord_margin": {
+      "min": 0.2180923303993298,
+      "median": 0.4777436794259108,
+      "max": 0.5873609514140818
+    },
+    "raw_decoder_uncertainty_guards": {
+      "0.1": 48,
+      "0.15": 48,
+      "0.2": 48,
+      "0.21": 48,
+      "0.215": 48,
+      "0.22": 47,
+      "0.25": 47,
+      "0.3": 44,
+      "0.4": 34,
+      "0.5": 18
+    },
+    "unit_chord_uncertainty_guards": {
+      "0.1": 48,
+      "0.2": 48,
+      "0.21": 48,
+      "0.218": 48,
+      "0.22": 47,
+      "0.25": 47,
+      "0.3": 44,
+      "0.4": 34,
+      "0.5": 18,
+      "0.55": 10,
+      "0.59": 0
+    },
+    "joint_raw_decoder_10pct_and_score_normal_10pct_guard": 48,
+    "sharp_rational_adversarial_boundary_witnesses": 48,
+    "positive_decoder_rays_with_infinite_highest_feature_identity": 48,
+    "positive_decoder_rays_with_infinite_entire_top4_identity": 0
+  },
+  "dictionary_wide_controls": {
+    "trained_strict_cones_by_seed": {
+      "71": 54,
+      "89": 53,
+      "113": 50
+    },
+    "original_random_initialization_strict_cones_by_seed": {
+      "71": 1,
+      "89": 0,
+      "113": 0
+    },
+    "trained_total": 157,
+    "random_total": 1,
+    "atoms_per_arm": 288,
+    "source_training_initial_decoder_sha256": {
+      "71": "cf8cbb36f0a430ef4c1023f2de2100c9269a263040137628b57d5195a62dac92",
+      "89": "37adb786b738bf5682868f3b223520249796b555c09854b65927a64e977c33f8",
+      "113": "f3d7977da5a632207409ee0fe2c10da94798c9c6db44516fa72de3c54edf5be8"
+    },
+    "exact_encoder_decoder_crosstalk_WD_vs_actual_FP64_ray_mismatches": 0,
+    "selected_distinct_features_per_seed": {
+      "71": 12,
+      "89": 9,
+      "113": 11
+    }
+  },
+  "proof_scope": "Exact-real cone membership for SAE scores with frozen encoder, source-selected highest positive atom and exact binary decoder rays. 20% decoder relative error protects highest feature along any positive intervention amplitude only; causal logit ordering remains subject to independent SMC-10/11 finite-radius source-locked bounds.",
+  "limitations": "Same previously inspected 16 Sudoku test puzzles and 3 SAE fits. Random initializations control architecture under matched seeds/scaling; dictionary atoms are correlated and are not independent population samples. No semantic features, new teacher, hardware rounding or improved Sudoku capability is established."
+}
