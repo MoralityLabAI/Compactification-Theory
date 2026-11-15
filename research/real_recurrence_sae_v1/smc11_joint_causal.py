@@ -168,6 +168,17 @@ def serialize_snapshot(sae,mean,scale,teacher_sha,seed,target):
     assert torch.equal(restored['train_scale'],payload['train_scale'])
     return hashlib.sha256(target.read_bytes()).hexdigest()
 
+
+
+def same_fit_policy(proof,identity,control,eta):
+    """Causal label plus SAME-fit exact top1/top4 policy selection guard."""
+    if control not in CONTROLS:
+        raise ValueError('unknown causal reference control')
+    guard='top4' if control=='sae_inactive' else 'top1'
+    if identity['status']!='certified' or not identity['budget_guards'][eta][guard]:
+        return 'abstain_selection'
+    return proof
+
 def source_locked_run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,
                       seeds=(71,),steps=300,radii=('0.02','0.2'),
                       budgets=('0','1e-12','1e-10','1e-8','1e-6'),
@@ -274,12 +285,9 @@ def source_locked_run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,
                                 effects['sae_active']['interval'],effects[control]['interval'])
                         else:
                             comparisons[control]='inconclusive'
-                    policy_comparisons={}
-                    for control in CONTROLS:
-                        guard='top4' if control=='sae_inactive' else 'top1'
-                        stable=(identity['status']=='certified' and
-                                identity['budget_guards'][eta][guard])
-                        policy_comparisons[control]=comparisons[control] if stable else 'abstain_selection'
+                    policy_comparisons={
+                        control:same_fit_policy(comparisons[control],identity,control,eta)
+                        for control in CONTROLS}
                     cases.append({
                         'seed':seed,'puzzle_id':pid,'goal_token':goal,
                         'radius':radius,'common_l2_uncertainty':eta,
