@@ -74,6 +74,8 @@ jobs:
         run: python research/synchronized_mixing_v1/run_discovery.py --output smc05-smoke-results.json
       - name: Verify SMC-06 frozen learned-SAE evidence
         run: python -m unittest discover -s research/synchronized_mixing_v1 -p 'test_approx_geometry.py' -v
+      - name: Archive heldout SAE fidelity gate and confidence penalties
+        run: python research/synchronized_mixing_v1/fidelity_gate.py > smc06-heldout-fidelity.json
       - uses: actions/upload-artifact@v4
         with:
           name: smc01-through-smc06-exact-evidence
@@ -84,6 +86,7 @@ jobs:
             smc03-family-controls.json
             smc04-smoke-report.json
             smc05-smoke-results.json
+            smc06-heldout-fidelity.json
             research/synchronized_mixing_v1/smc06_full_10seed_results.json
             research/synchronized_mixing_v1/sae_activation_evidence.json
             research/synchronized_mixing_v1/sae_seed103_checkpoint.json
