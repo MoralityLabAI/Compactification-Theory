@@ -36,6 +36,30 @@ from smc09_endpoint_arb import (
 )
 
 
+
+
+def forward_arb_with_tape(net,stage):
+    """The existing TaylorNet forward recurrence on an existing Arb matrix.
+
+    TaylorNet.forward first converts a Torch tensor with exact_matrix.
+    Here the input is already an Arb matrix (possibly a normalized exact-real
+    intervention endpoint), so this variant preserves the Arb enclosures.
+    """
+    if stage.nrows()!=81 or stage.ncols()!=48:
+        raise ValueError('expected complete 81x48 source anchor')
+    z=stage
+    tape=[]
+    for k in range(3):
+        z,op=net.mix(z,'t',True,f'{k}.token')
+        tape.append(op)
+        z,op=net.ln(z,net.norms[0],f'{k}.ln1')
+        tape.append(op)
+        z,op=net.mix(z,'c',False,f'{k}.channel')
+        tape.append(op)
+        z,op=net.ln(z,net.norms[1],f'{k}.ln2')
+        tape.append(op)
+    return z,tape
+
 def exact_effect_norm_interval(squared_interval):
     """Return Arb bounds for sqrt of a nominal squared-effect enclosure."""
     if not squared_interval.is_finite() or squared_interval.upper()<0:
@@ -137,7 +161,7 @@ def source_locked_run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,
     for pid in test:
         goal=int(torch.where(inputs[pid]==0)[0][0])
         anchor=exact_matrix(stages[pid])
-        final,tape=validated.forward(anchor,steps=3)
+        final,tape=forward_arb_with_tape(validated,anchor)
         clean=validated.logits(final,goal)
         frozen[pid]={'goal':goal,'anchor':anchor,'clean':clean,'tape':tape}
     cases=[]
@@ -157,7 +181,7 @@ def source_locked_run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,
                 per_dir={}
                 for name in DIRECTIONS:
                     shifted=shifted_anchor(anchor,goal,dirs[name],radius)
-                    final,tape=validated.forward(shifted,steps=3)
+                    final,tape=forward_arb_with_tape(validated,shifted)
                     out=validated.logits(final,goal)
                     square=squared_logit_effect(out,clean)
                     per_dir[name]={'tape':tape,
