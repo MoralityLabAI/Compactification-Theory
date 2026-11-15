@@ -8,7 +8,7 @@ The original checkpoint lives at research/rrc_compactification/results/rrc25_rec
 
 The canonical positive case begins at exact hidden zero, advances through eight zero-input GRU steps, then certifies the true **changing-Jacobian product** of the next twelve nonlinear steps. The negative control computes a distinct eight-step block starting from hidden zero. The direct product of the different Jacobians is necessary for the chain rule.
 
-Six post-training public source-family cases are generated independently using family index seeds compound25.SEED + 903900 + 1009*i. Each selects the first case with a public header and a visible input distinct from the others. Hidden suffix labels and future outputs are excluded. After the source's original nine feature rows, the GRU continues with zero input for warmups 8 and 32. Each anchor is separately audited for a twelve-step block disk.
+Six post-training public source-family cases are generated independently using family index seeds compound25.SEED + 903900 + 1009*i. Each selects the first case with a public header and a visible input distinct from the others. Hidden suffix labels and future outputs are excluded. After the source's original nine feature rows, the GRU continues with zero input for warmups 8 and 32. The primary CI run covers all six families after eight zeros; a bounded secondary run covers the first two families after 32 zeros. A full six-family 32-step sweep remains available as an explicit command.
 
 ## Certified arithmetic
 
