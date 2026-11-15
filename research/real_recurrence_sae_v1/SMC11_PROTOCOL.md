@@ -64,3 +64,17 @@ CPU-only Python 3.11 and pinned PyTorch 2.7.1, with the original 181147-byte sou
 The [dedicated hosted workflow](../../.github/workflows/smc11-selection.yml) downloads the preverified SMC-10C receipt from its source GitHub Actions run, checks that byte-level hash and then archives the entire exact selection/composition result. It cannot silently accept a newly generated or modified causal result.
 
 **Evaluation boundary.** The result concerns the exact-real fitted SAE's discrete feature identity as a function of one physical goal-token hidden state, and the exact-real teacher's previously proved effect ordering. It does not verify feature semantics, accuracy improvement, robust retraining, weight perturbations or machine-level FP32/FP64 rounding throughout the uncertainty ball.
+
+## SMC-11C: Single-fit provenance strengthens the causal composition
+
+The original SMC-11 recipe joined a newly refitted SAE's selection-cell output to a **previously archived SMC-10C causal receipt**. Its SHA-256 lock prevents changing that receipt, but cannot prove the new SAE fit produces the same binary weights as the one used in SMC-10C. CPU environment differences can cause small optimizer variations despite fixed seeds.
+
+The stronger [same-fit joint evaluator](smc11_joint_causal.py) resolves this by fitting the SAE **once per seed** and using its in-memory FP32 encoder, decoder, mean, and scale for both the exact-rational selection-cell proof and the Arb-validated local-Lipschitz causal comparison. The evaluator serializes the weights-only SAE model and frozen normalization, verifies a strict reload round trip, and archives a canonical SHA-256 fingerprint of the exact tensor bytes. Source teacher weights, 64-puzzle roster, goal-token sites, trained SAE hyperparameters and original causal intervention radii remain frozen.
+
+The joint composition requires the OLM-11 positive top-one cell for the active SAE decoder policy, plus the top-four support cell when the selected comparator is a deterministically sampled inactive SAE feature. It keeps the original Jacobian-optimal and isotropic controls fixed. Every failure of a strict guard produces an abstention, and no heldout observation participates in SAE fitting.
+
+The joint [CI workflow](../../.github/workflows/smc11-same-fit.yml) runs standalone tests plus a two-puzzle pilot and a complete 16-puzzle × three-fit evaluation, archiving the exact-rational feature radii, 160-bit Arb causal intervals and serialized SAE weights in the same artifact. For scientific claims about dynamically reselected SAE features, **the joint result is the preferred proof**, with the older artifact-to-artifact join retained for historical replication.
+
+### Signed decoder-ray extension
+
+The [exact directional extension](https://github.com/patrickdugan/MathCan/pull/82) separately asks whether the SAE would retain its top feature after the *finite intervention itself*. Its sharp positive/negative ray crossing radius is obtained by minimizing exact rational squared scores along the selected direction. The direction must match the **FP64 normalized dyadic vector frozen by the causal evaluator**. The SMC-09/10 intervention normalizes that vector again with Arb, preserving its exact-real ray. Using the unnormalized FP32 decoder×scale product would differ infinitesimally and cannot substitute for this exact provenance condition. A passing ray guard at radius 0.8 is a point-on-ray identity theorem, independent of the uniform η-ball robust causal certificate at fixed intervention radius.
