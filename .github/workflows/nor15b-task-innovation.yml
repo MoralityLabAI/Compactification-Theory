@@ -33,6 +33,8 @@ jobs:
           python-version: '3.12'
       - name: Validate public accepted-set gradients, parameter shapes and grouping
         run: python -m unittest research.nor15_trajectory_sufficiency.test_task_test -v
+      - name: Check full NOR-15B first-hosted receipt provenance and frozen claims
+        run: python research/nor15_trajectory_sufficiency/nor15b_receipt.py --check
 
   fresh-1000-input-native-verification:
     needs: public-only-task-head-unit-tests
@@ -101,6 +103,8 @@ jobs:
           print('NOR15B PRIMARY PASS',a['residual_early_passed_preregistered_primary'])
           print('NOR15B FULL JSON',len(raw),hashlib.sha256(raw).hexdigest())
           PY
+      - name: Independently audit all 8320 native decision records and six paired contrasts
+        run: python research/nor15_trajectory_sufficiency/nor15b_receipt.py --check --full /tmp/nor15b_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor15b-source-locked-1040-case-native-proof-trajectory-innovation
