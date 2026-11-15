@@ -34,7 +34,7 @@ class SMC08Tests(unittest.TestCase):
         self.assertEqual(x['num_elementary_stages'],12)
         self.assertGreater(x['global_hessian_upper_log10_approx'],0)
         self.assertGreater(x['global_jacobian_upper_log10_approx'],0)
-        self.assertIn('exact real',x['claim_scope'].replace('-',' '))
+        self.assertIn('exact real',x['claim_scope'].replace('-',' ').lower())
 
     def test_numeric_jacobian_matches_central_difference(self):
         i=self.split['test'][0]
