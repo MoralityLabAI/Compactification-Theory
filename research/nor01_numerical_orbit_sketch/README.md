@@ -92,3 +92,7 @@ Run with Python 3.12 standard library:
 The frozen receipt is [results/nor02_filtered_p4.json](results/nor02_filtered_p4.json). Ten new tests include exact rational disk inequalities, independent binomial-versus-Jordan evaluation, noncommutation, an extremal-attainment check, filter orders 1–4, the scalar constant-2 witness, and two additional seeded controls. The CI job compares selected receipt fields to the committed reference using strict numeric tolerances.
 
 **Open gate:** certified complex numerical ranges for trained looped-model Jacobians, with an explicit nonlinear remainder and held-out-depth test, are required before this can become an applied mechanistic-interpretability claim.
+
+## NOR-03: real trained RRC-25 nonlinear GRU
+
+[Trained model interval experiment, verification protocol, and early results](NOR03.md). This replays the original frozen 1,000-parameter GRU, propagates exact rational intervals through sigmoid/tanh, and computes the true nonlinear 12-step block Jacobian product at trained hidden states. Source-locked controls distinguish the amplification at hidden zero from later contraction. Direct interval products and a 32-step continuation sweep test six new source-family inputs. The pure-math proof and the quadratic remainder theorem live in [MathCan NOR-03](https://github.com/patrickdugan/MathCan/tree/research/nor01-orbit-stitching-20261115/research/nor03).
