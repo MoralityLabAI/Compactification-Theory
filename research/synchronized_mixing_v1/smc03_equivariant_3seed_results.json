@@ -1,0 +1,61 @@
+{
+  "schema": "smc03c_equivariant_edge_probe_v1",
+  "date": "2026-11-15",
+  "source": "research/synchronized_mixing_v1/equivariant_edge_probe.py",
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "device": "CPU",
+    "torch_threads": 2
+  },
+  "setup": {
+    "train_matching_classes": 12,
+    "test_matching_classes": 3,
+    "train_permutations": 576,
+    "test_permutations": 144,
+    "steps": 300,
+    "batch_size_per_class": 256,
+    "edge_features": 15,
+    "shared_function": "Linear(2,8), Tanh, Linear(8,1) + pooled bias",
+    "architecture_parameters": 34,
+    "optimizer": "AdamW lr 0.01 weight_decay 0.0001",
+    "transport": "exact known reference matching under permutation; only shared edge interaction learned",
+    "oracle_bayes_balanced_accuracy": "5/6"
+  },
+  "runs": [
+    {
+      "seed": 20261115,
+      "train_balanced_accuracy": 0.9583333432674408,
+      "test_balanced_accuracy": 0.8333333432674408,
+      "gauge_positive_prediction_agreement": 1,
+      "gauge_negative_prediction_agreement": 1,
+      "gauge_max_score_abs_difference": 7.152557373046875e-7
+    },
+    {
+      "seed": 20261116,
+      "train_balanced_accuracy": 0.9583333432674408,
+      "test_balanced_accuracy": 0.8333333432674408,
+      "gauge_positive_prediction_agreement": 1,
+      "gauge_negative_prediction_agreement": 1,
+      "gauge_max_score_abs_difference": 7.152557373046875e-7
+    },
+    {
+      "seed": 20261117,
+      "train_balanced_accuracy": 0.9583333432674408,
+      "test_balanced_accuracy": 0.8333333432674408,
+      "gauge_positive_prediction_agreement": 1,
+      "gauge_negative_prediction_agreement": 1,
+      "gauge_max_score_abs_difference": 1.1920928955078125e-7
+    }
+  ],
+  "compare_to_raw_family_holdout": {
+    "raw_mlp_parameters": 4897,
+    "raw_mlp_test_balanced_accuracies": [
+      0.5590277761220932,
+      0.5162037182599306,
+      0.5046296385116875
+    ],
+    "raw_mlp_average_balanced_accuracy": 0.5266203776005708
+  },
+  "scope": "Architecture knows the exact permutation-to-reference-matching transport. Training establishes only the shared edge-comparison rule on a synthetic matching task."
+}
