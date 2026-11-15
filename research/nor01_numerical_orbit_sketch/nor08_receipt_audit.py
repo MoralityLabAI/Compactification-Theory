@@ -39,12 +39,11 @@ def audit():
     im=Q(sel["one_step_image_upper_fraction"])
     assert s1+L*s/(1-K)==im and im<R
     sep=Q(sel["coordinate_separation_lower_fraction"])
-    first=tuple(Q(z) for z in previous["first_attractor"]["center_decimals"]) if "first_attractor" in previous and "center_decimals" in previous["first_attractor"] else None
-    # First-ball center also survives in the source-locked NOR-04 receipt;
-    # the old second center and NOR-08 geometry must remain identical.
+    nor04=json.loads((HERE/"results"/"nor04_invariant_ball.json").read_text())
+    first=tuple(Q(z) for z in nor04["center_literals"])
     second=tuple(Q(z) for z in previous["second_attractor"]["center_decimals"])
-    original_second=tuple(Q(z) for z in json.loads((HERE/"results"/"nor07_two_attractors_summary.json").read_text())["second_attractor"]["center_decimals"])
-    assert second==original_second
+    assert len(first)==len(second)==12
+    assert abs(first[1]-second[1])-Q(nor04["radius_fraction"])-R==sep
     assert sep>0
     assert sel["same_period_one_fixed_point_as_nor07"]
     assert result["squared_family_source_basin_entry_certified"] is False
