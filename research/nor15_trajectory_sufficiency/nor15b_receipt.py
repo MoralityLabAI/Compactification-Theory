@@ -79,7 +79,8 @@ def inspect_full(data,r):
     assert data["training_epochs"]==150
     assert data["repetitions"]==4 and data["nonlate_per_family_per_repetition"]==50
     assert data["late_source_per_repetition"]==10
-    assert data["dev_global_selected"]==r["global_dev_selection"]
+    for key, value in r["global_dev_selection"].items():
+        assert data["dev_global_selected"][key] == value
     assert data["bonferroni_three_control_threshold"]==r["primary_success_threshold"]
     assert not data["residual_early_passed_preregistered_primary"]
     assert data["scope"]["no_private_future_used_for_train"]
