@@ -43,6 +43,17 @@ jobs:
               assert item['post_nine_inputs_native_logits_parity'] < 1e-10
               assert item['native_interval_replay_discrepancy'] < 1e-9
               assert item['certificate']['block_nonlinear_remainder_upper'] >= 0
+          positive = r['zero_origin_positive']
+          negative = r['early_negative_control']
+          print('NOR-03 trained zero-origin 12-step q=', positive['disk_q_float'],
+                'block nonlinear bound=', positive['block_nonlinear_remainder_upper'])
+          print('NOR-03 initial-zero 8-step q=', negative['disk_q_float'])
+          for item in r['heldout']:
+              cert = item['certificate']
+              print('FAMILY', item['family'], 'q=', cert['disk_q_float'],
+                    'contracting=', cert['contracting_disk'],
+                    'initial box width=', item['native_interval_max_width'],
+                    'linearization remainder=', cert['block_nonlinear_remainder_upper'])
           print('NOR-03 certified trained zero case; heldout successful discs',
                 r['heldout_contracting_disks'], '/', r['heldout_count'])
           PY
