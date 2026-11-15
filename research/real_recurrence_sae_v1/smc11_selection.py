@@ -28,7 +28,7 @@ for d in (HERE,PRE):
     sys.path.insert(0,str(d))
 
 from selection_cells_exact import (
-    affine_normalized_encoder, topk_selection_certificate, strict_guard
+    affine_normalized_encoder, topk_selection_certificate, topk_ray_certificate, strict_guard
 )
 from smc07_real_sae import fit_sae,split_ids,EXPECTED_ROSTER
 from run_checkpoint import locked_bytes,load_pretrained,prepare_roster
@@ -117,7 +117,33 @@ def goal_selection_cases(stage,inputs,sae,mu,std,test_ids,seed):
                 ref_support=tuple(sorted(int(z) for z in pos.topk(4).indices.tolist()))
             same=(ref_top==cert['top_index'] and
                   ref_support==cert['topk_indices'])
+            with torch.no_grad():
+                # Match SMC-09's physical intervention direction. The
+                # elementwise decoder*scale product occurs in FP32 first;
+                # the resulting frozen binary components are exact rational
+                # inputs for the subsequent exact-real ray certificate.
+                raw_direction=(sae.decoder.weight[:,cert['top_index']]*std).detach().cpu().tolist()
+            rays={}
+            for label,sgn in (('positive',1),('negative',-1)):
+                directed=[sgn*float(v) for v in raw_direction]
+                ray=topk_ray_certificate(cert,rows,directed)
+                ray_result={}
+                for ckey in ('top1','topk'):
+                    info=ray[ckey]
+                    value=info['radius_squared']
+                    ray_result[ckey]={
+                        'radius_squared_exact':str(value) if value is not None else None,
+                        'first_boundary':info['active_boundary'],
+                        'radius_approx':math.sqrt(float(value)) if value is not None else None,
+                        'infinite_forward_radius':value is None
+                    }
+                ray_result['guards']={
+                    rad:{key:bool(same and strict_guard(ray[key]['radius_squared'],Q(rad)))
+                         for key in ('top1','topk')}
+                    for rad in ('1/50','1/5','4/5')}
+                rays[label]=ray_result
             row.update({
+                'rays':rays,
                 'status':'certified' if same else 'abstain_machine_nominal_disagreement',
                 'top1_feature':cert['top_index'],
                 'top4_features':list(cert['topk_indices']),
@@ -272,6 +298,12 @@ def run(checkpoint=None,allow_fetch=False,smc10_receipt=None,
        'guard_counts':{
           eta:{k:sum(r['budget_guards'][eta][k] for r in cases)
                for k in ('top1','top4')} for eta in BUDGETS},
+       'pointwise_intervention_ray_guards':{
+          sign:{rad:{key:sum(
+              bool(row.get('rays',{}).get(sign,{}).get('guards',{}).get(rad,{}).get(key))
+              for row in cases) for key in ('top1','topk')}
+              for rad in ('1/50','1/5','4/5')}
+          for sign in ('positive','negative')},
     }
     if smc10_receipt:
         if steps!=300 or set(seeds)!=set(SEEDS):
