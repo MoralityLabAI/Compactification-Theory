@@ -393,9 +393,17 @@ def run(*, include_heldout=True):
             for _ in range(8):
                 box = gates(weights, box)[0]
                 native = native_zero_step(native, ck)
-            max_delta = max(abs(float(z.lo)-v) for z,v in zip(box,native))
+            # Interval dependency can enlarge an enclosure across 17 GRU
+            # steps even when floating replay is inside that enclosure.
+            # Check violation *outside* the interval, not distance to a
+            # particular endpoint (which confounds width with disagreement).
+            max_delta = max(max(float(z.lo)-v, v-float(z.hi), 0.0)
+                            for z,v in zip(box,native))
+            max_width = max(float(z.hi-z.lo) for z in box)
             if max_delta > 1e-9:
-                raise AssertionError("native continuation disagrees with rational gate enclosure")
+                raise AssertionError(
+                    f"native continuation lies outside rational enclosure: "
+                    f"family={case.family}, gap={max_delta}, width={max_width}")
             cert = build_certificate(weights, box, length=12,
                                      label="heldout_" + case.family)
             heldout.append({
@@ -404,6 +412,7 @@ def run(*, include_heldout=True):
                 "public_header_candidates": len(headers),
                 "post_nine_inputs_native_logits_parity": parity,
                 "native_interval_replay_discrepancy": max_delta,
+                "native_interval_max_width": max_width,
                 "certificate": cert,
             })
         out["heldout"] = heldout
