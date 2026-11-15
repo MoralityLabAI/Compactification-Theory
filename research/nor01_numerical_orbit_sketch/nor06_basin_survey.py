@@ -22,8 +22,11 @@ import random
 import sys
 
 ROOT=Path(__file__).resolve().parents[2]
+LOCAL=Path(__file__).resolve().parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0,str(ROOT))
+if str(LOCAL) not in sys.path:
+    sys.path.insert(0,str(LOCAL))
 
 from research.rrc_compactification import bench25, compound25, model25
 from research.nor01_numerical_orbit_sketch import trained_gru_cert as cert
