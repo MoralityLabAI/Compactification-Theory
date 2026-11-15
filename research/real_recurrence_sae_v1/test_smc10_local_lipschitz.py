@@ -8,7 +8,7 @@ from flint import arb,ctx
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from smc10_local_lipschitz import (
     exact_effect_norm_interval,validated_lipschitz_on_ball,
-    certified_effect_interval,rank_interval_effects
+    certified_effect_interval,rank_interval_effects,forward_arb_with_tape
 )
 
 
@@ -24,10 +24,31 @@ class FakeNet:
         ]
 
 
+
+
+class IdentityRecurrent:
+    norms=(None,None)
+    def mix(self,z,prefix,transpose,name):
+        return z,{'name':name}
+    def ln(self,z,norm,name):
+        return z,{'name':name}
+
 class LipschitzTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         ctx.prec=160
+
+
+    def test_existing_arb_anchor_preserved_without_torch_reencoding(self):
+        from flint import arb_mat
+        anchor=arb_mat([[arb(0,'1/10000') for _ in range(48)]
+                        for _ in range(81)])
+        output,tape=forward_arb_with_tape(IdentityRecurrent(),anchor)
+        self.assertEqual(len(tape),12)
+        self.assertEqual(tape[0]['name'],'0.token')
+        self.assertEqual(tape[-1]['name'],'2.ln2')
+        self.assertTrue(output[0,0].lower()<=arb('-1/10000'))
+        self.assertTrue(output[0,0].upper()>=arb('1/10000'))
 
     def test_exact_transport_product_and_metadata(self):
         lip,meta=validated_lipschitz_on_ball(FakeNet(),['f','g'],arb(5),Q(1,10))
