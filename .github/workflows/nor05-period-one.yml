@@ -34,6 +34,10 @@ jobs:
           from pathlib import Path
           from fractions import Fraction as Q
           z=json.loads(Path('/tmp/nor05_period_one.json').read_text())
+          frozen=json.loads(Path(
+              'research/nor01_numerical_orbit_sketch/results/nor05_period_one.json'
+          ).read_text())
+          assert z == frozen, 'NOR-05 receipt changed from its source-locked baseline'
           p=z['all_depth_block_prerequisite']
           K,R,s=(Q(p['K12_fraction']),Q(p['R_fraction']),
                  Q(p['center_residual_12_fraction']))
