@@ -376,9 +376,9 @@ def run(reps=REPS,late_per=LATE_PER_REP,
                   ).hexdigest()==nor12.BASELINE_MANIFESTS["train"]
     assert sha256("\n".join(d for c,h,d in roster["dev"]).encode()
                   ).hexdigest()==nor12.BASELINE_MANIFESTS["dev"]
-    ck,existing=nor11.train_source()
+    ck,p1,p2=nor11.train_source()
     assert ck["parameters"]==1000
-    assert existing is not None  # frozen attractor centers loaded
+    assert len(p1)==len(p2)==model25.HIDDEN
     # train_source returns checkpoint and two frozen certified reference centers
     assert nor12.BASIN_SHA==CHECKPOINT_SHA
     cohorts=fresh_cohorts(roster,reps,late_per,signed_per,rational_per)
