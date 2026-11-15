@@ -222,15 +222,36 @@ def run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,
                   for name in DIRECTIONS}
             # Cache each uncertain clean Arb forward state per budget.
             clean_outputs={}
+            clean_errors={}
             for eta in budgets:
-                clean_outputs[eta]=endpoint_logits(
-                    validated,uncertain_anchor(anchor,goal,None,0,Q(eta)),goal)
+                try:
+                    clean_outputs[eta]=endpoint_logits(
+                        validated,uncertain_anchor(anchor,goal,None,0,Q(eta)),goal)
+                except (ArithmeticError,ValueError,OverflowError,ZeroDivisionError) as exc:
+                    clean_outputs[eta]=None
+                    clean_errors[eta]=type(exc).__name__+': '+str(exc)[:240]
             for radius in radii:
                 for eta in budgets:
                     budgets_by_direction={k:Q(eta) for k in DIRECTIONS}
-                    result=robust_effects_with_clean(
-                        validated,anchor,goal,dirs,Q(radius),Q(eta),
-                        budgets_by_direction,clean_outputs[eta])
+                    if clean_outputs[eta] is None:
+                        errors={'clean_endpoint':clean_errors[eta]}
+                        result={
+                            'radius':str(Q(radius)),
+                            'anchor_l2_budget':str(Q(eta)),
+                            'direction_l2_budgets':{k:str(v) for k,v in budgets_by_direction.items()},
+                            'clean_box_half_width_linf':str(Q(eta)),
+                            'perturbed_box_half_width_linf':{k:str(Q(eta)+Q(radius)*v)
+                                                              for k,v in budgets_by_direction.items()},
+                            'squared_effects':{},
+                            'comparisons':{control:{'proof':'inconclusive',
+                                                    'interval_error':errors}
+                                           for control in CONTROLS},
+                            'failures':errors,
+                        }
+                    else:
+                        result=robust_effects_with_clean(
+                            validated,anchor,goal,dirs,Q(radius),Q(eta),
+                            budgets_by_direction,clean_outputs[eta])
                     cases.append({
                         'seed':seed,'puzzle_id':pid,'goal_token':goal,
                         'selected_sae_features':selection,**result})
