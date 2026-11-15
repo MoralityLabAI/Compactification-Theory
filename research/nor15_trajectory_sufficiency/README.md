@@ -32,3 +32,24 @@ The NOR-15A source audits are not evidence of task-relevant conditional informat
       --repetitions 4 --per-family 12 --out /tmp/nor15a_full.json
 
 All serialized hidden-state records and source hashes remain in the hosted experiment artifact; future proof outcomes are deliberately absent. Full JSON must be archived with SHA-256 and a source-independent audit before merge. No NOR-15A result is claimed at registration time.
+
+
+## First executed result (source-locked)
+
+[First green NOR-15A Actions run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721123693) completed the 96/36 public-source reconstruction protocol and four newly seeded held-out cohorts. The complete 492,261-byte JSON is SHA-256-pinned to \`9dbe31960a1866b8f4062cb148ab5db9c4b7743ea1fa28689b8377a78459f92b\` in [the immutable first-result receipt](results/nor15a_frozen_receipt.json); [nor15a_receipt.py](nor15a_receipt.py) independently checks 1,440 per-case error values, all cohort/family arithmetic, the three exact paired signs, and 24 local spectral records.
+
+| H9→H4 reconstruction | Primary normalized MSE /240 distinct inputs | DEV-selected ridge penalty |
+| --- | ---: | ---: |
+| Predict mean H4 | 0.919838 | n/a |
+| Copy endpoint H9 | 1.039225 | n/a |
+| Linear ridge | 0.320055 | 0.01 |
+| Nonlinear frozen 24-tanh-feature ridge | **0.284538** | 0.001 |
+| Shuffled-train linear | 0.940068 | 10 |
+
+Nonlinear reconstruction improves on the linear fit in 177 primary inputs and loses in 63; unadjusted exact paired sign p≈1.02×10^-13. Linear versus shuffled succeeds on 211 inputs and loses on 29, p≈2.70×10^-35. These tests support **recoverable nonlinear structure in H9** for predicting H4 under the fixed finite decoder family.
+
+The improvement varies by source family. The nonlinear model performs worse on the held-out rational family (about 0.975 MSE versus 0.909 for linear), indicating heterogeneous extrapolation across the generator's source types. All 48 late_source cases share one model feature hash and were excluded from the primary means and sign tests.
+
+Across 24 fixed-suffix finite-difference Jacobians, minimum estimated singular values ranged from 6.13×10^-10 to 4.97×10^-6, with median approximately 2.97×10^-8. The condition-estimate median was approximately 2.79×10^7. Near-input pairs in the primary set had a median H4/H9 distance ratio about 2.34. These are source-dependent, floating-point local diagnostics; the result establishes neither certified global noninjectivity nor positive conditional mutual information.
+
+The next registered task outcome experiment is [NOR-15B](NOR15B.md). Its new source inputs, parameter budget and decision criteria were fixed before reading the task outcomes.
