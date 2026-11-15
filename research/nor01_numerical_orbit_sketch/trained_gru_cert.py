@@ -369,9 +369,9 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
     }
 
 
-def run(*, include_heldout=True, warmup=8):
-    if not 0 <= warmup <= 64:
-        raise ValueError("warmup must be between 0 and 64")
+def run(*, include_heldout=True, warmup=8, family_limit=6):
+    if not 0 <= warmup <= 64 or not 1 <= family_limit <= 6:
+        raise ValueError("warmup must be 0..64 and family_limit 1..6")
     models, checksums = bench25.checkpoints()
     ck = models["recurrent"]
     weights = get_weights(ck)
@@ -413,7 +413,7 @@ def run(*, include_heldout=True, warmup=8):
             else:
                 raise AssertionError(f"could not construct NOR-03 family: {family}")
         heldout = []
-        for case in cases:
+        for case in cases[:family_limit]:
             headers = compound25.possible_headers(case)
             if not headers:
                 raise AssertionError("no public header for heldout case")
@@ -472,6 +472,7 @@ def run(*, include_heldout=True, warmup=8):
             row["certificate"]["contracting_disk"] for row in heldout)
         out["heldout_count"] = len(heldout)
         out["heldout_warmup"] = warmup
+        out["heldout_family_limit"] = family_limit
     return out
 
 
@@ -481,14 +482,16 @@ def main():
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--skip-heldout", action="store_true")
     parser.add_argument("--warmup", type=int, default=8)
+    parser.add_argument("--family-limit", type=int, default=6)
     args = parser.parse_args()
-    receipt = run(include_heldout=not args.skip_heldout, warmup=args.warmup)
+    receipt = run(include_heldout=not args.skip_heldout, warmup=args.warmup,
+                  family_limit=args.family_limit)
     if args.check:
         assert receipt["checkpoint_parameters"] == 1000
         assert receipt["early_negative_control"]["contracting_disk"] is False
         assert receipt["zero_origin_positive"]["contracting_disk"] is True
         if not args.skip_heldout:
-            assert receipt["heldout_count"] == 6
+            assert receipt["heldout_count"] == args.family_limit
     body = json.dumps(receipt, sort_keys=True, indent=2) + "\n"
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
