@@ -1,0 +1,31 @@
+name: COE-02 exact cut observer tests
+
+on:
+  pull_request:
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe02-cut-observers.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe02-cut-observers.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finite-cut-oracles:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run cut BFS and independent word exhaustive tests
+        run: python -m unittest discover -s research/chromatic_observer_gym_v1 -p 'test_*.py' -v
+      - name: Print frozen exact rational witness
+        run: python research/chromatic_observer_gym_v1/activation_case.py research/chromatic_observer_gym_v1/frozen_k5_onehot.json
+      - name: Print sharp code phase points
+        run: python research/chromatic_observer_gym_v1/l1_cut_codes.py

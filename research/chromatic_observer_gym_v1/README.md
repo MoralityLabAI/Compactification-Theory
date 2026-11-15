@@ -53,3 +53,9 @@ The present run contains no model training, causal interventions, source-paper p
 - Pure math starting commit: `patrickdugan/MathCan@fca46bfb3430ac85ffca16f6a6a83bb0b0231e41`.
 - Local test environment: Python 3.13 standard library; `python -m unittest discover` eleven tests passed on 2026-11-15.
 - Lean kernel target: v4.35.0 (repository pinned), the COE-01 Lean workflow passed on GitHub Actions at MathCan commit `c55e66d3325796c53db1dcdbe9e5c284e8f569d2`; only the finite lemmas in that module are Lean certified. General graph and Lipschitz theorems have the written proofs in MathCan.
+
+## COE-02 continuation
+
+See [COE02.md](COE02.md) for the exact `ell_1` integer-cut geometry,
+sharp `K_5` code width and fractional integrality-gap theorem, and a
+provenance-preserving frozen-activation adapter.
