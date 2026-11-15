@@ -1,0 +1,37 @@
+name: PEF-06 three-paper coalition noise and sensitivity certificates
+
+on:
+  push:
+    paths:
+      - 'research/precision_entropy_frontier/pef06_coalition.py'
+      - 'research/precision_entropy_frontier/test_pef06_coalition.py'
+      - 'research/precision_entropy_frontier/PEF06_SELECTION.md'
+      - 'research/precision_entropy_frontier/PEF06_THEOREMS.md'
+      - '.github/workflows/pef06-three-paper-coalition.yml'
+  pull_request:
+    paths:
+      - 'research/precision_entropy_frontier/pef06_coalition.py'
+      - 'research/precision_entropy_frontier/test_pef06_coalition.py'
+      - 'research/precision_entropy_frontier/PEF06_SELECTION.md'
+      - 'research/precision_entropy_frontier/PEF06_THEOREMS.md'
+      - '.github/workflows/pef06-three-paper-coalition.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-finite-oracles:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify all independent Bernoulli, Möbius and influence oracles
+        run: python -m unittest discover -s research/precision_entropy_frontier -p 'test_pef06_coalition.py' -v
+      - name: Archive exact finite rational and information receipts
+        run: python research/precision_entropy_frontier/pef06_coalition.py --suite --out artifacts/pef06/three_paper_exact.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pef06-three-paper-exact-coalition-noise
+          path: artifacts/pef06/three_paper_exact.json
