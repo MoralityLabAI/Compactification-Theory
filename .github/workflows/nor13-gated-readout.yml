@@ -1,0 +1,86 @@
+name: NOR-13 interaction-gated GRU task readout and fresh-source causal audit
+
+on:
+  push:
+    paths:
+      - 'research/nor13_gated_readout/**'
+      - '.github/workflows/nor13-gated-readout.yml'
+  pull_request:
+    paths:
+      - 'research/nor13_gated_readout/**'
+      - '.github/workflows/nor13-gated-readout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-model-and-gate-math:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit public-only training, frozen receipt hashes and exact affine gate rank math
+        run: python -m unittest research.nor13_gated_readout.test_interaction -v
+
+  four-fresh-test-cohorts:
+    needs: original-model-and-gate-math
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fit 400-slot matched interaction heads from 96 public training cases
+        run: python research/nor13_gated_readout/interaction.py --check --repetitions 4 --per-family 12 --out /tmp/nor13_interactions.json
+      - name: Audit no private-label training, frozen dev-selected scales and per-feature clusters
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          z=json.loads(Path('/tmp/nor13_interactions.json').read_text())
+          assert z['schema']=='nor13.frozen_gru.interaction_gated_public_task_readout.v1'
+          assert z['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert z['matched_parameter_slots_per_head']==400
+          assert z['training_full_public_template_verifications_per_fit']==1536
+          assert z['scope']['development_model_selection_before_new_test']
+          assert z['scope']['new_nonlate_public_features_excluded_from_all_prior_NOR12_cases']
+          assert z['scope']['control_architectures_matched_by_parameter_slots']
+          assert not z['scope']['future_labels_used_for_training']
+          assert z['fresh_repetitions']==4
+          assert len(z['fresh_replicate_results'])==4
+          assert len({v['public_manifest'] for v in z['fresh_replicate_results']})==4
+          baseline=z['aggregated']['original']
+          assert baseline['cases']==288
+          for kind,arm in sorted(z['aggregated'].items()):
+              assert arm['cases']==288
+              assert arm['future_correct']-baseline['future_correct']==arm['net_future_correct_vs_original']
+              assert arm['paired_gains']-arm['paired_losses']==arm['net_future_correct_vs_original']
+              assert arm['paid_checks']<=1152
+              print('NOR13 MODEL',kind,'native future-correct',arm['future_correct'],
+                    'false accepts',arm['false_accept'],'paid checks',arm['paid_checks'],
+                    'paired gains',arm['paired_gains'],'paired losses',arm['paired_losses'],
+                    'unique source inputs',arm['unique_feature_groups'],
+                    'unadjusted cluster p',arm['unadjusted_group_sign_p'])
+          x=z['first_fresh_test_exact_affine_rank_stability']
+          assert x['cases']==72
+          assert x['gate_variant_cases']+x['gate_invariant_cases']==72
+          assert x['gate_variant_unique_inputs']+x['gate_invariant_unique_inputs']==x['unique_public_inputs']
+          assert x['float_rounding_proven'] is False if 'float_rounding_proven' in x else True
+          print('NOR13 EXACT GATE SCORE AFFINE LIFT',x['gate_invariant_unique_inputs'],
+                'fully rank-invariant of',x['unique_public_inputs'],'unique inputs')
+          print('NOR13 DEV ONLY FROZEN MODE',z['dev_model_selection'])
+          for kind,v in z['first_fresh_test_basin_gate_ablations'].items():
+              print('NOR13 GATE ONLY ABLATION',kind,'native correct',v['future_correct'],
+                    'false accepts',v['false_accept'],
+                    'paired successes',v['paired_to_original']['newly_correct'],
+                    'paired losses',v['paired_to_original']['lost_correct'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor13-four-fresh-cohort-task-readouts-and-gate-causality
+          path: /tmp/nor13_interactions.json
