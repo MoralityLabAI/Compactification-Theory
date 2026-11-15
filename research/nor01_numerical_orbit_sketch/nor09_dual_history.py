@@ -24,9 +24,13 @@ import json
 from fractions import Fraction as Q
 from hashlib import sha256
 from pathlib import Path
+import sys
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
+for directory in (ROOT,HERE):
+    if str(directory) not in sys.path:
+        sys.path.insert(0,str(directory))
 DATA=HERE/"results"
 CHECKPOINT=ROOT/"research"/"rrc_compactification"/"results"/"rrc25_recurrent.json"
 SHA="54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b"
