@@ -36,6 +36,13 @@ class BasinPartitionTests(unittest.TestCase):
         self.assertFalse(a["new_training_performed"])
         self.assertFalse(a["exact_source_to_second_basin_capture_proved"])
         self.assertEqual(sum(a["coordinate_intervention_counts"].values()),6)
+        self.assertLessEqual(a["unique_public_feature_tensors"],6)
+        self.assertLessEqual(a["unique_native_initial_hidden_states"],6)
+        self.assertEqual(len(a["per_family_input_diversity"]),6)
+        for family,diversity in a["per_family_input_diversity"].items():
+            self.assertEqual(diversity["distinct_visible"],1)
+            self.assertGreaterEqual(diversity["distinct_features"],1)
+            self.assertGreaterEqual(diversity["distinct_hidden"],1)
 
     def test_invalid_sampling_rejected(self):
         with self.assertRaises(ValueError):
