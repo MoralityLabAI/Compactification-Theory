@@ -55,3 +55,40 @@ Default \(p=4\), seed 325094: 64 ambient coordinates, 24 sketch coordinates, cut
 ## Research continuation
 
 Extract Jacobians of a trained looped transformer and establish certified numerical-range enclosures across actual traces. Nonlinear trajectories require their own Jacobian-variation and perturbation bounds. A further constructive finite-dimensional embedding experiment should compare random sketches to the existential \(L_p\) frontier on held-out trajectories. Avoid treating this finite surrogate as evidence of learned reasoning gains.
+
+
+## NOR-02: matrix-valued curvature filter (15 November 2026)
+
+[Pure mathematical proof and Lean scope](https://github.com/patrickdugan/MathCan/blob/research/nor01-orbit-stitching-20261115/research/nor02/FILTERED_ORBIT_CURVATURE.md) extend NOR-01 using OpenAI #325's complete matrix-valued inequality. The two coefficient matrices of \(C(z)=\bigl(\begin{smallmatrix}0&1\\z&0\end{smallmatrix}\bigr)\) do not commute, so this benchmark tests a genuinely matrix-valued temporal filter \(P_r(z)=(z-q)^rC(z)\).
+
+With numerical range inside \(D(a,b)\) for \(a,b>0\), \(q=a+b<1\), the exposed-point zero supplies the sharp scalar extremal
+\[
+\sup_{z\in D(a,b)}|z|^t|z-q|^r
+\le (b/a)^{r/2}q^{t+r}
+\sqrt{\frac{t^t r^r}{(t+r)^{t+r}}}.
+\]
+Under the explicit radial-attainment condition from the note, equality holds. The complete polynomial bound is then \(2\) times this quantity, uniformly in matrix coefficient dimension. A direct polynomial-difference argument strengthens the clipped-tail pair bound to \((1+q)B_T\).
+
+The optimized all-horizon sketch budget is
+\[
+\max\{E_T,\ E_{0,T}+B_T,\ (1+q)B_T\}
+\]
+with \(E_T\) measured over the observed window and \(E_{0,T}\) measured against the zero anchor. MathCan/FilteredOrbit.lean proves the corresponding generic discrete stitching theorem over natural-number metrics with independent late-pair budgets, not the full analytic theorem.
+
+### Held-out finite controls and exact geometry
+
+The new 32-block model has 64 base dimensions and two coefficient channels, hence **128 Hilbert dimensions** before sketching to **24 L4 coordinates**. Each rational block numerical-range disk lies inside \(D(3/8,1/2)\); block 0 realizes that disk exactly. The shared complex numerical radius is \(7/8\), while the first block has operator norm \(9/8\).
+
+A seeded order-2 filter at cutoff 18 gives a measured prefix max error \(0.019230627339\), anchor error \(0.017641810799\), curvature tail radius \(0.007150104311\), and all-horizon optimized budget \(0.024791915111\). A disk-only bound on the same tail radius gives \(0.180790227001\), approximately **25.28×** larger. The coefficient triangle bound gives \(1.038131381609\). These are bounds of different mathematical strength, not model-quality improvement measurements.
+
+All prefix pairs are measured; 18 additional time points are probed as an independent finite diagnostic. The error theorem covers all later times analytically. The observation errors come from floating-point calculation, and the random sketch has no guaranteed subpolynomial dimension rate. No results are claimed for a trained transformer.
+
+Run with Python 3.12 standard library:
+
+    python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_*.py' -v
+    python research/nor01_numerical_orbit_sketch/filtered_orbit.py --check
+    python research/nor01_numerical_orbit_sketch/filtered_orbit.py --check --order 3 --p 2
+
+The frozen receipt is [results/nor02_filtered_p4.json](results/nor02_filtered_p4.json). Ten new tests include exact rational disk inequalities, independent binomial-versus-Jordan evaluation, noncommutation, an extremal-attainment check, filter orders 1–4, the scalar constant-2 witness, and two additional seeded controls. The CI job compares selected receipt fields to the committed reference using strict numeric tolerances.
+
+**Open gate:** certified complex numerical ranges for trained looped-model Jacobians, with an explicit nonlinear remainder and held-out-depth test, are required before this can become an applied mechanistic-interpretability claim.
