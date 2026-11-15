@@ -173,6 +173,64 @@ def sharp_boundary_displacement(rows,scores,certificate):
     return delta
 
 
+
+
+def ray_exact_cell(scores,rows,selected,raw_direction):
+    """Sharp FIRST forward-ray crossing, normalized in physical L2 length.
+
+    Consider h(r)=h+r*d/||d|| with rational nonzero raw vector d. Each
+    relevant positive affine gap g declines with slope c/||d||.
+    If c<0 its zero lies at r=g*||d||/(-c), whose SQUARE is rational.
+    If c>=0 the gap never reaches zero for forward r>=0.
+    """
+    scores=tuple(map(rational,scores))
+    ray=tuple(map(rational,raw_direction))
+    if not rows or any(len(row)!=len(ray) for row in rows):
+        raise ValueError('bad ray/encoder dimensions')
+    norm2=squared_norm(ray)
+    if norm2<=0:
+        raise ValueError('nonzero forward ray direction required')
+    selected=tuple(sorted(set(selected)))
+    if not selected or any(not 0<=i<len(rows) for i in selected):
+        raise ValueError('invalid selected features')
+    rest=tuple(j for j in range(len(rows)) if j not in selected)
+    if not rest:
+        raise ValueError('proper selected subset required')
+    min_q=None;arg=None
+    def candidate(gap,slope,kind,i,j):
+        nonlocal min_q,arg
+        if gap<=0:
+            raise ValueError('non-strict starting affine margin')
+        if slope>=0:
+            return
+        r2=(gap*gap*norm2)/(slope*slope)
+        if min_q is None or r2<min_q:
+            min_q=r2
+            arg=(kind,i,j)
+    for i in selected:
+        slope=sum((v*d for v,d in zip(rows[i],ray)),Q(0))
+        candidate(scores[i],slope,'zero',i,None)
+        for j in rest:
+            diff_slope=sum(((a-b)*d for a,b,d in zip(rows[i],rows[j],ray)),Q(0))
+            candidate(scores[i]-scores[j],diff_slope,'pair',i,j)
+    if min_q is None:
+        return {'radius_squared':None,'active_boundary':None,
+                'dyadic_sqrt_lower':None,'dyadic_sqrt_upper':None}
+    lower,upper=dyadic_sqrt_bracket(min_q)
+    return {'radius_squared':min_q,'active_boundary':arg,
+            'dyadic_sqrt_lower':lower,'dyadic_sqrt_upper':upper}
+
+
+def topk_ray_certificate(base_certificate,rows,raw_direction):
+    """Two sharp forward-ray radii for the original positive top1/topk."""
+    scores=base_certificate['exact_preactivations']
+    return {
+       'top1':ray_exact_cell(scores,rows,(base_certificate['top_index'],),
+                             raw_direction),
+       'topk':ray_exact_cell(scores,rows,base_certificate['topk_indices'],
+                             raw_direction),
+    }
+
 if __name__=='__main__':
     import json
     W=((2,0),(0,2),(1,1),(-1,0),(0,-1))
