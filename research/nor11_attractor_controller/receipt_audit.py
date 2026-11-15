@@ -78,7 +78,8 @@ def audit(path):
     assert body["selected_policy"]["dev_future_correct"]==27
     scores=body["heldout_protocol"]
     for key,claims in frozen["heldout_native_task"].items():
-        actual=scores[key]
+        receipt_key="original" if key=="baseline" else key
+        actual=scores[receipt_key]
         for field in ("future_correct","accepted","false_accept","paid_checks_total","actions"):
             mapped="paid_checks" if field=="paid_checks_total" else field
             assert actual[field]==claims[mapped],(key,field,actual[field],claims[mapped])
