@@ -119,3 +119,34 @@ Trained CPU runs (requires \`torch==2.10.0\`):
 The exact CI workflow runs pure-Python tests, archives the cohort-control JSON, and retains the SMC-01/02 Markov traces. The heavier CPU model training was executed locally and its three-seed measurements are committed with full reproducibility parameters.
 
 **Further gates:** held-out matching families and vertex counts; an actual learned SAE dictionary extracted from a source-pinned recurrent model; intervention transfer between hidden layers; a causal control proving probe reliance on discovered latent alignment rather than only synthetic input geometry. All of those remain untested.
+
+
+## 7. Stricter SMC-03b: complete matching-identity holdout
+
+The previous 540/180 permutation split tests generalization to new *representatives* within all 15 familiar matching orbits. To measure genuinely new matching IDs, we fixed a second split **before training**:
+
+* 12 of 15 matching classes, with all 48 permutations in each class, form training (576 permutations).
+* The remaining three matching classes, again all 48 representatives each, form testing (144 permutations).
+* The negative class in each cohort independently samples the graph matching uniformly **within that cohort's matching classes**. Consequently graph and permutation marginals still match exactly between positive and negative labels within each split. Train and test have different graph supports by design.
+* Raw 51-input MLP, structured one-scalar oracle-assisted readout, optimizer rates, minibatches, training steps and three seeds are unchanged from SMC-03.
+
+The test population now has three equiprobable matching classes, so its exact Bayes-optimal balanced accuracy is \(1-1/(2\cdot3)=5/6\approx83.33\%\). The training Bayes ceiling is \(1-1/(2\cdot12)=23/24\approx95.83\%\).
+
+| Seed | Raw MLP train | Raw MLP on unseen matching IDs | Oracle-assisted structured probe on unseen IDs |
+|---|---:|---:|---:|
+| 20261115 | 94.22% | **55.90%** | 83.33% |
+| 20261116 | 95.78% | **51.62%** | 83.33% |
+| 20261117 | 95.33% | **50.46%** | 83.33% |
+
+Reproduce:
+
+    python research/synchronized_mixing_v1/family_holdout.py --seed 20261115
+    python research/synchronized_mixing_v1/family_holdout.py --seed 20261116
+    python research/synchronized_mixing_v1/family_holdout.py --seed 20261117
+
+[Fixed split and training code](family_holdout.py) | [Raw measurements](smc03_family_holdout_results.json) | [Exact split controls](test_family_holdout.py).
+
+**Interpretation.** The same small raw network learned the relationship sufficiently to classify unseen representatives of *known* matching classes, yet failed to extrapolate it across entirely new matching classes. The structured overlap readout transported the reference matching and generalized perfectly at the population Bayes limit. The result identifies a concrete inductive-bias bottleneck for future compact recurrent-model and SAE experiments. The class-exclusive holdout remains within one synthetic six-vertex topology and is not evidence about unrelated graph types.
+
+A useful next gate is to train an explicitly equivariant network, then compare it with the raw MLP using the exact same class-disjoint split and equal compute. The matchings and the model's permutation-index conventions should remain host-controlled to rule out information leakage through preprocessing.
+
