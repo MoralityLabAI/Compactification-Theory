@@ -25,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Exact interpreter parity, private-future interventions and paid-check accounting
         run: python -m unittest research.nor16_public_query_consensus.test_experiment -v
+      - name: Audit original NOR-16 source hashes and frozen negative result receipt
+        run: python research/nor16_public_query_consensus/receipt_audit.py --check
 
   four-fresh-public-source-cohorts:
     needs: source-and-future-separation
@@ -91,6 +93,8 @@ jobs:
           print('NOR16 CONSENSUS PASSED?',obj['consensus_four_passed_two_control_requirement'])
           print('NOR16 SHA',len(raw),hashlib.sha256(raw).hexdigest())
           PY
+      - name: Independently audit first run's 1440 native decisions and 4608 candidate prediction hashes
+        run: python research/nor16_public_query_consensus/receipt_audit.py --check --full /tmp/nor16_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor16-public-query-consensus-source-lock-and-observation-collisions
