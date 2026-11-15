@@ -47,6 +47,12 @@ jobs:
                 x['squared_versus_rest_mode_rule_accuracy'])
           print('NOR08C hidden-index-0 sign flip',
                 x['coordinate_intervention_counts'])
+          print('NOR08C effective public feature tensors',
+                x['unique_public_feature_tensors'],'/72')
+          print('NOR08C effective native initial hidden states',
+                x['unique_native_initial_hidden_states'],'/72')
+          for family,details in x['per_family_input_diversity'].items():
+              print('NOR08C INPUT DIVERSITY',family,details)
           PY
       - uses: actions/upload-artifact@v4
         with:
