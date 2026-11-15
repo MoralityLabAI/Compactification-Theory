@@ -1,0 +1,40 @@
+{
+  "schema": "nor08.two_natural_sources.certified_capture_summary.v1",
+  "executed_date_utc": "2026-11-15",
+  "original_trained_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "first_natural_source": {
+    "family": "signed",
+    "certified_capture_proven_by": "NOR-06B",
+    "workflow_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43695479529",
+    "zero_input_steps": 1308,
+    "certified_ball_radius_fraction": "1/100000000000",
+    "capture_artifact_hash": "58a698820790ea017b285ce9bf6e086f5042d7b2b20233cbbd9f4b008b1954bd",
+    "source_metadata_reference": "research/nor01_numerical_orbit_sketch/results/nor06_certified_capture_summary.json"
+  },
+  "second_natural_source": {
+    "family": "squared",
+    "certified_capture": true,
+    "proof_workflow": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43700133484",
+    "proof_artifact_id": 14156980428,
+    "code_source_commit": "a277ce1e2ace6639dd25a8ac83c94d43c096c983",
+    "source_case_id_sha256": "d9a5d95bf12d461ad99206473092633970610d83625c90118adfa5d452da0748",
+    "public_visible_sha256": "0b2d63a6a17e0d62e78f7eb5840f515a2d8fa3967d74eeb313998825ef612129",
+    "public_features_sha256": "5dbf32c0ddf600b8d45dd5ff703caac5fcb46f2cf4194450e2f5e77276a1a84e",
+    "public_header_candidates": 1,
+    "block_stride": 12,
+    "certified_block_index": 55,
+    "zero_input_steps": 660,
+    "target_radius_fraction": "1/1000000",
+    "target_center_distance_upper_fraction": "2019911314217696479857059/2500000000000000000000000000000",
+    "state_error_upper_fraction": "11725051219/50000000000000000000000000000000",
+    "exact_positive_clearance_fraction": "9601773715646058677807601/50000000000000000000000000000000",
+    "target_24_step_contraction_K_fraction": "20757737384308237464323670318943/25000000000000000000000000000000",
+    "exact_capture_trace_sha256": "bbfb0c62be1c9989b9c100d1540450e776ffb997a158c99f585dc7a0cfeb73cc"
+  },
+  "both_natural_sources_captured_in_distinct_verified_balls": true,
+  "exact_cross_basin_metric_gap_source": "research/nor01_numerical_orbit_sketch/nor08_cross_basin.py",
+  "distinct_label_lower_bound": 2,
+  "required_terminal_label_bits_lower_bound": 1,
+  "analytic_scope": "real-valued trained decimal-rational GRU with nine public source rows, followed by zero-input recurrence; each capture certified at its own time index",
+  "limits": "No claim of heldout proof-ranking capability gain or universal basin assignment; general Lp embedding remains existential"
+}

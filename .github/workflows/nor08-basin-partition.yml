@@ -1,0 +1,60 @@
+name: NOR-08C heldout basin partition and hidden intervention
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor08_basin_partition.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor08_basin_partition.py'
+      - '.github/workflows/nor08-basin-partition.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor08_basin_partition.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor08_basin_partition.py'
+      - '.github/workflows/nor08-basin-partition.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  heldout-source-partition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit heldout cohort, public-only features and sign-flip intervention
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor08_basin_partition -v
+      - name: Freeze 72 public-only predictions and first-coordinate interventions
+        run: python research/nor01_numerical_orbit_sketch/nor08_basin_partition.py --check --samples-per-family 12 --steps 720 --out /tmp/nor08_heldout_partition.json
+      - name: Print original mode matrix and causal intervention transitions
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/nor08_heldout_partition.json').read_text())
+          assert x['cohort_size']==72
+          assert x['source_future_labels_used'] is False
+          assert x['new_training_performed'] is False
+          assert x['exact_source_to_second_basin_capture_proved'] is False
+          for family,ct in x['contingency'].items():
+              print('NOR08C',family,ct)
+          print('NOR08C model-free majority-family baseline',
+                x['unconditioned_majority_family_baseline_accuracy'])
+          print('NOR08C predeclared squared-vs-rest fixed-point rule',
+                x['squared_versus_rest_mode_rule_accuracy'])
+          print('NOR08C hidden-index-0 sign flip',
+                x['coordinate_intervention_counts'])
+          print('NOR08C effective public feature tensors',
+                x['unique_public_feature_tensors'],'/72')
+          print('NOR08C effective native initial hidden states',
+                x['unique_native_initial_hidden_states'],'/72')
+          for family,details in x['per_family_input_diversity'].items():
+              print('NOR08C INPUT DIVERSITY',family,details)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor08-heldout-family-basin-modes-and-coordinate-intervention
+          path: /tmp/nor08_heldout_partition.json

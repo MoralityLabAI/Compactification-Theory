@@ -1,0 +1,27 @@
+{
+  "family": "NOR-01",
+  "papers": [
+    "OpenAI Math 094",
+    "OpenAI Math 325"
+  ],
+  "model": "distinct rational 2x2 Jordan blocks",
+  "block_count": 32,
+  "ambient_dimension": 64,
+  "sketch_dimension": 24,
+  "p": 4,
+  "seed": 325094,
+  "cutoff": 18,
+  "tail_checks": 16,
+  "exact_numerical_radius_q": "7/8",
+  "spectral_radius": "3/8",
+  "operator_norm": 1.125,
+  "first_step_gain": 1.0521730189605765,
+  "spectral_shortcut_fails": true,
+  "window_max_absolute_error": 0.31840136654934403,
+  "window_max_relative_error": 0.3029034369484016,
+  "tail_radius_bound": 0.1807902270012872,
+  "all_horizon_absolute_error_bound": 0.6799818205519184,
+  "finite_probe_max_absolute_error": 0.31840136654934403,
+  "finite_probe_within_theorem_bound": true,
+  "certificate_scope": "analytic all-t bound conditional on exact finite-window error; measured error uses unverified floating-point arithmetic"
+}

@@ -1,0 +1,92 @@
+name: SMC-01 through SMC-06 exact geometry and SAE evidence
+
+on:
+  push:
+    paths:
+      - 'research/synchronized_mixing_v1/**'
+      - '.github/workflows/smc01-synchronized-mixing.yml'
+  pull_request:
+    paths:
+      - 'research/synchronized_mixing_v1/**'
+      - '.github/workflows/smc01-synchronized-mixing.yml'
+
+jobs:
+  exact-oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify SMC-01/02/03 finite transitions, gauge and holdout controls
+        run: python -m unittest discover -s research/synchronized_mixing_v1 -p 'test_*.py' -v
+      - name: Produce exact ten-sweep result
+        run: |
+          python - <<'PY'
+          import json
+          from research.synchronized_mixing_v1.gym import evaluate
+          with open("smc01-results.json", "w") as f:
+              json.dump(evaluate(horizon=10), f, indent=2)
+          PY
+      - name: Produce locked Markov lift and spectral audit
+        run: |
+          python - <<'PY'
+          import json
+          from research.synchronized_mixing_v1.transport_lift import exact_sweep, check_four_slot_spectrum, gauge_intervention_audit
+          report = {
+              "four_vertex": exact_sweep(2, horizon=16),
+              "six_vertex": exact_sweep(3, horizon=3),
+              "spectrum": check_four_slot_spectrum(),
+              "gauge_four_vertex": gauge_intervention_audit(2, horizon=10),
+              "gauge_six_vertex": gauge_intervention_audit(3, horizon=3),
+          }
+          with open("smc02-lift-results.json", "w") as f:
+              json.dump(report, f, indent=2)
+          PY
+      - name: Produce exact stratified probe cohort controls
+        run: python research/synchronized_mixing_v1/relational_probe.py > smc03-controls.json
+      - name: Produce exact family-disjoint probe controls
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          sys.path.insert(0, "research/synchronized_mixing_v1")
+          from family_holdout import family_split
+          from relational_probe import exact_population_baseline
+          data = family_split()
+          controls = {
+              "representative_split": exact_population_baseline(3),
+              "matching_family_split": {
+                  "train_matching_ids": list(data["train_g"]),
+                  "test_matching_ids": list(data["test_g"]),
+                  "train_permutations": len(data["train_pi"]),
+                  "test_permutations": len(data["test_pi"]),
+                  "theoretical_test_bayes": "5/6",
+              },
+              "learned_cpu_measurements": "see committed smc03_*_results.json files",
+          }
+          with open("smc03-family-controls.json", "w") as out:
+              json.dump(controls, out, indent=2)
+          PY
+      - name: Replay SMC-04 unknown frame identification and risk bound
+        run: python research/synchronized_mixing_v1/run_smc04.py --smoke --output smc04-smoke-report.json
+      - name: Replay SMC-05 sparse feature geometry discovery
+        run: python research/synchronized_mixing_v1/run_discovery.py --output smc05-smoke-results.json
+      - name: Verify SMC-06 frozen learned-SAE evidence
+        run: python -m unittest discover -s research/synchronized_mixing_v1 -p 'test_approx_geometry.py' -v
+      - name: Archive heldout SAE fidelity gate and confidence penalties
+        run: python research/synchronized_mixing_v1/fidelity_gate.py > smc06-heldout-fidelity.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc01-through-smc06-exact-evidence
+          path: |
+            smc01-results.json
+            smc02-lift-results.json
+            smc03-controls.json
+            smc03-family-controls.json
+            smc04-smoke-report.json
+            smc05-smoke-results.json
+            smc06-heldout-fidelity.json
+            research/synchronized_mixing_v1/smc06_full_10seed_results.json
+            research/synchronized_mixing_v1/sae_activation_evidence.json
+            research/synchronized_mixing_v1/sae_seed103_checkpoint.json

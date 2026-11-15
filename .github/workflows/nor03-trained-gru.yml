@@ -1,0 +1,78 @@
+name: NOR-03 trained GRU interval numerical-range audit
+
+on:
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor03-trained-gru.yml'
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor03-trained-gru.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  true-block-jacobian:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check checkpoint, rational exp enclosures, and trained negative and positive gates
+        run: python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_trained_gru_cert.py' -v
+      - name: Audit trained GRU zero-origin and held-out family block Jacobians
+        run: python research/nor01_numerical_orbit_sketch/trained_gru_cert.py --check --out /tmp/nor03_trained_gru.json
+      - name: Compare later heldout hidden-state geometry after 32 zero-input steps
+        run: python research/nor01_numerical_orbit_sketch/trained_gru_cert.py --check --warmup 32 --family-limit 2 --out /tmp/nor03_warm32.json
+      - name: Verify source-bound receipt and report exact gate counts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('/tmp/nor03_trained_gru.json').read_text())
+          assert r['schema'] == 'nor03.trained.gru.interval.block.v1'
+          assert r['checkpoint_sha256'] == '54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['checkpoint_parameters'] == 1000
+          assert r['early_negative_control']['contracting_disk'] is False
+          assert r['zero_origin_positive']['contracting_disk'] is True
+          assert r['heldout_count'] == 6
+          for item in r['heldout']:
+              assert item['post_nine_inputs_native_logits_parity'] < 1e-10
+              assert item['native_interval_replay_discrepancy'] < 1e-9
+              assert item['certificate']['block_nonlinear_remainder_upper'] >= 0
+          positive = r['zero_origin_positive']
+          negative = r['early_negative_control']
+          print('NOR-03 trained zero-origin 12-step q=', positive['disk_q_float'],
+                'block nonlinear bound=', positive['block_nonlinear_remainder_upper'])
+          print('NOR-03 initial-zero 8-step q=', negative['disk_q_float'])
+          for item in r['heldout']:
+              cert = item['certificate']
+              print('FAMILY', item['family'], 'q=', cert['disk_q_float'],
+                    'contracting=', cert['contracting_disk'],
+                    'initial box width=', item['native_interval_max_width'],
+                    'linearization remainder=', cert['block_nonlinear_remainder_upper'])
+          print('NOR-03 certified trained zero case; heldout successful discs',
+                r['heldout_contracting_disks'], '/', r['heldout_count'])
+          later=json.loads(Path('/tmp/nor03_warm32.json').read_text())
+          assert later['heldout_count']==2 and later['heldout_warmup']==32
+          early={x['family']:x for x in r['heldout']}
+          for item in later['heldout']:
+              prior=early[item['family']]['certificate']['disk_q_float']
+              new=item['certificate']['disk_q_float']
+              print('DEPTH SWEEP',item['family'],'q_8=',prior,'q_32=',new,
+                    'contracting_32=',item['certificate']['contracting_disk'],
+                    'box_width_32=',item['native_interval_max_width'])
+          print('NOR-03 contracting 12-block disks at warmup 32:',
+                later['heldout_contracting_disks'],'/2 tested families')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor03-train-locked-rational-interval-receipt
+          path: |
+            /tmp/nor03_trained_gru.json
+            /tmp/nor03_warm32.json

@@ -1,0 +1,57 @@
+{
+  "schema": "nor06.basin_discovery.summary.v1",
+  "executed_at_utc": "2026-11-15",
+  "source_run_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43695670674",
+  "checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "model": "RRC25 original 1000-weight GRU; zero input after 9 public rows",
+  "cohort": "one independent source case in each of six heldout generator families",
+  "max_extra_zero_input_steps": 4800,
+  "ball_radius": "1/100000000000",
+  "evidence_category": "noncertified Python FP64 discovery, zero rational basin entries established by this survey",
+  "families": [
+    {
+      "family": "signed",
+      "first_measured_entry": 1306,
+      "initial_distance": 0.3344490869377241,
+      "terminal_one_step_drift": 2.0014830212433605e-16
+    },
+    {
+      "family": "sparse",
+      "first_measured_entry": 1340,
+      "initial_distance": 0.190524219760257,
+      "terminal_one_step_drift": 2.0014830212433605e-16
+    },
+    {
+      "family": "product",
+      "first_measured_entry": 1380,
+      "initial_distance": 2.6997655789456974,
+      "terminal_one_step_drift": 0
+    },
+    {
+      "family": "rational",
+      "first_measured_entry": 1420,
+      "initial_distance": 4.531928466306379,
+      "terminal_one_step_drift": 0
+    },
+    {
+      "family": "squared",
+      "first_measured_entry": null,
+      "initial_distance": 5.514933069820907,
+      "minimum_distance": 5.020912335799843,
+      "terminal_one_step_drift": 0
+    },
+    {
+      "family": "late_source",
+      "first_measured_entry": 1340,
+      "initial_distance": 0.2622006141831354,
+      "terminal_one_step_drift": 2.0014830212433605e-16
+    }
+  ],
+  "obligations": [
+    "source-locked rational interval recentered trajectory enclosure",
+    "exact rational terminal entry clearance",
+    "native GRU proof-ranking evaluation remains independent"
+  ],
+  "measured_entries": 5,
+  "certified_entries": 0
+}

@@ -1,0 +1,58 @@
+name: NOR-04 trained GRU nonlinear invariant ball
+
+on:
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor04-invariant-ball.yml'
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor04-invariant-ball.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certified-nonlinear-fixed-ball:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Kernel-independent rational interval and fixed-ball tests
+        run: python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_invariant_ball.py' -v
+      - name: Certify trained nonlinear block invariant ball
+        run: python research/nor01_numerical_orbit_sketch/invariant_ball.py --check --out /tmp/nor04_invariant_ball.json
+      - name: Verify original trained checkpoint and all required proof obligations
+        run: |
+          python - <<'PY'
+          import json
+          from fractions import Fraction
+          from pathlib import Path
+          r = json.loads(Path('/tmp/nor04_invariant_ball.json').read_text())
+          frozen = json.loads(Path(
+              'research/nor01_numerical_orbit_sketch/results/nor04_invariant_ball.json'
+          ).read_text())
+          assert r == frozen, 'NOR-04 output differs from the source-locked reference receipt'
+          assert r['schema'] == 'nor04.trained_gru.invariant_ball.v1'
+          assert r['checkpoint_sha256'] == '54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['checkpoint_parameters'] == 1000
+          assert r['depth_per_nonlinear_block'] == 12
+          R = Fraction(r['radius_fraction'])
+          K = Fraction(r['operator_upper_fraction'])
+          residual = Fraction(r['center_residual_upper_fraction'])
+          assert K < 1
+          assert residual + K * R <= R
+          assert r['banach_fixed_point_certificate']
+          assert r['fixed_point_of_one_step_F_proved'] is False
+          print('NOR-04 certified K=',float(K),'residual=',float(residual),
+                'radius=',float(R),'margin=',float(R*(1-K)-residual))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor04-certified-trained-nonlinear-ball
+          path: /tmp/nor04_invariant_ball.json
