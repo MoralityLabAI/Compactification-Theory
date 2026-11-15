@@ -1,0 +1,78 @@
+name: SMC-11C same-fit pretrained SAE selection and causal proof
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc11_joint_causal.py'
+      - 'research/real_recurrence_sae_v1/test_smc11_joint_causal.py'
+      - '.github/workflows/smc11-same-fit.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc11_joint_causal.py'
+      - 'research/real_recurrence_sae_v1/test_smc11_joint_causal.py'
+      - '.github/workflows/smc11-same-fit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  same-fit-source-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-locked CPU and interval math packages
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Exact SAE fingerprint and source-guard controls
+        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc11_joint_causal.py' -v
+      - name: Fit one source SAE then evaluate SAME weights for both proofs
+        run: |
+          python research/real_recurrence_sae_v1/smc11_joint_causal.py \
+            --fetch --max-test-puzzles 2 --seeds 71 --steps 300 \
+            --radii 0.02,0.2 --budgets 0,1e-10,1e-8,1e-6 \
+            --precision 160 --weights-dir runs/smc11/joint-pilot-weights \
+            --out runs/smc11/joint-pilot.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc11c-same-fit-pilot-and-frozen-weights
+          path: |
+            runs/smc11/joint-pilot.json
+            runs/smc11/joint-pilot-weights/
+          if-no-files-found: warn
+          retention-days: 60
+
+  same-fit-full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-locked CPU and interval math packages
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: One-snapshot SAE identity and Arb causal proof over 16 heldout puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc11_joint_causal.py \
+            --fetch --max-test-puzzles 16 --seeds 71,89,113 --steps 300 \
+            --radii 0.02,0.2 --budgets 0,1e-12,1e-10,1e-8,1e-6 \
+            --precision 160 --weights-dir runs/smc11/joint-frozen-weights \
+            --out runs/smc11/joint-full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc11c-source-locked-same-fit-full
+          path: |
+            runs/smc11/joint-full.json
+            runs/smc11/joint-frozen-weights/
+          retention-days: 90
+          if-no-files-found: warn
