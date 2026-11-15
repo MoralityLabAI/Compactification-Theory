@@ -55,10 +55,16 @@ jobs:
           python research/real_recurrence_sae_v1/smc07_real_sae.py \
             --fetch --max-cases 64 --steps 300 --seeds 71,89,113 \
             --out runs/smc07/full.json
+      - name: Analyze paired differences using independent puzzle clusters
+        run: |
+          python research/real_recurrence_sae_v1/analyze_smc07.py \
+            --receipt runs/smc07/full.json --out runs/smc07/clustered.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: smc07-pinned-64-puzzle-causal-receipt
-          path: runs/smc07/full.json
+          path: |
+            runs/smc07/full.json
+            runs/smc07/clustered.json
           retention-days: 90
           if-no-files-found: warn
