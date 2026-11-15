@@ -65,3 +65,8 @@ provenance-preserving frozen-activation adapter.
 [Experiment and replay](COE05.md) | [Affine-phase oracle](phase_register.py) | [Frozen-probe scorer](phase_order_replay.py)
 
 A fixed tied one-bit readout can distinguish 14 affine-hyperplane states across eight cyclic visits even when every state activates exactly four times. Its constant-weight code corrects one bit flip; an unknown cyclic phase collapses the 14 messages to four rotation orbits. A new 3-seed synthetic tied-attention replication shows only 10 order-only heldout evaluator hits among 336 tested pairs. The pretrained TRM/Huginn/Nanbeige measurements remain outside this experiment.
+
+
+## COE-06: phase-blind clock-gauge observer capacity
+
+The [COE-06 continuation](COE06.md) replays frozen COE-05 heads under unknown cyclic phase (243/336 ordered versus 233/336 phase-invariant). A 14-visit, 21-label constant-weight code corrects one flipped bit with arbitrary cyclic phase. The [resource oracle](resource_bound.py) bounds every shorter such code by 17 labels. See [test_phase_blind.py](test_phase_blind.py) and [MathCan theorem](https://github.com/patrickdugan/MathCan/blob/feat/coe01-chromatic-observer-20261115/research/compactification/PHASE_BLIND_OBSERVER_CAPACITY.md).

@@ -1,0 +1,127 @@
+{
+  "cohort_results": [
+    {
+      "context_details": [
+        {
+          "context": 4,
+          "distinct_codes": 3,
+          "distinct_counts": 3,
+          "distinct_necklaces": 3
+        },
+        {
+          "context": 5,
+          "distinct_codes": 4,
+          "distinct_counts": 4,
+          "distinct_necklaces": 4
+        },
+        {
+          "context": 6,
+          "distinct_codes": 4,
+          "distinct_counts": 3,
+          "distinct_necklaces": 3
+        },
+        {
+          "context": 7,
+          "distinct_codes": 4,
+          "distinct_counts": 3,
+          "distinct_necklaces": 3
+        }
+      ],
+      "count": 78,
+      "cyclic": 78,
+      "cyclic_beyond_count": 0,
+      "denominator": 112,
+      "model_checkpoint_sha256": "bfebe1d7c15fc61b0516a93fd82ffa9a34ade170c62dca48734a27a9934c8c3e",
+      "model_seed": 2411,
+      "order_only": 4,
+      "ordered": 82,
+      "phase_sensitive_only": 4
+    },
+    {
+      "context_details": [
+        {
+          "context": 4,
+          "distinct_codes": 3,
+          "distinct_counts": 3,
+          "distinct_necklaces": 3
+        },
+        {
+          "context": 5,
+          "distinct_codes": 4,
+          "distinct_counts": 3,
+          "distinct_necklaces": 3
+        },
+        {
+          "context": 6,
+          "distinct_codes": 3,
+          "distinct_counts": 3,
+          "distinct_necklaces": 3
+        },
+        {
+          "context": 7,
+          "distinct_codes": 2,
+          "distinct_counts": 2,
+          "distinct_necklaces": 2
+        }
+      ],
+      "count": 69,
+      "cyclic": 69,
+      "cyclic_beyond_count": 0,
+      "denominator": 112,
+      "model_checkpoint_sha256": "2af2207f5e56a09154122026c7e27ff1c74b7d682b98457a202ba2aba87a878f",
+      "model_seed": 2412,
+      "order_only": 1,
+      "ordered": 70,
+      "phase_sensitive_only": 1
+    },
+    {
+      "context_details": [
+        {
+          "context": 4,
+          "distinct_codes": 5,
+          "distinct_counts": 4,
+          "distinct_necklaces": 4
+        },
+        {
+          "context": 5,
+          "distinct_codes": 5,
+          "distinct_counts": 4,
+          "distinct_necklaces": 4
+        },
+        {
+          "context": 6,
+          "distinct_codes": 4,
+          "distinct_counts": 3,
+          "distinct_necklaces": 3
+        },
+        {
+          "context": 7,
+          "distinct_codes": 4,
+          "distinct_counts": 4,
+          "distinct_necklaces": 4
+        }
+      ],
+      "count": 86,
+      "cyclic": 86,
+      "cyclic_beyond_count": 0,
+      "denominator": 112,
+      "model_checkpoint_sha256": "cf3a08068a13f52ab87f0123cc03b4fb352e409642bc229e81e49919fcc91e83",
+      "model_seed": 2413,
+      "order_only": 5,
+      "ordered": 91,
+      "phase_sensitive_only": 5
+    }
+  ],
+  "interpretation": "post-hoc on fit-only selected COE-05 heads; no new fitting",
+  "pooled": {
+    "count": 233,
+    "cyclic": 233,
+    "cyclic_beyond_count": 0,
+    "denominator": 336,
+    "order_only": 10,
+    "ordered": 243,
+    "phase_sensitive_only": 10
+  },
+  "schema": "COE-06-posthoc-frozen-phase-gauge-v1",
+  "source_schema": "COE-05-fit-only-phase-probe-exploratory-v1"
+}
