@@ -39,6 +39,7 @@ from trained_gru_cert import (
     Interval,N,build_certificate,gates,get_weights,sqrt_upper,ZERO,
 )
 from nor07_recentered_tube import recentered_tube
+from nor07_stationary_tube import stationary_tube
 
 SECOND_SEED=(
     "0.1451578041821899",
@@ -151,7 +152,10 @@ def two_fixed_points_certificate():
     # Uniform local contraction of F^24 using exact-rational recentered
     # Taylor shadowing. Global Hessian bounds cover every possible orbit
     # within the ball and nominal products retain nonnormal cancellation.
-    block=recentered_tube(weights,center,RADIUS,BLOCK)
+    # A single exact-rational approximate fixed-point center avoids
+    # repeated nominal state recentering. The Volterra series still
+    # bounds *every* nonnormal Jacobian product on the full ball.
+    block=stationary_tube(weights,center,RADIUS,BLOCK)
     K=Q(block["block_operator_norm_upper_fraction"])
     s=Q(block["center_residual_upper_fraction"])
     margin=RADIUS-s-K*RADIUS
@@ -159,7 +163,7 @@ def two_fixed_points_certificate():
         raise AssertionError(
             f"second 24-step block failed local contraction: K={K}, s={s}, R={RADIUS}, margin={margin}")
     dstar=s/(1-K)
-    one=recentered_tube(weights,center,RADIUS,1)
+    one=stationary_tube(weights,center,RADIUS,1)
     L1=Q(one["block_operator_norm_upper_fraction"])
     s1=Q(one["center_residual_upper_fraction"])
     image_bound=s1+L1*dstar
@@ -179,11 +183,11 @@ def two_fixed_points_certificate():
         "second_center_decimals":center_literals,
         "second_ball_radius_fraction":str(RADIUS),
         "block_depth":BLOCK,
-        "second_block_certification_method":"recentered rational nominal Jacobians and exact Volterra Taylor-product bounds",
+        "second_block_certification_method":block["certification_method"],
         "second_nominal_product_upper_fraction":block["nominal_product_frobenius_upper_fraction"],
         "second_derivative_variation_upper_fraction":block["block_derivative_variation_upper_fraction"],
         "second_max_state_tube_radius_fraction":block["max_tube_radius_upper_fraction"],
-        "second_point_shadowing_error_fraction":block["last_point_shadowing_error_fraction"],
+        "second_point_shadowing_error_fraction":block["max_point_shadowing_error_fraction"],
         "second_block_operator_norm_upper_fraction":str(K),
         "second_block_operator_norm_upper_float":float(K),
         "second_block_residual_upper_fraction":str(s),
