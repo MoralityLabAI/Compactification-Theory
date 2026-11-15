@@ -1,0 +1,178 @@
+{
+  "schema": "SMC-08/puzzle-clustered-curvature-summary-v1",
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "evidence_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43705306641",
+  "full_per_puzzle_artifact_id": 14158481955,
+  "n_independent_test_puzzles": 16,
+  "sae_seeds": [
+    71,
+    89,
+    113
+  ],
+  "steps_per_sae": 300,
+  "bootstrap_draws": 20000,
+  "bootstrap_unit": "average three SAE seeds within puzzle, then sample 16 puzzle IDs",
+  "source": "SMC08 full.json archived hosted receipt; analysis generated from its complete per-puzzle records",
+  "global_exact_real_hessian_upper_log10": 53.60649316981949,
+  "causal_effect_comparisons": {
+    "0.02": {
+      "active_minus_inactive": {
+        "effect": 0.007684557389751856,
+        "prediction": 0.0077445396525657436,
+        "interval95": [
+          0.0031452586295877744,
+          0.012921831044271234
+        ],
+        "positive_puzzles": 12
+      },
+      "active_minus_isotropic": {
+        "effect": 0.011632979384732667,
+        "prediction": 0.011688642124250798,
+        "interval95": [
+          0.006609833478376087,
+          0.01709745266226439
+        ],
+        "positive_puzzles": 15
+      },
+      "active_minus_jacobian_optimal": {
+        "effect": -0.025881040331910292,
+        "prediction": -0.025851245106212842,
+        "interval95": [
+          -0.03565431074160159,
+          -0.01788511659020895
+        ],
+        "positive_puzzles": 0
+      }
+    },
+    "0.2": {
+      "active_minus_inactive": {
+        "effect": 0.07151814985397849,
+        "prediction": 0.07744539652565743,
+        "interval95": [
+          0.02623323012930661,
+          0.12344257490832096
+        ],
+        "positive_puzzles": 11
+      },
+      "active_minus_isotropic": {
+        "effect": 0.11140523348388517,
+        "prediction": 0.11688642124250798,
+        "interval95": [
+          0.06169830849668123,
+          0.16497257285546388
+        ],
+        "positive_puzzles": 15
+      },
+      "active_minus_jacobian_optimal": {
+        "effect": -0.26036272843001235,
+        "prediction": -0.2585124510621284,
+        "interval95": [
+          -0.35794536493978313,
+          -0.18082599556867
+        ],
+        "positive_puzzles": 0
+      }
+    },
+    "0.8": {
+      "active_minus_inactive": {
+        "effect": 0.21900004984215266,
+        "prediction": 0.30978158610262974,
+        "interval95": [
+          0.04497525478945754,
+          0.4229882405940963
+        ],
+        "positive_puzzles": 10
+      },
+      "active_minus_isotropic": {
+        "effect": 0.38459842600553834,
+        "prediction": 0.4675456849700319,
+        "interval95": [
+          0.19921442650883198,
+          0.5892610129200784
+        ],
+        "positive_puzzles": 15
+      },
+      "active_minus_jacobian_optimal": {
+        "effect": -1.0170692105652102,
+        "prediction": -1.0340498042485136,
+        "interval95": [
+          -1.353345477876861,
+          -0.7033347362858938
+        ],
+        "positive_puzzles": 0
+      }
+    }
+  },
+  "directional_jacobian_efficiency": {
+    "sae_active": {
+      "mean": 0.3750421987973223,
+      "bootstrap95": [
+        0.322928403014594,
+        0.4312900363665408
+      ]
+    },
+    "sae_inactive": {
+      "mean": 0.2811903888588006,
+      "bootstrap95": [
+        0.2288882073355611,
+        0.3397199138695645
+      ]
+    },
+    "isotropic": {
+      "mean": 0.16645806663155016,
+      "bootstrap95": [
+        0.14054376791152332,
+        0.19226324719418184
+      ]
+    },
+    "jacobian_optimal": {
+      "mean": 1
+    }
+  },
+  "active_relative_taylor_residual": {
+    "0.02": {
+      "mean": 0.004103699052200513,
+      "bootstrap95": [
+        0.003435649414327677,
+        0.0048695240784802805
+      ]
+    },
+    "0.2": {
+      "mean": 0.041198516368503905,
+      "bootstrap95": [
+        0.034282330321618225,
+        0.048964036019730685
+      ]
+    },
+    "0.8": {
+      "mean": 0.16690545294835968,
+      "bootstrap95": [
+        0.13764619667315647,
+        0.19957892321065518
+      ]
+    }
+  },
+  "arb_local_exact_real": {
+    "run_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43705858285",
+    "artifact_id": 14158606255,
+    "sae_seed": 71,
+    "signed_margin_certified_by_radius": {
+      "1e-10": 15,
+      "1e-8": 3,
+      "1e-6": 0,
+      "1e-4": 0,
+      "0.2": 0
+    },
+    "ln_epsilon_floor_used": {
+      "1e-10": 0,
+      "1e-8": 0,
+      "1e-6": 0,
+      "1e-4": 0,
+      "0.2": 16
+    },
+    "scope": "Arb interval certificate of one fixed clean winner-minus-runner margin for each heldout puzzle, not finite-radius effect ordering across directions."
+  },
+  "limitations": "Same 16 heldout Sudoku puzzles viewed in prior SMC07; posthoc analysis, FP64 measured Jacobians not interval certified, global Hessian bound mathematically valid but extremely loose."
+}
