@@ -1,0 +1,52 @@
+name: NOR-03 trained GRU interval numerical-range audit
+
+on:
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor03-trained-gru.yml'
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor03-trained-gru.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  true-block-jacobian:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check checkpoint, rational exp enclosures, and trained negative and positive gates
+        run: python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_trained_gru_cert.py' -v
+      - name: Audit trained GRU zero-origin and held-out family block Jacobians
+        run: python research/nor01_numerical_orbit_sketch/trained_gru_cert.py --check --out /tmp/nor03_trained_gru.json
+      - name: Verify source-bound receipt and report exact gate counts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('/tmp/nor03_trained_gru.json').read_text())
+          assert r['schema'] == 'nor03.trained.gru.interval.block.v1'
+          assert r['checkpoint_sha256'] == '54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['checkpoint_parameters'] == 1000
+          assert r['early_negative_control']['contracting_disk'] is False
+          assert r['zero_origin_positive']['contracting_disk'] is True
+          assert r['heldout_count'] == 6
+          for item in r['heldout']:
+              assert item['post_nine_inputs_native_logits_parity'] < 1e-10
+              assert item['native_interval_replay_discrepancy'] < 1e-9
+              assert item['certificate']['block_nonlinear_remainder_upper'] >= 0
+          print('NOR-03 certified trained zero case; heldout successful discs',
+                r['heldout_contracting_disks'], '/', r['heldout_count'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor03-train-locked-rational-interval-receipt
+          path: /tmp/nor03_trained_gru.json
