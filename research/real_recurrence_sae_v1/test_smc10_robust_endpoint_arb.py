@@ -9,7 +9,7 @@ from flint import arb,arb_mat,ctx
 
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from smc10_robust_endpoint_arb import (
-    arb_sym_ball,uncertain_anchor,robust_effects,summary_table
+    arb_sym_ball,uncertain_anchor,robust_effects,summary_table,RobustTaylorNet
 )
 
 
@@ -72,6 +72,19 @@ class RobustEndpointTests(unittest.TestCase):
                                 Q(1,5),Q(1,4),{k:Q(1,4) for k in self.directions})
         self.assertEqual(too_wide['comparisons']['isotropic']['proof'],
                          'inconclusive')
+
+
+    def test_nonnegative_interval_square_refines_layernorm_denominator(self):
+        import torch.nn as nn
+        # Every centered input interval includes zero and the independent
+        # x*x interval can incorrectly include a negative variance.
+        norm=nn.LayerNorm(48,eps=1e-5).double()
+        wide=arb_mat([[arb(0,'1/50') for _ in range(48)] for _ in range(81)])
+        net=object.__new__(RobustTaylorNet)
+        out,_=net.ln(wide,norm,'interval-safe-ln')
+        self.assertEqual((out.nrows(),out.ncols()),(81,48))
+        self.assertTrue(all(out[i,j].lower()<=0<=out[i,j].upper()
+                            for i in (0,40,80) for j in (0,9,47)))
 
     def test_report_aggregation_and_input_guard(self):
         row=robust_effects(self.net,self.anchor,7,self.directions,
