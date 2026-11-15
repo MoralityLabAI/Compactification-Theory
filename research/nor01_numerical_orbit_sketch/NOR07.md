@@ -1,6 +1,6 @@
 # NOR-07: certifying a second zero-input attractor in the trained RRC-25 GRU
 
-**Status:** source-locked rational interval certification in progress. The candidate comes from the independently executed [NOR-06 six-family discovery survey](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43695670674), which showed that the squared-family input approached a stationary hidden vector approximately 5.020912 units from NOR-04's already certified fixed point.
+**Status:** **source-locked rational interval certification succeeded**, 12/12 tests passed in [GitHub Actions run 43698679035](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43698679035). The candidate comes from the independently executed [NOR-06 six-family discovery survey](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43695670674), which showed that the squared-family input approached a stationary hidden vector approximately 5.020912 units from NOR-04's already certified fixed point.
 
 ## Exact model and separation question
 
@@ -33,6 +33,28 @@ s_{1,2}+L_{1,2}\frac{s_2}{1-K_2}<R_2.
 This ensures \(F(p_2)\) lies in the same invariant ball, and uniqueness plus commutation \(F^{24}F=FF^{24}\) yields \(F(p_2)=p_2\).
 
 Finally the proof checks an exact rational coordinate separation \(|c_{2,1}-c_{1,1}|>R_1+R_2\). Thus the fixed points lie in disjoint balls and cannot coincide. The resulting model would have **at least two distinct locally attracting fixed points** with independently certified nonlinear convergence neighborhoods.
+
+## Executed two-attractor result
+
+The independent [NOR-07 CI run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43698679035) completed all twelve tests on the original checkpoint. The 80-decimal Newton refinement of the squared-family candidate reached a maximum residual of \(5\times10^{-80}\) before the center was frozen to 55 decimal places and independently certified by rational Taylor intervals.
+
+The [stationary-center Volterra implementation](nor07_stationary_tube.py) then proved that the *actual* nonlinear 24-step zero-input GRU map is uniformly contracting on a radius-\(10^{-20}\) ball around the second candidate. The exact certified quantities are:
+
+| Obligation | Certified upper or lower bound |
+| --- | ---: |
+| Uniform \(\|D(F^{24})\|\) upper | \(0.80428013844207623058831195827191\) |
+| Center 24-step residual upper | \(7.4\times10^{-30}\) |
+| Invariant-ball clearance lower | \(1.9571986081792377\times10^{-21}\) |
+| One-step operator norm upper on ball | \(2.366151213621491\) |
+| One-step center residual upper | \(2.4\times10^{-31}\) |
+| One-step image bound for fixed point | \(8.970214677153268\times10^{-29}\) |
+| Guaranteed inter-basin separation using one coordinate | \(1.8389154011509952\) |
+
+The one-step return test places the second 24-step fixed point strictly within its own ball after a single original GRU step. Commutation with \(F^{24}\) and Banach uniqueness prove it is **a period-one fixed point of \(F\)**. Since the first NOR-04/05 fixed point lies in a disjoint certified ball, the real-analytic trained model has at least two distinct attracting fixed points.
+
+The [committed rational summary](results/nor07_two_attractors_summary.json) includes the 55-decimal center, all exact fractions, the original checkpoint and Actions artifact identifiers, and an explicit scope flag that the squared-family source trajectory has *not yet been interval-certified to enter the second ball*. [NOR-07C receipt audit](nor07_receipt_audit.py) rechecks the rational inequalities against the NOR-04/05 receipts independently of the long proof run.
+
+The previous 24-step axis-aligned interval propagation was computationally impractical due to enclosure wrapping and large rational denominators. The successful stationary-center method uses the cancellation-preserving rational powers of the nominal Jacobian and a global Hessian-controlled nonlinear remainder, rounding every scalar recurrence **upward** to a fixed 32-decimal rational denominator. The full noncommutative theory is in [MathCan NOR-07T](https://github.com/patrickdugan/MathCan/pull/58), now merged.
 
 ## Reproduce
 
