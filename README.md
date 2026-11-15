@@ -1,3 +1,5 @@
+**NOR-01:** [Numerical-range-gated recurrent Lp orbit sketches](research/nor01_numerical_orbit_sketch/README.md) combine OpenAI Math #094 and #325 with an exact rational nonnormal tail gate, a reproducible 64-to-24 Gaussian L4 sketch, seven deterministic checks, and the [MathCan NOR-01 stitching theorem](https://github.com/patrickdugan/MathCan/pull/45). The finite pilot is a linear surrogate; analytic transfer to trained loops remains open.
+
 # Compactification Theory
 
 **RefutationBench v0.1:** [evidence-grounded proof audits and compact certificates](research/refutation_bench/README.md), with a pinned Riemann-submission case study, paired valid/invalid controls, exact finite certificate checks, and train-only distillation export. This public seed runs offline; learned reasoning gains remain an experimental target.
