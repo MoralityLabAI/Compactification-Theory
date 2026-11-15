@@ -1,0 +1,116 @@
+{
+  "schema": "nor12b.independent_holdout_confirmation.frozen_summary.v1",
+  "source_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "initial_full_result_sha256": "a1995f628038ab6bd447c7d4438ee861ca3c10ef90ca5a87c4063bf99811db95",
+  "confirmation_result_sha256": "70e624e5b1b40d798c398bb1a35e804569557bcb49c88ef18e29454135d0e6e0",
+  "independent_successful_workflow": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43709095616",
+  "artifact_id": 14159239664,
+  "training_and_dev_frozen": {
+    "train_cases": 96,
+    "dev_cases": 36,
+    "head_weight_digests_verified_before_confirmation": true,
+    "scales": {
+      "basin": 0.25,
+      "shuffled_basin": 1,
+      "random_feature": 0.5,
+      "hidden_only": 1
+    },
+    "training_full_public_oracle_checks": 1536
+  },
+  "confirmation": {
+    "repetitions": 4,
+    "cases_per_repetition": 72,
+    "total_cases": 288,
+    "unique_model_input_tensors_overall": 241,
+    "unique_tensors_per_rep": 61,
+    "repeated_late_source_feature_in_each_rep": true,
+    "total_original": {
+      "future_correct": 160,
+      "false_accept": 26,
+      "paid_checks": 809
+    },
+    "alternatives": {
+      "basin": {
+        "future_correct": 167,
+        "false_accept": 20,
+        "paid_checks": 808,
+        "gains": 15,
+        "losses": 8,
+        "nonlate_gains": 12,
+        "nonlate_losses": 3,
+        "unique_positive_feature_groups": 12,
+        "unique_negative_feature_groups": 4,
+        "case_level_exact_mcnemar_p": 0.21003961563110352,
+        "feature_group_sign_p": 0.076812744140625
+      },
+      "random_feature": {
+        "future_correct": 167,
+        "false_accept": 18,
+        "paid_checks": 826,
+        "gains": 18,
+        "losses": 11,
+        "nonlate_gains": 13,
+        "nonlate_losses": 4,
+        "unique_positive_feature_groups": 13,
+        "unique_negative_feature_groups": 5,
+        "case_level_exact_mcnemar_p": 0.26493089646101,
+        "feature_group_sign_p": 0.09625244140625
+      },
+      "shuffled_basin": {
+        "future_correct": 160,
+        "false_accept": 20,
+        "paid_checks": 844,
+        "gains": 20,
+        "losses": 20,
+        "nonlate_gains": 17,
+        "nonlate_losses": 13,
+        "case_level_exact_mcnemar_p": 1
+      },
+      "hidden_only": {
+        "future_correct": 160,
+        "false_accept": 20,
+        "paid_checks": 845,
+        "gains": 20,
+        "losses": 20,
+        "nonlate_gains": 17,
+        "nonlate_losses": 13,
+        "case_level_exact_mcnemar_p": 1
+      }
+    }
+  },
+  "first_test_posthoc_basin_feature_ablation": {
+    "original_basin_feature": {
+      "future_correct": 44,
+      "false_accept": 5,
+      "paid_checks": 191
+    },
+    "set_basin_feature_zero": {
+      "future_correct": 44,
+      "false_accept": 5,
+      "paid_checks": 189
+    },
+    "replace_with_shuffled_probe": {
+      "future_correct": 44,
+      "false_accept": 5,
+      "paid_checks": 189
+    },
+    "permuted_unique_feature_groups": {
+      "future_correct": 44,
+      "false_accept": 5,
+      "paid_checks": 193
+    },
+    "original_test_gains_from_one_late_source_feature_group": 2,
+    "original_test_other_family_future_correct_changes": 0,
+    "source_first_test_unique_model_inputs": 61
+  },
+  "statements": {
+    "empirical_paired_net_gain_on_fresh_cases": 7,
+    "primary_case_level_test_p_exceeds_0_05": true,
+    "basin_specific_advantage_over_random_feature_established": false,
+    "causal_necessity_of_basin_scalar_in_first_test_established": false,
+    "native_task_improvement_established_as_general_property": false,
+    "training_uses_public_degree_192_exact_candidate_checks_only": true,
+    "underlying_gru_and_original_readout_modified": false,
+    "multiple_comparisons_and_alias_dependence": "Case-level and post-hoc feature-group p values are exploratory, unadjusted and share aliased late_source model inputs."
+  }
+}
