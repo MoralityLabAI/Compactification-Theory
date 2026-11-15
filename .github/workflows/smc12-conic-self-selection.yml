@@ -5,12 +5,16 @@ on:
     paths:
       - 'research/real_recurrence_sae_v1/conic_self_selection_exact.py'
       - 'research/real_recurrence_sae_v1/smc12_cones.py'
+      - 'research/real_recurrence_sae_v1/smc12_dictionary_controls.py'
+      - 'research/real_recurrence_sae_v1/test_smc12_dictionary_controls.py'
       - 'research/real_recurrence_sae_v1/test_smc12_cones.py'
       - '.github/workflows/smc12-conic-self-selection.yml'
   pull_request:
     paths:
       - 'research/real_recurrence_sae_v1/conic_self_selection_exact.py'
       - 'research/real_recurrence_sae_v1/smc12_cones.py'
+      - 'research/real_recurrence_sae_v1/smc12_dictionary_controls.py'
+      - 'research/real_recurrence_sae_v1/test_smc12_dictionary_controls.py'
       - 'research/real_recurrence_sae_v1/test_smc12_cones.py'
       - '.github/workflows/smc12-conic-self-selection.yml'
   workflow_dispatch:
@@ -65,15 +69,24 @@ jobs:
           echo "00542304e1f15f606a20519d59c7617d574a4f0266c9a33b2220cf146015c3da  runs/smc12/smc11-frozen/joint-frozen-weights/sae_seed71.pt" | sha256sum -c -
           echo "ba0bfd9d82d68bd3398bb37e8b7539d93dff6d4e21f153d44bfa9f1ccae2ebcb  runs/smc12/smc11-frozen/joint-frozen-weights/sae_seed89.pt" | sha256sum -c -
           echo "087787bcfdd4d4350b56595049c07a7fd62bfd7db69f52258905a872e1f5b5af  runs/smc12/smc11-frozen/joint-frozen-weights/sae_seed113.pt" | sha256sum -c -
+      - name: Exact trained-vs-initial dictionary control regression tests
+        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc12_dictionary_controls.py' -v
       - name: Compute all 48 exact angular cones, 96 hyperplanes each
         run: |
           python research/real_recurrence_sae_v1/smc12_cones.py \
             --artifact-dir runs/smc12/smc11-frozen \
             --out runs/smc12/cones-full.json
+      - name: Exact 288-atom train versus original-initialization cone audit
+        run: |
+          python research/real_recurrence_sae_v1/smc12_dictionary_controls.py \
+            --artifact-dir runs/smc12/smc11-frozen \
+            --out runs/smc12/dictionary-control.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: smc12-exact-48-source-locked-angular-cones
-          path: runs/smc12/cones-full.json
+          path: |
+            runs/smc12/cones-full.json
+            runs/smc12/dictionary-control.json
           retention-days: 90
           if-no-files-found: warn
