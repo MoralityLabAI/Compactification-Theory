@@ -1,0 +1,80 @@
+name: NOR-13 nonlinear basin-gated recurrent task readout
+
+on:
+  push:
+    paths:
+      - 'research/nor13_multiplicative_gate/**'
+      - '.github/workflows/nor13-multiplicative-task-gate.yml'
+  pull_request:
+    paths:
+      - 'research/nor13_multiplicative_gate/**'
+      - '.github/workflows/nor13-multiplicative-task-gate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-and-interaction-controls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test source fingerprints, q x hidden interaction, public candidate-loss derivative and heldout verification
+        run: python -m unittest research.nor13_multiplicative_gate.test_gated_readout -v
+
+  frozen-four-seed-test:
+    needs: source-and-interaction-controls
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fit public-only gated heads on 96 cases, freeze dev scales, evaluate 288 new heldout cases
+        run: python research/nor13_multiplicative_gate/gated_readout.py --check --replicates 4 --per-family 12 --out /tmp/nor13_gated.json
+      - name: Audit paired native task outcomes and planned causal gate knockouts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          r=json.loads(Path('/tmp/nor13_gated.json').read_text())
+          assert r['schema']=='nor13.multiplicative_basin_x_hidden_task_readout.v1'
+          assert r['trained_gru_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['original_gru_parameters']==1000
+          assert not r['original_gru_weights_modified'] and not r['original_task_readout_weights_modified']
+          assert not r['private_future_used_to_train_gated_readouts']
+          assert r['training_full_public_exact_template_checks']==1536
+          assert r['new_readout_parameter_slots_per_arm']==416
+          assert r['scope']['dev_only_hyperparameter_selection']
+          assert r['scope']['train_time_exhaustive_public_templates_charged_separately']
+          assert r['fresh_aggregate']['original']['cases']==288
+          assert len(r['fresh_replicates'])==4
+          for x in r['fresh_replicates']:
+              assert x['cases']==72
+              print('NOR13 FRESH',x['replicate'],'unique public tensors',x['unique_feature_tensors'])
+          print('NOR13 DEVELOPMENT SELECTED',r['development_selected'])
+          for k,v in sorted(r['original_test_results_retrospective'].items()):
+              print('NOR13 ORIGINAL KNOWN TEST',k,v)
+          for k,v in sorted(r['fresh_aggregate'].items()):
+              assert v['future_correct']==r['fresh_aggregate']['original']['future_correct']+v['net_case_gain']
+              assert v['cases']==288 and v['paid_checks']<=1152
+              print('NOR13 FRESH TASK',k,
+                    'correct',v['future_correct'],
+                    'false accepts',v['false_accept'],
+                    'paid checks',v['paid_checks'],
+                    'paired gains',v['paired_newly_correct'],
+                    'paired losses',v['paired_lost_correct'])
+          for g in r['predeclared_gate_ablations_on_fresh_test']:
+              print('NOR13 Q INTERACTION ABLATION',g['replicate'],
+                    {k:val['future_correct'] for k,val in g['ablation']['variants'].items()})
+          print('NOR13 CAUSAL RULE: report specific basin utility only if real-gate ablations and matched negative controls support it')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor13-frozen-rrc25-conditional-task-readout-gate-and-independent-cases
+          path: /tmp/nor13_gated.json
