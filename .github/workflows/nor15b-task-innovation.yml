@@ -1,0 +1,107 @@
+name: NOR-15B task-relevant trajectory innovation on 1000 unseen input groups
+
+on:
+  push:
+    paths:
+      - 'research/nor15_trajectory_sufficiency/task_test.py'
+      - 'research/nor15_trajectory_sufficiency/test_task_test.py'
+      - 'research/nor15_trajectory_sufficiency/NOR15B.md'
+      - 'research/nor15_trajectory_sufficiency/results/nor15b*.json'
+      - 'research/nor15_trajectory_sufficiency/nor15b_receipt.py'
+      - '.github/workflows/nor15b-task-innovation.yml'
+  pull_request:
+    paths:
+      - 'research/nor15_trajectory_sufficiency/task_test.py'
+      - 'research/nor15_trajectory_sufficiency/test_task_test.py'
+      - 'research/nor15_trajectory_sufficiency/NOR15B.md'
+      - 'research/nor15_trajectory_sufficiency/results/nor15b*.json'
+      - 'research/nor15_trajectory_sufficiency/nor15b_receipt.py'
+      - '.github/workflows/nor15b-task-innovation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-only-task-head-unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate public accepted-set gradients, parameter shapes and grouping
+        run: python -m unittest research.nor15_trajectory_sufficiency.test_task_test -v
+
+  fresh-1000-input-native-verification:
+    needs: public-only-task-head-unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fit public-only 400-slot heads and score 1000 new nonlate feature groups
+        run: |
+          python research/nor15_trajectory_sufficiency/task_test.py \
+            --check --repetitions 4 --nonlate-per-family 50 \
+            --late-per-repetition 10 --epochs 150 --out /tmp/nor15b_full.json
+      - name: Audit 1000 fresh distinct source-input outcomes, paired signs and training provenance
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib,math
+          from collections import Counter
+          raw=Path('/tmp/nor15b_full.json').read_bytes()
+          a=json.loads(raw)
+          assert a['schema']=='nor15b.public_verified_trajectory_innovation.v1'
+          assert a['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert a['source_cases_train']==96 and a['source_cases_dev']==36
+          assert a['shared_public_train_template_checks']==1536
+          assert a['per_model_public_label_exposures']==1536
+          assert a['trained_readout_slots']==400
+          assert a['training_epochs']==150
+          assert a['repetitions']==4
+          assert a['nonlate_per_family_per_repetition']==50
+          assert a['late_source_per_repetition']==10
+          assert len(a['cohorts'])==4
+          assert len(set(z['source_visible_manifest_sha256'] for z in a['cohorts']))==4
+          assert all(z['cases']==260 and z['unique_nonlate_input_groups']==250 for z in a['cohorts'])
+          assert a['scope']['no_private_future_used_for_train']
+          assert a['scope']['source_input_and_feature_disjoint_previous_NOR11_12_13_14_15A']
+          assert a['scope']['global_selection_frozen_on_36_dev']
+          assert a['scope']['test_inference_four_paid_checks']
+          assert a['scope']['primary_unique_input_group_unit']
+          original=a['records']['original']
+          assert len(original)==1040
+          primary=[r for r in original if r['family']!='late_source']
+          assert len(primary)==1000
+          assert len(set(r['public_features_sha256'] for r in primary))==1000
+          assert len(set(r['public_features_sha256'] for r in original))==1001
+          for name,v in sorted(a['aggregated'].items()):
+              assert v['cases']==1040
+              assert v['nonlate_cases']==1000
+              assert v['nonlate_unique_inputs']==1000
+              assert v['paid_checks']<=4160
+              assert v['future_correct']+v['false_accept']<=1040
+              assert len(a['records'][name])==1040
+              print('NOR15B ARM',name,'nonlate correct',v['nonlate_correct'],
+                    'all correct',v['future_correct'],
+                    'false accepts',v['false_accept'],
+                    'checks',v['paid_checks'])
+          for name,v in sorted(a['predeclared_primary_paired_signs'].items()):
+              assert v['cases']==v['unique_public_inputs']==1000
+              assert v['paired_gains']-v['paired_losses']==v['net']
+              assert 0<=v['unadjusted_exact_sign_p']<=1
+              print('NOR15B PRIMARY COMPARISON',name,v)
+          assert a['bonferroni_three_control_threshold']==.05/3
+          print('NOR15B DEV',a['dev_global_selected'],a['dev_local_scales'])
+          print('NOR15B PRIMARY PASS',a['residual_early_passed_preregistered_primary'])
+          print('NOR15B FULL JSON',len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor15b-source-locked-1040-case-native-proof-trajectory-innovation
+          path: /tmp/nor15b_full.json
