@@ -33,6 +33,8 @@ from smc12_cones import load_frozen_sources
 from smc07_real_sae import TopKSAE
 from upstream_arch import TinyRecursiveModel
 
+EXPECTED_NEW_TRAINING_RECEIPT_SHA256='1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3'
+
 
 def hungarian_maximum(scores):
     """Deterministic O(m³) maximum-weight perfect matching of square matrix."""
@@ -134,7 +136,10 @@ def null_permutations(X,Y,draws=32,seed=119):
 
 def load_independent_models(root):
     root=Path(root)
-    report=json.loads((root/'full.json').read_text())
+    source_receipt=(root/'full.json').read_bytes()
+    if hashlib.sha256(source_receipt).hexdigest()!=EXPECTED_NEW_TRAINING_RECEIPT_SHA256:
+        raise ValueError('independent teacher full training receipt SHA256 mismatch')
+    report=json.loads(source_receipt)
     if (report['schema']!='SMC-13/independent-trained-teacher-novel-Sudoku-v1'
         or report['source_checkpoint_sha256']!='3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1'
         or tuple(report['teacher_seeds'])!=TEACHER_SEEDS
