@@ -104,7 +104,7 @@ class NOR16PublicConsensusTests(unittest.TestCase):
                 self.assertLessEqual(a["arms"][name]["public_checks"],4)
             else:
                 self.assertEqual(a["arms"][name]["public_checks"],16)
-            self.assertEqual(a["arms"][name]["public_query_prediction_candidates"],
+            self.assertEqual(a["arms"][name]["query_prediction_candidates"],
                              0 if name=="original_4" else 16)
         self.assertEqual(a["public_accept_mask"],b["public_accept_mask"])
         self.assertEqual(a["candidate_public_prediction_sha256"],
