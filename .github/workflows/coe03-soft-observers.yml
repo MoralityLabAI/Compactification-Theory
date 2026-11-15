@@ -1,0 +1,31 @@
+name: COE-03 soft observer precision and depth checks
+
+on:
+  pull_request:
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe03-soft-observers.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe03-soft-observers.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-finite-and-training:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: All COE-01/02/03 exact and CPU pilot tests
+        run: python -m unittest discover -s research/chromatic_observer_gym_v1 -p 'test_*.py' -v
+      - name: Reproduce 1024-state rational witness
+        run: python research/chromatic_observer_gym_v1/soft_precision_codes.py
+      - name: Reproduce ten-seed synthetic linear probe pilot
+        run: python research/chromatic_observer_gym_v1/train_soft_probe.py
