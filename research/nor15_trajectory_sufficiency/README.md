@@ -53,3 +53,12 @@ The improvement varies by source family. The nonlinear model performs worse on t
 Across 24 fixed-suffix finite-difference Jacobians, minimum estimated singular values ranged from 6.13×10^-10 to 4.97×10^-6, with median approximately 2.97×10^-8. The condition-estimate median was approximately 2.79×10^7. Near-input pairs in the primary set had a median H4/H9 distance ratio about 2.34. These are source-dependent, floating-point local diagnostics; the result establishes neither certified global noninjectivity nor positive conditional mutual information.
 
 The next registered task outcome experiment is [NOR-15B](NOR15B.md). Its new source inputs, parameter budget and decision criteria were fixed before reading the task outcomes.
+
+
+### Source-controlled numerical evidence
+
+The full original NOR-15A 288-case JSON is now preserved as [nor15a_full.zip](results/nor15a_full.zip), retaining the 492,261-byte source stream with SHA-256 `9dbe31960a1866b8f4062cb148ab5db9c4b7743ea1fa28689b8377a78459f92b`. The independent reproducer checks 1,440 reconstruction errors, 24 Jacobian spectra, feature-group uniqueness and all paired signs:
+
+```sh
+python research/nor15_trajectory_sufficiency/nor15a_receipt.py --check --archive research/nor15_trajectory_sufficiency/results/nor15a_full.zip
+```
