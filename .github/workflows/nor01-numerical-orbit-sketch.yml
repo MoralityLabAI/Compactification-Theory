@@ -23,15 +23,40 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Run deterministic tests and negative controls
-        run: python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_orbit_sketch.py' -v
+      - name: Run NOR-01 and NOR-02 deterministic tests and negative controls
+        run: python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_*.py' -v
       - name: Recreate seed-locked p=4 receipt
         run: python research/nor01_numerical_orbit_sketch/orbit_sketch.py --check --out /tmp/nor01_p4.json
       - name: Run p=2 baseline
         run: python research/nor01_numerical_orbit_sketch/orbit_sketch.py --check --p 2 --out /tmp/nor01_p2.json
+      - name: Run complete-Crouzeix filtered p=4 and p=2 controls
+        run: |
+          python research/nor01_numerical_orbit_sketch/filtered_orbit.py --check --p 4 --order 2 --out /tmp/nor02_p4.json
+          python research/nor01_numerical_orbit_sketch/filtered_orbit.py --check --p 2 --order 1 --out /tmp/nor02_p2_r1.json
+          python research/nor01_numerical_orbit_sketch/filtered_orbit.py --check --p 4 --order 3 --out /tmp/nor02_p4_r3.json
+      - name: Compare seeded receipt to frozen reference
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          expected=json.loads(Path('research/nor01_numerical_orbit_sketch/results/nor02_filtered_p4.json').read_text())
+          observed=json.loads(Path('/tmp/nor02_p4.json').read_text())
+          for key in ('ambient_hilbert_dimension','sketch_dimension','enclosing_disk_a',
+                      'enclosing_disk_radius','numerical_radius','order','seed',
+                      'finite_probe_below_bound','matrix_coefficients_noncommute'):
+              assert observed[key] == expected[key], (key,observed[key],expected[key])
+          for key in ('prefix_max_absolute_error','zero_anchor_max_absolute_error',
+                      'curvature_tail_radius','sharp_stitch_bound',
+                      'complete_crouzeix_disk_only_tail_radius',
+                      'finite_tail_probe_max_error'):
+              assert abs(observed[key]-expected[key]) < 1e-10, key
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: nor01-numerical-orbit-receipts
           path: |
             /tmp/nor01_p4.json
             /tmp/nor01_p2.json
+            /tmp/nor02_p4.json
+            /tmp/nor02_p2_r1.json
+            /tmp/nor02_p4_r3.json
