@@ -76,3 +76,66 @@ GitHub Actions reruns the exact frozen-activation tests and archives the ten-see
 ## 6. Next scientific gate
 
 The logical next step is to replay the **same estimator** on a source-pinned tiny looped-transformer or TRM checkpoint with a trained SAE from real hidden activations. That must specify the activation layer, checkpoint hash, SAE dictionary version, heldout prompt families, controls for arbitrary feature permutation, and causal interventions. The present planted sparse teacher shows that learned SAE representations can preserve enough matching incidence for a strict geometric certificate and hidden-frame recovery. It does not imply that a pretrained language model has a K6 matching geometry or that such a probe improves model capability.
+
+
+## 7. SMC-06b: An independent heldout fidelity gate
+
+A new failure analysis shows why the training-only geometry certificate
+needs a separate evaluation-fidelity status. [MathCan OLM-06C/D](https://github.com/patrickdugan/MathCan/blob/research/olm01-orbit-lock-dual-mixing-20261115/research/orbit_lock/OLM06_APPROXIMATE_SAE_RIGIDITY.md)
+exhaustively checks 180 one-channel-swap aliases: all pass their
+twelve-row global-star structural fit, while all **540 omitted-state
+checks** (three per alias) are off-manifold under the wrong feature map.
+These are counterexamples to interpreting unique geometric fit as
+fidelity to planted feature-channel identities.
+
+The independent post-fit audit computes, from each heldout SAE
+activation vector \(a\),
+
+\[
+\Delta(a)=\sum_{j\in\operatorname{top3}(a)}a_j
+-\max_{M\in\mathcal M(\widehat G)}\sum_{j\in M}a_j.
+\]
+
+Here \(\mathcal M(\widehat G)\) is the set of 15 perfect matching supports
+in the **frozen recovered geometry**. For strictly separated top-three
+scores, \(\Delta(a)>0\) proves the observed top-three support is outside
+the model manifold. No heldout example is used to choose a repair,
+change the recovered geometry or fit an alignment.
+
+| Frozen trained SAE | Training geometry | Heldout top-three supports in recovered manifold | Heldout score penalties |
+|---|---|---:|---|
+| Seed 101, 9,000 updates | unique after one row repair | **0/3** | 0.8791, 0.8643, 0.9334 |
+| Seed 103, 9,000 updates | unique directly | **3/3** | 0, 0, 0 |
+| Seed 105, 9,000 updates | training geometry abstains | evaluation not applicable | not scored |
+
+The seed-101 soft constrained matching decoder can still achieve
+\(13/18\) balanced accuracy on heldout classes despite **all three**
+unconstrained supports violating the recovered incidence manifold.
+A positive soft-decoding score margin is a *local decision-stability*
+certificate, so it cannot establish the original feature dictionary's
+identity. The post-fit gate exposes this distinction.
+
+The frozen test uses no PyTorch or planted labels. Run:
+    python research/synchronized_mixing_v1/fidelity_gate.py
+
+Its five additional regression tests cover the two trained SAE cases,
+the abstention case, a high-confidence adversarial alias and invariance
+under anonymous feature-channel relabeling. GitHub Actions archives
+the smc06-heldout-fidelity.json artifact with the existing exact traces.
+
+**Reporting rule.** Track three statuses independently: training
+geometry consistency; independent heldout manifold fidelity; actual
+heldout matching identification and calibrated balanced accuracy.
+The complete ten-seed ledger currently reports the first and third
+of these. The new post-fit gate has been replayed against the three
+seed activation score arrays frozen in the repository (101, 103, 105).
+It would require frozen scores for all ten runs to publish a comparable
+ten-seed gate acceptance rate.
+
+A one-swap alias may produce an arbitrarily large *training*
+top-three margin. A margin alone is insufficient to certify the
+planted channel geometry. Evaluation-state testing is a filter with
+well-defined assumptions, not permission to refine the model on the
+evaluation split. For an eventual mechanistic-interpretability claim,
+replicate with source-pinned real model activations and a separate
+causal source-fidelity intervention.
