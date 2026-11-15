@@ -1,0 +1,61 @@
+{
+  "schema": "nor08.second_basin_expansion.frozen_summary.v1",
+  "date_utc": "2026-11-15",
+  "proof_source_commit": "f9ef06650fe136e0812f22410aecfd3cdf244df5",
+  "executed_workflow": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43699240154",
+  "artifact_id": 14155308482,
+  "checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "original_nor07_summary_sha256": "9799a44a0465cefc99a76cb67ae95e1c132a4c000bf70245e6ea13a197a72f29",
+  "radius_attempts": [
+    {
+      "radius": "1/100000",
+      "passed": false,
+      "K_float": 1.1309958029409253
+    },
+    {
+      "radius": "3/1000000",
+      "passed": true,
+      "K_float": 0.8861552847477294
+    },
+    {
+      "radius": "1/1000000",
+      "passed": true,
+      "K_float": 0.8303094953723295
+    },
+    {
+      "radius": "3/10000000",
+      "passed": true,
+      "K_float": 0.8119635245139474
+    },
+    {
+      "radius": "1/10000000",
+      "passed": true,
+      "K_float": 0.806829536493303
+    },
+    {
+      "radius": "1/100000000",
+      "passed": true,
+      "K_float": 0.8045345534181622
+    },
+    {
+      "radius": "1/1000000000",
+      "passed": true,
+      "K_float": 0.8043055747017482
+    }
+  ],
+  "selected": {
+    "radius_fraction": "3/1000000",
+    "block_depth": 24,
+    "block_operator_upper_fraction": "44307764237386472464759585113983/50000000000000000000000000000000",
+    "center_residual_upper_fraction": "37/5000000000000000000000000000000",
+    "invariance_margin_fraction": "17076707287840582605720874658051/50000000000000000000000000000000000000",
+    "one_step_operator_upper_fraction": "47354433557314612670612500592249/20000000000000000000000000000000",
+    "one_step_center_residual_upper_fraction": "3/12500000000000000000000000000000",
+    "one_step_image_upper_fraction": "43871157869667379050739448026462529/284611788130676376762020744300850000000000000000000000000000000",
+    "coordinate_separation_lower_fraction": "1838912401150995267504993856268602983576914009633688173/1000000000000000000000000000000000000000000000000000000",
+    "all_rational_gates_passed": true,
+    "same_period_one_fixed_point_as_nor07": true
+  },
+  "squared_family_source_basin_entry_certified": false,
+  "scope": "Verified enlarged *local* ball around existing second fixed point; no source-conditioned entry claim until separate rational capture."
+}
