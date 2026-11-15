@@ -59,7 +59,15 @@ jobs:
               assert a & (1<<group['oracle_selected_template'])
               print('NOR15D SIGNATURE',hex(a),'cases',count,'best',group['oracle_future_correct'],'lost',group['unavoidable_future_incorrect_under_same_mask_choice'])
           raw=Path('/tmp/nor15d_mask_capacity.json').read_bytes()
-          print('NOR15D SOURCE-LOCKED FULL MASK CAPACITY',len(raw),hashlib.sha256(raw).hexdigest())
+          frozen=json.loads(Path('research/nor15d_mask_capacity/results/nor15d_first_receipt.json').read_text())
+          assert frozen['schema']=='nor15d.exact_full_public_acceptance_mask_capacity_receipt.v1'
+          assert len(raw)==frozen['full_json_bytes']==11490
+          assert hashlib.sha256(raw).hexdigest()==frozen['full_json_sha256']
+          assert frozen['nor15c_source_json_sha256']==x['input_nor15c_json_sha256']
+          assert frozen['group_sizes']==[g['cases'] for g in x['group_capacities']]
+          assert frozen['group_optimum_correct']==x['capacity_integer_certificate']
+          assert frozen['hindsight_best_full_mask_correct']==x['best_hindsight_full_mask_future_correct']
+          print('NOR15D FROZEN SOURCE-LOCKED FULL MASK CAPACITY',len(raw),hashlib.sha256(raw).hexdigest())
           PY
       - uses: actions/upload-artifact@v4
         with:
