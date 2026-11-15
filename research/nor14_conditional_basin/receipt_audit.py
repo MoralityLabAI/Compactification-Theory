@@ -12,6 +12,7 @@ from hashlib import sha256
 import json
 from math import comb
 from pathlib import Path
+from zipfile import ZipFile
 
 HERE = Path(__file__).resolve().parent
 RECEIPT = HERE / "results" / "nor14_first_full_receipt.json"
@@ -207,12 +208,21 @@ def inspect_evidence(data, r):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--full", type=Path, help="unzip the published artifact's nor14_full.json")
+    group = ap.add_mutually_exclusive_group()
+    group.add_argument("--full", type=Path, help="unzipped original full result JSON")
+    group.add_argument("--archive", type=Path, help="repository-preserved NOR-14 full ZIP")
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args()
     receipt = validate_receipt(json.loads(RECEIPT.read_text()))
+    raw = None
+    if args.archive:
+        with ZipFile(args.archive) as z:
+            assert z.namelist() == ["nor14_full.json"], z.namelist()
+            assert z.testzip() is None
+            raw = z.read("nor14_full.json")
     if args.full:
         raw = args.full.read_bytes()
+    if raw is not None:
         assert len(raw) == receipt["full_json_utf8_bytes"]
         assert sha256(raw).hexdigest() == EXPECTED_SHA
         result = inspect_evidence(json.loads(raw), receipt)
