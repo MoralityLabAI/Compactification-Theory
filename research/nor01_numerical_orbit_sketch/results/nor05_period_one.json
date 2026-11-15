@@ -1,0 +1,23 @@
+{
+  "all_depth_block_prerequisite": {
+    "K12_fraction": "928242792263/1000000000000",
+    "R_fraction": "1/100000000000",
+    "center_residual_12_fraction": "237277631/200000000000000000000000",
+    "fixed_point_distance_bound_fraction": "237277631/14351441547400000000000"
+  },
+  "all_step_intermediate_factor_float": 670879407071854000000,
+  "all_step_rate": "||F^(12m+j)(x)-p|| <= L^j K12^m ||x-p|| for 0<=j<12 and all x in NOR04 ball",
+  "checkpoint_parameters": 1000,
+  "checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "global_one_step_cube_lipschitz_fraction": "39111216023139/500000000000",
+  "heldout_input_basin_entry_proved": false,
+  "native_proof_search_gain_proved": false,
+  "one_step_fixed_point_image_distance_upper_fraction": "253382158291095699743/8969650967125000000000000000000000",
+  "one_step_fixed_point_in_original_ball": true,
+  "one_step_fixed_point_proved": true,
+  "one_step_local_operator_norm_upper_fraction": "1697603419511/1000000000000",
+  "one_step_residual_upper_fraction": "181733347/1000000000000000000000000",
+  "precision": "32-decimal outward rational intervals, adaptive Taylor exp",
+  "schema": "nor05.trained_gru.one_step_fixed_point.v1",
+  "scope": "unique one-step fixed point and all-depth convergence for real-valued trained zero-input GRU within NOR04 local ball"
+}
