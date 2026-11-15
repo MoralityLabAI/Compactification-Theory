@@ -65,3 +65,12 @@ The development-selected global model was **shuffled_early** at 0.5 mixing, scor
 The residual_early model gained 51 primary cases and lost 22 against the original: +29 net, exact case/unique-input paired p≈0.0009143. Gains were spread across signed (+12), sparse (+5), product (+1), rational (+1), and squared (+10). However, the same trained-model family scored *better* when the twelve extra coordinates came from H9 alone: reconstructed_early 661, endpoint_nonlinear 662. Residual_early against reconstructed_early gained 6 and lost 7 (p=1), while against endpoint_nonlinear it gained 28 and lost 30 (p≈0.896). It therefore **failed the preregistered trajectory-specific criterion**. The improvement relative to the unmodified GRU is a genuine observed native task-residual gain on these source families, with evidence favoring richer nonlinear endpoint decoding over a claim of independent early-path information.
 
 The 40 source-distinct late_source cases map to one model-visible input hash. They remain secondary. Per-family outcomes, all four development-frozen scale decisions, source manifests and every model's verification trace are retained in the full artifact. All outcomes are synthetic finite-series proof-template tasks; an early-path conditional mutual information claim, a new theorem-prover generalization, and a basin membership certificate remain outside the experimental evidence.
+
+
+### Source-controlled task evidence
+
+The full original NOR-15B 1,040-case JSON is preserved as [nor15b_full.zip](results/nor15b_full.zip), retaining the 3,224,589-byte source stream with SHA-256 `1f5f068b522780e66d639d0429369c66775cedbef997f510824be124d4cde124`. The independently maintained receipt check verifies all 8,320 native decision records, all six paired contrasts and the original four-cohort source manifests:
+
+```sh
+python research/nor15_trajectory_sufficiency/nor15b_receipt.py --check --archive research/nor15_trajectory_sufficiency/results/nor15b_full.zip
+```
