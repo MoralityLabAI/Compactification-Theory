@@ -160,3 +160,7 @@ The [LSV-15 math and checkpoint protocol](research/levin_sieve_v1/pretrained_trm
 ## SMC-01: Synchronized mixing (November 15, 2026)
 
 [Finite exact-rational graph-switch and permutation-sweep gym](research/synchronized_mixing_v1/README.md) combines the ideas of OpenAI Mathematics #131 and #238 into a coupled-state test. A common-randomness channel leaves each marginal mixing rapidly while measurable joint dependence persists. It includes executable [gym code](research/synchronized_mixing_v1/gym.py), [tests](research/synchronized_mixing_v1/test_gym.py), and scoped CI; see the separate [MathCan OLM-01 proofs](https://github.com/patrickdugan/MathCan/tree/research/olm01-orbit-lock-dual-mixing-20261115/research/orbit_lock).
+
+## SMC-02: Markov lift, relational entropy and intervention controls (November 15, 2026)
+
+[SMC-02 report](research/synchronized_mixing_v1/TRANSPORT_LIFT_RESULTS.md) and [exact Markov lift](research/synchronized_mixing_v1/transport_lift.py) close SMC-01's snapshot/trajectory gap using a permutation random walk projecting exactly onto the lazy matching-switch chain. Its joint graph/permutation relation persists at every sweep despite both marginals mixing. [Tests](research/synchronized_mixing_v1/test_transport_lift.py) certify four- and six-vertex lumpability, the 24-state spectrum, optimal relational detection and gauge interventions. [MathCan OLM-02](https://github.com/patrickdugan/MathCan/blob/research/olm01-orbit-lock-dual-mixing-20261115/research/orbit_lock/OLM02_COLLISION_SPECTRUM_LIFT.md) contains the pure proofs.
