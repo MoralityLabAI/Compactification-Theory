@@ -1,0 +1,78 @@
+name: SMC-11 exact source-locked SAE identity cells
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc11_selection.py'
+      - 'research/real_recurrence_sae_v1/selection_cells_exact.py'
+      - 'research/real_recurrence_sae_v1/test_smc11_selection.py'
+      - '.github/workflows/smc11-selection.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc11_*'
+      - 'research/real_recurrence_sae_v1/selection_cells_exact.py'
+      - '.github/workflows/smc11-selection.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  exact-selection-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-locked CPU Torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Verify exact SAE selection and fail-closed composition tests
+        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc11_selection.py' -v
+      - name: Verify pretrained source and first two heldout goal tokens
+        run: |
+          python research/real_recurrence_sae_v1/smc11_selection.py \
+            --fetch --max-test-puzzles 2 --seeds 71 --steps 300 \
+            --out runs/smc11/pilot.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc11-exact-selection-pilot
+          path: runs/smc11/pilot.json
+          if-no-files-found: warn
+
+  exact-selection-and-causal-composition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-locked CPU Torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Fetch the prior verified 480-case SMC-10C source receipt
+        uses: actions/download-artifact@v4
+        with:
+          name: smc10c-verified-local-lipschitz-full
+          run-id: 43713063188
+          github-token: ${{ github.token }}
+          path: runs/smc11/prior
+      - name: Verify archived SMC-10C receipt SHA256
+        run: |
+          echo "176078f22967482420e08a20aa602b7c45a87074e2ab2b600848f2214d9e20aa  runs/smc11/prior/lipschitz-full.json" | sha256sum -c -
+      - name: Exact 48 goal-token selection cells and 480-case policy composition
+        run: |
+          python research/real_recurrence_sae_v1/smc11_selection.py \
+            --fetch --max-test-puzzles 16 --seeds 71,89,113 --steps 300 \
+            --smc10-receipt runs/smc11/prior/lipschitz-full.json \
+            --out runs/smc11/full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc11-exact-selection-48-goals
+          path: runs/smc11/full.json
+          retention-days: 90
+          if-no-files-found: warn
