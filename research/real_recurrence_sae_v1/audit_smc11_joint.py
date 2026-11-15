@@ -106,6 +106,11 @@ def check_joint(report,snapshot_dir=None,full=True):
         raise ValueError('missing goal-token cases')
     summary=defaultdict(Counter)
     for row in report['cases']:
+        if row['seed'] not in report['seeds'] or row['puzzle_id'] not in report['test_puzzle_ids']:
+            raise ValueError('unregistered SAE seed/puzzle tuple')
+        if (row['radius'] not in report['radii'] or
+                row['common_l2_uncertainty'] not in report['common_l2_budget_grid']):
+            raise ValueError('unregistered causal radius or uncertainty')
         key=(row['seed'],row['puzzle_id'],row['radius'],row['common_l2_uncertainty'])
         if key in keys:
             raise ValueError('duplicated causal tuple')
