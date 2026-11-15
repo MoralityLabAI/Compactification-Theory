@@ -26,7 +26,7 @@ The new source-locked cohorts are:
 | Novel harder heldout | 64 | 34 | 9–31 | Evaluation |
 | Canonical heldout | 64 | 30 | 0 | Evaluation |
 
-All 512 noncanonical and 64 canonical complete solutions are distinct, all puzzles are unique-solution, all split seeds are disjoint and no target appears in another cohort. The exact manifest and per-cohort SHA-256 values are preserved in the training artifact. The invariant establishes distribution-level structural novelty relative to the *pinned source generator's orbit*. It does not characterize every possible full-grid example in the upstream model's original, externally conducted training.
+All 448 noncanonical and 64 canonical complete solutions are distinct, all puzzles are unique-solution, all split seeds are disjoint and no target appears in another cohort. The exact manifest and per-cohort SHA-256 values are preserved in the training artifact. The invariant establishes distribution-level structural novelty relative to the *pinned source generator's orbit*. It does not characterize every possible full-grid example in the upstream model's original, externally conducted training.
 
 ## 2. New independent recurrent teacher checkpoints
 
