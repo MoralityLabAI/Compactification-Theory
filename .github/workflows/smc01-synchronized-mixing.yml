@@ -1,0 +1,34 @@
+name: SMC-01 synchronized mixing finite oracle
+
+on:
+  push:
+    paths:
+      - 'research/synchronized_mixing_v1/**'
+      - '.github/workflows/smc01-synchronized-mixing.yml'
+  pull_request:
+    paths:
+      - 'research/synchronized_mixing_v1/**'
+      - '.github/workflows/smc01-synchronized-mixing.yml'
+
+jobs:
+  exact-oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify transition marginals, finite products, and block bounds
+        run: python -m unittest discover -s research/synchronized_mixing_v1 -p 'test_gym.py' -v
+      - name: Produce exact ten-sweep result
+        run: |
+          python - <<'PY'
+          import json
+          from research.synchronized_mixing_v1.gym import evaluate
+          with open("smc01-results.json", "w") as f:
+              json.dump(evaluate(horizon=10), f, indent=2)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc01-exact-results
+          path: smc01-results.json
