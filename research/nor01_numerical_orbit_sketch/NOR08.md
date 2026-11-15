@@ -73,11 +73,51 @@ where \(h_9\) is the original squared-family state and \(c_2\) is the exact deci
 
 A successful witness transfers the known second-ball contraction to the **real nonlinear continuation of that specific naturally generated squared-family input** for all later depths, just as NOR-06 did for the signed-family input at the first attractor. A failed interval condition is an inconclusive result, with the original FP64 crossing preserved as separate discovery evidence.
 
-The [NOR-08B workflow](../../.github/workflows/nor08-squared-capture.yml) has separate jobs for five source and interval regression tests and for the full bounded exact capture. Its artifact records all block radii, final clearance, source hashes and exact trace checksum.
+The [NOR-08B workflow](../../.github/workflows/nor08-squared-capture.yml) has separate jobs for five source and interval regression tests and for the full bounded exact capture. Its completed artifact records every block radius, the final positive clearance, source hashes and an exact trace checksum.
+
+## Executed NOR-08B: squared-family natural source captured
+
+The complete [source-locked independent interval run 43700133484](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43700133484) passed both regression and full rational-capture jobs. It proves that the original squared-family RRC-25 input state, after its nine public feature rows and then **55 blocks of twelve zero-input steps**, enters the second NOR-08 invariant ball.
+
+The certified step count is **660** (compared with FP64's first crossing at step 651). At the terminal rational center \(c_{55}\), the exact proof gives
+
+\[
+\begin{aligned}
+\|c_{55}-c_2\|_2
+&\le \frac{2019911314217696479857059}
+{2500000000000000000000000000000}
+\approx8.079645256871\times10^{-7},\\
+\|F^{660}(h_9)-c_{55}\|_2
+&\le \frac{11725051219}
+{50000000000000000000000000000000}
+=2.3450102438\times10^{-22},\\
+R_2-\|c_{55}-c_2\|_2-\rho_{55}
+&\ge\frac{9601773715646058677807601}
+{50000000000000000000000000000000}
+\approx1.92035474313\times10^{-7}>0.
+\end{aligned}
+\]
+
+Here \(R_2=10^{-6}\), \(c_2\) is the exact 55-decimal stationary center from NOR-07, and \(h_9\) is the real-analytic trained hidden state after the original nine public RRC-25 input rows. All acceptance decisions use rational upper bounds. The full certified trajectory trace has SHA-256 bbfb0c62be1c9989b9c100d1540450e776ffb997a158c99f585dc7a0cfeb73cc.
+
+The [frozen dual-source receipt](results/nor08_dual_source_capture.json) binds this second source to the earlier NOR-06B signed-family first-basin entry at step 1,308. [NOR-08E](nor08_dual_capture_audit.py) independently checks both exact fractional clearances and their distinct-ball separation without rerunning the expensive 55- and 109-block intervals.
+
+This gives two distinct **naturally generated source-conditioned** GRU trajectories, each with mathematically certified entry into a different attracting basin. Let \(p_2\) be NOR-07's certified period-one fixed point in the expanded second ball. For any \(m\ge0\) and \(0\le j<24\),
+
+\[
+\|F^{660+24m+j}(h_9)-p_2\|_2
+\le L_{\rm cube}^{j}
+  (0.830309495372330)^m
+  \left(\|c_{55}-c_2\|_2+\rho_{55}+\frac{s_2}{1-K_2}\right),
+\]
+
+where NOR-05 provides a conservative invariant-cube one-step Lipschitz bound \(L_{\rm cube}\), and \(K_2,s_2\) are the exact NOR-08A block bounds. The fixed point is stationary under the original one-step map, so convergence applies to every subsequent integer depth.
+
+For the two source states at their respective certified capture times, NOR-08D additionally proves a cross-basin Euclidean distance greater than 5.020911335789842. Identical terminal codes would incur at least that additive cross-distance error. The merged MathCan NOR-08 injectivity theorem makes the required one-bit terminal attractor label explicit.
 
 ## Implication for compact recurrent representations
 
-MathCan [NOR-08 basin-code capacity theorem](https://github.com/patrickdugan/MathCan/pull/60) proves that if two late hidden streams approach distinct attracting fixed points and their allowed distance distortion is below the separation minus both tail radii, any faithful terminal-history representation must assign distinct codes. Two distinct attractors were certified in NOR-07; the signed-family source has a certified entry to attractor one. Source entry to attractor two remains the independent NOR-08B gate.
+MathCan [NOR-08 basin-code capacity theorem](https://github.com/patrickdugan/MathCan/pull/60) proves that if two late hidden streams approach distinct attracting fixed points and their allowed distance distortion is below the separation minus both tail radii, any faithful terminal-history representation must assign distinct codes. Two distinct attractors were certified in NOR-07; the signed-family source has a certified entry to attractor one. NOR-08B has now completed the independent squared-family source-to-second-basin proof at step 660.
 
 Any evaluation of proof-search competence, native model calibration or broader mechanistic semantics requires separate held-out experiments. The geometric certificate concerns a small real-analytic trained GRU under a declared zero-input intervention.
 
@@ -113,4 +153,4 @@ It computes an exact-rational lower bound on the 12D Euclidean center distance b
 
 Collapsing such a pair to the same terminal code incurs at least this additive distance error. Under any smaller cross-basin error budget, a faithful late-history encoder needs at least two distinct attractor labels, requiring one fixed-width bit.
 
-This is a deterministic geometric lower bound, using [NOR-08D code](nor08_cross_basin.py) and the merged [MathCan basin-label capacity theorem](https://github.com/patrickdugan/MathCan/pull/60). The signed-family source has a certified first-basin entry; the squared-family source's entry into the second ball still depends on the separate NOR-08B rational capture result. The two-attractor geometry itself was already certified in NOR-07.
+This is a deterministic geometric lower bound, using [NOR-08D code](nor08_cross_basin.py) and the merged [MathCan basin-label capacity theorem](https://github.com/patrickdugan/MathCan/pull/60). Both the signed-family first-basin entry and the squared-family second-basin entry now have separate successful rational interval proofs, enabling this quantitative two-natural-source comparison. The two-attractor geometry itself was already certified in NOR-07.
