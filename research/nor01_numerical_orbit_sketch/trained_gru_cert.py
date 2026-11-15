@@ -346,6 +346,15 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
         for j,entry in enumerate(row)), ZERO)
     direct_b = ceil_rational(sqrt_upper(direct_sq), 10**12)
     telescope_b = ceil_rational(sqrt_upper(f_sq) + error, 10**12)
+    # Uniform operator-norm bound on the FULL starting box, using the
+    # direct Jacobian interval product. Unlike a numerical center sample,
+    # this bounds D(F^L)(h) for every real h in the anchor interval box.
+    operator_sq = sum((max(abs(v.lo), abs(v.hi)) ** 2
+                       for row in iproduct for v in row), ZERO)
+    direct_operator = ceil_rational(sqrt_upper(operator_sq), 10**12)
+    telescope_operator = ceil_rational(
+        sqrt_upper(frobenius_squared(product)) + error, 10**12)
+    operator_bound = min(direct_operator, telescope_operator)
     b = min(direct_b, telescope_b)
     q = center + b
     # Ball perturbation and remainder recurrence. Holds for every
@@ -362,6 +371,8 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
         "disk_center_fraction": str(center),
         "disk_radius_fraction": str(b),
         "disk_q_float": float(q),
+        "block_operator_frobenius_upper_fraction": str(operator_bound),
+        "block_operator_frobenius_upper": float(operator_bound),
         "disk_method": "direct_interval_product" if direct_b <= telescope_b else "heterogeneous_telescope",
         "direct_product_disk_q_float": float(center + direct_b),
         "coarse_telescope_disk_q_float": float(center + telescope_b),
