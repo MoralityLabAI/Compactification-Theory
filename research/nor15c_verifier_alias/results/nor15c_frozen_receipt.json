@@ -1,0 +1,55 @@
+{
+  "schema": "nor15c.frozen_exact_aliased_verifier_order_receipt.v1",
+  "date_utc": "2026-11-15",
+  "first_green_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43724030933",
+  "artifact_id": 14165438358,
+  "artifact_name": "nor15c-source-locked-40-alias-full-four-check-oracle",
+  "full_json_sha256": "f2dc2865fca360e4ccb717c0e84cde6fe5c1f4a1bea29111b5b1d250753e5f29",
+  "full_json_uncompressed_bytes": 23205,
+  "source_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "source_train_manifest": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "source_dev_manifest": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+  "source_model_visible_feature_digest": "dc3ab9200911a1c997f12fc1fbb0301db7a7fa814b4185e40737be024b59c02e",
+  "source_visible_unique_cases": 40,
+  "input_feature_unique_groups": 1,
+  "test_manifest_linked_to_nor15b": true,
+  "retrospective_public_template_checks": 640,
+  "retrospective_future_grader_calls": 291,
+  "fixed_orderings_exhaustively_checked": 43680,
+  "candidate_count": 16,
+  "four_check_budget": 4,
+  "original_ranker_order": [
+    3,
+    12,
+    0,
+    7
+  ],
+  "original_ranker_metrics": {
+    "cases": 40,
+    "future_correct": 8,
+    "false_accept": 20,
+    "accepted": 28,
+    "paid_checks": 89
+  },
+  "hindsight_oracle_order": [
+    7,
+    2,
+    14,
+    12
+  ],
+  "hindsight_oracle_metrics": {
+    "cases": 40,
+    "future_correct": 15,
+    "false_accept": 16,
+    "accepted": 31,
+    "paid_checks": 95
+  },
+  "unique_public_accepted_masks": 14,
+  "publicly_ambiguous_cases": 31,
+  "cases_with_no_future_correct_candidate_of_16": 0,
+  "policy_scope": "all deterministic same-model-feature fixed top-four orders with first-public-accepted early stop",
+  "hindsight_future_test_labels_used_for_optimum": true,
+  "deployable_policy_claim": false,
+  "statistical_generalization_claim": false,
+  "certification_scope": "finite exhaustive combinatorial evaluation over frozen public and future membership masks; hindsight labels do not train a policy"
+}
