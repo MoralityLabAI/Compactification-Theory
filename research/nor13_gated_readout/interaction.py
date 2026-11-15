@@ -328,11 +328,33 @@ def checkpoint_intervals(rows,W,scale):
                     mm=min(abs(lo),abs(hi))
                     minimum_endpoint_abs=mm if minimum_endpoint_abs is None else min(mm,minimum_endpoint_abs)
         assert crossing_pairs+guaranteed==120
+        lo_scores=[aa-bb for aa,bb in zip(a,b,strict=True)]
+        hi_scores=[aa+bb for aa,bb in zip(a,b,strict=True)]
+        lo_order=sorted(range(CLASSES),key=lambda j:(-lo_scores[j],j))
+        hi_order=sorted(range(CLASSES),key=lambda j:(-hi_scores[j],j))
+        agreed_top4=lo_order[:4]==hi_order[:4]
+        # Every one of these 4*12+6 relevant comparisons must retain
+        # an exact strictly positive endpoint gap; lower-ranked pairs
+        # are free to cross with no effect on the four-paid-check trace.
+        margins=[]
+        if agreed_top4:
+            for position in range(4):
+                chosen=lo_order[position]
+                for competitor in lo_order[position+1:]:
+                    margins.append(lo_scores[chosen]-lo_scores[competitor])
+                    margins.append(hi_scores[chosen]-hi_scores[competitor])
+        stable_top4=agreed_top4 and len(margins)==108 and all(v>0 for v in margins)
+        top4_min_margin=min(margins) if margins else Q(0)
         records.append({
             "digest":row["digest"],
             "family":row["case"].family,
             "pair_crossings_or_endpoint_ties":crossing_pairs,
             "ranking_is_exactly_gate_invariant":crossing_pairs==0,
+            "ordered_top4_agree_at_both_endpoints":agreed_top4,
+            "ordered_top4_rationally_gate_invariant":stable_top4,
+            "ordered_top4_minimum_strict_endpoint_margin_float":float(top4_min_margin),
+            "ordered_top4_at_gate_minus_one":lo_order[:4],
+            "ordered_top4_at_gate_plus_one":hi_order[:4],
             "minimum_invariant_pair_endpoint_margin_float":float(minimum_endpoint_abs or Q(0)),
         })
     count_unique={}
@@ -345,6 +367,10 @@ def checkpoint_intervals(rows,W,scale):
         "gate_variant_cases":sum(not r["ranking_is_exactly_gate_invariant"] for r in records),
         "gate_invariant_unique_inputs":sum(r["ranking_is_exactly_gate_invariant"] for r in count_unique.values()),
         "gate_variant_unique_inputs":sum(not r["ranking_is_exactly_gate_invariant"] for r in count_unique.values()),
+        "top4_rationally_gate_invariant_cases":sum(r["ordered_top4_rationally_gate_invariant"] for r in records),
+        "top4_rationally_gate_variant_cases":sum(not r["ordered_top4_rationally_gate_invariant"] for r in records),
+        "top4_rationally_gate_invariant_unique_inputs":sum(r["ordered_top4_rationally_gate_invariant"] for r in count_unique.values()),
+        "top4_rationally_gate_variant_unique_inputs":sum(not r["ordered_top4_rationally_gate_invariant"] for r in count_unique.values()),
         "certification_scope":"exact affine extension of stored float scores, readout weights and standardised hidden vectors, gate restricted to [-1,1]",
         "float_rounding_proven":False,
         "records":records,
