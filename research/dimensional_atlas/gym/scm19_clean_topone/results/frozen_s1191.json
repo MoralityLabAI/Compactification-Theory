@@ -1,0 +1,176 @@
+{
+  "adapter_fitted": true,
+  "adapter_losses": [
+    {
+      "distillation": 1.279438947676681e-06,
+      "energy": 3.136266286674072e-06,
+      "math": 1.7330689430236816,
+      "step": 1,
+      "total": 1.7330695390701294
+    },
+    {
+      "distillation": 1.056983819580637e-06,
+      "energy": 3.708043095684843e-06,
+      "math": 0.6844251155853271,
+      "step": 51,
+      "total": 0.6844257116317749
+    },
+    {
+      "distillation": 4.048630216857418e-06,
+      "energy": 6.047725037205964e-06,
+      "math": 1.4850115776062012,
+      "step": 101,
+      "total": 1.485013723373413
+    },
+    {
+      "distillation": 8.40887805679813e-05,
+      "energy": 3.340312832733616e-05,
+      "math": 0.5952616333961487,
+      "step": 151,
+      "total": 0.595304012298584
+    },
+    {
+      "distillation": 0.00014044537965673953,
+      "energy": 0.00023615958343725652,
+      "math": 0.952680766582489,
+      "step": 201,
+      "total": 0.9527533650398254
+    },
+    {
+      "distillation": 0.002170626074075699,
+      "energy": 0.00046095772995613515,
+      "math": 0.9381755590438843,
+      "step": 251,
+      "total": 0.9392654895782471
+    },
+    {
+      "distillation": 0.0054006753489375114,
+      "energy": 0.0016726324101909995,
+      "math": 1.6488791704177856,
+      "step": 301,
+      "total": 1.651596188545227
+    },
+    {
+      "distillation": 0.009238503873348236,
+      "energy": 0.002281959168612957,
+      "math": 1.0582165718078613,
+      "step": 351,
+      "total": 1.0628585815429688
+    },
+    {
+      "distillation": 0.006250001490116119,
+      "energy": 0.003290837863460183,
+      "math": 0.9203491806983948,
+      "step": 400,
+      "total": 0.9235070943832397
+    }
+  ],
+  "base_unchanged": true,
+  "checkpoint": {
+    "adapter_fitted": true,
+    "encoding": "coefficient",
+    "file": "frozen_s1191.pt",
+    "file_sha256": "69ebff1f2ba57c4ec546222529c1eb3adffd3626b32dd3e97add5877f20ac290",
+    "locked": true,
+    "model_sha256": "6976e2ba8925374b56774509d4991509fbbcddd9f01ce88dc232f8ac7f1e8a41",
+    "sae_sha256": "10800ce9c1e56cc5c7b1150e0f7533ec4f5bcb533b8722f1786d1886178fa96e",
+    "seed": 1191,
+    "steps": 4000
+  },
+  "development": {
+    "adapter": {
+      "dev_id": {
+        "accuracy": 0.60546875,
+        "correct": 155,
+        "false_future_acceptances": 6,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 256,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 161
+      },
+      "dev_ood": {
+        "accuracy": 0.4609375,
+        "correct": 59,
+        "false_future_acceptances": 3,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 128,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 62
+      }
+    },
+    "base": {
+      "dev_id": {
+        "accuracy": 0.59765625,
+        "correct": 153,
+        "false_future_acceptances": 5,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 256,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 158
+      },
+      "dev_ood": {
+        "accuracy": 0.453125,
+        "correct": 58,
+        "false_future_acceptances": 3,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 128,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 61
+      }
+    }
+  },
+  "dictionary_unchanged_during_adapter": true,
+  "frozen_base_sha256": "74d7ca5824830c8dc65ae0892d79e076a5f400842b3cc82566b9425e3228e325",
+  "sae_losses": [
+    {
+      "reconstruction": 1.0227469205856323,
+      "step": 1
+    },
+    {
+      "reconstruction": 0.8470124006271362,
+      "step": 51
+    },
+    {
+      "reconstruction": 0.6810463666915894,
+      "step": 101
+    },
+    {
+      "reconstruction": 0.46652814745903015,
+      "step": 151
+    },
+    {
+      "reconstruction": 0.41494178771972656,
+      "step": 201
+    },
+    {
+      "reconstruction": 0.4154772460460663,
+      "step": 251
+    },
+    {
+      "reconstruction": 0.3311569392681122,
+      "step": 301
+    },
+    {
+      "reconstruction": 0.42570072412490845,
+      "step": 351
+    },
+    {
+      "reconstruction": 0.33327528834342957,
+      "step": 400
+    }
+  ],
+  "seed": 1191,
+  "work": {
+    "adapter_optimizer_steps": 400,
+    "forward_examples": 7424,
+    "model_calls": 928,
+    "readout_examples": 7424,
+    "recurrent_example_visits": 29696,
+    "recurrent_token_visits": 801792,
+    "sae_optimizer_steps": 400
+  }
+}

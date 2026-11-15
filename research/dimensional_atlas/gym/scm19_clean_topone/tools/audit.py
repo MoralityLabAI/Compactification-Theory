@@ -36,6 +36,12 @@ def main():
     def forbidden(**kwargs):raise AssertionError('official roster is forbidden')
     oracle.roster=forbidden
     gold=json.loads((a.private/'fresh.gold.private.json').read_text())
+    data=read('data.json');assert sha(a.private/'data.pt')==data['cache_sha256']
+    split_signatures=[data['training_signatures'],*data['split_signatures'].values()]
+    all_pre=[s for group in split_signatures for s in group]
+    assert len(all_pre)==len(set(all_pre))
+    assert set(all_pre)<=set(freeze['pre_final_signatures'])
+    checks['train_dev_calibration_unique_signatures']=len(all_pre)
     public=read('fresh.public.json');cases={};signatures=[]
     for kind,rows in gold['clean'].items():
         tasks=restore(oracle,rows)
@@ -109,6 +115,10 @@ def main():
         model=load_model(path,c,'cpu');assert digest(model)==trial['checkpoint']['model_sha256']
         assert digest(model.sae)==trial['checkpoint']['sae_sha256']
         base=digest(model,('degree_','positions','core.','head.'));assert base==trial['frozen_base_sha256']
+        base_receipt=read(f"{done['selection']['encoding']}_s{trial['seed']}_steps{done['selection']['common_step_budget']}.json")
+        base_path=a.private/base_receipt['checkpoint']['file'];assert sha(base_path)==base_receipt['checkpoint']['file_sha256']
+        original=load_model(base_path,c,'cpu');assert digest(original,('degree_','positions','core.','head.'))==base
+        del original
         q=model.adapter.q
         rng=torch.Generator().manual_seed(trial['seed']+999)
         z=torch.randn(16,c['hidden'],generator=rng);z=z-(z@q)@q.T
@@ -118,15 +128,19 @@ def main():
         checks['frozen_models_and_frames_verified']+=1
         del model
     counts=Counter();forward=Counter();memory={'allocated_mb':0.,'reserved_mb':0.,'minimum_free_mb':float('inf')}
-    frozen_seen=False;frozen_events=0
+    frozen_seen=False;frozen_events=0;readouts=0;gram=0
     with (a.private/'work.jsonl').open() as stream:
         for line in stream:
             e=json.loads(line);kind=e['event'];counts[kind]+=1
-            if kind=='all_weights_and_directions_frozen':frozen_seen=True;frozen_events+=1
+            if kind=='all_weights_and_directions_frozen':
+                assert e['freeze_sha256']==sha(out/'freeze.json')
+                frozen_seen=True;frozen_events+=1
             if kind in ('optimizer_completed','sae_update','adapter_update'):assert not frozen_seen
             if kind=='forward_called':
                 forward.update(model_calls=1,forward_examples=e['batch'],recurrent_example_visits=e['batch']*e['visits'],
                     recurrent_token_visits=e['batch']*e['tokens']*e['visits'])
+                readouts+=e['batch']*(2 if e['stage'].startswith('clean_final_') and e['tokens']==27 else 1)
+                if e['stage'].startswith('polynomial_gram_'):gram+=e['batch']*26*529
             if 'allocated_mb' in e:
                 memory['allocated_mb']=max(memory['allocated_mb'],e['allocated_mb'])
                 memory['reserved_mb']=max(memory['reserved_mb'],e['reserved_mb'])
@@ -140,6 +154,11 @@ def main():
         assert amendment['recovery_source_sha256']==sha(HERE/'tools/resume.py')
     expected=done['resources']['work']
     for k,v in forward.items():assert expected[k]==v
+    assert readouts==expected['readout_examples'] and gram==expected['public_gram_multiplications']
+    for name in ('check_candidate','grade'):
+        with (a.private/'work.jsonl').open() as stream:
+            count=sum(1 for line in stream if (lambda e:e['event']=='oracle_call' and e['name']==name)(json.loads(line)))
+        assert count==done['oracle']['source_requests'][name]
     for event,key in [('optimizer_completed','base_optimizer_steps'),('sae_update','sae_optimizer_steps'),('adapter_update','adapter_optimizer_steps')]:
         assert counts[event]==expected.get(key,0)
     assert memory['minimum_free_mb']>=500 and memory['reserved_mb']<=3000
@@ -147,7 +166,7 @@ def main():
         'journal_forward_totals':dict(forward),'journal_memory':memory,'terminal_numerical_checks':numerical,
         'official_roster_calls':0,'training_after_final':False,'inference_verifier_calls':0,
         'registration_commit':'a94d749','completed_sha256':sha(out/'completed.json')}
-    (out/'audit.json').write_text(canonical(result)+'\n',encoding='utf-8')
+    (out/'audit.json').write_text(json.dumps(result,indent=2,sort_keys=True,allow_nan=False)+'\n',encoding='utf-8')
     print(json.dumps(result,indent=2))
 
 

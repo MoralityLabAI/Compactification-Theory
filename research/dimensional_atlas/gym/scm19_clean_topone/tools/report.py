@@ -65,7 +65,7 @@ def main():
         'family_accuracy':family,'resources':done['resources'],'oracle':done['oracle'],'audit':audit,
         'shared_fresh_cases_across_seeds':True,'confidence_intervals':'Wilson 95%, descriptive per seed; no multiplicity adjustment',
         'completed_sha256':sha(out/'completed.json')}
-    (out/'summary.json').write_text(canonical(summary)+'\n',encoding='utf-8')
+    (out/'summary.json').write_text(json.dumps(summary,indent=2,sort_keys=True,allow_nan=False)+'\n',encoding='utf-8')
     figs=HERE/'figures';figs.mkdir(exist_ok=True)
     import matplotlib
     matplotlib.use('Agg')
@@ -118,13 +118,16 @@ def main():
         values=np.asarray(overlaps).T
         im=ax.imshow(values,vmin=0,vmax=1,cmap='viridis',aspect='auto');ax.set(title=f'Seed {receipt["seed"]}',xlabel='Recurrent visit',xticks=range(4),xticklabels=range(1,5),yticks=range(4),yticklabels=range(1,5))
         geometric.append({'seed':receipt['seed'],'native_vs_semantic_cosine_squared_by_visit':overlaps,'sae_feature_indices':f['sae_features'].tolist()})
-    axes[0].set_ylabel('Principal direction');fig.colorbar(im,ax=axes.ravel().tolist(),label='Squared cosine',shrink=.75)
-    fig.suptitle('Calibration semantic differences vs frozen rank-four VPD write span');fig.subplots_adjust(top=.80,bottom=.18,right=.85,wspace=.22);fig.savefig(figs/'subspace_overlap.png');plt.close(fig)
-    (out/'geometry.json').write_text(canonical(geometric)+'\n',encoding='utf-8')
+    axes[0].set_ylabel('Principal direction')
+    fig.suptitle('Calibration semantic differences vs frozen rank-four VPD write span');fig.subplots_adjust(top=.80,bottom=.18,right=.84,wspace=.22)
+    color_axis=fig.add_axes((.88,.20,.017,.58));fig.colorbar(im,cax=color_axis,label='Squared cosine')
+    fig.savefig(figs/'subspace_overlap.png');plt.close(fig)
+    (out/'geometry.json').write_text(json.dumps(geometric,indent=2,sort_keys=True,allow_nan=False)+'\n',encoding='utf-8')
     means={kind:{key:statistics.mean(v[key] for v in clean_table if v['stratum']==kind and v[key] is not None)
         for key in ('historical_accuracy','base_accuracy','adapter_accuracy') if any(v[key] is not None for v in clean_table)} for kind in ('id','ood')}
     lines=['# SCM-19 results: clean acquisition and fresh semantic mediation','',
         f"Preregistered commit `a94d749`; selected `{done['selection']['encoding']}` at {done['selection']['common_step_budget']} base updates per seed. The registered robust primary criterion {'passed' if positive else 'did not pass'}.",'',
+        f"Clean acquisition improved: three-seed mean ID top-one accuracy rose from {pct(means['id']['historical_accuracy'])} for the frozen historical baseline to {pct(means['id']['base_accuracy'])} for the new base and {pct(means['id'].get('adapter_accuracy'))} with VPD. OOD means were {pct(means['ood']['historical_accuracy'])}, {pct(means['ood']['base_accuracy'])} and {pct(means['ood'].get('adapter_accuracy'))}. Actual rank-four VPD-write mediation was 0/64 ID in every seed and 0/23, 0/33, 0/24 OOD, matching the zero-success random controls. This is a substantive negative result on the eligible ID subset; two OOD seeds also miss the registered eligibility minimum.",'',
         '## Clean mathematical accuracy','',
         'Each entry is one neural argmax over 64 programs, followed by exact prefix and withheld-future grading. No verifier/search chooses the prediction. Historical SCM-18 frozen baselines are evaluated on these same fresh cases. Seeds share cases; seed results are not independent case samples.','',
         '| Seed | Split | n | Historical correct | New base correct | New + VPD correct | Base zero-visit correct |',

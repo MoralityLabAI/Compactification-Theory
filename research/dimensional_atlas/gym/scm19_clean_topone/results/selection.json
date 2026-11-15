@@ -1,0 +1,39 @@
+{
+  "clean_gate_passed": true,
+  "common_step_budget": 4000,
+  "encoding": "coefficient",
+  "endpoint": {
+    "dev_id": {
+      "accuracy": 0.59375,
+      "correct": 152,
+      "false_future_acceptances": 4,
+      "inference_verifier_calls": 0,
+      "initial_cls_correct": null,
+      "n": 256,
+      "predictions_per_case": 1,
+      "prefix_acceptances": 156
+    },
+    "dev_ood": {
+      "accuracy": 0.453125,
+      "correct": 58,
+      "false_future_acceptances": 3,
+      "inference_verifier_calls": 0,
+      "initial_cls_correct": null,
+      "n": 128,
+      "predictions_per_case": 1,
+      "prefix_acceptances": 61
+    },
+    "step": 4000
+  },
+  "selected_by": "fixed endpoint development ID, then OOD; no fresh held-out access",
+  "source_sha256": {
+    "research/dimensional_atlas/gym/model.py": "2982dfdbbf1ff4ddde64503f4dfe766c451e8fe629956321c636b97ff09df5c5",
+    "research/dimensional_atlas/gym/scm18_rtx3050/core.py": "f82b9630df5b0084be8554389d56d9b7ef7ab2ee8830da85e90bed5f699a6bd5",
+    "research/dimensional_atlas/gym/scm19_clean_topone/PROTOCOL.md": "10e07dac83db93cc31375665d8905e2a3693445483f0ad109f12246f0b9f4f6a",
+    "research/dimensional_atlas/gym/scm19_clean_topone/__init__.py": "023bd3518507cec5ab71fa1604a40d58fd3f502114561cde301d082af7555c41",
+    "research/dimensional_atlas/gym/scm19_clean_topone/campaign.py": "69c91bd62d43891038c6c3d435f04924bf8bbd6db5ce12c2ec5d11a714a950ad",
+    "research/dimensional_atlas/gym/scm19_clean_topone/config.json": "e8e293eda4e55ef3bb7fbe19a36e36bd7557fd268a857c49a91bc59f8d081025",
+    "research/dimensional_atlas/gym/scm19_clean_topone/core.py": "42428213351e3cbea419e78faabfc49c104d9fc74209c5fb6a6f1b615cc393f7",
+    "research/dimensional_atlas/gym/tasks.py": "ea9f3a2ea9312ac081c04a478d8235dc05dc274a439ecd40bd9274cb8ab47bc2"
+  }
+}
