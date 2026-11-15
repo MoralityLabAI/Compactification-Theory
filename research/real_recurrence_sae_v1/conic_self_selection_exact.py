@@ -227,6 +227,43 @@ def sharp_boundary_adversary(normals,selected,raw_direction,cert,overshoot=Q(1,1
     }
 
 
+
+
+def feedback_matrix_self_selection(encoder_weights,decoder_weights):
+    """Exact rational diagonal-dominance predicate for frozen SAE WD.
+
+    W shape mxd, D shape dxm. K=W*D is mxm; atom t reinforces itself
+    at all positive amplitudes under the EXACT raw physical ray
+    scale⊙D[:,t] and physical score-row normals W/scale iff
+       K[t,t] >= 0 and K[t,t] >= K[j,t] for every competitor j.
+    Strict inequalities imply positive angular-cone interior.
+
+    This is an algebraic condition on the encoder-decoder cross-talk
+    matrix, independent of positive training scales in exact arithmetic.
+    """
+    W=tuple(tuple(map(rat,row)) for row in encoder_weights)
+    D=tuple(tuple(map(rat,row)) for row in decoder_weights)
+    if not W or not D or any(len(row)!=len(D) for row in W) or any(
+        len(row)!=len(W) for row in D):
+        raise ValueError("expected W(m,d) and D(d,m) matrices")
+    m=len(W)
+    result=[]
+    for t in range(m):
+        slopes=[
+            sum((W[j][i]*D[i][t] for i in range(len(D))),Q(0))
+            for j in range(m)]
+        diag=slopes[t]
+        others=[slopes[j] for j in range(m) if j!=t]
+        support=(diag>=0 and all(diag>=v for v in others))
+        interior=(diag>0 and all(diag>v for v in others))
+        gaps=[diag]+[diag-v for v in others]
+        result.append({
+            'atom':t,'positive_ray_self_selection':support,
+            'strict_interior':interior,'diagonal_score_exact':diag,
+            'minimum_column_score_margin_exact':min(gaps),
+        })
+    return tuple(result)
+
 if __name__=='__main__':
     import json
     a=((Q(1),Q(0)),(Q(0),Q(1)),(Q(-1),Q(0)))
