@@ -71,12 +71,17 @@ class NOR13GatedReadout(unittest.TestCase):
         W=[[0.]*25 for _ in range(16)]
         fixed=nor13.checkpoint_intervals([row],W,1.)
         self.assertEqual(fixed["gate_invariant_cases"],1)
+        self.assertEqual(fixed["top4_rationally_gate_invariant_unique_inputs"],1)
+        self.assertEqual(fixed["records"][0]["ordered_top4_at_gate_minus_one"],[15,14,13,12])
+        self.assertEqual(fixed["records"][0]["ordered_top4_at_gate_plus_one"],[15,14,13,12])
         self.assertEqual(fixed["records"][0]["pair_crossings_or_endpoint_ties"],0)
         W[0][12]=5.
         W[1][12]=-5.
         changed=nor13.checkpoint_intervals([row],W,1.)
         self.assertEqual(changed["gate_variant_cases"],1)
         self.assertGreater(changed["records"][0]["pair_crossings_or_endpoint_ties"],0)
+        self.assertEqual(changed["top4_rationally_gate_invariant_unique_inputs"],1)
+        self.assertEqual(changed["top4_rationally_gate_variant_unique_inputs"],0)
         self.assertFalse(changed["float_rounding_proven"] if "float_rounding_proven" in changed else True)
 
     def test_small_training_carries_real_gate_coefficients(self):
