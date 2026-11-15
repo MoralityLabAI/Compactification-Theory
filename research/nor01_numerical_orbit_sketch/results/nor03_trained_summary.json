@@ -1,0 +1,108 @@
+{
+  "schema": "nor03.trained.block.audit.summary.v1",
+  "date_utc": "2026-11-15",
+  "provenance": {
+    "github_actions_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43691049653",
+    "source_commit": "c6940b4123ec71ab313366b3c51a96b872fbacf8",
+    "trained_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+    "model": "RRC-25 trained GRU, 1000 parameters, 12D hidden state"
+  },
+  "certificate": {
+    "depth_per_block": 12,
+    "disk_center": "1/32",
+    "method": "exact rational outward interval product with Frobenius operator-norm upper bound",
+    "certified_scope": "pointwise derivative of true nonlinear block, for decimal-rational lifted checkpoint",
+    "nonlinear_radius": 1e-9,
+    "source_locked": true
+  },
+  "canonical": {
+    "warmup": 8,
+    "contracting": true,
+    "disk_upper": 0.937535987328
+  },
+  "early_negative": {
+    "start": "hidden zero",
+    "block_depth": 8,
+    "disk_upper": 27.669049913028,
+    "contracting": false
+  },
+  "public_test_families_warmup8": [
+    {
+      "family": "signed",
+      "disk_upper": 0.95075881423,
+      "contracting": true,
+      "coarse_disk_upper": 0.963965169286
+    },
+    {
+      "family": "sparse",
+      "disk_upper": 0.960808756508,
+      "contracting": true,
+      "coarse_disk_upper": 0.975354390751
+    },
+    {
+      "family": "product",
+      "disk_upper": 0.731708641506,
+      "contracting": true,
+      "coarse_disk_upper": 0.948387259243
+    },
+    {
+      "family": "rational",
+      "disk_upper": 0.576830356675,
+      "contracting": true,
+      "coarse_disk_upper": 0.581178168023
+    },
+    {
+      "family": "squared",
+      "disk_upper": 1.384527970358,
+      "contracting": false,
+      "coarse_disk_upper": 2.036290679778
+    },
+    {
+      "family": "late_source",
+      "disk_upper": 0.96041144289,
+      "contracting": true,
+      "coarse_disk_upper": 0.969690304159
+    }
+  ],
+  "public_test_families_warmup32": [
+    {
+      "family": "signed",
+      "disk_upper": 2205.044748135486,
+      "contracting": false
+    },
+    {
+      "family": "sparse",
+      "disk_upper": 3572.211480632796,
+      "contracting": false
+    },
+    {
+      "family": "product",
+      "disk_upper": 1568264898.1860886,
+      "contracting": false
+    },
+    {
+      "family": "rational",
+      "disk_upper": 8.814303040717,
+      "contracting": false
+    },
+    {
+      "family": "squared",
+      "disk_upper": 1422.853817691478,
+      "contracting": false
+    },
+    {
+      "family": "late_source",
+      "disk_upper": 452.378240248872,
+      "contracting": false
+    }
+  ],
+  "warmup8_summary": {
+    "certified": 5,
+    "total": 6
+  },
+  "warmup32_summary": {
+    "certified": 0,
+    "total": 6
+  },
+  "inference_limits": "The criterion is sufficient; q>=1 does not establish instability. Finite-depth derivative certificate does not imply all-depth nonlinear stability, native ranking capability, or an executable optimal Lp embedding. Original training-set overlap not exhaustively audited."
+}
