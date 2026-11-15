@@ -28,9 +28,10 @@ if str(ROOT) not in sys.path:
 from research.rrc_compactification import bench25, compound25, model25
 
 N = model25.HIDDEN
-DIGITS = 16
+DIGITS = 32
 SCALE = 10 ** DIGITS
 EXP_TERMS = 72
+EXP_TAIL_TARGET = Q(1, 10 ** (DIGITS + 10))
 ZERO = Q(0)
 ONE = Q(1)
 
@@ -100,10 +101,22 @@ def exponential_bounds(x: Q) -> Interval:
     for k in range(1, n + 1):
         term *= x / k
         total += term
-    next_term = term * x / (n + 1)
-    denom = ONE - x / (n + 2)
-    assert denom > 0
-    return Interval(total, total + next_term / denom)
+    # A fixed Taylor cutoff can be less accurate than the desired
+    # interval precision for preactivations near 15-20. Increase the
+    # cutoff until the provable geometric upper tail is negligible
+    # compared with outward rounding, then return the exact enclosure.
+    while True:
+        next_term = term * x / (n + 1)
+        denominator = ONE - x / (n + 2)
+        if denominator > 0:
+            upper_tail = next_term / denominator
+            if upper_tail <= EXP_TAIL_TARGET:
+                return Interval(total, total + upper_tail)
+        n += 1
+        if n > 600:
+            raise ArithmeticError("Taylor remainder failed its precision gate")
+        term = next_term
+        total += term
 
 
 def sigmoid_at(x: Q) -> Interval:
@@ -364,7 +377,9 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
         "perturbation_radius": float(perturbation),
         "block_nonlinear_remainder_upper": float(rem),
         "block_nonlinear_output_difference_upper": float(delta),
-        "rounding": "certified rational outward enclosure (exp Taylor + exact fractions + upward sqrt)",
+        "interval_decimal_digits": DIGITS,
+        "exp_tail_target": str(EXP_TAIL_TARGET),
+        "rounding": "certified rational outward enclosure (adaptive exp Taylor + exact fractions + upward sqrt)",
         "global_guarantee": "pointwise block Jacobian disk and finite-block nonlinear Taylor budget only",
     }
 
