@@ -1,0 +1,51 @@
+name: NOR-08 second attracting basin radius and public source survey
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor08_radius_survey.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor08_radius_survey.py'
+      - '.github/workflows/nor08-second-basin-radius.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor08_radius_survey.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor08_radius_survey.py'
+      - '.github/workflows/nor08-second-basin-radius.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-radius-and-squared-input:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test original checkpoint lock, second attractor and withheld feature mutation
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor08_radius_survey -v
+      - name: Certify candidate invariant radii and measure squared source trajectory
+        run: python research/nor01_numerical_orbit_sketch/nor08_radius_survey.py --check --max-steps 3600 --out /tmp/nor08_radius_sweep.json
+      - name: Report positive exact rational ball radii and FP64 crossing times
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/nor08_radius_sweep.json').read_text())
+          assert x['source_to_second_basin_certified'] is False
+          candidates=[row for row in x['radius_sweep'] if row['positive_invariance']]
+          assert candidates, 'existing NOR07 second invariant ball must reproduce'
+          for row in x['radius_sweep']:
+              print('NOR08 RADIUS',row['radius_fraction'],'K=',row['K'],
+                    'valid=',row['positive_invariance'])
+          print('NOR08 LARGEST R',max(c['radius_float'] for c in candidates))
+          print('NOR08 FP64 ENTRY DEPTHS',x['measured']['candidate_crossings_fp64_only'])
+          print('NOR08 EXACT SOURCE ENTRY',x['source_to_second_basin_certified'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor08-second-basin-certified-radii-and-uncertified-source-crossings
+          path: /tmp/nor08_radius_sweep.json
