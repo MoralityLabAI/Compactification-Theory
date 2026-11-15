@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify SMC-01/02 finite transitions and spectral polynomial
+      - name: Verify SMC-01/02/03 finite transitions, gauge and holdout controls
         run: python -m unittest discover -s research/synchronized_mixing_v1 -p 'test_*.py' -v
       - name: Produce exact ten-sweep result
         run: |
@@ -45,6 +45,29 @@ jobs:
           PY
       - name: Produce exact stratified probe cohort controls
         run: python research/synchronized_mixing_v1/relational_probe.py > smc03-controls.json
+      - name: Produce exact family-disjoint probe controls
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          sys.path.insert(0, "research/synchronized_mixing_v1")
+          from family_holdout import family_split
+          from relational_probe import exact_population_baseline
+          data = family_split()
+          controls = {
+              "representative_split": exact_population_baseline(3),
+              "matching_family_split": {
+                  "train_matching_ids": list(data["train_g"]),
+                  "test_matching_ids": list(data["test_g"]),
+                  "train_permutations": len(data["train_pi"]),
+                  "test_permutations": len(data["test_pi"]),
+                  "theoretical_test_bayes": "5/6",
+              },
+              "learned_cpu_measurements": "see committed smc03_*_results.json files",
+          }
+          with open("smc03-family-controls.json", "w") as out:
+              json.dump(controls, out, indent=2)
+          PY
       - uses: actions/upload-artifact@v4
         with:
           name: smc01-02-03-exact-results
@@ -52,3 +75,4 @@ jobs:
             smc01-results.json
             smc02-lift-results.json
             smc03-controls.json
+            smc03-family-controls.json
