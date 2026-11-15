@@ -20,7 +20,7 @@ with its terminal FP64 one-step residual zero at machine precision. The candidat
 
 The [NOR-07 executable](nor07_two_attractors.py) first Newton-refines the squared-family candidate using Python Decimal at 80-digit working precision. The result is converted to exact decimal-rational coordinates with 55 decimal places. This is candidate selection only.
 
-At the rational candidate \(c_2\), it then proves from interval arithmetic that a small Euclidean ball \(B(c_2,R_2)\), initially \(R_2=10^{-20}\), is invariant and uniformly contracting for the **actual nonlinear 24-step map** \(G_2=F^{24}\). For a uniform norm upper bound \(K_2\) on \(DG_2\) throughout the entire ball and a validated center residual \(s_2\), the required exact rational tests are
+At the rational candidate \(c_2\), it attempts to prove using interval arithmetic that a Euclidean ball \(B(c_2,R_2)\), with \(R_2=10^{-20}\), is invariant and uniformly contracting for the **actual nonlinear 24-step map** \(G_2=F^{24}\). The latest implementation uses a [stationary-center Volterra proof](nor07_stationary_tube.py), which bounds the real one-step Jacobian error and global Hessian remainder while retaining the exact rational powers of a single nominal Jacobian. These powers capture nonnormal cancellations between steps. The general [recentered nonlinear Volterra method](nor07_recentered_tube.py) is preserved separately and formalized at the semiring identity level in [MathCan NOR-07T](https://github.com/patrickdugan/MathCan/pull/58). For a uniform norm upper bound \(K_2\) on \(DG_2\) throughout the entire ball and a validated center residual \(s_2\), the required exact rational tests are
 \[
 \boxed{K_2<1,\qquad s_2+K_2R_2<R_2.}
 \]
