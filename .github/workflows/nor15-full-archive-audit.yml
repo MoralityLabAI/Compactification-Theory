@@ -1,0 +1,48 @@
+name: NOR-15 full frozen evidence ZIP hashes and independent receipt audit
+
+on:
+  push:
+    paths:
+      - 'research/nor15_trajectory_sufficiency/results/nor15a_full.zip'
+      - 'research/nor15_trajectory_sufficiency/results/nor15b_full.zip'
+      - 'research/nor15_trajectory_sufficiency/nor15a_receipt.py'
+      - 'research/nor15_trajectory_sufficiency/nor15b_receipt.py'
+      - '.github/workflows/nor15-full-archive-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor15_trajectory_sufficiency/results/nor15a_full.zip'
+      - 'research/nor15_trajectory_sufficiency/results/nor15b_full.zip'
+      - 'research/nor15_trajectory_sufficiency/nor15a_receipt.py'
+      - 'research/nor15_trajectory_sufficiency/nor15b_receipt.py'
+      - '.github/workflows/nor15-full-archive-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  immutable-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently audit all NOR-15A 288 cases and 24 Jacobian spectra
+        run: |
+          python research/nor15_trajectory_sufficiency/nor15a_receipt.py \
+            --check \
+            --archive research/nor15_trajectory_sufficiency/results/nor15a_full.zip
+      - name: Independently audit all NOR-15B 8,320 task decisions and paired effects
+        run: |
+          python research/nor15_trajectory_sufficiency/nor15b_receipt.py \
+            --check \
+            --archive research/nor15_trajectory_sufficiency/results/nor15b_full.zip
+      - name: Print frozen archive checksums and sizes
+        run: |
+          set -euo pipefail
+          unzip -p research/nor15_trajectory_sufficiency/results/nor15a_full.zip nor15a_full.json | sha256sum
+          unzip -p research/nor15_trajectory_sufficiency/results/nor15b_full.zip nor15b_full.json | sha256sum
+          test "$(unzip -p research/nor15_trajectory_sufficiency/results/nor15a_full.zip nor15a_full.json | wc -c)" -eq 492261
+          test "$(unzip -p research/nor15_trajectory_sufficiency/results/nor15b_full.zip nor15b_full.json | wc -c)" -eq 3224589
