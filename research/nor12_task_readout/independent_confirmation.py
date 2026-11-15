@@ -288,7 +288,7 @@ def evaluate_confirm(replicates=REPETITIONS,per_family=CASES_PER_FAMILY):
             "nonlate_pairwise_losses":nonloss,
             "posthoc_case_mcnemar_exact_p":float(exact_sign_p(gains,losses)),
             "posthoc_nonlate_case_mcnemar_exact_p":float(exact_sign_p(nongain,nonloss)),
-            "posthoc_unique_feature_group_sign_p":float(exact_sign_p(positive,negative)),
+            "posthoc_unique_feature_group_sign_p":float(exact_sign_p(positive,negativecount)),
         }
     first_ablation=ablate_frozen_basin_feature(old["test"],fitted,design)
     return {
