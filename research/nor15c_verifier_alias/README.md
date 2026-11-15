@@ -43,7 +43,7 @@ The companion CI independently checks all source hashes, reconstructs the exact 
 
 ## Frozen first hosted result
 
-[First successful exhaustive GitHub Actions run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43724030933) reproduced all 40 aliased NOR-15B late_source cases and passed both the independent numeric-mask enumerator and the original-ranking parity assertion. The full 23,205-byte JSON is SHA-256-pinned as \`f2dc2865fca360e4ccb717c0e84cde6fe5c1f4a1bea29111b5b1d250753e5f29\` in [results/nor15c_frozen_receipt.json](results/nor15c_frozen_receipt.json).
+[First successful exhaustive GitHub Actions run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43724030933) reproduced all 40 aliased NOR-15B late_source cases and passed both the independent numeric-mask enumerator and the original-ranking parity assertion. The [source-controlled original JSON](results/nor15c_full.json) is independently checked by the read-only hosted CI auditor. The full 23,205-byte JSON is SHA-256-pinned as \`f2dc2865fca360e4ccb717c0e84cde6fe5c1f4a1bea29111b5b1d250753e5f29\` in [results/nor15c_frozen_receipt.json](results/nor15c_frozen_receipt.json).
 
 | Fixed-order policy on 40 model-identical examples | Future-correct | False accepts | Verified proposals | Paid checks |
 | --- | ---: | ---: | ---: | ---: |
