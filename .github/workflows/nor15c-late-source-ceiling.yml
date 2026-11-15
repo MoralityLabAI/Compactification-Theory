@@ -1,0 +1,80 @@
+name: NOR-15C late-source feature-fibre exact four-check ceiling
+
+on:
+  push:
+    paths:
+      - 'research/nor15_late_source_ceiling/**'
+      - '.github/workflows/nor15c-late-source-ceiling.yml'
+  pull_request:
+    paths:
+      - 'research/nor15_late_source_ceiling/**'
+      - '.github/workflows/nor15c-late-source-ceiling.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-four-order-algebra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify 43680-policy enumeration, first-accept semantics and finite oracle ceilings
+        run: python -m unittest research.nor15_late_source_ceiling.test_ceiling -v
+
+  fully-new-240-late-source-cohorts:
+    needs: exact-four-order-algebra
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit 80 development and 160 unseen identical-feature cases
+        run: |
+          python research/nor15_late_source_ceiling/ceiling.py --check \
+            --dev-cases 80 --test-cases 160 --out /tmp/nor15c_full.json
+      - name: Independently check public feature aliases, oracle budget and exact finite ceiling
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from collections import Counter
+          import json,hashlib
+          raw=Path('/tmp/nor15c_full.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor15c.feature_fibre_exact_four_check_hindsight_ceiling.v1'
+          assert x['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert x['dev_cases']==80 and x['test_cases']==160
+          assert x['distinct_public_visible_sources']==240
+          assert x['unique_model_visible_feature_hashes']==1
+          assert len(x['dev_case_records'])==80 and len(x['test_case_records'])==160
+          assert len({r['public_visible_sha256'] for r in x['dev_case_records']+x['test_case_records']})==240
+          assert len({r['public_features_sha256'] for r in x['dev_case_records']+x['test_case_records']})==1
+          assert x['separate_diagnostic_public_16_template_checks']==3840
+          assert x['separate_diagnostic_withheld_future_16_grades']==3840
+          assert x['scope']['test_future_labels_absent_from_dev_selection']
+          assert x['scope']['hindsight_test_oracle_is_nondeployable']
+          assert x['development_future_selected_four_order']['orders_exhaustively_checked']==43680
+          assert x['test_oracle_hindsight_optimal_four_order']['orders_exhaustively_checked']==43680
+          assert x['test_oracle_hindsight_optimal_four_order']['future_correct']>=max(
+            x['test_original_shared_model_policy']['future_correct'],
+            x['test_dev_selected_diagnostic_policy']['future_correct'])
+          for name in ('test_original_shared_model_policy','test_dev_selected_diagnostic_policy',
+                       'test_oracle_hindsight_optimal_four_order'):
+              v=x[name]
+              assert v['cases']==160
+              assert v['paid_checks']<=640
+              assert v['future_correct']+v['false_accept']+v['abstained']==160
+              print('NOR15C',name,v)
+          print('NOR15C PUBLIC MASK ORACLE',x['test_full_mask_group_hindsight_bounds'])
+          print('NOR15C JSON',len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor15c-exact-feature-fibre-160-test-80-dev-four-check-ceiling
+          path: /tmp/nor15c_full.json
