@@ -43,6 +43,14 @@ class Interval:
     def __post_init__(self):
         if self.lo > self.hi:
             raise ValueError("inverted interval")
+        # Every interval operation is outward-rounded to a fixed rational
+        # denominator. This prevents exact exp Taylor denominators from
+        # growing exponentially through recurrent layers.
+        low, high = self.lo * SCALE, self.hi * SCALE
+        lower = low.numerator // low.denominator
+        upper = -((-high.numerator) // high.denominator)
+        object.__setattr__(self, "lo", Q(lower, SCALE))
+        object.__setattr__(self, "hi", Q(upper, SCALE))
 
     @staticmethod
     def point(value):
