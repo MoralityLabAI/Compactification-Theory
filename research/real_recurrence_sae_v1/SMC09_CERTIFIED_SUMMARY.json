@@ -1,0 +1,91 @@
+{
+  "schema": "SMC-09/source-locked-verified-endpoint-summary-v1",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "evidence_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43708737779",
+  "evidence_artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43708737779/artifacts/14160105425",
+  "artifact_zip_sha256": "2932eabb290b04ed66e6b092117effcff386637378150cd1ca43c1433e2d0f01",
+  "artifact_json_sha256": "1a02a3e34a051197df498915b68e34c1287a57719768394f9989e5278d3abfa6",
+  "sae_seeds": [
+    71,
+    89,
+    113
+  ],
+  "training_updates": 300,
+  "test_puzzle_ids": [
+    3,
+    7,
+    11,
+    15,
+    19,
+    23,
+    27,
+    31,
+    35,
+    39,
+    43,
+    47,
+    51,
+    55,
+    59,
+    63
+  ],
+  "arb_precision_bits": 160,
+  "mathematical_object": "exact-real pretrained three-step recurrence, source FP32 dyadic stage1 anchors, rational intervention radii, exactly renormalized FP64-dyadic direction vectors",
+  "total_intervention_contexts": 144,
+  "total_strict_interval_certificates": 432,
+  "total_inconclusive": 0,
+  "largest_squared_gap_interval_width_float": 3.12764923678854e-35,
+  "per_radius": [
+    {
+      "radius": "1/50",
+      "decimal": 0.02,
+      "comparisons": 48,
+      "active_gt_isotropic": 44,
+      "active_gt_inactive": 32,
+      "optimal_gt_active": 48,
+      "inconclusive": 0,
+      "mean_L2_effect_difference": {
+        "active_minus_isotropic": 0.011632980003780465,
+        "active_minus_inactive": 0.007684559073810058,
+        "active_minus_optimal": -0.025881039560044422
+      },
+      "puzzle_clusters_majority_active_gt_isotropic": 15,
+      "puzzle_clusters_unanimous_active_gt_isotropic": 13
+    },
+    {
+      "radius": "1/5",
+      "decimal": 0.2,
+      "comparisons": 48,
+      "active_gt_isotropic": 43,
+      "active_gt_inactive": 32,
+      "optimal_gt_active": 48,
+      "inconclusive": 0,
+      "mean_L2_effect_difference": {
+        "active_minus_isotropic": 0.11140524054920647,
+        "active_minus_inactive": 0.0715181668899762,
+        "active_minus_optimal": -0.2603627220023257
+      },
+      "puzzle_clusters_majority_active_gt_isotropic": 15,
+      "puzzle_clusters_unanimous_active_gt_isotropic": 12
+    },
+    {
+      "radius": "4/5",
+      "decimal": 0.8,
+      "comparisons": 48,
+      "active_gt_isotropic": 42,
+      "active_gt_inactive": 30,
+      "optimal_gt_active": 48,
+      "inconclusive": 0,
+      "mean_L2_effect_difference": {
+        "active_minus_isotropic": 0.38459846551079574,
+        "active_minus_inactive": 0.21900012076189207,
+        "active_minus_optimal": -1.0170691927783726
+      },
+      "puzzle_clusters_majority_active_gt_isotropic": 15,
+      "puzzle_clusters_unanimous_active_gt_isotropic": 11
+    }
+  ],
+  "scope": "Strict mathematical interval comparisons at the frozen endpoints, not a uniform Hessian tube, FP64 hardware-roundoff certificate, independently unseen puzzle set or semantic feature proof."
+}
