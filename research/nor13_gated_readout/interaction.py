@@ -391,6 +391,9 @@ def run(replicates=CONFIRMATIONS,per_family=FAMILY_PER):
     all_groups=defaultdict(list)
     first_abl=None
     margin_survey=None
+    rank_replicate_summaries=[]
+    gate_ablated_totals=defaultdict(Counter)
+    gate_ablated_groups=defaultdict(list)
     for index,items in enumerate(cohorts):
         rows=prior.new_rows(items,ck,probe,negative)
         original_eval=task_eval(rows)
@@ -431,12 +434,30 @@ def run(replicates=CONFIRMATIONS,per_family=FAMILY_PER):
             "unique_model_inputs":len({r["digest"] for r in rows}),
             "public_manifest":sha256("\n".join(r["digest"] for r in rows).encode()).hexdigest(),
             "arm_results":entry})
+        # Direct gate interventions rerun the *same frozen task matrix*
+        # on every fresh cohort; this isolates the scalar gate value
+        # from the training advantage of a task-supervised readout.
+        ablations=gate_ablation(rows,fitted,selected["basin_gate"]["scale"])
+        true_records=ablations["trained_gate"]["records"]
+        for name,ev in ablations.items():
+            for field in ("future_correct","false_accept","paid_checks"):
+                gate_ablated_totals[name][field]+=ev[field]
+            for a_record,b_record in zip(true_records,ev["records"],strict=True):
+                assert a_record["public_features_sha256"]==b_record["public_features_sha256"]
+                gate_ablated_groups[(name,a_record["public_features_sha256"])].append(
+                    b_record["future_correct"]-a_record["future_correct"])
+        local_rank=checkpoint_intervals(rows,fitted["basin_gate"]["weights"],
+                                        selected["basin_gate"]["scale"])
+        rank_replicate_summaries.append({
+            "replicate":index,
+            "unique_public_inputs":local_rank["unique_public_inputs"],
+            "top4_gate_invariant_unique_inputs":local_rank["top4_rationally_gate_invariant_unique_inputs"],
+            "top4_gate_variant_unique_inputs":local_rank["top4_rationally_gate_variant_unique_inputs"],
+            "full_rank_invariant_unique_inputs":local_rank["gate_invariant_unique_inputs"],
+        })
         if index==0:
-            first_abl=gate_ablation(rows,fitted,selected["basin_gate"]["scale"])
-            margin_survey=checkpoint_intervals(rows,fitted["basin_gate"]["weights"],
-                                               selected["basin_gate"]["scale"])
-            # Keeping the detailed records for this diagnostic cohort
-            # permits external, independent rank and oracle replay.
+            first_abl=ablations
+            margin_survey=local_rank
     out={}
     for kind,count in aggreg.items():
         groups={digest:vals for (k,digest),vals in all_groups.items() if k==kind}
@@ -461,6 +482,27 @@ def run(replicates=CONFIRMATIONS,per_family=FAMILY_PER):
             "unadjusted_case_mcnemar_p":float(prior.exact_sign_p(gain,loss)),
         }
         assert out[kind]["paired_gains"]-out[kind]["paired_losses"]==out[kind]["net_future_correct_vs_original"]
+    full_gate_ablation={}
+    true_results=gate_ablated_totals["trained_gate"]
+    for name,stats in gate_ablated_totals.items():
+        records={digest:diffs for (kind,digest),diffs in gate_ablated_groups.items() if kind==name}
+        gains=sum(d>0 for diffs in records.values() for d in diffs)
+        losses=sum(d<0 for diffs in records.values() for d in diffs)
+        positive=sum(sum(diffs)>0 for diffs in records.values())
+        negative=sum(sum(diffs)<0 for diffs in records.values())
+        full_gate_ablation[name]={
+            "cases":6*per_family*replicates,
+            "future_correct":stats["future_correct"],
+            "false_accept":stats["false_accept"],
+            "paid_checks":stats["paid_checks"],
+            "future_delta_vs_true_basin_gate":stats["future_correct"]-true_results["future_correct"],
+            "newly_correct_vs_true_gate":gains,
+            "lost_correct_vs_true_gate":losses,
+            "unique_public_inputs":len(records),
+            "positive_input_groups":positive,
+            "negative_input_groups":negative,
+            "unadjusted_input_group_sign_p":float(prior.exact_sign_p(positive,negative)),
+        }
     return {
         "schema":SCHEME,
         "source_checkpoint_sha256":READOUT_SHA,
@@ -481,7 +523,9 @@ def run(replicates=CONFIRMATIONS,per_family=FAMILY_PER):
         "fresh_replicate_results":summaries,
         "aggregated":out,
         "first_fresh_test_basin_gate_ablations":first_abl,
+        "all_fresh_cohort_fixed_weight_gate_ablations":full_gate_ablation,
         "first_fresh_test_exact_affine_rank_stability":margin_survey,
+        "all_fresh_cohort_rank_stability":rank_replicate_summaries,
         "scope":{
             "new_nonlate_public_features_excluded_from_all_prior_NOR12_cases":True,
             "late_source_aliases_reported_as_feature_clusters":True,
