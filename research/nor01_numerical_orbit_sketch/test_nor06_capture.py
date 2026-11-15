@@ -59,7 +59,7 @@ class VerifiedBasinCapture(unittest.TestCase):
             cap.run(family="signed",max_blocks=0)
         with self.assertRaises(ValueError):
             cap.run(family="signed",max_blocks=513)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(ArithmeticError):
             cap.unit_cube_center_ball([Q(2)]*12,Q(1,100))
 
 
