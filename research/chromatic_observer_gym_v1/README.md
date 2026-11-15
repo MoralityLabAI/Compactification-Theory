@@ -59,3 +59,9 @@ The present run contains no model training, causal interventions, source-paper p
 See [COE02.md](COE02.md) for the exact `ell_1` integer-cut geometry,
 sharp `K_5` code width and fractional integrality-gap theorem, and a
 provenance-preserving frozen-activation adapter.
+
+## COE-05: clock-gauge phase bits and exact 14-state witness
+
+[Experiment and replay](COE05.md) | [Affine-phase oracle](phase_register.py) | [Frozen-probe scorer](phase_order_replay.py)
+
+A fixed tied one-bit readout can distinguish 14 affine-hyperplane states across eight cyclic visits even when every state activates exactly four times. Its constant-weight code corrects one bit flip; an unknown cyclic phase collapses the 14 messages to four rotation orbits. A new 3-seed synthetic tied-attention replication shows only 10 order-only heldout evaluator hits among 336 tested pairs. The pretrained TRM/Huginn/Nanbeige measurements remain outside this experiment.
