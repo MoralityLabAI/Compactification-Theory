@@ -400,7 +400,7 @@ def run(counts=COUNTS):
         "selected":evaluate(test,ck,head,p1,chosen["threshold"],chosen["alpha"],
                             "conditioned",True,p2=p2),
         "fixed_escape":evaluate(test,ck,head,p1,TARGET_GUARD_THRESHOLD,
-                                 TARGET_GUARD_ALPHA,"conditioned",True),
+                                 TARGET_GUARD_ALPHA,"conditioned",True,p2=p2),
         "unconditional":evaluate(test,ck,head,p1,0.,TARGET_GUARD_ALPHA,
                                  "unconditional",True,p2=p2),
         "shuffled_head_escape":evaluate(test,ck,head,p1,TARGET_GUARD_THRESHOLD,
