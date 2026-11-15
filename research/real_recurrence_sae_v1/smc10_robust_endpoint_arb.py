@@ -28,7 +28,7 @@ ARB_DIR=HERE.parent/'levin_sieve_v1'/'goal_taylor_v1'
 for module_dir in (HERE,PRE,ARB_DIR):
     sys.path.insert(0,str(module_dir))
 
-from arb_engine import TaylorNet,aq,exact_matrix
+from arb_engine import TaylorNet,LN,aq,exact_matrix
 from run_checkpoint import locked_bytes,load_pretrained,prepare_roster
 from smc07_real_sae import fit_sae,split_ids,EXPECTED_ROSTER
 from smc08_curvature import goal_jacobian,sae_direction_set
@@ -38,6 +38,38 @@ from smc09_endpoint_arb import (
     squared_logit_effect,classify_ordering
 )
 
+
+
+
+class RobustTaylorNet(TaylorNet):
+    """Source-equivalent LayerNorm with mathematically nonnegative squares.
+
+    In interval arithmetic x*x for x crossing zero can have negative lower
+    values even though the true x^2 is nonnegative. Intersecting the product
+    enclosure with [0,∞) is sound and prevents artificial negative variance.
+    This override leaves the exact real pointwise function unchanged.
+    """
+    def ln(self,X,norm,name):
+        gamma=[arb(float(z)) for z in norm.weight.detach().cpu().tolist()]
+        beta=[arb(float(z)) for z in norm.bias.detach().cpu().tolist()]
+        eps=arb(float(norm.eps))
+        d=len(gamma)
+        us=[];ss=[];out=[]
+        for row in X.tolist():
+            mean=sum(row,arb(0))/d
+            u=[v-mean for v in row]
+            # Correct nonnegative range of every exact square.
+            nonneg_squares=[(v*v).nonnegative_part() for v in u]
+            avg_variance=(sum(nonneg_squares,arb(0))/d).nonnegative_part()
+            squared_denom=eps+avg_variance
+            if not squared_denom.lower()>0:
+                raise ArithmeticError('uncertain denominator after nonnegative-square refinement')
+            den=squared_denom.sqrt()
+            if not den.lower()>0:
+                raise ArithmeticError('uncertain LayerNorm square-root denominator')
+            us.append(u);ss.append(den)
+            out.append([g*v/den+b for g,v,b in zip(gamma,u,beta)])
+        return arb_mat(out),LN(us,ss,gamma,eps,name)
 
 def arb_sym_ball(radius):
     """Validated symmetric ball around zero, with an upward-rounded radius.
@@ -172,7 +204,7 @@ def run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,
     with torch.no_grad():
         stages=teacher.reason_states(inputs)[1].detach()
     model64=copy.deepcopy(teacher).double().eval()
-    validated=TaylorNet(teacher)
+    validated=RobustTaylorNet(teacher)
     frozen={}
     for pid in chosen:
         goal=int(torch.where(inputs[pid]==0)[0][0])
