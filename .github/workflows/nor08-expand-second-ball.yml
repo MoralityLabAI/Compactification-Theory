@@ -1,0 +1,57 @@
+name: NOR-08 second trained GRU attractor enlarged basin
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor08_expand_ball.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor08_expand_ball.py'
+      - '.github/workflows/nor08-expand-second-ball.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor08_expand_ball.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor08_expand_ball.py'
+      - '.github/workflows/nor08-expand-second-ball.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fixed-point-radius-sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test exact-rational source lock and radius certificate
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor08_expand_ball -v
+      - name: Compute exact rational enlarged second basin
+        run: python research/nor01_numerical_orbit_sketch/nor08_expand_ball.py --check --out /tmp/nor08_second_ball.json
+      - name: Verify selected ball invariance and print each candidate
+        run: |
+          python - <<'PY'
+          import json
+          from fractions import Fraction as Q
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nor08_second_ball.json').read_text())
+          assert r['checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['certified_expanded_ball']
+          for z in r['candidate_attempts']:
+              print('NOR08 radius',z['candidate_radius_fraction'],'K',z['block_K_float'],
+                    'pass',z['all_rational_gates_passed'])
+          c=r['selected_largest_certified']
+          R=Q(c['candidate_radius_fraction'])
+          K=Q(c['block_K_fraction'])
+          s=Q(c['block_center_residual_fraction'])
+          assert K<1 and R-K*R-s>0
+          assert Q(c['one_step_fixed_image_upper_fraction'])<R
+          assert Q(c['coordinate_separation_lower_fraction'])>0
+          print('CERTIFIED SECOND ATTRACTOR LARGE BASIN',float(R),
+                'K24',float(K),'exact margin',float(R-K*R-s))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor08-enlarged-second-attractor-ball
+          path: /tmp/nor08_second_ball.json
