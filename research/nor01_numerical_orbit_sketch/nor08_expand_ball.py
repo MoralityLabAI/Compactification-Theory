@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import argparse
 from fractions import Fraction as Q
+from functools import lru_cache
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -58,6 +59,7 @@ def verified_source():
     return ck["recurrent"], center, original_radius, sha256(blob).hexdigest()
 
 
+@lru_cache(maxsize=1)
 def run():
     ck,center,initial_radius,receipt_sha=verified_source()
     weights=get_weights(ck)
