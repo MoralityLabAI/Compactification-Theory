@@ -1,0 +1,29 @@
+name: COE-01 chromatic observer exact checks
+
+on:
+  pull_request:
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe01-chromatic-observers.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe01-chromatic-observers.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-finite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check all finite certificates and extension tests
+        run: python -m unittest discover -s research/chromatic_observer_gym_v1 -p 'test_*.py' -v
+      - name: Print pinned reference witnesses
+        run: python research/chromatic_observer_gym_v1/observer_codes.py
