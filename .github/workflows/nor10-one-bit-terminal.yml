@@ -1,0 +1,64 @@
+name: NOR-10 exact one-bit terminal recurrent metric certificate
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor10_binary_terminal.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor10_binary_terminal.py'
+      - '.github/workflows/nor10-one-bit-terminal.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor10_binary_terminal.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor10_binary_terminal.py'
+      - '.github/workflows/nor10-one-bit-terminal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certified-one-bit-code:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove source-lock, rational sqrt bracket and one-bit terminal capacity
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor10_binary_terminal -v
+      - name: Produce rigorous one-dimensional late-history code
+        run: python research/nor01_numerical_orbit_sketch/nor10_binary_terminal.py --check --out /tmp/nor10_one_bit.json
+      - name: Validate one-bit code and per-basin/cross-basin terminal error terms
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from fractions import Fraction as Q
+          x=json.loads(Path('/tmp/nor10_one_bit.json').read_text())
+          assert x['schema']=='nor10.optimal_one_bit_two_captured_basin_tail_code.v1'
+          assert x['trained_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert x['terminal_runtime_basin_label_bits']==1
+          q=x['inter_anchor_quantization']
+          lo,hi=Q(q['lower_fraction']),Q(q['upper_fraction'])
+          sq=Q(q['distance_squared_fraction'])
+          assert lo*lo<=sq<=hi*hi
+          assert hi-lo==Q(1,10**18)
+          for r in x['rows']:
+              a=Q(r['signed_center_radius_upper_fraction'])
+              b=Q(r['squared_center_radius_upper_fraction'])
+              eta=hi-lo
+              total=Q(r['one_bit_terminal_all_pair_error_upper_fraction'])
+              assert total==max(2*a,2*b,a+b+eta)
+              gap=Q(r['zero_bit_cross_basin_error_lower_fraction'])
+              assert gap>5
+              assert r['rigorous_zero_bit_to_one_bit_worst_error_ratio_lower_float']>100
+              if r['extra_24_step_blocks'] in (64,128):
+                  print('NOR10 blocks',r['extra_24_step_blocks'],
+                        'all late pair error <=',float(total),
+                        'zero-bit collision error >=',float(gap))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor10-exact-rational-one-bit-two-basin-terminal-code
+          path: /tmp/nor10_one_bit.json
