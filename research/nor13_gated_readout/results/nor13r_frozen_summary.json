@@ -1,0 +1,158 @@
+{
+  "schema": "nor13r.independent_gate_interaction_and_rank_receipt.v1",
+  "executed_date_utc": "2026-11-15",
+  "source_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "source_auxiliary_head_sha256": "56101a9a7a7c66991696d71b8a7f5d50362ab8fe73500e431ff30b97f01920ad",
+  "full_github_actions_json_sha256": "6fa27608f1b77d5c95398804fb000cd27b5c146b844d0ee45ba5508e356cf854",
+  "executed_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43712140001",
+  "artifact_id": 14160529645,
+  "full_json_uncompressed_bytes": 354291,
+  "trained_real_GRU_parameters": 1000,
+  "trained_auxiliary_basin_head_parameters": 13,
+  "residual_parameter_slots_per_head": 400,
+  "trained_heads": [
+    "basin_gate",
+    "random_gate",
+    "shuffled_gate",
+    "constant_gate"
+  ],
+  "public_training_source_cases": 96,
+  "public_development_cases": 36,
+  "public_template_checks_per_trained_head": 1536,
+  "fresh_holdout_cases": 288,
+  "fresh_repetitions": 4,
+  "model_visible_unique_feature_clusters": 241,
+  "unique_feature_clusters_per_repetition": 61,
+  "heldout_prior_overlap_nonlate": false,
+  "development_global_frozen_choice": {
+    "kind": "random_gate",
+    "scale": 1,
+    "dev_future_correct": 28,
+    "dev_false_accept": 0,
+    "dev_paid_checks": 99
+  },
+  "development_local_scales": {
+    "basin_gate": 0.5,
+    "random_gate": 1,
+    "shuffled_gate": 1,
+    "constant_gate": 0.5
+  },
+  "holdout_results": {
+    "original": {
+      "future_correct": 168,
+      "false_accept": 25,
+      "paid_checks": 809
+    },
+    "basin_gate": {
+      "future_correct": 171,
+      "false_accept": 26,
+      "paid_checks": 792,
+      "paired_gains": 14,
+      "paired_losses": 11,
+      "unadjusted_case_mcnemar_p": 0.6900379657745361,
+      "posthoc_unique_input_group_sign_p": 0.049041748046875
+    },
+    "random_gate": {
+      "future_correct": 171,
+      "false_accept": 30,
+      "paid_checks": 796,
+      "paired_gains": 22,
+      "paired_losses": 19
+    },
+    "shuffled_gate": {
+      "future_correct": 170,
+      "false_accept": 26,
+      "paid_checks": 795,
+      "paired_gains": 17,
+      "paired_losses": 15
+    },
+    "constant_gate": {
+      "future_correct": 170,
+      "false_accept": 26,
+      "paid_checks": 794,
+      "paired_gains": 13,
+      "paired_losses": 11
+    },
+    "nor12_additive_basin": {
+      "future_correct": 168,
+      "false_accept": 26,
+      "paid_checks": 791
+    },
+    "nor12_additive_random": {
+      "future_correct": 169,
+      "false_accept": 25,
+      "paid_checks": 794
+    },
+    "global_dev_choice": {
+      "future_correct": 171,
+      "false_accept": 30,
+      "paid_checks": 796
+    }
+  },
+  "fixed_weight_real_basin_gate_ablation_over_all_288_cases": {
+    "trained_gate": {
+      "future_correct": 171,
+      "false_accept": 26,
+      "paired_gains_vs_trained_gate": 0,
+      "paired_losses_vs_trained_gate": 0
+    },
+    "gate_zero": {
+      "future_correct": 168,
+      "false_accept": 25,
+      "paired_gains_vs_trained_gate": 2,
+      "paired_losses_vs_trained_gate": 5
+    },
+    "gate_flipped_sign": {
+      "future_correct": 165,
+      "false_accept": 23,
+      "paired_gains_vs_trained_gate": 7,
+      "paired_losses_vs_trained_gate": 13
+    },
+    "gate_permuted_by_public_input": {
+      "future_correct": 167,
+      "false_accept": 26,
+      "paired_gains_vs_trained_gate": 3,
+      "paired_losses_vs_trained_gate": 7
+    },
+    "gate_replaced_by_shuffled_probe": {
+      "future_correct": 166,
+      "false_accept": 25,
+      "paired_gains_vs_trained_gate": 2,
+      "paired_losses_vs_trained_gate": 7
+    },
+    "gate_replaced_by_random_hash": {
+      "future_correct": 172,
+      "false_accept": 23,
+      "paired_gains_vs_trained_gate": 7,
+      "paired_losses_vs_trained_gate": 6
+    }
+  },
+  "exact_binary_rational_gate_endpoint_order_audit": {
+    "controls": "all 120 pairwise class score comparisons for exact affine lifting of frozen binary64 values at gate endpoints -1,+1",
+    "fully_rank_invariant_input_counts_per_replicate": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "ordered_top4_invariant_input_counts_per_replicate": [
+      5,
+      11,
+      10,
+      2
+    ],
+    "ordered_top4_invariant_group_replicates": 28,
+    "total_group_replicates": 244,
+    "floating_point_rounding_certified": false
+  },
+  "scope": {
+    "native_task_gain_proven_vs_original": false,
+    "basin_specific_superiority_to_matched_sham": false,
+    "marginal_basin_gate_causally_changes_some_verified_cases": true,
+    "source_model_weights_modified": false,
+    "private_future_coefficients_used_for_training": false,
+    "source_specific_basin_membership_interval_certified_for_new_inputs": false,
+    "reported_statistical_p_values_are_unadjusted_exploratory": true,
+    "note": "This study is an independent 400-slot replication from a separate concurrent 416-slot NOR-13 campaign; gate endpoint theorem is for rational affine score lift, not IEEE-754 implementation."
+  }
+}

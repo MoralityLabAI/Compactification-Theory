@@ -1,0 +1,29 @@
+name: NOR-13R frozen multiplicative gate and task-rank receipt audit
+
+on:
+  push:
+    paths:
+      - 'research/nor13_gated_readout/receipt_audit.py'
+      - 'research/nor13_gated_readout/results/nor13r_frozen_summary.json'
+      - '.github/workflows/nor13r-receipt.yml'
+  pull_request:
+    paths:
+      - 'research/nor13_gated_readout/receipt_audit.py'
+      - 'research/nor13_gated_readout/results/nor13r_frozen_summary.json'
+      - '.github/workflows/nor13r-receipt.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  arithmetic-and-source-lock:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit archived exact source hash, paired case sign statistics and all gate replacement outcomes
+        run: python research/nor13_gated_readout/receipt_audit.py --check
