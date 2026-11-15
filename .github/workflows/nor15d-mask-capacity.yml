@@ -1,0 +1,67 @@
+name: NOR-15D complete public acceptance-mask exact capacity audit
+
+on:
+  push:
+    paths:
+      - 'research/nor15d_mask_capacity/**'
+      - '.github/workflows/nor15d-mask-capacity.yml'
+  pull_request:
+    paths:
+      - 'research/nor15d_mask_capacity/**'
+      - '.github/workflows/nor15d-mask-capacity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-mask-capacity-certificate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test source SHA, independent group arithmetic and exact capacity
+        run: python -m unittest research.nor15d_mask_capacity.test_mask_ceiling -v
+      - name: Independently tabulate each observed acceptance signature capacity
+        run: python research/nor15d_mask_capacity/mask_ceiling.py --check --out /tmp/nor15d_mask_capacity.json
+      - name: Audit source-locked 14-group 40-case maxima
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          x=json.loads(Path('/tmp/nor15d_mask_capacity.json').read_text())
+          assert x['schema']=='nor15d.full_public_acceptance_signature_hindsight_capacity.v1'
+          assert x['input_nor15c_json_sha256']=='f2dc2865fca360e4ccb717c0e84cde6fe5c1f4a1bea29111b5b1d250753e5f29'
+          assert x['distinct_complete_public_masks']==14
+          assert x['total_public_mask_cases']==40
+          assert x['original_fixed_four_future_correct']==8
+          assert x['best_hindsight_fixed_four_future_correct']==15
+          assert x['best_hindsight_full_mask_future_correct']==25
+          assert x['unavoidable_lost_future_correct_under_complete_mask_only']==15
+          assert x['per_case_full_future_oracle_ceiling']==40
+          assert sum(x['capacity_integer_certificate'])==25
+          assert len(x['capacity_integer_certificate'])==14
+          assert x['all_candidates_publicly_accepted_group']['cases']==13
+          assert x['all_candidates_publicly_accepted_group']['oracle_future_correct']==3
+          assert x['all_candidates_publicly_accepted_group']['unavoidable_future_incorrect_under_same_mask_choice']==10
+          assert x['scope']['future_labels_used_for_hindsight_group_choice']
+          assert x['scope']['not_deployable_model_evaluation']
+          for group in x['group_capacities']:
+              a=group['public_accepted_bitmask']
+              count=group['cases']
+              assert len(group['source_visible_sha256'])==count
+              assert len(set(group['source_visible_sha256']))==count
+              assert int(group['candidate_future_correct_counts'][str(group['oracle_selected_template'])])==group['oracle_future_correct']
+              assert group['oracle_future_correct']+group['unavoidable_future_incorrect_under_same_mask_choice']==count
+              assert a & (1<<group['oracle_selected_template'])
+              print('NOR15D SIGNATURE',hex(a),'cases',count,'best',group['oracle_future_correct'],'lost',group['unavoidable_future_incorrect_under_same_mask_choice'])
+          raw=Path('/tmp/nor15d_mask_capacity.json').read_bytes()
+          print('NOR15D SOURCE-LOCKED FULL MASK CAPACITY',len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor15d-full-acceptance-mask-capacity-and-14-group-certificate
+          path: /tmp/nor15d_mask_capacity.json
