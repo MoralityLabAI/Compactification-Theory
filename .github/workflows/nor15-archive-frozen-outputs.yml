@@ -1,0 +1,60 @@
+name: NOR-15 one-shot frozen evidence export and source-controlled archive
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor15-archive-frozen-outputs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  independently-replay-and-archive:
+    if: github.ref == 'refs/heads/research/nor15-full-evidence-archive-20261115'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Regenerate and validate both immutable NOR-15 numerical source receipts
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/nor15"
+          python research/nor15_trajectory_sufficiency/audit.py \
+            --check --repetitions 4 --per-family 12 \
+            --out "$RUNNER_TEMP/nor15/nor15a_full.json"
+          echo "9dbe31960a1866b8f4062cb148ab5db9c4b7743ea1fa28689b8377a78459f92b  $RUNNER_TEMP/nor15/nor15a_full.json" | sha256sum --check
+          test "$(wc -c < "$RUNNER_TEMP/nor15/nor15a_full.json")" -eq 492261
+          python research/nor15_trajectory_sufficiency/nor15a_receipt.py \
+            --check --full "$RUNNER_TEMP/nor15/nor15a_full.json"
+          python research/nor15_trajectory_sufficiency/task_test.py \
+            --check --repetitions 4 --nonlate-per-family 50 \
+            --late-per-repetition 10 --epochs 150 \
+            --out "$RUNNER_TEMP/nor15/nor15b_full.json"
+          echo "1f5f068b522780e66d639d0429369c66775cedbef997f510824be124d4cde124  $RUNNER_TEMP/nor15/nor15b_full.json" | sha256sum --check
+          test "$(wc -c < "$RUNNER_TEMP/nor15/nor15b_full.json")" -eq 3224589
+          python research/nor15_trajectory_sufficiency/nor15b_receipt.py \
+            --check --full "$RUNNER_TEMP/nor15/nor15b_full.json"
+      - name: Preserve original evidence bytes as two compressed Git assets
+        run: |
+          set -euo pipefail
+          mkdir -p research/nor15_trajectory_sufficiency/results
+          zip -q -X -j research/nor15_trajectory_sufficiency/results/nor15a_full.zip "$RUNNER_TEMP/nor15/nor15a_full.json"
+          zip -q -X -j research/nor15_trajectory_sufficiency/results/nor15b_full.zip "$RUNNER_TEMP/nor15/nor15b_full.json"
+          test "$(unzip -p research/nor15_trajectory_sufficiency/results/nor15a_full.zip nor15a_full.json | sha256sum | awk '{print $1}')" = 9dbe31960a1866b8f4062cb148ab5db9c4b7743ea1fa28689b8377a78459f92b
+          test "$(unzip -p research/nor15_trajectory_sufficiency/results/nor15b_full.zip nor15b_full.json | sha256sum | awk '{print $1}')" = 1f5f068b522780e66d639d0429369c66775cedbef997f510824be124d4cde124
+      - name: Commit source-locked evidence archives on isolated branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor15_trajectory_sufficiency/results/nor15a_full.zip research/nor15_trajectory_sufficiency/results/nor15b_full.zip
+          git diff --cached --check
+          git commit -m "NOR-15: preserve 288-case and 1040-case source-locked full evidence ZIPs"
+          git push origin "HEAD:research/nor15-full-evidence-archive-20261115"
