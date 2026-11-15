@@ -265,8 +265,7 @@ def main():
     a=p.parse_args()
     output=run(a.source_checkpoint,a.fetch_source,a.original_sae_artifact,a.new_model_artifact)
     a.out.parent.mkdir(parents=True,exist_ok=True)
-    a.out.write_text(json.dumps(output,sort_keys=True,indent=2)+'
-')
+    a.out.write_text(json.dumps(output,sort_keys=True,indent=2)+'\n')
     print(json.dumps({'out':str(a.out),'pair_count':output['pair_count'],
                       'comparisons':[{'pair':r['source']+' -> '+r['target'],
                                       'test_mean':{k:round(v['calibrated_overlap']['mean'],5)
