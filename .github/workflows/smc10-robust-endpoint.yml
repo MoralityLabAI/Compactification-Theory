@@ -1,0 +1,71 @@
+name: SMC-10 validated robust SAE intervention neighborhoods
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc10_robust_endpoint_arb.py'
+      - 'research/real_recurrence_sae_v1/test_smc10_robust_endpoint_arb.py'
+      - '.github/workflows/smc10-robust-endpoint.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc10_*'
+      - '.github/workflows/smc10-robust-endpoint.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact validation and pinned CPU Torch
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Verify Arb uncertainty inclusion and false-positive controls
+        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc10_robust_endpoint_arb.py' -v
+      - name: Check first two heldout source-locked puzzle uncertainty envelopes
+        run: |
+          python research/real_recurrence_sae_v1/smc10_robust_endpoint_arb.py \
+            --fetch --max-test-puzzles 2 --sae-seeds 71 --steps 300 \
+            --radii 0.02,0.2 --budgets 0,1e-12,1e-10,1e-8,1e-6 \
+            --precision 160 --out runs/smc10/pilot.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc10-robust-pilot
+          path: runs/smc10/pilot.json
+          if-no-files-found: warn
+          retention-days: 45
+
+  full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact validation and pinned CPU Torch
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Exact-real robust SAE intervals on 16 previously tested puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc10_robust_endpoint_arb.py \
+            --fetch --max-test-puzzles 16 --sae-seeds 71,89,113 --steps 300 \
+            --radii 0.02,0.2 --budgets 0,1e-12,1e-10,1e-8,1e-6 \
+            --precision 160 --out runs/smc10/full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc10-robust-16p-3seed
+          path: runs/smc10/full.json
+          if-no-files-found: warn
+          retention-days: 90
