@@ -1,0 +1,22 @@
+{
+  "schema": "nor08.second_basin.certified_expanded_ball.v1",
+  "source": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43699717963",
+  "artifact_id": 14156270116,
+  "trained_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "reference_second_center": "research/nor01_numerical_orbit_sketch/results/nor07_two_attractors_summary.json#second_attractor",
+  "block_depth": 24,
+  "radius_fraction": "1/1000000",
+  "uniform_derivative_K_upper_fraction": "20757737384308237464323670318943/25000000000000000000000000000000",
+  "center_residual_upper_fraction": "37/5000000000000000000000000000000",
+  "exact_invariance_margin_fraction": "4242262615691762535676144681057/25000000000000000000000000000000000000",
+  "certified_invariant_ball": true,
+  "squared_fp64_first_crossing_at_this_radius": 651,
+  "squared_source_capture_interval_certified": false,
+  "next_radius_1e_minus_5": {
+    "radius_fraction": "1/100000",
+    "K_upper_fraction": "56549790147046263191535187824409/50000000000000000000000000000000",
+    "certified_invariant_ball": false,
+    "status": "failed_sufficient_contraction_bound"
+  },
+  "scope": "Exact invariant ball for trained real-analytic GRU, separately measured source crossing requires rational trajectory certificate"
+}
