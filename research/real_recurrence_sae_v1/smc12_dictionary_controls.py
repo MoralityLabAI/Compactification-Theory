@@ -26,7 +26,7 @@ sys.path.insert(0,str(HERE))
 from smc07_real_sae import TopKSAE,tensor_hash
 from smc11_selection import frozen_active_direction_dyadics
 from smc12_cones import load_frozen_sources
-from conic_self_selection_exact import physical_encoder_normals,cone_certificate
+from conic_self_selection_exact import physical_encoder_normals,cone_certificate,feedback_matrix_self_selection
 
 EXPECTED_INITIAL_DECODER_SHA={
  71:'cf8cbb36f0a430ef4c1023f2de2100c9269a263040137628b57d5195a62dac92',
@@ -55,10 +55,18 @@ def exact_dictionary_cones(sae,scale):
             min_strict_squared.append(float(cert['minimal_normalized_slope_squared']))
     if sum(counts.values())!=96:
         raise AssertionError('not every atom classified')
+    feedback=feedback_matrix_self_selection(
+        sae.encoder.weight.detach().cpu().tolist(),
+        sae.decoder.weight.detach().cpu().tolist())
+    feedback_interior=[row['atom'] for row in feedback if row['strict_interior']]
+    actual_interior=sorted(allowed)
+    mismatch=sorted(set(feedback_interior)^set(actual_interior))
     return {'counts':counts,'infinite_self_selection_atom_ids':allowed,
             'strict_cone_interior_count':counts['interior'],
             'all_source_atom_count':96,
-            'minimum_interior_q2_approx':min(min_strict_squared,default=None)}
+            'minimum_interior_q2_approx':min(min_strict_squared,default=None),
+            'ideal_WD_strict_diagonal_max_count':len(feedback_interior),
+            'rounded_causal_ray_vs_ideal_WD_mismatch_atom_ids':mismatch}
 
 
 def initialization_control(seed,scale):
@@ -85,6 +93,8 @@ def run(archive=None,extracted_dir=None):
         random=exact_dictionary_cones(original,scale)
         if not selected[seed].issubset(set(trained['infinite_self_selection_atom_ids'])):
             raise AssertionError('frozen selected goal feature lacks self-selection cone')
+        if trained['rounded_causal_ray_vs_ideal_WD_mismatch_atom_ids'] or random['rounded_causal_ray_vs_ideal_WD_mismatch_atom_ids']:
+            raise AssertionError('ideal W D cross-talk and frozen rounded source rays disagree')
         results.append({
            'seed':seed,
            'original_initial_decoder_sha256':sha,
