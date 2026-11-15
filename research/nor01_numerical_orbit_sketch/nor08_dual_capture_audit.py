@@ -15,10 +15,14 @@ import json
 from fractions import Fraction as Q
 from hashlib import sha256
 from pathlib import Path
-from research.nor01_numerical_orbit_sketch.nor08_cross_basin import audit as cross_audit
+import sys
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0,str(ROOT))
+
+from research.nor01_numerical_orbit_sketch.nor08_cross_basin import audit as cross_audit
 PREVIOUS=HERE/"results"/"nor06_certified_capture_summary.json"
 NEW=HERE/"results"/"nor08_dual_source_capture.json"
 SECOND=HERE/"results"/"nor08_expanded_second_ball.json"
