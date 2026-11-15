@@ -1,0 +1,33 @@
+name: PEF-01 exact recurrence and information-fibre audit
+
+on:
+  push:
+    paths:
+      - 'research/precision_entropy_frontier/**'
+      - '.github/workflows/pef01-precision-frontier.yml'
+  pull_request:
+    paths:
+      - 'research/precision_entropy_frontier/**'
+      - '.github/workflows/pef01-precision-frontier.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finite-exact-oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Complete independent recurrence, fibre and intervention tests
+        run: python -m unittest discover -s research/precision_entropy_frontier -p 'test_pef01.py' -v
+      - name: Generate exact PEF-01 receipt
+        run: |
+          python research/precision_entropy_frontier/pef01.py --suite --output artifacts/pef01/exact_suite.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pef01-exact-depth-precision-receipt
+          path: artifacts/pef01/exact_suite.json
