@@ -1,0 +1,82 @@
+# NOR-08: enlarged second attractor basin and source-conditioned capture
+
+**15 November 2026.** Builds on the NOR-04/05 fixed point, NOR-06 signed-family exact capture, NOR-07 two distinct attracting fixed points, and MathCan's merged multibasin code-capacity result.
+
+The original trained RRC-25 GRU has 1,000 parameters and twelve hidden coordinates. The dynamics in this study are the zero-input real-analytic extension of its original trained decimal-rational checkpoint, SHA-256 54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b.
+
+## Executed NOR-08A: larger certified second basin
+
+The [source-locked radius sweep](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43699717963) passed all five regression tests and evaluated ten proposed radii using the exact-rational, global-Hessian, stationary-center Volterra enclosure. The nominal center is the second fixed-point candidate already certified by NOR-07.
+
+| Radius | Upper bound on the true 24-step derivative norm | Certified invariant ball? |
+| --- | ---: | :---: |
+| \(10^{-20}\) | 0.804280138442 | Yes |
+| \(10^{-16}\) | 0.804280138445 | Yes |
+| \(10^{-12}\) | 0.804280163878 | Yes |
+| \(10^{-10}\) | 0.804282682016 | Yes |
+| \(10^{-8}\) | 0.804534553418 | Yes |
+| \(10^{-7}\) | 0.806829536493 | Yes |
+| \(10^{-6}\) | 0.830309495372 | Yes |
+| \(10^{-5}\) | 1.130995802941 | Inconclusive |
+| \(10^{-4}\) | \(4.01\times10^{48}\) | Inconclusive |
+| \(10^{-3}\) | Arithmetic envelope exceeded the bounded numeric representation | Inconclusive |
+
+The largest radius certified by this preregistered sweep was \(R_2=10^{-6}\), with
+
+\[
+K_2\le
+\frac{20757737384308237464323670318943}
+     {25000000000000000000000000000000}
+=0.83030949537232949857294681275772,
+\]
+
+and a center residual bounded by
+
+\[
+s_2\le\frac{37}{5000000000000000000000000000000}
+=7.4\times10^{-30}.
+\]
+
+The **exact invariant-ball clearance** is
+
+\[
+R_2-K_2R_2-s_2
+\ge
+\frac{4242262615691762535676144681057}
+     {25000000000000000000000000000000000000}
+\approx1.69690504628\times10^{-7}>0.
+\]
+
+These rational quantities are retained in [results/nor08_expanded_second_ball.json](results/nor08_expanded_second_ball.json). The second attractor is already known to be a fixed point of the original one-step map by the stronger NOR-07 period-one theorem; its enlarged invariant ball is a contracting neighborhood for the 24-step nonlinear map.
+
+A failure of the sufficient bound at larger radii does not establish noncontraction there. The huge \(10^{-4}\) bound and the \(10^{-3}\) arithmetic overflow are explicitly treated as inconclusive certificates.
+
+## Executed FP64 public-input comparison
+
+The same [NOR-08 radius survey](nor08_radius_survey.py) replayed the original squared-family source through the nine public RRC-25 feature rows and then 3,600 zero-input recurrent transitions. The candidate center distance crossed the newly certified \(10^{-6}\) radius at **651 zero-input steps**, while the original tiny \(10^{-20}\) and \(10^{-16}\) radii could not be distinguished by float64 at that horizon.
+
+The first measured crossings, for selected radii, were \(10^{-3}\) at step 329, \(10^{-4}\) at 436, \(10^{-5}\) at 543, \(10^{-6}\) at 651, \(10^{-8}\) at 865 and \(10^{-12}\) at 1293. The crossing times alone are FP64 discovery results.
+
+## NOR-08B: exact rational source-to-second-basin test
+
+The [independent capture script](nor08_squared_capture.py) starts from the exact-rational nine-row public input enclosure, reusing the NOR-06B source-locking and interval propagation. It tracks a rational reference hidden state \(c_k\), a certified Euclidean error radius \(\rho_k\), and a uniform ordered-Jacobian bound on each subsequent twelve-step block.
+
+The proof condition is
+
+\[
+\|F^{12k}(h_9)-c_k\|_2\le \rho_k,
+\qquad
+\|c_k-c_2\|_2+\rho_k\le 10^{-6},
+\]
+
+where \(h_9\) is the original squared-family state and \(c_2\) is the exact decimal-rational center from NOR-07. Every inequality deciding capture uses exact fractions and upward-rational square roots. The code searches at most 70 blocks, a bounded 840-step campaign selected before running the interval test.
+
+A successful witness transfers the known second-ball contraction to the **real nonlinear continuation of that specific naturally generated squared-family input** for all later depths, just as NOR-06 did for the signed-family input at the first attractor. A failed interval condition is an inconclusive result, with the original FP64 crossing preserved as separate discovery evidence.
+
+The [NOR-08B workflow](../../.github/workflows/nor08-squared-capture.yml) has separate jobs for five source and interval regression tests and for the full bounded exact capture. Its artifact records all block radii, final clearance, source hashes and exact trace checksum.
+
+## Implication for compact recurrent representations
+
+MathCan [NOR-08 basin-code capacity theorem](https://github.com/patrickdugan/MathCan/pull/60) proves that if two late hidden streams approach distinct attracting fixed points and their allowed distance distortion is below the separation minus both tail radii, any faithful terminal-history representation must assign distinct codes. Two distinct attractors were certified in NOR-07; the signed-family source has a certified entry to attractor one. Source entry to attractor two remains the independent NOR-08B gate.
+
+Any evaluation of proof-search competence, native model calibration or broader mechanistic semantics requires separate held-out experiments. The geometric certificate concerns a small real-analytic trained GRU under a declared zero-input intervention.
