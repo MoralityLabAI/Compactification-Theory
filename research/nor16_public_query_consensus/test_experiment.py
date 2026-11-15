@@ -78,14 +78,26 @@ class NOR16PublicConsensusTests(unittest.TestCase):
             self.assertNotEqual(predictions[j][idx],predictions[k][idx])
             assert all(corpus.verify_template(self.case,self.header,
                       corpus.OPS[c//4],corpus.OPS[c%4]) for c in (j,k))
-            altA=replace(self.case,program=n.program_for(self.header,j),
-                         future=predictions[j])
-            altB=replace(self.case,program=n.program_for(self.header,k),
-                         future=predictions[k])
+            def reconstruct_valid_world(which):
+                program=n.program_for(self.header,which)
+                demos=tuple((source,corpus.execute(source,program))
+                            for source,target in self.case.demos)
+                return replace(self.case,program=program,
+                               demos=demos,
+                               future=corpus.execute(self.case.query,program))
+            altA=reconstruct_valid_world(j)
+            altB=reconstruct_valid_world(k)
+            # Both worlds satisfy the ENTIRE generative program equation,
+            # including hidden demo suffixes, with identical PUBLIC input.
             self.assertEqual(altA.visible,altB.visible)
+            self.assertEqual(altA.visible,self.case.visible)
             self.assertEqual(altA.query,altB.query)
+            self.assertEqual(altA.future,predictions[j])
+            self.assertEqual(altB.future,predictions[k])
             self.assertNotEqual(altA.future,altB.future)
             self.assertEqual(n.full_public_digest(altA),n.full_public_digest(altB))
+            self.assertEqual(corpus.grade(altA,altA.program)["future_correct"],1)
+            self.assertEqual(corpus.grade(altB,altB.program)["future_correct"],1)
 
     def test_four_check_cost_and_sealed_future_grader(self):
         ck,_,_=n.nor11.train_source()
