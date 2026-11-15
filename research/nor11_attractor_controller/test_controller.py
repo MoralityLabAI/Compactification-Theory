@@ -20,9 +20,15 @@ class AttractorAwareController(unittest.TestCase):
     def test_split_public_feature_disjointness(self):
         c=n.sample_cohorts({"train":2,"dev":2,"test":2})
         self.assertEqual([len(c[x]) for x in ("train","dev","test")],[6,6,12])
-        hashes=[d for group in c.values() for case,head,d in group]
-        self.assertEqual(len(hashes),len(set(hashes)))
+        train_dev=[d for split in ("train","dev") for _,_,d in c[split]]
+        heldout=[d for _,_,d in c["test"]]
+        self.assertEqual(len(train_dev),len(set(train_dev)))
+        self.assertFalse(set(train_dev)&set(heldout))
         self.assertTrue(all(len(b.possible_headers(case))==1 for group in c.values() for case,_,_ in group))
+        # Repeated early feature tensors are a substantive property of
+        # late_source, so these are different cases but aliased inputs.
+        late=[d for case,_,d in c["test"] if case.family=="late_source"]
+        self.assertLess(len(set(late)),len(late))
 
     def test_hidden_head_input_is_independent_of_private_future(self):
         rows=n.sample_cohorts({"train":1,"dev":1,"test":1})["train"]
@@ -73,6 +79,10 @@ class AttractorAwareController(unittest.TestCase):
         self.assertEqual(result["cohorts"]["train"]["cases"],36)
         self.assertEqual(result["cohorts"]["dev"]["cases"],9)
         self.assertEqual(result["cohorts"]["test"]["cases"],18)
+        self.assertLess(result["cohorts"]["test"]["distinct_public_features"],18)
+        self.assertLess(result["cohorts"]["test"]["per_family_distinct_features"]["late_source"],3)
+        self.assertEqual(result["head_diagnostics"]["test"]["trained"]["n"],18)
+        self.assertLess(result["head_diagnostics"]["test"]["trained_unique_features"]["n"],18)
         self.assertEqual(result["source_checkpoint_sha256"],n.CHECKPOINT_SHA)
         self.assertEqual(result["trained_auxiliary_head_parameters"],13)
         self.assertFalse(result["trained_gru_weights_modified"])
