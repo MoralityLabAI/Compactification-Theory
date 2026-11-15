@@ -1,0 +1,69 @@
+name: SMC-08B verified local Arb SAE feature Taylor tubes
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc08_local_arb.py'
+      - 'research/real_recurrence_sae_v1/test_smc08_local_arb.py'
+      - '.github/workflows/smc08-local-arb.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/**'
+      - '.github/workflows/smc08-local-arb.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-locked-local-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned validated-math and CPU-runtime
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Arb interval sign and local-defect controls
+        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc08_local_arb.py' -v
+      - name: Source-locked active SAE local tube, two heldout puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc08_local_arb.py \
+            --fetch --max-test-puzzles 2 --steps 300 --seed 71 \
+            --radii 1e-10,1e-8,1e-6,1e-4,0.2 \
+            --out runs/smc08/arb-pilot.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc08b-verified-local-pilot
+          path: runs/smc08/arb-pilot.json
+          if-no-files-found: warn
+
+  source-locked-local-full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned validated-math and CPU-runtime
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install python-flint==0.9.0
+      - name: Source-locked active SAE local tubes, sixteen heldout puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc08_local_arb.py \
+            --fetch --max-test-puzzles 16 --steps 300 --seed 71 \
+            --radii 1e-10,1e-8,1e-6,1e-4,0.2 \
+            --out runs/smc08/arb-full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc08b-verified-local-full
+          path: runs/smc08/arb-full.json
+          if-no-files-found: warn
