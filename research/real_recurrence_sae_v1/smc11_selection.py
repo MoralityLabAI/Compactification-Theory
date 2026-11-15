@@ -15,6 +15,7 @@ import argparse
 import hashlib
 import json
 import math
+import statistics
 from fractions import Fraction as Q
 from pathlib import Path
 import sys
@@ -265,9 +266,9 @@ def run(checkpoint=None,allow_fetch=False,smc10_receipt=None,
     report['summary']={
        'certified_goal_cases':len(good),'total_goal_cases':len(cases),
        'top1_min':min((r['top1_radius_approx'] for r in good),default=None),
-       'top1_median':sorted(r['top1_radius_approx'] for r in good)[len(good)//2] if good else None,
+       'top1_median':statistics.median(r['top1_radius_approx'] for r in good) if good else None,
        'top4_min':min((r['top4_radius_approx'] for r in good),default=None),
-       'top4_median':sorted(r['top4_radius_approx'] for r in good)[len(good)//2] if good else None,
+       'top4_median':statistics.median(r['top4_radius_approx'] for r in good) if good else None,
        'guard_counts':{
           eta:{k:sum(r['budget_guards'][eta][k] for r in cases)
                for k in ('top1','top4')} for eta in BUDGETS},
