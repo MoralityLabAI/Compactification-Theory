@@ -74,7 +74,9 @@ The full [Arb Actions receipt](https://github.com/MoralityLabAI/Compactification
 
 These certificates apply to the exact-real model with exact binary stored weights and the exact observed FP32 stage-one anchor. They bound a **scalar signed margin** along the selected direction and do not provide an interval-verified 10×48 Jacobian singular-value decomposition. At radius 0.2 every validated local tube becomes too broad to distinguish the margin response after LayerNorm denominator fallback.
 
-A follow-up exploratory bisection of the largest certified sign radius is implemented with fixed 26-step resolution in [smc08_local_arb.py](smc08_local_arb.py). Its new measurements must be taken from a subsequent passing hosted run and should not be confused with the preregistered radius grid.
+The post-hoc [26-step rational bisection](smc08_local_arb.py) has now completed in a separate passing [hosted run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43706361253). It searches the downward-closed sufficient sign-certificate condition up to radius 1e-6. The [per-puzzle exact certificates and floating summaries](SMC08_ARB_RADIUS_FRONTIERS.json) establish a nonzero certified lower radius for all sixteen puzzles, ranging from **4.9174e-11** to **1.2328e-8**, with median **3.3440e-9**. The upper bracket records where this particular certificate stops proving the sign, rather than where the true recurrent margin changes sign. [MathCan OLM-08C](https://github.com/patrickdugan/MathCan/blob/research/olm08-validated-tube-rebased-20261115/research/orbit_lock/OLM08_VALIDATED_CAUSAL_TUBE.md) proves monotonicity of the sufficient condition under nondecreasing local derivative envelopes.
+
+The bisection is an exploratory post-hoc extension to the preregistered radius grid. It documents the current proof's quantitative reach and remains far below the model's empirically informative radius 0.02.
 
 ## Interpretation and next gates
 
