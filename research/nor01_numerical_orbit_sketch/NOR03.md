@@ -12,7 +12,7 @@ Six post-training public source-family cases are generated independently using f
 
 ## Certified arithmetic
 
-Model JSON decimals and public feature float literals are lifted to real rational decimal values. Taylor series with an exact remainder bound enclose exponential, sigmoid, and tanh. Every interval operation rounds outward to denominator \(10^{16}\). Because sigmoid updates are convex combinations with tanh candidates, the hidden cube \([-1,1]^{12}\) is invariant. The program intersects propagated intervals with this cube, sharpening bounds without weakening soundness.
+Model JSON decimals and public feature float literals are lifted to real rational decimal values. Taylor series with an exact remainder bound enclose exponential, sigmoid, and tanh. Every interval operation rounds outward to denominator \(10^{32}\), with an adaptive rational Taylor tail target of \(10^{-42}\). Because sigmoid updates are convex combinations with tanh candidates, the hidden cube \([-1,1]^{12}\) is invariant. The program intersects propagated intervals with this cube, sharpening bounds without weakening soundness.
 
 For each block step the **analytic** GRU Jacobian is enclosed on the actual hidden-state interval. The program computes two sufficient matrix disk bounds: one from a rational midpoint product and a telescoping error budget, and the other from direct interval matrix multiplication, which retains some cancellation. For the true twelve-step block derivative \(A\), both methods certify
 \[
@@ -27,6 +27,23 @@ The smallest verified rational radius is used. The contraction gate checks \(a+b
 The first hosted checkpoint audit passed the six trained-GRU mathematical tests. Its **coarse telescoping** method certified \(a+b=0.942200589137\) at the positive anchor, while the initial-zero eight-step control had \(a+b=27.669071261948\). The analytic one-step Hessian bound was 523.4880814132176, and the resulting twelve-step nonlinear remainder budget at radius \(10^{-9}\) was \(6.764913275852784\times10^{-11}\).
 
 The original retrospective six-case roster subset produced 0/6 contracting disks under the coarse telescoping certificate. Hidden interval widths were small, and the telescoping bound often dominated the result. The direct interval-product method and later-warmup sweep constitute the follow-up campaign. A failed sufficient disk test does not prove instability.
+
+## Refined completed 32-digit audit (November 15, 2026)
+
+[Hosted NOR-03 audit #43692241327](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43692241327) passed seven source-locked certificate tests. The precision increase from 16 to 32 decimal digits plus an adaptive exponential Taylor remainder reduced the interval widths without changing the trained checkpoint. The source-conditioned twelve-step derivative disk bounds, after eight zero-input warmup steps, were:
+
+| Family | Certified q | Disk q below 1 |
+| --- | ---: | :---: |
+| signed | 0.950757240361 | yes |
+| sparse | 0.960807054513 | yes |
+| product | 0.731696601376 | yes |
+| rational | 0.576829947646 | yes |
+| squared | 1.384526950151 | no |
+| late_source | 0.960410357005 | yes |
+
+Five of six are certified at this prescribed horizon. For the *bounded* depth-32 continuation audit, **two independently specified families** were tested: signed (q=0.947372761866) and sparse (q=0.954261492792). Both passed with maximum hidden interval widths 1.67e-19 and 1.85e-19 respectively. The remaining four depth-32 families were not evaluated at this setting. The earlier 16-digit, six-family depth-32 diagnostic had failed all six sufficient checks due to inflated interval enclosures; those historical failures remain recorded in the original receipt.
+
+The separately executed [NOR-04 local nonlinear invariant-ball certificate](NOR04.md) proves repeated twelve-step dynamics contract for all starting points inside its radius-1e-11 ball, with K<=0.928242792263. It is an additional verified result for a small neighborhood of an approximate attractor, with separate basin-entry obligations for naturally sourced inputs.
 
 ## Reproduce
 
