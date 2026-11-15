@@ -12,6 +12,7 @@ from hashlib import sha256
 import json
 import math
 from pathlib import Path
+from zipfile import ZipFile
 import statistics
 
 HERE=Path(__file__).resolve().parent
@@ -158,12 +159,21 @@ def validate_full(data,receipt):
 
 def main():
     p=argparse.ArgumentParser()
-    p.add_argument("--full",type=Path)
+    inp=p.add_mutually_exclusive_group()
+    inp.add_argument("--full",type=Path)
+    inp.add_argument("--archive",type=Path)
     p.add_argument("--check",action="store_true")
     args=p.parse_args()
     receipt=frozen_receipt()
+    raw=None
     if args.full:
         raw=args.full.read_bytes()
+    if args.archive:
+        with ZipFile(args.archive) as archive:
+            assert archive.namelist()==["nor15a_full.json"],archive.namelist()
+            assert archive.testzip() is None
+            raw=archive.read("nor15a_full.json")
+    if raw is not None:
         assert len(raw)==receipt["first_full_output_uncompressed_bytes"]
         assert sha256(raw).hexdigest()==SHA
         result=validate_full(json.loads(raw),receipt)
