@@ -14,7 +14,7 @@ class MultiplicativeBasinGate(unittest.TestCase):
         cls.ck,cls.probe,cls.negative,cls.rows,cls.roster,cls.headsha=m.frozen_gate_inputs()
 
     def test_frozen_checkpoint_and_public_split(self):
-        self.assertEqual(cls if False else self.ck["parameters"],1000)
+        self.assertEqual(self.ck["parameters"],1000)
         self.assertEqual(m.SOURCE_SHA,old.BASIN_SHA)
         self.assertEqual(len(self.rows["train"]),96)
         self.assertEqual(len(self.rows["dev"]),36)
