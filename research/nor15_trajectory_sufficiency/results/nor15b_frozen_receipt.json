@@ -1,0 +1,141 @@
+{
+  "schema": "nor15b.frozen_independent_1040_case_native_task_receipt.v1",
+  "executed_date_utc": "2026-11-15",
+  "first_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721883598",
+  "first_hosted_artifact_id": 14164414468,
+  "first_hosted_artifact": "nor15b-source-locked-1040-case-native-proof-trajectory-innovation",
+  "full_json_sha256": "1f5f068b522780e66d639d0429369c66775cedbef997f510824be124d4cde124",
+  "full_json_uncompressed_bytes": 3224589,
+  "source_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "frozen_probe_sha256": "56101a9a7a7c66991696d71b8a7f5d50362ab8fe73500e431ff30b97f01920ad",
+  "train_manifest": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "dev_manifest": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+  "test_cases": 1040,
+  "primary_nonlate_distinct_inputs": 1000,
+  "secondary_late_source_cases": 40,
+  "secondary_late_source_distinct_inputs": 1,
+  "train_cases": 96,
+  "dev_cases": 36,
+  "train_public_template_checks": 1536,
+  "task_parameters_allocated_per_head": 400,
+  "trained_epochs": 150,
+  "global_dev_selection": {
+    "kind": "shuffled_early",
+    "scale": 0.5,
+    "future_correct": 30,
+    "false_accept": 0,
+    "paid_checks": 104
+  },
+  "outcome_fields": [
+    "all_future_correct",
+    "all_false_accept",
+    "all_paid_checks",
+    "nonlate_correct"
+  ],
+  "outcomes": {
+    "original": [
+      639,
+      20,
+      2943,
+      631
+    ],
+    "hidden_only": [
+      663,
+      21,
+      2920,
+      657
+    ],
+    "raw_early": [
+      664,
+      21,
+      2919,
+      657
+    ],
+    "residual_early": [
+      666,
+      21,
+      2906,
+      660
+    ],
+    "reconstructed_early": [
+      667,
+      21,
+      2927,
+      661
+    ],
+    "endpoint_nonlinear": [
+      669,
+      21,
+      2938,
+      662
+    ],
+    "shuffled_early": [
+      666,
+      19,
+      2927,
+      656
+    ],
+    "dev_global": [
+      666,
+      19,
+      2927,
+      656
+    ]
+  },
+  "primary_paired": {
+    "residual_vs_original": {
+      "gains": 51,
+      "losses": 22,
+      "p": 0.0009142745821630901
+    },
+    "residual_vs_reconstructed": {
+      "gains": 6,
+      "losses": 7,
+      "p": 1
+    },
+    "residual_vs_endpoint_nonlinear": {
+      "gains": 28,
+      "losses": 30,
+      "p": 0.8956832138895903
+    },
+    "residual_vs_shuffled_early": {
+      "gains": 29,
+      "losses": 25,
+      "p": 0.6834892282353375
+    },
+    "residual_vs_hidden_only": {
+      "gains": 8,
+      "losses": 5,
+      "p": 0.5810546875
+    },
+    "raw_vs_residual": {
+      "gains": 28,
+      "losses": 31,
+      "p": 0.7948436539828609
+    }
+  },
+  "reconstruction_selected_lambda": 0.001,
+  "model_weight_sha256": {
+    "endpoint_nonlinear": "ef2dd8754852b46932092beb6094cce0fbe2aaa8f05a5c1b9a0bb64f09937f25",
+    "hidden_only": "d799c7c2c93772bb1efaa9e8c3e28ff57fda841c1b03e3b2928a6b474ffc3976",
+    "raw_early": "8e9f6e48921653fe931d9a7a492bff0eeaa536253277a87434308459ef29de0b",
+    "reconstructed_early": "8c5c21e1cdb62b8c64d50abb1ae5798c81595a1705c2a25193699f435f4d3955",
+    "residual_early": "904f0576b81c3704c5d133fe3310dca310557abeb2ccb11bd62011862ecf1123",
+    "shuffled_early": "b3865d5219dd2883792d0aaf482c3ef4a2d67f97ff9ad682a8694aaf404c90b5"
+  },
+  "test_public_features_manifests": [
+    "3cf6a5848d561c864d43293f98c218cd20e1d8a20f7a12b4250667b9a16444af",
+    "590c68d2025504de392b02dc596afad047ac6dfd916b93c62b68509f94dfc7c8",
+    "a22fcd61779b67eaa1479a7ac8f7053ead94b19d7a969da37cb6fa2c95a38692",
+    "3e2b9da3bce70039d62d9f988962ca4e4fc128c4445ece642a16d6f1b2bee3f0"
+  ],
+  "test_source_visible_manifests": [
+    "3a573949aec88cd91e7c29702e6d17ced5b6fc7d2fd0ede0b3586f3f8b0bf199",
+    "61ef356363d68e5d6cc37f9745fefc9c41aec70fb12865143b7943eac198ee0b",
+    "693b232165388d6561339e1d3e1fb352d0f66583ddb4153685c9c919de9c632c",
+    "e94f0a7f9b19ef6dda8ce11650770cbd0705f2af28408b041023f4e74c45f515"
+  ],
+  "primary_success_threshold": 0.016666666666666666,
+  "primary_specific_trajectory_hypothesis_passed": false,
+  "scope": "synthetic public degree-192 template training, native four-check degree-256 test grading; finite task residual is not conditional information proof"
+}

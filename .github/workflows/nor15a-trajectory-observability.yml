@@ -1,0 +1,89 @@
+name: NOR-15A trajectory observability, reconstruction and local Jacobian survey
+
+on:
+  push:
+    paths:
+      - 'research/nor15_trajectory_sufficiency/audit.py'
+      - 'research/nor15_trajectory_sufficiency/test_audit.py'
+      - 'research/nor15_trajectory_sufficiency/nor15a_receipt.py'
+      - 'research/nor15_trajectory_sufficiency/results/nor15a_frozen_receipt.json'
+      - 'research/nor15_trajectory_sufficiency/README.md'
+      - '.github/workflows/nor15a-trajectory-observability.yml'
+  pull_request:
+    paths:
+      - 'research/nor15_trajectory_sufficiency/audit.py'
+      - 'research/nor15_trajectory_sufficiency/test_audit.py'
+      - 'research/nor15_trajectory_sufficiency/nor15a_receipt.py'
+      - 'research/nor15_trajectory_sufficiency/results/nor15a_frozen_receipt.json'
+      - 'research/nor15_trajectory_sufficiency/README.md'
+      - '.github/workflows/nor15a-trajectory-observability.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native-parity-and-source-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test exact GRU parity, future-label masking, ridge and Jacobi spectrum
+        run: python -m unittest research.nor15_trajectory_sufficiency.test_audit -v
+      - name: Check signed NOR-15A frozen hosted receipt
+        run: python research/nor15_trajectory_sufficiency/nor15a_receipt.py --check
+
+  frozen-trajectories-four-cohorts:
+    needs: native-parity-and-source-safety
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct on train, select on development and audit 288 unseen cases
+        run: python research/nor15_trajectory_sufficiency/audit.py --check --repetitions 4 --per-family 12 --out /tmp/nor15a_full.json
+      - name: Audit source identities and paired reconstructed-state errors
+        run: |
+          python - <<'PY'
+          import json, hashlib, math
+          from collections import Counter
+          from pathlib import Path
+          raw=Path("/tmp/nor15a_full.json").read_bytes()
+          z=json.loads(raw)
+          assert z["schema"]=="nor15a.frozen_gru.trajectory_endpoint_reconstructibility.v1"
+          assert z["checkpoint_sha256"]=="54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b"
+          assert z["train_cases"]==96 and z["dev_cases"]==36
+          assert z["test_cases"]==288 and z["nonlate_unique_inputs"]==240
+          assert z["late_source_unique_inputs"]==1
+          assert len(z["records"])==288
+          assert len({v["visible_sha256"] for v in z["records"]})==288
+          assert len({v["digest"] for v in z["records"]})==241
+          assert len(z["local_jacobian_spectra"])==24
+          assert all(len(x["singular_values"])==12 for x in z["local_jacobian_spectra"])
+          assert all(x["sigma_min"]<=x["sigma_max"] for x in z["local_jacobian_spectra"])
+          assert all(x["source_visible_sha256"] if "source_visible_sha256" in x else x["visible_sha256"] for x in z["records"])
+          assert all(len(x["h4"])==len(x["h9"])==12 for x in z["records"])
+          assert set(Counter(x["family"] for x in z["records"]).values())=={48}
+          assert all(v["primary_nonlate_cases"]==240 for v in z["outcomes"].values())
+          for name,v in z["outcomes"].items():
+              print("NOR15A HOLDOUT",name,"primary MSE",v["primary_mean_MSE"],
+                    "median",v["primary_median_MSE"],"all MSE",v["all_case_mean_MSE"])
+              assert v["primary_mean_MSE"]>=0 and math.isfinite(v["primary_mean_MSE"])
+          for name,v in z["paired_primary_signs"].items():
+              assert v["first_lower_error"]+v["second_lower_error"]+v["ties"]==240
+              print("NOR15A PAIR",name,v)
+          print("NOR15A FROZEN DEV",z["development_frozen_selection"])
+          print("NOR15A JACOBIAN LOWEST",min(x["sigma_min"] for x in z["local_jacobian_spectra"]))
+          print("NOR15A FULL JSON",len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - name: Independently audit 1440 reconstruction errors, paired signs and 24 spectra
+        run: python research/nor15_trajectory_sufficiency/nor15a_receipt.py --check --full /tmp/nor15a_full.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor15a-frozen-trajectory-288-case-reconstruction-and-jacobians
+          path: /tmp/nor15a_full.json

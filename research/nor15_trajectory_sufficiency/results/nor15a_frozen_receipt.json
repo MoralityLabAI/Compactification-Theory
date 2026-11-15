@@ -1,0 +1,59 @@
+{
+  "schema": "nor15a.frozen_trajectory_reconstruction_first_hosted_receipt.v1",
+  "executed_utc_date": "2026-11-15",
+  "original_first_green_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721123693",
+  "first_full_output_artifact_id": 14164397902,
+  "first_full_output_name": "nor15a-frozen-trajectory-288-case-reconstruction-and-jacobians",
+  "first_full_output_sha256": "9dbe31960a1866b8f4062cb148ab5db9c4b7743ea1fa28689b8377a78459f92b",
+  "first_full_output_uncompressed_bytes": 492261,
+  "source_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "frozen_probe_sha256": "56101a9a7a7c66991696d71b8a7f5d50362ab8fe73500e431ff30b97f01920ad",
+  "train_manifest": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "dev_manifest": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+  "test_manifest": "47721c9e660308fd62e8afac6c9eb79942553d78fe8941b2a7be42345dd34420",
+  "train_cases": 96,
+  "dev_cases": 36,
+  "fresh_cases": 288,
+  "primary_nonlate_unique_inputs": 240,
+  "secondary_late_source_cases": 48,
+  "secondary_late_source_unique_inputs": 1,
+  "development_frozen_ridge_lambdas": {
+    "linear": 0.01,
+    "nonlinear": 0.001,
+    "shuffled_linear": 10
+  },
+  "primary_nonlate_standardized_MSE": {
+    "copy_endpoint": 1.0392248231420966,
+    "linear": 0.32005519795350057,
+    "mean": 0.9198376210559659,
+    "nonlinear": 0.2845376993488323,
+    "shuffled_linear": 0.9400682219433588
+  },
+  "primary_paired_signs": {
+    "nonlinear_vs_linear": {
+      "first_lower_error": 177,
+      "second_lower_error": 63,
+      "unadjusted_two_sided_sign_p": 1.0199781692113509e-13
+    },
+    "linear_vs_shuffled": {
+      "first_lower_error": 211,
+      "second_lower_error": 29,
+      "unadjusted_two_sided_sign_p": 2.699366367968256e-35
+    },
+    "nonlinear_vs_mean": {
+      "first_lower_error": 219,
+      "second_lower_error": 21,
+      "unadjusted_two_sided_sign_p": 9.592475544853484e-43
+    }
+  },
+  "rational_family_standardized_MSE": {
+    "linear": 0.9093,
+    "nonlinear": 0.975
+  },
+  "jacobian_cases": 24,
+  "min_estimated_singular_value": 6.133287571896785e-10,
+  "median_estimated_min_singular_value": 2.965721501672685e-8,
+  "numerical_scope": "FP64 finite-difference 5-step fixed-tail recurrent Jacobians; no interval or global injectivity certificate",
+  "conditional_information_established": false,
+  "task_correctness_observed": false
+}
