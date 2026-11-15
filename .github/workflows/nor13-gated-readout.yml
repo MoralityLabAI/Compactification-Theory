@@ -85,6 +85,27 @@ jobs:
                     'false accepts',v['false_accept'],
                     'paired successes',v['paired_to_original']['newly_correct'],
                     'paired losses',v['paired_to_original']['lost_correct'])
+          all_ab=z['all_fresh_cohort_fixed_weight_gate_ablations']
+          true=all_ab['trained_gate']
+          assert true['cases']==288
+          assert true['future_correct']==z['aggregated']['basin_gate']['future_correct']
+          for name,v in sorted(all_ab.items()):
+              assert v['cases']==288
+              assert v['unique_public_inputs']==241
+              assert v['future_correct']-true['future_correct']==v['future_delta_vs_true_basin_gate']
+              assert v['newly_correct_vs_true_gate']-v['lost_correct_vs_true_gate']==v['future_delta_vs_true_basin_gate']
+              print('NOR13 ALL FRESH GATE CAUSAL ABLATION',name,'correct',v['future_correct'],
+                    'false accepts',v['false_accept'],
+                    'paired gains vs true',v['newly_correct_vs_true_gate'],
+                    'paired losses vs true',v['lost_correct_vs_true_gate'],
+                    'positive distinct inputs',v['positive_input_groups'],
+                    'negative distinct inputs',v['negative_input_groups'])
+          rank=z['all_fresh_cohort_rank_stability']
+          assert len(rank)==4
+          assert sum(r['unique_public_inputs'] for r in rank)==244
+          for row in rank:
+              assert row['top4_gate_invariant_unique_inputs']+row['top4_gate_variant_unique_inputs']==row['unique_public_inputs']
+              print('NOR13 EXACT TOP4',row)
           PY
       - uses: actions/upload-artifact@v4
         with:
