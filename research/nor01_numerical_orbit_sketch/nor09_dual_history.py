@@ -116,7 +116,11 @@ def horizon_record(k,c):
     # independently proved center-to-true-fixed-point offsets.
     first_center=first_true+c["first_fixed_offset"]
     second_center=second_true+c["second_fixed_offset"]
-    tail=2*max(first_center,second_center)
+    # Round each endpoint upward first. The emitted combined envelope
+    # then dominates the sum of *independently reported* radii exactly.
+    first_center_up=upward(first_center)
+    second_center_up=upward(second_center)
+    tail=2*max(first_center_up,second_center_up)
     # The source states remain inside the original certified invariant
     # balls at 24-step checkpoints. Their true cross-distance >= gap.
     # Identifying them with the same metric terminal code therefore
@@ -127,8 +131,8 @@ def horizon_record(k,c):
         "squared_original_zero_input_steps":c["capture_2"]+24*k,
         "signed_to_fixed_point_upper_fraction":str(upward(first_true)),
         "squared_to_fixed_point_upper_fraction":str(upward(second_true)),
-        "signed_to_rational_anchor_upper_fraction":str(upward(first_center)),
-        "squared_to_rational_anchor_upper_fraction":str(upward(second_center)),
+        "signed_to_rational_anchor_upper_fraction":str(first_center_up),
+        "squared_to_rational_anchor_upper_fraction":str(second_center_up),
         "two_anchor_clipped_tail_pairwise_error_upper_fraction":str(upward(tail)),
         "two_anchor_clipped_tail_pairwise_error_upper_float":float(upward(tail)),
         "one_code_cross_basin_additive_error_lower_fraction":str(c["gap"]),
