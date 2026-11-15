@@ -25,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Verify published SHA-256, source roster, primary metrics and exact sign tests
         run: python research/nor14_conditional_basin/receipt_audit.py --check
+      - name: Independently validate source-controlled full evidence archive and 3456 decisions
+        run: python research/nor14_conditional_basin/receipt_audit.py --check --archive research/nor14_conditional_basin/results/nor14_full.zip
   train-only-projection-and-public-oracle:
     runs-on: ubuntu-latest
     timeout-minutes: 20
