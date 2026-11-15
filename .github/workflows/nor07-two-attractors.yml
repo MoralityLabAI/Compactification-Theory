@@ -5,6 +5,8 @@ on:
     paths:
       - 'research/nor01_numerical_orbit_sketch/nor07_two_attractors.py'
       - 'research/nor01_numerical_orbit_sketch/nor07_recentered_tube.py'
+      - 'research/nor01_numerical_orbit_sketch/nor07_stationary_tube.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor07_stationary_tube.py'
       - 'research/nor01_numerical_orbit_sketch/test_nor07_tube.py'
       - 'research/nor01_numerical_orbit_sketch/test_nor07_two_attractors.py'
       - '.github/workflows/nor07-two-attractors.yml'
@@ -12,6 +14,8 @@ on:
     paths:
       - 'research/nor01_numerical_orbit_sketch/nor07_two_attractors.py'
       - 'research/nor01_numerical_orbit_sketch/nor07_recentered_tube.py'
+      - 'research/nor01_numerical_orbit_sketch/nor07_stationary_tube.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor07_stationary_tube.py'
       - 'research/nor01_numerical_orbit_sketch/test_nor07_tube.py'
       - 'research/nor01_numerical_orbit_sketch/test_nor07_two_attractors.py'
       - '.github/workflows/nor07-two-attractors.yml'
@@ -30,7 +34,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check high-precision Newton seed and independent real-analytic interval evidence
-        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor07_tube research.nor01_numerical_orbit_sketch.test_nor07_two_attractors -v
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor07_stationary_tube research.nor01_numerical_orbit_sketch.test_nor07_tube research.nor01_numerical_orbit_sketch.test_nor07_two_attractors -v
       - name: Produce second attracting fixed-point and ball-disjointness certificate
         run: python research/nor01_numerical_orbit_sketch/nor07_two_attractors.py --check --out /tmp/nor07_two_basin.json
       - name: Independently check exact rational second-basin margin and period one
