@@ -26,7 +26,7 @@ from fractions import Fraction as Q
 
 from trained_gru_cert import (
     Interval,N,ZERO,ONE,SCALE,gates,jacobian_interval,hessian_bound,
-    round_rational,radius_upper,sqrt_upper,
+    round_rational,radius_upper,sqrt_upper,ceil_rational,
 )
 
 
@@ -74,18 +74,22 @@ def stationary_tube(weights,center,radius,length):
         next_delta=norms[n]*radius+sum((
             norms[n-k-1]*(e+eta*delta[k]+M*delta[k]*delta[k]/2)
             for k in range(n)),ZERO)
-        delta.append(next_delta)
+        # Without this outward rounding, repeated quadratic remainder
+        # terms make Fraction denominators grow exponentially with depth.
+        # ceil_rational preserves the upper-bound proof and fixes the
+        # denominator to the 32-decimal source interval scale.
+        delta.append(ceil_rational(next_delta,SCALE))
         deriv=sum((
             norms[n-k-1]*(eta+M*delta[k])*(norms[k]+derivative_error[k])
             for k in range(n)),ZERO)
-        derivative_error.append(deriv)
+        derivative_error.append(ceil_rational(deriv,SCALE))
         next_point=sum((
             norms[n-k-1]*(e+eta*point_error[k]+
                 M*point_error[k]*point_error[k]/2)
             for k in range(n)),ZERO)
-        point_error.append(next_point)
+        point_error.append(ceil_rational(next_point,SCALE))
 
-    K=norms[length]+derivative_error[length]
+    K=ceil_rational(norms[length]+derivative_error[length],SCALE)
     s=point_error[length]
     return {
         "certification_method":"constant rational center, noncommutative Volterra powers and global Hessian",
