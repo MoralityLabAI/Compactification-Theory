@@ -1,0 +1,145 @@
+{
+  "schema": "SMC-07/source-locked-64-puzzle-aggregated-receipt-v1",
+  "evidence_source": "GitHub Actions run 43702825317, full job 132777456596",
+  "artifact_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43702825317/artifacts/14156234539",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "independent_test_puzzles": 16,
+  "sae_seed_list": [
+    71,
+    89,
+    113
+  ],
+  "bootstrap_draws": 20000,
+  "claim_scope": "Frozen pretrained 44,001-parameter third-party TRM-inspired Sudoku network; SAE trained unsupervised, different reconstruction capacity from PCA4; CIs descriptive clustered bootstrap over 16 test puzzle IDs.",
+  "per_seed": [
+    {
+      "seed": 71,
+      "sae_mse": 0.16630829870700836,
+      "pca4_mse": 0.5260791182518005,
+      "random4_mse": 0.9096545577049255,
+      "active_0p2_mean_goal_effect": 0.15837848105002195,
+      "inactive_0p2_mean_goal_effect": 0.1402961061685346,
+      "isotropic_0p2_mean_goal_effect": 0.06966568995267153,
+      "remote_0p2_mean_goal_effect": 0.04389252717373893,
+      "sae_goal_reconstruction": {
+        "mean_hidden_delta_norm": 3.869857147336006,
+        "mean_logit_mse": 0.7260953189106658,
+        "target_correct_rate": 0.8125,
+        "teacher_agreement": 0.9375
+      },
+      "pca4_goal_reconstruction": {
+        "mean_hidden_delta_norm": 5.776153951883316,
+        "mean_logit_mse": 6.491675716359168,
+        "target_correct_rate": 0.5,
+        "teacher_agreement": 0.5
+      },
+      "gauge_max_logit_linf": 8.881784197001252e-16
+    },
+    {
+      "seed": 89,
+      "sae_mse": 0.16630512475967407,
+      "pca4_mse": 0.5260791182518005,
+      "random4_mse": 0.9096545577049255,
+      "active_0p2_mean_goal_effect": 0.2254656865261495,
+      "inactive_0p2_mean_goal_effect": 0.1256592406425625,
+      "isotropic_0p2_mean_goal_effect": 0.09530364745296538,
+      "remote_0p2_mean_goal_effect": 0.06235359457787126,
+      "sae_goal_reconstruction": {
+        "mean_hidden_delta_norm": 3.9403707087039948,
+        "mean_logit_mse": 0.7341592180309817,
+        "target_correct_rate": 0.8125,
+        "teacher_agreement": 0.9375
+      },
+      "pca4_goal_reconstruction": {
+        "mean_hidden_delta_norm": 5.776153951883316,
+        "mean_logit_mse": 6.491675716359168,
+        "target_correct_rate": 0.5,
+        "teacher_agreement": 0.5
+      },
+      "gauge_max_logit_linf": 8.881784197001252e-16
+    },
+    {
+      "seed": 113,
+      "sae_mse": 0.16905947029590607,
+      "pca4_mse": 0.5260791182518005,
+      "random4_mse": 0.9096545577049255,
+      "active_0p2_mean_goal_effect": 0.1715349645819515,
+      "inactive_0p2_mean_goal_effect": 0.10161468735896051,
+      "isotropic_0p2_mean_goal_effect": 0.08298510522581637,
+      "remote_0p2_mean_goal_effect": 0.05020089788013138,
+      "sae_goal_reconstruction": {
+        "mean_hidden_delta_norm": 3.7357447743415833,
+        "mean_logit_mse": 0.6770103191956878,
+        "target_correct_rate": 0.8125,
+        "teacher_agreement": 0.9375
+      },
+      "pca4_goal_reconstruction": {
+        "mean_hidden_delta_norm": 5.776153951883316,
+        "mean_logit_mse": 6.491675716359168,
+        "target_correct_rate": 0.5,
+        "teacher_agreement": 0.5
+      },
+      "gauge_max_logit_linf": 8.881784197001252e-16
+    }
+  ],
+  "paired_cluster_differences": {
+    "0.2_sae_active_minus_sae_inactive": {
+      "mean": 0.06260303266268845,
+      "percentile_interval_95": [
+        0.0253541286632147,
+        0.1032838132979426
+      ],
+      "puzzles_positive": 11
+    },
+    "0.2_sae_active_minus_isotropic": {
+      "mean": 0.10247489650888991,
+      "percentile_interval_95": [
+        0.05956179509909513,
+        0.14785415412916317
+      ],
+      "puzzles_positive": 15
+    },
+    "0.2_sae_active_minus_same_direction_remote_token": {
+      "mean": 0.13297737084212713,
+      "percentile_interval_95": [
+        0.08473501436358978,
+        0.18307221637830168
+      ],
+      "puzzles_positive": 16
+    },
+    "0.8_sae_active_minus_sae_inactive": {
+      "mean": 0.332773720069478,
+      "percentile_interval_95": [
+        0.17213837060068424,
+        0.5048947626181567
+      ],
+      "puzzles_positive": 13
+    },
+    "0.8_sae_active_minus_isotropic": {
+      "mean": 0.4842232600009689,
+      "percentile_interval_95": [
+        0.2972416539366047,
+        0.6777729265217203
+      ],
+      "puzzles_positive": 15
+    },
+    "0.8_sae_active_minus_same_direction_remote_token": {
+      "mean": 0.6182143906286607,
+      "percentile_interval_95": [
+        0.40887868926705173,
+        0.8379497700817106
+      ],
+      "puzzles_positive": 16
+    },
+    "depth1_to2_same_minus_shuffled_top4": {
+      "mean": 0.5166538076785704,
+      "percentile_interval_95": [
+        0.49684766801462205,
+        0.5354938265013819
+      ],
+      "puzzles_positive": 16
+    }
+  }
+}
