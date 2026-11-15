@@ -273,14 +273,24 @@ def feature_transport(sae,states,split,mu,std):
         b=sae.encode((states[2][test].reshape(-1,48)-mu)/std)
         i=a.topk(sae.k,dim=-1).indices
         j=b.topk(sae.k,dim=-1).indices
-        overlap=((i[:,:,None]==j[:,None,:]).any(-1).float().sum(-1)/sae.k).mean()
+        same_per_token=(i[:,:,None]==j[:,None,:]).any(-1).float().sum(-1)/sae.k
+        overlap=same_per_token.mean()
         s2=sae.encode((states[2][test]-mu)/std)
         bnull=s2.roll(shifts=1,dims=0).reshape(-1,sae.encoder.out_features)
         jnull=bnull.topk(sae.k,dim=-1).indices
-        null=((i[:,:,None]==jnull[:,None,:]).any(-1).float().sum(-1)/sae.k).mean()
+        null_per_token=(i[:,:,None]==jnull[:,None,:]).any(-1).float().sum(-1)/sae.k
+        null=null_per_token.mean()
+        n_puzzles=len(test)
+        tokens=states[1].shape[1]
+        same_by_puzzle=same_per_token.reshape(n_puzzles,tokens).mean(-1)
+        null_by_puzzle=null_per_token.reshape(n_puzzles,tokens).mean(-1)
         return {'depth1_to_2_mean_topk_overlap':float(overlap),
                 'puzzle_shuffled_null_overlap':float(null),
-                'n_token_pairs':int(i.shape[0]),'k':sae.k}
+                'n_token_pairs':int(i.shape[0]),'k':sae.k,
+                'per_puzzle':[{'puzzle_id':pid,
+                               'same_token_overlap':float(same_by_puzzle[t]),
+                               'shuffled_puzzle_overlap':float(null_by_puzzle[t])}
+                              for t,pid in enumerate(test)]}
 
 
 def run(checkpoint=None,allow_fetch=False,max_cases=64,seeds=(71,89,113),steps=300):
