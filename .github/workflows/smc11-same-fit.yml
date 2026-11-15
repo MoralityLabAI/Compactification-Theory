@@ -4,11 +4,17 @@ on:
   push:
     paths:
       - 'research/real_recurrence_sae_v1/smc11_joint_causal.py'
+      - 'research/real_recurrence_sae_v1/smc11_selection.py'
+      - 'research/real_recurrence_sae_v1/selection_cells_exact.py'
+      - 'research/real_recurrence_sae_v1/test_smc11_selection.py'
       - 'research/real_recurrence_sae_v1/test_smc11_joint_causal.py'
       - '.github/workflows/smc11-same-fit.yml'
   pull_request:
     paths:
       - 'research/real_recurrence_sae_v1/smc11_joint_causal.py'
+      - 'research/real_recurrence_sae_v1/smc11_selection.py'
+      - 'research/real_recurrence_sae_v1/selection_cells_exact.py'
+      - 'research/real_recurrence_sae_v1/test_smc11_selection.py'
       - 'research/real_recurrence_sae_v1/test_smc11_joint_causal.py'
       - '.github/workflows/smc11-same-fit.yml'
   workflow_dispatch:
