@@ -1,0 +1,63 @@
+{
+  "schema": "nor08c.heldout_partition.frozen_summary.v1",
+  "trained_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "source_workflow": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43700460668",
+  "source_artifact_id": 14155848920,
+  "seed_protocol": "compound25.SEED+880088+10007*family_index; first 12 visible-distinct cases with public header",
+  "samples_per_family": 12,
+  "cohort_size": 72,
+  "zero_input_steps": 720,
+  "mode_assignment_distance_threshold": 0.05,
+  "contingency": {
+    "signed": {
+      "first": 7,
+      "second": 5,
+      "unresolved": 0
+    },
+    "sparse": {
+      "first": 9,
+      "second": 3,
+      "unresolved": 0
+    },
+    "product": {
+      "first": 5,
+      "second": 7,
+      "unresolved": 0
+    },
+    "rational": {
+      "first": 9,
+      "second": 3,
+      "unresolved": 0
+    },
+    "squared": {
+      "first": 3,
+      "second": 9,
+      "unresolved": 0
+    },
+    "late_source": {
+      "first": 12,
+      "second": 0,
+      "unresolved": 0
+    }
+  },
+  "mode_totals": {
+    "first": 45,
+    "second": 27,
+    "unresolved": 0
+  },
+  "intervention": "sign flip of hidden dimension index 0 after 9 public source rows, then 720 zero-input steps",
+  "intervention_mode_changes": {
+    "first_to_second": 1,
+    "second_to_first": 1,
+    "same_mode": 70,
+    "other": 0
+  },
+  "squared_versus_rest_fixed_mode_rule_accuracy": "51/72",
+  "majority_family_baseline_accuracy": "60/72",
+  "posthoc_squared_second_enrichment_odds_ratio": "7",
+  "posthoc_one_sided_hypergeometric_p_fraction": "12018165/2446772464",
+  "posthoc_test_scope": "Exploratory unadjusted association statistic, computed after seeing frozen contingency; no preregistered significance claim",
+  "retraining_performed": false,
+  "source_future_labels_used": false,
+  "source_to_second_basin_rational_capture_certified_by_this_probe": false
+}
