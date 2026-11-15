@@ -59,3 +59,32 @@ Run from repository root with Python 3.12 standard library:
     python research/nor12_task_readout/readout.py --check --train 32 --dev 12 --test 12 --out /tmp/nor12_task_readout.json
 
 The [NOR-12 GitHub Actions workflow](../../.github/workflows/nor12-basin-task-readout.yml) runs source-lock tests and archives the full readout matrices, development-selection grid, paired held-out task comparisons, case-level exact verification traces and source manifest hashes. Train-time full public oracle calls are recorded separately from inference-time paid checks.
+
+## First executed held-out experiment
+
+[Executed CI #43708298739](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43708298739) passed the public-only training and native four-check evaluation. The full 224,473-byte JSON receipt is archived in the Actions artifact under SHA-256 a1995f628038ab6bd447c7d4438ee861ca3c10ef90ca5a87c4063bf99811db95. The 96/36/72 model-input manifests reproduce the original NOR-11 cohorts.
+
+| Readout, dev-selected scale | Future correct /72 | False accepts | Inference paid checks | Paired new successes / losses |
+| --- | ---: | ---: | ---: | ---: |
+| Original frozen GRU | 42 | 6 | 196 | 0 / 0 |
+| Basin coordinate, \(\lambda=.25\) | **44** | 5 | 191 | 2 / 0 |
+| Public-hash random coordinate, \(\lambda=.5\) | 43 | 6 | 188 | 2 / 1 |
+| Shuffled-basin coordinate, \(\lambda=1\) | 42 | 5 | 187 | 4 / 4 |
+| Hidden-only correction, \(\lambda=1\) | 42 | 5 | 187 | 4 / 4 |
+| Overall dev-selected: random coordinate, \(\lambda=.5\) | 43 | 6 | 188 | 2 / 1 |
+
+The global development selector chose the random-feature control. This matters when interpreting the better basin-arm held-out score, because all readout types were inspected after the run.
+
+**Both basin-arm gains came from two late-source test cases with the same exact public-feature SHA-256 prefix dc3ab9200911.** The other five source families had the same future-correct case counts as the original GRU. Distinct synthetic public-case identities can be associated with the *same* 9×8 input tensor and 12-dimensional hidden vector while possessing different unseen program continuations. Those two gains are therefore strongly correlated at the model-input level.
+
+The result provides a numerical task-ranking improvement for the chosen first split, with inconclusive independent generalization. The native exact public verifier and withheld degree-256 grading remain unchanged.
+
+## NOR-12B: independent-seed confirmation and post-hoc basin-feature ablation
+
+The precommitted [NOR-12B frozen design](results/nor12_initial_receipt.json) stores the exact original readout weight hashes, four dev-selected amplitudes and SHA-256 of the first experiment result. The [confirmation runner](independent_confirmation.py) reconstructs those weights solely from the same original public training cases, asserts every weight hash matches, and then samples four **new**, seed-separated 72-case held-out cohorts. Other than the intrinsically aliased late-source family, model-visible feature tensors cannot repeat across training, development, the first test or the four confirmation tests.
+
+Each new cohort reports the original ranker and all four fixed readout heads. Training choices and dev-selected amplitudes remain unchanged. The result provides paired native future-success and paid-check counts, a per-feature-cluster aggregation and a separate comparison on nonlate inputs. The confirmation analysis is explicitly **exploratory** because the design followed inspection of the first held-out outcomes.
+
+A separate **retrospective ablation** tests the already fitted basin head on the first 72 cases with its basin coordinate set to zero, replaced by the shuffled-label probe coordinate, or permuted as a block across distinct feature hashes. These tests hold all fitted readout weights and \(\lambda=.25\) fixed. Their effect estimates are diagnostic rather than prospective.
+
+The [NOR-12B CI workflow](../../.github/workflows/nor12b-confirmation.yml) checks frozen training hashes and runs the four new cohorts, preserving their data and the retrospective ablation in a second archived artifact.
