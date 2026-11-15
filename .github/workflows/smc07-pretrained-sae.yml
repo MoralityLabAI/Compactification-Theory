@@ -1,0 +1,64 @@
+name: SMC-07 source-locked recurrent SAE and causal intervention audit
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/**'
+      - '.github/workflows/smc07-pretrained-sae.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/**'
+      - '.github/workflows/smc07-pretrained-sae.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-locked-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU Torch matching LSV-05
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Test unsupervised training and causal controls with toy recurrent weights
+        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_*.py' -v
+      - name: Validate source checkpoint and run 16-puzzle pilot
+        run: |
+          python research/real_recurrence_sae_v1/smc07_real_sae.py \
+            --fetch --max-cases 16 --steps 75 --seeds 71 \
+            --out runs/smc07/pilot.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc07-pinned-pilot
+          path: runs/smc07/pilot.json
+          retention-days: 30
+          if-no-files-found: warn
+
+  source-locked-full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU Torch matching LSV-05
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Independently validate pretrained checkpoint and 64-puzzle roster
+        run: |
+          python research/real_recurrence_sae_v1/smc07_real_sae.py \
+            --fetch --max-cases 64 --steps 300 --seeds 71,89,113 \
+            --out runs/smc07/full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc07-pinned-64-puzzle-causal-receipt
+          path: runs/smc07/full.json
+          retention-days: 90
+          if-no-files-found: warn
