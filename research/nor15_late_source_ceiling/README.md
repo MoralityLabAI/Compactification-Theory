@@ -31,3 +31,24 @@ Run (after executable is committed):
        --dev-cases 80 --test-cases 160 --out /tmp/nor15c_full.json
 
 Data-generating seeds, enumeration method and all separation criteria are frozen before the first new test scores are read.
+
+
+## First independent executed result (15 November 2026)
+
+[Green source-locked NOR-15C Actions](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43723763342), with archived run artifact ID **14165597500**, produced the original 205,705-byte result JSON at SHA-256 \`11b90206703a3e21c7163435de9f95d6c212cb320bf0a663bc86d0ce4981236e\`. The [immutable summary receipt](results/nor15c_frozen_receipt.json) pins the source manifests, input digest, exact policies and both oracle ceilings. The [independent finite-order auditor](receipt_audit.py) independently rebuilds the 43,680-order search on both cohorts from the received public and evaluation-only future masks.
+
+All 80 DEV and 160 TEST source cases had unique full public-visible input hashes and one common model-visible feature hash. The original network's entire 16-candidate ordering is consequently identical across cases. Diagnostic public mask construction used **3,840 observed-demo template checks**, and independent withheld-future grading used **3,840** future checks. These exhaustively evaluated, future-labeled masks are analysis-only inputs to the hindsight oracles.
+
+| Restricted policy | TEST future-correct /160 | TEST false accepts | Abstentions | Paid public checks |
+| --- | ---: | ---: | ---: | ---: |
+| Original trained GRU shared top four \`[3,12,0,7]\` | 30 | 77 | 53 | 387 |
+| DEV-future-selected shared top four \`[4,15,3,11]\` | 34 | 94 | 32 | 394 |
+| **TEST-hindsight best fixed four** \`[1,10,13,3]\` | **49** | 79 | 32 | 368 |
+
+The last row is the exact optimum over all 43,680 fixed ordered-four policies **on this test cohort**, subject to the first-public-accepted stopping rule. Its candidate order was selected using withheld TEST futures. The DEV-selected order also used withheld DEV futures; it is a labeled diagnostic rather than a deployable train protocol.
+
+The 160 TEST cases produced **26 distinct sixteen-bit public acceptance masks**. A separate hindsight oracle allowed a different choice for each complete public acceptance-mask group, without dividing by a four-check budget. It achieved **84/160** correct using future labels to select the group mapping. A per-case fully clairvoyant choice achieved 160/160. Forty-one cases had a \`0xffff\` acceptance mask: all sixteen templates passed observed demonstrations, yet the best single proposal for those 41 cases was future-correct in only **6**.
+
+This is direct evidence of source-aliasing and incomplete demonstration identifiability for this finite synthetic generator. A richer decoder can use public information outside the nine-by-eight feature tensor, while public-mask classification still faces ambiguity when multiple future outcomes share one mask. The experiment cannot establish a population ceiling or positive conditional information without additional generative assumptions and independently certified identifiability arguments.
+
+The original frozen RRC25 recurrent weights and task head were unchanged.
