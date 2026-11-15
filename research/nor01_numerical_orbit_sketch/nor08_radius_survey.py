@@ -47,20 +47,33 @@ def independent_radius_sweep(ck, center):
     weights = native.get_weights(ck)
     records = []
     for radius in RADII:
-        result = tube.stationary_tube(weights, center, radius, 24)
-        K = Q(result["block_operator_norm_upper_fraction"])
-        residual = Q(result["center_residual_upper_fraction"])
-        margin = radius - K * radius - residual
-        records.append({
-            "radius_fraction": str(radius),
-            "K_fraction": str(K),
-            "s_fraction": str(residual),
-            "margin_fraction": str(margin),
-            "radius_float": float(radius),
-            "K": float(K),
-            "positive_invariance": K < 1 and margin >= 0,
-            "tube_method": result["certification_method"],
-        })
+        try:
+            result = tube.stationary_tube(weights, center, radius, 24)
+            K = Q(result["block_operator_norm_upper_fraction"])
+            residual = Q(result["center_residual_upper_fraction"])
+            margin = radius - K * radius - residual
+            records.append({
+                "radius_fraction": str(radius),
+                "K_fraction": str(K),
+                "s_fraction": str(residual),
+                "margin_fraction": str(margin),
+                "radius_float": float(radius),
+                "K": float(K),
+                "positive_invariance": K < 1 and margin >= 0,
+                "tube_method": result["certification_method"],
+                "status": "certified" if (K < 1 and margin >= 0) else "inconclusive_bound",
+            })
+        except (ArithmeticError, OverflowError, ValueError):
+            # A large-radius quadratic envelope may grow enormous even
+            # after sound outward rounding. Such a proof attempt is
+            # inconclusive; it must never count as a contracting ball.
+            records.append({
+                "radius_fraction": str(radius),
+                "radius_float": float(radius),
+                "K_fraction": None, "s_fraction": None, "margin_fraction": None,
+                "K": None, "positive_invariance": False,
+                "status": "inconclusive_unbounded_envelope",
+            })
     return records
 
 
@@ -124,6 +137,9 @@ def main():
         assert result["source_to_second_basin_certified"] is False
         assert result["radius_sweep"] or args.no_radius_sweep
         for row in result["radius_sweep"]:
+            if row["K_fraction"] is None:
+                assert not row["positive_invariance"]
+                continue
             K, residual, radius, margin = map(Q, (
                 row["K_fraction"], row["s_fraction"],
                 row["radius_fraction"], row["margin_fraction"]))
