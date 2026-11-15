@@ -113,6 +113,8 @@ def survey_one(case, checkpoint, max_steps):
             first=t
         if t<max_steps:
             h=cert.native_zero_step(h,checkpoint)
+    next_hidden=cert.native_zero_step(h,checkpoint)
+    one_step_drift=math.sqrt(math.fsum((a-b)**2 for a,b in zip(h,next_hidden,strict=True)))
     return {
         "family":case.family,
         "public_visible_sha256":sha256(json.dumps(case.visible,separators=(",",":")).encode()).hexdigest(),
@@ -125,6 +127,8 @@ def survey_one(case, checkpoint, max_steps):
         "smallest_measured_center_distance":min_distance,
         "smallest_measured_center_distance_step":min_step,
         "last_center_distance":point_distance(h),
+        "terminal_hidden_decimal17":[format(v,'.17g') for v in h],
+        "terminal_one_step_drift":one_step_drift,
         "last_12_step_block_ratio":every12[-1]["block_ratio_to_prior"],
         "trajectory_stride":12,
         "early_strided_trace":every12[:min(13,len(every12))],
