@@ -197,9 +197,15 @@ def controls_gaussian(shape_train,shape_val):
     return torch.randn(shape_train,generator=rng),torch.randn(shape_val,generator=rng)
 
 
+def source_sae_fingerprint(sae,mu,std):
+    """Same canonical byte serialization as SMC-11C, with no Arb dependency."""
+    tensors={**{'sae.'+k:v for k,v in sae.state_dict().items()},
+             'train_mean':mu,'train_scale':std}
+    return stable_hash_tensors(tensors)
+
+
 def persist_sae(sae,mu,std,teacher_seed,sae_seed,root):
-    from smc11_joint_causal import frozen_sae_fingerprint
-    sha=frozen_sae_fingerprint(sae,mu,std)
+    sha=source_sae_fingerprint(sae,mu,std)
     path=Path(root)/f'teacher{teacher_seed}_sae{sae_seed}.pt'
     path.parent.mkdir(parents=True,exist_ok=True)
     torch.save({'schema':'SMC-13/fitted-SAE-v1',
@@ -210,7 +216,7 @@ def persist_sae(sae,mu,std,teacher_seed,sae_seed,root):
                 'fingerprint':sha},path)
     z=torch.load(path,weights_only=True,map_location='cpu')
     other=TopKSAE(48,96,4);other.load_state_dict(z['state_dict'],strict=True)
-    if frozen_sae_fingerprint(other,z['train_mean'],z['train_scale'])!=sha:
+    if source_sae_fingerprint(other,z['train_mean'],z['train_scale'])!=sha:
         raise AssertionError('fitted SAE checkpoint does not roundtrip')
     return {'path':str(path),'file_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
             'sae_fingerprint':sha}
