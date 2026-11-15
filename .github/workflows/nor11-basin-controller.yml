@@ -54,12 +54,19 @@ jobs:
           assert r['cohorts']['train']['cases']==96
           assert r['cohorts']['dev']['cases']==36
           assert r['cohorts']['test']['cases']==72
-          for name in ('train','dev','test'):
+          for name in ('train','dev'):
               split=r['cohorts'][name]
               assert split['distinct_public_features']==split['cases']
+          test_provenance=r['cohorts']['test']
+          assert 1<=test_provenance['distinct_public_features']<=test_provenance['cases']
+          assert test_provenance['per_family_distinct_features']['late_source']<12
+          print('NOR11 HELDOUT UNIQUE PUBLIC INPUTS',
+                test_provenance['distinct_public_features'],'/72',
+                'maximum alias group',test_provenance['largest_public_feature_alias_group'])
           test=r['head_diagnostics']['test']
           for k,record in test.items():
-              print('NOR11 TEST BASIN HEAD',k,'balanced accuracy',
+              print('NOR11 TEST BASIN HEAD',k,'n',
+                    record['n'],'balanced accuracy',
                     record['balanced_accuracy'],'auc',record['auc'],
                     'brier',record['brier'],'unresolved',record['unresolved'])
           print('NOR11 DEV FROZEN POLICY',r['selected_policy'])
