@@ -188,3 +188,17 @@ Reproduction:
     python research/synchronized_mixing_v1/equivariant_edge_probe.py --seed 20261117
 
 **Interpretability boundary:** The operation mapping a permutation to the edge structure of the fixed reference matching is wired into this model. A pretrained transformer's hidden features provide neither the canonical permutation nor the matching map automatically. The next experiment must learn or infer an alignment under controlled supervision and test whether it transfers to unseen feature dictionaries, graph states and loop depths without direct access to the oracle.
+
+
+### Functional reduction of the 34-parameter control
+
+[MathCan OLM-03H](https://github.com/patrickdugan/MathCan/blob/research/olm01-orbit-lock-dual-mixing-20261115/research/orbit_lock/OLM03_FINITE_MEMORY_QUOTIENT.md) proves that *any* shared local edge function \(\phi\) followed by sum pooling reduces, on pairs of perfect matchings, to
+
+\[
+s_\theta(G,\Pi)=A_\theta+\Delta_\theta
+\left|G\cap\Pi M_0\right|.
+\]
+
+Because distinct k-edge perfect matchings share at most \(k-2\) edges, a positive \(\Delta_\theta\) gives a separating score gap \(2\Delta_\theta\) for exact matching. Thus the implemented 34-parameter network has only **two effective scalar degrees of freedom on this constrained input family**. Its perfect transfer is mathematically expected from the supplied transport structure, and its training demonstrates recovery of the appropriate overlap readout.
+
+The number 34 describes its trainable weights; the effective function-space dimension is two. This distinction matters for comparisons with compact-model information capacity, because parameter count alone overstates the number of independent relational decisions available on these states.
