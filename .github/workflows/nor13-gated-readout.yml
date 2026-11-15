@@ -71,8 +71,14 @@ jobs:
           assert x['gate_variant_cases']+x['gate_invariant_cases']==72
           assert x['gate_variant_unique_inputs']+x['gate_invariant_unique_inputs']==x['unique_public_inputs']
           assert x['float_rounding_proven'] is False if 'float_rounding_proven' in x else True
+          assert x['top4_rationally_gate_invariant_unique_inputs']+x['top4_rationally_gate_variant_unique_inputs']==x['unique_public_inputs']
           print('NOR13 EXACT GATE SCORE AFFINE LIFT',x['gate_invariant_unique_inputs'],
                 'fully rank-invariant of',x['unique_public_inputs'],'unique inputs')
+          print('NOR13 EXACT ORDERED TOP-4 GATE INVARIANCE',
+                x['top4_rationally_gate_invariant_unique_inputs'],'of',
+                x['unique_public_inputs'],'unique model inputs')
+          print('NOR13 EXACT TOP4 POSSIBLY GATE SENSITIVE',
+                x['top4_rationally_gate_variant_unique_inputs'])
           print('NOR13 DEV ONLY FROZEN MODE',z['dev_model_selection'])
           for kind,v in z['first_fresh_test_basin_gate_ablations'].items():
               print('NOR13 GATE ONLY ABLATION',kind,'native correct',v['future_correct'],
