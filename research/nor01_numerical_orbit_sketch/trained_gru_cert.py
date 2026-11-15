@@ -334,7 +334,9 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
     }
 
 
-def run(*, include_heldout=True):
+def run(*, include_heldout=True, warmup=8):
+    if not 0 <= warmup <= 64:
+        raise ValueError("warmup must be between 0 and 64")
     models, checksums = bench25.checkpoints()
     ck = models["recurrent"]
     weights = get_weights(ck)
@@ -404,7 +406,7 @@ def run(*, include_heldout=True):
             # during certification. The historical FP32 training and Python
             # inference paths remain separate.
             box = interval_forward(weights, features)
-            for _ in range(8):
+            for _ in range(warmup):
                 box = gates(weights, box)[0]
                 native = native_zero_step(native, ck)
             # Interval dependency can enlarge an enclosure across 17 GRU
@@ -434,6 +436,7 @@ def run(*, include_heldout=True):
         out["heldout_contracting_disks"] = sum(
             row["certificate"]["contracting_disk"] for row in heldout)
         out["heldout_count"] = len(heldout)
+        out["heldout_warmup"] = warmup
     return out
 
 
@@ -442,8 +445,9 @@ def main():
     parser.add_argument("--out", type=Path)
     parser.add_argument("--check", action="store_true")
     parser.add_argument("--skip-heldout", action="store_true")
+    parser.add_argument("--warmup", type=int, default=8)
     args = parser.parse_args()
-    receipt = run(include_heldout=not args.skip_heldout)
+    receipt = run(include_heldout=not args.skip_heldout, warmup=args.warmup)
     if args.check:
         assert receipt["checkpoint_parameters"] == 1000
         assert receipt["early_negative_control"]["contracting_disk"] is False
