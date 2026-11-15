@@ -1,0 +1,55 @@
+name: NOR-05 one-step fixed point from trained nonlinear block
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor05-period-one.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor05-period-one.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  full-step-convergence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify frozen checkpoint and one-step fixed-point certificate
+        run: python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_period_one.py' -v
+      - name: Produce exact rational one-step containment receipt
+        run: python research/nor01_numerical_orbit_sketch/period_one.py --check --out /tmp/nor05_period_one.json
+      - name: Independently check numerical inequalities from receipt
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from fractions import Fraction as Q
+          z=json.loads(Path('/tmp/nor05_period_one.json').read_text())
+          p=z['all_depth_block_prerequisite']
+          K,R,s=(Q(p['K12_fraction']),Q(p['R_fraction']),
+                 Q(p['center_residual_12_fraction']))
+          assert s+K*R<R
+          dstar=Q(p['fixed_point_distance_bound_fraction'])
+          assert dstar==s/(1-K)
+          L1=Q(z['one_step_local_operator_norm_upper_fraction'])
+          s1=Q(z['one_step_residual_upper_fraction'])
+          assert s1+L1*dstar<R
+          assert z['one_step_fixed_point_proved']
+          print('NOR-05 periodic-point exclusion: one-step bound',float(s1+L1*dstar),
+                '< radius',float(R))
+          print('NOR-05 full-step conservative cube Lipschitz',
+                z['global_one_step_cube_lipschitz_fraction'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor05-period-one-rational-certificate
+          path: /tmp/nor05_period_one.json
