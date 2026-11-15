@@ -1,0 +1,80 @@
+name: NOR-12B sealed frozen readout confirmation and basin feature ablation
+
+on:
+  push:
+    paths:
+      - 'research/nor12_task_readout/**'
+      - '.github/workflows/nor12b-confirmation.yml'
+  pull_request:
+    paths:
+      - 'research/nor12_task_readout/**'
+      - '.github/workflows/nor12b-confirmation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-model-and-public-split:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct exactly pinned 96-case residuals and test new source split and retrospective q ablations
+        run: python -m unittest research.nor12_task_readout.test_independent_confirmation -v
+
+  independent-test-cohorts:
+    needs: frozen-model-and-public-split
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Evaluate four completely frozen heads on four fresh 72-case source rosters
+        run: python research/nor12_task_readout/independent_confirmation.py --check --repetitions 4 --per-family 12 --out /tmp/nor12b_confirm.json
+      - name: Audit all precommitted weight SHA-256, paired outcomes and late_source alias groups
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          r=json.loads(Path('/tmp/nor12b_confirm.json').read_text())
+          assert r['schema']=='nor12b.independent_frozen_head_confirmations.v1'
+          assert r['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['scope']['all_weight_hashes_verified_before_new_cases_scored']
+          assert r['scope']['all_scales_pinned_before_independent_test']
+          assert not r['scope']['heldout_future_labels_used_for_training']
+          assert r['independent_repetitions']==4
+          assert len(set(r['new_heldout_manifests']))==4
+          original=r['independent_holdout_aggregate']['original']
+          assert original['cases']==288
+          assert original['paid_checks']<=4*288
+          for key,arm in sorted(r['independent_holdout_aggregate'].items()):
+              assert arm['cases']==288
+              assert arm['future_correct']-original['future_correct']==arm['net_change_from_original']
+              assert arm['paired_newly_correct']-arm['paired_lost_correct']==arm['net_change_from_original']
+              assert arm['paid_checks']<=1152
+              print('NOR12B INDEPENDENT',key,'future',arm['future_correct'],
+                    'false accepts',arm['false_accept'],
+                    'paid checks',arm['paid_checks'],
+                    'newly correct',arm['paired_newly_correct'],
+                    'lost correct',arm['paired_lost_correct'],
+                    'unique model inputs',arm['unique_test_input_groups'],
+                    'nonlate gains',arm['nonlate_pairwise_gains'],
+                    'nonlate losses',arm['nonlate_pairwise_losses'],
+                    'unadjusted case McNemar p',arm['posthoc_case_mcnemar_exact_p'],
+                    'feature cluster sign p',arm['posthoc_unique_feature_group_sign_p'])
+          for k,item in r['retrospective_first_split_ablation']['variants'].items():
+              print('NOR12B FIRST TEST BASIN PROBE ABLATION',k,
+                    'future correct',item['future_correct'],
+                    'paired gains',item['paired_baseline']['newly_correct'],
+                    'paired losses',item['paired_baseline']['lost_correct'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor12b-four-independent-72case-readout-confirmations-and-basin-ablation
+          path: /tmp/nor12b_confirm.json

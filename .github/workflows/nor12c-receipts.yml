@@ -1,0 +1,31 @@
+name: NOR-12C frozen task readout and independent test receipts
+
+on:
+  push:
+    paths:
+      - 'research/nor12_task_readout/results/nor12_initial_receipt.json'
+      - 'research/nor12_task_readout/results/nor12b_confirmation_summary.json'
+      - 'research/nor12_task_readout/receipt_audit.py'
+      - '.github/workflows/nor12c-receipts.yml'
+  pull_request:
+    paths:
+      - 'research/nor12_task_readout/results/nor12_initial_receipt.json'
+      - 'research/nor12_task_readout/results/nor12b_confirmation_summary.json'
+      - 'research/nor12_task_readout/receipt_audit.py'
+      - '.github/workflows/nor12c-receipts.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-replay-summary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify checkpoint, exact original readout hashes and paired inference statistics
+        run: python research/nor12_task_readout/receipt_audit.py

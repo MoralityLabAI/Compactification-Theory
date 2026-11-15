@@ -1,0 +1,78 @@
+name: NOR-12 frozen GRU basin-conditioned task readout
+
+on:
+  push:
+    paths:
+      - 'research/nor12_task_readout/**'
+      - '.github/workflows/nor12-basin-task-readout.yml'
+  pull_request:
+    paths:
+      - 'research/nor12_task_readout/**'
+      - '.github/workflows/nor12-basin-task-readout.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-only-training-regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source manifests, withheld-future mutation, task parity and correct valid-mass gradient
+        run: python -m unittest research.nor12_task_readout.test_readout -v
+
+  full-matched-readout-campaign:
+    needs: public-only-training-regressions
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Train four residual readouts on exact PUBLIC accepted templates
+        run: python research/nor12_task_readout/readout.py --check --train 32 --dev 12 --test 12 --out /tmp/nor12_task_readout.json
+      - name: Audit source lock, all 4 paid-check budgets and paired heldout outcomes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nor12_task_readout.json').read_text())
+          assert r['schema']=='nor12.frozen_rrc25.public_verified_basin_residual_readout.v1'
+          assert r['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['original_recurrent_parameters']==1000
+          assert r['original_readout_modified'] is False
+          assert r['frozen_nor11_basin_head_parameters']==13
+          assert r['cohorts']['train']['cases']==96
+          assert r['cohorts']['dev']['cases']==36
+          assert r['cohorts']['test']['cases']==72
+          assert r['training_full_public_template_checks']==1536
+          assert r['scope_flags']['private_256_degree_future_or_program_used_to_train_readouts'] is False
+          assert r['scope_flags']['test_private_future_used_for_development_selection'] is False
+          assert r['scope_flags']['full_public_template_checks_during_training_charged_separately'] is True
+          print('NOR12 heldout unique public features',r['cohorts']['test']['unique_public_feature_tensors'],'/72')
+          print('NOR12 development-selected',r['development_selected'])
+          for k,record in sorted(r['heldout'].items()):
+              assert record['cases']==72
+              assert record['accepted']==record['future_correct']+record['false_accept']
+              assert record['paid_checks_total']<=288
+              assert record['inference_exhaustive_preview_used'] is False
+              paired=record['relative_to_original']
+              print('NOR12 TASK',k,'future_correct',record['future_correct'],
+                    'false_accept',record['false_accept'],
+                    'checks',record['paid_checks_total'],
+                    'newly_correct',paired['newly_correct'],
+                    'lost_correct',paired['lost_correct'],
+                    'changed_top1',paired['changed_top1'])
+          if r['heldout']['development_selected']['future_correct']<=r['heldout']['original']['future_correct']:
+              print('NOR12 no heldout native capability gain established')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor12-frozen-gru-public-only-task-basin-residual-readouts
+          path: /tmp/nor12_task_readout.json
