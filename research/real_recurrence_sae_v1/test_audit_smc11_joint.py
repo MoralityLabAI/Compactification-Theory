@@ -104,7 +104,7 @@ class JointReceiptAuditTests(unittest.TestCase):
         x['cases'][0]['common_l2_uncertainty']='1/1000000'
         x['cases'][0]['exact_top1_guard']=True
         x['cases'][0]['exact_top4_guard']=True
-        with self.assertRaisesRegex(ValueError,'missing causal proof contexts'):
+        with self.assertRaisesRegex(ValueError,'unregistered causal radius or uncertainty'):
             check_joint(x,full=False)
 
 
