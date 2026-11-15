@@ -81,6 +81,40 @@ def certified_radius(net,tape,gradient,adj,goal,direction,dir_norm_upper,radius)
     }
 
 
+
+
+def largest_certified_sign_radius(net,tape,gradient,adj,goal,direction,
+                                  norm_hi,limit=Q('1e-6'),iterations=26):
+    """Exploratory bisection of a *sufficient* directional sign certificate.
+
+    The layerwise radius estimates are nondecreasing as input radius grows,
+    and the normalized Taylor remainder upper bound is nondecreasing.
+    A certified midpoint is therefore a lower bound on the usable radius.
+    """
+    if limit <= 0 or iterations < 1:
+        raise ValueError('positive maximum and iteration count required')
+    high_check=certified_radius(net,tape,gradient,adj,goal,
+                                direction,norm_hi,limit)
+    if high_check['certified_displacement_sign']!='inconclusive':
+        return {'certified_radius_lower':str(limit),
+                'first_inconclusive_radius_upper':None,
+                'lower_float':float(limit),'search_upper_float':float(limit),
+                'upper_limit_is_certified':True,'iterations':iterations}
+    low=Q(0)
+    high=limit
+    for _ in range(iterations):
+        mid=(low+high)/2
+        result=certified_radius(net,tape,gradient,adj,goal,
+                                direction,norm_hi,mid)
+        if result['certified_displacement_sign']!='inconclusive':
+            low=mid
+        else:
+            high=mid
+    return {'certified_radius_lower':str(low),
+            'first_inconclusive_radius_upper':str(high),
+            'lower_float':float(low),'search_upper_float':float(high),
+            'upper_limit_is_certified':False,'iterations':iterations}
+
 def actual_margin_fp64(model64,stage,goal,winner,runner,direction,r):
     with torch.no_grad():
         z=stage.double().clone()
@@ -131,8 +165,12 @@ def run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,seed=71,
             cert['numeric_fp64_signed_margin_delta']=measured-base
             cert['numeric_fp64_clean_margin']=base
             records.append(cert)
+        threshold=largest_certified_sign_radius(
+            net,tape,adj['gradient'],adj,goal,direction,nu,
+            limit=Q('1e-6'),iterations=26)
         cases.append({
             'puzzle_id':i,'goal_token':goal,'winner':winner,'runner':runner,
+            'exploratory_sign_radius':threshold,
             'sae_active_feature':feature,
             'clean_margin_arb_lower':str((logits[winner]-logits[runner]).lower()),
             'directional_certificates':records,
@@ -148,6 +186,13 @@ def run(checkpoint=None,allow_fetch=False,max_test_puzzles=2,seed=71,
         'radii':list(radii),'readout':'fixed clean winner vs runner at first blank goal token',
         'spectral_ldl_certificates':str(net.spectral),
         'cases':cases,
+        'exploratory_radius_summary':{
+            'nonzero_lower_count':sum(c['exploratory_sign_radius']['lower_float']>0
+                                      for c in cases),
+            'lower_bounds_sorted':sorted(c['exploratory_sign_radius']['lower_float']
+                                          for c in cases),
+            'search_cap':'1e-6', 'bisection_steps':26,
+        },
         'summary':{r:{'count':len(cases),
                      'sign_certified':sum(
                          c['certified_displacement_sign']!='inconclusive'
