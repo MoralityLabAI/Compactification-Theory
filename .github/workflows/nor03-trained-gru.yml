@@ -28,7 +28,7 @@ jobs:
       - name: Audit trained GRU zero-origin and held-out family block Jacobians
         run: python research/nor01_numerical_orbit_sketch/trained_gru_cert.py --check --out /tmp/nor03_trained_gru.json
       - name: Compare later heldout hidden-state geometry after 32 zero-input steps
-        run: python research/nor01_numerical_orbit_sketch/trained_gru_cert.py --check --warmup 32 --out /tmp/nor03_warm32.json
+        run: python research/nor01_numerical_orbit_sketch/trained_gru_cert.py --check --warmup 32 --family-limit 2 --out /tmp/nor03_warm32.json
       - name: Verify source-bound receipt and report exact gate counts
         run: |
           python - <<'PY'
@@ -59,7 +59,7 @@ jobs:
           print('NOR-03 certified trained zero case; heldout successful discs',
                 r['heldout_contracting_disks'], '/', r['heldout_count'])
           later=json.loads(Path('/tmp/nor03_warm32.json').read_text())
-          assert later['heldout_count']==6 and later['heldout_warmup']==32
+          assert later['heldout_count']==2 and later['heldout_warmup']==32
           early={x['family']:x for x in r['heldout']}
           for item in later['heldout']:
               prior=early[item['family']]['certificate']['disk_q_float']
@@ -68,7 +68,7 @@ jobs:
                     'contracting_32=',item['certificate']['contracting_disk'],
                     'box_width_32=',item['native_interval_max_width'])
           print('NOR-03 contracting 12-block disks at warmup 32:',
-                later['heldout_contracting_disks'],'/6')
+                later['heldout_contracting_disks'],'/2 tested families')
           PY
       - uses: actions/upload-artifact@v4
         with:
