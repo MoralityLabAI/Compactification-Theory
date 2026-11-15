@@ -44,3 +44,24 @@ The empirical task effect remains distinct from an information-theoretic proof: 
        --epochs 150 --out /tmp/nor15b_full.json
 
 Source-lock tests audit public-label absence of future data, exact candidate budget, 400-slot models, and unique-input pairing. This result remains preregistered until the full independent run completes.
+
+
+## First independent NOR-15B result (frozen)
+
+[Original green NOR-15B 1,040-case Actions run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721883598), artifact ID 14164414468, full uncompressed JSON SHA-256 \`1f5f068b522780e66d639d0429369c66775cedbef997f510824be124d4cde124\` and size **3,224,589 bytes**. The [receipt](results/nor15b_frozen_receipt.json) freezes all arm outcomes, train/dev hashes, six native paired signs and model-weight fingerprints. The independent [decision auditor](nor15b_receipt.py) checks every one of **8,320 native case-arm decisions** and their four exact verifier-budget traces from the original hosted JSON.
+
+| Readout | Primary future-correct /1,000 distinct nonlate | Future-correct /1,040 all | False accepts /1,040 |
+| --- | ---: | ---: | ---: |
+| Original frozen GRU | 631 | 639 | 20 |
+| Hidden-only linear H9 residual | 657 | 663 | 21 |
+| Raw H4 feature residual | 657 | 664 | 21 |
+| H4 prediction innovation | 660 | 666 | 21 |
+| Nonlinear H9-only predicted H4 | 661 | 667 | 21 |
+| Frozen random endpoint-tanh features | **662** | **669** | 21 |
+| Group-preserving shuffled H4 | 656 | 666 | 19 |
+
+The development-selected global model was **shuffled_early** at 0.5 mixing, scoring 656/1,000 primary, versus 631/1,000 for the original. This is a post-training development-only choice and is reported independently of the best exploratory arm.
+
+The residual_early model gained 51 primary cases and lost 22 against the original: +29 net, exact case/unique-input paired p≈0.0009143. Gains were spread across signed (+12), sparse (+5), product (+1), rational (+1), and squared (+10). However, the same trained-model family scored *better* when the twelve extra coordinates came from H9 alone: reconstructed_early 661, endpoint_nonlinear 662. Residual_early against reconstructed_early gained 6 and lost 7 (p=1), while against endpoint_nonlinear it gained 28 and lost 30 (p≈0.896). It therefore **failed the preregistered trajectory-specific criterion**. The improvement relative to the unmodified GRU is a genuine observed native task-residual gain on these source families, with evidence favoring richer nonlinear endpoint decoding over a claim of independent early-path information.
+
+The 40 source-distinct late_source cases map to one model-visible input hash. They remain secondary. Per-family outcomes, all four development-frozen scale decisions, source manifests and every model's verification trace are retained in the full artifact. All outcomes are synthetic finite-series proof-template tasks; an early-path conditional mutual information claim, a new theorem-prover generalization, and a basin membership certificate remain outside the experimental evidence.
