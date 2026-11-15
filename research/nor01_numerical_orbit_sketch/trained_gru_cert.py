@@ -153,7 +153,17 @@ def gates(weights, hidden, input_row=None):
         r.append(sigmoid(wi[i] + wh[i]))
         z.append(sigmoid(wi[N + i] + wh[N + i]))
         candidate.append(tanh(wi[2 * N + i] + r[i] * wh[2 * N + i]))
-    state = [(one - z[i]) * candidate[i] + z[i] * hidden[i] for i in range(N)]
+    # Invariant-cube intersection is sound: sigmoid gates are in [0,1],
+    # tanh candidates in [-1,1], and each updated coordinate is a convex
+    # combination of the previous coordinate and its candidate. Interval
+    # dependency can otherwise exceed the cube after long continuations.
+    state = []
+    for i in range(N):
+        raw = (one - z[i]) * candidate[i] + z[i] * hidden[i]
+        lo, hi = max(raw.lo, -ONE), min(raw.hi, ONE)
+        if lo > hi:
+            raise AssertionError("GRU interval and invariant cube disagree")
+        state.append(Interval(lo, hi))
     return state, r, z, candidate, wh
 
 
