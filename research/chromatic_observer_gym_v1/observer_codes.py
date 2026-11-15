@@ -167,3 +167,69 @@ if __name__ == "__main__":
             k, code = minimum_observer(n, edges, margin)
             assert validate_code(n, edges, k, code, margin)
             print(f"{label}: margin={margin}, k={k}, words={code}")
+
+
+def metric_quotient_observer(
+    distance: tuple[tuple[object, ...], ...],
+    edges: Iterable[tuple[int, int]],
+    lipschitz: object,
+    margin: int = 1,
+) -> tuple[int, tuple[int, ...], tuple[int, ...]]:
+    """Exact task-relative bit width under an L-Lipschitz constraint.
+
+    Assumes a finite *metric* (verified here), with exact rational distances.
+    Distances < 1/L force equal binary codes. Take their transitive closure,
+    reject tested edges inside a component, then color the quotient graph.
+
+    Returns (minimum_bit_width, lifted_codewords, vertex_component_ids).
+    The binary code is 1-Lipschitz under output ell_infinity when L=1,
+    or L-Lipschitz at general positive L.
+    """
+    from fractions import Fraction
+
+    n = len(distance)
+    ee = check_graph(n, edges)
+    L = Fraction(lipschitz)
+    if L <= 0:
+        raise ValueError("Lipschitz constant must be positive")
+    d = tuple(tuple(Fraction(x) for x in row) for row in distance)
+    if any(len(row) != n for row in d):
+        raise ValueError("metric must be a square matrix")
+    for i in range(n):
+        for j in range(n):
+            if (d[i][j] < 0 or d[i][j] != d[j][i] or
+                    (i == j and d[i][j] != 0) or
+                    (i != j and d[i][j] == 0)):
+                raise ValueError("matrix must define a genuine metric")
+            for k in range(n):
+                if d[i][j] > d[i][k] + d[k][j]:
+                    raise ValueError("triangle inequality violated")
+
+    parent = list(range(n))
+
+    def find(i: int) -> int:
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if L * d[i][j] < 1:
+                parent[find(j)] = find(i)
+    roots = [find(i) for i in range(n)]
+    root_order = {r: i for i, r in enumerate(sorted(set(roots)))}
+    components = tuple(root_order[r] for r in roots)
+    quotient_edges = []
+    for u, v in ee:
+        a, b = components[u], components[v]
+        if a == b:
+            raise ValueError("evaluator asks to distinguish forced-equivalent points")
+        quotient_edges.append((a, b))
+    count = len(root_order)
+    k, codes = minimum_observer(count, quotient_edges, margin)
+    lifted = tuple(codes[components[i]] for i in range(n))
+    assert validate_code(n, ee, k, lifted, margin)
+    assert all(lifted[i] == lifted[j] or L * d[i][j] >= 1
+               for i in range(n) for j in range(n))
+    return k, lifted, components
