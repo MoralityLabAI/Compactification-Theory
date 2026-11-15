@@ -1,0 +1,37 @@
+name: PEF-02 robust precision and source-prior oracle
+
+on:
+  push:
+    paths:
+      - 'research/precision_entropy_frontier/pef02.py'
+      - 'research/precision_entropy_frontier/test_pef02.py'
+      - 'research/precision_entropy_frontier/PEF02_DERIVATION.md'
+      - '.github/workflows/pef02-robust-history.yml'
+  pull_request:
+    paths:
+      - 'research/precision_entropy_frontier/pef02.py'
+      - 'research/precision_entropy_frontier/test_pef02.py'
+      - 'research/precision_entropy_frontier/PEF02_DERIVATION.md'
+      - '.github/workflows/pef02-robust-history.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+jobs:
+  oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent rational and finite tests
+        run: |
+          python -m unittest discover -s research/precision_entropy_frontier -p 'test_pef01.py' -v
+          python -m unittest discover -s research/precision_entropy_frontier -p 'test_pef02.py' -v
+      - name: Store precise robustness and source-prior receipt
+        run: python research/precision_entropy_frontier/pef02.py --suite --out artifacts/pef02/pef02_exact.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pef02-exact-robust-history
+          path: artifacts/pef02/pef02_exact.json
