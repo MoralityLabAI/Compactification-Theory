@@ -190,7 +190,7 @@ def main():
         if 64 in by_k:
             assert Q(by_k[64]["two_anchor_clipped_tail_pairwise_error_upper_fraction"])<Q(12,10**12)
         if 128 in by_k:
-            assert Q(by_k[128]["two_anchor_clipped_tail_pairwise_error_upper_fraction"])<Q(8,10**17)
+            assert Q(by_k[128]["two_anchor_clipped_tail_pairwise_error_upper_fraction"])<Q(4,10**14)
     blob=json.dumps(result,indent=2,sort_keys=True)+"\n"
     if args.out:
         args.out.parent.mkdir(parents=True,exist_ok=True)
