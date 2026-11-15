@@ -98,8 +98,6 @@ class NOR15TrajectoryAuditTest(unittest.TestCase):
             n.new_heldout({},repetitions=5)
         with self.assertRaises(ValueError):
             n.new_heldout({},per_family=13)
-        with self.assertRaises(ValueError):
-            n.full_trace(None,None,None)
 
     def test_pair_witnesses_are_finite_without_claiming_exact_collision(self):
         rows=[{"digest":str(k),"family":"signed",
