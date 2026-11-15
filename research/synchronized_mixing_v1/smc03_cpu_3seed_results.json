@@ -1,0 +1,79 @@
+{
+  "schema": "smc03_cpu_benchmark_v1",
+  "source": "research/synchronized_mixing_v1/relational_probe.py",
+  "date": "2026-11-15",
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "device": "CPU",
+    "torch_threads": 2
+  },
+  "split": {
+    "method": "SHA256 sorted coset representatives stratified by image matching",
+    "vertices": 6,
+    "matching_states": 15,
+    "permutations": 720,
+    "train_permutations": 540,
+    "test_permutations": 180,
+    "train_per_matching": 36,
+    "test_per_matching": 12,
+    "negative_class": "independent matching conditioned on same uniform permutation split",
+    "positive_class": "graph=permutation(reference matching)"
+  },
+  "setup": {
+    "seed_list": [
+      20261115,
+      20261116,
+      20261117
+    ],
+    "steps": 300,
+    "batch_size_per_class": 256,
+    "raw_architecture": "51->48 GELU ->48 GELU ->1",
+    "raw_optimizer": "AdamW lr 0.008 weight_decay 0.0001",
+    "structured_architecture": "exact transported matching-edge overlap -> logistic linear scalar",
+    "structured_optimizer": "AdamW lr 0.08",
+    "metric": "balanced accuracy for equal-prior positive/independent-negative distributions"
+  },
+  "theoretical": {
+    "marginal_only_balanced_accuracy": 0.5,
+    "additive_logistic_population_optimum_balanced_accuracy": 0.5,
+    "bayes_balanced_accuracy": "29/30",
+    "gauge_oracle_compatibility": 1
+  },
+  "runs": [
+    {
+      "seed": 20261115,
+      "raw_balanced_accuracy": 0.9572222232818604,
+      "raw_tpr": 0.9944444298744202,
+      "raw_tnr": 0.9200000166893005,
+      "structured_balanced_accuracy": 0.9666666686534882,
+      "gauge_transformed_raw_balanced_accuracy": 0.960185170173645,
+      "gauge_prediction_agreement": 0.9844444394111633
+    },
+    {
+      "seed": 20261116,
+      "raw_balanced_accuracy": 0.9390740692615509,
+      "raw_tpr": 0.949999988079071,
+      "raw_tnr": 0.9281481504440308,
+      "structured_balanced_accuracy": 0.9666666686534882,
+      "gauge_transformed_raw_balanced_accuracy": 0.9614814817905426,
+      "gauge_prediction_agreement": 0.963518500328064
+    },
+    {
+      "seed": 20261117,
+      "raw_balanced_accuracy": 0.9566666483879089,
+      "raw_tpr": 0.9944444298744202,
+      "raw_tnr": 0.9188888669013977,
+      "structured_balanced_accuracy": 0.9666666686534882,
+      "gauge_transformed_raw_balanced_accuracy": 0.9553703665733337,
+      "gauge_prediction_agreement": 0.9794444441795349
+    }
+  ],
+  "summary": {
+    "raw_mean_balanced_accuracy": 0.9509876469771067,
+    "raw_min_balanced_accuracy": 0.9390740692615509,
+    "raw_max_balanced_accuracy": 0.9572222232818604,
+    "structured_mean_balanced_accuracy": 0.9666666686534882
+  },
+  "scope": "Synthetic perfect matching task. Permutation holdout covers new stabilizer representatives within known matching orbits. No heldout matching-family, pretrained transformer, or learned sparse autoencoder evaluation."
+}

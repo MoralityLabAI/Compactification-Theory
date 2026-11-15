@@ -1,0 +1,864 @@
+{
+  "schema": "smc06_sae10_seed_v1",
+  "date": "2026-11-15",
+  "runs": [
+    {
+      "seed": 101,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.024993550032377243,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.5606400966644287,
+          "batch_squared_l2": 1.5594943761825562
+        },
+        {
+          "step": 4501,
+          "loss": 0.03186986222863197,
+          "batch_squared_l2": 0.027461731806397438
+        },
+        {
+          "step": 9000,
+          "loss": 0.02694050408899784,
+          "batch_squared_l2": 0.02371615543961525
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "certified",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "repairs": [
+        [
+          8,
+          14,
+          8
+        ]
+      ],
+      "candidate_stars": 47,
+      "inferred_vertices": 6,
+      "inferred_group_order": 720,
+      "search_nodes": 531,
+      "heldout_prediction_margins": [
+        0.13410436362028122,
+        0.26740679144859314,
+        0.11531531065702438
+      ],
+      "calibrations": [
+        {
+          "frame_seed": 43,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "13/18",
+          "tpr": "2/3",
+          "fpr": "2/9"
+        },
+        {
+          "frame_seed": 77,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "13/18",
+          "tpr": "2/3",
+          "fpr": "2/9"
+        },
+        {
+          "frame_seed": 91,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "13/18",
+          "tpr": "2/3",
+          "fpr": "2/9"
+        }
+      ]
+    },
+    {
+      "seed": 102,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.02486429177224636,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.5039235353469849,
+          "batch_squared_l2": 1.5031507015228271
+        },
+        {
+          "step": 4501,
+          "loss": 0.027517123147845268,
+          "batch_squared_l2": 0.02377074584364891
+        },
+        {
+          "step": 9000,
+          "loss": 0.02693217247724533,
+          "batch_squared_l2": 0.023765768855810165
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "certified",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "repairs": [],
+      "candidate_stars": 47,
+      "inferred_vertices": 6,
+      "inferred_group_order": 720,
+      "search_nodes": 531,
+      "heldout_prediction_margins": [
+        0.21436316519975662,
+        0.8265089988708496,
+        0.23683786392211914
+      ],
+      "calibrations": [
+        {
+          "frame_seed": 43,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 77,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 91,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        }
+      ]
+    },
+    {
+      "seed": 103,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.006068750284612179,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.4580638408660889,
+          "batch_squared_l2": 1.4569777250289917
+        },
+        {
+          "step": 4501,
+          "loss": 0.009297162294387817,
+          "batch_squared_l2": 0.006059429608285427
+        },
+        {
+          "step": 9000,
+          "loss": 0.008569739758968353,
+          "batch_squared_l2": 0.006004838272929192
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "certified",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "repairs": [],
+      "candidate_stars": 47,
+      "inferred_vertices": 6,
+      "inferred_group_order": 720,
+      "search_nodes": 531,
+      "heldout_prediction_margins": [
+        1.9391358643770218,
+        1.9271551296114922,
+        1.9316087067127228
+      ],
+      "calibrations": [
+        {
+          "frame_seed": 43,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 77,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 91,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        }
+      ]
+    },
+    {
+      "seed": 104,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.006098168436437845,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.5885189771652222,
+          "batch_squared_l2": 1.5872708559036255
+        },
+        {
+          "step": 4501,
+          "loss": 0.010163428261876106,
+          "batch_squared_l2": 0.006225935183465481
+        },
+        {
+          "step": 9000,
+          "loss": 0.008929630741477013,
+          "batch_squared_l2": 0.006168991792947054
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "certified",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "repairs": [],
+      "candidate_stars": 47,
+      "inferred_vertices": 6,
+      "inferred_group_order": 720,
+      "search_nodes": 531,
+      "heldout_prediction_margins": [
+        1.9276760779321194,
+        1.8123334050178528,
+        1.9327001944184303
+      ],
+      "calibrations": [
+        {
+          "frame_seed": 43,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 77,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 91,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        }
+      ]
+    },
+    {
+      "seed": 105,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.055761031806468964,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.468785285949707,
+          "batch_squared_l2": 1.4676308631896973
+        },
+        {
+          "step": 4501,
+          "loss": 0.05622314661741257,
+          "batch_squared_l2": 0.05168859288096428
+        },
+        {
+          "step": 9000,
+          "loss": 0.05805470794439316,
+          "batch_squared_l2": 0.05438743159174919
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "abstain",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "reason": "no unique geometry within repair budget"
+    },
+    {
+      "seed": 106,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.024868642911314964,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.514968752861023,
+          "batch_squared_l2": 1.5138027667999268
+        },
+        {
+          "step": 4501,
+          "loss": 0.03148556873202324,
+          "batch_squared_l2": 0.027093607932329178
+        },
+        {
+          "step": 9000,
+          "loss": 0.029250886291265488,
+          "batch_squared_l2": 0.02547168917953968
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "abstain",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "reason": "no unique geometry within repair budget"
+    },
+    {
+      "seed": 107,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.006069823168218136,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.6658310890197754,
+          "batch_squared_l2": 1.6644989252090454
+        },
+        {
+          "step": 4501,
+          "loss": 0.010004065930843353,
+          "batch_squared_l2": 0.006119695026427507
+        },
+        {
+          "step": 9000,
+          "loss": 0.008571229875087738,
+          "batch_squared_l2": 0.0060891034081578255
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "certified",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "repairs": [],
+      "candidate_stars": 47,
+      "inferred_vertices": 6,
+      "inferred_group_order": 720,
+      "search_nodes": 531,
+      "heldout_prediction_margins": [
+        1.9349998384714127,
+        1.9457527250051498,
+        1.9257081672549248
+      ],
+      "calibrations": [
+        {
+          "frame_seed": 43,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 77,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 91,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        }
+      ]
+    },
+    {
+      "seed": 108,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.024844298139214516,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.6323940753936768,
+          "batch_squared_l2": 1.6306474208831787
+        },
+        {
+          "step": 4501,
+          "loss": 0.028794288635253906,
+          "batch_squared_l2": 0.02448895201086998
+        },
+        {
+          "step": 9000,
+          "loss": 0.026914412155747414,
+          "batch_squared_l2": 0.023349590599536896
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "abstain",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "reason": "no unique geometry within repair budget"
+    },
+    {
+      "seed": 109,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.0061066341586411,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.5485460758209229,
+          "batch_squared_l2": 1.5473787784576416
+        },
+        {
+          "step": 4501,
+          "loss": 0.009253526106476784,
+          "batch_squared_l2": 0.0060067009180784225
+        },
+        {
+          "step": 9000,
+          "loss": 0.00876956433057785,
+          "batch_squared_l2": 0.006236539222300053
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "certified",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "repairs": [],
+      "candidate_stars": 47,
+      "inferred_vertices": 6,
+      "inferred_group_order": 720,
+      "search_nodes": 531,
+      "heldout_prediction_margins": [
+        1.9213218539953232,
+        1.938729666173458,
+        1.9351521134376526
+      ],
+      "calibrations": [
+        {
+          "frame_seed": 43,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 77,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        },
+        {
+          "frame_seed": 91,
+          "n_calibration_pairs": 12,
+          "n_candidates": 1,
+          "unique_all_train_candidate": true,
+          "matches_full_data_oracle": true,
+          "heldout_balanced_accuracy": "5/6",
+          "tpr": "1",
+          "fpr": "1/3"
+        }
+      ]
+    },
+    {
+      "seed": 110,
+      "steps": 9000,
+      "anchors": true,
+      "train_reconstruction_squared_l2": 0.02500915713608265,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 1.476302146911621,
+          "batch_squared_l2": 1.4754247665405273
+        },
+        {
+          "step": 4501,
+          "loss": 0.032125357538461685,
+          "batch_squared_l2": 0.02866830676794052
+        },
+        {
+          "step": 9000,
+          "loss": 0.03032471425831318,
+          "batch_squared_l2": 0.026999525725841522
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "abstain",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": ".70",
+        "pair_anchor_rate": ".24",
+        "matching_train_rate": ".06",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "reason": "no unique geometry within repair budget"
+    }
+  ],
+  "anchor_ablation": [
+    {
+      "seed": 101,
+      "steps": 9000,
+      "anchors": false,
+      "train_reconstruction_squared_l2": 0.009014751762151718,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 3.1988577842712402,
+          "batch_squared_l2": 3.1974427700042725
+        },
+        {
+          "step": 4501,
+          "loss": 0.014362819492816925,
+          "batch_squared_l2": 0.008515366353094578
+        },
+        {
+          "step": 9000,
+          "loss": 0.013608083128929138,
+          "batch_squared_l2": 0.008671499788761139
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "abstain",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": "0",
+        "pair_anchor_rate": "0",
+        "matching_train_rate": "1",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "reason": "no unique geometry within repair budget"
+    },
+    {
+      "seed": 102,
+      "steps": 9000,
+      "anchors": false,
+      "train_reconstruction_squared_l2": 0.012145185843110085,
+      "loss_history": [
+        {
+          "step": 1,
+          "loss": 3.0777413845062256,
+          "batch_squared_l2": 3.0765857696533203
+        },
+        {
+          "step": 4501,
+          "loss": 0.017653895542025566,
+          "batch_squared_l2": 0.011986005119979382
+        },
+        {
+          "step": 9000,
+          "loss": 0.017565151676535606,
+          "batch_squared_l2": 0.012536503374576569
+        }
+      ],
+      "train_matching_class_count": 12,
+      "heldout_matching_class_count": 3,
+      "raw_support_source": "top3(mean_64_ReLU_encoder_activations)",
+      "repair_budget": "at most one 1->0 and 0->1 swap across all twelve training rows",
+      "geometry_status": "abstain",
+      "model_parameter_count": 1215,
+      "noise_measurement_std": 0.015,
+      "source_data_seed": 7301,
+      "train_data_stats": {
+        "size": 16000,
+        "dim": 40,
+        "singleton_anchor_rate": "0",
+        "pair_anchor_rate": "0",
+        "matching_train_rate": "1",
+        "heldout_complete_matching_classes": [
+          12,
+          13,
+          14
+        ]
+      },
+      "reason": "no unique geometry within repair budget"
+    }
+  ],
+  "controls": [
+    {
+      "seed": 101,
+      "controls": {
+        "untrained_relu_15": {
+          "accepted": false,
+          "reason": "no unique geometry within repair budget"
+        },
+        "pca_absolute_15": {
+          "accepted": false,
+          "reason": "no unique geometry within repair budget",
+          "reconstruction_squared_l2": 0.005633790977299213
+        }
+      },
+      "scope": "untrained readout and PCA abs coordinates, no pretrained model"
+    },
+    {
+      "seed": 102,
+      "controls": {
+        "untrained_relu_15": {
+          "accepted": false,
+          "reason": "no unique geometry within repair budget"
+        },
+        "pca_absolute_15": {
+          "accepted": false,
+          "reason": "no unique geometry within repair budget",
+          "reconstruction_squared_l2": 0.005633790977299213
+        }
+      },
+      "scope": "untrained readout and PCA abs coordinates, no pretrained model"
+    },
+    {
+      "seed": 103,
+      "controls": {
+        "untrained_relu_15": {
+          "accepted": false,
+          "reason": "no unique geometry within repair budget"
+        },
+        "pca_absolute_15": {
+          "accepted": false,
+          "reason": "no unique geometry within repair budget",
+          "reconstruction_squared_l2": 0.005633790977299213
+        }
+      },
+      "scope": "untrained readout and PCA abs coordinates, no pretrained model"
+    }
+  ],
+  "registered_budget": {
+    "train_steps": 9000,
+    "model": "40-15-40 ReLU SAE",
+    "parameters": 1215,
+    "feature_sparsity_prior": 3,
+    "repair_max_one_top3_row_swap": true,
+    "training_matching_id_holdout": [
+      12,
+      13,
+      14
+    ],
+    "full_training_data_items": 16000,
+    "single_atom_probes_fraction": 0.7,
+    "independent_pairs_fraction": 0.24,
+    "included_train_matching_fraction": 0.06,
+    "measurement_repeats": 64
+  },
+  "aggregate": {
+    "seeds": 10,
+    "certified": 6,
+    "direct_certified": 5,
+    "one_swap_certified": 1,
+    "abstained": 4,
+    "fully_correct_heldout_matching_seeds": 5,
+    "weaker_one_heldout_error_seeds": 1,
+    "conditional_accuracy_mean": "22/27",
+    "conditional_accepted_frame_calibrations": 18
+  },
+  "limitations": "Training data are synthetic 40-dense linear superpositions with unlabeled singleton/pair anchors. No pretrained language model or actual transformer SAE evaluated."
+}

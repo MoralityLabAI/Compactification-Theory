@@ -1,0 +1,187 @@
+{
+  "schema": "smc04_alignment_campaign_180_trials",
+  "date": "2026-11-15",
+  "protocol": {
+    "source": "research/synchronized_mixing_v1/run_smc04.py",
+    "inference": "exact hypothesis version space if epsilon=0; full finite maximum-consensus otherwise",
+    "candidate_models": 10800,
+    "vertex_frames": 720,
+    "reference_matchings": 15,
+    "secret_seeds": [
+      43,
+      77,
+      91
+    ],
+    "trials_per_secret": 60,
+    "total_per_noise_level": 180,
+    "training_classes": 12,
+    "withheld_classes": 3,
+    "train_inputs": 576,
+    "heldout_inputs": 144,
+    "input_sampling": "iid with replacement from truth-conditioned 12-class training cohort",
+    "corruption": "with probability epsilon replace observed graph by a uniform random matching among all 15",
+    "test_positive": "true graph = hidden frame * permutation * hidden base",
+    "test_negative": "graph independent uniformly drawn among three withheld matching states",
+    "metric": "balanced accuracy for equal-prior positive vs matched-marginal independent negative",
+    "tie_break": "lexicographically first maximizing candidate",
+    "bayes_when_correct": "5/6",
+    "limitation": "structural group model supplied, exact finite inference; no pretrained model or SAE"
+  },
+  "sample_sizes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    8,
+    10,
+    12,
+    16,
+    24
+  ],
+  "campaigns": {
+    "0": {
+      "correct": [
+        0,
+        5,
+        87,
+        146,
+        170,
+        175,
+        178,
+        180,
+        180,
+        180,
+        180
+      ],
+      "unique": [
+        0,
+        0,
+        0,
+        45,
+        111,
+        150,
+        174,
+        179,
+        179,
+        180,
+        180
+      ],
+      "mean_balanced_accuracy": [
+        "39139/77760",
+        "5009/9720",
+        "6611/9720",
+        "7609/9720",
+        "133/162",
+        "671/810",
+        "673/810",
+        "5/6",
+        "5/6",
+        "5/6",
+        "5/6"
+      ]
+    },
+    "1/10": {
+      "correct": [
+        0,
+        5,
+        57,
+        107,
+        148,
+        164,
+        176,
+        180,
+        180,
+        180,
+        180
+      ],
+      "unique": [
+        0,
+        0,
+        0,
+        37,
+        77,
+        123,
+        161,
+        176,
+        178,
+        180,
+        180
+      ],
+      "mean_balanced_accuracy": [
+        "19549/38880",
+        "40031/77760",
+        "48271/77760",
+        "55067/77760",
+        "15191/19440",
+        "5251/6480",
+        "2681/3240",
+        "5/6",
+        "5/6",
+        "5/6",
+        "5/6"
+      ]
+    },
+    "1/4": {
+      "correct": [
+        0,
+        5,
+        37,
+        58,
+        91,
+        118,
+        150,
+        166,
+        174,
+        179,
+        180
+      ],
+      "unique": [
+        0,
+        0,
+        0,
+        28,
+        36,
+        79,
+        118,
+        146,
+        163,
+        174,
+        180
+      ],
+      "mean_balanced_accuracy": [
+        "39107/77760",
+        "2477/4860",
+        "1667/2880",
+        "48151/77760",
+        "653/960",
+        "14179/19440",
+        "1271/1620",
+        "7903/9720",
+        "334/405",
+        "337/405",
+        "5/6"
+      ]
+    }
+  },
+  "theory": {
+    "max_false_agreement_full": "7/15",
+    "max_false_agreement_train": "1/2",
+    "expected_false_train_N1": "719",
+    "expected_false_train_N2": "572/9",
+    "expected_false_train_N8": "494636187239701/10271347716390912",
+    "expected_false_train_N12": "207626724431490125202001/70663864180791861451948032",
+    "union_bound_noisy_quarter_N24": 0.005218753361097237
+  },
+  "negative_control": {
+    "trials": 60,
+    "calibration_pairs": 12,
+    "input_sampling": "same truth-conditioned train cohort",
+    "graph_label_sampling": "independent uniform 12 training matching classes",
+    "mean_balanced_accuracy": "659/1296",
+    "min_balanced_accuracy": "4/9",
+    "max_balanced_accuracy": "5/6"
+  },
+  "independent_validation": "Eight original exact local regression-test families passed; remote CI replays smoke and exact group checks. Full campaign reproducible by run_smc04.py without --smoke."
+}

@@ -1,0 +1,172 @@
+{
+  "schema": "SMC05_anonymous_sparse_geometry_v1",
+  "clean": [
+    {
+      "calibration_pairs": 12,
+      "calibration_seed": 72,
+      "calibration_version_space": 1,
+      "candidate_5_cliques": 47,
+      "coactive_pairs": 36,
+      "episode_repeats": 1,
+      "feature_seed": 1744,
+      "heldout_balanced_accuracy": "5/6",
+      "heldout_matching_states": 3,
+      "inferred_model_matches_truth": true,
+      "noise_false_positive": 0,
+      "noise_sensitivity": 1,
+      "noncoactive_pairs": 69,
+      "note": "train geometry sees only 12 anonymous feature masks, never three heldout state masks",
+      "oracle_heldout_balanced_accuracy": "5/6",
+      "reconstructed_edges": 15,
+      "reconstructed_vertex_stars": 6,
+      "seed": 43,
+      "train_matching_states": 12
+    },
+    {
+      "calibration_pairs": 12,
+      "calibration_seed": 106,
+      "calibration_version_space": 1,
+      "candidate_5_cliques": 47,
+      "coactive_pairs": 36,
+      "episode_repeats": 1,
+      "feature_seed": 1778,
+      "heldout_balanced_accuracy": "5/6",
+      "heldout_matching_states": 3,
+      "inferred_model_matches_truth": true,
+      "noise_false_positive": 0,
+      "noise_sensitivity": 1,
+      "noncoactive_pairs": 69,
+      "note": "train geometry sees only 12 anonymous feature masks, never three heldout state masks",
+      "oracle_heldout_balanced_accuracy": "5/6",
+      "reconstructed_edges": 15,
+      "reconstructed_vertex_stars": 6,
+      "seed": 77,
+      "train_matching_states": 12
+    },
+    {
+      "calibration_pairs": 12,
+      "calibration_seed": 120,
+      "calibration_version_space": 1,
+      "candidate_5_cliques": 47,
+      "coactive_pairs": 36,
+      "episode_repeats": 1,
+      "feature_seed": 1792,
+      "heldout_balanced_accuracy": "5/6",
+      "heldout_matching_states": 3,
+      "inferred_model_matches_truth": true,
+      "noise_false_positive": 0,
+      "noise_sensitivity": 1,
+      "noncoactive_pairs": 69,
+      "note": "train geometry sees only 12 anonymous feature masks, never three heldout state masks",
+      "oracle_heldout_balanced_accuracy": "5/6",
+      "reconstructed_edges": 15,
+      "reconstructed_vertex_stars": 6,
+      "seed": 91,
+      "train_matching_states": 12
+    }
+  ],
+  "denoised": [
+    {
+      "calibration_pairs": 12,
+      "calibration_seed": 100,
+      "calibration_version_space": 1,
+      "candidate_5_cliques": 47,
+      "coactive_pairs": 36,
+      "episode_repeats": 40,
+      "feature_seed": 1701,
+      "heldout_balanced_accuracy": "5/6",
+      "heldout_matching_states": 3,
+      "inferred_model_matches_truth": true,
+      "noise_false_positive": 0.25,
+      "noise_sensitivity": 0.75,
+      "noncoactive_pairs": 69,
+      "note": "train geometry sees only 12 anonymous feature masks, never three heldout state masks",
+      "oracle_heldout_balanced_accuracy": "5/6",
+      "reconstructed_edges": 15,
+      "reconstructed_vertex_stars": 6,
+      "seed": 43,
+      "train_matching_states": 12
+    },
+    {
+      "calibration_pairs": 12,
+      "calibration_seed": 101,
+      "calibration_version_space": 1,
+      "candidate_5_cliques": 47,
+      "coactive_pairs": 36,
+      "episode_repeats": 40,
+      "feature_seed": 1701,
+      "heldout_balanced_accuracy": "5/6",
+      "heldout_matching_states": 3,
+      "inferred_model_matches_truth": true,
+      "noise_false_positive": 0.25,
+      "noise_sensitivity": 0.75,
+      "noncoactive_pairs": 69,
+      "note": "train geometry sees only 12 anonymous feature masks, never three heldout state masks",
+      "oracle_heldout_balanced_accuracy": "5/6",
+      "reconstructed_edges": 15,
+      "reconstructed_vertex_stars": 6,
+      "seed": 43,
+      "train_matching_states": 12
+    },
+    {
+      "calibration_pairs": 12,
+      "calibration_seed": 102,
+      "calibration_version_space": 1,
+      "candidate_5_cliques": 47,
+      "coactive_pairs": 36,
+      "episode_repeats": 40,
+      "feature_seed": 1701,
+      "heldout_balanced_accuracy": "5/6",
+      "heldout_matching_states": 3,
+      "inferred_model_matches_truth": true,
+      "noise_false_positive": 0.25,
+      "noise_sensitivity": 0.75,
+      "noncoactive_pairs": 69,
+      "note": "train geometry sees only 12 anonymous feature masks, never three heldout state masks",
+      "oracle_heldout_balanced_accuracy": "5/6",
+      "reconstructed_edges": 15,
+      "reconstructed_vertex_stars": 6,
+      "seed": 43,
+      "train_matching_states": 12
+    }
+  ],
+  "geometry_noise": [
+    {
+      "certified_reconstructions": 100,
+      "correct_reconstructions": 100,
+      "noise": [
+        0.9,
+        0.1
+      ],
+      "repeats": 16,
+      "trials": 100
+    },
+    {
+      "certified_reconstructions": 95,
+      "correct_reconstructions": 95,
+      "noise": [
+        0.75,
+        0.25
+      ],
+      "repeats": 40,
+      "trials": 100
+    },
+    {
+      "certified_reconstructions": 100,
+      "correct_reconstructions": 100,
+      "noise": [
+        0.75,
+        0.25
+      ],
+      "repeats": 64,
+      "trials": 100
+    }
+  ],
+  "null": {
+    "geometry_certificates_accepted": 0,
+    "null": "degree-preserving 2x2 incidence matrix switches",
+    "row_and_column_sums_exactly_preserved": true,
+    "trials": 100
+  },
+  "limitations": "Identifies a latent K6 edge geometry from 12 clean or denoised 3-hot matching observations. Six vertices, three active edges, and S6 group action after discovery remain the prior. No hidden transformer/SAE or new graph size."
+}
