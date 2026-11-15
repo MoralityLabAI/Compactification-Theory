@@ -1,0 +1,81 @@
+name: NOR-15C exact aliased-input four-check verifier order ceiling
+
+on:
+  push:
+    paths:
+      - 'research/nor15c_verifier_alias/**'
+      - '.github/workflows/nor15c-verifier-ceiling.yml'
+  pull_request:
+    paths:
+      - 'research/nor15c_verifier_alias/**'
+      - '.github/workflows/nor15c-verifier-ceiling.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-evidence-original-byte-hash:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently audit original source-controlled full evidence against frozen SHA and all orderings
+        run: |
+          python research/nor15c_verifier_alias/audit_result.py --check \
+            --full research/nor15c_verifier_alias/results/nor15c_full.json
+
+  exhaustive-policy-unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test first-positive stopping, exact finite enumeration and cost accounting
+        run: python -m unittest research.nor15c_verifier_alias.test_ceiling -v
+
+  frozen-forty-case-hindsight-ceiling:
+    needs: exhaustive-policy-unit-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild exact public acceptance sets from 40 source-locked aliased cases
+        run: python research/nor15c_verifier_alias/ceiling.py --check --out /tmp/nor15c_full.json
+      - name: Re-enumerate all 43680 fixed-four rankings independently
+        run: python research/nor15c_verifier_alias/audit_result.py --check --full /tmp/nor15c_full.json
+      - name: Publish exact source and retrospective leakage disclosures
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=Path('/tmp/nor15c_full.json')
+          raw=p.read_bytes()
+          z=json.loads(raw)
+          assert z['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert z['source_case_count']==40
+          assert z['unique_model_visible_feature_groups']==1
+          assert z['public_template_check_cost_retrospective']==640
+          assert z['retrospective_hindsight_fixed_order_oracle']['distinct_fixed_orders_exhaustively_checked']==43680
+          assert z['original_fixed_four_outcome']['future_correct']==8
+          assert z['original_fixed_four_outcome']['false_accept']==20
+          assert z['scope']['best_order_uses_test_future_labels_and_is_non_deployable']
+          print('NOR15C original',z['original_fixed_four_outcome'])
+          print('NOR15C hindsight ceiling',z['retrospective_hindsight_fixed_order_oracle']['hindsight_optimal_metrics'])
+          print('NOR15C hindsight order',z['retrospective_hindsight_fixed_order_oracle']['hindsight_optimal_order'])
+          print('NOR15C distinct public masks',z['unique_exact_public_acceptance_masks'])
+          print('NOR15C public ambiguity',z['cases_with_multiple_public_accepted_templates'])
+          print('NOR15C source JSON bytes',len(raw),'SHA-256',hashlib.sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor15c-source-locked-40-alias-full-four-check-oracle
+          path: /tmp/nor15c_full.json
