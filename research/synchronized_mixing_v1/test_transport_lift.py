@@ -56,6 +56,17 @@ class LiftTests(unittest.TestCase):
         self.assertEqual(audit['roots_with_multiplicity'],{'0':1,'1/4':8,'1/2':6,'3/4':8,'1':1})
         self.assertEqual(audit['trace_moments_0_through_4'],['24','12','15/2','21/4','63/16'])
 
+    def test_equivariant_relabeling_controls(self):
+        for k in (2, 3):
+            report = tl.gauge_intervention_audit(k, horizon=3)
+            self.assertEqual(Fraction(report['stationary_one_side_pass']),Fraction(1,2*k-1))
+            for row in report['rows']:
+                self.assertEqual(row['simultaneous_relabel_pass'],'1')
+        inner=tl.gauge_intervention_audit(2, horizon=4, swap=(0,1))
+        self.assertEqual(inner['rows'][0]['graph_only_relabel_pass'],'1')
+        cross=tl.gauge_intervention_audit(2, horizon=4, swap=(0,2))
+        self.assertEqual(cross['rows'][0]['graph_only_relabel_pass'],'0')
+
     def test_large_matching_lift(self):
         result=tl.exact_sweep(3,horizon=3)
         self.assertEqual(result['n_graph_states'],15)
