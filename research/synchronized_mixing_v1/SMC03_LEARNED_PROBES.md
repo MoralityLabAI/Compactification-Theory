@@ -150,3 +150,41 @@ Reproduce:
 
 A useful next gate is to train an explicitly equivariant network, then compare it with the raw MLP using the exact same class-disjoint split and equal compute. The matchings and the model's permutation-index conventions should remain host-controlled to rule out information leakage through preprocessing.
 
+
+
+## 8. SMC-03c: A trained equivariant edge probe restores generalization
+
+To isolate whether the SMC-03b collapse is a question of symmetry rather than training-set size, a third model uses an explicitly known permutation transport \(T_\Pi(M_0)=\Pi M_0\). Its input is one **aligned pair of Boolean edge bits** for each of the 15 possible edges:
+
+\[
+z_{ab}=\big(\mathbf1\{ab\in G\},\ \mathbf1\{ab\in \Pi M_0\}\big).
+\]
+
+A small learned shared function \(\phi_\theta:\{0,1\}^2\to\mathbb R\) is applied to every edge, and its outputs are pooled:
+
+\[
+\boxed{s_\theta(G,\Pi)=b+\sum_{a<b}\phi_\theta(z_{ab}).}
+\tag{SMC-03c}
+\]
+
+The implemented network has Linear(2,8) -> Tanh -> Linear(8,1) for \(\phi\), plus a pooled bias, totaling **34 trainable parameters**. It receives the same 12-class training/3-class heldout split as SMC-03b. Its learned edge interaction is optimized by AdamW for the same 300 minibatch steps. The group transport is supplied explicitly as an inductive bias; the experiment makes no claim that the network discovered it.
+
+| Model | Parameters | Raw train matched-class accuracy | Completely unseen matching classes |
+|---|---:|---:|---:|
+| 51-input raw MLP, three-seed mean | 4,897 | ~95.1% | **52.66%** |
+| Learned gauge-equivariant shared-edge probe, every seed | 34 | 95.83% | **83.33%** |
+| Bayes-optimal class-conditional limit | N/A | 95.83% | 83.33% |
+
+The shared-edge model reached the exact Bayes ceiling on the family-disjoint test in **all three fixed seeds** (20261115, 20261116, 20261117). Under the common vertex swap (0,2), its positive and negative binary predictions were unchanged in all tested examples. The maximum floating-point logit discrepancy was less than \(7.2\times10^{-7}\); exact edge-coordinate permutation invariance follows algebraically from the shared function and sum pooling.
+
+Its symmetry is straightforward: a simultaneous vertex relabeling merely permutes the terms of the sum, leaving its value unchanged in exact arithmetic. Its learned weights still determine which edge-bit relationships contribute positively or negatively. This resolves the synthetic family-generalization failure for an architecture equipped with the correct group action.
+
+[Training code](equivariant_edge_probe.py) | [Three-seed CPU measurements](smc03_equivariant_3seed_results.json) | [Pure structural and gauge checks](test_equivariant_edge_probe.py).
+
+Reproduction:
+
+    python research/synchronized_mixing_v1/equivariant_edge_probe.py --seed 20261115
+    python research/synchronized_mixing_v1/equivariant_edge_probe.py --seed 20261116
+    python research/synchronized_mixing_v1/equivariant_edge_probe.py --seed 20261117
+
+**Interpretability boundary:** The operation mapping a permutation to the edge structure of the fixed reference matching is wired into this model. A pretrained transformer's hidden features provide neither the canonical permutation nor the matching map automatically. The next experiment must learn or infer an alignment under controlled supervision and test whether it transfers to unseen feature dictionaries, graph states and loop depths without direct access to the oracle.
