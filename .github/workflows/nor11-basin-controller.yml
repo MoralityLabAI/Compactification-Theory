@@ -82,6 +82,8 @@ jobs:
           assert r['heldout_protocol']['original']['actions']==0
           print('NOR11 explicit rule: report native capability gain only if heldout score improves')
           PY
+      - name: Independently replay frozen head and exact 199KB experiment receipt
+        run: python research/nor11_attractor_controller/receipt_audit.py --receipt /tmp/nor11_controller.json --check
       - uses: actions/upload-artifact@v4
         with:
           name: nor11-frozen-trained-basin-head-and-native-task-controls
