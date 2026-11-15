@@ -15,6 +15,16 @@ permissions:
   contents: read
 
 jobs:
+  frozen-source-receipt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify published SHA-256, source roster, primary metrics and exact sign tests
+        run: python research/nor14_conditional_basin/receipt_audit.py --check
   train-only-projection-and-public-oracle:
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -73,6 +83,8 @@ jobs:
               print('NOR14 COMPARISON',label,row)
           print('NOR14 FROZEN DEVELOPMENT',x['development_global_frozen'])
           PY
+      - name: Independently audit every frozen case decision and paired sign count
+        run: python research/nor14_conditional_basin/receipt_audit.py --check --full /tmp/nor14_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor14-four-cohort-orthogonal-basin-and-trajectory-evidence
