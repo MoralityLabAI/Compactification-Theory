@@ -358,9 +358,23 @@ def run(*, include_heldout=True):
         "pinned_prior_experiments": ["RRC25", "FHC01C", "NOR01", "NOR02"],
     }
     if include_heldout:
-        groups = compound25.roster(include_test=True, train_per=1,
-                                   dev_per=1, test_per=1)
-        cases = [groups[f][0] for f in compound25.TEST_FAMILIES]
+        # Build six *new* source-family cases without the benchmark roster's
+        # 12 negative complete-search scans and 6 exhaustive future-collision
+        # searches. Those unrelated exact-program controls can dominate this
+        # matrix-analysis experiment's CPU budget.
+        import random
+        cases, seen = [], set()
+        for ix, family in enumerate(compound25.TEST_FAMILIES):
+            rng = random.Random(compound25.SEED + 903900 + 1009 * ix)
+            for attempt in range(32):
+                candidate = compound25.make_case(
+                    rng, family, f"nor03-{family}-{attempt:02d}")
+                if candidate.visible not in seen and compound25.possible_headers(candidate):
+                    seen.add(candidate.visible)
+                    cases.append(candidate)
+                    break
+            else:
+                raise AssertionError(f"could not construct NOR-03 family: {family}")
         heldout = []
         for case in cases:
             headers = compound25.possible_headers(case)
@@ -415,6 +429,7 @@ def run(*, include_heldout=True):
                 "native_interval_max_width": max_width,
                 "certificate": cert,
             })
+        out["case_sampling_protocol"] = "NOR03 independent post-training family seeds SEED+903900+1009*i; no negative/collision roster"
         out["heldout"] = heldout
         out["heldout_contracting_disks"] = sum(
             row["certificate"]["contracting_disk"] for row in heldout)
