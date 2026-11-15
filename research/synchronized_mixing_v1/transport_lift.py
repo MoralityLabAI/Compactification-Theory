@@ -199,6 +199,44 @@ def check_four_slot_spectrum():
             'annihilator_checked_all_24_basis_rows': True}
 
 
+
+
+def gauge_intervention_audit(k=2, horizon=10, swap=(0, 1)):
+    """Exact causal/equivariance control using one-sided vs common relabeling.
+
+    A simultaneous relabeling (g,p)->(sigma*g,sigma*p) preserves the
+    compatibility indicator. Relabeling only g passes precisely when
+    the swapped vertices are an existing matching edge.
+    """
+    base, perms, matchings, Q, _ = kernel_lift(k)
+    n=2*k
+    a,b=swap
+    if not (0 <= a < b < n):
+        raise ValueError("swap must be distinct ordered vertices")
+    sigma=list(range(n))
+    sigma[a],sigma[b]=sigma[b],sigma[a]
+    current={perms[0]:ONE}
+    records=[]
+    for t in range(horizon+1):
+        projected=projection(current,base)
+        graph_only_pass=sum((weight for g,weight in projected.items()
+                             if relabel(sigma,g)==g),ZERO)
+        simultaneous_pass=sum((weight for p,weight in current.items()
+                               if relabel(sigma,relabel(p,base))==
+                                  relabel(tuple(sigma[j] for j in p),base)),ZERO)
+        assert simultaneous_pass == ONE
+        assert graph_only_pass == sum((w for g,w in projected.items()
+                                     if tuple(sorted((a,b))) in g),ZERO)
+        records.append({'t':t,'simultaneous_relabel_pass':str(simultaneous_pass),
+                        'graph_only_relabel_pass':str(graph_only_pass)})
+        current=push(current,Q)
+    u_g={g:Fraction(1,len(matchings)) for g in matchings}
+    stationary=sum((w for g,w in u_g.items() if relabel(sigma,g)==g),ZERO)
+    assert stationary == Fraction(1,2*k-1)
+    return {'n_vertices':n,'transposition':list(swap),
+            'stationary_one_side_pass':str(stationary),
+            'simultaneous_pass':'1','rows':records}
+
 if __name__ == '__main__':
     import json
     report = exact_sweep(2, 16)
