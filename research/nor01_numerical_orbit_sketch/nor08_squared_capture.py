@@ -32,7 +32,8 @@ from research.nor01_numerical_orbit_sketch import nor06_capture as cap
 from research.nor01_numerical_orbit_sketch.invariant_ball import (
     CENTER as FIRST_CENTER,RADIUS as FIRST_RADIUS
 )
-from trained_gru_cert import get_weights,sqrt_upper,ZERO
+from trained_gru_cert import get_weights,sqrt_upper,ceil_rational,SCALE,ZERO
+from nor07_recentered_tube import recentered_tube
 
 FAMILY="squared"
 SOURCE_SHA=cap.SOURCE_SHA
@@ -96,10 +97,20 @@ def run(max_blocks=180,record_stride=12):
             }
             break
         if k==max_blocks:break
-        center,error,K_block,residual=cap.one_block(weights,center,error)
+        # Use the general NOR-07T rational Volterra tube for every
+        # twelve-step source continuation. It retains cancellation in the
+        # ordered nominal products and bounds the true full-block map on
+        # the entire current error ball. An independent cap.one_block
+        # interval method remains in the short-step cross-check tests.
+        tube=recentered_tube(weights,center,error,BLOCK)
+        K_block=Q(tube["block_operator_norm_upper_fraction"])
+        point_error=Q(tube["last_point_shadowing_error_fraction"])
+        next_center=tuple(Q(x) for x in tube["point_center_literals"])
+        next_error=ceil_rational(K_block*error+point_error,SCALE)
+        center,error=next_center,next_error
         max_error=max(error,max_error)
         max_operator=max(max_operator,K_block)
-        trace.update((f"K={K_block};e={residual}\n").encode())
+        trace.update((f"K={K_block};e={point_error}\n").encode())
         if error>=100:
             break
 
@@ -116,6 +127,7 @@ def run(max_blocks=180,record_stride=12):
         "requested_max_blocks":max_blocks,
         "processed_blocks":k,
         "block_length":BLOCK,
+        "shadowing_method":"recentered exact rational Volterra, Hessian and nominal Jacobian products",
         "capture_status":"certified" if witness else "not_established",
         "capture_witness":witness,
         "last_center_distance_upper_fraction":str(distance),
