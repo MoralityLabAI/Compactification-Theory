@@ -1,0 +1,79 @@
+name: NOR-14 orthogonal basin readout and early-trajectory independent holdout
+
+on:
+  push:
+    paths:
+      - 'research/nor14_conditional_basin/**'
+      - '.github/workflows/nor14-conditional-basin.yml'
+  pull_request:
+    paths:
+      - 'research/nor14_conditional_basin/**'
+      - '.github/workflows/nor14-conditional-basin.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  train-only-projection-and-public-oracle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test orthogonal projection, native trace parity and public-input isolation
+        run: python -m unittest research.nor14_conditional_basin.test_experiment -v
+
+  four-fresh-cohorts:
+    needs: train-only-projection-and-public-oracle
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Train six constrained 400-slot heads and test 288 independent source cases
+        run: python research/nor14_conditional_basin/experiment.py --check --repetitions 4 --per-family 12 --out /tmp/nor14_full.json
+      - name: Audit frozen public source, held-out unique-input denominators and decisions
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('/tmp/nor14_full.json').read_text())
+          assert x['schema']=='nor14.train_orthogonal_nonlinear_basin_vs_trajectory.v1'
+          assert x['checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert x['public_training_template_checks_shared']==1536
+          assert all(v==400 for v in x['all_training_heads_slots'].values())
+          assert x['repetitions']==4 and x['cases_per_family_per_repetition']==12
+          assert len(x['cohorts'])==4
+          assert len({v['public_input_manifest_sha256'] for v in x['cohorts']})==4
+          scope=x['scope']
+          assert scope['nonlate_primary_and_aliased_late_source_secondary']
+          assert scope['training_only_linear_projection']
+          assert scope['all_model_fits_use_public_demo_template_acceptance_only']
+          assert not scope['endpoint_gate_additional_conditional_information_given_h']
+          assert scope['at_most_four_paid_native_checks_per_case']
+          for kind,row in x['outcomes'].items():
+              assert row['cases']==288
+              assert row['nonlate']['cases']==240
+              assert row['paid_checks']<=4*288
+              assert row['future_correct']+row['false_accept']<=288
+              assert row['nonlate']['unique_input_groups']==240
+              print('NOR14',kind,'ALL',row['future_correct'],
+                    'FALSE',row['false_accept'],'CHECKS',row['paid_checks'],
+                    'NONLATE',row['nonlate']['future_correct'],
+                    'NONLATE_FALSE',row['nonlate']['false_accept'])
+          for label,row in sorted(x['primary_and_intervention_comparisons'].items()):
+              assert row['cases']==240
+              assert row['unique_public_inputs']==240
+              assert row['paired_gains']-row['paired_losses']==row['net']
+              print('NOR14 COMPARISON',label,row)
+          print('NOR14 FROZEN DEVELOPMENT',x['development_global_frozen'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor14-four-cohort-orthogonal-basin-and-trajectory-evidence
+          path: /tmp/nor14_full.json
