@@ -1,0 +1,37 @@
+name: NOR-01 numerical orbit and Lp sketch controls
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor01-numerical-orbit-sketch.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/**'
+      - '.github/workflows/nor01-numerical-orbit-sketch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-gate-and-empirical-window:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run deterministic tests and negative controls
+        run: python -m unittest discover -s research/nor01_numerical_orbit_sketch -p 'test_orbit_sketch.py' -v
+      - name: Recreate seed-locked p=4 receipt
+        run: python research/nor01_numerical_orbit_sketch/orbit_sketch.py --check --out /tmp/nor01_p4.json
+      - name: Run p=2 baseline
+        run: python research/nor01_numerical_orbit_sketch/orbit_sketch.py --check --p 2 --out /tmp/nor01_p2.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor01-numerical-orbit-receipts
+          path: |
+            /tmp/nor01_p4.json
+            /tmp/nor01_p2.json
