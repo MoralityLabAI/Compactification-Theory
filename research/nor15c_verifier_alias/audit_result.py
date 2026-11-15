@@ -12,8 +12,10 @@ from itertools import permutations
 import json
 from pathlib import Path
 
-SOURCE="54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1a9549a2c6"
 EXPECTED="54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b"
+FROZEN_JSON_SHA="f2dc2865fca360e4ccb717c0e84cde6fe5c1f4a1bea29111b5b1d250753e5f29"
+HERE=Path(__file__).resolve().parent
+RECEIPT=HERE/"results"/"nor15c_frozen_receipt.json"
 COHORTS=(
     "3cf6a5848d561c864d43293f98c218cd20e1d8a20f7a12b4250667b9a16444af",
     "590c68d2025504de392b02dc596afad047ac6dfd916b93c62b68509f94dfc7c8",
@@ -129,8 +131,23 @@ def main():
     p.add_argument("--check",action="store_true")
     args=p.parse_args()
     raw=args.full.read_bytes()
+    pinned=json.loads(RECEIPT.read_text())
+    assert pinned["schema"]=="nor15c.frozen_exact_aliased_verifier_order_receipt.v1"
+    assert pinned["full_json_sha256"]==FROZEN_JSON_SHA
+    assert len(raw)==pinned["full_json_uncompressed_bytes"]==23205
+    assert sha256(raw).hexdigest()==FROZEN_JSON_SHA
     obj=json.loads(raw)
     result=independent_audit(obj)
+    assert pinned["source_checkpoint_sha256"]==obj["source_checkpoint_sha256"]
+    assert pinned["source_model_visible_feature_digest"]==obj["feature_digest"]
+    assert pinned["original_ranker_order"]==obj["original_frozen_model_top_four"]
+    assert pinned["hindsight_oracle_order"]==obj[
+        "retrospective_hindsight_fixed_order_oracle"]["hindsight_optimal_order"]
+    assert pinned["hindsight_oracle_metrics"]==obj[
+        "retrospective_hindsight_fixed_order_oracle"]["hindsight_optimal_metrics"]
+    assert pinned["original_ranker_metrics"]==obj["original_fixed_four_outcome"]
+    assert pinned["unique_public_accepted_masks"]==obj["unique_exact_public_acceptance_masks"]
+    assert pinned["publicly_ambiguous_cases"]==obj["cases_with_multiple_public_accepted_templates"]
     print("NOR15C INDEPENDENT EXACT FOUR-CHECK ORDER AUDIT PASSED",result)
     print("NOR15C JSON",len(raw),sha256(raw).hexdigest())
     if args.check:
