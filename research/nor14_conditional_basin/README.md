@@ -82,3 +82,34 @@ No feature-substitution experiment establishes that the basin score is an indepe
 The CI run uploads all per-case input hashes and native verification outcomes, train-only projection coefficients, development choices and weights' SHA-256 digests. Source tests check portable recurrent-logit parity after nine steps, absence of private-label dependence in the step-four trajectory, finite-design orthogonality, active feature dimensions, public-fit gradients, native four-check constraints and explicit refusal of expanded test budgets.
 
 Status: experimental protocol and runner are committed for independent GitHub Actions execution. No NOR-14 held-out advantage is claimed until the full run and its evidence checks finish.
+
+
+## Frozen first result: independent 288-case NOR-14 run
+
+[Original green Actions execution](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43716329135), artifact ID 14162463420. The full JSON byte stream has SHA-256:
+
+    57b4b82550dce6228356dae924264a95f38d66b3974c038b574eadcad9f7df2d
+
+Its compact pinned receipt is [results/nor14_first_full_receipt.json](results/nor14_first_full_receipt.json), with an [independent arithmetic auditor](receipt_audit.py) for the published full artifact. The earlier protocol, architecture and seed declarations above predate inspection of these outcomes.
+
+| Readout | Primary future-correct /240 nonlate unique inputs | All future-correct /288 | All false accepts | All inference checks |
+| --- | ---: | ---: | ---: | ---: |
+| Original trained 1000-param GRU | 165 | **178** | 22 | 794 |
+| Hidden-only correction, 400 allocated slots | 166 | 176 | 20 | 805 |
+| Learned endpoint basin nonlinear projection | 163 | 173 | 20 | 797 |
+| Shuffled-label endpoint sigmoid | 160 | 167 | 20 | 817 |
+| Seeded random endpoint sigmoid | 161 | 171 | 20 | 793 |
+| Step-four trajectory basin score | **167** | 177 | 20 | 811 |
+| Step-four seeded random sigmoid | 163 | 173 | 20 | 790 |
+
+The global frozen development selector chose the shuffled endpoint gate at amplitude 1; it achieved 160/240 on the nonlate primary score and 167/288 overall. Local frozen amplitudes were 0.25 for endpoint_basin and endpoint_random, 1 for endpoint_shuffled, and 0.5 for both trajectory arms and hidden_only.
+
+For the primary 240 distinct nonlate source inputs, endpoint_basin versus the original GRU had 8 gains and 10 losses (unadjusted two-sided exact p ≈ 0.815). Against the trained shuffled sigmoid, it had 16 gains and 13 losses (p ≈ 0.711); against the random endpoint sigmoid, 7 gains and 5 losses (p ≈ 0.774). These remain nonsignificant under the registered familywise standard. The early trajectory basin gate compared with its random trajectory control had 11 gains and 7 losses (p ≈ 0.481). Its +2 net primary gain over the frozen original is exploratory.
+
+At the fixed endpoint_basin readout weights and projection, deleting only the nonlinear residual changes 163/240 to 161/240; substituting the early-trajectory basin score changes it to 164/240. The scalar has a causal effect on some native ranker decisions, but the substitutions do not establish the content of the learned basin score as the useful signal.
+
+The 48 late_source examples contributed the entire set of 20–22 false accepts: all readouts scored zero false accepts on the nonlate primary sample. They share one nine-by-eight input feature hash; the full 288-case totals therefore answer a materially different, case-weighted question than the 240-input primary result.
+
+All six train projections reached numerical rank 13 with worst train orthogonality moments below 10^-14. The full independent receipt check validates 12 arms x 288 = 3,456 recorded native decisions and per-case signed comparisons when provided with the artifact.
+
+The preregistered basin-specific criterion failed. The data support nonlinear-feature sensitivity in the trained task readout, while the stronger information-theoretic hypothesis remains limited by the deterministic endpoint gate identity. A separate, multi-seed trajectory-feature study with stronger source-level controls is the appropriate next experimental target.
