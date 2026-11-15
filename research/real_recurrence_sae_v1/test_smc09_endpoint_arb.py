@@ -42,7 +42,7 @@ class EndpointTests(unittest.TestCase):
         self.assertTrue(norm.lower()<=1<=norm.upper())
         h=shifted_anchor(self.anchor,7,u,Q(1,5))
         y=endpoint_logits(self.net,h,7)
-        self.assertTrue(y[0].lower()<=Q(2,5)<=y[0].upper())
+        self.assertAlmostEqual(float(y[0].mid()),0.4,places=12)
         self.assertTrue(y[1].lower()<=0<=y[1].upper())
 
     def test_equal_norm_endpoint_causal_effect_certificates(self):
