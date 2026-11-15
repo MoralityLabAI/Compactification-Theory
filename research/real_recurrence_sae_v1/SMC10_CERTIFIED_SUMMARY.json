@@ -1,0 +1,516 @@
+{
+  "schema": "SMC-10/robust-neighborhood-comparative-certificates-v1",
+  "research_date": "2026-11-15",
+  "original_teacher": "externally pretrained 44,001-parameter TRM-inspired recurrent Sudoku model",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "seeds": [
+    71,
+    89,
+    113
+  ],
+  "training_steps": 300,
+  "heldout_puzzles": 16,
+  "independent_puzzle_ids": [
+    3,
+    7,
+    11,
+    15,
+    19,
+    23,
+    27,
+    31,
+    35,
+    39,
+    43,
+    47,
+    51,
+    55,
+    59,
+    63
+  ],
+  "interventions_per_method": 480,
+  "control_comparisons_per_method": 1440,
+  "mathematical_object": "exact-real frozen recurrent network with bounded L2 uncertainty around the shared 48d goal token and selected exact-unit active/control directions; all remaining 80 tokens and teacher weights fixed",
+  "direct": {
+    "run_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43712195763",
+    "artifact_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43712195763/artifacts/14161721672",
+    "zip_sha256": "5b84d9c0adcf1891251d33d306ffeba0af8bcb1f22841815400986db53667eac",
+    "receipt_json_sha256": "a47667de08124c37e88dbf98a4d0b5aee8c5475381b248604443c1d1d8a1acfa"
+  },
+  "local_lipschitz": {
+    "run_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43713063188",
+    "artifact_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43713063188/artifacts/14161327923",
+    "zip_sha256": "420b3d822a3314fd4b22c0dfe8948475c612f9149f2805a0b662bf36874bbd4a",
+    "receipt_json_sha256": "176078f22967482420e08a20aa602b7c45a87074e2ab2b600848f2214d9e20aa"
+  },
+  "independent_cross_method_audit": {
+    "matching_case_keys": 480,
+    "strict_certification_contradictions": 0,
+    "method": "Separate exact class labels from both unmodified hosted receipts, keyed by (puzzle ID, seed, radius, uncertainty budget) across all 3 controls"
+  },
+  "rows": [
+    {
+      "radius": "0.02",
+      "common_l2_budget": "0",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 44,
+          "control_greater": 4,
+          "inconclusive": 0,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 44,
+          "control_greater": 4,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.02",
+      "common_l2_budget": "1e-12",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 44,
+          "control_greater": 4,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 1,
+          "inconclusive": 47,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.02",
+      "common_l2_budget": "1e-10",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 44,
+          "control_greater": 4,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.02",
+      "common_l2_budget": "1e-8",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 15,
+          "inconclusive": 1,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 38,
+          "control_greater": 2,
+          "inconclusive": 8,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.02",
+      "common_l2_budget": "1e-6",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.2",
+      "common_l2_budget": "0",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 43,
+          "control_greater": 5,
+          "inconclusive": 0,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 43,
+          "control_greater": 5,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.2",
+      "common_l2_budget": "1e-12",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 17,
+          "control_greater": 1,
+          "inconclusive": 30,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 22,
+          "control_greater": 0,
+          "inconclusive": 26,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 43,
+          "control_greater": 5,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 45,
+          "inconclusive": 3,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.2",
+      "common_l2_budget": "1e-10",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 43,
+          "control_greater": 5,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.2",
+      "common_l2_budget": "1e-8",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 32,
+          "control_greater": 16,
+          "inconclusive": 0,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 43,
+          "control_greater": 4,
+          "inconclusive": 1,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 48,
+          "inconclusive": 0,
+          "total": 48
+        }
+      }
+    },
+    {
+      "radius": "0.2",
+      "common_l2_budget": "1e-6",
+      "sae_inactive": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 15,
+          "control_greater": 0,
+          "inconclusive": 33,
+          "total": 48
+        }
+      },
+      "isotropic": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 20,
+          "control_greater": 0,
+          "inconclusive": 28,
+          "total": 48
+        }
+      },
+      "jacobian_optimal": {
+        "direct": {
+          "active_greater": 0,
+          "control_greater": 0,
+          "inconclusive": 48,
+          "total": 48
+        },
+        "lipschitz": {
+          "active_greater": 0,
+          "control_greater": 40,
+          "inconclusive": 8,
+          "total": 48
+        }
+      }
+    }
+  ],
+  "boundary": "No independent puzzle family, SAE retraining stability, model weight perturbation, remote-token uncertainty, or hardware FP64 roundoff certified; zero-budget results reproduce SMC-09 exactly."
+}
