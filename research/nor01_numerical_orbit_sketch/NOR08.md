@@ -80,3 +80,37 @@ The [NOR-08B workflow](../../.github/workflows/nor08-squared-capture.yml) has se
 MathCan [NOR-08 basin-code capacity theorem](https://github.com/patrickdugan/MathCan/pull/60) proves that if two late hidden streams approach distinct attracting fixed points and their allowed distance distortion is below the separation minus both tail radii, any faithful terminal-history representation must assign distinct codes. Two distinct attractors were certified in NOR-07; the signed-family source has a certified entry to attractor one. Source entry to attractor two remains the independent NOR-08B gate.
 
 Any evaluation of proof-search competence, native model calibration or broader mechanistic semantics requires separate held-out experiments. The geometric certificate concerns a small real-analytic trained GRU under a declared zero-input intervention.
+
+
+## NOR-08C: held-out family and intervention audit
+
+The [independent 72-case CI run](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43700460668) passed four source-lock and public-only tests and evaluated twelve newly seeded test cases per RRC-25 family. Each case was run through its original nine public input rows and then 720 zero-input steps. A mode was assigned from the closest of the two certified fixed-point centers when the candidate was within a preregistered Euclidean distance of 0.05.
+
+| Public synthetic family | First fixed-point mode | Second fixed-point mode |
+| --- | ---: | ---: |
+| signed | 7 | 5 |
+| sparse | 9 | 3 |
+| product | 5 | 7 |
+| rational | 9 | 3 |
+| squared | 3 | 9 |
+| late_source | 12 | 0 |
+
+All 72 sample trajectories resolved to a mode by this FP64 diagnostic. The prespecified classifier mapping second mode to the squared family and first mode to all other families achieved 70.8% accuracy, below the 83.3% base rate of always predicting not-squared. The geometry captures an attractor distinction, with substantial within-family variability.
+
+A separate deterministic intervention flipped the sign of hidden coordinate zero directly after the nine original input rows, then repeated the same 720-step zero-input continuation. It switched the attractor-mode label in **2/72 cases**, while 70 retained their original FP64 mode. This is one coordinate intervention, not a global causal analysis of all learned features. No hidden training suffixes or future labels were consulted by the mode assignment.
+
+The [NOR-08C implementation](nor08_basin_partition.py) and [hosted workflow](../../.github/workflows/nor08-basin-partition.yml) retain per-case public-feature fingerprints, family counts, original native-logit parity, both distances and intervention outcomes. Source case identities are synthetic; overlap against the full original training roster has not been exhaustively audited.
+
+## NOR-08D: an exact terminal-code separation obligation
+
+The [cross-basin arithmetic audit](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43700705224) passed three tests using the two certified fixed-point centers, the original NOR-04 first ball of radius \(10^{-11}\), and the enlarged second ball of radius \(10^{-6}\).
+
+It computes an exact-rational lower bound on the 12D Euclidean center distance by integer square root with outward rounding. Consequently **every pair of states in the two certified balls** has separation strictly greater than
+
+\[
+\boxed{5.020911335789842.}
+\]
+
+Collapsing such a pair to the same terminal code incurs at least this additive distance error. Under any smaller cross-basin error budget, a faithful late-history encoder needs at least two distinct attractor labels, requiring one fixed-width bit.
+
+This is a deterministic geometric lower bound, using [NOR-08D code](nor08_cross_basin.py) and the merged [MathCan basin-label capacity theorem](https://github.com/patrickdugan/MathCan/pull/60). The signed-family source has a certified first-basin entry; the squared-family source's entry into the second ball still depends on the separate NOR-08B rational capture result. The two-attractor geometry itself was already certified in NOR-07.
