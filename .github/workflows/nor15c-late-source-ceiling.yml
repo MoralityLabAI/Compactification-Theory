@@ -25,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Verify 43680-policy enumeration, first-accept semantics and finite oracle ceilings
         run: python -m unittest research.nor15_late_source_ceiling.test_ceiling -v
+      - name: Verify frozen first-hosted NOR-15C source and result receipt
+        run: python research/nor15_late_source_ceiling/receipt_audit.py --check
 
   fully-new-240-late-source-cohorts:
     needs: exact-four-order-algebra
@@ -74,6 +76,8 @@ jobs:
           print('NOR15C PUBLIC MASK ORACLE',x['test_full_mask_group_hindsight_bounds'])
           print('NOR15C JSON',len(raw),hashlib.sha256(raw).hexdigest())
           PY
+      - name: Independently re-enumerate all 43680 four-check policies and mask ceilings
+        run: python research/nor15_late_source_ceiling/receipt_audit.py --check --full /tmp/nor15c_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor15c-exact-feature-fibre-160-test-80-dev-four-check-ceiling
