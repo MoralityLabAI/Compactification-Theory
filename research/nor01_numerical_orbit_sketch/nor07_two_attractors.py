@@ -38,6 +38,7 @@ from research.nor01_numerical_orbit_sketch.invariant_ball import (
 from trained_gru_cert import (
     Interval,N,build_certificate,gates,get_weights,sqrt_upper,ZERO,
 )
+from nor07_recentered_tube import recentered_tube
 
 SECOND_SEED=(
     "0.1451578041821899",
@@ -147,20 +148,20 @@ def two_fixed_points_certificate():
         raise AssertionError("wrong trained checkpoint")
     center,center_literals,history=decimal_newton_center(ck)
     weights=get_weights(ck)
-    box=centered_ball(center,RADIUS)
-    block=build_certificate(weights,box,length=BLOCK,
-                            label="squared_family_second_attractor")
-    K=Q(block["block_operator_frobenius_upper_fraction"])
-    s=point_residual(weights,center,BLOCK)
+    # Uniform local contraction of F^24 using exact-rational recentered
+    # Taylor shadowing. Global Hessian bounds cover every possible orbit
+    # within the ball and nominal products retain nonnormal cancellation.
+    block=recentered_tube(weights,center,RADIUS,BLOCK)
+    K=Q(block["block_operator_norm_upper_fraction"])
+    s=Q(block["center_residual_upper_fraction"])
     margin=RADIUS-s-K*RADIUS
     if K>=1 or margin<=0:
         raise AssertionError(
             f"second 24-step block failed local contraction: K={K}, s={s}, R={RADIUS}, margin={margin}")
     dstar=s/(1-K)
-    one=build_certificate(weights,box,length=1,
-                          label="squared_family_period_one")
-    L1=Q(one["block_operator_frobenius_upper_fraction"])
-    s1=point_residual(weights,center,1)
+    one=recentered_tube(weights,center,RADIUS,1)
+    L1=Q(one["block_operator_norm_upper_fraction"])
+    s1=Q(one["center_residual_upper_fraction"])
     image_bound=s1+L1*dstar
     if image_bound>=RADIUS:
         raise AssertionError("second periodic orbit not excluded")
@@ -178,6 +179,11 @@ def two_fixed_points_certificate():
         "second_center_decimals":center_literals,
         "second_ball_radius_fraction":str(RADIUS),
         "block_depth":BLOCK,
+        "second_block_certification_method":"recentered rational nominal Jacobians and exact Volterra Taylor-product bounds",
+        "second_nominal_product_upper_fraction":block["nominal_product_frobenius_upper_fraction"],
+        "second_derivative_variation_upper_fraction":block["block_derivative_variation_upper_fraction"],
+        "second_max_state_tube_radius_fraction":block["max_tube_radius_upper_fraction"],
+        "second_point_shadowing_error_fraction":block["last_point_shadowing_error_fraction"],
         "second_block_operator_norm_upper_fraction":str(K),
         "second_block_operator_norm_upper_float":float(K),
         "second_block_residual_upper_fraction":str(s),
