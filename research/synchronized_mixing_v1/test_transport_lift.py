@@ -67,6 +67,18 @@ class LiftTests(unittest.TestCase):
         cross=tl.gauge_intervention_audit(2, horizon=4, swap=(0,2))
         self.assertEqual(cross['rows'][0]['graph_only_relabel_pass'],'0')
 
+    def test_permanent_uniform_product_tv_plateau_seed(self):
+        _, perms, _, kernel, _ = tl.kernel_lift(2)
+        mu = {perms[0]: tl.ONE}
+        for _ in range(6):
+            mu = tl.push(mu, kernel)
+        self.assertEqual(min(mu.get(p, Fraction(0)) for p in perms), Fraction(65,4096))
+        self.assertGreater(Fraction(65,4096), Fraction(1,72))
+        for _ in range(10):
+            lower = min(mu.get(p, Fraction(0)) for p in perms)
+            mu = tl.push(mu, kernel)
+            self.assertGreaterEqual(min(mu.get(p, Fraction(0)) for p in perms), lower)
+
     def test_large_matching_lift(self):
         result=tl.exact_sweep(3,horizon=3)
         self.assertEqual(result['n_graph_states'],15)
