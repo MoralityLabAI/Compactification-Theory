@@ -237,9 +237,9 @@ def inspect_full(data,pinned):
     assert {r["model_input_sha256"] for r in late}.isdisjoint({
         r["model_input_sha256"] for r in nonlate})
     certified=sum(verify_one_record(r) for r in records)
-    assert certified==data["late_source_counterfactual_observation_collision_witnesses"]
+    assert certified==(data["late_source_counterfactual_observation_collision_witnesses"]
         + sum(r["counterfactual_indistinguishable_pair"] is not None
-              for r in nonlate)
+              for r in nonlate))
     assert sum(r["counterfactual_indistinguishable_pair"] is not None
                for r in late)==pinned["late_counterfactual_observation_collision_cases"]==140
     assert len({r["public_accept_mask"] for r in late})==27
