@@ -104,3 +104,22 @@ From the repository root:
 The CI workflow runs both SMC-01 and SMC-02 tests and uploads deterministic JSON traces for both. The new SMC-02 test file contains five families: strong lumpability and stationary measures at 4/6 vertices; an unrelated nonuniform collision identity; the four-slot finite-time curve and optimal detector; exact polynomial/trace spectral verification; and the six-vertex extension.
 
 MathCan holds the separately written pure-math proof and an independent exact-rational Gram oracle. This file records applied finite evidence and a registered path to recurrent-model falsification.
+
+
+## Exact gauge intervention controls
+
+Treat matching G and permutation Π as two coordinates in the same labeling gauge. A common relabeling by σ sends (G,Π) to (σG,σΠ) and preserves the relation G=ΠM0 with probability **1 at every sweep**. Swapping two vertex labels in the graph **alone**, with Π fixed, preserves the relation exactly when the chosen pair is already an edge of G. For a uniform matching on 2k vertices this occurs with probability 1/(2k-1).
+
+| Matching size | Common relabel success | One-sided transposition at stationarity | One-sided independent full permutation at stationarity |
+|---:|---:|---:|---:|
+| 4 vertices | 1 | 1/3 | 1/3 |
+| 6 vertices | 1 | 1/5 | 1/15 |
+
+For k=2, selecting the base-matching pair (0,1) gives one-sided success 1/3+(2/3)4^-t; selecting (0,2), a base cross pair, gives 1/3-(1/3)4^-t. The common-frame control stays at 1. These interventions distinguish a gauge-consistent relational detector from one that memorizes labels.
+
+The local exact CPU replay confirms the finite-time values and the general k=2,3 stationarity counts. The CI artifact now includes the intervention traces. The corresponding proof is [MathCan OLM-02E](https://github.com/patrickdugan/MathCan/blob/research/olm01-orbit-lock-dual-mixing-20261115/research/orbit_lock/OLM02_COLLISION_SPECTRUM_LIFT.md).
+
+## Why the TV plateau is permanent
+
+The checked minimum mass of the permutation law at sweep 6 is **65/4096**, which exceeds 1/72, the uniform-product mass at every joint compatible atom. Hence every compatible atom has nonnegative signed discrepancy from the fixed uniform product. Their union is the optimal TV event and gives distance 2/3. The permutation kernel is doubly stochastic, so the minimum point mass can only increase at successive steps. Consequently the 2/3 plateau holds for every integer sweep t≥6, as proved in MathCan OLM-02F.
+
