@@ -1,0 +1,81 @@
+name: NOR-11 trained attractor-aware recurrent controller
+
+on:
+  push:
+    paths:
+      - 'research/nor11_attractor_controller/**'
+      - '.github/workflows/nor11-basin-controller.yml'
+  pull_request:
+    paths:
+      - 'research/nor11_attractor_controller/**'
+      - '.github/workflows/nor11-basin-controller.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-and-policy-regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate original RRC25 verifier parity, no future-label leakage and CPU-trained basin head
+        run: python -m unittest research.nor11_attractor_controller.test_controller -v
+
+  full-source-locked-evaluation:
+    needs: source-and-policy-regressions
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fit public-hidden basin head and evaluate native 4-check task controls
+        run: python research/nor11_attractor_controller/controller.py --check --train-per-family 32 --dev-per-family 12 --test-per-family 12 --out /tmp/nor11_controller.json
+      - name: Compare heldout classifier, native verifier, intervention and shuffled-head negative controls
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('/tmp/nor11_controller.json').read_text())
+          assert r['schema']=='nor11.frozen_gru.trained_basin_head_and_escape_controller.v1'
+          assert r['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert r['frozen_gru_parameters']==1000
+          assert r['trained_auxiliary_head_parameters']==13
+          assert r['native_template_verifier_budget']==4
+          assert not r['trained_gru_weights_modified']
+          assert not r['train_restrictions']['native_future_truth_used_to_fit_head']
+          assert not r['train_restrictions']['per_new_sample_source_basin_interval_certified']
+          assert r['cohorts']['train']['cases']==96
+          assert r['cohorts']['dev']['cases']==36
+          assert r['cohorts']['test']['cases']==72
+          for name in ('train','dev','test'):
+              split=r['cohorts'][name]
+              assert split['distinct_public_features']==split['cases']
+          test=r['head_diagnostics']['test']
+          for k,record in test.items():
+              print('NOR11 TEST BASIN HEAD',k,'balanced accuracy',
+                    record['balanced_accuracy'],'auc',record['auc'],
+                    'brier',record['brier'],'unresolved',record['unresolved'])
+          print('NOR11 DEV FROZEN POLICY',r['selected_policy'])
+          for arm,x in r['heldout_protocol'].items():
+              assert x['cases']==72 and x['paid_checks_total']<=288
+              assert x['accepted']==x['future_correct']+x['false_accept']
+              print('NOR11 NATIVE TASK',arm,
+                    'future_correct',x['future_correct'],
+                    'false_accept',x['false_accept'],
+                    'mean_paid_checks',x['mean_paid_checks'],
+                    'actions',x['actions'],
+                    'mode_switches',x['mode_switches_if_actuated'])
+          assert r['heldout_protocol']['original']['actions']==0
+          print('NOR11 explicit rule: report native capability gain only if heldout score improves')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor11-frozen-trained-basin-head-and-native-task-controls
+          path: /tmp/nor11_controller.json
