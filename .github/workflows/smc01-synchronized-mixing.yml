@@ -1,4 +1,4 @@
-name: SMC-01/02 synchronized mixing exact oracles
+name: SMC-01/02/03 mixing and probe controls
 
 on:
   push:
@@ -43,9 +43,12 @@ jobs:
           with open("smc02-lift-results.json", "w") as f:
               json.dump(report, f, indent=2)
           PY
+      - name: Produce exact stratified probe cohort controls
+        run: python research/synchronized_mixing_v1/relational_probe.py > smc03-controls.json
       - uses: actions/upload-artifact@v4
         with:
-          name: smc01-02-exact-results
+          name: smc01-02-03-exact-results
           path: |
             smc01-results.json
             smc02-lift-results.json
+            smc03-controls.json
