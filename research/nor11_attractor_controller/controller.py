@@ -275,12 +275,14 @@ def score_with_hidden(case,header,h,ck):
             "has_verified_proposal":found is not None}
 
 
-def evaluate(rows,ck,head,p1,threshold,alpha,mode,per_case_modes=False,predict_head=None):
+def evaluate(rows,ck,head,p1,threshold,alpha,mode,per_case_modes=False,
+             predict_head=None,p2=None):
     stats=Counter()
     by_family=defaultdict(Counter)
-    baseline_futures=[]
     modes={"first_to_second":0,"second_to_first":0,
            "same":0,"other":0}
+    if per_case_modes and p2 is None:
+        raise ValueError("future-mode auditing requires frozen second center")
     records=[]
     for row in rows:
         source_h=row["hidden"]
@@ -319,7 +321,7 @@ def evaluate(rows,ck,head,p1,threshold,alpha,mode,per_case_modes=False,predict_h
         by_family[row["case"].family]["cases"]+=1
         by_family[row["case"].family]["actions"]+=int(action)
         if per_case_modes and action:
-            after,_,_=basin_mode(changed,ck,p1,EVAL_P2[0])
+            after,_,_=basin_mode(changed,ck,p1,p2)
             old=row["mode"]
             if old==after:
                 modes["same"]+=1
@@ -359,11 +361,6 @@ def evaluate(rows,ck,head,p1,threshold,alpha,mode,per_case_modes=False,predict_h
     }
 
 
-# The fixed second center is initialized once by run() to avoid changing the
-# task interface of the original train/model/checkpoint repository.
-EVAL_P2=((),)
-
-
 def choose_dev_policy(dev,ck,head,p1):
     candidates=[{"alpha":0.0,"threshold":1.0,"label":"no_intervention"}]
     candidates.extend({"alpha":a,"threshold":t,"label":"conditional"}
@@ -385,8 +382,6 @@ def choose_dev_policy(dev,ck,head,p1):
 
 def run(counts=COUNTS):
     ck,p1,p2=train_source()
-    global EVAL_P2
-    EVAL_P2=(p2,)
     cases=sample_cohorts(counts)
     rows=build_rows(cases,ck,p1,p2)
     train=[x for x in rows["train"] if x["mode"]!="unresolved"]
@@ -401,18 +396,18 @@ def run(counts=COUNTS):
     chosen,candidates=choose_dev_policy(rows["dev"],ck,head,p1)
     test=rows["test"]
     protocol={
-        "original":evaluate(test,ck,head,p1,1.0,0,"baseline",True),
+        "original":evaluate(test,ck,head,p1,1.0,0,"baseline",True,p2=p2),
         "selected":evaluate(test,ck,head,p1,chosen["threshold"],chosen["alpha"],
-                            "conditioned",True),
+                            "conditioned",True,p2=p2),
         "fixed_escape":evaluate(test,ck,head,p1,TARGET_GUARD_THRESHOLD,
                                  TARGET_GUARD_ALPHA,"conditioned",True),
         "unconditional":evaluate(test,ck,head,p1,0.,TARGET_GUARD_ALPHA,
-                                 "unconditional",True),
+                                 "unconditional",True,p2=p2),
         "shuffled_head_escape":evaluate(test,ck,head,p1,TARGET_GUARD_THRESHOLD,
                                         TARGET_GUARD_ALPHA,"conditioned",True,
-                                        predict_head=shuffled_head),
+                                        predict_head=shuffled_head,p2=p2),
         "random_direction":evaluate(test,ck,head,p1,TARGET_GUARD_THRESHOLD,
-                                     TARGET_GUARD_ALPHA,"random_control",True),
+                                     TARGET_GUARD_ALPHA,"random_control",True,p2=p2),
     }
     provenance={
         split:{
@@ -427,7 +422,7 @@ def run(counts=COUNTS):
     assert len(set(z["digest"] for group in rows.values() for z in group))==sum(
         len(z) for z in rows.values())
     base=protocol["original"]
-    assert base["cases"]==sum(len(x) for x in rows["test"] for _ in [0])
+    assert base["cases"]==len(rows["test"])
     assert base["actions"]==0
     assert all(s["paid_checks_total"]<=PAID_TEMPLATE_CHECK_BUDGET*s["cases"]
                for s in protocol.values())
