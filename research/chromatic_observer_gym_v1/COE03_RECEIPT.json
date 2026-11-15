@@ -1,0 +1,96 @@
+{
+  "exploratory_seven_train_three_withheld": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "steps": [
+      35,
+      13,
+      68,
+      56,
+      44,
+      27,
+      10,
+      38,
+      39,
+      23
+    ],
+    "train_fit_count": 10,
+    "withheld_edges": [
+      [
+        0,
+        4
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        4
+      ]
+    ],
+    "withheld_fit_count": 2
+  },
+  "format": "coe03-frozen-receipt-v1",
+  "rational_reference": {
+    "binary_one_shot_min_channels": 1023,
+    "demo_amplitude": "4/341",
+    "demo_digest": "2a99809deb1babd57d9d10e959775429470fafa90d390331b6d82f6f581dd5eb",
+    "demo_grid_bits": 10,
+    "demo_hamming_max": 168,
+    "demo_hamming_min": 91,
+    "demo_l1_max": "672/341",
+    "demo_l1_min": "364/341",
+    "demo_seed": 2305,
+    "demo_soft_channels": 256,
+    "demo_states": 1024,
+    "format": "coe03-reference-v1",
+    "mux_n17_k4_rounds": 4,
+    "provenance": "deterministic synthetic, not checkpoint activations",
+    "soft_k5_pairwise_distances": [
+      "1",
+      "2",
+      "4/3"
+    ],
+    "soft_k5_width": 3
+  },
+  "synthetic_only": true,
+  "training_all_ten_pairs": {
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "soft_fit_count": 10,
+    "steps": [
+      51,
+      47,
+      41,
+      77,
+      42,
+      51,
+      46,
+      56,
+      158,
+      235
+    ],
+    "threshold_half_fit_count": 0
+  }
+}

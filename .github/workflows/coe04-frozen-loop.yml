@@ -1,0 +1,38 @@
+name: COE-04 frozen tied-loop temporal observer checks
+
+on:
+  pull_request:
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe04-frozen-loop.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe04-frozen-loop.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-evaluator-replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify all chromatic observer and frozen temporal tests
+        run: python -m unittest discover -s research/chromatic_observer_gym_v1 -p 'test_*.py' -v
+      - name: Print checkpoint provenance and all three SHA256 checks
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, 'research/chromatic_observer_gym_v1')
+          from frozen_loader import verify_frozen
+          data, hashes = verify_frozen()
+          assert len(data['items']) == 3
+          for entry in hashes:
+              print(entry)
+          PY

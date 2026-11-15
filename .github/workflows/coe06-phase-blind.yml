@@ -1,0 +1,42 @@
+name: COE-06 phase-invariant quantized observer and frozen replay
+
+on:
+  pull_request:
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe06-phase-blind.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/chromatic_observer_gym_v1/**'
+      - '.github/workflows/coe06-phase-blind.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  orbit-and-frozen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Replay exact cyclic code, resource bounds, and frozen heads
+        run: python -m unittest discover -s research/chromatic_observer_gym_v1 -p test_phase_blind.py -v
+      - name: Print exact finite phase-blind witness
+        run: python research/chromatic_observer_gym_v1/gauge_orbit_codes.py
+      - name: Confirm golden committed ledger from exhaustive integer enumeration
+        run: |
+          python research/chromatic_observer_gym_v1/resource_bound.py > /tmp/coe06-resource-preview.txt
+          python research/chromatic_observer_gym_v1/phase_gauge_replay.py \
+            --activation research/chromatic_observer_gym_v1/replication_activations.json.gz \
+            --receipt research/chromatic_observer_gym_v1/new_fit_phase_receipt.json \
+            --out /tmp/coe06-gauge-replay.json
+          python - <<'PY'
+          import json
+          src='research/chromatic_observer_gym_v1/'
+          assert json.load(open('/tmp/coe06-gauge-replay.json')) == json.load(open(src+'COE06_GAUGE_REPLAY.json'))
+          print('Post-hoc frozen replay matches checked-in receipt')
+          PY
