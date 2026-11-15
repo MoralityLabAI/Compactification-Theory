@@ -34,6 +34,10 @@ jobs:
           from fractions import Fraction
           from pathlib import Path
           r = json.loads(Path('/tmp/nor04_invariant_ball.json').read_text())
+          frozen = json.loads(Path(
+              'research/nor01_numerical_orbit_sketch/results/nor04_invariant_ball.json'
+          ).read_text())
+          assert r == frozen, 'NOR-04 output differs from the source-locked reference receipt'
           assert r['schema'] == 'nor04.trained_gru.invariant_ball.v1'
           assert r['checkpoint_sha256'] == '54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
           assert r['checkpoint_parameters'] == 1000
