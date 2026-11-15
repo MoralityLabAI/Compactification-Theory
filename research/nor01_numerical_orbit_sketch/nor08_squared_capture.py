@@ -108,7 +108,7 @@ def run(max_blocks=180,record_stride=12):
         "checkpoint_sha256":digests["recurrent"],
         "source_model_parameters":ck["parameters"],
         "public_source":meta,
-        "target_first_attractor_excluded":True,
+        "target_second_ball_disjoint_from_first":True,
         "target_second_center_sha256":prior_hash,
         "target_expanded_ball_receipt_sha256":expanded_hash,
         "target_ball_radius_fraction":str(R),
