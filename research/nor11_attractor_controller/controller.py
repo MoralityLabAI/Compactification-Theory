@@ -79,9 +79,11 @@ def public_digest(case,header):
     return sha256(json.dumps(x,separators=(",",":")).encode()).hexdigest()
 
 
-def sample_split(split,n,seen):
+def sample_split(split,n,seen_features,seen_visible=None):
     if split not in SPLIT_SEED_OFFSETS or not 1<=n<=128:
         raise ValueError("unknown split or bounded sample count")
+    if seen_visible is None:
+        seen_visible=set()
     families=TRAIN_FAMILIES if split!="test" else TEST_FAMILIES
     out=[]
     for ix,family in enumerate(families):
@@ -93,25 +95,37 @@ def sample_split(split,n,seen):
             if len(headers)!=1:
                 continue
             digest=public_digest(case,headers[0])
-            if digest in seen:
+            visible=sha256(json.dumps(case.visible,separators=(",",":")).encode()).hexdigest()
+            if visible in seen_visible or digest in seen_features:
                 continue
-            seen.add(digest)
+            # Train and development have distinct feature tensors, with
+            # zero feature-level overlap against the entire test split.
+            # TEST may contain aliases (multiple distinct public cases
+            # produce the same exact 9x8 model-visible feature tensor).
+            # In particular, late_source repeats an early-feature tensor.
+            if split!="test":
+                seen_features.add(digest)
+            seen_visible.add(visible)
             out.append((case,headers[0],digest))
             found+=1
             if found>=n:
                 break
         if found!=n:
-            raise RuntimeError("exhausted distinct public tensors for "+split+"/"+family)
+            raise RuntimeError("exhausted distinct public cases for "+split+"/"+family)
     return out
 
 
 def sample_cohorts(counts=COUNTS):
-    seen=set()
+    train_dev_features=set()
+    visible=set()
     all_splits={}
     for name in ("train","dev","test"):
-        all_splits[name]=sample_split(name,counts[name],seen)
+        all_splits[name]=sample_split(name,counts[name],train_dev_features,visible)
     expected=len(TRAIN_FAMILIES)*(counts["train"]+counts["dev"])+len(TEST_FAMILIES)*counts["test"]
-    assert len(seen)==expected
+    assert len(visible)==expected
+    assert len(train_dev_features)==len(all_splits["train"])+len(all_splits["dev"])
+    test_features={x[2] for x in all_splits["test"]}
+    assert not (test_features & train_dev_features)
     return all_splits
 
 
@@ -409,18 +423,29 @@ def run(counts=COUNTS):
         "random_direction":evaluate(test,ck,head,p1,TARGET_GUARD_THRESHOLD,
                                      TARGET_GUARD_ALPHA,"random_control",True,p2=p2),
     }
-    provenance={
-        split:{
+    provenance={}
+    for split,group in rows.items():
+        feature_counts=Counter(z["digest"] for z in group)
+        provenance[split]={
             "cases":len(group),
-            "distinct_public_features":len({z["digest"] for z in group}),
+            "distinct_public_features":len(feature_counts),
+            "repeated_feature_case_count":sum(v for v in feature_counts.values() if v>1),
+            "largest_public_feature_alias_group":max(feature_counts.values()),
+            "per_family_distinct_features":{
+                fam:len({z["digest"] for z in group if z["case"].family==fam})
+                for fam in (TRAIN_FAMILIES if split!="test" else TEST_FAMILIES)
+            },
             "source_families":dict(Counter(z["case"].family for z in group)),
             "reference_modes":dict(Counter(z["mode"] for z in group)),
             "public_feature_manifest_sha256":sha256(
                 "\n".join(z["digest"] for z in group).encode()).hexdigest(),
-        } for split,group in rows.items()
-    }
-    assert len(set(z["digest"] for group in rows.values() for z in group))==sum(
-        len(z) for z in rows.values())
+        }
+    train_dev_inputs={z["digest"] for split in ("train","dev") for z in rows[split]}
+    test_inputs={z["digest"] for z in rows["test"]}
+    assert len(train_dev_inputs)==len(rows["train"])+len(rows["dev"])
+    assert not (train_dev_inputs & test_inputs)
+    assert all(provenance[s]["cases"]==provenance[s]["distinct_public_features"]
+               for s in ("train","dev"))
     base=protocol["original"]
     assert base["cases"]==len(rows["test"])
     assert base["actions"]==0
@@ -437,9 +462,14 @@ def run(counts=COUNTS):
         "head":head,"shuffled_label_control_head":shuffled_head,
         "cohorts":provenance,
         "head_diagnostics":{
-            split:{"trained":predicted_metrics(group,head),
-                   "shuffled_label":predicted_metrics(group,shuffled_head)}
-            for split,group in rows.items()
+            split:{
+                "trained":predicted_metrics(group,head),
+                "shuffled_label":predicted_metrics(group,shuffled_head),
+                "trained_unique_features":predicted_metrics(
+                    list({r["digest"]:r for r in reversed(group)}.values()),head),
+                "shuffled_unique_features":predicted_metrics(
+                    list({r["digest"]:r for r in reversed(group)}.values()),shuffled_head),
+            } for split,group in rows.items()
         },
         "development_policy_grid":candidates,
         "selected_policy":chosen,
@@ -460,6 +490,8 @@ def run(counts=COUNTS):
             "no_model_gru_gradient_update":True,
             "source_future_uses_for_controller":False,
             "per_new_sample_source_basin_interval_certified":False,
+            "test_feature_aliases_counted_separately":True,
+            "feature_alias_repeated_cases_not_independent_classifier_trials":True,
             "native_proof_search_performance_gain_claimed":False,
         },
     }
