@@ -157,9 +157,12 @@ def gates(weights, hidden, input_row=None):
     return state, r, z, candidate, wh
 
 
-def jacobian_interval(weights, center):
-    """Interval enclosure of analytic D_h F(h; zero_input) at exact rational center."""
-    h = [Interval.point(c) for c in center]
+def jacobian_interval(weights, hidden):
+    """Interval enclosure of analytic D_h F(h; zero_input) on an entire box.
+
+    This supports both exact rational points and outward-rounded state boxes.
+    """
+    h = [as_interval(c) for c in hidden]
     _, r, z, candidate, wh = gates(weights, h)
     one = Interval.point(1)
     hh = weights["hh"]
@@ -170,7 +173,7 @@ def jacobian_interval(weights, center):
         dn = one - candidate[i] * candidate[i]
         row = []
         for j in range(N):
-            c = (Interval.point(center[i]) - candidate[i]) * dz * hh[N + i][j]
+            c = (h[i] - candidate[i]) * dz * hh[N + i][j]
             c += (one - z[i]) * dn * (
                 r[i] * hh[2 * N + i][j] + wh[2 * N + i] * dr * hh[i][j])
             if i == j:
@@ -271,6 +274,7 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
     nominal = []
     uncertainty = []
     norm_bounds = []
+    jac_boxes = []
     centers = []
     radii = []
     for _ in range(length):
@@ -278,14 +282,16 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
         centers.append(midpoint)
         radius = radius_upper(forward, midpoint)
         radii.append(radius)
-        ji = jacobian_interval(weights, midpoint)
+        ji = jacobian_interval(weights, forward)
+        jac_boxes.append(ji)
         jm = [[round_rational((z.lo+z.hi)/2) for z in row] for row in ji]
-        err_at_center = sqrt_upper(sum(
+        # Direct pointwise box enclosure of the true analytic Jacobian.
+        # This is materially tighter than Hessian_M * state_box_radius,
+        # particularly for trained GRU saturating sigmoid/tanh gates.
+        err = sqrt_upper(sum(
             (max(abs(z.lo - f), abs(z.hi - f)) ** 2
              for row, estimates in zip(ji, jm, strict=True)
              for z, f in zip(row, estimates, strict=True)), ZERO))
-        # Matrix operator error: ||J(h)-Jmid||_2 <= err_at_center + M*radius.
-        err = err_at_center + M * radius
         uncertainty.append(err)
         norm_bounds.append(sqrt_upper(frobenius_squared(jm)) + err)
         nominal.append(jm)
@@ -301,7 +307,23 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
         [product[i][j] - (center if i==j else ZERO) for j in range(N)]
         for i in range(N)
     ])
-    b = ceil_rational(sqrt_upper(f_sq) + error, 10**12)
+    # Independent, exact entrywise interval product enclosure.
+    # It retains signed cancellation between successive Jacobians, unlike
+    # the generic L*maxnorm^(L-1)*maxepsilon telescoping envelope.
+    iproduct = [[Interval.point(int(i == j)) for j in range(N)]
+                for i in range(N)]
+    for ji in jac_boxes:
+        iproduct = [[sum((ji[i][k] * iproduct[k][j] for k in range(N)),
+                         Interval.point(0))
+                     for j in range(N)] for i in range(N)]
+    direct_sq = sum((
+        max(abs(entry.lo - (center if i == j else ZERO)),
+            abs(entry.hi - (center if i == j else ZERO)))**2
+        for i,row in enumerate(iproduct)
+        for j,entry in enumerate(row)), ZERO)
+    direct_b = ceil_rational(sqrt_upper(direct_sq), 10**12)
+    telescope_b = ceil_rational(sqrt_upper(f_sq) + error, 10**12)
+    b = min(direct_b, telescope_b)
     q = center + b
     # Ball perturbation and remainder recurrence. Holds for every
     # ||e||_2 <= perturbation with h+e inside invariant cube.
@@ -317,6 +339,9 @@ def build_certificate(weights, anchor_box, length=12, center=Q(1, 32),
         "disk_center_fraction": str(center),
         "disk_radius_fraction": str(b),
         "disk_q_float": float(q),
+        "disk_method": "direct_interval_product" if direct_b <= telescope_b else "heterogeneous_telescope",
+        "direct_product_disk_q_float": float(center + direct_b),
+        "coarse_telescope_disk_q_float": float(center + telescope_b),
         "contracting_disk": q < 1,
         "analytic_step": "exact trained GRU real-analytic zero-input map",
         "certifies": "W(D F^L(h_exact)) subset closed complex disk, for exact hidden-state interval",
