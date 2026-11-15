@@ -1,0 +1,29 @@
+name: NOR-07C frozen two-attractor rational evidence audit
+
+on:
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor07_receipt_audit.py'
+      - 'research/nor01_numerical_orbit_sketch/results/nor07_two_attractors_summary.json'
+      - '.github/workflows/nor07-receipt-audit.yml'
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor07_receipt_audit.py'
+      - 'research/nor01_numerical_orbit_sketch/results/nor07_two_attractors_summary.json'
+      - '.github/workflows/nor07-receipt-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-banach-inequalities:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independent Fraction checks for both certified invariant balls
+        run: python research/nor01_numerical_orbit_sketch/nor07_receipt_audit.py --check

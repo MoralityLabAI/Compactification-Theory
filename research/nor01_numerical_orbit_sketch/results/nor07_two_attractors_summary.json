@@ -1,0 +1,48 @@
+{
+  "schema": "nor07.trained_gru.two_attractors.frozen_summary.v1",
+  "executed_utc_date": "2026-11-15",
+  "original_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "source_code_commit": "9db9a9927eb451e7862b098906c68d85674ffce6",
+  "successful_workflow": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43698679035",
+  "original_artifact_id": 14156015046,
+  "original_artifact_name": "nor07-two-disjoint-attracting-fixed-points",
+  "proof": "exact-decimal trained GRU, stationary-center rational Volterra bounds, global Hessian, Banach, one-step commutation",
+  "verified_regression_tests": 12,
+  "first_attractor": {
+    "source": "NOR-04/05",
+    "radius_fraction": "1/100000000000",
+    "block_depth": 12,
+    "local_uniform_K": "928242792263/1000000000000"
+  },
+  "second_attractor": {
+    "candidate_source": "squared-family NOR-06 FP64 terminal hidden vector after 4800 zero-input steps",
+    "center_decimals": [
+      "0.1451578041821902972100550779213090120964823599166470066",
+      "-0.8993696968577393675049938562686029835769140096336881730",
+      "-0.9923539160757804579933616914486665120780115680619388879",
+      "-0.9971305775139847643522065870847160198263220187561807892",
+      "-0.5076632268742521727553563051165966778459779598559838191",
+      "-0.7910793027003602324564747628529044657914883150552606505",
+      "-0.9984916188623806802962859142772124645891814445746257084",
+      "0.6248120006021969470256539544446989487075855327476208895",
+      "-0.4616114637712731259541713634077289535389263975776770225",
+      "-0.9915490073530465489482513371310275946543831367635868044",
+      "0.9788303198313502185668683474744284349223299576179986404",
+      "0.9936873713530419555747125139076026763045350210105679452"
+    ],
+    "radius_fraction": "1/100000000000000000000",
+    "block_depth": 24,
+    "uniform_block_operator_norm_upper_fraction": "80428013844207623058831195827191/100000000000000000000000000000000",
+    "center_block_residual_upper_fraction": "37/5000000000000000000000000000000",
+    "exact_ball_invariance_margin_fraction": "19571986081792376941168804172809/10000000000000000000000000000000000000000000000000000",
+    "one_step_operator_norm_upper_fraction": "236615121362149098598130488441529/100000000000000000000000000000000",
+    "one_step_center_residual_upper_fraction": "3/12500000000000000000000000000000",
+    "one_step_fixed_point_image_upper_fraction": "43891229368932337502301153186719719/489299653894809423529220104320225000000000000000000000000000000",
+    "certified_period_one": true,
+    "input_trajectory_entry_into_small_ball_certified": false
+  },
+  "exact_coordinate_separation_lower_fraction": "1838915401150995267494993856268602983576914009633688173/1000000000000000000000000000000000000000000000000000000",
+  "disjoint_balls_certified": true,
+  "two_locally_attracting_fixed_points_certified": true,
+  "limits": "Local real-analytic model with decimal-rational trained checkpoint, squared-family source orbit entry not proven, no native task accuracy claim."
+}
