@@ -31,7 +31,10 @@ from research.rrc_compactification import bench25
 from research.nor01_numerical_orbit_sketch.invariant_ball import (
     CENTER as FIRST_CENTER,RADIUS as FIRST_RADIUS,centered_ball,
 )
-from research.nor01_numerical_orbit_sketch.trained_gru_cert import (
+# The existing invariant_ball module imports trained_gru_cert as a local
+# module. Use the same module identity here so Interval instance checks
+# remain valid across both independent certificates.
+from trained_gru_cert import (
     Interval,N,build_certificate,gates,get_weights,sqrt_upper,ZERO,
 )
 
