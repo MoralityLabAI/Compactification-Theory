@@ -251,6 +251,7 @@ def evaluate_confirm(replicates=REPETITIONS,per_family=CASES_PER_FAMILY):
         for i,row in enumerate(rows):
             dig=row["digest"]
             base_out=baseline["records"][i]["future_correct"]
+            all_group_diffs[("original",dig)].append((0,row["case"].family))
             for key in FIT_HASH_KEYS:
                 delta=arms[key]["records"][i]["future_correct"]-base_out
                 all_group_diffs[(key,dig)].append((delta,row["case"].family))
