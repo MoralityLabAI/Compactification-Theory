@@ -1,16 +1,72 @@
 {
   "status": "passed",
-  "commands": [
+  "hodge": {
+    "verified": 1256,
+    "unsupported": 0,
+    "rejected": 0
+  },
+  "research_lemmas": {
+    "verified": 1449,
+    "unsupported": 0,
+    "rejected": 0
+  },
+  "formal_theorems": 14,
+  "spatial_test_suites": 6,
+  "spatial_assertions": 8299,
+  "previous_component_assertions": 83362,
+  "acceptance_tests": 5,
+  "auditor_tests": 5,
+  "native_versions": [
+    "4.32.0-rc1",
+    "preserved 4.35.0"
+  ],
+  "full_theorem_scope": "Paper proof and explicit ReLU compiler; full analytic theorem not Lean formalized",
+  "spatial_source_sha256": "bc006e0ec2a227eac72657367b5211a7b71c1adfb74a87cc66336e9ded8ad910",
+  "spatial_tests_sha256": "e14bb4cd2296a445582453c0a7e41d957b5594b5b66214f63bb1dc1730943ba8",
+  "materialized_circuit_certificate": {
+    "hidden_layers": 1013,
+    "depth_with_scalar_output": 1014,
+    "dense_parameters": 907727,
+    "maximum_width": 94,
+    "maximum_weight_or_bias": "64",
+    "fractional_bits": 36,
+    "logical_layers": 1012,
+    "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+  },
+  "executed_commands": [
     {
-      "name": "final_quantization_controls",
+      "name": "hodge_acceptance_final",
       "command": [
         "C:\\Python312\\python.exe",
-        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\Compactification-Theory\\research\\quantization\\quantization_controls.py"
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_hodge432.py"
       ],
       "exit_code": 0
     },
     {
-      "name": "final_auditor_tests",
+      "name": "lemma_acceptance_final",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_research_lemmas432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "acceptance_tests_final",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\MathCan\\research\\oxilean_v015",
+        "-p",
+        "test_hodge_acceptance.py",
+        "-v"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "auditor_tests_final",
       "command": [
         "C:\\Python312\\python.exe",
         "-m",
@@ -25,12 +81,5 @@
       "exit_code": 0
     }
   ],
-  "native_scope": "Previously successful unchanged Lean 4.35 and leanchecker runs; no pinned 4.32 replay",
-  "controls": {
-    "verified": 73,
-    "unsupported": 0,
-    "rejected": 32
-  },
-  "assertions": 83362,
-  "auditor_tests": 5
+  "shell_syntax_checks": 15
 }

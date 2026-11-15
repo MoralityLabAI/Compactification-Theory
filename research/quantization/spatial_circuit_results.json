@@ -1,0 +1,549 @@
+{
+  "status": "passed",
+  "counts": {
+    "exact_binary_gate": 30,
+    "signed_pair_compilation": 30,
+    "all_branch_bounded_capture": 154,
+    "exact_selected_jet_capture": 115,
+    "whole_circuit_dense_parameters": 19,
+    "whole_circuit_maximum_width": 19,
+    "whole_circuit_depth_with_scalar_output": 19,
+    "whole_circuit_weight_bound": 19,
+    "whole_circuit_dyadic_precision": 19,
+    "safe_uniform_error": 123,
+    "median_uniform_error": 38,
+    "clipped_integer_microsteps": 225,
+    "materialized_dense_slot_count": 1,
+    "materialized_full_network_agreement": 7,
+    "materialized_full_uniform_error": 7,
+    "full_median_depth": 1,
+    "full_median_dense_parameters": 1,
+    "snake_site_count": 12,
+    "snake_rank": 374,
+    "snake_neighbor": 362,
+    "interface_dense_parameter_bound": 26,
+    "interface_weight_bound": 26,
+    "global_local_coordinate_clipping": 1140,
+    "safe_coarse_address": 863,
+    "safe_fine_address": 863,
+    "safe_snake_rank": 863,
+    "safe_local_coordinates": 863,
+    "safe_packed_code": 863,
+    "safe_initial_jets": 863,
+    "interface_pair_compilation": 52,
+    "all_point_majority_coverage": 302
+  },
+  "assertions": 8299,
+  "certificates": [
+    {
+      "d": 1,
+      "s": "2",
+      "n0": 1,
+      "K": 1,
+      "phase": 0,
+      "payload_bits": 0,
+      "polynomial_iterations": 7,
+      "certificate": {
+        "hidden_layers": 194,
+        "depth_with_scalar_output": 195,
+        "dense_parameters": 94999,
+        "maximum_width": 28,
+        "maximum_weight_or_bias": "32",
+        "fractional_bits": 13,
+        "logical_layers": 193,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 12480,
+        "depth_bound": 2078,
+        "dense_parameter_bound": 1991744102720,
+        "width_bound": 24972,
+        "weight_bound": 419
+      }
+    },
+    {
+      "d": 1,
+      "s": "2",
+      "n0": 1,
+      "K": 1,
+      "phase": 1,
+      "payload_bits": 0,
+      "polynomial_iterations": 7,
+      "certificate": {
+        "hidden_layers": 194,
+        "depth_with_scalar_output": 195,
+        "dense_parameters": 94999,
+        "maximum_width": 28,
+        "maximum_weight_or_bias": "32",
+        "fractional_bits": 13,
+        "logical_layers": 193,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 12480,
+        "depth_bound": 2078,
+        "dense_parameter_bound": 1991744102720,
+        "width_bound": 24972,
+        "weight_bound": 419
+      }
+    },
+    {
+      "d": 1,
+      "s": "2",
+      "n0": 1,
+      "K": 1,
+      "phase": 2,
+      "payload_bits": 0,
+      "polynomial_iterations": 7,
+      "certificate": {
+        "hidden_layers": 194,
+        "depth_with_scalar_output": 195,
+        "dense_parameters": 94999,
+        "maximum_width": 28,
+        "maximum_weight_or_bias": "32",
+        "fractional_bits": 13,
+        "logical_layers": 193,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 12480,
+        "depth_bound": 2078,
+        "dense_parameter_bound": 1991744102720,
+        "width_bound": 24972,
+        "weight_bound": 419
+      }
+    },
+    {
+      "d": 1,
+      "s": "2",
+      "n0": 2,
+      "K": 2,
+      "phase": 0,
+      "payload_bits": 17,
+      "polynomial_iterations": 9,
+      "certificate": {
+        "hidden_layers": 334,
+        "depth_with_scalar_output": 335,
+        "dense_parameters": 229971,
+        "maximum_width": 88,
+        "maximum_weight_or_bias": "64",
+        "fractional_bits": 36,
+        "logical_layers": 333,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 12480,
+        "depth_bound": 2838,
+        "dense_parameter_bound": 2736859607584,
+        "width_bound": 24984,
+        "weight_bound": 419
+      }
+    },
+    {
+      "d": 1,
+      "s": "2",
+      "n0": 2,
+      "K": 2,
+      "phase": 1,
+      "payload_bits": 17,
+      "polynomial_iterations": 9,
+      "certificate": {
+        "hidden_layers": 334,
+        "depth_with_scalar_output": 335,
+        "dense_parameters": 229971,
+        "maximum_width": 88,
+        "maximum_weight_or_bias": "64",
+        "fractional_bits": 36,
+        "logical_layers": 333,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 12480,
+        "depth_bound": 2838,
+        "dense_parameter_bound": 2736859607584,
+        "width_bound": 24984,
+        "weight_bound": 419
+      }
+    },
+    {
+      "d": 1,
+      "s": "2",
+      "n0": 2,
+      "K": 2,
+      "phase": 2,
+      "payload_bits": 17,
+      "polynomial_iterations": 9,
+      "certificate": {
+        "hidden_layers": 334,
+        "depth_with_scalar_output": 335,
+        "dense_parameters": 229971,
+        "maximum_width": 88,
+        "maximum_weight_or_bias": "64",
+        "fractional_bits": 36,
+        "logical_layers": 333,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 12480,
+        "depth_bound": 2838,
+        "dense_parameter_bound": 2736859607584,
+        "width_bound": 24984,
+        "weight_bound": 419
+      }
+    },
+    {
+      "d": 1,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 0,
+      "payload_bits": 30,
+      "polynomial_iterations": 11,
+      "certificate": {
+        "hidden_layers": 651,
+        "depth_with_scalar_output": 652,
+        "dense_parameters": 585661,
+        "maximum_width": 124,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 62,
+        "logical_layers": 650,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 20480,
+        "depth_bound": 4790,
+        "dense_parameter_bound": 12228929782176,
+        "width_bound": 40976,
+        "weight_bound": 1795
+      }
+    },
+    {
+      "d": 1,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 1,
+      "payload_bits": 30,
+      "polynomial_iterations": 11,
+      "certificate": {
+        "hidden_layers": 651,
+        "depth_with_scalar_output": 652,
+        "dense_parameters": 585661,
+        "maximum_width": 124,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 62,
+        "logical_layers": 650,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 20480,
+        "depth_bound": 4790,
+        "dense_parameter_bound": 12228929782176,
+        "width_bound": 40976,
+        "weight_bound": 1795
+      }
+    },
+    {
+      "d": 1,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 2,
+      "payload_bits": 30,
+      "polynomial_iterations": 11,
+      "certificate": {
+        "hidden_layers": 651,
+        "depth_with_scalar_output": 652,
+        "dense_parameters": 585661,
+        "maximum_width": 124,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 62,
+        "logical_layers": 650,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 20480,
+        "depth_bound": 4790,
+        "dense_parameter_bound": 12228929782176,
+        "width_bound": 40976,
+        "weight_bound": 1795
+      }
+    },
+    {
+      "d": 2,
+      "s": "2",
+      "n0": 1,
+      "K": 2,
+      "phase": 0,
+      "payload_bits": 93,
+      "polynomial_iterations": 10,
+      "certificate": {
+        "hidden_layers": 870,
+        "depth_with_scalar_output": 871,
+        "dense_parameters": 1688933,
+        "maximum_width": 206,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 188,
+        "logical_layers": 869,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 39168,
+        "depth_bound": 5402,
+        "dense_parameter_bound": 51098946306944,
+        "width_bound": 78384,
+        "weight_bound": 1316
+      }
+    },
+    {
+      "d": 2,
+      "s": "2",
+      "n0": 1,
+      "K": 2,
+      "phase": 1,
+      "payload_bits": 93,
+      "polynomial_iterations": 10,
+      "certificate": {
+        "hidden_layers": 870,
+        "depth_with_scalar_output": 871,
+        "dense_parameters": 1688933,
+        "maximum_width": 206,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 188,
+        "logical_layers": 869,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 39168,
+        "depth_bound": 5402,
+        "dense_parameter_bound": 51098946306944,
+        "width_bound": 78384,
+        "weight_bound": 1316
+      }
+    },
+    {
+      "d": 2,
+      "s": "2",
+      "n0": 1,
+      "K": 2,
+      "phase": 2,
+      "payload_bits": 93,
+      "polynomial_iterations": 10,
+      "certificate": {
+        "hidden_layers": 870,
+        "depth_with_scalar_output": 871,
+        "dense_parameters": 1688933,
+        "maximum_width": 206,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 188,
+        "logical_layers": 869,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 39168,
+        "depth_bound": 5402,
+        "dense_parameter_bound": 51098946306944,
+        "width_bound": 78384,
+        "weight_bound": 1316
+      }
+    },
+    {
+      "d": 2,
+      "s": "2",
+      "n0": 1,
+      "K": 2,
+      "phase": 3,
+      "payload_bits": 93,
+      "polynomial_iterations": 10,
+      "certificate": {
+        "hidden_layers": 870,
+        "depth_with_scalar_output": 871,
+        "dense_parameters": 1688933,
+        "maximum_width": 206,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 188,
+        "logical_layers": 869,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 39168,
+        "depth_bound": 5402,
+        "dense_parameter_bound": 51098946306944,
+        "width_bound": 78384,
+        "weight_bound": 1316
+      }
+    },
+    {
+      "d": 2,
+      "s": "2",
+      "n0": 1,
+      "K": 2,
+      "phase": 4,
+      "payload_bits": 93,
+      "polynomial_iterations": 10,
+      "certificate": {
+        "hidden_layers": 870,
+        "depth_with_scalar_output": 871,
+        "dense_parameters": 1688933,
+        "maximum_width": 206,
+        "maximum_weight_or_bias": "256",
+        "fractional_bits": 188,
+        "logical_layers": 869,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 39168,
+        "depth_bound": 5402,
+        "dense_parameter_bound": 51098946306944,
+        "width_bound": 78384,
+        "weight_bound": 1316
+      }
+    },
+    {
+      "d": 2,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 0,
+      "payload_bits": 210,
+      "polynomial_iterations": 13,
+      "certificate": {
+        "hidden_layers": 2244,
+        "depth_with_scalar_output": 2245,
+        "dense_parameters": 6860951,
+        "maximum_width": 386,
+        "maximum_weight_or_bias": "1024",
+        "fractional_bits": 422,
+        "logical_layers": 2243,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 80640,
+        "depth_bound": 11654,
+        "dense_parameter_bound": 460529120379776,
+        "width_bound": 161328,
+        "weight_bound": 7748
+      }
+    },
+    {
+      "d": 2,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 1,
+      "payload_bits": 210,
+      "polynomial_iterations": 13,
+      "certificate": {
+        "hidden_layers": 2244,
+        "depth_with_scalar_output": 2245,
+        "dense_parameters": 6860951,
+        "maximum_width": 386,
+        "maximum_weight_or_bias": "1024",
+        "fractional_bits": 422,
+        "logical_layers": 2243,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 80640,
+        "depth_bound": 11654,
+        "dense_parameter_bound": 460529120379776,
+        "width_bound": 161328,
+        "weight_bound": 7748
+      }
+    },
+    {
+      "d": 2,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 2,
+      "payload_bits": 210,
+      "polynomial_iterations": 13,
+      "certificate": {
+        "hidden_layers": 2244,
+        "depth_with_scalar_output": 2245,
+        "dense_parameters": 6860951,
+        "maximum_width": 386,
+        "maximum_weight_or_bias": "1024",
+        "fractional_bits": 422,
+        "logical_layers": 2243,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 80640,
+        "depth_bound": 11654,
+        "dense_parameter_bound": 460529120379776,
+        "width_bound": 161328,
+        "weight_bound": 7748
+      }
+    },
+    {
+      "d": 2,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 3,
+      "payload_bits": 210,
+      "polynomial_iterations": 13,
+      "certificate": {
+        "hidden_layers": 2244,
+        "depth_with_scalar_output": 2245,
+        "dense_parameters": 6860951,
+        "maximum_width": 386,
+        "maximum_weight_or_bias": "1024",
+        "fractional_bits": 422,
+        "logical_layers": 2243,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 80640,
+        "depth_bound": 11654,
+        "dense_parameter_bound": 460529120379776,
+        "width_bound": 161328,
+        "weight_bound": 7748
+      }
+    },
+    {
+      "d": 2,
+      "s": "5/2",
+      "n0": 1,
+      "K": 2,
+      "phase": 4,
+      "payload_bits": 210,
+      "polynomial_iterations": 13,
+      "certificate": {
+        "hidden_layers": 2244,
+        "depth_with_scalar_output": 2245,
+        "dense_parameters": 6860951,
+        "maximum_width": 386,
+        "maximum_weight_or_bias": "1024",
+        "fractional_bits": 422,
+        "logical_layers": 2243,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "explicit_bound": {
+        "register_bound": 80640,
+        "depth_bound": 11654,
+        "dense_parameter_bound": 460529120379776,
+        "width_bound": 161328,
+        "weight_bound": 7748
+      }
+    },
+    {
+      "scope": "fully materialized shifted-median network",
+      "certificate": {
+        "hidden_layers": 1013,
+        "depth_with_scalar_output": 1014,
+        "dense_parameters": 907727,
+        "maximum_width": 94,
+        "maximum_weight_or_bias": "64",
+        "fractional_bits": 36,
+        "logical_layers": 1012,
+        "compilation": "Every register is a ReLU signed pair; all dense slots counted"
+      },
+      "points": 7
+    }
+  ],
+  "source_sha256": "bc006e0ec2a227eac72657367b5211a7b71c1adfb74a87cc66336e9ded8ad910",
+  "scope": "Finite regression checks of explicit circuits; general claims require the accompanying proof"
+}

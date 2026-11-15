@@ -1,365 +1,467 @@
-# Quantized multivariate jets: proved components and a conditional network theorem
+# A compiled spatial interface and a uniform quantized approximation theorem
 
-Audit date: 2026-11-15. Status: the component results below have complete paper
-arguments; six integer recurrence lemmas also pass Lean 4.35.0 and leanchecker.
-The full bounded-weight uniform approximation theorem remains conditional on
-the spatial circuit interface in Section 7. No finite test closes that obligation.
+2026-11-15 continuation. This supplies the construction missing from Section 7
+of QUANTIZATION_D_DIMENSION_AUDIT_BEFORE_INTERFACE.md. The proof below is a paper proof for all
+real inputs in the cube, with explicit circuit and parameter accounting.
+`spatial_circuit.py` generates the layered ReLU circuits and exact resource
+certificates. Its finite regression tests are implementation checks, not the
+proof of the real-domain assertion. The full analytic/network theorem is not
+formalized in Lean. The scaled-integer clipping and capture identities are.
 
-## 1. Class, parameters, and conventions
+## 1. Parameters and statement
 
-Fix d >= 1, s > 0, k = ceil(s)-1, alpha = s-k in (0,1]. Use the classical
-C^{k,alpha} ball: every partial derivative through order k has sup norm <= 1,
-and every order-k partial derivative has alpha-Hölder seminorm <= 1 for the
-infinity norm on the cube. At integer s this means C^{s-1,1}. The usual C^s ball
-with bounded order-s partials embeds in this class after a constant depending
-on d. This convention does not mean the integer Zygmund class.
+Fix d>=1, s>0, k=ceil(s)-1 and alpha=s-k in (0,1]. Let F_{d,s} contain functions
+on [0,1]^d with all partial derivatives through order k bounded by 1 and all
+order-k partials alpha-Hölder with constant 1 for the infinity norm. At integer
+s this is C^{s-1,1}; the classical C^s unit ball embeds after a d-dependent
+rescaling. The Euclidean-metric Hölder convention also changes only constants.
+Using f/d suffices for these usual conventions (d=1 needs no rescaling), then
+multiply the output by d and clip to [-1,1]. This adds bounded integer weights;
+replace the weight bound by max(R_{d,s},d) for that rescaling.
 
-The exact multi-index set is I = { beta in N^d : |beta| <= k }. Thus
+Choose powers of two n0,K>=1. Define
 
-    J = |I| = binom(d+k,d) = binom(d+ceil(s)-1,d).
+    m=n0 K, h=1/m, A=2n0, N=A^d, B=K^d,
+    Q=2d+1, D=2^{ceil(log2 Q)}, r_D=log2 D,
+    mu=h/D, q=log2 m, tau=2^{-ceil(s(q+r_D))},
+    I={beta in N^d: |beta|<=k}, J=binom(d+k,d),
+    A_D=2^{k+1}D^k,
+    R_0=2^{1+ceil(s r_D)}, C=R_0+A_D/2+1,
+    a=ceil(log2(2C+1)), p=log2(D)+1,
+    F=Ja+p, S=F(B-1), ell=1+log2(NB).
 
-Let h=2^{-q}, q>=1, and tau=2^{-ceil(sq)}. Then h^s/2 < tau <= h^s.
-Use N coarse blocks and B=K^d fine sites per block, with dyadic grid sizes and
-M=NB comparable to h^{-d}. Logarithms in resource estimates are base two;
-write ell=1+ceil(log2 M).
+THEOREM. There is an architecture independent of f such that for each
+f in F_{d,s} one can explicitly choose dyadically quantized weights to obtain
+a ReLU network Phi satisfying
 
-P counts every scalar affine coefficient and bias in the chosen architecture,
-including fixed arithmetic constants. Excluding fixed gates would invalidate
-the comparison with parameter/VC bounds. For a dense variable-width network
-with widths n_0,...,n_L, count sum_l (n_{l-1}+1)n_l, including its zero slots.
-For sparse circuits, count all designated edges and biases and specify that
-sparsity pattern independently of f. Neither count is automatically w^2 L.
+    ||f-Phi||_infinity <= E_{d,s} h^s,
+    E_{d,s}=max(1,d^k/k!)+J/2+1/2,
 
-The quantization alphabet is [-R,R] intersect 2^{-b_frac} Z. Its actual storage
-cost is b_frac+O(log(1+R)) bits. Below R depends on d,s only, so the distinction
-from total bits b is additive O_{d,s}(1). Exact ReLU realization and evaluation
-with rounded intermediate activations are different questions.
+with every affine coefficient and bias bounded by a constant R_{d,s}
+independent of n0,K. Every scalar slot, including zeros and fixed carry
+coefficients, can be charged in a variable-width dense layered architecture:
 
-## 2. An integer Taylor transport removes matrix rounding
+    P_actual = O_{d,s}(N+B(1+log B)+ell),
+    L        = O_{d,s}(B(1+log B)+ell),
+    w        = O_{d,s}(N+K+1),
+    b_frac   = O_{d,s}(B+ell).
 
-For a grid point y_i define factorial-normalized coefficients
+In particular the previous candidate bounds
+P_actual=O_{d,s}(N+B log(NB)) and
+L=O_{d,s}(B log(NB)+log N) hold. Since h=2(NB)^{-1/d}, the error is
+O_{d,s}((NB)^{-s/d}). All constants and sufficient precision are specified
+below. This is a sufficient resource family, not an optimal theorem for every
+prescribed width/depth/bit triple or for one fractional bit per weight.
 
-    a_{i,beta} = h^{|beta|} D^beta f(y_i) / beta!,
-    u_{i,beta} = a_{i,beta}/tau.
+The new ingredients are clipped anchors on a finer dyadic lattice, a bounded
+displacement tag in each jet frame, exact plateau addresses, and sequential
+one-hot capture. No extension of f outside the cube is used.
 
-If y_{i+1}=y_i+h v_i, with v_i one of the signed coordinate vectors, then
+## 2. Endpoint anchors and a uniform finite transport alphabet
 
-    u_{i+1}=T(v_i)u_i+r_i,
-    T(v)_{beta,gamma} = binom(gamma,beta) v^{gamma-beta}   (gamma>=beta),
+For phase t=0,...,Q-1 put theta=t/D and, for integer r>=0, set
 
-and the other entries are zero. Taylor expansion of D^beta f along the one
-coordinate gives ||r_i||_infinity <= 2. Indeed, after multiplication by
-h^{|beta|}/beta!, the remainder is at most h^s/(beta!(k-|beta|)!), with the
-factorial interpreted as 1 when its argument is zero. Dividing by tau costs
-less than 2. The integral Taylor remainder proves this bound also at alpha=1.
+    y_t(r)=clip_{[0,1]}((r-1+theta)h).
 
-Every T(v_i) is an INTEGER matrix. Its maximum row sum is at most
+All anchors lie in the cube. In microgrid units,
 
-    A = 2^{k+1},
+    y_t(r)/mu=clip_{[0,mD]}(Dr+t-D),
 
-by sum_{l=0}^{k-|beta|} binom(beta_j+l,beta_j)
-=binom(beta_j+k-|beta|+1,beta_j+1) <= 2^{k+1}.
-It changes with the snake direction. A single fixed T cannot describe all
-turns of a multidimensional snake. No approximation of T is needed with this
-normalization. The original derivative normalization obscured this useful fact.
+an integer. Monotonicity and the 1-Lipschitz property of clipping give
 
-Choose tilde u_0 componentwise nearest to u_0 and, recursively, let
+    0 <= [y_t(r+1)-y_t(r)]/mu <= D.
 
-    e_i=tilde u_i-u_i,
-    c_i=round(r_i-T(v_i)e_i),
-    tilde u_{i+1}=T(v_i)tilde u_i+c_i.
+Thus the step is one of the INTEGERS 0,...,D, including the shortened first
+and last steps. Positions beyond the cube are represented by repeated boundary
+anchors; derivatives are evaluated only at points inside the closed cube.
+`MathCan.SpatialInterface.anchor_step` formalizes the scaled-integer identity.
 
-Then e_{i+1}=round(z_i)-z_i, z_i=r_i-T(v_i)e_i. Therefore, for EVERY path
-length, ||e_i||_infinity <= 1/2 and
+There are N coarse addresses c=(c_1,...,c_d) with 0<=c_j<A. Block c contains
+the B sites i in {0,...,K-1}^d at anchors
 
-    ||c_i||_infinity <= 2+A/2+1/2 <= C,    C=3+2^k.
+    y(c,i)=(y_t(c_j K+i_j))_j.
 
-The states tilde u_i are integers. The physically decoded state
-v_i=tau tilde u_i has ||v_i||_infinity <= 3/2 and obeys
+The used blocks have c_j<=n0; other blocks are harmless padding. Padding from
+n0^d to (2n0)^d blocks is a d-dependent factor only. Each block uses the same
+serpentine Hamiltonian order: append the last coordinate j, using the forward
+lower-dimensional path for even j and its reverse for odd j. Induction on d
+proves that it visits each site once and consecutive sites change exactly one
+coordinate by +1 or -1. The changed axis and sign are fixed by the layer index.
+Only the actual clipped step magnitude depends on the block.
 
-    v_{i+1}=T(direction_i)v_i+tau c_i.
+At anchor y define
 
-Here the argument of T is the signed spatial direction. If an extension of f has
-norm H instead of 1, replace the bounds by ||r||<=2H, ||v||<=H+1/2, and
-C=ceil(2H+2^k+1/2).
+    u_beta(y)=mu^{|beta|}D^beta f(y)/(beta! tau).
 
-For ||x-y_i||_infinity<=h, the polynomial
+For an actual signed step q_i mu e_j, |q_i|<=D,
 
-    tilde p_i(x)=sum_{beta in I} v_{i,beta} ((x-y_i)/h)^beta
+    u_next=T(q_i e_j)u+r,
+    T(v)_{beta,gamma}=binom(gamma,beta)v^{gamma-beta}
 
-satisfies
+when gamma>=beta, and zero otherwise. Since only one coordinate changes,
+the entries outside that coordinate are zero unless gamma_l=beta_l.
+All entries are integers and every row has absolute sum at most A_D.
+Indeed the row sum is bounded by D^k times
+sum_l binom(beta_j+l,beta_j)<=D^k 2^{k+1}.
 
-    |f(x)-tilde p_i(x)| <= (C_T+J/2)h^s,
-    C_T=max(1,d^k/k!).
+Taylor expansion of D^beta f on that segment gives
 
-To prove the Taylor term, apply one-variable Taylor expansion to
-t -> f(y_i+t(x-y_i)). The order-k directional derivative has Hölder
-constant at most d^k h^s, and its integral remainder is at most d^k h^s/k!.
-The quantization term is a sum of J terms each at most tau/2.
-For k=0 use the Hölder inequality directly. All segments must lie in the
-domain where the stated derivative bounds hold.
+    |r_beta| <= (mu^s/tau) D^{s-|beta|}/[beta!(k-|beta|)!]
+              <=2D^s <=R_0.
 
-The wrong formula -round(Te+r) fails even with T=1,u=tilde u=0,r=1:
-the next error is -2; the corrected formula gives zero.
+The integral Taylor remainder proves this also for alpha=1; for zero Taylor
+degree it is exactly the Hölder inequality. Every segment remains in the cube.
 
-## 3. Packed digits, margins, and precision
+Round each u(y) componentwise to its nearest integer, with ties upward. Set
+tilde u_next=T(q_i e_j)tilde u+c_i. The corrected recurrence yields
 
-Encode each correction coordinate c in [-C,C] as a=ceil(log2(2C+1)) bits
-of c+C. A block's correction stream has
+    ||tilde u-u||_infinity<=1/2,
+    ||c_i||_infinity<=R_0+A_D/2+1/2<C.
 
-    K_code = J a (B-1)
+Equivalently, the encoder computes c_i=round(u_next)-T(q_i e_j)round(u).
+This is an explicit integer vector; it does not require rounding a matrix.
+The physical state v=tau tilde u is dyadic and bounded by 3/2 in every component.
 
-bits. Initial jet coefficients are separate dyadic weights with ceil(sq)
-fractional bits; their number is J per block, not B J per block.
+Each frame stores the unsigned magnitude |q_i| in p bits and the J values
+c_{i,beta}+C in a bits each. The path layer already fixes the axis and sign.
+Consequently each frame has exactly F=Ja+p bits, from an alphabet independent
+of n0,K. A block has S=F(B-1) payload bits plus a sentinel. The J initial
+physical jets are stored separately, each on the tau lattice.
 
-For bits beta_1,...,beta_m, use a trailing sentinel:
+The displacement tag is necessary: applying the same full-step matrix to
+every clipped endpoint would give an unbounded normalized correction for
+smoothness s>1. It is not a cost-free change of the old decoder.
 
-    z = sum_{j=1}^m (1+beta_j)4^{-j} + 4^{-(m+1)}.
+Finite certified jet data also suffices; no exact comparison of an unknown
+real derivative with a rounding threshold is necessary. Choose rational
+normalized jet estimates with error at most
 
-This uses exactly 2(m+1) fractional binary bits. The reader
+    epsilon_u <= min{1/[4(A_D+1)], 1/[8JD^k(k+1)]},
 
-    D(y)=4[ReLU(4(y-7/16))-ReLU(4(y-1/2))],
-    y_next=4y-1-D(y)
+and round those estimates instead. The integer-state error is at most
+1/2+epsilon_u. The correction bound becomes at most
+R_0+A_D/2+1/2+(A_D+1)epsilon_u<C, so the same alphabet works. Physical states
+remain strictly inside [-2,2]. The extra polynomial-coefficient error is at
+most tau JD^k epsilon_u<=tau/[8(k+1)]. Section 6's multiplication budget is
+at most tau(2k+1)/[4(k+1)], leaving more than this slack below tau/2.
+Therefore the same final E_{d,s} bound holds. A derivative oracle needs only
+finite precision |error in D^beta f|<=beta! tau epsilon_u/mu^{|beta|}.
+Acquiring that jet information efficiently, or learning it by training, is
+not part of the approximation theorem.
 
-has maximum weight magnitude 4 and dyadic constants. Before each of the m
-reads, a zero-leading state is in [1/4,5/12] and a one-leading state is in
-[9/16,2/3]. Consequently D returns the exact bit and leaves the next encoded
-suffix. The sentinel is retained, not read.
+## 3. Continuous plateau circuits with exact addresses on safe sets
 
-Both margins are at least 1/48. If only the initial code has error delta,
-then all m bits remain exact when 4^{m-1}|delta| <= 1/96. Induction gives
-suffix error 4^j delta while the digits agree. If each completed update adds
-error at most eta, the bound after j updates is
+Let delta=h/(8D). A phase is safe at x if every coordinate is at distance
+strictly greater than h/(4D)=2delta from the translated fine-grid boundaries
+(j+theta)h. For such an x define
 
-    4^j |delta| + (4^j-1)eta/3.
+    r_j=floor(mx_j-theta)+1, c_j=floor(r_j/K), i_j=r_j-c_jK.
 
-The decoder's internal affine/ReLU evaluation errors must also stay within
-the margin; a per-operation bound is converted to the above eta by a fixed
-constant because one digit reader has constant size. Thus O(m) precision is
-needed for ACTIVATIONS in an approximate evaluator, as well as stored codes.
-This is not stable evaluation in fixed IEEE precision as m tends to infinity.
+These floors DEFINE the desired indices; the network implements them with
+the continuous formulas below. On safe sets 0<=r_j<=m, 0<=c_j<=n0 and
+0<=i_j<K. This includes x_j=0 and x_j=1 whenever that phase is safe.
 
-Without a sentinel the final one-leading state can be exactly 1/2. A negative
-perturbation of size 2^{-20} changes D(1/2) from 1 to 65535/65536. Therefore a
-uniform two-sided margin claim for that finite encoding is false. Exact digit
-correctness without a sentinel remains valid. This counterexample does not
-contradict ideal-arithmetic approximation by exactly quantized networks.
+Write H_delta(z)=[ReLU(z+delta)-ReLU(z-delta)]/(2delta).
+It is 0 for z<=-delta and 1 for z>=delta. The coarse thresholds are
 
-## 4. A fully counted bounded-weight lookup lemma
+    t_c=(cK-1+theta)h, c=1,...,n0.
 
-There is a simple alternative to relying on the unavailable dyadic-tree
-source. For n=2^r>=2 and values a_0,...,a_{n-1} in [0,1], let F interpolate
-the values at j/n and be constant to the left/right. Define
+Since these are fine-grid boundaries, safe x gives
 
-    c_0=a_1-a_0,
-    c_j=a_{j+1}-2a_j+a_{j-1}  (1<=j<=n-2),
-    c_{n-1}=-(a_{n-1}-a_{n-2}).
-    F(x)=a_0+n sum_{j=0}^{n-1} c_j ReLU(x-j/n).
+    z_j=c_j/A=(1/A) sum_{c=1}^{n0} H_delta(x_j-t_c).
 
-Differentiating on each interval shows slope n(a_{j+1}-a_j); continuity
-and the left value determine F. The right slope is zero because the c_j
-sum to zero. Thus this identity holds for every real x, not only grid nodes.
+No large coefficient 1/delta is placed on every hinge. First form all 2dn0
+hinges in ONE wide layer, aggregate into d registers in the next, and then
+multiply those d registers by 2DK using log2(2DK) shared doublings. This equals
+1/(2delta A). All these scalar coefficients have magnitude at most 2.
 
-Implement the hinge layer of width n, then the signed pair ReLU(G),ReLU(-G)
-for G=sum c_j hinge_j. Double both channels r times and take their difference
-plus a_0 as the affine output. The widths are
+The normalized lexicographic address is
 
-    1 -> n -> 2 -> [2 repeated r times] -> 1.
+    z=sum_{j=0}^{d-1} A^{j+1-d} z_{j+1}
+     =(sum_j c_{j+1}A^j)/N.
 
-Including ALL dense scalar slots, this is exactly
-
-    P_lookup=4n+6r+5,  L_lookup=r+3,  w_lookup=n,  R_lookup<=2.
+Every coefficient is dyadic and at most 1. On safe sets this is EXACTLY a
+table node, with no address error. On all inputs, z is in [0,1] because
+0<=z_j<=n0/A=1/2. Interpolated addresses on bad phases are permitted.
 
-If a_j have p fractional bits, all coefficients lie on the grid with
-max(p,r) fractional bits. Differences of dyadic values require no additional
-fractional bits. Larger bounded signed outputs are handled by a fixed
-rescaling. Carrying a fixed number of other channels changes only constants.
+Apply the bounded-weight interpolation table from Section 4 of the earlier
+audit at nodes r/N, simultaneously for the packed word and J initial jets.
+The shared hinge layer has width N; aggregation returns to a fixed number
+of registers BEFORE the log2 N amplification. Second differences of packed
+words need their stored fractional precision but no extra fractional bits.
+Second differences of the bounded signed physical jets have magnitude <=6.
 
-This proves efficient TABLE lookup at a correctly supplied discrete address.
-It does not itself compute the multidimensional safe cell address, nor prove
-the old dyadic-tree implementation. A continuously varying address interpolates
-codes and can produce an invalid digit stream. That distinction is essential.
-
-## 5. Boundary stitching and polynomial arithmetic
-
-Let Q=2d+1, choose dyadic D_0=2^{ceil(log2 Q)}, and rho=1/(4D_0).
-Translate the fine grid in every coordinate by t h/D_0, t=0,...,Q-1.
-For a fixed coordinate, the Q grid boundary phases have pairwise circular
-separation at least h/D_0. Hence at most one grid has boundary distance
-<=rho h in that coordinate. The union over d coordinates excludes at most d
-grids, so at least d+1 are safe at every point, including a point on an
-unshifted grid boundary. This proof is exact for all real points.
-
-If each safe grid's output is within E of f(x), their median is also within E:
-at most d of 2d+1 outputs can lie strictly below f(x)-E or above f(x)+E.
-No magnitude assumption on the bad outputs is needed. A fixed sorting circuit
-uses O(Q^2) comparators, with max(a,b)=b+ReLU(a-b) and min=a-ReLU(a-b).
-Signed channels cost a fixed factor. Thus stitching has O_d(1) parameter and
-depth overhead and ZERO additional boundary error. Actual cube-endpoint cells
-still need the domain treatment required by Section 7.
-
-On [0,1], set g(x)=2ReLU(x)-4ReLU(x-1/2)+2ReLU(x-1). The function
-
-    S_m(x)=x-sum_{j=1}^m 4^{-j} g^{compose j}(x)
-
-is the linear interpolant of x^2 on the dyadic mesh 2^{-m}. This follows
-inductively because each tent subtracts the midpoint interpolation excess.
-On each interval, interpolation error is (x-a)(b-x), so
-
-    0 <= S_m(x)-x^2 <= 4^{-(m+1)}.
-
-Then 2S_m((x+y)/2)-(S_m(x)+S_m(y))/2 approximates xy with error at most
-3*4^{-(m+1)}. Signed bounded inputs require fixed affine rescaling. Each
-iteration needs constant width, O(1) coefficients of magnitude <=4, and the
-coefficient 4^{-j}. Total size/depth is O(m), precision 2m+O(1).
-Maintain the running sum and current tent in signed channels; do not retain
-all m tent outputs in a wide layer.
-
-Products for degree-k monomials need O(J(k+1)) multiplications. Clip intermediate
-monomial values to [0,1] (or use a signed bounded interval for signed local
-coordinates). The clipping is nonexpansive and preserves the exact monomials.
-A primitive error eta <= tau/[2J(2k+1)] makes the resulting polynomial error
-<=tau/2, with a constant-factor refinement for signed/rescaled products. Thus
-m=O_{d,s}(ell) is sufficient. These constants grow with J and k; none is
-asserted uniform in d or s.
-
-## 6. Finite-precision jet propagation is polynomial, conditional on correct digits
-
-Translations satisfy T(a)T(b)=T(a+b). This follows either from the binomial
-identity or from translating a polynomial twice. Thus if arithmetic injects
-physical-jet errors eta_i of infinity norm <=eta, then
-
-    delta_i=T((y_i-y_0)/h)delta_0
-            +sum_{j<i} T((y_i-y_{j+1})/h)eta_j.
-
-In a block of K sites per side, all coordinate displacements are <=K. Every
-matrix entry is bounded by 2^k max(1,K)^k, so
-
-    ||delta_i|| <= J*2^k*(1+K)^k (||delta_0||+B eta).
-
-This is polynomial in the block side/length, not the crude A^B bound. The
-argument requires exact transport matrices and correct transmitted digits.
-Code-read errors have the exponential amplification from Section 3 and must
-be controlled separately. Choosing activation precision
-O_{d,s}(B+ell) is sufficient for these components, up to constants for the
-number of arithmetic operations and selector margins. No robustness theorem
-for an unspecified hardware evaluator is being asserted.
-
-## 7. Precise remaining interface obligation and conditional theorem
-
-The missing result is a QUANTIZED SPATIAL INTERFACE, with a layered circuit
-description and a complete count. It must do all of the following for each
-of the Q shifted grids:
-
-1. On its safe set, supply the exact coarse-table address, the fine snake
-   index, and local coordinates xi=(x-y_i)/h with |xi|<=1.
-2. Select only that block's packed code and J initial jets, carry the input
-   and local coordinates through the entire decoder, and capture/evaluate
-   the chosen fine jet with no multiplication by an unbounded index.
-3. Handle partial blocks at the boundary of [0,1]^d. Either give a proved
-   bounded-norm smooth extension and its explicit grid/circuit constants,
-   or treat endpoint blocks directly without changing integer transport.
-4. Use O_{d,s}(N+B+ell) scalar slots, O_{d,s}(ell+log N) layers,
-   width <= C_{d,s}(N+B^{1/d}+1), weights/biases bounded by C_{d,s}, and
-   O_{d,s}(ell) fixed-coefficient fractional bits. Its address must be
-   EXACT on safe sets; a small nonzero address error is insufficient when
-   interpolating packed codes. State its safe-set margins.
-5. Specify a sparse edge list or variable-width dense layout, including every
-   identity wire. In particular, do not put width N identity layers through
-   B ell sequential layers, which costs Omega(NB ell), and do not place
-   two width-N dense layers consecutively while claiming only O(N) slots.
-
-The old package's unavailable tree-selector proof/test sources prevent an
-independent check of this interface. The lookup lemma in Section 4 removes
-the large-weight table-selection obstacle, but does not prove all five items.
-
-CONDITIONAL THEOREM. If this interface exists with constant H for any needed
-smooth extension, then for every f in the stated Hölder ball the explicitly
-unrolled bounded-state jet decoder, polynomial circuits, and median give
-
-    ||f-Phi||_infinity <= C_{d,s,H}(NB)^{-s/d},
-    P_actual <= C_{d,s,H}[N+B ell],
-    L <= C_{d,s,H}[B ell+log(N+1)],
-    w <= C_{d,s,H}[N+B^{1/d}+J+d+1],
-    max weight and bias <= R_{d,s,H},
-    b_frac >= max(2[J a(B-1)+1], ceil(sq), 2m+O_{d,s}(1), C_{d,s}ell).
-
-Equivalently sufficient precision is O_{d,s,H}(B+log(NB)). Packed corrections
-use exactly J a(B-1) bits plus a sentinel; the J initial physical jets use
-J ceil(sq)+O(J log(1+H)) bits per block. Q shifted copies multiply costs by
-Q, and the median adds O(Q^2). Boundary error adds zero. The local error
-constant is H*C_T+J/2 plus the allocated polynomial tolerance.
-
-PROOF OF THE IMPLICATION. There are B-1 steps. Per step, transport needs at
-most J^2 affine coefficients; the correction reader uses O(Ja) constant-size
-gates; evaluating a degree-k polynomial uses O(J(k+1)m) gates. All carried
-channels have dimension O_{d,s}(1), so their identity cost is O_{d,s}(1)
-per layer. Therefore the sequential cost is
-O(B[J^2+Ja+J(k+1)m])=O_{d,s}(B ell) and its width is constant. Add the
-interface and N-entry lookup costs, then Q parallel copies and the median.
-The stated precision includes the code, initial jets, fixed spatial constants,
-and multiplication coefficients. Sections 2 and 5 prove the uniform error
-on safe sets and then everywhere. This proves the conditional implication;
-it does not discharge the interface premise.
-
-The candidate P_actual and L estimates therefore survive the arithmetic,
-packing, table lookup, and carry accounting, but remain UNPROVED for the full
-cube construction until that interface is compiled and checked. Constants
-include J=binom(d+k,d), A=2^{k+1}, Q=2d+1 and a=ceil(log2(2C+1)); a claim
-with constants independent of dimension/smoothness would be unjustified.
-
-## 8. What rate the conditional bounds would actually imply
-
-Assume b and L are at least sufficiently large multiples of log P. Taking
-N comparable to P and
-
-    B comparable to min(b, L/log P, P/log P)
-
-within sufficiently small d,s-dependent constants would yield
-
-    epsilon <= C [P min(b,L/log P,P/log P)]^{-s/d}.
-
-Dyadic rounding of the block sizes changes only d-dependent constants. In
-particular, the (Pb)^{-s/d} rate would follow when
-log P << b <= c min(L/log P,P/log P). The depth-limited estimate loses
-two logarithms relative to the lower ingredient (PL log P)^{-s/d}.
-There is no derived theorem here for every prescribed width, for b=O(1),
-or for every pair (P,L). A depth-precision conversion must charge all
-coefficients and layers again; quoting it does not preserve the same P,L.
-
-The two lower-bound ingredients alone never imply their matching upper bound.
-Counting also requires a fixed architecture/sparsity pattern or charging the
-information in target-dependent architecture selection.
-
-## 9. Literature and independently executed evidence
-
-Ou, Schenkel, Bölcskei, [Three Quantization Regimes for ReLU Networks](https://www.mins.ee.ethz.ch/pubs/files/ca2024.pdf),
-Theorem 5.1, proves one-dimensional Lipschitz upper bounds in the three regimes.
-Its proper-quantization regime is (w^2 L b)^{-1}; its over-quantization upper
-bound is (w^2 L^2 log w)^{-1}. The stated lower over-quantization bound contains
-log w+log L, so a uniform constant-factor equivalence using only log w needs
-an additional relation between L and w. Its Section 1 says the Lipschitz
-results can be extended to d dimensions, but does not give the general
-smoothness/precision theorem sought here. Proposition 4.1 is a conversion
-with width factor 16 and depth factor k+2, not a free change of precision.
-
-Yarotsky and Zhevnerchuk, [The phase diagram of approximation rates for deep neural networks](https://arxiv.org/html/1906.09477),
-Appendix A.3-A.5, gives smooth Taylor encoding and explicitly charges the
-polynomial-evaluation logarithm. Those results do not by themselves certify
-the bounded-magnitude quantized spatial interface above.
-
-`quantization_controls.py` uses Fraction arithmetic and seed 15112026. Its
-83,362 assertions pass. They cover jet dimensions, integer translations and
-their group identity, correction bounds, exhaustive finite bitstrings of
-length <=10, sentinel perturbations, all lookup nodes and interpolation
-samples, multiplication, grid coverage in dimensions 1-6, and median
-corruption. The new packed quadratic example uses 248 bits plus a sentinel,
-498 stored fractional bits, and 1,025 sample points; maximum error 1/1024
-equals its registered bound. It is a new test, not a reproduction of the
-unavailable historical 863-point test. None of these counts proves a theorem.
-
-`MathCan/QuantizedJet.lean` formalizes exact scaled nearest rounding, the
-corrected sign identity, one-step and whole-stream stability, a correction
-alphabet bound, and the finite-dimensional predictor reset. It does not
-formalize real differentiation, the matrix norm estimate, or a full network.
-Its printed axiom dependencies are recorded in the replay report.
+Next compute normalized within-block coordinates
+
+    u_j=n0[x_j-2z_j+(1-theta)h].
+
+This uses a narrow affine stage and log2 n0 doublings. Clip to [0,1]. On safe
+sets it equals (mx_j-theta+1-c_jK)/K, so clipping changes nothing. Fine
+thresholds are l/K, l=1,...,K-1, with delta_f=1/(8DK)=n0 delta. Therefore
+
+    v_j=i_j/K=(1/K) sum_{l=1}^{K-1} H_{delta_f}(u_j-l/K).
+
+Again use one hinge layer, narrow aggregation, and shared amplification,
+now by 4D. This costs O_d(K) slots and O_d(1) further amplification layers.
+The safe-set distance is at least twice the ramp radius, so all these
+selectors have a nonzero margin; no discontinuous floor is a circuit gate.
+
+## 4. Exact snake rank and local coordinates
+
+The parity of i_j is a fixed K-entry interpolation table evaluated at i_j/K.
+It is exactly 0 or 1 on safe sets. Table size is O(K), not O(B). Define
+
+    G_M(b,z)=ReLU(z+Mb)-ReLU(z-Mb)-Mb.
+
+For |z|<=M, G_M(0,z)=0 and G_M(1,z)=z. For arbitrary b in [0,1] its value
+is bounded by M. This gives exact multiplication by a binary selector using
+bounded weights. The proof follows by checking the signs of z+M and z-M;
+the scaled-integer versions are Lean checked.
+
+If q_j is the normalized snake rank for the first j coordinates, then
+
+    q_1=v_1,
+    q_{j+1}=v_{j+1}+[q_j+G_2(parity(i_{j+1}),1-K^{-j}-2q_j)]/K.
+
+Clip each result to [0,1]. For actual integer indices, induction gives
+q_j=rank_j/K^j: the second term is the forward lower rank for even outer
+coordinates and the reverse lower rank for odd coordinates. The argument
+of the binary gate is in [-1,1] on safe sets. Hence final q=rank/B is exact.
+For K=1 use the constant rank zero.
+
+Compute selected anchors and local coordinates by
+
+    y_j=clip_{[0,1]}(2z_j+v_j/n0-(1-theta)h),
+    xi_j=clip_{[0,1]}(m(x_j-y_j)).
+
+The multiplication by m uses shared doublings, never a weight m. On safe
+sets y_j=y_t(c_jK+i_j), and 0<=x_j-y_j<=h, so both clipping operations
+preserve the required anchors/local coordinates. Thus xi=(x-y)/h is exact
+even in partial endpoint cells. The entire spatial setup has O_{d,s}(N+K+ell)
+slots and O_{d,s}(ell) depth, including table weights and all carry wires.
+
+## 5. Bounded-state stream decoding and capture
+
+Encode the S bits beta_l in a single word
+
+    w=sum_{l=1}^S (1+beta_l)4^{-l}+4^{-(S+1)}.
+
+It needs 2(S+1) fractional bits. The previously proved bounded digit reader
+returns the bits exactly and updates the word to its suffix. A trailing
+sentinel leaves a margin of at least 1/48 before every required digit read.
+Clip the suffix to [0,1] after each update; it is unchanged for a valid word.
+This bounds invalid interpolated streams on bad phases.
+
+Decode the p-bit displacement magnitude by a fixed one-hot Hamming test for
+each q in {0,...,D}. The test is ReLU(1-HammingDistance), with coefficients
+of magnitude <=1 and integer bias of magnitude <=p. Compute T(sign*q e_j)v
+for the D+1 possibilities and select with G_{2A_D}. Since |v|<=2 after state
+clipping, every candidate is in [-2A_D,2A_D]. Add the decoded tau*c and clip
+v to [-2,2]. On safe sets the word is valid, so these are exactly the desired
+transport/correction updates, and the true quantized physical state is bounded
+by 3/2: clipping never changes it. Bad phases also stay bounded.
+
+At site t=0,...,B-1 form
+
+    b_t=ReLU(1-B|q-t/B|).
+
+On safe sets q=r/B for an integer rank r, so b_t=1 if t=r and 0 otherwise.
+The absolute value uses two ReLUs. The B amplification uses log2 B narrow
+doublings, clipped at 1 after each doubling. Thus it computes
+min(B|q-t/B|,1) with weights <=2; subtracting from 1 gives b_t. No bias t
+or weight B appears: t/B is dyadic and in [0,1].
+
+Maintain J accumulators z_beta, initially zero, and at each site add
+G_2(b_t,v_beta), clipping the accumulators to [-2,2]. Exactly one site adds
+its jet on a safe phase. Therefore the captured z_beta is exactly the selected
+quantized jet. No polynomial approximation, large-index multiplication, or
+all-sites-wide carry is used in capture. Its cost is O_{d,s}(B(1+log B)).
+
+This also explains the difference from the former standalone interface
+obligation: address setup remains O(N+B+ell), but temporal capture is explicitly
+charged to the decoder at O(B log B). The resulting whole-network candidate
+budget is preserved; a stricter O(B) capture claim is not made.
+
+## 6. Polynomial approximation and global boundary coverage
+
+The selected physical coefficients satisfy
+
+    |z_beta-mu^{|beta|}D^beta f(y)/beta!|<=tau/2.
+
+Consequently sum_beta D^{|beta|} z_beta xi^beta differs from the true Taylor
+polynomial by at most J D^k tau/2<=J h^s/2. Taylor's theorem along the segment
+from y to x gives error <=max(1,d^k/k!)h^s, exactly as in the earlier audit.
+
+For completeness the polynomial circuit uses the triangular square
+
+    S_n(x)=x-sum_{j=1}^n 4^{-j}g^{compose j}(x),
+    g(x)=2ReLU(x)-4ReLU(x-1/2)+2ReLU(x-1),
+
+whose error on [0,1] is <=4^{-(n+1)}. A product of signed inputs in [-2,2]
+is obtained by u=(x+2)/4, v=(y+2)/4 and
+
+    xy ~= 32 S_n((u+v)/2)-8S_n(u)-8S_n(v)-8u-8v+4,
+
+with error <=12*4^{-n}. Use
+
+    eta=tau/[4JD^k(k+1)],  n_poly>=1 with 12*4^{-n_poly}<=eta.
+
+Build monomials by successive multiplication and clipping to [0,1], then
+multiply by the captured jet and accumulate with integer coefficients D^{|beta|}.
+The monomial error is at most k eta. The output error is at most
+JD^k(2k+1)eta<=tau/2. Inputs to every multiplication remain in [-2,2].
+Clip the scalar output to [-1,1]; f is in that interval, so error cannot grow.
+Each safe phase now has the claimed E_{d,s}h^s error.
+
+For each coordinate, the Q boundary phases on the circle modulo h have
+pairwise circular separation >=h/D. A radius h/(4D) neighborhood can contain
+at most one phase. Thus at most d phases are bad at any point in the cube,
+including its boundary, and at least d+1 of Q=2d+1 are safe. The median of
+the Q phase outputs has the same error bound. Boundary stitching adds ZERO
+error. An insertion-sorting circuit uses Q(Q-1)/2 comparators, with
+max(a,b)=b+ReLU(a-b) and min(a,b)=a-ReLU(a-b). This is explicitly generated
+in build_approximant; it is not an external sorting oracle in the network.
+
+## 7. All dense slots, widths, weights and bits
+
+The generator compiles each real register z into (ReLU(z),ReLU(-z)). A linear
+register assignment computes both signed rows; a ReLU register computes its
+positive row and a zero row. Each row is an affine combination of the previous
+layer's pairs. This is an ordinary ReLU network; no skip connections are free.
+The first split and final scalar affine reconstruction are counted explicitly.
+
+Let
+
+    r=64(D+1)(J+1)(d+a+p+k+1).
+
+This bounds all simultaneously live narrow registers, including the original
+input, saved phase outputs, frame bits, D+1 transport alternatives, J jet and
+capture registers, polynomial temporaries and the median. For example the
+largest decoder transient is bounded by
+4J(D+1)+a+p+10d+Q+20, which is smaller than r. Frames are released before the
+next frame; the generator does not retain the history of every extracted bit.
+
+Each wide hinge stage is followed immediately by a narrow aggregation stage.
+Their total hinge-register count is at most
+
+    2d n0+N+2d(K-1)+(d-1)K <= (d+1)N+3dK.
+
+There are at most d+2 such pairs. A pair with n extra wide registers costs
+at most 32(r+1)^2(n+1) dense scalar slots after signed compilation. Every
+narrow hidden layer costs at most (2r+1)2r<=6r^2 slots. Define
+
+    L_*=100(d+1)(ell+r_D+1)
+        +B[2 log2 B+4F+4J+40]
+        +30J(k+1)(n_poly+1).
+
+The first term covers all spatial setup, parity tables and narrow amplifiers.
+Per site capture uses at most 2 log2 B+9 layers. Per transition the tagged
+frame and transport use at most 4F+2J+9 layers. Polynomial multiplication uses
+at most J(k+1) calls, each at most 6n_poly+11 layers, including clipped
+monomial updates. The loose coefficients in L_* dominate these counts.
+
+For one phase a sufficient explicit ledger is
+
+    L_grid <= L_*+2,
+    P_grid <=32(r+1)^2[(d+1)N+3dK+d+2]+6r^2(L_*+2),
+    w <=4d(N+K)+2r.
+
+Compute the Q shifted copies sequentially while carrying only the input and
+the previous Q scalar outputs. Then a sufficient whole-network ledger is
+
+    L <= Q(L_*+4)+Q(Q-1)+3,
+    P <= Q P_grid+12r^2(Q^2+Q+1),
+    w <=4d(N+K)+2r.
+
+Serialization avoids padding a width-N layer through all decoder steps. There
+are no consecutive width-N dense layers, and every carry pair is charged.
+
+One admissible weight/bias bound is the integer
+
+    R_{d,s}=64+4A_D+2^{a+1}+p+4JD^k.
+
+The largest special coefficients are second differences of physical jets
+(<=6), signed-product coefficients (<=32), transport gates (2A_D), signed
+correction digits (<2^a), and D^{|beta|}. All depend on d,s only.
+
+Sufficient uniform fractional precision is exactly bounded by
+
+    b_* = max{2(S+1), ceil(s(q+r_D)), 2n_poly,
+              q+r_D+3, log2 N, (d-1)log2 K, 4}.
+
+Every scalar coefficient and bias belongs to 2^{-b_*}Z. The factorials occur
+only in the offline jet data before rounding; no non-dyadic factorial reciprocal
+is a fixed circuit weight. Bounds involving eta determine n_poly but eta
+itself is not a circuit coefficient. Actual storage is b_*+O_{d,s}(1) bits
+because R_{d,s} is fixed. Packed length, initialization precision, spatial
+threshold precision and arithmetic precision are all charged. Capture biases
+t/B require log2 B bits, already dominated by 2(S+1) (also when B=1).
+
+Since n_poly=O_{d,s}(ell), S=O_{d,s}(B) and K<=B, these explicit ledgers prove
+the asymptotics in the theorem. They also give the constants' dependence
+through D,Q,J,A_D,C,a,p,r. No dimension-independent constant is asserted.
+
+## 8. Precision propagation and the scope of the rate conclusion
+
+The theorem is about exact real evaluation of a network with quantized
+parameters. It does not assert stability in a fixed IEEE format. For a
+specified evaluator with an absolute error at most epsilon_act per affine/ReLU
+node, the spatial setup and table stages amplify errors only polynomially
+in N,K: they contain a fixed d-dependent number of wide stages and shared
+doublings with products N, n0, K and m. The plateau safety margin is delta.
+
+Code decoding is the separate sensitive part: over S reads, suffix error is
+bounded by 4^j e_0+(4^j-1)e_update/3 while the digit margins hold. Thus the
+lookup/code input and internal errors must be O(4^{-S}), up to polynomial
+factors in N,K. Matrix routing and capture have fixed Lipschitz constants per
+primitive, and their bounded states turn numerical selector errors into bounded
+additive errors. As long as the physical state error stays <1/4, clipping is
+inactive near the ideal state. The exact translation identity T(a)T(b)=T(a+b)
+then bounds jet error by
+
+    J 2^k(1+DK)^k [initial_error+B*step_error].
+
+This supplies a bootstrap sufficient condition for the clipped decoder; an
+arbitrary product A_D^B is not necessary. Capture errors accumulate at most
+a further polynomial factor B^2 from the triangular selectors. Consequently
+activation precision O_{d,s}(S+ell) is sufficient under the stated bounded
+node-error model, with constants depending on that model. The generated finite
+tests use exact arithmetic; they do not test arbitrary hardware rounding.
+
+For parameter budgets P and sufficiently large b,L, choose dyadic N comparable
+to P (within small d,s-dependent constants) and
+
+    B comparable to min(b,L/log P,P/log P).
+
+If b,L are at least sufficiently large multiples of log P, this gives
+
+    epsilon <= C_{d,s}[P min(b,L/log P,P/log P)]^{-s/d}.
+
+In the proper range b<=c min(L/log P,P/log P), the rate (Pb)^{-s/d} is
+constructively attained for this architecture family. The depth-limited bound
+has logarithmic losses against the lower ingredient (PL log P)^{-s/d}. The
+construction specifies its sufficient width; it does not settle arbitrary
+small prescribed widths, the whole under-quantization regime, or a generic
+depth-precision conversion without recounting its edges.
+
+## 9. Reproducible implementation evidence
+
+`spatial_circuit.py` contains no floor or exact multiplication primitive in the
+generated network. Floors appear only in the offline encoding, expected-index
+oracle, and this proof's definition of the desired addresses. Runtime products
+are triangular-wave ReLU circuits. The matrix materializer emits every hidden
+ReLU layer, its exact rational rows, and the final affine output. Omitted matrix
+entries are zero and still included in dense parameter counts.
+
+The six regression suites cover snake ranks and adjacency, integer endpoint
+microsteps, binary capture gates, safe addresses/codes/coordinates in dimensions
+1-3, complete tagged decoding and selected-jet capture, polynomial circuits,
+and the full shifted-median network. Inputs include cube corners, internal grid
+boundaries and ramp margins. The materialized numeric-matrix evaluator is
+checked against the register evaluator. Detailed counts, exact resource
+certificates and source hashes are in spatial_circuit_results.json; a complete
+small network is in spatial_relu_example.json.gz.
+
+The tests currently pass 8,299 explicit assertions. That finite count is not
+the reason the theorem holds: Sections 2-7 prove the domain, correctness,
+boundary coverage and resource bounds for every permitted d,s,n0,K and real x.
