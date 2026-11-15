@@ -90,7 +90,7 @@ def descriptive_all_token_radii(sae,stage,mean,std,test_ids):
             return {'valid_tokens':int(len(good)),
                     'min':float(good.min()),
                     'q05':float(torch.quantile(good,0.05)),
-                    'q50':float(good.median()),
+                    'q50':float(torch.quantile(good,0.50)),
                     'q95':float(torch.quantile(good,0.95)),
                     'max':float(good.max()),
                     'below_1e-6':int((good<1e-6).sum())}
