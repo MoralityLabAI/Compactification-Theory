@@ -1,0 +1,117 @@
+{
+  "schema": "nor16.first_full_source_locked_public_query_receipt.v1",
+  "executed_date_utc": "2026-11-15",
+  "first_green_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43727133397",
+  "first_artifact_id": 14166259770,
+  "first_artifact_name": "nor16-public-query-consensus-source-lock-and-observation-collisions",
+  "full_json_sha256": "b1ca49c9fb0d95510f020d4318d29a10abc25759fa110370eef967d538a20cef",
+  "full_json_bytes": 1331006,
+  "checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "train_manifest": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "dev_manifest": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+  "fresh_offset": 93116000,
+  "repetitions": 4,
+  "late_primary_cases": 192,
+  "late_original_model_feature_groups": 1,
+  "signed_secondary_cases": 48,
+  "rational_secondary_cases": 48,
+  "total_cases": 288,
+  "public_demo_degree": 192,
+  "public_query_input_degree": 256,
+  "four_check_budget": 4,
+  "full_mask_checks_per_case": 16,
+  "candidate_query_simulations_per_advanced_arm": 16,
+  "cached_source_unary_ops_per_advanced_arm": 4,
+  "cohort_public_demo_manifests": [
+    "3fedbc469a9fb318a357b7e26af0206bc6dad2f6921c6e06d735c2acc23f2daf",
+    "d47d81e5dbdc3b15439a107ec0ec1fe27744086d5d91d208eb965bab783a3688",
+    "7bae9135e4cdcdc52e10f64a0febc15f19001fe4b1cca9fd02ed532da25d6ebf",
+    "25d93371ff18565d1c3a341140600a93729b8ba7bbac77ad424a68b7eb0da74c"
+  ],
+  "cohort_full_public_manifests": [
+    "96ce354e09420a8b300dc0e086ace43f0a547c453d8e28ca643575ae87f5c9f6",
+    "c6f25f51e418a07c6ddbe420059dbd9f45c0554a80a34fd8e3a46e48e367e2c5",
+    "697d5a06996aa89e5178c9bb7aaf580099790c47972141e7202f9e1dfaca0e3d",
+    "1679aab0d71b4d62283f24bc04ba28911c23e4c2e966392b0015c907dcf7e583"
+  ],
+  "arm_fields": [
+    "all_future_correct",
+    "all_false_accept",
+    "all_paid_public_checks",
+    "late_future_correct",
+    "late_false_accept",
+    "late_paid_public_checks"
+  ],
+  "arms": {
+    "original_4": [
+      79,
+      99,
+      778,
+      33,
+      99,
+      466
+    ],
+    "consensus_4": [
+      82,
+      96,
+      777,
+      36,
+      96,
+      465
+    ],
+    "hash_4": [
+      57,
+      101,
+      802,
+      32,
+      101,
+      456
+    ],
+    "full_mask_original_16": [
+      174,
+      114,
+      4608,
+      78,
+      114,
+      3072
+    ],
+    "full_mask_map_16": [
+      176,
+      112,
+      4608,
+      80,
+      112,
+      3072
+    ]
+  },
+  "primary_paired": {
+    "consensus_vs_original": {
+      "gains": 3,
+      "losses": 0,
+      "p": 0.25
+    },
+    "consensus_vs_hash": {
+      "gains": 29,
+      "losses": 25,
+      "p": 0.6834892282353375
+    },
+    "full_mask_map_vs_full_mask_original": {
+      "gains": 3,
+      "losses": 1,
+      "p": 0.625
+    },
+    "full_mask_map_vs_original": {
+      "gains": 47,
+      "losses": 0,
+      "p": 1.4210854715202004e-14
+    }
+  },
+  "late_full_public_exact_mask_distinct": 27,
+  "late_all16_accept_cases": 59,
+  "late_counterfactual_observation_collision_cases": 140,
+  "uniform_candidate_prior_aggregate_conditional_expected_MAP_success": 78.9375,
+  "realized_full_mask_MAP_correct_late": 80,
+  "four_check_consensus_primary_pass": false,
+  "bonferroni_2_control_threshold": 0.025,
+  "scope": "Synthetic finite-series RRC25. Query INPUT up to degree256 public; query OUTPUT withheld. Candidate continuation simulations are public arithmetic. Sixteen-check mask-conditioned arm has unequal exact verifier budget. Posterior expectation assumes equal prior across accepted programs. Counterfactual worlds are possible future outputs, not training labels."
+}

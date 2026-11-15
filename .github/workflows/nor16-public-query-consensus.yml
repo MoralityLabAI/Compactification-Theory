@@ -1,0 +1,129 @@
+name: NOR-16 source-locked public query predictive consensus and observation collisions
+
+on:
+  push:
+    paths:
+      - 'research/nor16_public_query_consensus/**'
+      - '.github/workflows/nor16-public-query-consensus.yml'
+  pull_request:
+    paths:
+      - 'research/nor16_public_query_consensus/**'
+      - '.github/workflows/nor16-public-query-consensus.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archived-original-evidence-and-selective-certificates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify archived original 1331006-byte JSON and 1440 decisions
+        run: |
+          python research/nor16_public_query_consensus/receipt_audit.py \
+            --check \
+            --archive research/nor16_public_query_consensus/results/nor16_full.zip
+      - name: Check full public-output identifiability and posthoc abstention curve
+        run: |
+          python - <<'PY'
+          from research.nor16_public_query_consensus import selective_certificate_audit as s
+          r=s.risk_curve()
+          assert r['public_only_uniquely_predicted_output_cases']==52
+          assert r['counterfactual_ambiguous_possible_future_cases']==140
+          assert r['actual_false_accept_on_certified_set']==0
+          cert=r['retrospective_threshold_table'][0]
+          assert (cert['selected_sources'],cert['future_correct'],cert['false_accept'])==(52,52,0)
+          print('NOR16S SOURCE-LOCKED PUBLIC FUTURE CERTIFICATE',r['schema'])
+          for row in r['retrospective_threshold_table']:
+              print('NOR16S POSTHOC RISK COVERAGE',row)
+          PY
+
+  source-and-future-separation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact interpreter parity, private-future interventions and paid-check accounting
+        run: python -m unittest research.nor16_public_query_consensus.test_experiment -v
+      - name: Audit original NOR-16 source hashes and frozen negative result receipt
+        run: python research/nor16_public_query_consensus/receipt_audit.py --check
+
+  four-fresh-public-source-cohorts:
+    needs: source-and-future-separation
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Evaluate 192 distinct late-source public inputs and 96 nonlate controls
+        run: |
+          python research/nor16_public_query_consensus/experiment.py \
+            --check --repetitions 4 --late-per-repetition 48 \
+            --signed-per-repetition 12 --rational-per-repetition 12 \
+            --out /tmp/nor16_full.json
+      - name: Audit source identities, public-only policy decisions and separate budgets
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          from collections import Counter
+          raw=Path('/tmp/nor16_full.json').read_bytes()
+          obj=json.loads(raw)
+          assert obj['schema']=='nor16.public_query_predictive_consensus_source_locked.v1'
+          assert obj['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert obj['all_cases']==288
+          assert obj['late_source_primary_public_distinct_inputs']==192
+          assert obj['late_source_unique_gru_visible_input_tensors']==1
+          assert obj['nonlate_secondary_distinct_gru_inputs']==96
+          assert len(obj['records'])==288
+          assert len(obj['fresh_cohorts'])==4
+          assert obj['public_query_input_degree']==256
+          assert obj['public_demo_observation_degree']==192
+          assert obj['original_native_four_check_budget']==4
+          assert obj['extra_full_mask_public_checks_per_case']==16
+          assert obj['four_public_query_unary_ops_cached_per_case']==4
+          assert len(set(r['full_public_input_sha256'] for r in obj['records']))==288
+          assert set(Counter(r['family'] for r in obj['records']).values())=={192,48}
+          assert len({r['model_input_sha256'] for r in obj['records'] if r['family']=='late_source'})==1
+          scope=obj['scope']
+          assert scope['withheld_target_output_only_seen_by_sealed_grader']
+          assert scope['candidate_program_identity_never_read_in_policy']
+          assert scope['full_mask_sixteen_checks_not_equal_cost_to_native_four']
+          assert scope['query_simulation_costs_reported_separately']
+          for kind,arm in sorted(obj['arms'].items()):
+              assert arm['cases']==288
+              assert arm['future_correct']+arm['false_accept']<=288
+              if kind.endswith('_4'):
+                  assert arm['public_checks']<=4*288
+              else:
+                  assert arm['public_checks']==16*288
+              print('NOR16 ARM',kind,'LATE',arm['by_family']['late_source'],
+                    'ALL_CORRECT',arm['future_correct'],
+                    'ALL_FALSE',arm['false_accept'],'PUBLIC_CHECKS',arm['public_checks'],
+                    'QUERY_SIMULATIONS',arm['public_query_prediction_candidates'])
+          for label,contrast in sorted(obj['predeclared_primary_comparisons'].items()):
+              assert contrast['primary_distinct_public_inputs']==192
+              assert contrast['paired_gains']-contrast['paired_losses']==contrast['net']
+              print('NOR16 PAIR',label,contrast)
+          print('NOR16 OBSERVATION COLLISIONS',obj['late_source_counterfactual_observation_collision_witnesses'])
+          print('NOR16 ACCEPTED MASKS',obj['late_source_exact_public_masks'])
+          print('NOR16 BAYES MAP EXPECTED',obj['late_source_uniform_posterior_predictive_MAP_expected_success'])
+          print('NOR16 CONSENSUS PASSED?',obj['consensus_four_passed_two_control_requirement'])
+          print('NOR16 SHA',len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - name: Independently audit first run's 1440 native decisions and 4608 candidate prediction hashes
+        run: python research/nor16_public_query_consensus/receipt_audit.py --check --full /tmp/nor16_full.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor16-public-query-consensus-source-lock-and-observation-collisions
+          path: /tmp/nor16_full.json
