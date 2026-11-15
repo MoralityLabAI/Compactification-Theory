@@ -1,0 +1,148 @@
+{
+  "schema": "SMC-11C/source-locked-exact-feature-and-causal-summary-v1",
+  "research_date": "2026-11-15",
+  "source_model": "Externally pretrained 44,001-parameter TRM-inspired Sudoku model; 81 tokens, 48 channels, four recurrence steps",
+  "source_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "roster_sha256": "eedcb21de54ab1e8fff70361fa2ddcedda342d79d788cf757108b6369c78a611",
+  "evidence": {
+    "successful_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721281348",
+    "full_artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721281348/artifacts/14164917026",
+    "full_artifact_zip_sha256": "1b62914ba7fecd91614eab36c1f799e2fc0d6d4e3279d0e1ac03a0ee5ee2a2fb",
+    "joint_full_json_sha256": "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087",
+    "independent_audit_json_sha256": "6834ed2b660a46b3904ea418bba457fce30dc99e7279948c75ba424e58b52e2c",
+    "source_identity_summary": "Exact-real pretrained source with hash-pinned weights, train-only normalization, same frozen FP32 SAE weights for exact feature identity and Arb causal proof, and exact FP64 dyadic selected direction after normalization"
+  },
+  "training": {
+    "sae_seeds": [
+      71,
+      89,
+      113
+    ],
+    "training_steps": 300,
+    "source_puzzles": 64,
+    "train_puzzles": 32,
+    "validation_puzzles": 16,
+    "test_puzzle_ids": [
+      3,
+      7,
+      11,
+      15,
+      19,
+      23,
+      27,
+      31,
+      35,
+      39,
+      43,
+      47,
+      51,
+      55,
+      59,
+      63
+    ],
+    "per_seed_frozen_tensor_sha256": {
+      "71": "b9992439de96c12f1d721a0c265ecc8031640ea7f72a4cd869a8c8c2bc9cdf3a",
+      "89": "2f91f686b1dc9b82c46d2ef3f6e1a183570b07730ccfac07f4552b0b4066ac42",
+      "113": "96914494b8670a369bf54fbdea0607c03e688cb8b13c108e40e6851c95e2a6b1"
+    },
+    "saved_saes_weights_only_sha256": {
+      "71": "00542304e1f15f606a20519d59c7617d574a4f0266c9a33b2220cf146015c3da",
+      "89": "ba0bfd9d82d68bd3398bb37e8b7539d93dff6d4e21f153d44bfa9f1ccae2ebcb",
+      "113": "087787bcfdd4d4350b56595049c07a7fd62bfd7db69f52258905a872e1f5b5af"
+    }
+  },
+  "exact_selection": {
+    "tested_goal_token_seed_cases": 48,
+    "certified": 48,
+    "top1_physical_l2": {
+      "min": 0.03279965270559709,
+      "median": 0.7977554642742488,
+      "max": 2.740817524182883
+    },
+    "top4_physical_l2": {
+      "min": 0.011054195888807563,
+      "median": 0.1566399156419141,
+      "max": 0.5478489512350984
+    },
+    "selection_cell_guard_passes_all_48_cases_up_to_common_l2": 0.000001,
+    "ray_guards": {
+      "positive": {
+        "0.02": {
+          "top1": 48,
+          "top4": 48
+        },
+        "0.2": {
+          "top1": 48,
+          "top4": 47
+        },
+        "0.8": {
+          "top1": 48,
+          "top4": 43
+        }
+      },
+      "negative": {
+        "0.02": {
+          "top1": 48,
+          "top4": 48
+        },
+        "0.2": {
+          "top1": 45,
+          "top4": 48
+        },
+        "0.8": {
+          "top1": 34,
+          "top4": 44
+        }
+      }
+    },
+    "top1_positive_ray_infinite_radius_cases": 48,
+    "note": "All 48 exact positive decoder rays lie in top-neuron self-selection halfspace cone, yielding constant top neuron at every nonnegative amplitude for the frozen affine SAE. This does not imply uniform downstream output-effect ordering at untested amplitudes."
+  },
+  "causal": {
+    "provenance_rule": "The exact positive feature-selection guard and validated local-Lipschitz causal comparison use one frozen SAE fit and same source state in each seed.",
+    "independent_puzzle_clusters": 16,
+    "contexts": 480,
+    "control_decisions": 1440,
+    "local_arb_precision_bits": 160,
+    "intervention_radii": [
+      "0.02",
+      "0.2"
+    ],
+    "anchor_direction_l2_budgets": [
+      0,
+      1e-12,
+      1e-10,
+      1e-8,
+      0.000001
+    ],
+    "extra_selection_abstentions": 0,
+    "active_vs_fixed_isotropic": {
+      "0.02_at_1e-8": {
+        "active_greater": 38,
+        "control_greater": 2,
+        "inconclusive": 8
+      },
+      "0.2_at_1e-8": {
+        "active_greater": 43,
+        "control_greater": 4,
+        "inconclusive": 1
+      },
+      "0.2_at_1e-6": {
+        "active_greater": 20,
+        "control_greater": 0,
+        "inconclusive": 28
+      }
+    }
+  },
+  "independent_audit": {
+    "rechecked_exact_selection_cases": 48,
+    "rechecked_causal_contexts": 480,
+    "rechecked_causal_labels": 1440,
+    "verified_same_fit_snapshots": 3,
+    "all_source_fingerprints_matched": true,
+    "all_exact_guards_and_composition_labels_matched": true,
+    "strict_verification_failures": 0
+  },
+  "limitations": "Same 16 previously inspected Sudoku puzzle IDs from SMC-07–10. SAE identity and causal results describe an exactly specified frozen real-arithmetic function with fixed other 80 tokens; no proof for rounded hardware execution, model retraining, other puzzles, specific semantic feature content, or reasoning accuracy gains."
+}
