@@ -55,3 +55,9 @@ Run from the repository root with CPU-only Python 3.11 and PyTorch 2.7.1:
 Network access is opt-in with --fetch. Alternatively supply --checkpoint /path/to/trm.pt; the exact Git blob SHA-1, SHA-256 and size are still checked. The [SMC-07 workflow](../../.github/workflows/smc07-pretrained-sae.yml) runs both pinned jobs and uploads per-puzzle receipts.
 
 **Evidence status:** This file registers the protocol. Scientific conclusions require completed, inspected, source-locked hosted receipts. The local toy-model unit tests verify harness plumbing only.
+
+## Hosted SMC-07 full result
+
+The full 64-puzzle, three-seed source-locked experiment and the grouped-puzzle bootstrap completed successfully in [GitHub Actions run #43702825317](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43702825317). Read the [measured report](SMC07_RESULTS.md) and [permanently committed aggregate receipt](SMC07_CLUSTERED_SUMMARY.json); the Actions artifact contains the 16-puzzle raw records for each of three SAE seeds, and 20,000-resample puzzle-clustered analysis.
+
+At radius 0.2, the mean across independent puzzle clusters of active SAE direction minus isotropic direction logit change is +0.10247, with descriptive 95% bootstrap interval [+0.05956,+0.14785]. The corresponding active-minus-inactive difference is +0.06260, interval [+0.02535,+0.10328]. This identifies a reproducible **causal-sensitivity difference** under the declared intervention grammar. The deeper question of whether these features correspond to faithful reasoning modes remains open.
