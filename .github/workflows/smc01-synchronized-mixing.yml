@@ -1,4 +1,4 @@
-name: SMC-01/02/03 mixing and probe controls
+name: SMC-01/02/03/04 mixing and calibration
 
 on:
   push:
@@ -68,11 +68,14 @@ jobs:
           with open("smc03-family-controls.json", "w") as out:
               json.dump(controls, out, indent=2)
           PY
+      - name: Replay SMC-04 unknown frame identification and risk bound
+        run: python research/synchronized_mixing_v1/run_smc04.py --smoke --output smc04-smoke-report.json
       - uses: actions/upload-artifact@v4
         with:
-          name: smc01-02-03-exact-results
+          name: smc01-02-03-04-exact-results
           path: |
             smc01-results.json
             smc02-lift-results.json
             smc03-controls.json
             smc03-family-controls.json
+            smc04-smoke-report.json
