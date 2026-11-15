@@ -15,6 +15,34 @@ permissions:
   contents: read
 
 jobs:
+  archived-original-evidence-and-selective-certificates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify archived original 1331006-byte JSON and 1440 decisions
+        run: |
+          python research/nor16_public_query_consensus/receipt_audit.py \
+            --check \
+            --archive research/nor16_public_query_consensus/results/nor16_full.zip
+      - name: Check full public-output identifiability and posthoc abstention curve
+        run: |
+          python - <<'PY'
+          from research.nor16_public_query_consensus import selective_certificate_audit as s
+          r=s.risk_curve()
+          assert r['public_only_uniquely_predicted_output_cases']==52
+          assert r['counterfactual_ambiguous_possible_future_cases']==140
+          assert r['actual_false_accept_on_certified_set']==0
+          cert=r['retrospective_threshold_table'][0]
+          assert (cert['selected_sources'],cert['future_correct'],cert['false_accept'])==(52,52,0)
+          print('NOR16S SOURCE-LOCKED PUBLIC FUTURE CERTIFICATE',r['schema'])
+          for row in r['retrospective_threshold_table']:
+              print('NOR16S POSTHOC RISK COVERAGE',row)
+          PY
+
   source-and-future-separation:
     runs-on: ubuntu-latest
     timeout-minutes: 20
