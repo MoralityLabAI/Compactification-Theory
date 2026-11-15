@@ -1,0 +1,58 @@
+name: NOR-07 trained GRU two distinct attractor certification
+
+on:
+  push:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor07_two_attractors.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor07_two_attractors.py'
+      - '.github/workflows/nor07-two-attractors.yml'
+  pull_request:
+    paths:
+      - 'research/nor01_numerical_orbit_sketch/nor07_two_attractors.py'
+      - 'research/nor01_numerical_orbit_sketch/test_nor07_two_attractors.py'
+      - '.github/workflows/nor07-two-attractors.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  certified-two-basin-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check high-precision Newton seed and independent real-analytic interval evidence
+        run: python -m unittest research.nor01_numerical_orbit_sketch.test_nor07_two_attractors -v
+      - name: Produce second attracting fixed-point and ball-disjointness certificate
+        run: python research/nor01_numerical_orbit_sketch/nor07_two_attractors.py --check --out /tmp/nor07_two_basin.json
+      - name: Independently check exact rational second-basin margin and period one
+        run: |
+          python - <<'PY'
+          import json
+          from fractions import Fraction as Q
+          from pathlib import Path
+          z=json.loads(Path('/tmp/nor07_two_basin.json').read_text())
+          assert z['schema']=='nor07.trained_gru.two_distinct_attracting_fixed_points.v1'
+          assert z['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          R=Q(z['second_ball_radius_fraction'])
+          K=Q(z['second_block_operator_norm_upper_fraction'])
+          s=Q(z['second_block_residual_upper_fraction'])
+          assert K<1 and s+K*R<R
+          s1=Q(z['second_one_step_residual_upper_fraction'])
+          L1=Q(z['second_one_step_local_norm_upper_fraction'])
+          assert s1+L1*s/(1-K)<R
+          assert Q(z['certified_coordinate_separation_lower_fraction'])>0
+          assert z['two_distinct_attracting_fixed_points']
+          assert z['squared_input_entry_to_second_basin_certified'] is False
+          print('NOR-07 TWO DISTINCT GRU ATTRACTORS CERTIFIED, K2=',float(K),
+                'radius=',float(R),'margin=',float(R-s-K*R),
+                'separation_lower=',float(Q(z['certified_coordinate_separation_lower_fraction'])))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor07-two-disjoint-attracting-fixed-points
+          path: /tmp/nor07_two_basin.json
