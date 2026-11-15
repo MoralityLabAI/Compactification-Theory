@@ -1,0 +1,156 @@
+{
+  "schema": "SMC-13/independently-trained-teachers-and-conditioned-SAE-transfer-summary-v1",
+  "date": "2026-11-15",
+  "pure_math": "https://github.com/patrickdugan/MathCan/pull/89",
+  "source": "independently pretrained TRM-inspired 44,001 parameter 4-loop Sudoku teacher; new independent teachers train from scratch with same architecture",
+  "source_teacher_commit": "f0406195fece4d0db29ced28f3a69d1993d95b1e",
+  "original_teacher_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "original_frozen_sae_reference": {
+    "run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721281348",
+    "artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43721281348/artifacts/14164917026",
+    "joint_json_sha256": "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087"
+  },
+  "novel_solution_orbit_proof": {
+    "invariant": "number of alternating two-digit 2x2 rectangles in full target Sudoku grid",
+    "canonical_generator_orbit_intercalates": 0,
+    "novel_families_have_positive_intercalates": true,
+    "counts": {
+      "train": 192,
+      "validation": 64,
+      "alignment_calibration": 64,
+      "novel30_test": 64,
+      "novel34_test": 64,
+      "canonical30_test": 64
+    },
+    "all_512_complete_solutions_distinct": true,
+    "unique_solution_puzzles_verified": true,
+    "cohort_sha256": {
+      "teacher_train": "ed7bfbc04d07853a7a615ee36aeaee29791bf17eb3c0bee3c8b4c1a4355f9ce0",
+      "teacher_val": "d2afa7d018834c226b2d2735deddde4c2cfd3fed8cea8dbff2a6a1814fa215b0",
+      "feature_calibration": "0c84f9261e052fd3dc34b9789d4696c7d74656da0506f3372759dfb1c05c8784",
+      "test_novel_30": "448b228279de68454f26dead2de33396e3306729c0dfc2a43142c5b934293b42",
+      "test_novel_34": "d955c8fcb5e66472fb46df3920fd768c1f0d75a807994a4338bc3cf7d2e8658f",
+      "test_canonical_30": "1cb93f56cc979feb4d53b26fbbc76bea376bd6fa671daec529136edde6eca9ac"
+    }
+  },
+  "teacher_training": {
+    "seeds": [
+      501,
+      701
+    ],
+    "train_puzzles": 192,
+    "validation_puzzles": 64,
+    "updates": 600,
+    "model_selection": "minimum validation missing-cell cross-entropy over steps 25,50,...600",
+    "selected_step_by_seed": {
+      "501": 175,
+      "701": 175
+    },
+    "source_teacher_missing_accuracy": {
+      "novel30": 0.9583333134651184,
+      "novel34": 0.9136029481887817,
+      "canonical30": 0.9572916626930237
+    },
+    "new_teacher_missing_accuracy": {
+      "501": {
+        "novel30": 0.4661458432674408,
+        "novel34": 0.4094669222831726,
+        "canonical30": 0.4729166626930237
+      },
+      "701": {
+        "novel30": 0.45260417461395264,
+        "novel34": 0.4453125,
+        "canonical30": 0.46302083134651184
+      }
+    },
+    "new_teachers_model_fp32_sha256": {
+      "501": "f9d09d398fa188c14c79127aa36544d03d36985978219f6da2476b10b8558db5",
+      "701": "e84af80976cbe454566d55c56ddc7d9392403ea3068ec572a2fc92e188fb169d"
+    },
+    "checkpoint_file_sha256": {
+      "501": "9406026a10219257aa25ce580eff787c67a7afec60cee4574c380398d3962ded",
+      "701": "8ebcdd491d8c6d893c31dd137ea90fd44d611e01502220eeb2be4e4371238984"
+    }
+  },
+  "SAE": {
+    "architecture": "48 to 96 to 48, ReLU hard top4",
+    "training_steps": 300,
+    "trained_B_strict_WD_cone_counts": {
+      "501_seed71": 81,
+      "501_seed89": 75,
+      "701_seed71": 76,
+      "701_seed89": 71
+    },
+    "gaussian_same_shape_SAE_counts": {
+      "seed71": 95,
+      "seed89": 94
+    },
+    "interpretation": "same training objective can induce self-reinforcing WD columns on Gaussian activations; cone count alone is not a reasoning feature certificate"
+  },
+  "feature_alignment": {
+    "calibration_puzzles": 64,
+    "heldout_puzzles_per_family": 64,
+    "assignment": "96x96 Hungarian on centered binary top4 coactivation, calibration only",
+    "raw_novel30": {
+      "A_to_B501_seed71": 0.39511,
+      "A_to_B501_seed89": 0.35933,
+      "A_to_B701_seed71": 0.41561,
+      "A_to_B701_seed89": 0.42694,
+      "B501_71_to_B501_89": 0.55078,
+      "B701_71_to_B701_89": 0.59394,
+      "B501_71_to_B701_71": 0.52884
+    },
+    "conditioned_on_position_and_visible_input_digit_novel30": {
+      "A_to_B501_seed71": {
+        "overlap": 0.24826,
+        "within_group_shuffle_null": 0.0692
+      },
+      "A_to_B501_seed89": {
+        "overlap": 0.2568,
+        "within_group_shuffle_null": 0.0756
+      },
+      "A_to_B701_seed71": {
+        "overlap": 0.1983,
+        "within_group_shuffle_null": 0.0484
+      },
+      "A_to_B701_seed89": {
+        "overlap": 0.2881,
+        "within_group_shuffle_null": 0.0766
+      },
+      "B501_71_to_B501_89": {
+        "overlap": 0.394,
+        "within_group_shuffle_null": 0.134
+      },
+      "B701_71_to_B701_89": {
+        "overlap": 0.28265,
+        "within_group_shuffle_null": 0.0886
+      },
+      "B501_71_to_B701_71": {
+        "overlap": 0.13754,
+        "within_group_shuffle_null": 0.0642
+      }
+    },
+    "random_feature_permutation_baseline": "approximately 4 percent on novel30; per-pair null and puzzle bootstrap recorded in full artifacts"
+  },
+  "artifacts": {
+    "independently_trained": {
+      "run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43728006836",
+      "artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43728006836/artifacts/14166777873",
+      "zip_sha256": "0be07ad7a159ccd95be47ddb6c58e3d45e1ea8bcf2acc14812c943dd756e43e0",
+      "full_json_sha256": "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3"
+    },
+    "raw_feature_alignment": {
+      "run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43728732508",
+      "artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43728732508/artifacts/14167073269",
+      "zip_sha256": "e20641e2e1c90fa9b815f564c6e283a536df0ee8bb0e3fa278a9e4feb7d5f00f",
+      "alignment_json_sha256": "40bd82bafd672a648b5662ab094a0f2c0ed6d5c6f6c5cdde18be40e4e6eb0022"
+    },
+    "conditioned_feature_alignment": {
+      "run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43729335868",
+      "artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43729335868/artifacts/14168165450",
+      "zip_sha256": "075d50d4d9964139fbcccbcc2f4ff7072951e281278db94a4f4c68bb99ada319",
+      "conditioned_json_sha256": "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07"
+    }
+  },
+  "limitations": "Original teacher much stronger than new teachers; two teacher seeds and two fresh SAE seeds, same architecture; new solution family is orbit-disjoint from pinned source generator but upstream pretraining data are not fully audited; calibration-only feature coactivation is observational and conditioned associations may reflect other shared puzzle structure; does not prove feature semantics, causal transfer or independent model-architecture transfer."
+}
