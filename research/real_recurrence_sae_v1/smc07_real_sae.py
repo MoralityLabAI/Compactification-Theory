@@ -59,7 +59,10 @@ def train_norm(train):
 
 
 def tensor_hash(t):
-    return hashlib.sha256(t.contiguous().numpy().tobytes()).hexdigest()
+    # Stable little-endian float32 parameter fingerprint; no NumPy dependency.
+    import struct
+    flat=t.detach().cpu().to(dtype=torch.float32).contiguous().reshape(-1).tolist()
+    return hashlib.sha256(struct.pack('<' + 'f'*len(flat), *flat)).hexdigest()
 
 
 def fit_sae(train,val,seed=71,steps=300,width=96,k=4,lr=0.003,batch_size=256):
