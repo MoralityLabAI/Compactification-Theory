@@ -54,6 +54,27 @@ def exact_fit_rows(sae,mu,std):
                                      std.detach().cpu().tolist())
 
 
+def frozen_active_direction_dyadics(sae,std,feature):
+    """Use the *identical* FP64 direction convention as SMC-09/10C.
+
+    SMC-08's sae_direction_set first multiplies FP32 decoder and training
+    scale, then casts their product to FP64 and normalizes in FP64.
+    SMC-09 treats those normalized FP64 components as exact binary values
+    and renormalizes again in exact real arithmetic. The final two
+    normalizations are positive scalars, hence both define the same ray.
+    Using unnormalized FP32 products would produce a very slightly
+    different exact-real ray, due to the intermediate FP64 rounding.
+    """
+    if not (0<=feature<sae.decoder.weight.shape[1]):
+        raise ValueError('invalid frozen atom id')
+    with torch.no_grad():
+        product=(sae.decoder.weight[:,feature]*std).detach().to(torch.float64)
+        scale=product.norm()
+        if not float(scale)>1e-12:
+            raise ValueError('selected decoder direction vanishes')
+        return tuple(float(v) for v in (product/scale).cpu().tolist())
+
+
 def descriptive_all_token_radii(sae,stage,mean,std,test_ids):
     """Fast FP64 exploratory survey. NO certification for these other tokens."""
     with torch.no_grad():
@@ -117,15 +138,15 @@ def goal_selection_cases(stage,inputs,sae,mu,std,test_ids,seed):
                 ref_support=tuple(sorted(int(z) for z in pos.topk(4).indices.tolist()))
             same=(ref_top==cert['top_index'] and
                   ref_support==cert['topk_indices'])
-            with torch.no_grad():
-                # Match SMC-09's physical intervention direction. The
-                # elementwise decoder*scale product occurs in FP32 first;
-                # the resulting frozen binary components are exact rational
-                # inputs for the subsequent exact-real ray certificate.
-                raw_direction=(sae.decoder.weight[:,cert['top_index']]*std).detach().cpu().tolist()
+            # The chosen ray must use the identical numerically normalized
+            # FP64 dyadics that SMC-09 freezes before exact-real Arb
+            # normalization. Otherwise the exact geometric theorem would
+            # certify a neighboring, slightly different decoder direction.
+            active_dyadics=frozen_active_direction_dyadics(
+                sae,std,cert['top_index'])
             rays={}
             for label,sgn in (('positive',1),('negative',-1)):
-                directed=[sgn*float(v) for v in raw_direction]
+                directed=[sgn*v for v in active_dyadics]
                 ray=topk_ray_certificate(cert,rows,directed)
                 ray_result={}
                 for ckey in ('top1','topk'):
