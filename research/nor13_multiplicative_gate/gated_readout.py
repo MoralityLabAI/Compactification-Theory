@@ -73,10 +73,7 @@ def frozen_gate_inputs():
     perm=[r["label"] for r in diag]
     random.Random(prior.SEED+77).shuffle(perm)
     neg=prior.fit_head(diag,seed=prior.SEED+77,labels_override=perm)
-    assert probe_sha==json.loads(previous.BASELINE_SUMMARY.read_text() if
-                                 hasattr(previous,"BASELINE_SUMMARY") else
-                                 (ROOT/"research"/"nor11_attractor_controller"/"results"/"nor11_executed_summary.json").read_text()
-                                 )["source_checkpoint_sha256"] if False else True
+    assert len(probe["weights"])==13 and ck["parameters"]==1000
     assert ck["parameters"]==1000
     attach_gated_features(old,probe,neg)
     return ck,probe,neg,old,cohort,probe_sha
