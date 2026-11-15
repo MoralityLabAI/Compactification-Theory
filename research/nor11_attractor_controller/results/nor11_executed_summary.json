@@ -1,0 +1,154 @@
+{
+  "schema": "nor11.frozen_gru.basin_controller_executed_summary.v1",
+  "executed_utc_date": "2026-11-15",
+  "repository": "MoralityLabAI/Compactification-Theory",
+  "source_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "frozen_base_gru_parameters": 1000,
+  "trained_auxiliary_basin_head_parameters": 13,
+  "diagnostic_zero_input_steps": 720,
+  "native_exact_verifier_budget": 4,
+  "source_features_per_case": [
+    9,
+    8
+  ],
+  "cohort_counts": {
+    "train": 96,
+    "development": 36,
+    "test": 72
+  },
+  "cohort_unique_model_input_counts": {
+    "train": 96,
+    "development": 36,
+    "test": 61
+  },
+  "test_alias_note": "12 visible late_source cases map to a single 9x8 feature tensor; input-level probe metrics are deduplicated",
+  "training_modes": {
+    "first": 62,
+    "second": 34
+  },
+  "development_modes": {
+    "first": 21,
+    "second": 15
+  },
+  "heldout_modes_cases": {
+    "first": 48,
+    "second": 24,
+    "unresolved": 0
+  },
+  "heldout_modes_unique_inputs": {
+    "first": 37,
+    "second": 24,
+    "unresolved": 0
+  },
+  "trained_basin_head_heldout": {
+    "case_level": {
+      "n": 72,
+      "accuracy": 0.9583333333333334,
+      "balanced_accuracy": 0.9583333333333334,
+      "auc": 0.9869791666666666,
+      "brier": 0.04116671066755387
+    },
+    "unique_feature_level": {
+      "n": 61,
+      "accuracy": 0.9508196721311475,
+      "balanced_accuracy": 0.9521396396396397,
+      "auc": 0.9831081081081081,
+      "brier": 0.04852743210674038
+    },
+    "unique_feature_confusion": {
+      "tp": 23,
+      "fn": 1,
+      "fp": 2,
+      "tn": 35
+    },
+    "shuffled_label_control_auc_unique": 0.3716216216216216
+  },
+  "development_selection": {
+    "objective": "future_correct - 0.5*false_accept - 0.05*interventions",
+    "selected_alpha": 0,
+    "selected_probability_threshold": 1,
+    "source_cases": 36,
+    "selected_future_correct": 27,
+    "selected_false_accept": 0
+  },
+  "heldout_native_task": {
+    "baseline": {
+      "future_correct": 42,
+      "accepted": 48,
+      "false_accept": 6,
+      "paid_checks": 196,
+      "actions": 0
+    },
+    "selected": {
+      "future_correct": 42,
+      "accepted": 48,
+      "false_accept": 6,
+      "paid_checks": 196,
+      "actions": 0
+    },
+    "fixed_escape": {
+      "future_correct": 40,
+      "accepted": 46,
+      "false_accept": 6,
+      "paid_checks": 205,
+      "actions": 23,
+      "mode_second_to_first": 13,
+      "paired_correctness_gains": 2,
+      "paired_correctness_losses": 4
+    },
+    "unconditional": {
+      "future_correct": 39,
+      "accepted": 45,
+      "false_accept": 6,
+      "paid_checks": 203,
+      "actions": 72,
+      "mode_second_to_first": 15,
+      "paired_correctness_gains": 4,
+      "paired_correctness_losses": 7
+    },
+    "shuffled_head_escape": {
+      "future_correct": 42,
+      "accepted": 48,
+      "false_accept": 6,
+      "paid_checks": 199,
+      "actions": 7,
+      "mode_second_to_first": 1
+    },
+    "random_direction": {
+      "future_correct": 42,
+      "accepted": 48,
+      "false_accept": 6,
+      "paid_checks": 199,
+      "actions": 23,
+      "mode_second_to_first": 2
+    }
+  },
+  "intervention": {
+    "target": "frozen first certified GRU attractor center",
+    "type": "convex interpolation of hidden state toward center",
+    "threshold": 0.65,
+    "alpha": 0.5,
+    "frozen_original_readout": true
+  },
+  "public_feature_manifest_sha256": {
+    "train": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+    "dev": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+    "test": "0058fb02ceb109b7ac36d6f3799c5fd097e247ff6a7ed1c5998420bd4681f545"
+  },
+  "independent_successful_runs": [
+    "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43706528188",
+    "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43706567130"
+  ],
+  "workflow_artifact_id": 14158598618,
+  "canonical_json_sha256": "bfcc0d97e0a196bade7df87f87d4ae5ae844570aa723619ec712431d644685df",
+  "reproduced_byte_identically_across_both_runs": true,
+  "scope": {
+    "original_trained_gru_updated": false,
+    "basin_head_trained_on_public_hidden_plus_FP64_asymptotic_label": true,
+    "per_new_source_attractor_membership_exact_rational_certified": false,
+    "native_proof_task_performance_improved": false,
+    "causal_effect": "13/23 fixed escape actions changed the diagnostic basin from second to first",
+    "negative_transfer": "Fixed escape lost two net future-correct programs and used nine more paid template checks than baseline",
+    "inferred_general_semantics": false
+  }
+}
