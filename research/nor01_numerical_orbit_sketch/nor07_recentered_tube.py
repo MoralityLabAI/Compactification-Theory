@@ -18,7 +18,7 @@ from fractions import Fraction as Q
 from trained_gru_cert import (
     Interval, N, ZERO, ONE, SCALE,
     gates, jacobian_interval, hessian_bound, rational_center,
-    radius_upper, sqrt_upper, round_rational, get_weights,
+    radius_upper, sqrt_upper, round_rational, ceil_rational, get_weights,
 )
 
 
@@ -125,16 +125,16 @@ def recentered_tube(weights, center, radius, length):
         # the global Hessian estimate still applies to its actual orbit:
         # all actual states remain in the cube, and their centers are
         # in the cube; the segments joining them therefore remain there.
-        delta.append(radius_j)
+        delta.append(ceil_rational(radius_j,SCALE))
 
         derivative_j=sum((
             norms[(j,k+1)]*
             (point_j_err[k]+M*delta[k])*
             (norms[(k,0)]+derivative_error[k])
             for k in range(j)),ZERO)
-        derivative_error.append(derivative_j)
+        derivative_error.append(ceil_rational(derivative_j,SCALE))
 
-    K=norms[(length,0)]+derivative_error[length]
+    K=ceil_rational(norms[(length,0)]+derivative_error[length],SCALE)
     # The nominal end-center is exact rational. A separate point
     # enclosure is obtained by recomputing delta_j with initial zero.
     point_delta=[ZERO]
@@ -143,10 +143,10 @@ def recentered_tube(weights, center, radius, length):
                   (step_e[k]+point_j_err[k]*point_delta[k]+
                    M*point_delta[k]*point_delta[k]/2)
                   for k in range(j)),ZERO)
-        point_delta.append(dj)
+        point_delta.append(ceil_rational(dj,SCALE))
     point_center_gap=sqrt_upper(sum(
         ((x-y)**2 for x,y in zip(states[-1],center,strict=True)),ZERO))
-    s = point_center_gap+point_delta[-1]
+    s = ceil_rational(point_center_gap+point_delta[-1],SCALE)
 
     return {
         "certification_method":"rational recentered nominal Jacobians; Volterra remainder with global analytic Hessian bound",
