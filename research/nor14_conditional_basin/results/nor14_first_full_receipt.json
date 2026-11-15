@@ -1,0 +1,135 @@
+{
+  "schema": "nor14.first_full_hosted_receipt.v1",
+  "executed_date_utc": "2026-11-15",
+  "pinned_experiment_commit": "6f5ac2cce6ae2859315c669c23bff2dbc1b9ed8f",
+  "workflow_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43716329135",
+  "artifact_id": 14162463420,
+  "artifact_name": "nor14-four-cohort-orthogonal-basin-and-trajectory-evidence",
+  "full_json_sha256": "57b4b82550dce6228356dae924264a95f38d66b3974c038b574eadcad9f7df2d",
+  "full_json_utf8_bytes": 1380694,
+  "original_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "original_probe_sha256": "56101a9a7a7c66991696d71b8a7f5d50362ab8fe73500e431ff30b97f01920ad",
+  "train_manifest": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "training_source_cases": 96,
+  "dev_source_cases": 36,
+  "public_template_checks_shared": 1536,
+  "trained_readout_slots_per_arm": 400,
+  "fresh_cohort_manifests": [
+    "4c9e8b368ded6af1c93940a78eff96bc80e60280b05c1665816ea54dd1deb90a",
+    "18d17cdf41b175d6d73a4ebdf8b45d40f64733035ae7cef9eb547a1c425cf8d8",
+    "de4103b6f6a626bc10308674b4b16286cade4d3805746d64e5047886eb058c7f",
+    "f3bf75035e99eeab3bfb1931163cd5fef28e67d132a783ad01e1e46bfd496273"
+  ],
+  "fresh_cases": 288,
+  "nonlate_distinct_input_cases": 240,
+  "distinct_model_inputs": 241,
+  "late_source_cases": 48,
+  "late_source_distinct_model_inputs": 1,
+  "development_global_frozen": {
+    "kind": "endpoint_shuffled",
+    "scale": 1,
+    "future_correct": 29,
+    "false_accept": 0,
+    "paid_checks": 102
+  },
+  "dev_local_frozen_scales": {
+    "endpoint_basin": 0.25,
+    "endpoint_shuffled": 1,
+    "endpoint_random": 0.25,
+    "trajectory_basin": 0.5,
+    "trajectory_random": 0.5,
+    "hidden_only": 0.5
+  },
+  "arms": {
+    "original": [
+      178,
+      22,
+      794,
+      165
+    ],
+    "hidden_only": [
+      176,
+      20,
+      805,
+      166
+    ],
+    "endpoint_basin": [
+      173,
+      20,
+      797,
+      163
+    ],
+    "endpoint_shuffled": [
+      167,
+      20,
+      817,
+      160
+    ],
+    "endpoint_random": [
+      171,
+      20,
+      793,
+      161
+    ],
+    "trajectory_basin": [
+      177,
+      20,
+      811,
+      167
+    ],
+    "trajectory_random": [
+      173,
+      20,
+      790,
+      163
+    ],
+    "dev_selected": [
+      167,
+      20,
+      817,
+      160
+    ],
+    "endpoint_basin_remove_nonlinear": [
+      171,
+      20,
+      799,
+      161
+    ],
+    "endpoint_basin_replace_shuffled": [
+      166,
+      20,
+      801,
+      159
+    ],
+    "endpoint_basin_replace_random": [
+      172,
+      20,
+      818,
+      162
+    ],
+    "endpoint_basin_replace_trajectory": [
+      174,
+      20,
+      812,
+      164
+    ]
+  },
+  "arm_value_fields": [
+    "all_future_correct",
+    "all_false_accept",
+    "all_paid_checks",
+    "nonlate_future_correct"
+  ],
+  "primary_endpoint_vs_original": {
+    "gains": 8,
+    "losses": 10,
+    "exact_two_sided_p": 0.8145294189453125
+  },
+  "primary_trajectory_vs_random": {
+    "gains": 11,
+    "losses": 7,
+    "exact_two_sided_p": 0.480682373046875
+  },
+  "certification_scope": "deterministic FP64 native readout experiment with public degree-192 exact candidate checks; no interval proof of source-basin membership, no conditional-information gain claim",
+  "reported_conclusion": "No statistically established basin-specific advantage; future-correct winner on all 288 is the original frozen GRU."
+}
