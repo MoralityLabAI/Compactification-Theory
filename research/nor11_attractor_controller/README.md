@@ -60,3 +60,32 @@ Standard-library Python 3.12, from repository root:
     python research/nor11_attractor_controller/controller.py --check --train-per-family 32 --dev-per-family 12 --test-per-family 12 --out /tmp/nor11_controller.json
 
 The [NOR-11 CI workflow](../../.github/workflows/nor11-basin-controller.yml) runs unit controls, trains the auxiliary head, evaluates every arm, and archives the source-locked result as a GitHub Actions artifact. CPU-only execution changes neither the frozen checkpoint nor upstream training code.
+
+## Executed result and negative transfer
+
+The frozen original-checkpoint experiment succeeded in [GitHub Actions run 43706528188](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43706528188). A separate [run 43706567130](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43706567130) produced a **byte-identical 199,367-byte result JSON**, SHA-256:
+
+bfcc0d97e0a196bade7df87f87d4ae5ae844570aa723619ec712431d644685df
+
+The data contain 96 train, 36 development and 72 held-out synthetic algebraic cases. The effective distinct-feature count is 96, 36 and **61** respectively; all twelve late-source test cases collapse to a single model-visible 9×8 feature tensor. Training and development features share no hashes with the test tensors.
+
+The trained 13-parameter auxiliary basin head reached **98.31% ROC-AUC** and **95.21% balanced accuracy** on the 61 unique held-out feature tensors. Its held-out confusion was 23 true-second positives, one false negative, two false positives, and 35 true-first negatives. The shuffled-label head's unique-feature ROC-AUC was 37.16%. These are *FP64 asymptotic basin-label* results, with no new per-case exact interval capture.
+
+| Arm, four paid template checks maximum per case | Held-out future-correct /72 | False accepts | Paid checks | Actions |
+| --- | ---: | ---: | ---: | ---: |
+| Original frozen recurrent model | 42 | 6 | 196 | 0 |
+| Development-selected controller | 42 | 6 | 196 | 0 |
+| Fixed escape (threshold .65, alpha .5) | 40 | 6 | 205 | 23 |
+| Unconditional first-anchor shift (alpha .5) | 39 | 6 | 203 | 72 |
+| Shuffled-label basin head plus fixed escape | 42 | 6 | 199 | 7 |
+| Matched random-direction control | 42 | 6 | 199 | 23 |
+
+The development objective **selected abstention**, with alpha zero. The fixed escape intervention moved 13 of its 23 acted-on trajectories from the second asymptotic mode to the first. Relative to the frozen baseline on identical test cases, the fixed intervention recovered two previously incorrect future programs while losing four previously correct ones. The paid exact template checks increased from 196 to 205. The randomized-direction intervention changed modes twice and preserved the 42 baseline successes.
+
+These data establish that a small linear head can accurately decode a hidden recurrent mode and that directed activation interventions can change that mode. **Neither decoding nor intervention produced a native proof-recovery gain** in this experiment. Its task signal and zero-input attractor dynamics must be studied separately before treating the basin as an actionable reasoning-control variable.
+
+The committed [frozen summary](results/nor11_executed_summary.json) records all scores, paired outcomes, input hashes, sample diversity, and workflow URLs. The [trained basin head weights](results/nor11_auxiliary_head.json) retain train-only scaling and the exact 13 fitted coefficients. The complete 199KB per-case receipt remains available as the GitHub Actions artifact, with [receipt_audit.py](receipt_audit.py) verifying its SHA-256 and the committed summary on replay.
+
+### Next discriminating experiment
+
+An intervention that shifts a hidden state toward an attractor can erase information needed by the model's native 16-class ranker. A stronger controller could **monitor** basin probability while preserving the proof-task hidden state, then learn a separate low-rank readout correction or an escape action using development-only verified proof outcomes. Its transfer must be tested against the same unchanged four-check budget and held-out families. A positive result would need to exceed both the frozen ranker and a shuffled-label controller with matched parameter count.
