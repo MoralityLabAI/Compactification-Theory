@@ -34,6 +34,18 @@ class CertifiedGates(unittest.TestCase):
             self.assertGreater(v.lo, 0)
             self.assertGreaterEqual(v.hi, v.lo)
 
+    def test_high_precision_adaptive_exponential_tail(self):
+        # At 16 decimal digits the fixed 72-term Taylor tail could
+        # dominate long interval recurrences. The new 32-digit engine
+        # proves tight absolute enclosures even at large arguments.
+        from trained_gru_cert import DIGITS, EXP_TAIL_TARGET
+        self.assertGreaterEqual(DIGITS, 32)
+        self.assertLess(EXP_TAIL_TARGET, Q(1, 10**40))
+        for x in (Q(0), Q(7), Q(12), Q(18), Q(25)):
+            bound = exponential_bounds(x)
+            self.assertLessEqual(bound.hi - bound.lo, Q(3, 10**DIGITS))
+            self.assertGreater(bound.lo, 0)
+
     def test_sigmoid_tanh_monotonic_enclosures(self):
         for x in (Q(-10), Q(-4), Q(-1, 100), Q(0), Q(3, 10), Q(3), Q(11)):
             z = sigmoid_at(x)
