@@ -3,11 +3,19 @@ name: NOR-15A trajectory observability, reconstruction and local Jacobian survey
 on:
   push:
     paths:
-      - 'research/nor15_trajectory_sufficiency/**'
+      - 'research/nor15_trajectory_sufficiency/audit.py'
+      - 'research/nor15_trajectory_sufficiency/test_audit.py'
+      - 'research/nor15_trajectory_sufficiency/nor15a_receipt.py'
+      - 'research/nor15_trajectory_sufficiency/results/nor15a_frozen_receipt.json'
+      - 'research/nor15_trajectory_sufficiency/README.md'
       - '.github/workflows/nor15a-trajectory-observability.yml'
   pull_request:
     paths:
-      - 'research/nor15_trajectory_sufficiency/**'
+      - 'research/nor15_trajectory_sufficiency/audit.py'
+      - 'research/nor15_trajectory_sufficiency/test_audit.py'
+      - 'research/nor15_trajectory_sufficiency/nor15a_receipt.py'
+      - 'research/nor15_trajectory_sufficiency/results/nor15a_frozen_receipt.json'
+      - 'research/nor15_trajectory_sufficiency/README.md'
       - '.github/workflows/nor15a-trajectory-observability.yml'
   workflow_dispatch:
 
@@ -25,6 +33,8 @@ jobs:
           python-version: '3.12'
       - name: Test exact GRU parity, future-label masking, ridge and Jacobi spectrum
         run: python -m unittest research.nor15_trajectory_sufficiency.test_audit -v
+      - name: Check signed NOR-15A frozen hosted receipt
+        run: python research/nor15_trajectory_sufficiency/nor15a_receipt.py --check
 
   frozen-trajectories-four-cohorts:
     needs: native-parity-and-source-safety
@@ -71,6 +81,8 @@ jobs:
           print("NOR15A JACOBIAN LOWEST",min(x["sigma_min"] for x in z["local_jacobian_spectra"]))
           print("NOR15A FULL JSON",len(raw),hashlib.sha256(raw).hexdigest())
           PY
+      - name: Independently audit 1440 reconstruction errors, paired signs and 24 spectra
+        run: python research/nor15_trajectory_sufficiency/nor15a_receipt.py --check --full /tmp/nor15a_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor15a-frozen-trajectory-288-case-reconstruction-and-jacobians
