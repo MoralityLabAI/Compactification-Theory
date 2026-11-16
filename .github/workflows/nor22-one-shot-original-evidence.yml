@@ -1,0 +1,65 @@
+name: NOR-22 one-shot preserve original authenticated-commitment public fixture and 48 target worlds
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor22-one-shot-original-evidence.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  preserve-first-source-locked-modular-commitment-evidence:
+    if: github.ref == 'refs/heads/research/nor22-authenticated-future-commitments-20261116'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor22-authenticated-target-commitment-public-fixture-and-48-world-outcomes
+          run-id: 43816319904
+          github-token: ${{ github.token }}
+          path: /tmp/nor22-original
+      - name: Verify original exact fixture/result bytes and registered source hashes
+        run: |
+          set -euo pipefail
+          test -f /tmp/nor22-original/nor22_fixture.json
+          test -f /tmp/nor22-original/nor22_full.json
+          echo "a325aa87214bbfcabe40c6f964e514ded5f16dd3a18752c09e2d99b907590a4d  /tmp/nor22-original/nor22_fixture.json" | sha256sum --check
+          echo "c6e7eba604b43a113362505ded2a5581305ff5213afaff3fe0c726741b35795b  /tmp/nor22-original/nor22_full.json" | sha256sum --check
+          test "$(wc -c < /tmp/nor22-original/nor22_fixture.json)" -eq 2236097
+          test "$(wc -c < /tmp/nor22-original/nor22_full.json)" -eq 128050
+      - name: Replay 12 source programs and all 192 decisions independently
+        run: |
+          python research/nor22_authenticated_commitment/receipt_audit.py --check \
+            --fixture /tmp/nor22-original/nor22_fixture.json \
+            --full /tmp/nor22-original/nor22_full.json
+      - name: Archive original authenticated-target inputs and sealed outcomes unchanged
+        run: |
+          set -euo pipefail
+          zip -q -X -j \
+            research/nor22_authenticated_commitment/results/nor22_original_hosted.zip \
+            /tmp/nor22-original/nor22_fixture.json \
+            /tmp/nor22-original/nor22_full.json
+          test "$(unzip -p research/nor22_authenticated_commitment/results/nor22_original_hosted.zip nor22_fixture.json | sha256sum | awk '{print $1}')" = \
+            a325aa87214bbfcabe40c6f964e514ded5f16dd3a18752c09e2d99b907590a4d
+          test "$(unzip -p research/nor22_authenticated_commitment/results/nor22_original_hosted.zip nor22_full.json | sha256sum | awk '{print $1}')" = \
+            c6e7eba604b43a113362505ded2a5581305ff5213afaff3fe0c726741b35795b
+      - name: Commit source-locked first-run ZIP on isolated research branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor22_authenticated_commitment/results/nor22_original_hosted.zip
+          git diff --cached --check
+          git commit -m "NOR-22: preserve original public fixture and authentic modular 48-world evidence bytes"
+          git push origin "HEAD:research/nor22-authenticated-future-commitments-20261116"
