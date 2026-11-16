@@ -317,10 +317,9 @@ def audit(fixture_bytes,result_bytes):
 
 def main():
     p=argparse.ArgumentParser()
-    group=p.add_mutually_exclusive_group()
-    group.add_argument("--archive",type=Path)
-    group.add_argument("--fixture",type=Path)
-    group.add_argument("--full",type=Path)
+    p.add_argument("--archive",type=Path)
+    p.add_argument("--fixture",type=Path)
+    p.add_argument("--full",type=Path)
     p.add_argument("--check",action="store_true")
     args=p.parse_args()
     if args.archive:
