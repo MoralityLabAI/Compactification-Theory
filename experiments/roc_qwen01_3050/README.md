@@ -22,6 +22,10 @@ checkpoint conversion is checked for missing or mismatched parameters.
 Forward cache receipts and selected-token NumPy memmaps prevent matching passes
 from being repeated. Cached execution requires the exact source fingerprint and
 settings. Delete nothing to rerun CPU fitting: `python3 experiments/roc_qwen01_3050/fit.py`.
+The published compressed receipt database can be restored with
+`python3 experiments/roc_qwen01_3050/restore_forward_cache.py` before replay.
+Audit saved results without a model using
+`python3 experiments/roc_qwen01_3050/verify_results.py`.
 
 `results/REPORT.md`, `summary.json`, row CSVs, manifests, and memory logs carry
 the evidence. Sensitivity sketches have only 16 measured directions; unmeasured
