@@ -53,7 +53,7 @@ The actual per-source 4096-trial frequencies are stochastic estimates, and their
 | 7 | 1024 | sparse | 1.83% | 0% | 4.27% |
 | 7 | 1024 | rational | 1.98% | 0% | 4.42% |
 
-Source-level mean hybrid_50 is 4.0283% for 769-coefficient outputs and 1.9491% for 1537-coefficient outputs. The source-level paired median hybrid_50 minus static self-play is +2.9419 pp. A descriptive, source-block bootstrap (10,000 draws with replacement, fixed seed 202611260080) gave a hybrid_50 mean interval of approximately **2.40% to 3.60%**. The study has twelve source units; 512 challenge ordinals and eight attacker replicas are repeated observations within them.
+Source-level mean hybrid_50 is 4.0283% for 769-coefficient outputs and 1.9491% for 1537-coefficient outputs. The equal-source theoretical floor averages 3.112865% across the six short and six long sources, while the observed hybrid_50 mean is 2.988688%, a retrospective difference of -0.1242 percentage points. This is a comparison of fixed-blind detection frequencies with their idealized randomization probabilities. The source-level paired median hybrid_50 minus static self-play is +2.9419 pp. A descriptive, source-block bootstrap (10,000 draws with replacement, fixed seed 202611260080) gave a hybrid_50 mean interval of approximately **2.40% to 3.60%**. The study has twelve source units; 512 challenge ordinals and eight attacker replicas are repeated observations within them.
 
 ## Policy transfer
 
@@ -74,9 +74,13 @@ The complete raw 7×7 matrix, including shuffled-prior policies, is in the full 
 
 - 12 new public-only RRC25 source identities, original JSON **2,838,554 bytes**. SHA-256: e3f5a3df07d062d8681a39a7ddcba9a981b58af6f149f13bd372daf08ac6606f.
 - First full outcome JSON **217,954 bytes**. SHA-256: a451897b780b024aac49f543833bc5e3ec32a734489d3f7a9b14a929bd11669a.
-- Source-only and result bytes are preserved as [Actions #43895351638 artifact 14237404539](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43895351638). The independent auditor reconstructs all 12 original source proposals, both audit phases, greedy attacks and entire cross-play from the public source JSON.
+- Both original raw byte streams are **permanently committed** in [results/nor26_original_hosted.zip](results/nor26_original_hosted.zip), a 1,098,590-byte archive whose internal source and outcome members match the immutable hashes above. The original [Actions #43895351638 artifact 14237404539](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43895351638) provides an independent initial hosted record. The [read-only SHA auditor](original_archive_audit.py) verifies the committed original members in CI. The independent decision replayer reconstructs all 12 original source proposals, both audit phases, greedy attacks and entire cross-play from the public source JSON.
 - Every fully informed post-schedule attack evaded; all legitimate full-target proposals passed; sampled exact shift +1 versus +4294049777 comparisons were identical.
 
 ## Interpretation
 
 NOR-26 establishes a positive **fixed schedule-blind** adversarial guarantee and a prospective empirical detection advantage for uniform-reserve auditing over deterministic source-risk rankings, using calibrated attacks chosen independently from the actual audit schedules. Neither NOR-26 nor its mathematics establishes secrecy of a public reproducible pseudorandom seed or unconditional target correctness. The authentic exact-value witness remains external. A production audit would need unpredictable privately generated coins, and its attack model must exclude leaked realized schedules.
+
+## Formal companion
+
+[MathCan PR #116](https://github.com/patrickdugan/MathCan/pull/116) merged at `3c438242` with Lean 4.35 kernel-verified bounds for policy-aware fixed attacks across arbitrary mixtures of targeted prefixes. A separately developed overlapping formalization in [MathCan PR #115](https://github.com/patrickdugan/MathCan/pull/115) independently passed its Lean check and was closed as superseded by the canonical merged module.
