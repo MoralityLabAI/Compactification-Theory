@@ -74,7 +74,7 @@ The first source-disjoint experiment passed [GitHub Actions run 43790898276](htt
 
     9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b
 
-The original first-run artifact ID is 14192526748. The compact [frozen receipt](results/nor18_first_frozen_receipt.json) pins the source manifests, all 28 primary arm certificate counts, selected arithmetic work totals, the primary paired comparisons and source checkpoint identity. The [independent audit](receipt_audit.py) checks the original bytes and rebuilds all **8,064 case-arm decisions**, per-candidate full-check charges, nested sound screen masks, batched full comparisons and six 4×4 unary-caching identities per source case.
+The original first-run artifact ID is 14192526748. Its complete original contents are now preserved in [the source-controlled 671 KB ZIP](results/nor18_full.zip), whose uncompressed 12,896,423-byte stream is independently SHA-256 checked in permanent CI. The temporary archive publishing workflow was deleted after committing the original evidence. The compact [frozen receipt](results/nor18_first_frozen_receipt.json) pins the source manifests, all 28 primary arm certificate counts, selected arithmetic work totals, the primary paired comparisons and source checkpoint identity. The [independent audit](receipt_audit.py) checks the original bytes and rebuilds all **8,064 case-arm decisions**, per-candidate full-check charges, nested sound screen masks, batched full comparisons and six 4×4 unary-caching identities per source case.
 
 ### Equal total-work-cap comparison on 192 distinct late_source public inputs
 
