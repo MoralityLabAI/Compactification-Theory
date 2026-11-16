@@ -58,15 +58,3 @@ Secondary analyses: clean-correct-only margins, matched-kill versus sham flip co
 A positive result shows task-output sensitivity to a **minimal-norm physical edit selectively suppressing a naturally encoded matched feature**, relative to a same-dose edit tangent to the original top-four affine encoder constraints. It still cannot identify a unique internal variable, because other inactive encoder preactivations and the teacher's hidden-state geometry can change. A low-coverage failure or nonpositive margin gate constrains how far SMC-15's decoder-erasure effect can be localized. This design tests previously trained teachers with substantial source/new capability disparity. The two receiving SAE fits and two teacher seeds are correlated comparisons, not independent population replications.
 
 The companion OLM-16 mathematical result proves the projection minimum-norm theorem, rank obstruction, exact tangent-sham invariance on the affine encoder cell and sharp first/second-order margin sensitivity bounds. A separate stdlib receipt auditor must replay the eligibility, test roster, physical dose/encoder checks, puzzle bootstrap and preregistered gate. The original source artifact hashes and all seven SMC-13C assignments remain locked.
-
-
-## Pretest implementation lock (November 16, 2026, before SMC-16 pilot/full evaluation)
-
-This implementation detail amendment is appended to the already committed protocol before introducing fresh-cohort outcomes. It preserves all earlier selection thresholds and the primary success gate.
-
-- Compute geometry in FP64 from physical encoder rows (encoder.weight divided elementwise by the frozen 48-state scale); compare SAE activations after conversion of edited FP64 states back to FP32, matching the original encoder computation.
-- For rank, use the CPU PyTorch matrix_rank default SVD tolerance; reject singular solves. Require numerical projection norms >1e-8, relative orthogonality residual <=1e-8, and the original reencoding tolerance 1e-4*(1+z_l) for all protected coefficients.
-- Take four deterministic sham Gaussian candidate seeds from the first 63 bits of SHA-256 of the literal tuple (SMC16, pair_index, family, full-grid seed, goal slot, attempt 0..3); the four draws are fixed before looking at labels.
-- Each pair/family cluster bootstrap uses random.Random(202616130+100*pair_index+len(family)) and resamples the family puzzle count with replacement 2,000 times. Take sorted percentile indexes floor(0.025*2000) and floor(0.975*2000)-1, as in the earlier source-locked scoring style. Require 2,000 bootstrap draws with at least one eligible goal.
-- Compare exactly four pretrained A SAE71 to B501/B701 SAE71/89 pairs. Source feature top-one must be positive and strictly greater than its runner-up. Matched receiving feature must belong to the four strictly positive receiving features. Outcome labels are accessed only after the candidate eligibility masks have been fixed.
-- Scientific gate failures remain reported outcomes; execution errors, source hash mismatches, geometry invariance failures after an eligible edit and independent-audit inconsistencies fail the CI job.
