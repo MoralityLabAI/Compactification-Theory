@@ -1,0 +1,173 @@
+name: NOR-20 fresh wide coefficient public-verifier CPU and RAM cross-host
+
+on:
+  push:
+    paths:
+      - 'research/nor20_crosshost/**'
+      - '.github/workflows/nor20-crosshost-wide.yml'
+  pull_request:
+    paths:
+      - 'research/nor20_crosshost/**'
+      - '.github/workflows/nor20-crosshost-wide.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistered-public-generator-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test exact native template parity on all wide source classes and hidden-target isolation
+        run: python -m unittest research.nor20_crosshost.test_crosshost -v
+
+  freeze-public-fixture:
+    needs: preregistered-public-generator-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate once, verify original public source exclusion, then seal fixture
+        run: |
+          python research/nor20_crosshost/benchmark.py \
+            --make-fixture nor20_fixture/fixture.json
+      - name: Publish byte-identical public fixture for both host CPUs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('nor20_fixture/fixture.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor20.public_only_wide_coefficients_source_v1'
+          assert x['source_seed_offset']==94120000
+          assert x['nominal_widths']==[4,8,12,16]
+          assert x['public_families']==['wide_dense','wide_sparse','wide_late','wide_rational']
+          assert len(x['cases'])==64
+          assert x['private_program_identities_and_future_query_targets_absent']
+          assert x['public_fixture_only']
+          assert len(set(a['full_public_sha256'] for a in x['cases']))==64
+          for r in x['cases']:
+              assert len(r['demos'])==2
+              assert all(len(x)==len(y)==193 for x,y in r['demos'])
+              assert len(r['public_query_input'])==257
+              assert 0<r['original_exact_accept_mask']<65536
+          print('NOR20 ORIGINAL WIDE PUBLIC FIXTURE',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor20_same_bytes_public_fixture
+          path: nor20_fixture/fixture.json
+          if-no-files-found: error
+
+  independently-benchmark-linux-and-windows:
+    needs: freeze-public-fixture
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            host: linux_ubuntu_2404
+          - os: windows-2025
+            host: windows_2025
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor20_same_bytes_public_fixture
+          path: nor20_fixture
+      - name: Benchmark exact streamed/cache/native proof-verifier masks and memory with identical fixture
+        shell: bash
+        run: |
+          python research/nor20_crosshost/benchmark.py \
+            --fixture nor20_fixture/fixture.json \
+            --host-label ${{ matrix.host }} \
+            --check --out nor20_results/${{ matrix.host }}.json
+      - name: Record all repetitions, exact masks, original public input width and host
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from hashlib import sha256
+          f=Path('nor20_fixture/fixture.json').read_bytes()
+          r=Path('nor20_results/${{ matrix.host }}.json').read_bytes()
+          x=json.loads(r)
+          assert x['cases']==len(x['records'])==64
+          assert x['fixture_sha256']==sha256(f).hexdigest()
+          assert x['host']['host_label']=='${{ matrix.host }}'
+          assert x['modes']==['independent16','cached16','stream16_queryfirst','stream16_verifyfirst','chunk4_verifyfirst']
+          assert len(x['by_width'])==4 and len(x['by_family'])==4
+          assert x['trials']==7 and x['warmups']==2
+          assert all(z['mask_and_certificate_parity'] for z in x['records'])
+          assert all(len(z['samples_ns'][mode])==7 for z in x['records'] for mode in x['modes'])
+          print('NOR20 HOSTED CPU',x['host'])
+          print('NOR20 PEAK MEMORY RATIO',x['overall']['median_peak_ratio_stream_over_cache'])
+          print('NOR20 MEMORY WINS',x['overall']['stream_lower_python_peak_count'])
+          print('NOR20 NATIVE/STREAM CPU',x['overall']['median_native_to_stream_cpu_ratio'])
+          print('NOR20 HOST PREREGISTERED PASS',x['primary_pass'])
+          print('NOR20 WIDTH-BY-WIDTH',x['by_width'])
+          print('NOR20 FAMILY-BY-FAMILY',x['by_family'])
+          print('NOR20 FIXTURE SHA',len(f),sha256(f).hexdigest())
+          print('NOR20 HOST RESULT SHA',len(r),sha256(r).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor20_${{ matrix.host }}_benchmark
+          path: nor20_results/${{ matrix.host }}.json
+          if-no-files-found: error
+
+  independently-audit-cross-host-parity:
+    needs: independently-benchmark-linux-and-windows
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor20_same_bytes_public_fixture
+          path: nor20_fixture
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor20_linux_ubuntu_2404_benchmark
+          path: nor20_results
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor20_windows_2025_benchmark
+          path: nor20_results
+      - name: Independently rerun 128 exact public reference masks and check 4480 CPU samples
+        run: |
+          python research/nor20_crosshost/combine.py \
+            --fixture nor20_fixture/fixture.json \
+            --linux nor20_results/linux_ubuntu_2404.json \
+            --windows nor20_results/windows_2025.json \
+            --out nor20_results/comparison.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor20_original_cross_host_fixture_linux_windows_results
+          path: |
+            nor20_fixture/fixture.json
+            nor20_results/linux_ubuntu_2404.json
+            nor20_results/windows_2025.json
+            nor20_results/comparison.json
+          if-no-files-found: error
