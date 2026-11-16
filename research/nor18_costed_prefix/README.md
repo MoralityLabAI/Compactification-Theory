@@ -66,3 +66,42 @@ python research/nor18_costed_prefix/experiment.py --check \
   --signed-per-repetition 12 --rational-per-repetition 12 \
   --out /tmp/nor18_full.json
 \`\`\`
+
+
+## First frozen NOR-18 result
+
+The first source-disjoint experiment passed [GitHub Actions run 43790898276](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43790898276), with the eight integrity tests and complete four-cohort test. The original JSON has **12,896,423 UTF-8 bytes** and SHA-256:
+
+    9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b
+
+The original first-run artifact ID is 14192526748. The compact [frozen receipt](results/nor18_first_frozen_receipt.json) pins the source manifests, all 28 primary arm certificate counts, selected arithmetic work totals, the primary paired comparisons and source checkpoint identity. The [independent audit](receipt_audit.py) checks the original bytes and rebuilds all **8,064 case-arm decisions**, per-candidate full-check charges, nested sound screen masks, batched full comparisons and six 4×4 unary-caching identities per source case.
+
+### Equal total-work-cap comparison on 192 distinct late_source public inputs
+
+| Policy | Four-unit cap | Eight-unit cap | Sixteen-unit cap |
+| --- | ---: | ---: | ---: |
+| No-prefix certificate | 0 | 0 | 0 |
+| Depth 112 / 128 / 144 certificate | 0 | 0 | 0 |
+| Depth 160 certificate | 0 | 28 | 38 |
+| Depth 176 certificate | **8** | 40 | **48** |
+| Cached batch of all sixteen full-degree-192 public checks | **12** | **48** | **48** |
+
+All entries represent future-correct certified proposals, with **zero observed false accepts** under the exact sixteen-template generator-family assumption. The *unscreened* policy under these caps could not eliminate enough alternative future outputs to certify any primary cases.
+
+The preregistered depth-176 four-unit policy gained 8 primary certificates and lost 0 against depth 160, exact case-paired p=0.0078125; against the no-prefix baseline the same 8/0 result and p=0.0078125 occurred. Both satisfy the frozen Bonferroni-corrected 0.025 comparison threshold. They are substantially overlapping contrasts on a source-family-specific generated dataset, and independent seed replication remains necessary. Matched degree-176 original-rank and public-hash ranking controls *also* certified eight, so the observed benefit is attributable to the public screen, with no established ranking-network-specific contribution.
+
+The sixteen-template complete public mask makes future query output unique on **48/192** cases. The cached degree-192 implementation attained this full certificate ceiling by the eight-unit work cap while its selected policy accrued **20,115,648** coefficient-operation proxy units over those 192 cases. At the same eight-unit cap, depth-176 screening certified 40 while consuming **28,110,290** proxy units, including **609** separate full public candidate checks. Depth-160 obtained 28 certificates, consuming **29,850,402** proxy units. The batch was charged for all **3,072 full-degree candidate comparisons** (16 for each of 192 cases), even though it made zero additional independent full-check calls.
+
+The eight-unit batch charge decomposes into **8,828,992** public query-simulation work units plus **11,286,656** cached full-degree demonstration screening units. The work ledger includes the expensive reciprocal transformations in those figures. The degree-176 eight-unit method spent the same 8,828,992 query units, 9,544,832 prefix screening units and 9,736,466 separately checked candidate units.
+
+### Setup feasibility and source-distribution caveat
+
+At the four-unit cap, the degree-160, degree-176 and cached-full-192 methods could pay their query/screen setup on only **44 of the 192** primary sources. All 44 happened to have a public header using the reciprocal base operator R; its full-check reference unit is larger than for linear operators. The per-case budget was intentionally normalized by that header-specific unit. Thus the four-unit result measures a per-case relative work cap and is affected by public header distributions. At eight units, all 192 primary source cases could afford every screened setup.
+
+The source cohorts each contributed to depth-176's four-unit successes (1, 3, 1, 3). The cached batch at four units obtained (2, 3, 2, 5); at eight units it attained full certifiability by cohort (13, 10, 14, 11).
+
+### What this establishes
+
+**Exact cached screening has a strong algebraic efficiency advantage under the frozen coefficient-operation model.** The full-depth batch removes repeated application of the four public unary transformations across the sixteen candidate-pair verifiers. At eight reference units per case it completely resolves every intrinsically identifiable synthetic future in these new cohorts, under the exact public-template and generator-membership assumptions. Its certification soundness is the earlier MathCan NOR-16/17 argument; the new [MathCan NOR-18](https://github.com/patrickdugan/MathCan/pull/94) establishes the exact saved-work identity and nested public-prefix mathematics.
+
+Actual Python wall-clock performance, big-integer multiplication bit costs, cache memory use and deployment on a smaller machine are **outside** this first frozen proxy result. Those need a separate source-locked runtime and alternative cost-weight sensitivity audit before claiming operational speedups.
