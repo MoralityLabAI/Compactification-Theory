@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "assertions": {
+    "polynomial_substitution": 168,
+    "integral_transport_entries": 168,
+    "signed_pair_compiler_agrees": 48,
+    "concrete_gate_row_bound": 372,
+    "frame_transport_and_correction": 48,
+    "hamming_one_hot": 48,
+    "sentinel_suffix_exact": 48,
+    "rank_coordinate_convention": 64,
+    "concrete_spatial_capture": 64
+  },
+  "total_assertions": 1028,
+  "streams": 16,
+  "decoded_frames": 48,
+  "maximum_test_gate_weight": "34",
+  "source_sha256": "e9d28b3ccbb28f0a04f676f1450c4a3208c8f75db7fc9cf09c39c9cafc439e30",
+  "scope": "Exact finite implementation controls; general Lean proofs remain the mathematical evidence. No analytic remainder or dense-resource theorem asserted."
+}

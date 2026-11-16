@@ -1,5 +1,12 @@
 # Lean spatial formalization status
 
+Hamming/Taylor continuation (2026-11-16): 63 additional proved and replayed
+lemmas now connect computed amplitude words, concrete polynomial Taylor matrices,
+fixed-width correction frames and scheduled decoded spatial capture. Read
+HAMMING_TAYLOR_FORMALIZATION_REPORT.md for the current 158-root research status.
+Remainder lists and communication statuses below describe earlier checkpoints.
+
+
 Decoder continuation (2026-11-16): 39 additional lemmas prove exact/robust
 sentinel decoding and its composition with clipped spatial jet capture.
 See DECODER_FORMALIZATION_REPORT.md for the current 95-root research status,

@@ -1,5 +1,12 @@
 # Sentinel decoder and spatial jet capture: Lean continuation
 
+Hamming/Taylor continuation (2026-11-16): 63 additional proved and replayed
+lemmas now connect computed amplitude words, concrete polynomial Taylor matrices,
+fixed-width correction frames and scheduled decoded spatial capture. Read
+HAMMING_TAYLOR_FORMALIZATION_REPORT.md for the current 158-root research status.
+Remainder lists and communication statuses below describe earlier checkpoints.
+
+
 2026-11-16, Asia/Taipei. **39 new theorem roots are proved and independently
 replayed.** There are now 95 research theorem roots across the three corpora;
 Hodge remains a separate unchanged theorem. The full analytic approximation
