@@ -94,6 +94,10 @@ jobs:
           print("NOR25 ORIGINAL RESULT BYTES SHA256",len(b),sha256(b).hexdigest())
           print("NOR25 REGISTERED PASS",z["registered_primary_pass"])
           PY
+      - name: Compare original full hosted bytes to immutable first-run SHA256 receipt
+        run: |
+          python research/nor25_robust_audits/original_lock_audit.py \
+            --fixture /tmp/nor25_fixture.json --full /tmp/nor25_full.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -120,5 +124,10 @@ jobs:
       - name: Independently reconstruct every source, schedule and detection decision
         run: |
           python research/nor25_robust_audits/receipt_audit.py \
+            --fixture /tmp/nor25/nor25_fixture.json \
+            --full /tmp/nor25/nor25_full.json
+      - name: Independently check the frozen first original file hashes
+        run: |
+          python research/nor25_robust_audits/original_lock_audit.py \
             --fixture /tmp/nor25/nor25_fixture.json \
             --full /tmp/nor25/nor25_full.json
