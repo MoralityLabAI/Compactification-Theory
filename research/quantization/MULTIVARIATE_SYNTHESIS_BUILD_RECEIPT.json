@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "lean": "4.32.0-rc1",
+  "new_authored_roots": 47,
+  "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+  "source_sha256": {
+    "research/approximation_mathlib432/ApproximationMathlib/JetSynthesis.lean": "074266d412c263586437bcb4ca9dccdd3e29e65f0307dcac3106a6761429adfb",
+    "research/approximation_mathlib432/ApproximationMathlib/FrameSynthesis.lean": "2afd9559b8148d5dca318c24496b8bfa1866e918abca3cb3f376ff3632614a75",
+    "research/approximation_mathlib432/ApproximationMathlib/MultivariateTaylor.lean": "0f487a802e17be5c4b478a21e2beb136c25a2c3c8850d3ad01ea3b91b47e2b4a",
+    "research/approximation_mathlib432/ApproximationMathlib/MultivariateBounds.lean": "b1be08f4f852e5c5a69f07f79f32e300f506d00675e293a3c951695be33fabc1",
+    "research/approximation_mathlib432/ApproximationMathlib/MultivariateHolder.lean": "e54bb1ef26c1b6b03332282b7a44e3d4ba0810f8e5bb06f1bbf0486c4825bc4a",
+    "research/approximation_mathlib432/ApproximationMathlib/SynthesisCapture.lean": "4e447ccb276281a414edfda8edae03c80de9e1ca62a7cc4350fa4cdb7481dd59",
+    "research/approximation_mathlib432/ApproximationMathlib/MultivariateCapture.lean": "a6ce7046c0bb89a4d997e55a60750e6a78052dbfdb4b36c489484e6151207ac2"
+  },
+  "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+  "binary_sha256": {
+    "toolchains/lean-4.32.0-rc1-linux/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "toolchains/lean-4.32.0-rc1-linux/bin/leanchecker": "c7c51e296d28dd443ed60f9414feef41253ede89dea76dbb2adde29768c3ed5f",
+    "toolchains/lean-4.32.0-rc1-linux/lib/lean/LeanChecker.olean": "7ba4f458fef64a5c75f2eef1760d2c21690bd8a41210d298330c7554cf2e5c50",
+    "replay432/lean4export-source/.lake/build/bin/lean4export": "e6580597a1482740114b5a1a05add574334a5eeaed5f4f5c9cd670e146859009",
+    "build/oxilean-verify": "831e7ad751d69d7f27e8ee59ec40246a6256e971e11f418b0e92f9722771e9fa"
+  },
+  "olean_sha256": {
+    "JetSynthesis.olean": "9fa4057a92735f27912b2f50bdf69560b73d97752ff520d069f70bc2e6a42bee",
+    "FrameSynthesis.olean": "fcab39ce1b338e19e3fab9aa532563eb647eb937e54902218ea2b3fb11eddfb8",
+    "MultivariateTaylor.olean": "078a0b26773f3140293a73cfd60b39a7939e7da99754e5ac41e484262fb34189",
+    "MultivariateBounds.olean": "f42d1c0dde303edc3e912a9d548d4b59492ded82a4368150daacdc39e0e22e4b",
+    "MultivariateHolder.olean": "d00dfe267ee9e4c00646053a07ab835bfea3012d34edd23798e54af13fcf46c8",
+    "SynthesisCapture.olean": "39a1e74c448cc721f303b63d31d5de29a766d5df7ba637fb3ebb8eb72fab3cf7",
+    "MultivariateCapture.olean": "1a44bc75b5aa68b91b7342b094048a31c85e10c72ed5206ba1315a9e7a141fb6"
+  },
+  "mathlib_receipts": {
+    "MATHLIB_SOURCE_RECEIPT.json": "184d9256766d65cd6316cc17b47d44eff47163ecbe23cda3d00350317716b7f4",
+    "MATHLIB_PACKAGE_RECEIPT.json": "0355ea1f11757997198110aa2a4c9ea3ddb2520d8aa75ac7bfb18987711311f1",
+    "MATHLIB_ARTIFACT_RECEIPT.json": "dc44142c268471a35508d473e30811bd54347a916468bda70976fe1f5b8efa32"
+  },
+  "previous_sources": "All prior accepted proof source hashes rechecked by acceptance validator",
+  "structural_auditor_sha256": "59ce7fa02fad81e9e5e61fb90169345fc34ffc1946ded02b6f2bfe3643577243",
+  "runtime_mirror_receipts_sha256": {
+    "mathlib_mirror.json": "7463dce57da3f316850ed46dfbd1dd2e5c80bcbabf33fd1db243d750ceddfbd1",
+    "mathlib_mirror_after.json": "b1ca091c9076421b76258e272bfb2e697d947defff436ed98c902173c6d7cf83",
+    "mirror_used.json": "799941905c04f84ad9019c1c582aa18c20afd4eb15e78b6ea13393e70713dc47",
+    "mathlib_mirror_after_native.json": "4b8ac00bf645999bc4cc4cbcd9db4a7b5627a341b6cd09ddcde625eaa67b9036"
+  }
+}

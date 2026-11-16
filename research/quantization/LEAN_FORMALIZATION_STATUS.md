@@ -1,3 +1,8 @@
+Multivariate synthesis continuation: 47 new authored roots prove arbitrary-dimensional
+Taylor jet synthesis, constructed tau/2 coefficient accuracy and decoded smooth/Holder
+approximation. All 257 research roots now have replay evidence. See
+MULTIVARIATE_SYNTHESIS_REPORT.md for verification and remaining network obligations.
+
 Taylor-analysis continuation (2026-11-16): 40 authored roots and 12 attributed
 upstream roots now establish common gates, genuine scalar Taylor remainders,
 and decoded capture approximation bounds. All 210 research roots have replay
