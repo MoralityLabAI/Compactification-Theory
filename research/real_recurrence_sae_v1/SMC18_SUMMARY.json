@@ -1,0 +1,192 @@
+{
+  "schema": "SMC-18/green-source-locked-gradient-summary-v1",
+  "pre_registration_commit": "70dc6a3e48097aeed02ccf1a10623a0cbbd624e5",
+  "source_artifact_run": 43807953506,
+  "source_code_commit": "4ca2d831d0451f813bcb3c8d9212ebfd80cf6824",
+  "artifact_id": 14199088649,
+  "source_zip_sha256": "4c2c19a9e745130173c66613948cfc11dbfb35eaf4ec6dc4c809d8c17127ab62",
+  "source_full_json_sha256": "8d11799e73f4353b0130a1aa8edc899711bfd089a8897a2536b392b431b940de",
+  "independent_audit_json_sha256": "f06902c432d3a8fd15375fd25711c72da01bcdf6565201a9f4ef09abd1ed4257",
+  "fresh_manifest_sha256": {
+    "smc18_novel_30": "f93a6f2e91848d7cb841fa2fb8440194a9d7e9fb0b5a4f316742bc086796c9d5",
+    "smc18_novel_34": "4d93a38eb8da8f38494ca7a6cb9e8f584e9dd2d854bfc9b0a21aab8bd6ea0b08"
+  },
+  "aggregate": {
+    "n_pair_family_puzzle_cases": 512,
+    "n_eligible_goal_pair_family_cases": 316,
+    "signed_agreement": 310,
+    "comparable_goal_count": 316,
+    "ratio_sum_abs_linear_remainder_to_sum_abs_finite_effect": 0.15478461173245867,
+    "ratio_sum_abs_second_order_remainder_to_sum_abs_finite_effect": 0.1042208685827552,
+    "secondary_absolute_error_reduction_from_curvature": 0.326671641216516,
+    "inactive_encoder_full_column_rank_case_count": 316,
+    "inactive_encoder_minimum_singular_value_observed": 0.2758236708031346,
+    "maximum_inactive_gradient_reconstruction_l2": 1.8763207463124962e-14,
+    "median_inactive_dual_cs_bound_to_absolute_linear_prediction": 4.263861756291131,
+    "overall_registered_teacher_sae_pairs_passed_both_cohorts": 3,
+    "overall_registered_teacher_sae_pairs_tested": 4
+  },
+  "results": [
+    {
+      "target": "newB_501_SAE_71",
+      "family": "smc18_novel_30",
+      "eligible_goals": 36,
+      "eligible_puzzles": 30,
+      "finite_mean": 1.3835248096351576,
+      "clean_gradient_linear_mean": 1.2415087325030858,
+      "absolute_linear_remainder_fraction": 0.14503682794013664,
+      "same_sign_goals": 35,
+      "comparable_goals": 36,
+      "finite_effect_puzzle_bootstrap95": [
+        0.6979510450584389,
+        2.0419222630633964
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.40625,
+        0.5
+      ],
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_501_SAE_71",
+      "family": "smc18_novel_34",
+      "eligible_goals": 40,
+      "eligible_puzzles": 31,
+      "finite_mean": 1.2941143727408204,
+      "clean_gradient_linear_mean": 1.254459526122822,
+      "absolute_linear_remainder_fraction": 0.14902844707577312,
+      "same_sign_goals": 40,
+      "comparable_goals": 40,
+      "finite_effect_puzzle_bootstrap95": [
+        0.7367361516589803,
+        1.8363282546061266
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.5,
+        0.5
+      ],
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_501_SAE_89",
+      "family": "smc18_novel_30",
+      "eligible_goals": 22,
+      "eligible_puzzles": 18,
+      "finite_mean": 0.693636294929865,
+      "clean_gradient_linear_mean": 0.4945431264017797,
+      "absolute_linear_remainder_fraction": 0.1470289929500689,
+      "same_sign_goals": 22,
+      "comparable_goals": 22,
+      "finite_effect_puzzle_bootstrap95": [
+        -0.6648867925984945,
+        2.0622597777469105
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.5,
+        0.5
+      ],
+      "registered_family_gate": false
+    },
+    {
+      "target": "newB_501_SAE_89",
+      "family": "smc18_novel_34",
+      "eligible_goals": 24,
+      "eligible_puzzles": 20,
+      "finite_mean": 0.972773098658231,
+      "clean_gradient_linear_mean": 0.9916704408913248,
+      "absolute_linear_remainder_fraction": 0.12890581671349935,
+      "same_sign_goals": 23,
+      "comparable_goals": 24,
+      "finite_effect_puzzle_bootstrap95": [
+        0.013392874315825951,
+        1.7743633416819562
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.3571428571428571,
+        0.5
+      ],
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_701_SAE_71",
+      "family": "smc18_novel_30",
+      "eligible_goals": 45,
+      "eligible_puzzles": 36,
+      "finite_mean": 1.4041553898552481,
+      "clean_gradient_linear_mean": 1.2771886643394692,
+      "absolute_linear_remainder_fraction": 0.17644921152754012,
+      "same_sign_goals": 43,
+      "comparable_goals": 45,
+      "finite_effect_puzzle_bootstrap95": [
+        0.5794476166911651,
+        2.192513826225814
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.38888888888888884,
+        0.5
+      ],
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_701_SAE_71",
+      "family": "smc18_novel_34",
+      "eligible_goals": 41,
+      "eligible_puzzles": 32,
+      "finite_mean": 0.9062852801699481,
+      "clean_gradient_linear_mean": 0.8747931592139753,
+      "absolute_linear_remainder_fraction": 0.16280144197595867,
+      "same_sign_goals": 41,
+      "comparable_goals": 41,
+      "finite_effect_puzzle_bootstrap95": [
+        0.24036149859856312,
+        1.7071462101520152
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.5,
+        0.5
+      ],
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_701_SAE_89",
+      "family": "smc18_novel_30",
+      "eligible_goals": 50,
+      "eligible_puzzles": 35,
+      "finite_mean": 1.8706996898276764,
+      "clean_gradient_linear_mean": 1.7138178656189942,
+      "absolute_linear_remainder_fraction": 0.1641385761341828,
+      "same_sign_goals": 50,
+      "comparable_goals": 50,
+      "finite_effect_puzzle_bootstrap95": [
+        1.2463937150184574,
+        2.460296117418921
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.5,
+        0.5
+      ],
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_701_SAE_89",
+      "family": "smc18_novel_34",
+      "eligible_goals": 58,
+      "eligible_puzzles": 39,
+      "finite_mean": 1.4068451436660008,
+      "clean_gradient_linear_mean": 1.3798107363345744,
+      "absolute_linear_remainder_fraction": 0.14224625766200794,
+      "same_sign_goals": 56,
+      "comparable_goals": 58,
+      "finite_effect_puzzle_bootstrap95": [
+        0.8254678032071668,
+        1.959394778993701
+      ],
+      "sign_agreement_above_half_bootstrap95": [
+        0.4107142857142857,
+        0.5
+      ],
+      "registered_family_gate": true
+    }
+  ],
+  "scientific_limits": "Model checkpoints and 131-candidate sham search are reused from earlier source-locked stages; group-level bootstrap is descriptive across fixed-seed synthetic Sudoku families. Full-column-rank inactive encoder rows support any clean physical task gradient and do not identify semantic causal feature identity. The independent stdlib audit rechecks saved numerical outputs and source hashes without an independent neural forward pass."
+}
