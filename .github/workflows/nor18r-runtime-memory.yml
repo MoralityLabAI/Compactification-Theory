@@ -1,0 +1,111 @@
+name: NOR-18R source-locked CPU runtime bigint and memory benchmark
+
+on:
+  push:
+    paths:
+      - 'research/nor18r_runtime/**'
+      - '.github/workflows/nor18r-runtime-memory.yml'
+  pull_request:
+    paths:
+      - 'research/nor18r_runtime/**'
+      - '.github/workflows/nor18r-runtime-memory.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  arithmetic-parity-private-future-isolation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate native exact mask, cached masks, integer inverse operand sizes and sealed target
+        run: python -m unittest research.nor18r_runtime.test_runtime -v
+
+  source-locked-64-case-cpu-bigint-memory:
+    needs: arithmetic-parity-private-future-isolation
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      PYTHONHASHSEED: '0'
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild only public fixture from original NOR-18 heldout 288-case receipts
+        run: |
+          python research/nor18r_runtime/benchmark.py --check \
+            --make-fixture /tmp/nor18r_public_fixture.json
+      - name: Benchmark matched public CPU algorithms with seven trials and isolated RSS workers
+        run: |
+          python research/nor18r_runtime/benchmark.py --check \
+            --fixture /tmp/nor18r_public_fixture.json \
+            --repetitions 7 --warmups 2 --out /tmp/nor18r_full.json
+      - name: Audit public-only provenance, timed repeated measures, peak memory and bigint work
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json,math
+          fixture=Path('/tmp/nor18r_public_fixture.json').read_bytes()
+          raw=Path('/tmp/nor18r_full.json').read_bytes()
+          public=json.loads(fixture)
+          z=json.loads(raw)
+          assert public['schema']=='nor18r.public_fixture_64_cases_from_original_288.v1'
+          assert public['no_hidden_query_outputs_or_planted_program_identities']
+          assert public['NOR18_original_evidence_sha256']=='9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b'
+          assert len(public['cases'])==64
+          assert z['schema']=='nor18r.executable_cpu_bigint_memory_source_locked.v1'
+          assert z['original_NOR18_full_JSON_SHA256']==public['NOR18_original_evidence_sha256']
+          assert z['fixture_sha256']==sha256(fixture).hexdigest()
+          assert z['fixture_cases']==len(z['per_case'])==64
+          assert z['timed_repetitions']==7 and z['untimed_warmups_per_case_per_algorithm']==2
+          assert z['modes']==['independent16','cached16','prefix160','prefix176']
+          assert z['source_families']=={'late_source':32,'signed':16,'rational':16}
+          assert len(set(x['full_public_input_sha256'] for x in z['per_case']))==64
+          assert len({x['cohort'] for x in z['per_case']})==4
+          assert z['primary_cohort_block_bootstrap']['draws']==4096
+          assert z['scope']['future_outputs_and_private_generator_programs_not_in_fixture']
+          assert z['scope']['exact_public_mask_and_certificate_match_original_for_every_mode']
+          assert z['scope']['time_includes_python_bigint_implementation_effects']
+          assert z['scope']['RSS_and_tracemalloc_measured_in_separate_untimed_passes']
+          for r in z['per_case']:
+            assert r['algorithm_result_parity_all_modes']
+            assert len(r['measured_ns'])==4
+            for mode in z['modes']:
+              assert len(r['measured_ns'][mode])==7
+              for timing in r['measured_ns'][mode]:
+                assert timing['total_ns']==timing['query_ns']+timing['verification_ns']+timing['certificate_ns']
+                assert timing['total_ns']>0
+              assert r['median_ns'][mode]['total_ns']>0
+              assert r['untimed_tracemalloc'][mode]['mask']==r['reference_full_public_accept_mask']
+              assert r['bigint_operand_width_ledger']['per_mode'][mode]['R_integer_multiplications_executed']>0
+              assert r['bigint_operand_width_ledger']['per_mode'][mode]['R_operand_bitwidth_product_proxy']>0
+          for mode,value in z['isolated_process_RSS_KiB'].items():
+            assert mode in z['modes']
+            assert value['cases']==64
+          print('NOR18R HOST',z['host'])
+          print('NOR18R MEASURED COMPLETE CPU SPEEDUP',z['primary_median_paired_total_speedup'])
+          print('NOR18R PAIRED CACHED FASTER',z['primary_cached_faster_cases'],'/64')
+          print('NOR18R COHORT BLOCK BOOTSTRAP 95%',z['primary_cohort_block_bootstrap'])
+          print('NOR18R REGISTERED PRIMARY PASS',z['primary_preregistered_passed'])
+          print('NOR18R MODE FULL RESULTS',z['summary_all'])
+          print('NOR18R FAMILY RESULTS',z['summary_by_family'])
+          print('NOR18R ISOLATED RSS KiB',z['isolated_process_RSS_KiB'])
+          print('NOR18R FIXTURE SHA256',len(fixture),sha256(fixture).hexdigest())
+          print('NOR18R FULL BENCHMARK SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor18r-original-public-only-64-case-fixture-and-timing-results
+          path: |
+            /tmp/nor18r_public_fixture.json
+            /tmp/nor18r_full.json
