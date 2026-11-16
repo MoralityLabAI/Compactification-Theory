@@ -1,0 +1,236 @@
+name: SMC-22 weighted-median refit residual calibration
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC22_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc22_lad_calibration.py'
+      - 'research/real_recurrence_sae_v1/smc22_lad_evaluate.py'
+      - 'research/real_recurrence_sae_v1/audit_smc22.py'
+      - 'research/real_recurrence_sae_v1/test_smc22_lad_transfer.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc22.py'
+      - '.github/workflows/smc22-weighted-median.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC22_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc22_lad_calibration.py'
+      - 'research/real_recurrence_sae_v1/smc22_lad_evaluate.py'
+      - 'research/real_recurrence_sae_v1/audit_smc22.py'
+      - 'research/real_recurrence_sae_v1/test_smc22_lad_transfer.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc22.py'
+      - '.github/workflows/smc22-weighted-median.yml'
+  workflow_dispatch:
+
+jobs:
+  freeze-original-weighted-median-LAD-calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible CPU torch for inherited toy tests
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Registered deterministic weighted median and independent replay mutation tests
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc22_lad_transfer.py' -v
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_audit_smc22.py' -v
+      - name: Fetch original four SMC19 SAE refit checkpoints
+        uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc22/frozen19
+      - name: Fetch ORIGINAL SMC21 64-puzzle calibration and independent audit
+        uses: actions/download-artifact@v4
+        with:
+          name: smc21-source-only-64p-calibration-frozen
+          run-id: 43822895405
+          github-token: ${{ github.token }}
+          path: runs/smc22/source21
+      - name: Require original frozen source SHA-256 before any SMC22 fit
+        run: |
+          echo "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b  runs/smc22/frozen19/frozen.json" | sha256sum -c -
+          echo "e7aa12a3da5b8eaa0132b5de45083ca1b2af5c38e556fef01e1f26d2b94f90af  runs/smc22/source21/residual_calibration.json" | sha256sum -c -
+      - name: Freeze eight LAD coefficient medians on original 64 calibration puzzles only
+        run: |
+          python research/real_recurrence_sae_v1/smc22_lad_calibration.py \
+            --frozen-dir runs/smc22/frozen19 \
+            --smc21-calibration runs/smc22/source21/residual_calibration.json \
+            --out runs/smc22/calibration/lad_calibration.json
+      - name: Independent stdlib weighted median and old source audit before any new test
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc22.py \
+            --phase calibration \
+            --frozen-dir runs/smc22/frozen19 \
+            --smc21-calibration runs/smc22/source21/residual_calibration.json \
+            --lad-calibration runs/smc22/calibration/lad_calibration.json \
+            --out runs/smc22/calibration/lad-audit.json
+      - name: Archive source-only original calibration and SHA-locked fitted LAD coefficients
+        uses: actions/upload-artifact@v4
+        with:
+          name: smc22-original-source-lad-coefficients-frozen
+          path: runs/smc22/calibration
+          retention-days: 90
+          if-no-files-found: error
+
+  four-puzzle-original-sae-pilot:
+    needs: freeze-original-weighted-median-LAD-calibration
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible original CPU torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc22/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc22/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc22/conditioned
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc22/frozen19
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc21-source-only-64p-calibration-frozen
+          run-id: 43822895405
+          github-token: ${{ github.token }}
+          path: runs/smc22/source21
+      - name: Recover already-frozen original-source LAD coefficient file
+        uses: actions/download-artifact@v4
+        with:
+          name: smc22-original-source-lad-coefficients-frozen
+          path: runs/smc22/calibration
+      - name: Source original hashes before four-puzzle pilot
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc22/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc22/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc22/conditioned/conditioned.json" | sha256sum -c -
+          echo "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b  runs/smc22/frozen19/frozen.json" | sha256sum -c -
+          echo "e7aa12a3da5b8eaa0132b5de45083ca1b2af5c38e556fef01e1f26d2b94f90af  runs/smc22/source21/residual_calibration.json" | sha256sum -c -
+      - name: Four-puzzle one-refit exact fresh-unique engineering smoke test
+        run: |
+          python research/real_recurrence_sae_v1/smc22_lad_evaluate.py \
+            --fetch-source \
+            --original-artifact runs/smc22/original \
+            --independent-artifact runs/smc22/independent \
+            --conditioned-receipt runs/smc22/conditioned/conditioned.json \
+            --frozen-dir runs/smc22/frozen19 \
+            --smc21-calibration runs/smc22/source21/residual_calibration.json \
+            --lad-calibration runs/smc22/calibration/lad_calibration.json \
+            --pilot-puzzles 4 --pair-limit 1 --out runs/smc22/pilot.json
+      - name: Independent stdlib original calibration, three baselines and pilot audit
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc22.py \
+            --phase full \
+            --frozen-dir runs/smc22/frozen19 \
+            --smc21-calibration runs/smc22/source21/residual_calibration.json \
+            --lad-calibration runs/smc22/calibration/lad_calibration.json \
+            --receipt runs/smc22/pilot.json \
+            --out runs/smc22/pilot-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc22-source-locked-four-puzzle-pilot-and-audit
+          path: |
+            runs/smc22/pilot.json
+            runs/smc22/pilot-audit.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  full-128-novel-sudoku-four-refits:
+    needs: four-puzzle-original-sae-pilot
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original compatible CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc22/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc22/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc22/conditioned
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc22/frozen19
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc21-source-only-64p-calibration-frozen
+          run-id: 43822895405
+          github-token: ${{ github.token }}
+          path: runs/smc22/source21
+      - name: Recover same source-only frozen LAD coefficient artifact as pilot
+        uses: actions/download-artifact@v4
+        with:
+          name: smc22-original-source-lad-coefficients-frozen
+          path: runs/smc22/calibration
+      - name: Full 64+64 new Sudoku refit source-LAD vs direct, original ridge and other-LAD
+        run: |
+          python research/real_recurrence_sae_v1/smc22_lad_evaluate.py \
+            --fetch-source \
+            --original-artifact runs/smc22/original \
+            --independent-artifact runs/smc22/independent \
+            --conditioned-receipt runs/smc22/conditioned/conditioned.json \
+            --frozen-dir runs/smc22/frozen19 \
+            --smc21-calibration runs/smc22/source21/residual_calibration.json \
+            --lad-calibration runs/smc22/calibration/lad_calibration.json \
+            --out runs/smc22/full.json
+      - name: Independently verify all weighted-median, original ridge and 24000 new bootstrap draws
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc22.py \
+            --phase full \
+            --frozen-dir runs/smc22/frozen19 \
+            --smc21-calibration runs/smc22/source21/residual_calibration.json \
+            --lad-calibration runs/smc22/calibration/lad_calibration.json \
+            --receipt runs/smc22/full.json \
+            --out runs/smc22/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc22-full-native-refit-LAD-three-controls-and-audit
+          path: |
+            runs/smc22/full.json
+            runs/smc22/audit.json
+          retention-days: 90
+          if-no-files-found: warn
