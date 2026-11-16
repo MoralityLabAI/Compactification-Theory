@@ -5,11 +5,15 @@ on:
     paths:
       - 'research/real_recurrence_sae_v1/smc14_causal_transfer.py'
       - 'research/real_recurrence_sae_v1/test_smc14_causal_transfer.py'
+      - 'research/real_recurrence_sae_v1/audit_smc14.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc14.py'
       - '.github/workflows/smc14-causal-transfer.yml'
   pull_request:
     paths:
       - 'research/real_recurrence_sae_v1/smc14_causal_transfer.py'
       - 'research/real_recurrence_sae_v1/test_smc14_causal_transfer.py'
+      - 'research/real_recurrence_sae_v1/audit_smc14.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc14.py'
       - '.github/workflows/smc14-causal-transfer.yml'
   workflow_dispatch:
 
@@ -28,8 +32,10 @@ jobs:
           python-version: '3.11'
       - name: Install pinned source CPU Torch
         run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
-      - name: Validate paired margin interventions and nuisance controls
-        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc14_causal_transfer.py' -v
+      - name: Validate paired margin interventions and independent audit controls
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc14_causal_transfer.py' -v
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_audit_smc14.py' -v
       - name: Fetch exact original same-fit SAE snapshots
         uses: actions/download-artifact@v4
         with:
@@ -114,10 +120,16 @@ jobs:
             --independent-artifact runs/smc14/independent \
             --conditioned-receipt runs/smc14/conditioned/conditioned.json \
             --out runs/smc14/full.json
+      - name: Independently reproduce causal scores and add posthoc digit-rowband null
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc14.py \
+            --receipt runs/smc14/full.json --out runs/smc14/audit.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: smc14-64p-3family-cross-model-causal-transfer
-          path: runs/smc14/full.json
+          path: |
+            runs/smc14/full.json
+            runs/smc14/audit.json
           retention-days: 90
           if-no-files-found: warn
