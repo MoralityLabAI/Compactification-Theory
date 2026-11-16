@@ -183,7 +183,7 @@ def mask_cached(c,h):
         for f,y in c.demos
     ]
     return sum(1<<j for j in range(16) if all(
-        predicted[k][j]==c.demos[k][1] for k in range(2)))
+        predicted[k][j]==c.demos[k][1][:PUBLIC_DEGREE+1] for k in range(2)))
 
 
 def mask_prefix(c,h,degree):
