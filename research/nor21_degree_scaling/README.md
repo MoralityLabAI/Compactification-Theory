@@ -47,3 +47,44 @@ The full scaled native verifier is potentially computationally expensive. Hosted
 5. The degree scaling result is a **CPU engineering observation**, not a formal O(n²) native-time theorem. Lean companion work formalizes exact degree-independent public acceptance and the impossibility of unconditional target correctness when two worlds have identical public observations but incompatible future labels.
 
 The public fixture will be pinned by SHA-256 before being measured, and raw first-run evidence will be source-locked and independently audited. Any failure of degree-1024 runtime, source uniqueness, exactness or the out-of-family controls is recorded as a failure.
+
+
+## First hosted execution: exact depth scaling, bounded allocation and hidden future counterexamples
+
+The preregistered first run passed all three hosted CI jobs: [Actions #43810513348](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43810513348). The first public-only source fixture and original measured JSON are preserved together in [nor21_original_hosted.zip](results/nor21_original_hosted.zip), with hashes pinned by [the frozen receipt](results/nor21_first_frozen_receipt.json):
+
+- Public fixture: 7,248,513 bytes, SHA-256 c16f4b92db3f61f2753c853c01dc3d3c401c58d8e05138f0a3ca6d58e10d08c2.
+- Full measured CPU/memory and sealed-grade JSON: 197,084 bytes, SHA-256 c308a73f8267ff38b78dbbb9d0df909064de0608c5dbfc4ca8f6f84e0853ed29.
+
+The [independent exact receipt auditor](receipt_audit.py) passed in [archival Actions #43812672373](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43812672373). It imports only the original RRC25 exact interpreter, reconstructs the private generating programs and hidden futures from registered seeds after reviewing frozen public policy decisions, and independently checks 36 accepted-template masks and sealed labels, 432 nanosecond timing samples, 288 separate memory records, and 16,384 deterministic bootstrap draws. The one-shot archival publisher was deleted after committing original evidence.
+
+### Observed exact CPU and memory scaling
+
+Measured on Ubuntu 24.04 CPython 3.12. The full benchmark runs one warmup and three measured repetitions per source and verifier mode. Source fixture loading and generation are excluded; temporary Python allocation is measured in separate untimed tracemalloc passes.
+
+| Observation degree | Native 16 median total CPU | Streamed 16 median total CPU | Median paired native/stream speedup | Eager cached median peak Python allocation | Streamed median peak Python allocation | Median paired stream/cache peak ratio |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 512 | 136.305 ms | **53.544 ms** | **2.362×** | 1,014.57 KiB | **535.35 KiB** | **0.51892** |
+| 1024 | 652.734 ms | **244.897 ms** | **2.421×** | 2,817.33 KiB | **1,679.02 KiB** | **0.49558** |
+
+Streaming used less peak Python-traced memory in all 18 cases at each degree. Both degree-stratified preregistered criteria passed: paired native/stream CPU speedup at least 1.5×, paired stream/cache peak memory ratio at most 0.80, and lower streaming allocation on at least 14/18 cases. The four-output chunked verifier gave median total CPU times 54.493 ms and 245.804 ms at the two degrees with the same exact public decisions.
+
+Verifier-only temporary allocation fell from 580.97 KiB eager to **38.93 KiB streamed** at degree 512, and from 1,491.42 KiB to **119.65 KiB** at degree 1024. Complete-operation peaks remain higher because all methods construct all sixteen public query hypothetical outputs. The largest actual reciprocal inverse coefficient widths were 941 and 1,760 bits respectively; public source coefficients reached 508 and 1,025 bits. Native integer operations grow in operand width as well as coefficient count.
+
+The four-thousand-ninety-six-draw two-replicate conditional percentile intervals were: native/stream CPU ratio 2.291–2.434 at degree 512 and 2.321–2.499 at degree 1024; streaming/cache memory ratio 0.51835–0.51949 and 0.49359–0.53723 respectively. There are only two independent 9-case source replicate blocks at each degree, so these intervals have limited inferential value beyond the measured benchmark.
+
+### Out-of-family native grader test
+
+| Case kind across both degrees | Cases | Public certificates | Sealed future-correct | Out-of-family false accepts |
+| --- | ---: | ---: | ---: | ---: |
+| Generated in-grammar targets | 12 | **12** | **12** | 0 |
+| One corrupted late public demonstration coefficient | 12 | **0** | 0 | 0 |
+| Publicly consistent demonstrations, privately shifted query target | 12 | **12** | **0** | **12** |
+
+Every public-corrupt source has zero compatible candidate templates and requires an abstention. The other 24 cases have one accepted template and a unique publicly predicted future. For each future-shift case, the hidden target differs at the last query-output coefficient, while a valid generated world with the **same complete public demonstrations and query INPUT** has the original target. A policy that certifies the valid-world continuation returns the same answer in the hidden-target-shifted world and is therefore incorrect there.
+
+This result exposes the **generator-completeness assumption** behind the earlier certificate theorem. It is a concrete out-of-family counterexample and does not refute the theorem under its stated assumption. [MathCan NOR-21 #106](https://github.com/patrickdugan/MathCan/pull/106) proves exactly the empty-mask abstention, public-world indistinguishability and triangular reciprocal multiplication counts at arbitrary degrees.
+
+### Resource and generalization scope
+
+The permanent CI performs independent immutable evidence replay alongside exact public interpreter tests and a graded complete benchmark. Its hosted benchmark time limit is **60 minutes**, as preregistered; the original first run completed within this limit. The study compares exact synthetic finite-series verifiers and measures CPU time and Python-owned temporary allocation. It does not establish constant total memory, cross-machine performance, or unconditional correctness against unknown future targets.
