@@ -72,7 +72,7 @@ class NOR18CostedPrefixTests(unittest.TestCase):
         masks=[n.nor17.prefix_mask(self.case,h,d)
                for d in n.PREFIX_DEGREES+(192,)]
         self.assertEqual(len(masks),6)
-        for coarse,fine in zip(masks,masks[1:],strict=True):
+        for coarse,fine in zip(masks,masks[1:]):
             self.assertEqual(coarse&fine,fine)
         full=0
         for j in range(16):
