@@ -59,8 +59,10 @@ def load():
 def main():
     start = time.perf_counter()
     model, tokenizer, manifest, load_seconds = load()
-    prompt = "Rule: copy. Remember A. Wait 1. Wait 2. Wait 3. Release. Answer:"
+    prompt = "Rule: copy. Remember A. Wait 1. Wait 2. Wait 3. Wait 4. Wait 5. Wait 6. Release. Answer:"
     inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+    if not 32 <= inputs["input_ids"].shape[1] <= 64:
+        raise RuntimeError("Smoke prompt must contain 32..64 tokens")
     saved = {}
     def hook(_module, _args, output):
         h = output[0] if isinstance(output, tuple) else output
