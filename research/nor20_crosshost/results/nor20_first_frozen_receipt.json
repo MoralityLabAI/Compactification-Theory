@@ -1,0 +1,82 @@
+{
+  "schema": "nor20.first_linux_windows_wide_coefficient_source_locked_receipt.v1",
+  "executed_utc_date": "2026-11-16",
+  "original_github_actions_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43807479206",
+  "original_aggregate_artifact_id": 14199177021,
+  "original_aggregate_artifact_name": "nor20_original_cross_host_fixture_linux_windows_results",
+  "source_fixture_sha256": "de7ed801e0e8708afebdbe3699d9074375b156795b40372eb77e2a4a13218c19",
+  "source_fixture_bytes": 5416693,
+  "linux_benchmark_sha256": "6c033440be72ae470769e7a152286677cba8fa3b676e9f9207d0c335ab1ec01d",
+  "linux_benchmark_bytes": 683486,
+  "windows_benchmark_sha256": "85686b13b4526d926f10b0b4f476bea82ab9d2f88dbc63d02704268f9ef88158",
+  "windows_benchmark_bytes": 683275,
+  "independent_crosshost_comparison_sha256": "3a048cfbafb7c9e87f28ed04d7d7e2ecd1b06b3be5c513351aa7fb11fa6a07c4",
+  "independent_crosshost_comparison_bytes": 1296,
+  "original_RRC25_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "original_NOR18_source_archive_sha256": "9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b",
+  "source_cohorts": 4,
+  "public_source_cases": 64,
+  "source_seed_offset": 94120000,
+  "nominal_coefficient_width_tiers": [
+    4,
+    8,
+    12,
+    16
+  ],
+  "source_families": [
+    "wide_dense",
+    "wide_sparse",
+    "wide_late",
+    "wide_rational"
+  ],
+  "cases_per_family": 16,
+  "cases_per_nominal_width_tier": 16,
+  "warmups_per_case_per_mode": 2,
+  "measured_time_repetitions_per_case_per_mode": 7,
+  "mode_count": 5,
+  "independent_public_mask_checks_per_host": 64,
+  "timed_samples_per_host": 2240,
+  "timed_samples_both_hosts": 4480,
+  "linux": {
+    "host_label": "linux_ubuntu_2404",
+    "os": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39",
+    "python": "CPython 3.12.16 GCC 13.3.0",
+    "logical_cpus": 4,
+    "median_paired_native_over_streamed_complete_cpu_speedup": 4.382410477399578,
+    "median_paired_streamed_over_cached_complete_tracemalloc_peak_ratio": 0.5506301793813264,
+    "streaming_lower_complete_tracemalloc_cases": 64,
+    "preregistered_primary_pass": true
+  },
+  "windows": {
+    "host_label": "windows_2025",
+    "os": "Windows-2025Server-10.0.26100-SP0",
+    "python": "CPython 3.12.10 MSC v.1943 64 bit AMD64",
+    "reported_cpu": "AMD64 Family 26 Model 2 Stepping 1 AuthenticAMD",
+    "logical_cpus": 4,
+    "median_paired_native_over_streamed_complete_cpu_speedup": 4.330503551267103,
+    "median_paired_streamed_over_cached_complete_tracemalloc_peak_ratio": 0.5506114836939375,
+    "streaming_lower_complete_tracemalloc_cases": 64,
+    "preregistered_primary_pass": true
+  },
+  "preregistered_cross_host_pass": true,
+  "width_tier_median_actual_source_max_bits": {
+    "4": {
+      "source_nominal": 4,
+      "actual_median_source_bits": 4
+    },
+    "8": {
+      "source_nominal": 8,
+      "actual_median_source_bits": 8
+    },
+    "12": {
+      "source_nominal": 12,
+      "actual_median_source_bits": 12
+    },
+    "16": {
+      "source_nominal": 16,
+      "actual_median_source_bits": 16
+    }
+  },
+  "wide_rational_family_median_actual_source_bits": 2193.5,
+  "scope": "Two distinct operating systems/CPython compiler builds, both x86-64 Azure runners; CPU microarchitecture may differ but independent physical hardware not established. Same 64 new public-only RRC25 sources, no private future labels or planted program identities, 7 measured repetitions and separate untimed Python tracemalloc. Observed speed/peak allocation ratios are platform samples, not universal CPU or RAM guarantees. Nominal polynomial coefficient bits do not bound rational series inverse coefficient growth."
+}
