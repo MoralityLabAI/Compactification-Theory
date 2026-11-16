@@ -1,0 +1,315 @@
+{
+  "schema": "SMC-14/confirmed-calibration-frozen-cross-checkpoint-causal-transfer-summary-v1",
+  "date": "2026-11-16",
+  "theory": "https://github.com/patrickdugan/MathCan/pull/91",
+  "source_teacher_checkpoint_sha256": "3bab6189d4f25fe1e7a326a6b29ddc3141d21325f835ed1cd6409c0ac31447e1",
+  "source_same_fit_sae_receipt_sha256": "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087",
+  "new_teachers_training_receipt_sha256": "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3",
+  "prior_conditioned_alignment_receipt_sha256": "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07",
+  "run": {
+    "url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43789275273",
+    "artifact": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43789275273/artifacts/14190804468",
+    "zip_sha256": "37c1f9b824ae252d099b519aa75a007902d4665ce05940c997598ee76d17190d",
+    "full_json_sha256": "2e52d66c15b21bbd5d9be7b27c9763f6b14312f0c2fc7e16e3e715ce0caf5f14",
+    "audit_json_sha256": "c51174bcd9614eb3dff7935a44d838826d195526744172c2abf7f994c65ebd89",
+    "jobs_passed": 2
+  },
+  "protocol": {
+    "feature_assignment": "SMC13C frozen position+visible-input-digit Hungarian, 64 calibration puzzles, all 7 matched/control hashes checked before loading heldout representations",
+    "global_sign": "one sign per mapping arm fit on calibration-only correct-digit margin responses",
+    "test_families": [
+      "novel30",
+      "novel34",
+      "canonical30"
+    ],
+    "puzzles_per_family": 64,
+    "goal_positions_per_puzzle": 8,
+    "intervention_physical_l2_radius": 0.2,
+    "response": "central paired +/- perturbation correct-digit minus strongest-clean-competitor margin, FP64 three-step continuation",
+    "score": "within-puzzle centered causal response cosine, orientation frozen",
+    "nulls": [
+      "clue-conditioned calibration shuffle",
+      "random feature bijection",
+      "within-puzzle goal-position shuffle"
+    ],
+    "paired_bootstrap_draws": 2000,
+    "independent_cluster_unit": "puzzle seed"
+  },
+  "registered_primary_pairs": 4,
+  "registered_primary_pass": 4,
+  "secondary_comparisons": 3,
+  "secondary_gate_pass": 1,
+  "independent_audit": {
+    "test_pair_family_puzzle_cases": 1344,
+    "calibration_orientations_replayed": true,
+    "feature_assignment_hashes_replayed": true,
+    "per_puzzle_scores_replayed": true,
+    "preregistered_gates_replayed": true
+  },
+  "posthoc_digit_and_coarse_rowband_null": {
+    "conditioning": "true digit and 3-row band",
+    "source": "audit.json (introduced after primary result)",
+    "null_shuffles": 16,
+    "groups_per_family": 27,
+    "singleton_groups": 0,
+    "all_eight_source_to_new_pair_family_differences_positive_with_descriptive_95pct_interval_above_zero": true
+  },
+  "source_to_new_matched_target_top4_rate_range_novel30": [
+    0.086,
+    0.16
+  ],
+  "source_to_new_selected_goal_accuracy_novel30": {
+    "original_A": 0.945,
+    "new_B501": 0.475,
+    "new_B701": 0.463
+  },
+  "pairs": [
+    {
+      "gate_pass_novel30_and_novel34": true,
+      "source": "pretrainedA_71",
+      "target": "newB_501_SAE_71",
+      "primary": true,
+      "novel30": [
+        0.4531,
+        0.052,
+        -0.0287
+      ],
+      "novel34": [
+        0.4747,
+        0.0723,
+        -0.0249
+      ],
+      "canonical": [
+        0.4864,
+        -0.0082,
+        -0.0448
+      ],
+      "clue_ci": [
+        [
+          0.2992,
+          0.5011
+        ],
+        [
+          0.3024,
+          0.5049
+        ]
+      ],
+      "digit_null_adv": [
+        0.419926,
+        0.450439
+      ],
+      "digit_ci": [
+        [
+          0.34536,
+          0.49501
+        ],
+        [
+          0.382398,
+          0.516531
+        ]
+      ]
+    },
+    {
+      "gate_pass_novel30_and_novel34": true,
+      "source": "pretrainedA_71",
+      "target": "newB_501_SAE_89",
+      "primary": true,
+      "novel30": [
+        0.5438,
+        0.1164,
+        0.0773
+      ],
+      "novel34": [
+        0.5404,
+        0.1608,
+        0.0617
+      ],
+      "canonical": [
+        0.566,
+        0.1751,
+        0.0711
+      ],
+      "clue_ci": [
+        [
+          0.3144,
+          0.5339
+        ],
+        [
+          0.2907,
+          0.4688
+        ]
+      ],
+      "digit_null_adv": [
+        0.498097,
+        0.520851
+      ],
+      "digit_ci": [
+        [
+          0.423144,
+          0.573548
+        ],
+        [
+          0.452953,
+          0.587185
+        ]
+      ]
+    },
+    {
+      "gate_pass_novel30_and_novel34": true,
+      "source": "pretrainedA_71",
+      "target": "newB_701_SAE_71",
+      "primary": true,
+      "novel30": [
+        0.4476,
+        0.1383,
+        0.0639
+      ],
+      "novel34": [
+        0.4734,
+        -0.0036,
+        -0.0451
+      ],
+      "canonical": [
+        0.4741,
+        -0.0015,
+        -0.0253
+      ],
+      "clue_ci": [
+        [
+          0.1733,
+          0.4375
+        ],
+        [
+          0.3727,
+          0.5866
+        ]
+      ],
+      "digit_null_adv": [
+        0.419118,
+        0.435984
+      ],
+      "digit_ci": [
+        [
+          0.335766,
+          0.497326
+        ],
+        [
+          0.365125,
+          0.505345
+        ]
+      ]
+    },
+    {
+      "gate_pass_novel30_and_novel34": true,
+      "source": "pretrainedA_71",
+      "target": "newB_701_SAE_89",
+      "primary": true,
+      "novel30": [
+        0.4636,
+        0.0988,
+        0.0985
+      ],
+      "novel34": [
+        0.5514,
+        0.101,
+        0.2095
+      ],
+      "canonical": [
+        0.5671,
+        0.1238,
+        0.1738
+      ],
+      "clue_ci": [
+        [
+          0.2444,
+          0.482
+        ],
+        [
+          0.3371,
+          0.5649
+        ]
+      ],
+      "digit_null_adv": [
+        0.392003,
+        0.490303
+      ],
+      "digit_ci": [
+        [
+          0.310212,
+          0.473251
+        ],
+        [
+          0.41526,
+          0.561629
+        ]
+      ]
+    },
+    {
+      "gate_pass_novel30_and_novel34": true,
+      "source": "newB_501_SAE_71",
+      "target": "newB_501_SAE_89",
+      "primary": false,
+      "novel30": [
+        0.3096,
+        0.1419,
+        0.0347
+      ],
+      "novel34": [
+        0.2693,
+        0.0646,
+        0.049
+      ],
+      "canonical": [
+        0.2881,
+        0.0865,
+        0.0465
+      ],
+      "gate": true
+    },
+    {
+      "gate_pass_novel30_and_novel34": false,
+      "source": "newB_701_SAE_71",
+      "target": "newB_701_SAE_89",
+      "primary": false,
+      "novel30": [
+        0.0545,
+        0.0104,
+        -0.0133
+      ],
+      "novel34": [
+        0.0916,
+        0.1245,
+        -0.0156
+      ],
+      "canonical": [
+        0.1349,
+        0.1059,
+        0.0694
+      ],
+      "gate": false
+    },
+    {
+      "gate_pass_novel30_and_novel34": false,
+      "source": "newB_501_SAE_71",
+      "target": "newB_701_SAE_71",
+      "primary": false,
+      "novel30": [
+        0.1182,
+        0.0614,
+        -0.0255
+      ],
+      "novel34": [
+        0.0712,
+        0.1065,
+        -0.0251
+      ],
+      "canonical": [
+        -0.0646,
+        0.0223,
+        -0.0023
+      ],
+      "gate": false
+    }
+  ],
+  "limits": "Numerical paired FP64 interventions, not Arb interval validated cross-checkpoint proof. Source teacher substantially stronger than new teachers. Source matched target decoder atoms are often inactive in target SAE. Repeated pair comparisons within the same fixed 64 puzzle seed sets are not independent model-population samples. Posthoc digit-condition null is exploratory."
+}
