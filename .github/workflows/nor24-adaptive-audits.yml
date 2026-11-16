@@ -1,0 +1,134 @@
+name: NOR-24 preregistered trained posterior coordinate audit
+
+on:
+  push:
+    paths:
+      - 'research/nor24_adaptive_audits/**'
+      - '.github/workflows/nor24-adaptive-audits.yml'
+  pull_request:
+    paths:
+      - 'research/nor24_adaptive_audits/**'
+      - '.github/workflows/nor24-adaptive-audits.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-source-locked-first-run-independent-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-pin and independently replay all original 24 sources and 2,764,800 heldout decisions
+        run: python research/nor24_adaptive_audits/original_archive_audit.py
+
+  exact-controls-and-source-isolation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exhaustive finite binomial, sequential scheduling, true-witness and split tests
+        run: python -m unittest research.nor24_adaptive_audits.test_experiment -v
+
+  first-source-locked-training-and-test:
+    needs: exact-controls-and-source-isolation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize 24 fresh public-only source identities and disjoint train-test split
+        run: |
+          python research/nor24_adaptive_audits/experiment.py \
+            --make-fixture /tmp/nor24_fixture.json
+      - name: Freeze public source identities before training attack labels
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          raw=Path('/tmp/nor24_fixture.json').read_bytes()
+          o=json.loads(raw)
+          assert o['schema']=='nor24.public_source_only_24_disjoint_train_test.v1'
+          assert o['new_source_offset']==94324000
+          assert o['public_only'] and o['private_program_and_target_absent']
+          assert o['heldout_attack_locations_absent']
+          assert o['train_replicates']==[0,1] and o['test_replicates']==[2,3]
+          assert len(o['cases'])==24
+          assert len({x['full_public_input_sha256'] for x in o['cases']})==24
+          assert Counter(x['split'] for x in o['cases'])=={'TRAIN':12,'TEST':12}
+          assert all('future' not in x and 'program' not in x and 'attack' not in x for x in o['cases'])
+          print('NOR24 FROZEN PUBLIC SOURCE SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Fit only on TRAIN attack families and evaluate frozen posterior versus heldout controls
+        run: |
+          python research/nor24_adaptive_audits/experiment.py \
+            --check-parity --fixture /tmp/nor24_fixture.json \
+            --out /tmp/nor24_full.json
+      - name: Independent original-source target and policy replay
+        run: |
+          python research/nor24_adaptive_audits/receipt_audit.py --check \
+            --fixture /tmp/nor24_fixture.json --full /tmp/nor24_full.json
+      - name: Verify full frozen outcome roster and report PASS or FAIL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          a=Path('/tmp/nor24_fixture.json').read_bytes()
+          b=Path('/tmp/nor24_full.json').read_bytes()
+          z=json.loads(b)
+          assert z['schema']=='nor24.train_only_sequential_structured_coordinate_audit.v1'
+          assert z['fixture_sha256']==sha256(a).hexdigest()
+          assert len(z['source_records'])==12
+          assert len(z['primary_by_source'])==12
+          assert all(len(x['observations'])==225 for x in z['source_records'])
+          assert all(c['detected']+c['missed']==1024 and
+                     c['informed_false_accept']==1024 and
+                     c['informed_detected']==0
+                     for x in z['source_records'] for c in x['observations'])
+          print('NOR24 ORIGINAL FIXTURE BYTES SHA256',len(a),sha256(a).hexdigest())
+          print('NOR24 ORIGINAL RESULT BYTES SHA256',len(b),sha256(b).hexdigest())
+          print('NOR24 REGISTERED PRIMARY PASS',z['registered_primary_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor24_original_24_public_sources_and_12_heldout_audits
+          path: |
+            /tmp/nor24_fixture.json
+            /tmp/nor24_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  separate-process-replay:
+    needs: first-source-locked-training-and-test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor24_original_24_public_sources_and_12_heldout_audits
+          path: /tmp/nor24_original
+      - name: Independently regenerate all hidden-world and heldout audit decisions
+        run: |
+          python research/nor24_adaptive_audits/receipt_audit.py --check \
+            --fixture /tmp/nor24_original/nor24_fixture.json \
+            --full /tmp/nor24_original/nor24_full.json
