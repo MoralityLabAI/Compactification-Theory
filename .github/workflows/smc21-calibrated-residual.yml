@@ -1,0 +1,229 @@
+name: SMC-21 source-calibrated erasure residual transfer
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC21_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc21_residual_transfer.py'
+      - 'research/real_recurrence_sae_v1/audit_smc21.py'
+      - 'research/real_recurrence_sae_v1/test_smc21_residual_transfer.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc21.py'
+      - '.github/workflows/smc21-calibrated-residual.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC21_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc21_residual_transfer.py'
+      - 'research/real_recurrence_sae_v1/audit_smc21.py'
+      - 'research/real_recurrence_sae_v1/test_smc21_residual_transfer.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc21.py'
+      - '.github/workflows/smc21-calibrated-residual.yml'
+  workflow_dispatch:
+
+jobs:
+  freeze-original-64-puzzle-residual-calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned source-compatible CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Test calibrated ridge, independent native physical audit and negative registered gates
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc21_residual_transfer.py' -v
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_audit_smc21.py' -v
+      - name: Retrieve exact original pretrained teacher and source SAE
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc21/original
+      - name: Retrieve original independently trained frozen B teachers and SAE71/89
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc21/independent
+      - name: Retrieve original conditioned Hungarian calibration assignments
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc21/conditioned
+      - name: Retrieve original four SMC19 independent refit SAE weights and calibration
+        uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc21/frozen19
+      - name: Check original source and original SAE refits SHA256 before calibration
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc21/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc21/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc21/conditioned/conditioned.json" | sha256sum -c -
+          echo "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b  runs/smc21/frozen19/frozen.json" | sha256sum -c -
+      - name: Freeze residual ridge scalars using only ORIGINAL 64 feature_calibration puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc21_residual_transfer.py \
+            --phase calibrate --fetch-source \
+            --original-artifact runs/smc21/original \
+            --independent-artifact runs/smc21/independent \
+            --conditioned-receipt runs/smc21/conditioned/conditioned.json \
+            --frozen-dir runs/smc21/frozen19 \
+            --calibration runs/smc21/calibration/residual_calibration.json
+      - name: Independent stdlib audit of original 64-puzzle residual calibration before test
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc21.py \
+            --phase calibration \
+            --frozen-dir runs/smc21/frozen19 \
+            --calibration runs/smc21/calibration/residual_calibration.json \
+            --out runs/smc21/calibration/calibration-audit.json
+      - name: Archive frozen coefficients, physical gradients and independent original calibration audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: smc21-source-only-64p-calibration-frozen
+          path: runs/smc21/calibration
+          retention-days: 90
+          if-no-files-found: error
+
+  fresh-four-puzzle-pilot:
+    needs: freeze-original-64-puzzle-residual-calibration
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned source-compatible CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc21/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc21/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc21/conditioned
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc21/frozen19
+      - name: Recover already frozen SMC21 calibration coefficients from independent job
+        uses: actions/download-artifact@v4
+        with:
+          name: smc21-source-only-64p-calibration-frozen
+          path: runs/smc21/calibration
+      - name: Source-locked four-puzzle refit residual transfer smoke test
+        run: |
+          python research/real_recurrence_sae_v1/smc21_residual_transfer.py \
+            --phase evaluate --fetch-source \
+            --original-artifact runs/smc21/original \
+            --independent-artifact runs/smc21/independent \
+            --conditioned-receipt runs/smc21/conditioned/conditioned.json \
+            --frozen-dir runs/smc21/frozen19 \
+            --calibration runs/smc21/calibration/residual_calibration.json \
+            --pilot-puzzles 4 --pair-limit 1 --out runs/smc21/pilot.json
+      - name: Independent stdlib original source, ridge and native erasure pilot audit
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc21.py \
+            --phase full \
+            --frozen-dir runs/smc21/frozen19 \
+            --calibration runs/smc21/calibration/residual_calibration.json \
+            --receipt runs/smc21/pilot.json \
+            --out runs/smc21/pilot-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc21-four-puzzle-residual-transfer-pilot
+          path: |
+            runs/smc21/pilot.json
+            runs/smc21/pilot-audit.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  prospective-128-puzzle-four-pair-full:
+    needs: fresh-four-puzzle-pilot
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original compatible CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc21/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc21/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc21/conditioned
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc21/frozen19
+      - name: Read unchanged source-only ridge coefficients and original 64-puzzle audit
+        uses: actions/download-artifact@v4
+        with:
+          name: smc21-source-only-64p-calibration-frozen
+          path: runs/smc21/calibration
+      - name: All four frozen refits × two fresh noncanonical 64-puzzle cohorts
+        run: |
+          python research/real_recurrence_sae_v1/smc21_residual_transfer.py \
+            --phase evaluate --fetch-source \
+            --original-artifact runs/smc21/original \
+            --independent-artifact runs/smc21/independent \
+            --conditioned-receipt runs/smc21/conditioned/conditioned.json \
+            --frozen-dir runs/smc21/frozen19 \
+            --calibration runs/smc21/calibration/residual_calibration.json \
+            --out runs/smc21/full.json
+      - name: Independent stdlib fresh goal and 16000 puzzle bootstrap/physical-gradient audit
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc21.py \
+            --phase full \
+            --frozen-dir runs/smc21/frozen19 \
+            --calibration runs/smc21/calibration/residual_calibration.json \
+            --receipt runs/smc21/full.json \
+            --out runs/smc21/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc21-full-source-residual-vs-direct-gradient-audit
+          path: |
+            runs/smc21/full.json
+            runs/smc21/audit.json
+          retention-days: 90
+          if-no-files-found: warn
