@@ -1,0 +1,104 @@
+name: NOR-23 one-shot original first-run archive publisher
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor23-first-receipt-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive-original-verified-first-run:
+    if: github.ref == 'refs/heads/research/nor23-randomized-coordinate-audit-20261116'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor23-randomized-coordinate-audit-20261116
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor23_original_twelve_sources_4096_challenges_per_budget
+          run-id: 43828806440
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor23_original
+      - name: SHA-pin exactly the first successful preregistered source and grade bytes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          import json
+          directory=Path('/tmp/nor23_original')
+          fixture=(directory/'nor23_fixture.json').read_bytes()
+          result=(directory/'nor23_full.json').read_bytes()
+          assert len(fixture)==2364428
+          assert sha256(fixture).hexdigest()==(
+            'f8b293966a7332d5f0ddb572aab57eababe35a1afba08718bb488ab9a071094b')
+          assert len(result)==153608
+          assert sha256(result).hexdigest()==(
+            'ede96e99f3eba9d168020e4080f1db304770c600f17ba897ef8eda7cf19f6ba0')
+          f=json.loads(fixture)
+          d=json.loads(result)
+          assert f['schema']=='nor23.fresh_public_source_only.v1'
+          assert d['schema']=='nor23.randomized_exact_coordinate_audit.v1'
+          assert d['fixture_sha256']==sha256(fixture).hexdigest()
+          assert d['registered_criteria_pass']
+          assert len(f['cases'])==d['distinct_public_source_count']==12
+          assert len(d['degree_cells'])==60
+          receipt={
+            'schema':'nor23.first_original_frozen_4096_coordinate_audits.v1',
+            'date_utc':'2026-11-16',
+            'registration_commit':'ed760cf15499bba38626f4f205c6f3b37feae49f',
+            'first_full_green_run':'https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43828806440',
+            'original_artifact_id':14207068514,
+            'original_artifact_name':'nor23_original_twelve_sources_4096_challenges_per_budget',
+            'fixture_bytes':len(fixture),
+            'fixture_sha256':sha256(fixture).hexdigest(),
+            'full_result_bytes':len(result),
+            'full_result_sha256':sha256(result).hexdigest(),
+            'distinct_public_sources':12,
+            'source_degrees':[512,1024],
+            'output_lengths':[769,1537],
+            'budgets':[0,1,4,16,64],
+            'radii':[1,4,16],
+            'shifts':[1,4294049777],
+            'challenge_sets_per_source_budget':4096,
+            'unique_challenge_sets_recomputed':245760,
+            'paired_world_audit_decisions_recomputed':2949120,
+            'reported_degree_cells':60,
+            'independent_full_replay_passed':True,
+            'registered_criteria_passed':True,
+            'scope':'Synthetic exact coefficient witnesses; assumed authentic external target values; blind positions fixed before sampling; adaptive positions chosen after sampling; different counterfactual worlds share public sources.'
+          }
+          out=Path('research/nor23_coordinate_audit/results')
+          out.mkdir(parents=True,exist_ok=True)
+          zip_path=out/'nor23_original_hosted.zip'
+          with ZipFile(zip_path,'w',compression=ZIP_DEFLATED,compresslevel=9) as z:
+            for name,data in [('nor23_fixture.json',fixture),('nor23_full.json',result)]:
+              item=ZipInfo(name,(2026,11,16,0,0,0))
+              item.compress_type=ZIP_DEFLATED
+              z.writestr(item,data,compress_type=ZIP_DEFLATED,compresslevel=9)
+          (out/'nor23_first_frozen_receipt.json').write_text(
+            json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          print('NOR23 ORIGINAL FROZEN ARCHIVE',len(zip_path.read_bytes()),
+                sha256(zip_path.read_bytes()).hexdigest())
+          PY
+      - name: Independent check of permanent archive before committing
+        run: |
+          python research/nor23_coordinate_audit/receipt_audit.py --check \
+            --archive research/nor23_coordinate_audit/results/nor23_original_hosted.zip
+      - name: Preserve immutable first-run evidence inside the PR branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor23_coordinate_audit/results/nor23_original_hosted.zip \
+                  research/nor23_coordinate_audit/results/nor23_first_frozen_receipt.json
+          git commit -m "NOR-23: archive exact first hosted source and independent replay receipt"
+          git push origin HEAD:research/nor23-randomized-coordinate-audit-20261116
