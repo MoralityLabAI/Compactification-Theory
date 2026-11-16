@@ -59,7 +59,9 @@ class AuditSMC14Tests(unittest.TestCase):
         self.assertEqual(out['tested_puzzles'],64)
         self.assertGreater(out['groups'],0)
         self.assertEqual(out['shuffle_reps_per_puzzle'],6)
-        self.assertTrue(out['matched_mean']>out['digit_rowband_shuffled_mean'])
+        # Digit-only causal signals are preserved by this conditional null.
+        self.assertAlmostEqual(out['matched_mean'],
+                               out['digit_rowband_shuffled_mean'],places=12)
 
     def test_reject_invalid_source_or_partial_receipt(self):
         with self.assertRaises((KeyError,ValueError)):
