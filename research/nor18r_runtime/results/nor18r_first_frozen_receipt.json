@@ -1,0 +1,96 @@
+{
+  "schema": "nor18r.first_hosted_source_locked_cpu_and_bigint_receipt.v1",
+  "executed_utc_date": "2026-11-16",
+  "original_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43797844269",
+  "original_artifact_id": 14195445905,
+  "original_artifact_name": "nor18r-original-public-only-64-case-fixture-and-timing-results",
+  "public_fixture_json_sha256": "5d75f2971d8b94daa9b65caae68e65921f2a90cd267481c7bb80a881e937d186",
+  "public_fixture_bytes": 1306733,
+  "original_benchmark_json_sha256": "59d48c8c9fe1bdf80ee2662d0c18f069f8414a92d48ad7980e3bb19b2a10ad98",
+  "original_benchmark_bytes": 580813,
+  "source_nor18_original_json_sha256": "9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b",
+  "source_original_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "host": {
+    "python": "CPython 3.12.16",
+    "compiler": "GCC 15.2.0",
+    "cpu_arch": "x86_64",
+    "os": "Linux 7.0.0-1019-azure x86_64 glibc 2.43",
+    "logical_cpu_count": 4
+  },
+  "source_cases": 64,
+  "source_family_counts": {
+    "late_source": 32,
+    "signed": 16,
+    "rational": 16
+  },
+  "source_cohorts": 4,
+  "source_selection": "8 late, 4 signed, 4 rational from original NOR18 per cohort",
+  "timed_samples_per_case_per_algorithm": 7,
+  "warmups_per_case_per_algorithm": 2,
+  "modes": [
+    "independent16",
+    "cached16",
+    "prefix160",
+    "prefix176"
+  ],
+  "primary_median_paired_end_to_end_speedup_cached_vs_independent": 4.328780845629943,
+  "primary_source_cases_cached_faster": 64,
+  "primary_registered_speedup_threshold": 1.5,
+  "primary_registered_faster_case_threshold": 48,
+  "cohort_block_bootstrap_95": [
+    4.280324127583885,
+    4.395943169762888
+  ],
+  "bootstrap_draws": 4096,
+  "primary_preregistered_passed": true,
+  "per_mode_median_total_ms": {
+    "independent16": 23.9128035,
+    "cached16": 4.327269,
+    "prefix160": 12.330759,
+    "prefix176": 8.8359965
+  },
+  "per_mode_median_verification_ms": {
+    "independent16": 21.2912325,
+    "cached16": 2.265918,
+    "prefix160": 9.706176,
+    "prefix176": 5.7443145
+  },
+  "per_mode_median_python_tracemalloc_peak_KiB": {
+    "independent16": 74.1171875,
+    "cached16": 128.244140625,
+    "prefix160": 112.771484375,
+    "prefix176": 120.646484375
+  },
+  "per_mode_total_native_R_integer_products": {
+    "independent16": 31750144,
+    "cached16": 4476928,
+    "prefix160": 18724608,
+    "prefix176": 16549888
+  },
+  "per_mode_total_R_operand_bitwidth_product_proxy": {
+    "independent16": 845306615,
+    "cached16": 163683594,
+    "prefix160": 227918645,
+    "prefix176": 215773495
+  },
+  "family_median_paired_speedup": {
+    "late_source": 4.395943169762888,
+    "signed": 4.3228197397623855,
+    "rational": 4.2036264314713865
+  },
+  "memory_isolated_process_peak_RSS_KiB": {
+    "independent16": 29364,
+    "cached16": 29364,
+    "prefix160": 29364,
+    "prefix176": 29364
+  },
+  "memory_isolated_process_baseline_RSS_KiB": {
+    "independent16": 29364,
+    "cached16": 29364,
+    "prefix160": 29364,
+    "prefix176": 29364
+  },
+  "all_64_source_public_masks_identical_across_four_algorithms": true,
+  "all_64_source_unanimity_certificates_identical_across_four_algorithms": true,
+  "scientific_scope": "First hosted execution under one GitHub Actions CPU runner. Exact public mask parity, seven paired measured time repetitions per mode on 64 fixed sources. Four-cohort bootstrap is conditional on this source set and run. Bigint operand-bitwidth products are separately measured size proxy. Memory Python tracemalloc separate untimed measurements; Linux isolated process RSS showed no change above startup/fixture baseline. No general CPU/hardware performance guarantee."
+}
