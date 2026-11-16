@@ -1,0 +1,165 @@
+name: SMC-20 anchored gradient SAE refit prediction
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC20_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc20_anchored_refit.py'
+      - 'research/real_recurrence_sae_v1/audit_smc20.py'
+      - 'research/real_recurrence_sae_v1/test_smc20_anchored_refit.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc20.py'
+      - '.github/workflows/smc20-anchored-refit.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC20_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc20_anchored_refit.py'
+      - 'research/real_recurrence_sae_v1/audit_smc20.py'
+      - 'research/real_recurrence_sae_v1/test_smc20_anchored_refit.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc20.py'
+      - '.github/workflows/smc20-anchored-refit.yml'
+  workflow_dispatch:
+
+jobs:
+  geometry-tests-and-four-puzzle-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Test anchored gradient prediction, original gates and independent audit mutation cases
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc20_anchored_refit.py' -v
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_audit_smc20.py' -v
+      - name: Fetch original model and original SAE
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc20/original
+      - name: Fetch frozen B501/B701 teachers, old SAE71 and 89
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc20/independent
+      - name: Fetch original seven clue-conditioned feature maps
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc20/conditioned
+      - name: Fetch four immutable SMC19 independent refitted SAE weights and calibration
+        uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc20/frozen
+      - name: Source and new SAE frozen receipt SHA-256 before any SMC20 test
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc20/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc20/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc20/conditioned/conditioned.json" | sha256sum -c -
+          echo "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b  runs/smc20/frozen/frozen.json" | sha256sum -c -
+      - name: Original-source four-puzzle one-pair anchored-gradient smoke test
+        run: |
+          python research/real_recurrence_sae_v1/smc20_anchored_refit.py \
+            --fetch-source \
+            --original-artifact runs/smc20/original \
+            --independent-artifact runs/smc20/independent \
+            --conditioned-receipt runs/smc20/conditioned/conditioned.json \
+            --frozen-dir runs/smc20/frozen \
+            --pilot-puzzles 4 --pair-limit 1 \
+            --out runs/smc20/pilot.json
+      - name: Independently replay exact source, refit physical predictions and pilot gates
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc20.py \
+            --receipt runs/smc20/pilot.json \
+            --frozen-dir runs/smc20/frozen \
+            --out runs/smc20/pilot-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc20-gradient-pilot-and-independent-audit
+          path: |
+            runs/smc20/pilot.json
+            runs/smc20/pilot-audit.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  full-128-new-puzzles-four-refits:
+    needs: geometry-tests-and-four-puzzle-pilot
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Fetch original source SAE and pretrained teacher
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc20/original
+      - name: Fetch original independent B teachers and SAEs
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc20/independent
+      - name: Fetch original clue-conditioned permutations
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc20/conditioned
+      - name: Recover exactly frozen SMC19 fitted SAE checkpoints and calibration
+        uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          run-id: 43810248525
+          github-token: ${{ github.token }}
+          path: runs/smc20/frozen
+      - name: Check all four immutable original JSON source SHA-256 receipts
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc20/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc20/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc20/conditioned/conditioned.json" | sha256sum -c -
+          echo "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b  runs/smc20/frozen/frozen.json" | sha256sum -c -
+      - name: Prospective four original refit comparisons x two new 64-puzzle families
+        run: |
+          python research/real_recurrence_sae_v1/smc20_anchored_refit.py \
+            --fetch-source \
+            --original-artifact runs/smc20/original \
+            --independent-artifact runs/smc20/independent \
+            --conditioned-receipt runs/smc20/conditioned/conditioned.json \
+            --frozen-dir runs/smc20/frozen \
+            --out runs/smc20/full.json
+      - name: Independent stdlib physical-edit reconstruction, 16000 bootstraps and source locks
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc20.py \
+            --receipt runs/smc20/full.json \
+            --frozen-dir runs/smc20/frozen \
+            --out runs/smc20/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc20-full-anchored-gradient-and-independent-audit
+          path: |
+            runs/smc20/full.json
+            runs/smc20/audit.json
+          retention-days: 90
+          if-no-files-found: warn

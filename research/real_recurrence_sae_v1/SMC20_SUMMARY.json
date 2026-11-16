@@ -1,0 +1,270 @@
+{
+  "schema": "SMC-20/source-locked-anchored-gradient-refit-summary-v1",
+  "prospective_registration_commit": "eb4b6c419fd741c4915d105235a9979426398710",
+  "original_full_green_run_id": 43816907745,
+  "original_experimental_source_commit": "5814e5828fc22fe84ec7cb42cbc617ff3af1bcb8",
+  "full_source_and_independent_audit_artifact_id": 14202004711,
+  "full_zip_sha256": "cb68a796ab5b0213a283105876e502f3bdc5bc8cc40a67e494d9793d7f1bfaed",
+  "original_full_json_sha256": "f828b370c96edccfdcb70d51d3ef58ef8d1b3d7c6516a2884024bf5ec1ce5932",
+  "original_independent_audit_json_sha256": "80555ab71fde1816e392092ba5bded268e61be815f513aeca25d9638a96d20ca",
+  "original_smc19_frozen_refit_archive_id": 14199643904,
+  "original_smc19_frozen_json_sha256": "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b",
+  "fresh_cohort_sha256": {
+    "smc20_novel_30": "51a204aeba7bbc0f6a1e8dc75e827768b91ef88eddd559188222f610548d5557",
+    "smc20_novel_34": "b80b14b75afdebe792bd8cb668fb9d98d6496980ed2c3d4c147da4dddd5412fe"
+  },
+  "overall": {
+    "receiving_sae_pairs": 4,
+    "passing_registered_both_family_gate": 4,
+    "passing_registered_family_gates": 8,
+    "pair_family_puzzle_cases": 512,
+    "selected_blank_goal_records": 4096,
+    "eligible_goal_pair_family_records": 1352,
+    "source_only_correct_sign_count": 894,
+    "anchored_gradient_correct_sign_count": 1217,
+    "direct_clean_gradient_correct_sign_count": 1274,
+    "pooled_anchored_to_source_only_absolute_error_ratio": 0.26964409183578003,
+    "pooled_direct_gradient_to_source_only_absolute_error_ratio": 0.23504220294152095,
+    "descriptive_direct_gradient_better_mae_point_estimate_in_family_count": 7,
+    "min_ci95_gain_vs_source_only": 0.5658869402225273,
+    "min_ci95_gain_vs_other_active": 0.8981975621667906,
+    "original_bootstrap_draws_per_pair_family": 2000,
+    "total_bootstrap_draws_replayed": 16000
+  },
+  "per_pair_family": [
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc20_novel_30",
+      "eligible_goals": 172,
+      "eligible_puzzles": 63,
+      "gain_vs_reference": 0.8438740973446717,
+      "bootstrap95_vs_reference": [
+        0.7054316878856391,
+        0.9876373294375215
+      ],
+      "gain_vs_other_active": 1.1289556102801348,
+      "bootstrap95_vs_other_active": [
+        0.9468873087769447,
+        1.335167143712002
+      ],
+      "anchored_MAE_over_reference_MAE": 0.26508497524423325,
+      "source_only_sign_accuracy": 0.6046511627906976,
+      "anchored_sign_accuracy": 0.9127906976744186,
+      "anchored_MAE_rounded": 0.3044,
+      "direct_gradient_MAE_rounded": 0.2421,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    },
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc20_novel_34",
+      "eligible_goals": 167,
+      "eligible_puzzles": 63,
+      "gain_vs_reference": 0.9612892332363986,
+      "bootstrap95_vs_reference": [
+        0.8268283209757864,
+        1.1124806385725043
+      ],
+      "gain_vs_other_active": 1.4245632923452336,
+      "bootstrap95_vs_other_active": [
+        1.126198478197869,
+        1.7471989687449474
+      ],
+      "anchored_MAE_over_reference_MAE": 0.24121106855822216,
+      "source_only_sign_accuracy": 0.5748502994011976,
+      "anchored_sign_accuracy": 0.9221556886227545,
+      "anchored_MAE_rounded": 0.3056,
+      "direct_gradient_MAE_rounded": 0.2594,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc20_novel_30",
+      "eligible_goals": 218,
+      "eligible_puzzles": 64,
+      "gain_vs_reference": 0.7755582627043851,
+      "bootstrap95_vs_reference": [
+        0.6814433309983823,
+        0.8672056328026433
+      ],
+      "gain_vs_other_active": 1.3549674138318986,
+      "bootstrap95_vs_other_active": [
+        1.1495447007155346,
+        1.605457887260314
+      ],
+      "anchored_MAE_over_reference_MAE": 0.2871203249752226,
+      "source_only_sign_accuracy": 0.7155963302752294,
+      "anchored_sign_accuracy": 0.908256880733945,
+      "anchored_MAE_rounded": 0.3124,
+      "direct_gradient_MAE_rounded": 0.2668,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc20_novel_34",
+      "eligible_goals": 215,
+      "eligible_puzzles": 64,
+      "gain_vs_reference": 0.7111622478279676,
+      "bootstrap95_vs_reference": [
+        0.6091743724384016,
+        0.8195003010017972
+      ],
+      "gain_vs_other_active": 1.1136428652893562,
+      "bootstrap95_vs_other_active": [
+        0.8981975621667906,
+        1.3452866164659047
+      ],
+      "anchored_MAE_over_reference_MAE": 0.3108994074682298,
+      "source_only_sign_accuracy": 0.7209302325581395,
+      "anchored_sign_accuracy": 0.8837209302325582,
+      "anchored_MAE_rounded": 0.3209,
+      "direct_gradient_MAE_rounded": 0.2929,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc20_novel_30",
+      "eligible_goals": 149,
+      "eligible_puzzles": 60,
+      "gain_vs_reference": 0.7684794579967705,
+      "bootstrap95_vs_reference": [
+        0.623157953556563,
+        0.9431602973702068
+      ],
+      "gain_vs_other_active": 1.6717727660759185,
+      "bootstrap95_vs_other_active": [
+        1.2910512359229047,
+        2.0578186141657135
+      ],
+      "anchored_MAE_over_reference_MAE": 0.28492473832101883,
+      "source_only_sign_accuracy": 0.6510067114093959,
+      "anchored_sign_accuracy": 0.8859060402684564,
+      "anchored_MAE_rounded": 0.3062,
+      "direct_gradient_MAE_rounded": 0.244,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc20_novel_34",
+      "eligible_goals": 154,
+      "eligible_puzzles": 61,
+      "gain_vs_reference": 0.7081295508992271,
+      "bootstrap95_vs_reference": [
+        0.5658869402225273,
+        0.8618162471050183
+      ],
+      "gain_vs_other_active": 1.3204234163791373,
+      "bootstrap95_vs_other_active": [
+        1.0962794939028768,
+        1.5505760246162017
+      ],
+      "anchored_MAE_over_reference_MAE": 0.30111238129033635,
+      "source_only_sign_accuracy": 0.6948051948051948,
+      "anchored_sign_accuracy": 0.922077922077922,
+      "anchored_MAE_rounded": 0.3051,
+      "direct_gradient_MAE_rounded": 0.2443,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc20_novel_30",
+      "eligible_goals": 137,
+      "eligible_puzzles": 60,
+      "gain_vs_reference": 0.9529071670050732,
+      "bootstrap95_vs_reference": [
+        0.8020142671216095,
+        1.1137600918929846
+      ],
+      "gain_vs_other_active": 1.4682828063531028,
+      "bootstrap95_vs_other_active": [
+        1.1789765829456242,
+        1.80396948120156
+      ],
+      "anchored_MAE_over_reference_MAE": 0.22205150302564344,
+      "source_only_sign_accuracy": 0.6423357664233577,
+      "anchored_sign_accuracy": 0.8540145985401459,
+      "anchored_MAE_rounded": 0.272,
+      "direct_gradient_MAE_rounded": 0.2457,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc20_novel_34",
+      "eligible_goals": 140,
+      "eligible_puzzles": 59,
+      "gain_vs_reference": 0.9161013152994745,
+      "bootstrap95_vs_reference": [
+        0.7624422693247295,
+        1.082998088084499
+      ],
+      "gain_vs_other_active": 1.283459070140595,
+      "bootstrap95_vs_other_active": [
+        1.0021909445897097,
+        1.605632395187805
+      ],
+      "anchored_MAE_over_reference_MAE": 0.23534320588521362,
+      "source_only_sign_accuracy": 0.65,
+      "anchored_sign_accuracy": 0.9071428571428571,
+      "anchored_MAE_rounded": 0.282,
+      "direct_gradient_MAE_rounded": 0.3106,
+      "registration": {
+        "coverage_met": true,
+        "bootstrap_gain_vs_reference": true,
+        "bootstrap_gain_vs_other": true,
+        "relative_mae_met": true,
+        "sign_accuracy_nondegradation_met": true,
+        "registered_family_pass": true
+      }
+    }
+  ],
+  "independent_replay_scope": "Separate stdlib implementation verified every per-goal anchored and other-active formula, all eight bootstrap intervals, all four originally archived SMC19 refit checkpoint byte SHA256 digests and original frozen calibration JSON. Original neural forward and FP64 autograd treated as source observations.",
+  "limits": "Both original and refit native SAE erasure effects belong to the same unchanged teacher. Clean correct-digit gradient uses the ground-truth Sudoku answer. Signed causal prediction does not establish a semantic feature identity or a deployable solution without answers. Direct clean-gradient-only prediction is a predeclared descriptive control and has smaller pooled MAE than anchoring on these cohorts."
+}
