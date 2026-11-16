@@ -12,6 +12,9 @@ python3 -m pip install -r experiments/roc_qwen01_3050/environment.lock.txt
 python3 -m unittest discover -s experiments/roc_qwen01_3050/tests -v
 python3 experiments/roc_qwen01_3050/smoke.py
 python3 experiments/roc_qwen01_3050/campaign.py
+python3 experiments/roc_qwen01_3050/check_activation_replay.py
+python3 experiments/roc_qwen01_3050/analyze_results.py
+python3 experiments/roc_qwen01_3050/verify_results.py
 ```
 
 Downloads use only the named immutable checkpoint, range-resume on disk, and

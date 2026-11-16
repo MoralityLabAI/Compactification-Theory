@@ -67,8 +67,8 @@ def main():
             item["mean_effect_difference"]=None
     save(RESULTS/"summary.json",summary)
     report=RESULTS/"REPORT.md"
-    text=report.read_text()
-    text+=f"\n## Native Qwen and paired task outcomes\n\nNative held-out answer accuracy: {summary['native_qwen_heldout_accuracy']:.4f} (96 prompts, A tie-break).\n\n"
+    text=report.read_text().split("\n## Native Qwen and paired task outcomes\n")[0]
+    text+=f"\n## Native Qwen and paired task outcomes\n\nNative held-out candidate-margin accuracy: {summary['native_qwen_heldout_accuracy']:.4f} (96 prompts, A tie-break).\n\n"
     text+="| Comparator | Causal probe accuracy | Comparator accuracy | Paired difference |\n|---|---:|---:|---:|\n"
     for r in paired:
         if r["cohort"]=="all":

@@ -14,6 +14,9 @@ def main():
     from runtime import Runtime
     from core import LAYERS
     model,tokenizer,manifest,_=load()
+    trainable=sum(int(p.requires_grad) for p in model.parameters())
+    if trainable or not model.is_loaded_in_4bit:
+        raise RuntimeError("Replay requires frozen NF4 weights")
     runtime=Runtime(torch,model,manifest)
     rows=json.loads((original/"dataset.json").read_text())
     acts=np.load(original/"activations.npy",mmap_mode="r")
@@ -36,6 +39,8 @@ def main():
                 source_hash=runtime.source_hash,script_sha256=preflight.sha(preflight.ROOT/"check_activation_replay.py"),
                 condition="new_zero_hook_identity_control; different setting from extraction",
                 successful_forward_passes=runtime.successes)
+    result["trainable_parameter_tensors"]=trainable
+    result["loaded_in_4bit"]=bool(model.is_loaded_in_4bit)
     preflight.save(replay/"activation_replay.json",result)
     print(json.dumps(result,indent=2))
     if result["status"]!="passed":
