@@ -62,3 +62,43 @@ The first fixed experiment runs in Python 3.12 on GitHub Actions CPU with a **30
       --check --out /tmp/nor22_full.json
 
 This is a finite synthetic authorization and verifiability result, not a recommendation for deploying a 16-bit authentication code for security-sensitive applications.
+
+
+## First hosted source-locked NOR-22 outcome
+
+The preregistered first experiment completed in [Actions run 43816319904](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43816319904), after registering the source offset, moduli, evaluation point, policy semantics and exact expected matrix above.
+
+All twelve newly generated complete-public inputs were distinct, with six degree-512 and six degree-1024 source cases and four cases from each of the three frozen source families. Each source was paired with four altered hidden-target worlds, giving 48 correlated source-world records. Every public mask had a uniquely predicted future in the original sixteen-program generating family. The target-dependent authenticated commitments are explicit additional inputs, while candidate selection was frozen before the private program and target were reconstructed for grading.
+
+### Registered outcome matrix reproduced exactly
+
+| Target world (12 each) | Public only | Trusted 65537 | Trusted 65537 and 65521 | Forged two-residue anchor |
+| --- | --- | --- | --- | --- |
+| Valid future | 12 correct | 12 correct | 12 correct | 12 correct |
+| Final coefficient +1 | 12 false accepts | 12 abstain | 12 abstain | 12 false accepts |
+| Final coefficient +65537 | 12 false accepts | 12 false accepts | 12 abstain | 12 false accepts |
+| Final coefficient +4294049777 | 12 false accepts | 12 false accepts | 12 false accepts | 12 false accepts |
+
+The exact sixteen-program public candidate and hypothetical future was **identical across all four hidden target worlds** for a given public source. Only the explicitly target-dependent trusted commitment changed. A forged "commitment" calculated from the proposed output itself did not alter the error rate. The two trusted moduli ruled out unit and p-sized target changes while still colliding on p·q-sized terminal changes. A trusted fingerprint is a necessary consistency check, with deterministic residual collisions.
+
+The code audits **twelve distinct public sources and 192 policy decisions**; statistical significance from 48 or 192 independent examples would be invalid because each source has four controlled hidden worlds and every policy shares the same selected public prediction. This is an algebraically preregistered information-boundary experiment with exhaustive outcomes for its fixed counterfactual design.
+
+### Frozen original evidence and independent audit
+
+The source-only public fixture, **including the explicitly extra target-dependent modular commitments**, is 2,236,097 bytes, SHA-256:
+
+    a325aa87214bbfcabe40c6f964e514ded5f16dd3a18752c09e2d99b907590a4d
+
+The complete first-run sealed grade JSON is 128,050 bytes, SHA-256:
+
+    c6e7eba604b43a113362505ded2a5581305ff5213afaff3fe0c726741b35795b
+
+Both are permanently retained byte-for-byte as [results/nor22_original_hosted.zip](results/nor22_original_hosted.zip), with an immutable [first frozen receipt](results/nor22_first_frozen_receipt.json). The [standalone independent auditor](receipt_audit.py) rebuilds the original source programs from frozen seeds without importing the NOR-22 implementation, verifies complete public input hashes and original candidate membership, independently evaluates polynomial fingerprints through modular powers, checks all 96 authentic target values, and reconstructs all 192 policy choices and grades.
+
+The first [independent receipt replay](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43817062027) passed on the original source data. The one-shot write-capable evidence publisher has been removed after a successful original-source archive commit. The permanent CI verifies archive SHA-256 before the original source-generation and prospective test jobs.
+
+### Exact mathematics and trust scope
+
+The companion [MathCan NOR-22](https://github.com/patrickdugan/MathCan/tree/research/nor22-modular-future-commitments-20261116/MathCan/NOR22ModularFutureCommitments.lean) proves authentic mismatches reject wrong predictions, self-signed commitments are vacuous, an observed signature collision preserves public indistinguishability, and an arbitrary-length polynomial terminal shift obeys exact evaluation change \(\Delta\cdot3^Q\). Both modular collisions persist at any finite degree.
+
+This synthetic result **requires a trustworthy external commitment publisher to observe the true target**. That information was withheld from the old public-only verifier and is deliberately supplied in the new trusted policies. The experiment is not a way to recover unknown target truth from public demonstrations, and the two small moduli are not sufficient cryptographic protection against an adaptive adversary. A real commitment scheme and authorization trust boundary would need separate treatment.
