@@ -1,0 +1,107 @@
+name: NOR-18 common coefficient-work budget public-prefix frontier
+
+on:
+  push:
+    paths:
+      - 'research/nor18_costed_prefix/**'
+      - '.github/workflows/nor18-costed-prefix-frontier.yml'
+  pull_request:
+    paths:
+      - 'research/nor18_costed_prefix/**'
+      - '.github/workflows/nor18-costed-prefix-frontier.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-safety-and-arithmetic-ledger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit exact cache-work identity, native parity, sealed future and common-work cap
+        run: python -m unittest research.nor18_costed_prefix.test_experiment -v
+
+  fresh-cost-normalized-frontier:
+    needs: source-safety-and-arithmetic-ledger
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Frozen 112/128/144/160/176/192 depth sweep on 288 source cases
+        run: |
+          python research/nor18_costed_prefix/experiment.py \
+            --check --repetitions 4 --late-per-repetition 48 \
+            --signed-per-repetition 12 --rational-per-repetition 12 \
+            --out /tmp/nor18_full.json
+      - name: Audit source manifests, arithmetic budget caps, soundness and paired results
+        run: |
+          python - <<'PY'
+          from collections import Counter
+          from hashlib import sha256
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nor18_full.json')
+          raw=p.read_bytes()
+          d=json.loads(raw)
+          assert d['schema']=='nor18.common_work_cached_prefix_certificate_frontier.v1'
+          assert d['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert d['seed_offset']==93518000
+          assert d['frozen_prefix_degrees']==[112,128,144,160,176]
+          assert d['batched_full_degree']==192
+          assert d['frozen_work_multipliers']==[4,8,16]
+          assert d['repetitions']==4
+          assert d['all_cases']==len(d['records'])==288
+          assert d['primary_late_distinct_complete_public_inputs']==192
+          assert d['primary_late_unique_model_feature_tensors']==1
+          assert d['nonlate_unique_model_feature_tensors']==96
+          assert d['retrospective_full_public_check_calls']==4608
+          assert len(d['arm_names'])==28
+          assert len(d['cohorts'])==4
+          assert len(set(c['public_manifest_sha256'] for c in d['cohorts']))==4
+          assert Counter(x['family'] for x in d['records'])=={
+            'late_source':192,'signed':48,'rational':48}
+          assert len(set(x['full_public_input_sha256'] for x in d['records']))==288
+          assert len(set(x['model_visible_sha256'] for x in d['records']))==97
+          assert d['scope']['private_future_sealed_until_all_decisions_frozen']
+          assert d['scope']['all_work_caps_apply_to_total_query_screen_and_full_check']
+          assert d['scope']['full_batch192_charges_16_full_public_candidate_comparisons']
+          assert d['scope']['proxy_excludes_bigint_bit_complexity_python_runtime_and_memory']
+          for name,arm in sorted(d['arms'].items()):
+              assert arm['cases']==288
+              assert arm['false_accept']==0 or name.startswith('greedy')
+              assert arm['total_work']==arm['query_work']+arm['screen_work']+arm['full_check_work']
+              assert arm['total_work']<=arm['work_cap']
+              for fam,group in arm['by_family'].items():
+                  assert group['false_accept']==0 or name.startswith('greedy')
+                  assert group['total_work']<=group['work_cap']
+              p=arm['by_family']['late_source']
+              print('NOR18 POLICY',name,
+                    'late_certificates',p['certificates'],
+                    'late_future_correct',p['future_correct'],
+                    'late_false_accept',p['false_accept'],
+                    'late_total_work',p['total_work'],
+                    'late_work_cap',p['work_cap'],
+                    'late_full_checks',p['full_check_calls'],
+                    'late_batched_full_comparisons',p['batch_full_public_comparisons'],
+                    'late_screen_checks',p['screen_public_comparisons'])
+          for k,v in sorted(d['paired_primary_and_secondary'].items()):
+              assert v['cases']==192
+              assert v['gains']-v['losses']==v['net']
+              assert 0<=v['exact_unadjusted_p']<=1
+              print('NOR18 PAIR',k,v)
+          print('NOR18 FULL DEMO CERTIFIABLE',d['primary_full_mask_output_certifiable'])
+          print('NOR18 PREREGISTERED PRIMARY PASSED',d['preregistered_primary_two_control_passed'])
+          print('NOR18 ORIGINAL FULL JSON',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor18-frozen-source-288-case-common-work-depth-frontier
+          path: /tmp/nor18_full.json
