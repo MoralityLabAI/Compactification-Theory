@@ -1,0 +1,122 @@
+name: NOR-23 preregistered randomized trusted coordinate audit frontier
+
+on:
+  push:
+    paths:
+      - 'research/nor23_coordinate_audit/**'
+      - '.github/workflows/nor23-coordinate-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor23_coordinate_audit/**'
+      - '.github/workflows/nor23-coordinate-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exhaustive-small-audit-and-source-isolation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify small exact combinatorial coverage, independent challenges and original public program
+        run: python -m unittest research.nor23_coordinate_audit.test_experiment -v
+
+  first-prospective-twelve-source-audit:
+    needs: exhaustive-small-audit-and-source-isolation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate exactly twelve new distinct public sources without target answers
+        run: |
+          python research/nor23_coordinate_audit/experiment.py \
+            --make-fixture /tmp/nor23_fixture.json
+      - name: Check source-only fixture and freeze byte identity
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor23_fixture.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor23.fresh_public_source_only.v1'
+          assert x['registered_source_offset']==94323000
+          assert x['public_only'] and x['hidden_true_future_and_program_absent']
+          assert x['trusted_witness_values_absent']
+          assert x['registered_budgets']==[0,1,4,16,64]
+          assert x['registered_radii']==[1,4,16]
+          assert x['registered_magnitudes']==[1,4294049777]
+          assert x['registered_trials']==4096
+          assert len(x['cases'])==12
+          assert len({r['full_public_input_sha256'] for r in x['cases']})==12
+          assert Counter(r['observation_degree'] for r in x['cases'])=={512:6,1024:6}
+          assert all(not any(s in r for s in ('program','future','hidden_target'))
+                     for r in x['cases'])
+          print('NOR23 FROZEN FIRST PUBLIC SOURCE FIXTURE', len(raw), sha256(raw).hexdigest())
+          PY
+      - name: Run exact trusted-witness coordinate audits on sealed postchoice worlds
+        run: |
+          python research/nor23_coordinate_audit/experiment.py \
+            --check --fixture /tmp/nor23_fixture.json --out /tmp/nor23_full.json
+      - name: Recompute all 60 degree-budget-radius-delta cells and source proofs independently
+        run: |
+          python research/nor23_coordinate_audit/receipt_audit.py \
+            --check --fixture /tmp/nor23_fixture.json --full /tmp/nor23_full.json
+      - name: Preserve original first-run bytes and selected numeric findings
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          a=Path('/tmp/nor23_fixture.json').read_bytes()
+          b=Path('/tmp/nor23_full.json').read_bytes()
+          r=json.loads(b)
+          assert r['registered_criteria_pass']
+          assert len(r['degree_cells'])==60
+          assert r['distinct_public_source_count']==12
+          assert all(z['blind_false_accept']+z['blind_detection']==z['trials']
+                     for z in r['degree_cells'])
+          assert all(z['adaptive_false_accept']==z['trials'] for z in r['degree_cells'])
+          assert all(z['valid_reject']==0 for z in r['degree_cells'])
+          print('NOR23 FIRST PUBLIC FIXTURE BYTES SHA256',len(a),sha256(a).hexdigest())
+          print('NOR23 FIRST RESULTS BYTES SHA256',len(b),sha256(b).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor23_original_twelve_sources_4096_challenges_per_budget
+          path: |
+            /tmp/nor23_fixture.json
+            /tmp/nor23_full.json
+          if-no-files-found: error
+          retention-days: 90
+
+  separate-process-independent-replay:
+    needs: first-prospective-twelve-source-audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor23_original_twelve_sources_4096_challenges_per_budget
+          path: /tmp/nor23-original
+      - name: Independently reconstruct all source programs, attack streams, challenge draws and hidden grades
+        run: |
+          python research/nor23_coordinate_audit/receipt_audit.py --check \
+            --fixture /tmp/nor23-original/nor23_fixture.json \
+            --full /tmp/nor23-original/nor23_full.json
