@@ -26,7 +26,7 @@ Each split balances copy/flip rules, answer labels, and delays 2..8 as closely a
 its size permits. Independent nonce/distractor draws prevent identical prompts.
 Prompts encode a binary initial cue, a rule, 2..8 intervening steps and a release.
 Answers are actual-tokenizer verified single tokens ` A` and ` B`. No truncation:
-every prompt must fit 64 tokens. The initial smoke may use a shorter prompt.
+every prompt and the acceptance smoke must fit 32..64 tokens.
 The final input token is the selected token. Capture decoder block outputs after
 blocks 6, 12 and 18 (one-based, before final normalization), fp16 NumPy memmap.
 
