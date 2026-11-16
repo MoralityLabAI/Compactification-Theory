@@ -1,0 +1,123 @@
+name: NOR-17 budgeted sound public-prefix verifier and selective proof certificates
+
+on:
+  push:
+    paths:
+      - 'research/nor17_prefix_certificates/**'
+      - '.github/workflows/nor17-prefix-certificate-budgets.yml'
+  pull_request:
+    paths:
+      - 'research/nor17_prefix_certificates/**'
+      - '.github/workflows/nor17-prefix-certificate-budgets.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-prefix-and-future-isolation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify prefix/full interpreter parity, proof soundness and private-future isolation
+        run: python -m unittest research.nor17_prefix_certificates.test_experiment -v
+      - name: Verify source-locked first experiment receipt and accepted-model scope
+        run: python research/nor17_prefix_certificates/receipt_audit.py --check
+      - name: Audit original source-controlled full evidence ZIP and 3168 frozen policy decisions
+        run: |
+          python research/nor17_prefix_certificates/receipt_audit.py --check \
+            --archive research/nor17_prefix_certificates/results/nor17_full.zip
+
+  four-fresh-budgeted-verifier-cohorts:
+    needs: exact-prefix-and-future-isolation
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run 4-8-16 paid full-check budgets on 192 new aliased sources and 96 controls
+        run: |
+          python research/nor17_prefix_certificates/experiment.py \
+            --check --repetitions 4 --late-per-repetition 48 \
+            --signed-per-repetition 12 --rational-per-repetition 12 \
+            --out /tmp/nor17_full.json
+      - name: Audit frozen source, full-check budgets, exact public prefix exclusion and proof soundness
+        run: |
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          from collections import Counter
+          raw=Path('/tmp/nor17_full.json').read_bytes()
+          d=json.loads(raw)
+          assert d['schema']=='nor17.risk_bounded_prefix_exclusion_public_output_certificate.v1'
+          assert d['source_checkpoint_sha256']=='54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b'
+          assert d['fresh_seed_offset']==93317000
+          assert d['source_public_prefix_degree']==160
+          assert d['demo_public_degree']==192
+          assert d['public_query_input_degree']==256
+          assert d['policy_budgets']==[4,8,16]
+          assert d['repetitions']==4
+          assert d['all_cases']==len(d['records'])==288
+          assert d['primary_distinct_complete_public_late_cases']==192
+          assert d['primary_unique_gru_input_groups']==1
+          assert d['nonlate_distinct_gru_input_groups']==96
+          assert d['retrospective_full_source_audit_checks']==16*288
+          assert len(d['cohorts'])==4
+          assert all(x['cases']==72 for x in d['cohorts'])
+          assert len(set(x['public_manifest_sha256'] for x in d['cohorts']))==4
+          records=d['records']
+          assert Counter(r['family'] for r in records)=={
+            'late_source':192,'signed':48,'rational':48}
+          assert len({r['full_public_input_sha256'] for r in records})==288
+          assert len({r['public_demos_sha256'] for r in records})==288
+          assert len({r['model_input_sha256'] for r in records if r['family']=='late_source'})==1
+          assert len({r['model_input_sha256'] for r in records})==97
+          assert all(r['full_public_accept_mask_retrospective'] & r['short_prefix_survivor_mask']==r['full_public_accept_mask_retrospective'] for r in records)
+          assert d['scope']['private_future_used_only_by_sealed_grade_after_choice']
+          assert d['scope']['prefix_only_elimination_is_exact_and_sound']
+          assert d['scope']['offline_full16_public_mask_audit_after_all_policy_choices']
+          assert d['scope']['query_unary_and_composition_costs_reported']
+          for kind,result in sorted(d['arms'].items()):
+              assert result['cases']==288
+              assert result['late_source']['cases']==192
+              assert result['full_public_checks']<=int(kind.rsplit('_',1)[-1])*288
+              assert result['future_correct']+result['false_accept']<=result['cases']
+              if not kind.startswith('greedy'):
+                  assert result['certificates']==result['future_correct']
+                  assert result['false_accept']==0
+              if kind.startswith('prefix'):
+                  assert result['prefix_candidate_checks']==16*288
+                  assert result['prefix_demo_candidate_compositions']==32*288
+                  assert result['prefix_unary_maps']==8*288
+              else:
+                  assert result['prefix_candidate_checks']==0
+              if kind.startswith('greedy'):
+                  assert result['query_candidate_compositions']==0
+              else:
+                  assert result['query_candidate_compositions']==16*288
+                  assert result['query_unary_maps']==4*288
+              print('NOR17 ARM',kind,'PRIMARY',result['late_source'],
+                    'ALL_CORRECT',result['future_correct'],
+                    'ALL_FALSE',result['false_accept'])
+          for test,result in sorted(d['primary_paired_tests'].items()):
+              assert result['cases']==192
+              assert result['gains']-result['losses']==result['net']
+              assert 0<=result['exact_unadjusted_p']<=1
+              print('NOR17 PAIRED',test,result)
+          print('NOR17 FULL16 PUBLIC FUTURE IDENTIFIABLE',d['primary_full_public_future_output_identifiable'])
+          print('NOR17 SHORT PREFIX PUBLIC FUTURE IDENTIFIABLE',d['primary_short_prefix_future_output_identifiable'])
+          print('NOR17 PREFIX 4 REGISTERED CAPABILITY PASS',d['prefix_rank4_passed_two_control_criterion'])
+          print('NOR17 FULL SOURCE SHA256',len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - name: Independently reconstruct all 3168 decisions, prefix soundness and 7 exact paired contrasts
+        run: python research/nor17_prefix_certificates/receipt_audit.py --check --full /tmp/nor17_full.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor17-288-case-source-locked-prefix-certificates-and-all-budgets
+          path: /tmp/nor17_full.json
