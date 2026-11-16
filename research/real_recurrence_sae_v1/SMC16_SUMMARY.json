@@ -1,0 +1,199 @@
+{
+  "schema": "SMC-16/source-locked-selective-SAE-kill-results-v1",
+  "protocol_commit": "777ff633010898103d876b54ac5d84264c12a628",
+  "code_run_head": "aea163d740a5ee9f61bbbd5e9bae04f4a1ddda6c",
+  "full_run_id": 43798110706,
+  "artifact_id": 14194824412,
+  "artifact_zip_sha256": "6f34925766ce50ae2cbd2c219b877bb0a0c702a42fd12dbcae1663f9c5f436f7",
+  "full_json_sha256": "534685723438e5b18d6145e8b61aac87d84bf0602e6f518d168c41720b58b728",
+  "audit_json_sha256": "c138ef92d024123cd3dc01945a8d3a849fb79543aa9ff22687beb606616ddf5f",
+  "fresh_manifest_sha256": {
+    "smc16_novel_30": "320f4521729abb177450004d31bf4acb64e50d2ff79b93a9997fc331a32029d4",
+    "smc16_novel_34": "9c10ad8be3343101c0f45ad46ac7eadb30823e4515a6d95737ab952990dd3945"
+  },
+  "source_sha256": {
+    "original_sae_receipt": "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087",
+    "independent_teacher_training_receipt": "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3",
+    "conditioned_feature_alignment_receipt": "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07"
+  },
+  "n_pair_family_puzzle_cases": 512,
+  "registered_pair_successes": 3,
+  "registered_pair_total": 4,
+  "results": [
+    {
+      "receiving_sae": "newB_501_SAE_71",
+      "family": "smc16_novel_30",
+      "eligible_goals": 37,
+      "eligible_puzzles": 28,
+      "paired_margin_advantage": 1.2388274921993725,
+      "puzzle_cluster_bootstrap95": [
+        0.4757097486121211,
+        2.0104898898527197
+      ],
+      "kill_correct_to_wrong_count": 11,
+      "sham_correct_to_wrong_count": 0,
+      "clean_correct_eligible_goals": 21,
+      "registered_gate_pass": true,
+      "ineligibility_reasons": {
+        "eligible": 37,
+        "kill_reencoding_failed": 11,
+        "matched_inactive": 445,
+        "tangent_sham_reencoding_failed": 19
+      }
+    },
+    {
+      "receiving_sae": "newB_501_SAE_71",
+      "family": "smc16_novel_34",
+      "eligible_goals": 36,
+      "eligible_puzzles": 29,
+      "paired_margin_advantage": 0.9813874565996118,
+      "puzzle_cluster_bootstrap95": [
+        0.21319199615818527,
+        1.721321518736879
+      ],
+      "kill_correct_to_wrong_count": 11,
+      "sham_correct_to_wrong_count": 2,
+      "clean_correct_eligible_goals": 18,
+      "registered_gate_pass": true,
+      "ineligibility_reasons": {
+        "eligible": 36,
+        "kill_reencoding_failed": 15,
+        "matched_inactive": 450,
+        "tangent_sham_reencoding_failed": 11
+      }
+    },
+    {
+      "receiving_sae": "newB_501_SAE_89",
+      "family": "smc16_novel_30",
+      "eligible_goals": 18,
+      "eligible_puzzles": 16,
+      "paired_margin_advantage": 1.6399254571689315,
+      "puzzle_cluster_bootstrap95": [
+        0.738419329499598,
+        2.7007277991624767
+      ],
+      "kill_correct_to_wrong_count": 5,
+      "sham_correct_to_wrong_count": 1,
+      "clean_correct_eligible_goals": 13,
+      "registered_gate_pass": false,
+      "ineligibility_reasons": {
+        "eligible": 18,
+        "kill_reencoding_failed": 15,
+        "matched_inactive": 464,
+        "tangent_sham_reencoding_failed": 15
+      }
+    },
+    {
+      "receiving_sae": "newB_501_SAE_89",
+      "family": "smc16_novel_34",
+      "eligible_goals": 26,
+      "eligible_puzzles": 22,
+      "paired_margin_advantage": 1.323823662746516,
+      "puzzle_cluster_bootstrap95": [
+        0.3756460149009427,
+        2.301374545742577
+      ],
+      "kill_correct_to_wrong_count": 8,
+      "sham_correct_to_wrong_count": 1,
+      "clean_correct_eligible_goals": 13,
+      "registered_gate_pass": true,
+      "ineligibility_reasons": {
+        "eligible": 26,
+        "kill_reencoding_failed": 11,
+        "matched_inactive": 466,
+        "tangent_sham_reencoding_failed": 9
+      }
+    },
+    {
+      "receiving_sae": "newB_701_SAE_71",
+      "family": "smc16_novel_30",
+      "eligible_goals": 47,
+      "eligible_puzzles": 35,
+      "paired_margin_advantage": 0.9622093029710537,
+      "puzzle_cluster_bootstrap95": [
+        0.23047327029640233,
+        1.6845606469426606
+      ],
+      "kill_correct_to_wrong_count": 9,
+      "sham_correct_to_wrong_count": 4,
+      "clean_correct_eligible_goals": 25,
+      "registered_gate_pass": true,
+      "ineligibility_reasons": {
+        "eligible": 47,
+        "kill_reencoding_failed": 9,
+        "matched_inactive": 429,
+        "tangent_sham_reencoding_failed": 27
+      }
+    },
+    {
+      "receiving_sae": "newB_701_SAE_71",
+      "family": "smc16_novel_34",
+      "eligible_goals": 42,
+      "eligible_puzzles": 32,
+      "paired_margin_advantage": 0.7833211899836686,
+      "puzzle_cluster_bootstrap95": [
+        0.09556936088671156,
+        1.4904375066191686
+      ],
+      "kill_correct_to_wrong_count": 5,
+      "sham_correct_to_wrong_count": 2,
+      "clean_correct_eligible_goals": 20,
+      "registered_gate_pass": true,
+      "ineligibility_reasons": {
+        "eligible": 42,
+        "kill_reencoding_failed": 10,
+        "matched_inactive": 436,
+        "tangent_sham_reencoding_failed": 24
+      }
+    },
+    {
+      "receiving_sae": "newB_701_SAE_89",
+      "family": "smc16_novel_30",
+      "eligible_goals": 49,
+      "eligible_puzzles": 35,
+      "paired_margin_advantage": 1.1346522151523963,
+      "puzzle_cluster_bootstrap95": [
+        0.41439858765217236,
+        1.8597448134708927
+      ],
+      "kill_correct_to_wrong_count": 12,
+      "sham_correct_to_wrong_count": 2,
+      "clean_correct_eligible_goals": 27,
+      "registered_gate_pass": true,
+      "ineligibility_reasons": {
+        "eligible": 49,
+        "kill_reencoding_failed": 23,
+        "matched_inactive": 429,
+        "tangent_sham_reencoding_failed": 11
+      }
+    },
+    {
+      "receiving_sae": "newB_701_SAE_89",
+      "family": "smc16_novel_34",
+      "eligible_goals": 48,
+      "eligible_puzzles": 38,
+      "paired_margin_advantage": 1.5699179609298106,
+      "puzzle_cluster_bootstrap95": [
+        0.808290973863883,
+        2.2373341043789114
+      ],
+      "kill_correct_to_wrong_count": 13,
+      "sham_correct_to_wrong_count": 1,
+      "clean_correct_eligible_goals": 26,
+      "registered_gate_pass": true,
+      "ineligibility_reasons": {
+        "eligible": 48,
+        "kill_reencoding_failed": 9,
+        "matched_inactive": 449,
+        "tangent_sham_reencoding_failed": 6
+      }
+    }
+  ],
+  "boundaries": {
+    "analysis": "Numerical FP64 three-step task margin continuation after source FP32 stage-one anchor",
+    "eligible_goal_selection": "source top-one strictly positive; mapped target among exactly four active; original other three preserved under kill and all four preserved under tangent sham",
+    "primary_gate": "At least 24 eligible goals in 20 puzzle clusters, 2000 valid clustered bootstraps, lower 95% percentile >0 and kill flips > sham flips, both novel families",
+    "caveat": "Dependent model/SAE comparisons and seeded finite puzzle cohorts; geometric influence from formerly inactive SAE directions remains unresolved",
+    "independent_audit": "separately written stdlib replay validates saved numerical receipts and original seven calibration hashes, not an independent neural forward pass"
+  }
+}
