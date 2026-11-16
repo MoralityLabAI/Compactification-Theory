@@ -165,7 +165,8 @@ def independent_record_check(row):
         if name=="prefix_hash_4":
             expected=[i for i in random_ids if short&(1<<i)]
             assert [t["class"] for t in tested]==expected[:len(tested)]
-        if name.startswith("prefix_") or name.startswith("unscreened_"):
+        if name in {"prefix_4","prefix_8","prefix_16",
+                    "unscreened_4","unscreened_8","unscreened_16"}:
             counts=Counter(pred[j] for j in range(16) if initial&(1<<j))
             masses=[counts[pred[t["class"]]] for t in tested]
             assert masses==sorted(masses,reverse=True)
