@@ -151,6 +151,10 @@ def streamed_mask(c,h):
     d=h.spacing
     amp=h.amplitude
     for source,observed in c.demos:
+        # Match native verify_template's fixed degree-192 truncation even
+        # when a unit-test source carries additional unpublished suffixes.
+        source=source[:corpus.OBSERVED+1]
+        observed=observed[:corpus.OBSERVED+1]
         maps={op:corpus.d.operate(source,op) for op in corpus.OPS}
         base=maps[h.base]
         for j in range(16):
@@ -199,6 +203,8 @@ def chunk4_mask(c,h):
     """At most four materialized degree192 outputs, one demo at a time."""
     mask=65535
     for source,observed in c.demos:
+        source=source[:corpus.OBSERVED+1]
+        observed=observed[:corpus.OBSERVED+1]
         maps={op:corpus.d.operate(source,op) for op in corpus.OPS}
         for start in range(0,16,4):
             # No persistent output materialization across four-class chunks.
