@@ -1,0 +1,41 @@
+{
+  "schema": "nor26.first_source_locked_original_evidence.v1",
+  "preregistration_sha": "51ee62518948505754236959c77930594daea011",
+  "first_hosted_actions_run": 43895351638,
+  "first_independent_replay_job": 133397967602,
+  "original_hosted_artifact_id": 14237404539,
+  "fixture": {
+    "file": "nor26_fixture.json",
+    "bytes": 2838554,
+    "sha256": "e3f5a3df07d062d8681a39a7ddcba9a981b58af6f149f13bd372daf08ac6606f",
+    "public_only": true,
+    "sources": 12
+  },
+  "outcome": {
+    "file": "nor26_full.json",
+    "bytes": 217954,
+    "sha256": "a451897b780b024aac49f543833bc5e3ec32a734489d3f7a9b14a929bd11669a",
+    "sources": 12,
+    "calibration_challenges": 256,
+    "heldout_challenges": 512,
+    "attacks_per_policy": 8,
+    "independent_replay_decisions": 2408448
+  },
+  "result": {
+    "registered_primary_pass": true,
+    "wins_hybrid50_over_static": 12,
+    "source_mean_hybrid50_diagonal": 0.029886881510416668,
+    "source_mean_uniform_diagonal": 0.05629475911458333,
+    "source_mean_static_diagonal": 0,
+    "source_mean_hybrid25_diagonal": 0.015726725260416668,
+    "source_mean_hybrid75_diagonal": 0.047587076822916664,
+    "source_mean_hybrid50_fresh_attack": 0.06492106119791667,
+    "all_12_hybrid50_calibration_diagonals_zero": true
+  },
+  "caveats": [
+    "Source is the independent unit; challenge and attack replicates are correlated within source.",
+    "Public reproducible SHA-derived challenge streams are not a production secret.",
+    "External exact target witness assumed; schedule-informed attacker evades.",
+    "Greedy attack optimizes empirical calibration exposure, not a globally optimal combinatorial objective."
+  ]
+}
