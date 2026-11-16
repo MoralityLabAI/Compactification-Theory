@@ -80,6 +80,9 @@ Zero directions fail explicitly. Matched random coefficients use the same
 target frame and radius; observed-to-dark uses the same coefficients as
 observed-to-observed. Log actual FP16 displacement and source/target leakage.
 These names specify donor routing, not recurrent Jacobian blocks.
+Mark the physical route valid only when FP16 target-frame error, requested
+radius error, and matched-control radius error are each at most 5% of radius.
+Invalid routes remain in the evidence and cannot satisfy the intervention gate.
 
 The hook is an intermediate residual boundary, not a separable observer
 readout. Therefore pure `ablate_readout` is **unsupported** and the four-arm

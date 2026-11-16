@@ -131,6 +131,8 @@ def intervene(runtime,rows,acts,margins,observers):
                     radius=0.5,actual_l2=receipt["actual_l2"],matched_random_actual_l2=random_receipt["actual_l2"],
                     norm_match_relative_error=abs(receipt["actual_l2"]-random_receipt["actual_l2"])/0.5,
                     fp16_target_frame_error=float(target_error),
+                    physical_route_valid=int(target_error/0.5<=0.05 and abs(receipt["actual_l2"]-0.5)/0.5<=0.05
+                        and abs(receipt["actual_l2"]-random_receipt["actual_l2"])/0.5<=0.05),
                     baseline_correct_margin=sign*float(margins[i]),effect=float(effect),
                     matched_random_effect=float(sign*(random_receipt["margin_a_minus_b"]-margins[i])),
                     predicted_effect=float(prediction),prediction_abs_error=float(abs(prediction-effect)),
@@ -207,6 +209,7 @@ def summarize(runtime,rows,per_rank,interventions,hardware):
         paired_comparisons=paired,heldout_task=[r for r in per_rank if r["split"]=="heldout"],
         finite_difference_stable_fraction=float(np.mean([r["derivative_stable"] for r in interventions if r["arm"] in arms])),
         maximum_norm_match_relative_error=float(max(r["norm_match_relative_error"] for r in interventions)),
+        physical_route_valid_fraction=float(np.mean([r["physical_route_valid"] for r in interventions if r["arm"] in arms])),
         peak_allocated_bytes=max(x["peak_allocated_bytes"] for x in runtime.events))
     summary["result_hashes"]={p.name:sha(p) for p in RESULTS.iterdir() if p.is_file()
         and p.name in ("dataset.json","activations.npy","margins.npy","per_state.csv","per_rank.csv",

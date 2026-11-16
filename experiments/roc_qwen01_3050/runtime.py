@@ -102,6 +102,8 @@ class Runtime:
 
     def close(self):
         self.batch("complete")
+        save(RESULTS / "memory_profile.json", dict(identity=self.identity, events=self.events,
+                  allocation_ceiling_bytes=CEILING, status="complete"))
         for h in self.guards:
             h.remove()
         self.db.close()
