@@ -347,6 +347,7 @@ def run(original_artifact,independent_artifact,conditioned_receipt,
             families[name]['statistics']['registered_success'] for name in FAMILIES)
         comparisons.append({'source':a,'target':b,
                             'source_mapping_sha256':frozen[i][1],
+                            'frozen_matched_feature_mapping':frozen[i][0],
                             'heldout':families,
                             'registered_success_both_families':success})
         print('SMC16_SELECTIVE_KILL',b,{
@@ -361,6 +362,7 @@ def run(original_artifact,independent_artifact,conditioned_receipt,
        'independent_training_receipt_sha256':NEW_TEACHER_RECEIPT_SHA256,
        'conditioned_mapping_receipt_sha256':CONDITIONED_JSON_SHA256,
        'all_seven_original_smc13c_hungarian_assignments_sha_verified':True,
+       'all_seven_original_smc13c_mapping_sha256':[frozen[i][1] for i in range(len(ALL_PAIRS))],
        'fixed_parameters':{'overshoot':TAU,'native_dose_multiple_limit':MAX_NATIVE_MULTIPLE,
           'encoder_recode_tolerance':CODE_TOL,'orthogonality_tolerance':ORTH_TOL,
           'bootstrap_resamples':BOOTSTRAPS},
