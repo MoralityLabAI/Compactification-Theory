@@ -1,0 +1,137 @@
+{
+  "schema": "SMC-15/source-locked-native-erasure-results-v1",
+  "pre_registration_commit": "529f828af6997b676f43b4027e32a33492b2718b",
+  "full_run_id": 43792274428,
+  "artifact_id": 14192743542,
+  "source_full_json_sha256": "34d9224613e2f264b70e5a5ec5e4e080a71a32edb72f6cd63353a321fe05a324",
+  "source_audit_json_sha256": "789dec1319b0a1b6707620bdea7b4413e281ed389ac776f71c422a1d42c0c6d9",
+  "artifact_archive_sha256": "71ba859a7172d4bd6be74489d1e351f0bc867edd3dca19a503e2c79e6e75a0fc",
+  "fresh_cohort_manifest_sha256": {
+    "smc15_novel_30": "a0b0d158700c84594c7c3d165041136c093524b3018f1157791b6ee715053e4c",
+    "smc15_novel_34": "3af2629467a53dd6472cc0a32812febe0d483fd6b1c8967a3ca28ce12c62d909"
+  },
+  "n_puzzle_pair_family_cases": 512,
+  "main_result": "four source-A-to-B target SAE pairs each pass the frozen paired other-active dose-matched null in both fresh Sudoku families",
+  "pair_family": [
+    {
+      "receiving_sae": "newB_501_SAE_71",
+      "family": "smc15_novel_30",
+      "eligible_goals": 58,
+      "nonempty_puzzles": 38,
+      "matched_minus_other_active_signed_concordance": 0.5517241379310345,
+      "puzzle_bootstrap95": [
+        0.22641509433962265,
+        0.8709677419354839
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.17241379618644714,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0.03448275849223137,
+      "mean_post_erasure_reencoded_feature_fraction": 0.010460363154485359,
+      "preregistered_gate_passed": true
+    },
+    {
+      "receiving_sae": "newB_501_SAE_71",
+      "family": "smc15_novel_34",
+      "eligible_goals": 90,
+      "nonempty_puzzles": 54,
+      "matched_minus_other_active_signed_concordance": 0.6888888888888889,
+      "puzzle_bootstrap95": [
+        0.46601941747572817,
+        0.9213483146067416
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.18888889253139496,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0.0555555559694767,
+      "mean_post_erasure_reencoded_feature_fraction": 0.0036014339515989735,
+      "preregistered_gate_passed": true
+    },
+    {
+      "receiving_sae": "newB_501_SAE_89",
+      "family": "smc15_novel_30",
+      "eligible_goals": 54,
+      "nonempty_puzzles": 38,
+      "matched_minus_other_active_signed_concordance": 0.9629629629629629,
+      "puzzle_bootstrap95": [
+        0.72,
+        1.2093023255813953
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.25925925374031067,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0.018518518656492233,
+      "mean_post_erasure_reencoded_feature_fraction": 0.05183863148507819,
+      "preregistered_gate_passed": true
+    },
+    {
+      "receiving_sae": "newB_501_SAE_89",
+      "family": "smc15_novel_34",
+      "eligible_goals": 49,
+      "nonempty_puzzles": 33,
+      "matched_minus_other_active_signed_concordance": 0.9387755102040817,
+      "puzzle_bootstrap95": [
+        0.6176470588235294,
+        1.263157894736842
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.2448979616165161,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0.020408162847161293,
+      "mean_post_erasure_reencoded_feature_fraction": 0.04112859231017463,
+      "preregistered_gate_passed": true
+    },
+    {
+      "receiving_sae": "newB_701_SAE_71",
+      "family": "smc15_novel_30",
+      "eligible_goals": 76,
+      "nonempty_puzzles": 48,
+      "matched_minus_other_active_signed_concordance": 0.5789473684210527,
+      "puzzle_bootstrap95": [
+        0.2028985507246377,
+        0.9315068493150684
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.17105263471603394,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0.01315789483487606,
+      "mean_post_erasure_reencoded_feature_fraction": 0.01887184144608738,
+      "preregistered_gate_passed": true
+    },
+    {
+      "receiving_sae": "newB_701_SAE_71",
+      "family": "smc15_novel_34",
+      "eligible_goals": 57,
+      "nonempty_puzzles": 40,
+      "matched_minus_other_active_signed_concordance": 0.6666666666666666,
+      "puzzle_bootstrap95": [
+        0.3103448275862069,
+        0.9836065573770492
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.14035087823867798,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0.017543859779834747,
+      "mean_post_erasure_reencoded_feature_fraction": 0.01225872853955716,
+      "preregistered_gate_passed": true
+    },
+    {
+      "receiving_sae": "newB_701_SAE_89",
+      "family": "smc15_novel_30",
+      "eligible_goals": 63,
+      "nonempty_puzzles": 42,
+      "matched_minus_other_active_signed_concordance": 0.6666666666666666,
+      "puzzle_bootstrap95": [
+        0.3333333333333333,
+        1
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.190476194024086,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0,
+      "mean_post_erasure_reencoded_feature_fraction": 0.013755609995011252,
+      "preregistered_gate_passed": true
+    },
+    {
+      "receiving_sae": "newB_701_SAE_89",
+      "family": "smc15_novel_34",
+      "eligible_goals": 70,
+      "nonempty_puzzles": 45,
+      "matched_minus_other_active_signed_concordance": 0.9714285714285714,
+      "puzzle_bootstrap95": [
+        0.6197183098591549,
+        1.2698412698412698
+      ],
+      "clean_correct_to_wrong_rate_matched_among_all_eligible": 0.1428571492433548,
+      "clean_correct_to_wrong_rate_other_active_among_all_eligible": 0.014285714365541935,
+      "mean_post_erasure_reencoded_feature_fraction": 0,
+      "preregistered_gate_passed": true
+    }
+  ]
+}
