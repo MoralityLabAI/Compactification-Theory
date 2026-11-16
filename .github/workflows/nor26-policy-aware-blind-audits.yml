@@ -1,0 +1,126 @@
+name: NOR-26 registered policy-aware audit game
+
+on:
+  push:
+    paths:
+      - 'research/nor26_policy_aware_audits/**'
+      - '.github/workflows/nor26-policy-aware-blind-audits.yml'
+  pull_request:
+    paths:
+      - 'research/nor26_policy_aware_audits/**'
+      - '.github/workflows/nor26-policy-aware-blind-audits.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistration-and-exact-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify protocol preceded any experiment code or NOR-26 data
+        run: |
+          git merge-base --is-ancestor 51ee62518948505754236959c77930594daea011 HEAD
+          test -s research/nor26_policy_aware_audits/REGISTRATION.md
+      - name: Compile and test exact floors, finite games, fresh sources and RNG isolation
+        run: |
+          python -m compileall -q research/nor26_policy_aware_audits
+          python -m unittest research.nor26_policy_aware_audits.test_experiment -v
+
+  first-heldout-policy-aware-game:
+    needs: preregistration-and-exact-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize original public-only NOR-26 source fixture
+        run: |
+          python research/nor26_policy_aware_audits/experiment.py \
+            --make-fixture /tmp/nor26_fixture.json
+      - name: Freeze original public-only source identities before attacker construction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor26_fixture.json').read_bytes()
+          z=json.loads(raw)
+          assert z["schema"]=="nor26.fresh_public_only_12_sources.v1"
+          assert z["source_offset"]==109326000
+          assert z["replicates"]==[6,7]
+          assert z["source_only"] and z["hidden_truth_absent"] and z["attack_sets_absent"]
+          assert len(z["cases"])==12
+          assert len({c["full_public_input_sha256"] for c in z["cases"]})==12
+          assert all(not any(k in c for k in ("program","future","attack","witness"))
+                     for c in z["cases"])
+          print("NOR26 PUBLIC SOURCE FIRST BYTES",len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Execute fixed source-conditional seven-policy game and retain FAIL if observed
+        run: |
+          python research/nor26_policy_aware_audits/experiment.py \
+            --fixture /tmp/nor26_fixture.json --out /tmp/nor26_full.json
+      - name: Verify complete outcome roster and record original byte hashes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          a=Path('/tmp/nor26_fixture.json').read_bytes()
+          b=Path('/tmp/nor26_full.json').read_bytes()
+          z=json.loads(b)
+          assert z["schema"]=="nor26.policy_aware_blind_attack_crossplay.v1"
+          assert z["fixture_sha256"]==sha256(a).hexdigest()
+          assert len(z["source_records"])==12
+          assert all(len(rec["crossplay"])==49 and
+                     all(x["total"]==4096 and x["detected"]<=4096
+                         for x in rec["crossplay"])
+                     for rec in z["source_records"])
+          assert all(rec["informed_detected"]==0 and
+                     rec["legitimate_failures"]==0 and
+                     rec["delta_disagreements"]==0
+                     for rec in z["source_records"])
+          print("NOR26 ORIGINAL FIXTURE BYTES SHA256",len(a),sha256(a).hexdigest())
+          print("NOR26 ORIGINAL OUTCOME BYTES SHA256",len(b),sha256(b).hexdigest())
+          print("NOR26 REGISTERED SCIENTIFIC PASS",z["registered_primary_pass"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor26_original_public_sources_and_policyaware_game
+          path: |
+            /tmp/nor26_fixture.json
+            /tmp/nor26_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent-original-decision-replay:
+    needs: first-heldout-policy-aware-game
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor26_original_public_sources_and_policyaware_game
+          path: /tmp/nor26_original
+      - name: Reconstruct original public sources, greedy attacks and all cross-play decisions in a separate process
+        run: |
+          python research/nor26_policy_aware_audits/receipt_audit.py \
+            --fixture /tmp/nor26_original/nor26_fixture.json \
+            --full /tmp/nor26_original/nor26_full.json
