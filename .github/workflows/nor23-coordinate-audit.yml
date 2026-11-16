@@ -15,6 +15,19 @@ permissions:
   contents: read
 
 jobs:
+  independently-audit-original-frozen-first-run:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-check and independently reconstruct the archived first hosted public fixture and result
+        run: |
+          python research/nor23_coordinate_audit/receipt_audit.py --check \
+            --archive research/nor23_coordinate_audit/results/nor23_original_hosted.zip
+
   exhaustive-small-audit-and-source-isolation:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
