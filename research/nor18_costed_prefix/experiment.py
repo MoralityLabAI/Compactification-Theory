@@ -506,7 +506,7 @@ def run(repetitions=REPETITIONS,late_per=LATE_PER,
     for r in records:
         masks=[r["public_prefix_survivor_masks"][str(d)]
                for d in PREFIX_DEGREES+(BATCH_DEGREE,)]
-        assert all(b&a==b for a,b in zip(masks,masks[1:],strict=True))
+        assert all(b&a==b for a,b in zip(masks,masks[1:]))
         for label in ("none",)+(tuple(f"d{x}" for x in PREFIX_DEGREES)) + ("batch192",):
             hits=[r["arms"][f"{label}_{b}"]["certified"]
                   for b in WORK_MULTIPLIERS]
