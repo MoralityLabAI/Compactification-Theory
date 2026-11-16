@@ -1,0 +1,309 @@
+{
+  "schema": "SMC-21/source-locked-64cal-128test-residual-transfer-summary-v1",
+  "preregistration_commit": "0f0af2dc4b34c6a85dc4e0ba5d5d1e08597bbf59",
+  "original_three_stage_green_run": 43822895405,
+  "original_experimental_source_sha": "6e947b411c8d234b86be25b65f6cc9dcc3b91728",
+  "source_calibration_artifact_id": 14204423839,
+  "source_calibration_zip_sha256": "eb60ee3bc9be88b3b40c3d43a6064c08c89fc5e35fc0dc84c3e845a7a1fc0020",
+  "source_calibration_json_sha256": "e7aa12a3da5b8eaa0132b5de45083ca1b2af5c38e556fef01e1f26d2b94f90af",
+  "original_complete_full_and_independent_audit_artifact_id": 14205506294,
+  "original_full_archive_sha256": "d926eedb11c4d9541dcf392a8bde785350b5697dee68c228f84c095deabbf6ec",
+  "original_full_json_sha256": "893503626376938009c4527d6cbe45b481c519c09c962f56799e5be3040f08fd",
+  "original_audit_json_sha256": "cfa217aa28311acbbef0ab409b76b505338e93fd6ba203569b7264b5ff8e5040",
+  "original_frozen_SMC19_calibration_json_sha256": "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b",
+  "fresh_manifest_sha256": {
+    "smc21_novel_30": "4ee05c509ec27d2c644f5a22a35e2b55edf78c6873742beaf6206304fc5055c3",
+    "smc21_novel_34": "8c1fd118450694614c5873f238c6aaf2613b5b9eb47e41d192bf47c055b32b43"
+  },
+  "frozen_calibration_coefficients": [
+    {
+      "target": "newB_501_SAE_131",
+      "eligible_calibration_goals": 198,
+      "eligible_calibration_puzzles": 63,
+      "beta_source": 0.5025328229296439,
+      "beta_other": -0.06138083049283269,
+      "calibration_fits_identified": true
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "eligible_calibration_goals": 222,
+      "eligible_calibration_puzzles": 62,
+      "beta_source": 0.42313864331363327,
+      "beta_other": 0.16684292775291917,
+      "calibration_fits_identified": true
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "eligible_calibration_goals": 165,
+      "eligible_calibration_puzzles": 61,
+      "beta_source": 0.3965727291957602,
+      "beta_other": 0.13484417815596816,
+      "calibration_fits_identified": true
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "eligible_calibration_goals": 142,
+      "eligible_calibration_puzzles": 59,
+      "beta_source": 0.5729147097178375,
+      "beta_other": 0.15751734649868004,
+      "calibration_fits_identified": true
+    }
+  ],
+  "result": {
+    "pairs_tested": 4,
+    "pairs_passing_both_fresh_families": 1,
+    "pair_family_conditions": 8,
+    "positive_paired_mean_source_vs_direct_in_eight": 8,
+    "positive_paired_mean_source_vs_other_in_eight": 8,
+    "passing_fresh_family_conditions": 3,
+    "eligible_goal_observations": 1326,
+    "source_and_other_predictor_fits_per_pair": 2,
+    "bootstrap_draws_per_condition": 2000,
+    "cluster_bootstrap_replays": 16000,
+    "descriptive_pooled": {
+      "direct_clean_gradient_target_MAE": 0.2735740449987168,
+      "source_calibrated_residual_target_MAE": 0.2229082670619851,
+      "other_active_calibrated_residual_target_MAE": 0.27207952648931394,
+      "source_over_direct_MAE_ratio": 0.814800494188075,
+      "source_pooled_absolute_error_reduction_fraction": 0.185199505811925,
+      "direct_sign_correct_count": 1224,
+      "source_calibrated_sign_correct_count": 1231
+    }
+  },
+  "per_pair_family": [
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc21_novel_30",
+      "eligible_goals": 166,
+      "eligible_puzzles": 63,
+      "mean_gain_vs_direct": 0.07534139958794991,
+      "bootstrap95_gain_vs_direct": [
+        0.04027759105490642,
+        0.11608386379976494
+      ],
+      "mean_gain_vs_other": 0.08975647607802524,
+      "bootstrap95_gain_vs_other": [
+        0.05183837780945195,
+        0.13324872367632382
+      ],
+      "direct_MAE": 0.2968415505735224,
+      "source_calibrated_MAE": 0.22150015098557257,
+      "other_calibrated_MAE": 0.3112566270635979,
+      "source_over_direct_MAE_ratio": 0.7461898462584365,
+      "direct_sign_correct": 149,
+      "source_sign_correct": 154,
+      "other_sign_correct": 148,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": true,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": true,
+      "registered_family_pass": true
+    },
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc21_novel_34",
+      "eligible_goals": 174,
+      "eligible_puzzles": 62,
+      "mean_gain_vs_direct": 0.029662794693033786,
+      "bootstrap95_gain_vs_direct": [
+        -0.014604708191662812,
+        0.0781047902628491
+      ],
+      "mean_gain_vs_other": 0.044188494564016974,
+      "bootstrap95_gain_vs_other": [
+        -0.0012808132318660812,
+        0.0932689401269356
+      ],
+      "direct_MAE": 0.26757521826727027,
+      "source_calibrated_MAE": 0.23791242357423636,
+      "other_calibrated_MAE": 0.2821009181382534,
+      "source_over_direct_MAE_ratio": 0.8891422199517562,
+      "direct_sign_correct": 159,
+      "source_sign_correct": 161,
+      "other_sign_correct": 157,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": false,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": true,
+      "registered_family_pass": false
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc21_novel_30",
+      "eligible_goals": 222,
+      "eligible_puzzles": 64,
+      "mean_gain_vs_direct": 0.07059221137187036,
+      "bootstrap95_gain_vs_direct": [
+        0.04223737712616423,
+        0.09905040732844428
+      ],
+      "mean_gain_vs_other": 0.06088890067725704,
+      "bootstrap95_gain_vs_other": [
+        0.03539469365072174,
+        0.08903896309013717
+      ],
+      "direct_MAE": 0.2951431693392558,
+      "source_calibrated_MAE": 0.22455095796738525,
+      "other_calibrated_MAE": 0.2854398586446423,
+      "source_over_direct_MAE_ratio": 0.7608204468024552,
+      "direct_sign_correct": 204,
+      "source_sign_correct": 208,
+      "other_sign_correct": 208,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": true,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": true,
+      "registered_family_pass": true
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc21_novel_34",
+      "eligible_goals": 209,
+      "eligible_puzzles": 64,
+      "mean_gain_vs_direct": 0.08660868896705107,
+      "bootstrap95_gain_vs_direct": [
+        0.05758335500406545,
+        0.11905518890267207
+      ],
+      "mean_gain_vs_other": 0.08148469399587446,
+      "bootstrap95_gain_vs_other": [
+        0.04888464271520837,
+        0.11693998340052347
+      ],
+      "direct_MAE": 0.307392018682484,
+      "source_calibrated_MAE": 0.22078332971543294,
+      "other_calibrated_MAE": 0.30226802371130734,
+      "source_over_direct_MAE_ratio": 0.7182467868285408,
+      "direct_sign_correct": 189,
+      "source_sign_correct": 192,
+      "other_sign_correct": 196,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": true,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": true,
+      "registered_family_pass": true
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc21_novel_30",
+      "eligible_goals": 142,
+      "eligible_puzzles": 59,
+      "mean_gain_vs_direct": 0.021597892140397264,
+      "bootstrap95_gain_vs_direct": [
+        0.0014152800626388673,
+        0.044311995748376916
+      ],
+      "mean_gain_vs_other": 0.009971010654412155,
+      "bootstrap95_gain_vs_other": [
+        -0.010800000828103161,
+        0.03460532546574736
+      ],
+      "direct_MAE": 0.25030715440897733,
+      "source_calibrated_MAE": 0.22870926226858007,
+      "other_calibrated_MAE": 0.23868027292299232,
+      "source_over_direct_MAE_ratio": 0.9137144433949802,
+      "direct_sign_correct": 134,
+      "source_sign_correct": 128,
+      "other_sign_correct": 134,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": false,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": false,
+      "registered_family_pass": false
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc21_novel_34",
+      "eligible_goals": 166,
+      "eligible_puzzles": 62,
+      "mean_gain_vs_direct": 0.023719812467089096,
+      "bootstrap95_gain_vs_direct": [
+        -0.0006216041889147379,
+        0.04878502323059802
+      ],
+      "mean_gain_vs_other": 0.026824407235402793,
+      "bootstrap95_gain_vs_other": [
+        -0.003525977880356611,
+        0.06223866420205216
+      ],
+      "direct_MAE": 0.24192056382974625,
+      "source_calibrated_MAE": 0.2182007513626572,
+      "other_calibrated_MAE": 0.24502515859805998,
+      "source_over_direct_MAE_ratio": 0.9019520619016825,
+      "direct_sign_correct": 159,
+      "source_sign_correct": 158,
+      "other_sign_correct": 158,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": false,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": false,
+      "registered_family_pass": false
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc21_novel_30",
+      "eligible_goals": 132,
+      "eligible_puzzles": 61,
+      "mean_gain_vs_direct": 0.02989407758962174,
+      "bootstrap95_gain_vs_direct": [
+        0.0011069636161777194,
+        0.05826039853715186
+      ],
+      "mean_gain_vs_other": 0.02253895248568456,
+      "bootstrap95_gain_vs_other": [
+        -0.011008837586964517,
+        0.0587490555838342
+      ],
+      "direct_MAE": 0.23070262711512532,
+      "source_calibrated_MAE": 0.20080854952550353,
+      "other_calibrated_MAE": 0.2233475020111881,
+      "source_over_direct_MAE_ratio": 0.8704215987332298,
+      "direct_sign_correct": 126,
+      "source_sign_correct": 126,
+      "other_sign_correct": 126,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": false,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": true,
+      "registered_family_pass": false
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc21_novel_34",
+      "eligible_goals": 115,
+      "eligible_puzzles": 53,
+      "mean_gain_vs_direct": 0.041667201929968846,
+      "bootstrap95_gain_vs_direct": [
+        -0.00040560809692830974,
+        0.08472865997155914
+      ],
+      "mean_gain_vs_other": 0.028010461564732175,
+      "bootstrap95_gain_vs_other": [
+        -0.02537362833861584,
+        0.07847692629920675
+      ],
+      "direct_MAE": 0.26959570865761384,
+      "source_calibrated_MAE": 0.22792850672764492,
+      "other_calibrated_MAE": 0.25593896829237717,
+      "source_over_direct_MAE_ratio": 0.8454456039473306,
+      "direct_sign_correct": 104,
+      "source_sign_correct": 104,
+      "other_sign_correct": 104,
+      "registered_coverage_pass": true,
+      "calibration_fits_identified": true,
+      "registered_paired_bootstrap_gains_pass": false,
+      "registered_relative_MAE_pass": true,
+      "registered_sign_nondegradation_pass": true,
+      "registered_family_pass": false
+    }
+  ],
+  "scientific_limit": "Answer-conditioned clean Sudoku margin gradients on two frozen teachers; calibration 64 original puzzles only. Native target erasure is evaluated on fresh cohorts after prediction freezing. Successful residual transfer does not imply intrinsic SAE feature semantics or inference-time solving. Independent auditors re-evaluate saved numerical predictions, not neural forward passes.",
+  "source_roundoff_note": "An original simultaneous duplicate PR check failed source-historical FP32 coefficient equality; a narrow historical-source comparison-only tolerance fix at de625200 retained strict new physical gradient and 2000-cluster bootstrap checks, and subsequent hosted rerun passed. The earlier complete source-locked three-stage run remains source of record."
+}
