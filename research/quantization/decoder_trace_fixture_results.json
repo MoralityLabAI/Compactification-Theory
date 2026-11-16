@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "positive_examples": 144,
+  "negative_controls": 1,
+  "decoded_steps": 1896,
+  "maximum_payload_length": 64,
+  "split_counts": {
+    "calibration_fixture": 24,
+    "heldout_length_fixture": 36,
+    "train_fixture": 84
+  },
+  "circuit_evaluators": "Fraction register and signed-pair ReLU evaluators agree at every step",
+  "fixture_sha256": "8a03b79225e2fde023320ee9a0ed4704674f54bf47c40a918d001add97e5a1e3",
+  "uncompressed_jsonl_sha256": "7480cfe954c034eaffeb1b8cf41d3418996c23bad75be8ee1495ca2a0ea68e5a",
+  "source_sha256": "8448bc8385bc7f44ac7f59a4fe92c9fcf7e46fe815ca26a3c02a3e8f3f04552a",
+  "scope": "Proof-linked exact reference fixtures only; no transformer training or causal mechanism result."
+}

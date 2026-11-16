@@ -1,5 +1,12 @@
 # Lean spatial formalization status
 
+Decoder continuation (2026-11-16): 39 additional lemmas prove exact/robust
+sentinel decoding and its composition with clipped spatial jet capture.
+See DECODER_FORMALIZATION_REPORT.md for the current 95-root research status,
+trace fixtures and remaining obligations. Publication of the research branches
+is now authorized; the earlier local-only statements below describe the prior run.
+
+
 The spatial interface now has **42 new proved lemmas**, all replayed through
 the pinned OxiLean checker. The main composition theorem is
 `MathCan.SpatialClipped.safe_spatial_stream`. It derives exact vector jet

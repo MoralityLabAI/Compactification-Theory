@@ -1,5 +1,12 @@
 # A compiled spatial interface and a uniform quantized approximation theorem
 
+Decoder continuation (2026-11-16): 39 additional lemmas prove exact/robust
+sentinel decoding and its composition with clipped spatial jet capture.
+See DECODER_FORMALIZATION_REPORT.md for the current 95-root research status,
+trace fixtures and remaining obligations. Publication of the research branches
+is now authorized; the earlier local-only statements below describe the prior run.
+
+
 2026-11-15 continuation. This supplies the construction missing from Section 7
 of QUANTIZATION_D_DIMENSION_AUDIT_BEFORE_INTERFACE.md. The proof below is a paper proof for all
 real inputs in the cube, with explicit circuit and parameter accounting.
