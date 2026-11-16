@@ -169,7 +169,9 @@ def streamed_mask(c,h):
                 if x!=observed[n]:
                     mask &= ~(1<<j)
                     break
-        del maps
+        # Release the last candidate's references as well as the map,
+        # so no preceding demo's full unary workspace overlaps the next.
+        del u,v,base,maps
         if mask==0:
             break
     return mask
@@ -205,6 +207,8 @@ def chunk4_mask(c,h):
             for j,candidate in chunk:
                 if candidate!=observed:
                     mask &=~(1<<j)
+            if chunk:
+                del candidate
             del chunk
         del maps
         if mask==0:
