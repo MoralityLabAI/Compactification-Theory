@@ -15,6 +15,19 @@ permissions:
   contents: read
 
 jobs:
+  independently-audit-original-hosted-degree-results:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct original 36 scaled masks and sealed futures, 432 CPU times, 288 memory profiles and 16384 bootstrap draws
+        run: |
+          python research/nor21_degree_scaling/receipt_audit.py --check \
+            --archive research/nor21_degree_scaling/results/nor21_original_hosted.zip
+
   scaled-interpreter-and-private-target-isolation:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
