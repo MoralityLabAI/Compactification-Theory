@@ -1,0 +1,63 @@
+{
+  "schema": "nor25.first_sha_locked_original_receipt.v1",
+  "registered_before_data_commit": "da075255e2d5e188d5a84f3febbcc7b162d08b79",
+  "first_hosted_run_id": 43885131079,
+  "independent_replay_job_id": 133362682358,
+  "original_ci_artifact_id": 14233747860,
+  "fixture": {
+    "name": "nor25_fixture.json",
+    "bytes": 2187225,
+    "sha256": "39f69654ed17b970088f405d8b8db171b5042459307d923fb3c7cc32b1b3b6bf",
+    "public_only": true,
+    "sources": 12
+  },
+  "outcome": {
+    "name": "nor25_full.json",
+    "bytes": 859176,
+    "sha256": "901bd3b8ac9ac3335fc5e26cd69ee8d0ea9c81d7ba8fae3a508c7e9bcc14958f",
+    "trial_count": 1024,
+    "source_count": 12,
+    "independent_replayed_decisions": 4423680
+  },
+  "primary": {
+    "registered_pass": true,
+    "wins_hybrid50_vs_uniform": 11,
+    "offtemplate_wins_hybrid50_vs_static": 12,
+    "weighted_source_mean_hybrid50_minus_uniform": 0.20819498697916666,
+    "source_mean_offtemplate_hybrid50": 0.031656901041666664
+  },
+  "weighted_in_template_source_means": {
+    "uniform": 0.06215,
+    "shuffled_prior": 0.059945,
+    "static_prior": 0.389201,
+    "posterior": 0.391056,
+    "hybrid_25": 0.338232,
+    "hybrid_50": 0.270345,
+    "hybrid_75": 0.179028,
+    "oracle_support": 0.47972
+  },
+  "off_template_source_means": {
+    "uniform": 0.061523,
+    "static_prior": 0,
+    "posterior": 0,
+    "hybrid_25": 0.015625,
+    "hybrid_50": 0.031657,
+    "hybrid_75": 0.043213,
+    "oracle_support": 0.083903
+  },
+  "source_public_sha256_order": [
+    "bbcb64dd80f6ed096d1e46901e7237e57e0c5ec0dc5b702e2f6cff6f4ca3c734",
+    "2693be532a26894d1aab7648478846d25e1b94e9232d6383462f97a009bdf47d",
+    "862385ae26662719cedbfa98e6ed4aa27aeb96184404575c81adad5aae57b446",
+    "708c8813ade524dbbb4ad65ad07e07155f1262fbea3e3d36f93e626d78de38a1",
+    "d343975bb825ab55f01c16c752faf9c429a82b5962e59d5a77f8697fe18fb1d4",
+    "55b2af19c1489ed1cf028564793faeb932ef0fec562caf3e6e491c4720916c80",
+    "4643c02c7f6fa642090bdbd7890c7440b59e2011b77a6175dc0d15da6ab4591f",
+    "ce70fbd1bb17fa7316907472ff8e934788ccadaf766a7a921184bf8358fccd14",
+    "94593a85372bad444f5cc5badbfa476684f26537e0310bbc734346e299ff8489",
+    "9cd92deab0d747ebdcae45d78d7b29005463b062162caba430ec631e89a74d79",
+    "6a9e198a523983989cc2f5e179ce0e91364c84cc54740941ca48c2c1e6b30bd9",
+    "bdcbbfacfa977fdc3b92d8c1988d2e6c1824e12cd0cf2bb61058a1939cdd3269"
+  ],
+  "interpretation": "Source-level synthetic fixed blind attacks under honest external target witness; pseudorandom seeds provide replay not production unpredictability."
+}

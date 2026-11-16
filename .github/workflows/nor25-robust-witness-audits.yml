@@ -1,0 +1,133 @@
+name: NOR-25 preregistered robust uniform-reserve coefficient audits
+
+on:
+  push:
+    paths:
+      - 'research/nor25_robust_audits/**'
+      - '.github/workflows/nor25-robust-witness-audits.yml'
+  pull_request:
+    paths:
+      - 'research/nor25_robust_audits/**'
+      - '.github/workflows/nor25-robust-witness-audits.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-registration-and-finite-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify preregistration is ancestral to implementation
+        run: |
+          git merge-base --is-ancestor da075255e2d5e188d5a84f3febbcc7b162d08b79 HEAD
+          test -s research/nor25_robust_audits/REGISTRATION.md
+      - name: Compile source and independently enumerate small-universe audit subsets
+        run: |
+          python -m compileall -q research/nor25_robust_audits
+          python -m unittest research.nor25_robust_audits.test_experiment -v
+
+  first-heldout-12-source-audit:
+    needs: frozen-registration-and-finite-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize new public-only source fixture
+        run: |
+          python research/nor25_robust_audits/experiment.py \
+            --make-fixture /tmp/nor25_fixture.json
+      - name: Freeze and audit public-only source fixture before any attack outcomes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor25_fixture.json').read_bytes()
+          z=json.loads(raw)
+          assert z["schema"]=="nor25.source_only_12_fresh_test.v1"
+          assert z["source_offset"]==99325000
+          assert z["replicates"]==[4,5]
+          assert z["source_only"] and z["private_truth_absent"] and z["attack_sets_absent"]
+          assert len(z["cases"])==12
+          assert len({r["full_public_input_sha256"] for r in z["cases"]})==12
+          assert all(not any(k in r for k in ("future","program","attack","witness"))
+                     for r in z["cases"])
+          print("NOR25 FIRST PUBLIC FIXTURE BYTES",len(raw),"SHA256",sha256(raw).hexdigest())
+          PY
+      - name: Execute predeclared blind and informed adversary tests
+        run: |
+          python research/nor25_robust_audits/experiment.py \
+            --fixture /tmp/nor25_fixture.json --out /tmp/nor25_full.json
+      - name: Record raw full receipt and all source scores even if registered FAIL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          a=Path('/tmp/nor25_fixture.json').read_bytes()
+          b=Path('/tmp/nor25_full.json').read_bytes()
+          z=json.loads(b)
+          assert z["fixture_sha256"]==sha256(a).hexdigest()
+          assert len(z["source_records"])==12
+          assert all(len(r["observations"])==360 for r in z["source_records"])
+          assert all(c["detected"]+c["missed"]==1024
+                     for r in z["source_records"] for c in r["observations"])
+          assert all(r["valid_target_failures"]==0 and
+                     r["informed_attack_detected"]==0 and
+                     r["delta_invariance_failures"]==0
+                     for r in z["source_records"])
+          print("NOR25 ORIGINAL FIXTURE BYTES SHA256",len(a),sha256(a).hexdigest())
+          print("NOR25 ORIGINAL RESULT BYTES SHA256",len(b),sha256(b).hexdigest())
+          print("NOR25 REGISTERED PASS",z["registered_primary_pass"])
+          PY
+      - name: Compare original full hosted bytes to immutable first-run SHA256 receipt
+        run: |
+          python research/nor25_robust_audits/original_lock_audit.py \
+            --fixture /tmp/nor25_fixture.json --full /tmp/nor25_full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor25-original-fresh-source-only-and-robust-audit-results
+          path: |
+            /tmp/nor25_fixture.json
+            /tmp/nor25_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent-separate-process-replay:
+    needs: first-heldout-12-source-audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor25-original-fresh-source-only-and-robust-audit-results
+          path: /tmp/nor25
+      - name: Independently reconstruct every source, schedule and detection decision
+        run: |
+          python research/nor25_robust_audits/receipt_audit.py \
+            --fixture /tmp/nor25/nor25_fixture.json \
+            --full /tmp/nor25/nor25_full.json
+      - name: Independently check the frozen first original file hashes
+        run: |
+          python research/nor25_robust_audits/original_lock_audit.py \
+            --fixture /tmp/nor25/nor25_fixture.json \
+            --full /tmp/nor25/nor25_full.json
