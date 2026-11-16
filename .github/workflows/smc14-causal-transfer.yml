@@ -1,0 +1,123 @@
+name: SMC-14 frozen cross-checkpoint causal margin transfer
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc14_causal_transfer.py'
+      - 'research/real_recurrence_sae_v1/test_smc14_causal_transfer.py'
+      - '.github/workflows/smc14-causal-transfer.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/smc14_causal_transfer.py'
+      - 'research/real_recurrence_sae_v1/test_smc14_causal_transfer.py'
+      - '.github/workflows/smc14-causal-transfer.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  causal-transfer-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned source CPU Torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Validate paired margin interventions and nuisance controls
+        run: python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc14_causal_transfer.py' -v
+      - name: Fetch exact original same-fit SAE snapshots
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc14/original
+      - name: Fetch independently trained teachers and four SAE checkpoints
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc14/independent
+      - name: Fetch frozen position-and-clue-conditioned feature alignment
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc14/conditioned
+      - name: Verify three original receipt hashes before inspecting test states
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc14/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc14/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc14/conditioned/conditioned.json" | sha256sum -c -
+      - name: Pilot causal transfer on four heldout puzzles and one pair
+        run: |
+          python research/real_recurrence_sae_v1/smc14_causal_transfer.py \
+            --fetch-source --original-artifact runs/smc14/original \
+            --independent-artifact runs/smc14/independent \
+            --conditioned-receipt runs/smc14/conditioned/conditioned.json \
+            --pilot-puzzles 4 --only-pairs 1 \
+            --out runs/smc14/pilot.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc14-calibrated-causal-pilot
+          path: runs/smc14/pilot.json
+          if-no-files-found: warn
+
+  heldout-causal-transfer-full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned source CPU Torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Fetch source-frozen original SAE
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc14/original
+      - name: Fetch independently trained source-pinned recurrent teachers
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc14/independent
+      - name: Fetch original calibrated SAE alignment and shuffled-control receipt
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc14/conditioned
+      - name: Strict provenance checks on all source-calibration artifacts
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc14/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc14/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc14/conditioned/conditioned.json" | sha256sum -c -
+      - name: Seven calibrated teacher/SAE pairs on three independent test families
+        run: |
+          python research/real_recurrence_sae_v1/smc14_causal_transfer.py \
+            --fetch-source --original-artifact runs/smc14/original \
+            --independent-artifact runs/smc14/independent \
+            --conditioned-receipt runs/smc14/conditioned/conditioned.json \
+            --out runs/smc14/full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc14-64p-3family-cross-model-causal-transfer
+          path: runs/smc14/full.json
+          retention-days: 90
+          if-no-files-found: warn
