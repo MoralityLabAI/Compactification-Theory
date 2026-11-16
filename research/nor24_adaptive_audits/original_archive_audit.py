@@ -4,10 +4,14 @@ from hashlib import sha256
 import json
 from pathlib import Path
 from zipfile import ZipFile
-
-from research.nor24_adaptive_audits.receipt_audit import audit
+import sys
 
 HERE=Path(__file__).resolve().parent
+ROOT=HERE.parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0,str(ROOT))
+
+from research.nor24_adaptive_audits.receipt_audit import audit
 
 def audit_archived_original():
     receipt=json.loads((HERE/"results/nor24_first_frozen_receipt.json").read_text())
