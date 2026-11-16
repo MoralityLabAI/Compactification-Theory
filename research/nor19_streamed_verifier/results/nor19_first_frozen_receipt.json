@@ -1,0 +1,113 @@
+{
+  "schema": "nor19.frozen_first_hosted_streamed_memory_cpu_receipt.v1",
+  "execution_date": "2026-11-16",
+  "first_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43804264372",
+  "first_artifact_id": 14198011159,
+  "artifact_name": "nor19-new64-public-fixture-and-five-mode-cpu-memory-results",
+  "original_fixture_bytes": 1290607,
+  "original_fixture_sha256": "97fc9ccd3830bc666e6af6d0a86d3b000ef2b8d0a7a29a406ff38fbd08707f3f",
+  "original_full_result_bytes": 680861,
+  "original_full_result_sha256": "16d6ce9acb042aff76d48f46b7d07ff76a4efca1ade26314cdc52926eb0e1a16",
+  "source_original_NOR18_sha256": "9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b",
+  "source_RRC25_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "host": "CPython 3.12.16, GCC 15.2.0, Linux 7.0.0-1019-azure x86_64, 4 logical CPUs",
+  "source_cases": 64,
+  "source_cohorts": 4,
+  "source_families": {
+    "late_source": 32,
+    "signed": 16,
+    "rational": 16
+  },
+  "excluded_original_NOR18R_source_indices": true,
+  "warmups_per_mode": 2,
+  "timed_repetitions_per_mode": 7,
+  "algorithms": [
+    "independent16",
+    "cached16",
+    "stream16_queryfirst",
+    "stream16_verifyfirst",
+    "chunk4_verifyfirst"
+  ],
+  "primary": "stream16_verifyfirst",
+  "primary_median_complete_python_peak_ratio_stream_vs_cache": 0.4747144851523367,
+  "primary_lower_peak_cases": 64,
+  "primary_median_native_over_streamed_cpu_speedup": 4.33448367178092,
+  "primary_registered_memory_ratio_threshold": 0.8,
+  "primary_registered_memory_wins_threshold": 48,
+  "primary_registered_native_cpu_speedup_threshold": 2,
+  "primary_registered_pass": true,
+  "block_bootstrap_95_stream_over_cached_python_peak_ratio": [
+    0.4691818567189487,
+    0.4883155173662138
+  ],
+  "block_bootstrap_95_native_over_streamed_cpu_speedup": [
+    4.321700561218259,
+    4.352961976758831
+  ],
+  "bootstrap_draws": 4096,
+  "per_mode_median_complete_ms": {
+    "cached16": 4.239884,
+    "chunk4_verifyfirst": 4.059071,
+    "independent16": 19.420255,
+    "stream16_queryfirst": 4.2679905,
+    "stream16_verifyfirst": 4.2351955
+  },
+  "per_mode_median_public_verification_ms": {
+    "cached16": 2.2436975,
+    "chunk4_verifyfirst": 2.1001115,
+    "independent16": 17.19884,
+    "stream16_queryfirst": 2.2704875,
+    "stream16_verifyfirst": 2.2809185
+  },
+  "per_mode_median_complete_tracemalloc_KiB": {
+    "cached16": 119.43359375,
+    "chunk4_verifyfirst": 62.9921875,
+    "independent16": 67.134765625,
+    "stream16_queryfirst": 61.47265625,
+    "stream16_verifyfirst": 61.48828125
+  },
+  "per_mode_median_verifier_only_tracemalloc_KiB": {
+    "cached16": 72.98046875,
+    "chunk4_verifyfirst": 19.181640625,
+    "independent16": 16.88671875,
+    "stream16_queryfirst": 8.91796875,
+    "stream16_verifyfirst": 8.91796875
+  },
+  "total_observed_reciprocal_bigint_products": {
+    "cached16": 4476928,
+    "chunk4_verifyfirst": 4476928,
+    "independent16": 28192768,
+    "stream16_queryfirst": 4476928,
+    "stream16_verifyfirst": 4476928
+  },
+  "per_family_paired_cpu_speedup_native_over_primary": {
+    "late_source": 4.216325186916773,
+    "signed": 4.530794378959993,
+    "rational": 4.416034050901056
+  },
+  "per_family_paired_complete_peak_ratio_primary_over_cache": {
+    "late_source": 0.4673133661648893,
+    "signed": 0.5280373458238543,
+    "rational": 0.5213008158663146
+  },
+  "per_mode_separate_process_peak_RSS_KiB": {
+    "cached16": 28888,
+    "chunk4_verifyfirst": 28888,
+    "independent16": 28888,
+    "stream16_queryfirst": 28888,
+    "stream16_verifyfirst": 28888
+  },
+  "per_mode_separate_process_baseline_RSS_KiB": {
+    "cached16": 28888,
+    "chunk4_verifyfirst": 28888,
+    "independent16": 28888,
+    "stream16_queryfirst": 28888,
+    "stream16_verifyfirst": 28888
+  },
+  "semantics": {
+    "all_64_full_masks_and_certificates_identical_to_original": true,
+    "zero_hidden_program_or_future_in_fixture": true,
+    "query_simulation_computed_by_each_mode": true
+  },
+  "scope": "First hosted CPU run, four frozen source cohorts from original NOR18 generator, but disjoint with NOR18R timing subset. Memory traced in separate untimed mode/case operations, not process RSS. 7 measured timing samples each. Cohort-bootstrap conditional on this one machine/source. Streaming holds four shared unary transforms per demonstration and does not materialize full demonstration candidate outputs. Bigint invocation counts arithmetic only; no universal cross-platform or theorem-prover claim."
+}
