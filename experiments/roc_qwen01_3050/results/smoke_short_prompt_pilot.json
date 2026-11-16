@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "checkpoint": "Qwen/Qwen3.5-0.8B-Base",
+  "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "tokens": 23,
+  "candidate_token_ids": {
+    " A": [
+      357
+    ],
+    " B": [
+      417
+    ],
+    "A": [
+      32
+    ],
+    "B": [
+      33
+    ]
+  },
+  "residual_layer_one_based": 12,
+  "selected_token_position": -1,
+  "hidden_shape": [
+    1024
+  ],
+  "baseline_margin": 0.796875,
+  "intervened_margin": 0.8203125,
+  "actual_displacement_l2": 0.5,
+  "requested_radius": 0.5,
+  "successful_forward_passes": 2,
+  "effect_type": "conditional_residual_state_effect",
+  "use_cache": false,
+  "kernel_availability": {
+    "fla": false,
+    "causal_conv1d": false,
+    "triton": true
+  },
+  "allocated_bytes": 783066112,
+  "reserved_bytes": 1633681408,
+  "peak_allocated_bytes": 1522431488,
+  "device_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+  "load_seconds": 72.08488109900009,
+  "duration_seconds": 583.9631106190002
+}

@@ -1,0 +1,23 @@
+{"devices": [{"index": "0", "uuid": "GPU-113d2889-9c86-faac-ad21-8db35f945b89", "name": "NVIDIA GeForce RTX 3050 Laptop GPU", "memory_mib": "4096", "used_mib": "0", "driver": "610.62"}], "selected_device": {"index": "0", "uuid": "GPU-113d2889-9c86-faac-ad21-8db35f945b89", "name": "NVIDIA GeForce RTX 3050 Laptop GPU", "memory_mib": "4096", "used_mib": "0", "driver": "610.62"}, "cuda_device_name": "NVIDIA GeForce RTX 3050 Laptop GPU", "cuda_compute_capability": [8, 6], "pytorch_cuda": "12.1", "packages": {"torch": "2.5.1+cu121", "transformers": "5.3.0", "accelerate": "1.13.0", "bitsandbytes": "0.49.2", "numpy": "2.2.6", "scipy": "1.15.3", "huggingface-hub": "1.7.1", "safetensors": "0.7.0", "tokenizers": "0.22.2", "psutil": "7.2.2", "triton": "3.1.0"}, "python": "3.10.12", "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.35", "host_ram_total": 16771723264, "host_ram_available": 15690395648, "allocated_ceiling_bytes": 3400000000, "allocator_cap_bytes": 3200000000, "source_commit": "17f5a6b73ec994269ea0328c03e31ec16531db7e"}
+download model.safetensors-00001-of-00001.safetensors: 268435456/1746942600
+download model.safetensors-00001-of-00001.safetensors: 402653184/1746942600
+download model.safetensors-00001-of-00001.safetensors: 536870912/1746942600
+download model.safetensors-00001-of-00001.safetensors: 671088640/1746942600
+download model.safetensors-00001-of-00001.safetensors: 805306368/1746942600
+download model.safetensors-00001-of-00001.safetensors: 939524096/1746942600
+download model.safetensors-00001-of-00001.safetensors: 1073741824/1746942600
+download model.safetensors-00001-of-00001.safetensors: 1207959552/1746942600
+download model.safetensors-00001-of-00001.safetensors: 1342177280/1746942600
+download model.safetensors-00001-of-00001.safetensors: 1476395008/1746942600
+download model.safetensors-00001-of-00001.safetensors: 1610612736/1746942600
+download model.safetensors-00001-of-00001.safetensors: 1744830464/1746942600
+download model.safetensors-00001-of-00001.safetensors: 1746942600/1746942600
+download model.safetensors.index.json: 50900/50900
+download preprocessor_config.json: 390/390
+download tokenizer.json: 12807196/12807196
+download tokenizer_config.json: 16712/16712
+download video_preprocessor_config.json: 386/386
+download vocab.json: 6722759/6722759
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:04<25:48,  4.85s/it]Loading weights:   2%|▏         | 6/320 [00:07<05:12,  1.00it/s]Loading weights:  28%|██▊       | 88/320 [00:07<00:10, 21.11it/s]Loading weights:  52%|█████▏    | 167/320 [00:07<00:03, 47.13it/s]Loading weights:  78%|███████▊  | 249/320 [00:07<00:00, 82.75it/s]Loading weights: 100%|██████████| 320/320 [00:07<00:00, 42.70it/s]
+{"status": "passed", "checkpoint": "Qwen/Qwen3.5-0.8B-Base", "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68", "tokens": 23, "candidate_token_ids": {" A": [357], " B": [417], "A": [32], "B": [33]}, "residual_layer_one_based": 12, "selected_token_position": -1, "hidden_shape": [1024], "baseline_margin": 0.796875, "intervened_margin": 0.8203125, "actual_displacement_l2": 0.5, "requested_radius": 0.5, "successful_forward_passes": 2, "effect_type": "conditional_residual_state_effect", "use_cache": false, "kernel_availability": {"fla": false, "causal_conv1d": false, "triton": true}, "allocated_bytes": 783066112, "reserved_bytes": 1633681408, "peak_allocated_bytes": 1522431488, "device_name": "NVIDIA GeForce RTX 3050 Laptop GPU", "load_seconds": 72.08488109900009, "duration_seconds": 583.9631106190002}
