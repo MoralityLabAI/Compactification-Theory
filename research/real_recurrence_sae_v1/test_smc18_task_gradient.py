@@ -26,9 +26,9 @@ class QuadraticTeacher(nn.Module):
     def head(self,h):
         out=torch.zeros((*h.shape[:2],10),dtype=h.dtype)
         # Use a non-inplace concatenation that retains autograd.
-        a=torch.zeros((*h.shape[:2],1),dtype=h.dtype)
+        a=torch.zeros((*h.shape[:-1],1),dtype=h.dtype)
         b=h[...,0:1]**2
-        c=torch.zeros((*h.shape[:2],8),dtype=h.dtype)
+        c=torch.zeros((*h.shape[:-1],8),dtype=h.dtype)
         return torch.cat((a,b,c),dim=-1)
 
 
