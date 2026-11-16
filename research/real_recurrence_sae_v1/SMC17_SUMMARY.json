@@ -1,0 +1,178 @@
+{
+  "schema": "SMC-17/independently-replayed-source-locked-summary-v1",
+  "pre_registration_commit": "59bad2ad422faaf3b7bfe7410f7b48656cb279f0",
+  "original_workflow_run_id": 43800600355,
+  "original_artifact_id": 14195762984,
+  "original_archive_sha256": "d2aa384b276e6a92f05950ca958f2a71525e6841d47bb920b874f3504ed7b9a3",
+  "source_full_json_sha256": "c3424e3401c7ec60e36de164c4d423fc2dbe393ba4cb3fced1d9c6f5bb8c49ed",
+  "source_audit_json_sha256": "d214624327bd134a38a2c1428673347b0fff11c8bd5bbdba82587638a28f1a7b",
+  "original_execution_code_sha": "efcc5f65f7693cf40015702f2b3f41b80cdbd21f",
+  "n_puzzle_pair_family_cases": 512,
+  "eligible_goal_pair_cases": 267,
+  "tested_pair_count": 4,
+  "registered_pairs_passed_both_families": 1,
+  "registered_family_gates_passed": 4,
+  "independent_numeric_replay": {
+    "paired_margin_and_seeded_sham": "all eight conditions reproduced",
+    "puzzle_cluster_bootstrap": "all 16000 fixed-seed resamples replayed across eight conditions",
+    "inactive_preactivation_ratio": "all eight condition sums reproduced",
+    "task_flip_counts": "all eight conditions reproduced",
+    "full_rank_92_by_48_blocks": "267 out of 267 eligible cases",
+    "standalone_math_limit": "full column rank makes an exactly inactive-matched nonzero active-feature kill sham impossible while four active coordinates are fixed",
+    "method_limit": "Raw evidence re-scored; original neural teacher forward outputs are trusted as experiment data"
+  },
+  "condition_results": [
+    {
+      "receiving_sae": "newB_501_SAE_71",
+      "family": "smc17_novel_30",
+      "eligible_goals": 26,
+      "eligible_puzzles": 23,
+      "kill_minus_best_mean_margin_drop": 1.2241185230274925,
+      "puzzle_cluster_bootstrap95": [
+        0.6419247812460719,
+        1.779323725848412
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 1.0326213883831692,
+      "inactive_residual_best_over_original_ratio": 0.6192047180219641,
+      "kill_correct_to_wrong_flips": 1,
+      "best_sham_correct_to_wrong_flips": 3,
+      "full_column_rank_inactive_rows_count": 26,
+      "median_residual_floor_over_best": 0.9826412423711122,
+      "least_squares_positive_selections": 19,
+      "registered_gate_pass": false
+    },
+    {
+      "receiving_sae": "newB_501_SAE_71",
+      "family": "smc17_novel_34",
+      "eligible_goals": 29,
+      "eligible_puzzles": 23,
+      "kill_minus_best_mean_margin_drop": 0.8453872272799532,
+      "puzzle_cluster_bootstrap95": [
+        -0.1307890562399966,
+        1.809894001691892
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 0.5187167335547918,
+      "inactive_residual_best_over_original_ratio": 0.5687632318465253,
+      "kill_correct_to_wrong_flips": 5,
+      "best_sham_correct_to_wrong_flips": 2,
+      "full_column_rank_inactive_rows_count": 29,
+      "median_residual_floor_over_best": 0.9933879962473549,
+      "least_squares_positive_selections": 23,
+      "registered_gate_pass": false
+    },
+    {
+      "receiving_sae": "newB_501_SAE_89",
+      "family": "smc17_novel_30",
+      "eligible_goals": 17,
+      "eligible_puzzles": 15,
+      "kill_minus_best_mean_margin_drop": 0.2779792110370617,
+      "puzzle_cluster_bootstrap95": [
+        -0.6684873665865939,
+        1.0290283327160954
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 0.5579022197605616,
+      "inactive_residual_best_over_original_ratio": 0.5711610232555316,
+      "kill_correct_to_wrong_flips": 3,
+      "best_sham_correct_to_wrong_flips": 0,
+      "full_column_rank_inactive_rows_count": 17,
+      "median_residual_floor_over_best": 0.9799556128406193,
+      "least_squares_positive_selections": 14,
+      "registered_gate_pass": false
+    },
+    {
+      "receiving_sae": "newB_501_SAE_89",
+      "family": "smc17_novel_34",
+      "eligible_goals": 30,
+      "eligible_puzzles": 23,
+      "kill_minus_best_mean_margin_drop": 1.2077722112345868,
+      "puzzle_cluster_bootstrap95": [
+        0.005443977247153308,
+        2.443801272161758
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 0.974841237925844,
+      "inactive_residual_best_over_original_ratio": 0.5169862808424881,
+      "kill_correct_to_wrong_flips": 8,
+      "best_sham_correct_to_wrong_flips": 1,
+      "full_column_rank_inactive_rows_count": 30,
+      "median_residual_floor_over_best": 0.9814950541249888,
+      "least_squares_positive_selections": 28,
+      "registered_gate_pass": true
+    },
+    {
+      "receiving_sae": "newB_701_SAE_71",
+      "family": "smc17_novel_30",
+      "eligible_goals": 42,
+      "eligible_puzzles": 33,
+      "kill_minus_best_mean_margin_drop": 1.4565783999297293,
+      "puzzle_cluster_bootstrap95": [
+        0.6664108498524103,
+        2.3140449182643192
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 1.4244319500224834,
+      "inactive_residual_best_over_original_ratio": 0.5707931581290707,
+      "kill_correct_to_wrong_flips": 12,
+      "best_sham_correct_to_wrong_flips": 1,
+      "full_column_rank_inactive_rows_count": 42,
+      "median_residual_floor_over_best": 0.9906850268286602,
+      "least_squares_positive_selections": 36,
+      "registered_gate_pass": true
+    },
+    {
+      "receiving_sae": "newB_701_SAE_71",
+      "family": "smc17_novel_34",
+      "eligible_goals": 31,
+      "eligible_puzzles": 25,
+      "kill_minus_best_mean_margin_drop": 1.011364790164602,
+      "puzzle_cluster_bootstrap95": [
+        -0.0034378789742200455,
+        2.0580700530302862
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 0.7312724190468665,
+      "inactive_residual_best_over_original_ratio": 0.6002688239346144,
+      "kill_correct_to_wrong_flips": 5,
+      "best_sham_correct_to_wrong_flips": 1,
+      "full_column_rank_inactive_rows_count": 31,
+      "median_residual_floor_over_best": 0.9879920285162632,
+      "least_squares_positive_selections": 22,
+      "registered_gate_pass": false
+    },
+    {
+      "receiving_sae": "newB_701_SAE_89",
+      "family": "smc17_novel_30",
+      "eligible_goals": 47,
+      "eligible_puzzles": 35,
+      "kill_minus_best_mean_margin_drop": 1.5260604534940165,
+      "puzzle_cluster_bootstrap95": [
+        0.7872186171984937,
+        2.2834947710623337
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 1.3302419883692984,
+      "inactive_residual_best_over_original_ratio": 0.5473644390498419,
+      "kill_correct_to_wrong_flips": 14,
+      "best_sham_correct_to_wrong_flips": 4,
+      "full_column_rank_inactive_rows_count": 47,
+      "median_residual_floor_over_best": 0.9946501006552315,
+      "least_squares_positive_selections": 38,
+      "registered_gate_pass": true
+    },
+    {
+      "receiving_sae": "newB_701_SAE_89",
+      "family": "smc17_novel_34",
+      "eligible_goals": 45,
+      "eligible_puzzles": 35,
+      "kill_minus_best_mean_margin_drop": 1.1524103170040725,
+      "puzzle_cluster_bootstrap95": [
+        0.4101202834507013,
+        2.0061977411073926
+      ],
+      "kill_minus_original_sham_mean_margin_drop": 1.0481987624930185,
+      "inactive_residual_best_over_original_ratio": 0.5767910236280578,
+      "kill_correct_to_wrong_flips": 11,
+      "best_sham_correct_to_wrong_flips": 1,
+      "full_column_rank_inactive_rows_count": 45,
+      "median_residual_floor_over_best": 0.9972035143197298,
+      "least_squares_positive_selections": 36,
+      "registered_gate_pass": true
+    }
+  ]
+}

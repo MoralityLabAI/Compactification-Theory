@@ -1,0 +1,127 @@
+name: SMC-17 inactive preactivation-matched SAE sham and causal evaluation
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC17_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc17_inactive_control.py'
+      - 'research/real_recurrence_sae_v1/smc17_causal_inactive.py'
+      - 'research/real_recurrence_sae_v1/test_smc17_inactive_control.py'
+      - 'research/real_recurrence_sae_v1/audit_smc17.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc17.py'
+      - '.github/workflows/smc17-inactive-control.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC17_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc17_inactive_control.py'
+      - 'research/real_recurrence_sae_v1/smc17_causal_inactive.py'
+      - 'research/real_recurrence_sae_v1/test_smc17_inactive_control.py'
+      - 'research/real_recurrence_sae_v1/audit_smc17.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc17.py'
+      - '.github/workflows/smc17-inactive-control.yml'
+  workflow_dispatch:
+
+jobs:
+  geometry-tests-and-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible CPU Torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: CPU geometry and independent audit regression tests
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc17_inactive_control.py' -v
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_audit_smc17.py' -v
+      - name: Recover original pretrained teacher and SAE
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc17/original
+      - name: Recover independent recurrent teachers and SAE snapshots
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc17/independent
+      - name: Recover original clue/position-conditioned feature assignments
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc17/conditioned
+      - name: Verify three original frozen source SHA256 receipts
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc17/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc17/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc17/conditioned/conditioned.json" | sha256sum -c -
+      - name: Execute preregistered four-puzzle single-pair pilot
+        run: python research/real_recurrence_sae_v1/smc17_causal_inactive.py --fetch-source --original-artifact runs/smc17/original --independent-artifact runs/smc17/independent --conditioned-receipt runs/smc17/conditioned/conditioned.json --pilot-puzzles 4 --pair-limit 1 --out runs/smc17/pilot.json
+      - name: Independently replay and audit pilot receipt
+        run: python research/real_recurrence_sae_v1/audit_smc17.py --receipt runs/smc17/pilot.json --conditioned-receipt runs/smc17/conditioned/conditioned.json --out runs/smc17/pilot-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc17-preregistered-inactive-control-pilot
+          path: |
+            runs/smc17/pilot.json
+            runs/smc17/pilot-audit.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  full-128-puzzle-four-pair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible CPU Torch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Recover original pretrained teacher and SAE
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc17/original
+      - name: Recover independent recurrent teachers and SAE snapshots
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc17/independent
+      - name: Recover original clue/position-conditioned feature assignments
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc17/conditioned
+      - name: Verify original model/SAE/calibration SHA256 before any heldout test
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc17/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc17/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc17/conditioned/conditioned.json" | sha256sum -c -
+      - name: Fresh noncanonical 64+64-puzzle four-pair full evaluation
+        run: python research/real_recurrence_sae_v1/smc17_causal_inactive.py --fetch-source --original-artifact runs/smc17/original --independent-artifact runs/smc17/independent --conditioned-receipt runs/smc17/conditioned/conditioned.json --out runs/smc17/full.json
+      - name: Independent stdlib replay of all 96 SAE displacement diagnostics
+        run: python research/real_recurrence_sae_v1/audit_smc17.py --receipt runs/smc17/full.json --conditioned-receipt runs/smc17/conditioned/conditioned.json --out runs/smc17/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc17-full-96-encoder-control-and-audit
+          path: |
+            runs/smc17/full.json
+            runs/smc17/audit.json
+          retention-days: 90
+          if-no-files-found: warn
