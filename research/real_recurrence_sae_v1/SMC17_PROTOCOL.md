@@ -1,3 +1,5 @@
+> **Retired, unexecuted alternate draft.** This branch was created after the independent SMC-17 source-locked run on [PR #179](https://github.com/MoralityLabAI/Compactification-Theory/pull/179) was already complete. Its protocol commit `06598be` is **not** a prospective preregistration relative to the existing SMC-17 cohorts. No test or scientific result was produced from this branch. The primary preregistration is `59bad2ad` in PR #179, and all published SMC-17 outcomes come from hosted run #43800600355. The draft below is retained for provenance only and should not be used to relabel existing heldout data as new.
+
 # SMC-17: Inactive-encoder-leakage-matched tangent sham
 
 **Prospectively registered November 16, 2026; publish this file in a standalone commit before evaluating any SMC-17 fresh heldout states.** Stacked on [SMC-16 PR #177](https://github.com/MoralityLabAI/Compactification-Theory/pull/177). Reuse the precise source-frozen SMC-13C seven-feature mappings and the original SMC-11C/SMC-13A trained snapshots. The previous SMC-16 3/4 success and B501 SAE89 coverage failure motivated this investigation and remain fixed historical results.
