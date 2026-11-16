@@ -101,7 +101,15 @@ def best_inactive_matched_sham(
         raise ArithmeticError("nullspace basis violates active rows")
     b=B@delta
     C=B@U
-    t0=torch.linalg.lstsq(C,b[:,None]).solution[:,0]
+    # Rank-deficient synthetic/corner geometries can make the default
+    # LAPACK least-squares rank decision intermittent (occasionally returning
+    # the zero solution). Use a fixed-tolerance SVD pseudoinverse ONLY in the
+    # rank-deficient case. The original full-column-rank SMC17 model cases
+    # retain precisely their registered least-squares path and receipts.
+    if int(torch.linalg.matrix_rank(C,rtol=1e-10))<C.shape[1]:
+        t0=torch.linalg.pinv(C,rtol=1e-10)@b
+    else:
+        t0=torch.linalg.lstsq(C,b[:,None]).solution[:,0]
     s0=U@t0
     floor=float((C@t0-b).norm())
     if not math.isfinite(floor) or floor<0:
