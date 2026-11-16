@@ -19,9 +19,9 @@ Each arm then changed one stage-one Sudoku token in an unchanged teacher with th
 | Receiving SAE | Fresh 30-hole effect [95% puzzle bootstrap] | Eligible goals / puzzles | Fresh 34-hole effect [95% puzzle bootstrap] | Eligible goals / puzzles | Both-family gate |
 |---|---:|---:|---:|---:|---|
 | B501 SAE71 | +1.2241 [0.6419, 1.7793] | 26 / 23 | +0.8454 [−0.1308, 1.8099] | 29 / 23 | **FAIL** |
-| B501 SAE89 | +0.2780 [−0.6685, 1.0290] | **17 / 15** | +1.2078 [0.0050, 2.4440] | 30 / 23 | **FAIL** |
-| B701 SAE71 | +1.4566 [0.6659, 2.3144] | 42 / 33 | +1.0114 [−0.0029, 2.0580] | 31 / 25 | **FAIL** |
-| B701 SAE89 | +1.5261 [0.7874, 2.2830] | 47 / 35 | +1.1524 [0.4095, 2.0061] | 45 / 35 | **PASS** |
+| B501 SAE89 | +0.2780 [−0.6685, 1.0290] | **17 / 15** | +1.2078 [0.0054, 2.4438] | 30 / 23 | **FAIL** |
+| B701 SAE71 | +1.4566 [0.6664, 2.3140] | 42 / 33 | +1.0114 [−0.0034, 2.0581] | 31 / 25 | **FAIL** |
+| B701 SAE89 | +1.5261 [0.7872, 2.2835] | 47 / 35 | +1.1524 [0.4101, 2.0062] | 45 / 35 | **PASS** |
 
 **Registered positive gate per pair and family:** at least 24 eligible goals over 20 distinct puzzles, positive 95% paired puzzle-bootstrap lower bound, more clean-correct-to-wrong flips after kill than after the best sham, and pooled inactive shift mismatch at least 10% smaller than the seeded tangent control. Both fresh families must pass. In the B501 SAE71 novel30 condition, kill flips were **1** versus **3** for the optimized sham, hence the gate fails despite a positive mean and interval. B501 SAE89 novel30 fails coverage (17 goals in 15 puzzles) and its interval crosses zero. B501 SAE71 novel34 and B701 SAE71 novel34 have intervals crossing zero. The B701 SAE89 comparison passes both registered cohorts.
 
