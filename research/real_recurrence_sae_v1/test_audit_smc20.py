@@ -114,11 +114,14 @@ class SMC20AuditTests(unittest.TestCase):
         self.assertFalse(audit.independent_score(rows,202620130)['registered_success'])
 
     def test_invalid_original_sha_and_registry_fail_closed(self):
-        with self.assertRaises(ValueError):
-            audit.audit({'schema':'not SMC20'},'.')
-        with self.assertRaises(ValueError):
-            audit.audit({'schema':'SMC-20/source-frozen-anchored-task-gradient-refit-v1',
-                         'pre_registration_commit':'0'*40},'.')
+        import tempfile
+        with tempfile.TemporaryDirectory() as temp:
+            Path(temp,'frozen.json').write_text('{}')
+            with self.assertRaises(ValueError):
+                audit.audit({'schema':'not SMC20'},temp)
+            with self.assertRaises(ValueError):
+                audit.audit({'schema':'SMC-20/source-frozen-anchored-task-gradient-refit-v1',
+                             'pre_registration_commit':'0'*40},temp)
 
 
 if __name__=='__main__':unittest.main()
