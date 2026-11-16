@@ -289,7 +289,8 @@ def exact_frozen_assignments(A,B,calib_inputs,source_record,pair_index):
 
 def puzzle_case_scores(source_effect,target_effects,valid,orientations,
                        source_correct,target_correct,target_support,
-                       mapped_feature_ids,seed,pair_index,family,index):
+                       mapped_feature_ids,seed,pair_index,family,index,
+                       goal_positions=None,ground_truth_digits=None):
     labels={}
     for control in ASSIGNMENTS:
         response=target_effects[control]
@@ -316,6 +317,11 @@ def puzzle_case_scores(source_effect,target_effects,valid,orientations,
         'target_matched_atom_top4_rate':hits['matched'],
         'source_causal_response':source_effect.tolist(),
         'target_matched_causal_response':target_effects['matched'].tolist(),
+        'target_clue_shuffled_causal_response':target_effects['clue_shuffled'].tolist(),
+        'target_random_assignment_causal_response':target_effects['random'].tolist(),
+        'source_strict_top1_selection_mask':valid.tolist(),
+        'selected_goal_positions':goal_positions.tolist() if goal_positions is not None else None,
+        'selected_goal_truth_digits':ground_truth_digits.tolist() if ground_truth_digits is not None else None,
         'n_missing_goal_tokens':GOALS,
         'nonfinite_or_invalid':any(x is None for x in labels.values()),
     }
@@ -453,6 +459,16 @@ def run(source_checkpoint=None,allow_fetch=False,original_artifact=None,
                 target_correct[kind]=correct
             if family=='feature_calibration':
                 valid=supports[a][family]['strict']
+                calibration_causal_raw={
+                    'source_response':source_effects[family].tolist(),
+                    'source_strict_mask':valid.tolist(),
+                    'target_response_by_assignment':{
+                        kind:target_effects[kind].tolist()
+                        for kind in ASSIGNMENTS},
+                    'selected_goal_positions':go.tolist(),
+                    'selected_goal_truth_digits':truth.tolist(),
+                    'purpose':'global ±1 orientation fitted exclusively on 64 calibration puzzles'
+                }
                 for kind in ASSIGNMENTS:
                     orientations[kind]=calibration_orientation(
                         source_effects[family],target_effects[kind],valid)
@@ -472,7 +488,8 @@ def run(source_checkpoint=None,allow_fetch=False,original_artifact=None,
                          {key:values[i] for key,values in target_effects.items()},
                          valid,orientations,
                          A_correct[i],target_correct['matched'][i],
-                         goal_support,target_ids,index,index,family,i)
+                         goal_support,target_ids,index,index,family,i,
+                         go[i],truth[i])
                     entries.append(row)
                 cache[family]=summarize_family(entries,seed=20261400+index*100+len(family))
         primary={name:cache[name].get('primary_both_mapping_nulls_pass',False)
@@ -483,6 +500,7 @@ def run(source_checkpoint=None,allow_fetch=False,original_artifact=None,
                             'same_teacher_independent_SAE' if a.split('_SAE_')[0]==b.split('_SAE_')[0] else 'independent_new_teachers',
           'calibration':{'source_puzzles':64,'orientation':orientations,
                          'assignment_sha256':sha,'feature_assignments':assigns,
+                         'source_causal_orientation_data':calibration_causal_raw,
                          'calibration_only_before_heldout':True},
           'heldout':cache,
           'registered_success_on_both_novel_families':bool(all(primary.values())),
