@@ -16,12 +16,17 @@ import math
 from pathlib import Path
 import random
 import statistics
+import sys
 import tempfile
 from zipfile import ZipFile
 
+HERE=Path(__file__).resolve().parent
+ROOT=HERE.parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0,str(ROOT))
+
 from research.nor20_crosshost import combine
 
-HERE=Path(__file__).resolve().parent
 RECEIPT=HERE/"results"/"nor20_first_frozen_receipt.json"
 FILES={
     "fixture.json":(5416693,"de7ed801e0e8708afebdbe3699d9074375b156795b40372eb77e2a4a13218c19"),
