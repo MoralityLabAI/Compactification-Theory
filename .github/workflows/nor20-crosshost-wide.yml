@@ -26,6 +26,19 @@ jobs:
       - name: Test exact native template parity on all wide source classes and hidden-target isolation
         run: python -m unittest research.nor20_crosshost.test_crosshost -v
 
+  independent-first-crosshost-original-evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently replay original 4480 timings, 1280 Python memory records, 640 observed bigint workloads, 4 source families
+        run: |
+          python research/nor20_crosshost/receipt_audit.py --check \
+            --archive research/nor20_crosshost/results/nor20_original_crosshost.zip
+
   freeze-public-fixture:
     needs: preregistered-public-generator-tests
     runs-on: ubuntu-24.04
