@@ -1,0 +1,229 @@
+{
+  "schema": "nor17.frozen_source_locked_4_8_16_certificate_receipt.v1",
+  "executed_date_utc": "2026-11-16",
+  "first_green_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43787476543",
+  "first_run_artifact_id": 14190599248,
+  "first_run_artifact_name": "nor17-288-case-source-locked-prefix-certificates-and-all-budgets",
+  "original_full_json_sha256": "827b9aab53674567d7aa77c655e33c8800ba9a7372a0f3bdc889cdbf4d9c6b7b",
+  "original_full_json_bytes": 4174026,
+  "frozen_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "original_train_public_manifest_sha256": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "original_dev_public_manifest_sha256": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+  "fresh_seed_offset": 93317000,
+  "fresh_source_cohort_public_manifests": [
+    "5fdcfad7055b995cdc6b0c1afa01251c7c67d6d33130ebd890140c69c3611955",
+    "46a131d4f7d6b6b8f84c7a65ec18b4d2a940139f6261a53d76a10ef921809003",
+    "1c238cad188dabfeadf64d5c015446c982f07cf5ed6d86761ae6f7ffc42d5bc5",
+    "7e8a18ba96406eddc8803ec85cea089cca11afc3c7d46d2847965f6baf5bddb8"
+  ],
+  "primary_certificates_by_cohort_at_4_8_16": [
+    [
+      4,
+      5,
+      12
+    ],
+    [
+      11,
+      11,
+      13
+    ],
+    [
+      10,
+      10,
+      14
+    ],
+    [
+      3,
+      4,
+      8
+    ]
+  ],
+  "fresh_repetitions": 4,
+  "all_source_cases": 288,
+  "primary_complete_public_late_sources": 192,
+  "primary_one_original_GRU_feature_tensor": true,
+  "signed_controls": 48,
+  "rational_controls": 48,
+  "short_exact_prefix_degree": 160,
+  "full_public_demo_degree": 192,
+  "public_query_input_degree": 256,
+  "paid_full_check_budgets": [
+    4,
+    8,
+    16
+  ],
+  "new_public_prefix_candidate_checks_per_case": 16,
+  "public_prefix_compositions_per_case": 32,
+  "public_prefix_cached_unary_ops_per_case": 8,
+  "candidate_query_output_compositions_per_case": 16,
+  "query_cached_unary_ops_per_case": 4,
+  "retrospective_separately_charged_full_public_checks": 4608,
+  "arm_fields": [
+    "late_certificates",
+    "late_future_correct",
+    "late_false_accept",
+    "late_full_public_checks",
+    "all_certificates",
+    "all_future_correct",
+    "all_false_accept",
+    "all_full_public_checks"
+  ],
+  "arm_outcomes": {
+    "greedy_4": [
+      0,
+      36,
+      99,
+      430,
+      0,
+      84,
+      99,
+      737
+    ],
+    "greedy_8": [
+      0,
+      48,
+      102,
+      629,
+      0,
+      126,
+      102,
+      1081
+    ],
+    "greedy_16": [
+      0,
+      75,
+      117,
+      840,
+      0,
+      171,
+      117,
+      1360
+    ],
+    "unscreened_4": [
+      0,
+      0,
+      0,
+      619,
+      0,
+      0,
+      0,
+      1003
+    ],
+    "unscreened_8": [
+      0,
+      0,
+      0,
+      988,
+      0,
+      0,
+      0,
+      1756
+    ],
+    "unscreened_16": [
+      47,
+      47,
+      0,
+      1512,
+      143,
+      143,
+      0,
+      3048
+    ],
+    "prefix_4": [
+      28,
+      28,
+      0,
+      619,
+      124,
+      124,
+      0,
+      820
+    ],
+    "prefix_8": [
+      30,
+      30,
+      0,
+      861,
+      126,
+      126,
+      0,
+      1062
+    ],
+    "prefix_16": [
+      47,
+      47,
+      0,
+      1119,
+      143,
+      143,
+      0,
+      1320
+    ],
+    "prefix_original_4": [
+      28,
+      28,
+      0,
+      618,
+      124,
+      124,
+      0,
+      819
+    ],
+    "prefix_hash_4": [
+      28,
+      28,
+      0,
+      627,
+      124,
+      124,
+      0,
+      828
+    ]
+  },
+  "primary_late_short_prefix_survivor_count_histogram": {
+    "4": 31,
+    "8": 5,
+    "16": 156
+  },
+  "primary_late_full_future_identifiable_cases": 47,
+  "primary_late_prefix_only_future_identifiable_cases": 0,
+  "paired_tests": {
+    "prefix4_vs_unscreened4": {
+      "gains": 28,
+      "losses": 0,
+      "p": 7.450580596923828e-9
+    },
+    "prefix4_vs_prefix_original4": {
+      "gains": 0,
+      "losses": 0,
+      "p": 1
+    },
+    "prefix4_vs_prefix_hash4": {
+      "gains": 0,
+      "losses": 0,
+      "p": 1
+    },
+    "prefix8_vs_prefix4": {
+      "gains": 2,
+      "losses": 0,
+      "p": 0.5
+    },
+    "prefix16_vs_prefix8": {
+      "gains": 17,
+      "losses": 0,
+      "p": 0.0000152587890625
+    },
+    "prefix16_vs_unscreened16": {
+      "gains": 0,
+      "losses": 0,
+      "p": 1
+    },
+    "greedy4_vs_prefix4_future_correct": {
+      "gains": 26,
+      "losses": 18,
+      "p": 0.2912152365458951
+    }
+  },
+  "registered_prefix4_two_control_success": false,
+  "interpretation": "Safe prefix filtering enables 28 four-check certificates vs zero unscreened, with zero false accepts on tested synthetic family, but identically 28 certificates from matched original-order and public-hash prefix controls. Additional prefix screening and public query simulation work is separately metered; no established ranking-specific improvement."
+}
