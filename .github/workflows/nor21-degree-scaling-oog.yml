@@ -1,0 +1,175 @@
+name: NOR-21 degree512-1024 public verifier scaling and adversarial outside-grammar futures
+
+on:
+  push:
+    paths:
+      - 'research/nor21_degree_scaling/**'
+      - '.github/workflows/nor21-degree-scaling-oog.yml'
+  pull_request:
+    paths:
+      - 'research/nor21_degree_scaling/**'
+      - '.github/workflows/nor21-degree-scaling-oog.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  independently-audit-original-hosted-degree-results:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct original 36 scaled masks and sealed futures, 432 CPU times, 288 memory profiles and 16384 bootstrap draws
+        run: |
+          python research/nor21_degree_scaling/receipt_audit.py --check \
+            --archive research/nor21_degree_scaling/results/nor21_original_hosted.zip
+
+  scaled-interpreter-and-private-target-isolation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify degree 512 and 1024 native/streaming public parity, out-of-grammar rejection and hidden-future obstruction
+        run: python -m unittest research.nor21_degree_scaling.test_experiment -v
+
+  preregistered-source-fixture:
+    needs: scaled-interpreter-and-private-target-isolation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate 36 public-only preregistered new 512/1024 degree source cases
+        run: |
+          python research/nor21_degree_scaling/experiment.py \
+            --make-fixture /tmp/nor21_fixture.json
+      - name: Seal byte identity and public-only source labels
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor21_fixture.json').read_bytes()
+          d=json.loads(raw)
+          assert d['schema']=='nor21.public_only_source_36_degree512_1024.v1'
+          assert d['source_seed_offset']==94210000
+          assert d['observation_degrees']==[512,1024]
+          assert d['query_degrees']==[768,1536]
+          assert d['source_replicates']==2
+          assert len(d['cases'])==36
+          assert d['public_only'] and d['private_programs_and_true_future_outputs_absent']
+          assert len({r['full_public_input_sha256'] for r in d['cases']})==36
+          assert Counter(r['observation_degree'] for r in d['cases'])=={512:18,1024:18}
+          assert Counter(r['case_kind'] for r in d['cases'])=={
+            'in_grammar':12,'public_corrupt':12,'future_shift':12}
+          assert all(len(r['demos'])==2 for r in d['cases'])
+          assert all(r['exact_public_accept_mask']==0 for r in d['cases']
+                     if r['case_kind']=='public_corrupt')
+          assert all(r['hypothetical_query_future_unanimous'] for r in d['cases']
+                     if r['case_kind']!='public_corrupt')
+          assert all('future' not in r and 'program' not in r
+                     for r in d['cases'])
+          print('NOR21 ORIGINAL PUBLIC FIXTURE',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor21_degree512_1024_public_only_source_fixture
+          path: /tmp/nor21_fixture.json
+          if-no-files-found: error
+
+  grade-after-frozen-cpu-and-memory:
+    needs: preregistered-source-fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor21_degree512_1024_public_only_source_fixture
+          path: /tmp/nor21
+      - name: Run four exact degree-scaled public algorithms with sealed out-of-family grading
+        run: |
+          python research/nor21_degree_scaling/experiment.py --check \
+            --fixture /tmp/nor21/nor21_fixture.json \
+            --warmups 1 --trials 3 \
+            --out /tmp/nor21/nor21_full.json
+      - name: Audit source identities, exact masks, paired speed/memory and out-of-grammar boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json,statistics
+          f=Path('/tmp/nor21/nor21_fixture.json').read_bytes()
+          raw=Path('/tmp/nor21/nor21_full.json').read_bytes()
+          fixture=json.loads(f)
+          d=json.loads(raw)
+          assert d['schema']=='nor21.degree_512_1024_out_of_grammar_cpu_memory.v1'
+          assert d['public_fixture_sha256']==sha256(f).hexdigest()
+          assert d['registered_observation_degrees']==[512,1024]
+          assert d['registered_query_degrees']==[768,1536]
+          assert d['source_cases']==len(d['records'])==36
+          assert d['warmups']==1 and d['timed_repetitions']==3
+          assert d['modes']==['native16','cached16','stream16','chunk4']
+          assert len({x['full_public_input_sha256'] for x in d['records']})==36
+          assert all(d['scope'][flag] for flag in (
+            'future_not_in_public_fixture',
+            'all_public_candidate_decisions_frozen_before_sealed_grading',
+            'generator_membership_scope_tested_with_outside_family_future',
+            'zero_public_mask_requires_abstention',
+            'all_36_complete_public_inputs_distinct',
+            'same_query_first_order_in_all_four_modes'))
+          for r in d['records']:
+            assert r['all_four_public_modes_exactly_equal']
+            assert r['sealed_grade']['private_truth_used_only_for_postchoice_grade']
+            for m in d['modes']:
+              assert len(r['times_ns'][m])==3
+              assert all(z['total_ns']==z['query_ns']+z['verification_ns']+
+                         z['certificate_ns'] for z in r['times_ns'][m])
+              assert r['full_tracemalloc'][m]['mask']==r['original_reference_mask']
+              assert r['verifier_tracemalloc'][m]['mask']==r['original_reference_mask']
+            if r['case_kind']=='public_corrupt':
+              assert r['original_reference_mask']==0
+              assert not r['sealed_grade']['public_certificate_issued']
+            if r['case_kind']=='future_shift':
+              assert r['original_reference_mask']>0
+              assert r['sealed_grade']['false_accept_outside_family']
+              assert r['sealed_grade']['counterfactual_public_same_future_different']['hidden_future_targets_differ']
+            if r['case_kind']=='in_grammar':
+              assert r['sealed_grade']['future_correct']
+          for degree,summary in sorted(d['by_degree'].items()):
+            assert summary['cases']==18
+            assert summary['grade_by_kind']['in_grammar']['future_correct']==6
+            assert summary['grade_by_kind']['public_corrupt']['certified']==0
+            assert summary['grade_by_kind']['future_shift']['out_of_family_false_accept']==6
+            print('NOR21 SCALED DEGREE',degree,'SUMMARY',summary)
+          print('NOR21 PREREGISTERED ENGINEERING SUCCESS',d['primary_all_degrees_pass'])
+          print('NOR21 SOURCE BYTES SHA256',len(f),sha256(f).hexdigest())
+          print('NOR21 RAW BENCHMARK BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor21_degree512_1024_original_public_and_sealed_grades
+          path: |
+            /tmp/nor21/nor21_fixture.json
+            /tmp/nor21/nor21_full.json
+          if-no-files-found: error
