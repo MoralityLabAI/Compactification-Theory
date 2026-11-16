@@ -1,0 +1,82 @@
+{
+  "checkpoint": "Qwen/Qwen3.5-0.8B-Base",
+  "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "files": {
+    "config.json": {
+      "sha256": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+      "bytes": 2907
+    },
+    "config.json.ranges.json": {
+      "sha256": "d758f9aad1cc8112cd45089a5d02c62d5080922560596632231c1c58bf8ef7a6",
+      "bytes": 8
+    },
+    "merges.txt": {
+      "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+      "bytes": 3353259
+    },
+    "merges.txt.ranges.json": {
+      "sha256": "d758f9aad1cc8112cd45089a5d02c62d5080922560596632231c1c58bf8ef7a6",
+      "bytes": 8
+    },
+    "model.safetensors-00001-of-00001.safetensors": {
+      "sha256": "c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c",
+      "bytes": 1746942600
+    },
+    "model.safetensors-00001-of-00001.safetensors.ranges.json": {
+      "sha256": "58038a14bc81420bd7052c6537631150ab6739f85bd05ace2012ee15a0ac359d",
+      "bytes": 1356
+    },
+    "model.safetensors.index.json": {
+      "sha256": "ce9a885efdf27d3664fdef5d512ad365216f1074051ef840c7cd8e5431495d0a",
+      "bytes": 50900
+    },
+    "model.safetensors.index.json.ranges.json": {
+      "sha256": "d758f9aad1cc8112cd45089a5d02c62d5080922560596632231c1c58bf8ef7a6",
+      "bytes": 8
+    },
+    "preprocessor_config.json": {
+      "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "bytes": 390
+    },
+    "preprocessor_config.json.ranges.json": {
+      "sha256": "d758f9aad1cc8112cd45089a5d02c62d5080922560596632231c1c58bf8ef7a6",
+      "bytes": 8
+    },
+    "tokenizer.json": {
+      "sha256": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+      "bytes": 12807196
+    },
+    "tokenizer.json.ranges.json": {
+      "sha256": "c13aa0c15c014736387065390b9af0db2b5238bb6054997c0346a08b8b410339",
+      "bytes": 13
+    },
+    "tokenizer_config.json": {
+      "sha256": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+      "bytes": 16712
+    },
+    "tokenizer_config.json.ranges.json": {
+      "sha256": "d758f9aad1cc8112cd45089a5d02c62d5080922560596632231c1c58bf8ef7a6",
+      "bytes": 8
+    },
+    "video_preprocessor_config.json": {
+      "sha256": "d039cd7d88b3502a99edd455496b75b44ecf7dd3b3669748bafac37e6cecc085",
+      "bytes": 386
+    },
+    "video_preprocessor_config.json.ranges.json": {
+      "sha256": "d758f9aad1cc8112cd45089a5d02c62d5080922560596632231c1c58bf8ef7a6",
+      "bytes": 8
+    },
+    "vocab.json": {
+      "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+      "bytes": 6722759
+    },
+    "vocab.json.ranges.json": {
+      "sha256": "d758f9aad1cc8112cd45089a5d02c62d5080922560596632231c1c58bf8ef7a6",
+      "bytes": 8
+    }
+  },
+  "backend": "transformers/bitsandbytes NF4 double-quant FP16 compute",
+  "model_class": "Qwen3_5ForCausalLM",
+  "vision_instantiated": false,
+  "snapshot_path": "/mnt/c/Users/patri/Documents/Codex/2026-11-16/files-pasted-by-the-user-codex/work/Compactification-Theory/experiments/roc_qwen01_3050/cache/checkpoint/dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+}
