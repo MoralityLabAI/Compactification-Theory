@@ -1,0 +1,324 @@
+{
+  "schema": "SMC-22/original-source-LAD-preregistered-eight-condition-summary-v1",
+  "preregistration_commit": "b208c1e7a63ac3e0d3008564d25bded5a2f80f52",
+  "original_successful_execution_run_id": 43827985476,
+  "original_full_result_code_commit": "306c18b6c77612580aba8660cc013138955dee48",
+  "original_frozen_calibration_artifact_id": 14207241984,
+  "original_calibration_archive_sha256": "576052ca617d90dd8de93b443f40c1e70898bba710464a5729dccbacd505869b",
+  "original_frozen_lad_json_sha256": "60566a0148274a6de379a4c84e12989cfce3effc1ce2b0baaabc7e6b1bb6084e",
+  "original_independent_calibration_audit_json_sha256": "9c03521ab8a38d6a8b454716e687ca3549f2b48ce8ce3e847b81215e62892ef2",
+  "original_full_result_artifact_id": 14207338085,
+  "original_full_archive_sha256": "190d773e1db0060179410fa7b6c035b5160f0a9f2d7ca01c3f79202f619b908d",
+  "original_full_json_sha256": "6abe509046ba937bea63bdf682ed891d3eaf5d2505819882a3826327c5e11af2",
+  "original_independent_full_audit_json_sha256": "f8a275948ab1a252cb6f07e404aee881daad303d2b17cfa3a0792f1f970ec24e",
+  "original_smc21_calibration_json_sha256": "e7aa12a3da5b8eaa0132b5de45083ca1b2af5c38e556fef01e1f26d2b94f90af",
+  "original_smc19_refit_json_sha256": "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b",
+  "original_source_checkpoint_receipts": {
+    "smc11c": "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087",
+    "smc13a": "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3",
+    "smc13c": "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07"
+  },
+  "new_sudoku_manifest_sha256": {
+    "smc22_novel_30": "820e2093401371f89d70b570acff92079f786e2f3d4185d618042b7dcd0d8d23",
+    "smc22_novel_34": "68819a769ea7cf37f0b551f09f4eca6ecd87a00a4516eb285a8820b0f264bcfa"
+  },
+  "calibration_fit_rule": "Lower ratio weighted median with weights abs(source finite residual), no intercept, clip [-2,2], calibration-only original 64 SMC13 puzzles",
+  "calibration": [
+    {
+      "target": "newB_501_SAE_131",
+      "beta_source_lad": 0.41125001654439364,
+      "beta_other_lad": 0.09746160634113221,
+      "beta_original_ridge": 0.5025328229296439,
+      "eligible_goals": 198,
+      "eligible_puzzles": 63,
+      "calibration_total_absolute_error_lad": 34.92005524921049,
+      "calibration_total_absolute_error_original_ridge": 35.718681781845795,
+      "identified": true
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "beta_source_lad": 0.4694901322713416,
+      "beta_other_lad": 0.12922851147146164,
+      "beta_original_ridge": 0.42313864331363327,
+      "eligible_goals": 222,
+      "eligible_puzzles": 62,
+      "calibration_total_absolute_error_lad": 50.989734248789446,
+      "calibration_total_absolute_error_original_ridge": 51.27651973266391,
+      "identified": true
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "beta_source_lad": 0.25280554567591096,
+      "beta_other_lad": 0.26162171966957276,
+      "beta_original_ridge": 0.3965727291957602,
+      "eligible_goals": 165,
+      "eligible_puzzles": 61,
+      "calibration_total_absolute_error_lad": 35.04501552862364,
+      "calibration_total_absolute_error_original_ridge": 35.772969614481134,
+      "identified": true
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "beta_source_lad": 0.3418128771679172,
+      "beta_other_lad": 0.12847903385304713,
+      "beta_original_ridge": 0.5729147097178375,
+      "eligible_goals": 142,
+      "eligible_puzzles": 59,
+      "calibration_total_absolute_error_lad": 35.021310971978664,
+      "calibration_total_absolute_error_original_ridge": 35.97124172533413,
+      "identified": true
+    }
+  ],
+  "original_fixed_gate": {
+    "per_pair_requires_both_families": true,
+    "new_eligible_goals_at_least": 24,
+    "new_distinct_puzzles_at_least": 20,
+    "calibration_eligible_goals_at_least": 24,
+    "calibration_distinct_puzzles_at_least": 20,
+    "resamples_per_condition": 2000,
+    "paired_95pct_lower_both_vs_direct_ridge_other_strict_positive": true,
+    "source_LAD_to_direct_MAE_ratio_at_most": 0.95,
+    "source_LAD_sign_correct_at_least_direct": true
+  },
+  "outcome": {
+    "n_puzzle_pair_family_cases": 512,
+    "n_selected_blank_goal_records": 4096,
+    "eligible_goal_pair_family_observations": 1298,
+    "receiving_sae_pairs_tested": 4,
+    "receiving_sae_pairs_passing_both_families": 0,
+    "pair_family_conditions_tested": 8,
+    "pair_family_conditions_passing": 1,
+    "all_eight_positive_mean_gain_vs_direct": true,
+    "pooled_direct_MAE": 0.273883,
+    "pooled_original_ridge_MAE": 0.223902,
+    "pooled_source_LAD_MAE": 0.221802,
+    "pooled_other_active_LAD_MAE": 0.264579,
+    "native_erasure_sign_correct_counts": {
+      "direct": 1225,
+      "original_ridge": 1216,
+      "source_LAD": 1228,
+      "other_active_LAD": 1220
+    },
+    "registered_ci_gates_unchanged": true
+  },
+  "pair_family": [
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc22_novel_30",
+      "eligible_goals": 173,
+      "eligible_puzzles": 62,
+      "mean_gain_vs_direct": 0.033410520049076915,
+      "bootstrap95_gain_vs_direct": [
+        0.009459385733933142,
+        0.05645779399485396
+      ],
+      "mean_gain_vs_original_ridge": 0.007681106124278982,
+      "bootstrap95_gain_vs_original_ridge": [
+        0.0006799572885018285,
+        0.015213588971277147
+      ],
+      "mean_gain_vs_other_LAD": 0.02302550378482011,
+      "bootstrap95_gain_vs_other_LAD": [
+        -0.002881902603784991,
+        0.05111804284552545
+      ],
+      "source_LAD_MAE_rounded": 0.18328,
+      "source_sign_correct": 161,
+      "direct_sign_correct": 165,
+      "registered_three_positive_CI_gate": false,
+      "registered_sign_nondegradation_gate": false,
+      "registered_family_success": false
+    },
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc22_novel_34",
+      "eligible_goals": 165,
+      "eligible_puzzles": 61,
+      "mean_gain_vs_direct": 0.055765421065282636,
+      "bootstrap95_gain_vs_direct": [
+        0.023351585291035894,
+        0.08816621792967115
+      ],
+      "mean_gain_vs_original_ridge": 0.0031184610073466236,
+      "bootstrap95_gain_vs_original_ridge": [
+        -0.004936737511889792,
+        0.011371038619268466
+      ],
+      "mean_gain_vs_other_LAD": 0.035744410238790415,
+      "bootstrap95_gain_vs_other_LAD": [
+        0.0028807639968490366,
+        0.06932982340926479
+      ],
+      "source_LAD_MAE_rounded": 0.24623,
+      "source_sign_correct": 155,
+      "direct_sign_correct": 153,
+      "registered_three_positive_CI_gate": false,
+      "registered_sign_nondegradation_gate": true,
+      "registered_family_success": false
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc22_novel_30",
+      "eligible_goals": 207,
+      "eligible_puzzles": 64,
+      "mean_gain_vs_direct": 0.06396746657114341,
+      "bootstrap95_gain_vs_direct": [
+        0.03609497623485224,
+        0.0925656328026433
+      ],
+      "mean_gain_vs_original_ridge": -0.0000949410470397201,
+      "bootstrap95_gain_vs_original_ridge": [
+        -0.0034558328650498354,
+        0.003000958305479534
+      ],
+      "mean_gain_vs_other_LAD": 0.05380446438637862,
+      "bootstrap95_gain_vs_other_LAD": [
+        0.026580298559990112,
+        0.08116853281070312
+      ],
+      "source_LAD_MAE_rounded": 0.23214,
+      "source_sign_correct": 197,
+      "direct_sign_correct": 196,
+      "registered_three_positive_CI_gate": false,
+      "registered_sign_nondegradation_gate": true,
+      "registered_family_success": false
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc22_novel_34",
+      "eligible_goals": 176,
+      "eligible_puzzles": 61,
+      "mean_gain_vs_direct": 0.09606655888971,
+      "bootstrap95_gain_vs_direct": [
+        0.06610113383271578,
+        0.12881328417327673
+      ],
+      "mean_gain_vs_original_ridge": 0.004162899390230129,
+      "bootstrap95_gain_vs_original_ridge": [
+        0.0002769994648959822,
+        0.008177131597770988
+      ],
+      "mean_gain_vs_other_LAD": 0.0850551194327141,
+      "bootstrap95_gain_vs_other_LAD": [
+        0.05349639003528312,
+        0.11887955739144589
+      ],
+      "source_LAD_MAE_rounded": 0.22604,
+      "source_sign_correct": 163,
+      "direct_sign_correct": 161,
+      "registered_three_positive_CI_gate": true,
+      "registered_sign_nondegradation_gate": true,
+      "registered_family_success": true
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc22_novel_30",
+      "eligible_goals": 172,
+      "eligible_puzzles": 62,
+      "mean_gain_vs_direct": 0.031107040876663637,
+      "bootstrap95_gain_vs_direct": [
+        0.01780137702616783,
+        0.0453049238292665
+      ],
+      "mean_gain_vs_original_ridge": -0.0011332125273336648,
+      "bootstrap95_gain_vs_original_ridge": [
+        -0.01145052316500539,
+        0.00820071834825186
+      ],
+      "mean_gain_vs_other_LAD": 0.02848287605765232,
+      "bootstrap95_gain_vs_other_LAD": [
+        0.004301907516194566,
+        0.054929066555293234
+      ],
+      "source_LAD_MAE_rounded": 0.2172,
+      "source_sign_correct": 163,
+      "direct_sign_correct": 165,
+      "registered_three_positive_CI_gate": false,
+      "registered_sign_nondegradation_gate": false,
+      "registered_family_success": false
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc22_novel_34",
+      "eligible_goals": 147,
+      "eligible_puzzles": 62,
+      "mean_gain_vs_direct": 0.036087731475506944,
+      "bootstrap95_gain_vs_direct": [
+        0.018954157158430907,
+        0.05219036595820979
+      ],
+      "mean_gain_vs_original_ridge": -0.0009702112684077066,
+      "bootstrap95_gain_vs_original_ridge": [
+        -0.012096116853225543,
+        0.010501919435633273
+      ],
+      "mean_gain_vs_other_LAD": 0.02380233681662045,
+      "bootstrap95_gain_vs_other_LAD": [
+        -0.005149412554852276,
+        0.05725148906339027
+      ],
+      "source_LAD_MAE_rounded": 0.22182,
+      "source_sign_correct": 141,
+      "direct_sign_correct": 140,
+      "registered_three_positive_CI_gate": false,
+      "registered_sign_nondegradation_gate": true,
+      "registered_family_success": false
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc22_novel_30",
+      "eligible_goals": 129,
+      "eligible_puzzles": 56,
+      "mean_gain_vs_direct": 0.05106716603144637,
+      "bootstrap95_gain_vs_direct": [
+        0.028769557318851374,
+        0.0766727257444117
+      ],
+      "mean_gain_vs_original_ridge": 0.0005154459096464243,
+      "bootstrap95_gain_vs_original_ridge": [
+        -0.019433818969896235,
+        0.019482823709646754
+      ],
+      "mean_gain_vs_other_LAD": 0.04678726451244325,
+      "bootstrap95_gain_vs_other_LAD": [
+        0.012636671748510806,
+        0.08971749642735445
+      ],
+      "source_LAD_MAE_rounded": 0.24442,
+      "source_sign_correct": 125,
+      "direct_sign_correct": 124,
+      "registered_three_positive_CI_gate": false,
+      "registered_sign_nondegradation_gate": true,
+      "registered_family_success": false
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc22_novel_34",
+      "eligible_goals": 129,
+      "eligible_puzzles": 60,
+      "mean_gain_vs_direct": 0.04052083118573924,
+      "bootstrap95_gain_vs_direct": [
+        0.01703781322864551,
+        0.06546014487413812
+      ],
+      "mean_gain_vs_original_ridge": 0.0034106046919582375,
+      "bootstrap95_gain_vs_original_ridge": [
+        -0.013848277906515629,
+        0.021060857364369055
+      ],
+      "mean_gain_vs_other_LAD": 0.03954961082717539,
+      "bootstrap95_gain_vs_other_LAD": [
+        0.0046634969806197335,
+        0.08013648744738204
+      ],
+      "source_LAD_MAE_rounded": 0.20335,
+      "source_sign_correct": 123,
+      "direct_sign_correct": 121,
+      "registered_three_positive_CI_gate": false,
+      "registered_sign_nondegradation_gate": true,
+      "registered_family_success": false
+    }
+  ],
+  "audit_limit": "Independent stdlib checks model/source/refit file hashes, calibration medians, per-goal decoder geometry, gradient arithmetic and 24000 bootstrap contributions on saved numeric observations; it does not independently rerun PyTorch native erasure/gradient forward computations.",
+  "scientific_scope": "Prospective negative result for whether source-only one-parameter MAE-optimal coefficient outperforms strong original ridge and other-active native residual baselines across both new Sudoku families. Four refits share only two teacher weights and answer-conditioned heldout true digit gradients; no intrinsic SAE semantic identity."
+}
