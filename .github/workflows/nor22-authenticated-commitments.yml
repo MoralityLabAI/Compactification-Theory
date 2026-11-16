@@ -15,6 +15,19 @@ permissions:
   contents: read
 
 jobs:
+  independent-original-authenticated-target-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original first-run byte SHA and independently rederive 12 seeded programs, 96 trusted hashes and 192 policy outcomes
+        run: |
+          python research/nor22_authenticated_commitment/receipt_audit.py --check \
+            --archive research/nor22_authenticated_commitment/results/nor22_original_hosted.zip
+
   source-isolation-and-modular-proof-controls:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
