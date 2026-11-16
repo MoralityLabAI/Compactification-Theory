@@ -338,10 +338,10 @@ def main():
         return
     if RECEIPT.exists():
         pinned=json.loads(RECEIPT.read_text())
-        assert len(fixture)==pinned["original_public_fixture_bytes"]
-        assert len(full)==pinned["original_benchmark_bytes"]
-        assert sha256(fixture).hexdigest()==pinned["original_public_fixture_sha256"]
-        assert sha256(full).hexdigest()==pinned["original_benchmark_sha256"]
+        assert len(fixture)==pinned["fixture_bytes"]
+        assert len(full)==pinned["full_result_bytes"]
+        assert sha256(fixture).hexdigest()==pinned["fixture_sha256"]
+        assert sha256(full).hexdigest()==pinned["full_result_sha256"]
     r=audit(fixture,full)
     print("NOR21 INDEPENDENT DEGREE SCALE AND OUTSIDE FAMILY AUDIT PASSED",r)
     if args.check:
