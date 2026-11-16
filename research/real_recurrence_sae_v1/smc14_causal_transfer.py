@@ -220,11 +220,15 @@ def within_puzzle_shuffle_null(a,b,valid,orientation,pair_seed,puzzle_index,
     return sum(output)/len(output) if output else None
 
 
-def source_group_context(teachers,components,rosters):
-    """Cache exactly one FP32 stage1 and FP64 three-step teacher per cohort."""
+def source_group_context(teachers,components,rosters,keys):
+    """Cache FP32 stage1 and FP64 continuation, only for authorized splits.
+
+    Caller must first invoke this with calibration-only, lock the exact
+    feature permutations, then invoke it separately for heldout keys.
+    """
     teacher_ctx={}
     supports={}
-    for key in SPLITS:
+    for key in keys:
         rows=rosters[key]
         x,y=tensors(rows)
         pos=goal_positions(x)
@@ -383,19 +387,35 @@ def run(source_checkpoint=None,allow_fetch=False,original_artifact=None,
         models[label]=group['teacher']
         for sae_seed,params in group['saes'].items():
             components[f'newB_{seed}_SAE_{sae_seed}']=(label,*params)
-    ctx,supports=source_group_context(models,components,rosters)
     pairs=PAIRS if only_pairs is None else PAIRS[:only_pairs]
-    reports=[]
+    # First evaluate ONLY calibration inputs, then lock and source-hash
+    # every feature correspondence. Heldout stages, targets and predictions
+    # do not exist in the process until this loop has finished.
+    calib_ctx,calib_supports=source_group_context(
+        models,components,rosters,('feature_calibration',))
+    frozen={}
     for index,(a,b) in enumerate(pairs):
         original_pair=conditioned['results'][index]
         if (original_pair['source'],original_pair['target'])!=(a,b):
             raise ValueError('calibration pair sequence differs')
-        calib_context=ctx[components[a][0]]['cohorts']['feature_calibration']
-        observed=calib_context['inputs']
+        observed=calib_ctx[components[a][0]]['cohorts']['feature_calibration']['inputs']
         assigns,sha=exact_frozen_assignments(
-            supports[a]['feature_calibration']['support'],
-            supports[b]['feature_calibration']['support'],
+            calib_supports[a]['feature_calibration']['support'],
+            calib_supports[b]['feature_calibration']['support'],
             observed,original_pair,index)
+        frozen[index]=(assigns,sha)
+    print('SMC14_CALIBRATION_ASSIGNMENTS_FROZEN',
+          {i:frozen[i][1] for i in frozen},flush=True)
+    test_ctx,test_supports=source_group_context(
+        models,components,rosters,FAMILIES)
+    for key in calib_ctx:
+        calib_ctx[key]['cohorts'].update(test_ctx[key]['cohorts'])
+    for key in calib_supports:
+        calib_supports[key].update(test_supports[key])
+    ctx,supports=calib_ctx,calib_supports
+    reports=[]
+    for index,(a,b) in enumerate(pairs):
+        assigns,sha=frozen[index]
         component_directions={
             a:physical_decoder_unit_table(components[a][1],components[a][3]),
             b:physical_decoder_unit_table(components[b][1],components[b][3])}
