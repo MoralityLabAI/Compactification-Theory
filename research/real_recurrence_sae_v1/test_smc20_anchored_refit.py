@@ -73,6 +73,7 @@ class SMC20AnchoredGradientTests(unittest.TestCase):
         for row in rows:
             if row['metrics'][0] is not None:
                 row['metrics'][0]['other_active_surrogate_prediction']=2.
+                row['metrics'][0]['gradient_anchored_prediction']=1.9
         result=s.score_family(rows,202620130)
         self.assertFalse(result['registered_success'])
         self.assertLess(result['puzzle_cluster_bootstrap95_gain_over_other'][0],0)
