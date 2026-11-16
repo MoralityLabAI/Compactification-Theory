@@ -1,0 +1,111 @@
+name: NOR-22 authenticated modular target commitments and forged/collision controls
+
+on:
+  push:
+    paths:
+      - 'research/nor22_authenticated_commitment/**'
+      - '.github/workflows/nor22-authenticated-commitments.yml'
+  pull_request:
+    paths:
+      - 'research/nor22_authenticated_commitment/**'
+      - '.github/workflows/nor22-authenticated-commitments.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-isolation-and-modular-proof-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check exact p/q target commitments, collision witnesses and pre-grade public candidate freezing
+        run: python -m unittest research.nor22_authenticated_commitment.test_experiment -v
+
+  fresh-sources-and-authenticated-worlds:
+    needs: source-isolation-and-modular-proof-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate 12 fresh distinct public inputs and explicitly trusted extra target commitment pairs
+        run: |
+          python research/nor22_authenticated_commitment/experiment.py \
+            --make-fixture /tmp/nor22_fixture.json
+      - name: Freeze all public input identities and confirm target arrays are absent
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor22_fixture.json').read_bytes()
+          o=json.loads(raw)
+          assert o['schema']=='nor22.public_with_explicit_authenticated_target_commitments.v1'
+          assert o['registration_offset']==94322000
+          assert o['registered_moduli']==[65537,65521]
+          assert o['registered_polynomial_evaluation_point']==3
+          assert o['registered_target_world_kinds']==[
+              'valid','unit_shift','p_shift','product_shift']
+          assert o['public_sources_include_extra_target_dependent_attested_values']
+          assert o['trusted_publisher_authenticity_is_an_explicit_assumption']
+          assert o['target_output_arrays_and_generating_programs_absent']
+          assert len(o['cases'])==12
+          assert len({x['full_public_input_sha256'] for x in o['cases']})==12
+          assert Counter(x['observation_degree'] for x in o['cases'])=={512:6,1024:6}
+          assert Counter(x['family'] for x in o['cases'])=={
+              'wide_dense_small':4,'wide_sparse_small':4,'wide_rational_short':4}
+          assert all('program' not in x and 'future' not in x for x in o['cases'])
+          assert all(set(x['trusted_target_commitments_by_counterfactual_world'])==
+              {'valid','unit_shift','p_shift','product_shift'} for x in o['cases'])
+          print('NOR22 FIRST PUBLIC SOURCE WITH TARGET-DEPENDENT ANCHOR FIXTURE',
+                len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Run four frozen verification policies on 48 target worlds, with private postchoice grader
+        run: |
+          python research/nor22_authenticated_commitment/experiment.py --check \
+            --fixture /tmp/nor22_fixture.json \
+            --out /tmp/nor22_full.json
+      - name: Confirm exact preregistered confusion matrix and separate source counts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor22_full.json').read_bytes()
+          o=json.loads(raw)
+          assert o['schema']=='nor22.authenticated_modular_target_commitment.v1'
+          assert o['distinct_public_source_cases']==12
+          assert o['counterfactual_target_world_records']==48
+          assert o['all_source_decisions_frozen_before_private_program_and_target_replay']
+          assert o['all_target_dependent_commitments_explicitly_trusted_or_forged']
+          assert o['all_registered_outcomes_match']
+          assert len(o['source_records'])==12
+          assert all(set(x['worlds'])==set(o['world_kinds']) for x in o['source_records'])
+          assert o['scope']['target_commitments_are_extra_target_dependent_information']
+          assert o['scope']['matching_modular_fingerprints_not_sufficient_for_correctness']
+          assert o['scope']['forged_commitment_is_untrusted_negative_control']
+          for world,policies in o['observed_matrix'].items():
+              for arm,counts in policies.items():
+                  assert sum(counts.values())==12,(world,arm,counts)
+                  assert counts[o['registered_exact_matrix'][world][arm]]==12
+                  print('NOR22 WORLD-ARM',world,arm,counts)
+          print('NOR22 ORIGINAL COMPLETE SOURCE-WORLD RESULT',
+                len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor22-authenticated-target-commitment-public-fixture-and-48-world-outcomes
+          path: |
+            /tmp/nor22_fixture.json
+            /tmp/nor22_full.json
+          if-no-files-found: error
