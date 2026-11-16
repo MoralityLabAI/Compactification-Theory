@@ -290,7 +290,7 @@ def audit(receipt,frozen_dir):
         raise ValueError('unexpected SMC20 receipt format')
     if receipt['pre_registration_commit']!=PRECOMMIT:
         raise ValueError('original SMC20 preregistration SHA changed')
-    if receipt['smc19_frozen_json_sha256']!='612b7bd0bd206043d0766b398e85dd3e8427ecdbf4cbd4c0db52b':
+    if receipt['smc19_frozen_json_sha256']!='612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b':
         raise ValueError('expected original frozen refit SHA differs')
     if (hashlib.sha256(frozen_bytes).hexdigest()!=receipt['smc19_frozen_json_sha256']
         or receipt['smc19_frozen_source']!=frozen):
