@@ -26,6 +26,19 @@ jobs:
       - name: Test all five algorithms against original exact native public masks
         run: python -m unittest research.nor19_streamed_verifier.test_streamed -v
 
+  original-hosted-public-fixture-and-memory-independent-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently audit 64 native masks, 2240 original timing samples, 640 memory profiles and bigint products
+        run: |
+          python research/nor19_streamed_verifier/receipt_audit.py --check \
+            --archive research/nor19_streamed_verifier/results/nor19_original_hosted.zip
+
   previously-unbenchmarked-public-fixture-and-memory:
     needs: streamed-exact-parity-and-public-source-safety
     runs-on: ubuntu-latest
