@@ -1,0 +1,138 @@
+{
+  "schema": "nor22.frozen_first_authenticated_target_commitments_receipt.v1",
+  "executed_date_utc": "2026-11-16",
+  "original_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43816319904",
+  "first_artifact_id": 14202139313,
+  "original_artifact_name": "nor22-authenticated-target-commitment-public-fixture-and-48-world-outcomes",
+  "public_fixture_bytes": 2236097,
+  "public_fixture_sha256": "a325aa87214bbfcabe40c6f964e514ded5f16dd3a18752c09e2d99b907590a4d",
+  "full_result_bytes": 128050,
+  "full_result_sha256": "c6e7eba604b43a113362505ded2a5581305ff5213afaff3fe0c726741b35795b",
+  "fresh_source_seed_offset": 94322000,
+  "original_frozen_RRC25_family": "Four base unary operators and sixteen U/V suffix templates",
+  "public_demo_degree": [
+    512,
+    1024
+  ],
+  "public_query_input_degree": [
+    768,
+    1536
+  ],
+  "distinct_complete_public_sources": 12,
+  "counterfactual_hidden_target_worlds": 48,
+  "registered_world_kinds": [
+    "valid",
+    "unit_shift",
+    "p_shift",
+    "product_shift"
+  ],
+  "arms": [
+    "public_only",
+    "trusted_p",
+    "trusted_pq",
+    "forged_pq"
+  ],
+  "moduli": [
+    65537,
+    65521
+  ],
+  "evaluation_point": 3,
+  "shift_size_product": 4294049777,
+  "trusted_target_commitments_are_new_data": true,
+  "trusted_publisher_authenticity_assumed": true,
+  "private_programs_and_full_target_arrays_absent_from_fixture": true,
+  "outcome_by_world_arm": {
+    "valid": {
+      "public_only": {
+        "correct": 12,
+        "false_accept": 0,
+        "abstain": 0
+      },
+      "trusted_p": {
+        "correct": 12,
+        "false_accept": 0,
+        "abstain": 0
+      },
+      "trusted_pq": {
+        "correct": 12,
+        "false_accept": 0,
+        "abstain": 0
+      },
+      "forged_pq": {
+        "correct": 12,
+        "false_accept": 0,
+        "abstain": 0
+      }
+    },
+    "unit_shift": {
+      "public_only": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      },
+      "trusted_p": {
+        "correct": 0,
+        "false_accept": 0,
+        "abstain": 12
+      },
+      "trusted_pq": {
+        "correct": 0,
+        "false_accept": 0,
+        "abstain": 12
+      },
+      "forged_pq": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      }
+    },
+    "p_shift": {
+      "public_only": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      },
+      "trusted_p": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      },
+      "trusted_pq": {
+        "correct": 0,
+        "false_accept": 0,
+        "abstain": 12
+      },
+      "forged_pq": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      }
+    },
+    "product_shift": {
+      "public_only": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      },
+      "trusted_p": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      },
+      "trusted_pq": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      },
+      "forged_pq": {
+        "correct": 0,
+        "false_accept": 12,
+        "abstain": 0
+      }
+    }
+  },
+  "independent_original_source_replays": 12,
+  "independently_audited_policy_decisions": 192,
+  "independently_reconstructed_authenticated_modular_values": 96,
+  "scope": "Synthetic RRC25 exact finite-series proof family, no learned model training. Sources are 12 unique public inputs each paired with 4 hidden counterfactual targets; outcomes are algebraically preregistered and correlated, not independent evidence. Authentic modular commitments explicitly depend on target and presuppose a trusted target publisher. Two finite moduli have deliberate collisions and are not cryptographically binding. Forgeries invalidate assumed authenticity. Both moduli and target output SHA are source-locked and independently checked after all policy decisions."
+}
