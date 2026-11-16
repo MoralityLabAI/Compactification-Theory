@@ -10,7 +10,7 @@
     "unsupported": 0,
     "rejected": 0
   },
-  "formal_theorems": 14,
+  "formal_theorems": 210,
   "spatial_test_suites": 6,
   "spatial_assertions": 8299,
   "previous_component_assertions": 83362,
@@ -20,7 +20,7 @@
     "4.32.0-rc1",
     "preserved 4.35.0"
   ],
-  "full_theorem_scope": "Paper proof and explicit ReLU compiler; full analytic theorem not Lean formalized",
+  "full_theorem_scope": "Common transport gate bound, exact/robust decoded spatial capture, genuine scalar Taylor/Hoelder remainders and coefficient-error approximation bounds proved. Fixed-domain/multivariate jet synthesis, geometric schedule and dense arithmetic/resource compiler remain open.",
   "spatial_source_sha256": "bc006e0ec2a227eac72657367b5211a7b71c1adfb74a87cc66336e9ded8ad910",
   "spatial_tests_sha256": "e14bb4cd2296a445582453c0a7e41d957b5594b5b66214f63bb1dc1730943ba8",
   "materialized_circuit_certificate": {
@@ -79,7 +79,236 @@
         "-v"
       ],
       "exit_code": 0
+    },
+    {
+      "name": "new_spatial_acceptance",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_spatial432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "spatial_acceptance_tamper_controls",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\test_spatial_acceptance.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "retained_hodge_acceptance",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_hodge432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "retained_14_lemma_acceptance",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_research_lemmas432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "decoder_acceptance",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_decoder432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "decoder_acceptance_controls",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\test_decoder_acceptance.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "retained_spatial_acceptance",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_spatial432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "decoder_trace_fixture",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\Compactification-Theory\\research\\quantization\\decoder_trace_fixture.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "transport_acceptance",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_transport432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "transport_acceptance_controls",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\test_transport_acceptance.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "retained_decoder_acceptance",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_decoder432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "transport_capture_controls",
+      "command": [
+        "C:\\Python312\\python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\Compactification-Theory\\research\\quantization\\transport_capture_controls.py"
+      ],
+      "exit_code": 0
     }
   ],
-  "shell_syntax_checks": 15
+  "shell_syntax_checks": 15,
+  "new_spatial_formalization": {
+    "theorems": 42,
+    "native_432": "accepted",
+    "leanchecker_432": "accepted",
+    "preserved_435": "all four modules compiled and leanchecker accepted; original binary hashes unchanged",
+    "oxilean_verdicts": {
+      "verified": 3091,
+      "unsupported": 0,
+      "rejected": 0
+    },
+    "constants_compared": 3408,
+    "export_sha256": "40a100d7032d992d85b15ef7c393ecf6a4492be444fefe3d7d39f047b2614e2b",
+    "tamper_controls": 8,
+    "source_sha256": {
+      "MathCan/SpatialScalar.lean": "c393225ad311b5a2401aea3e6fc1f0f45071158e85325cfe87b09206f369b2c4",
+      "MathCan/SpatialRouting.lean": "1aee535fc734e4305a9bf7e71a0818665b4c9539465abd54a59547506b0070ff",
+      "MathCan/SpatialNormalized.lean": "ce464be236ccd25cc221350d5462a306a1b81093f6e52a5873b70faa423e4c48",
+      "MathCan/SpatialClipped.lean": "ef4bbccfab3546837f1871c6cd85cce8aaecbafa83315068215e6d80dc9e0c45"
+    }
+  },
+  "decoder_continuation": {
+    "date": "2026-11-16",
+    "new_theorems": 39,
+    "native_versions": [
+      "4.32.0-rc1",
+      "preserved 4.35.0"
+    ],
+    "native_and_leanchecker": "accepted in both environments",
+    "verdicts": {
+      "verified": 3243,
+      "unsupported": 0,
+      "rejected": 0
+    },
+    "constants_compared": 3560,
+    "export_sha256": "3c3db534bde131f43b75903408cd66a8a4cddd94fa78d789bac4fb351843519b",
+    "source_sha256": {
+      "MathCan/SentinelDecoder.lean": "bc512b338fdb13f91ae93f0c219bfbd97e999bd214b60735152c5f73aa7c2709",
+      "MathCan/DecodedJetCapture.lean": "e2b42822992e0ac05068d15b76d23054ded53603cf4545e9290a29933f283afa"
+    },
+    "acceptance_tamper_controls": 8,
+    "trace_fixtures": {
+      "status": "passed",
+      "positive_examples": 144,
+      "negative_controls": 1,
+      "decoded_steps": 1896,
+      "maximum_payload_length": 64,
+      "split_counts": {
+        "calibration_fixture": 24,
+        "heldout_length_fixture": 36,
+        "train_fixture": 84
+      },
+      "circuit_evaluators": "Fraction register and signed-pair ReLU evaluators agree at every step",
+      "fixture_sha256": "8a03b79225e2fde023320ee9a0ed4704674f54bf47c40a918d001add97e5a1e3",
+      "uncompressed_jsonl_sha256": "7480cfe954c034eaffeb1b8cf41d3418996c23bad75be8ee1495ca2a0ea68e5a",
+      "source_sha256": "8448bc8385bc7f44ac7f59a4fe92c9fcf7e46fe815ca26a3c02a3e8f3f04552a",
+      "scope": "Proof-linked exact reference fixtures only; no transformer training or causal mechanism result."
+    }
+  },
+  "hamming_taylor_continuation": {
+    "date": "2026-11-16",
+    "new_theorems": 63,
+    "native_versions": [
+      "4.32.0-rc1",
+      "preserved 4.35.0"
+    ],
+    "native_and_leanchecker": "accepted in both environments",
+    "verdicts": {
+      "verified": 3580,
+      "unsupported": 0,
+      "rejected": 0
+    },
+    "constants_compared": 3901,
+    "export_sha256": "9c4f4270978238015613cdde938247549c35bbb4099c2be0b319e6fde85fed15",
+    "source_sha256": {
+      "MathCan/HammingSelector.lean": "26fbbba457af8e63e75334f25d58cfb9a3ad18496f74e0f258aa3bb67b928e75",
+      "MathCan/TaylorPolynomial.lean": "b1f2b8b81124c49c8a38485e0f27fbecdedfe0a590f84acb94957ddd8aaea819",
+      "MathCan/TaylorTransport.lean": "c4a663547d3746d75b112be9cd9d0cde9c88330af74c0043de03a4a1b1a85e35",
+      "MathCan/TaylorFrame.lean": "92e4f7916b380e6402c104a6767f3a7234bc1ef089e2873f720dd15d6f7ad2ba",
+      "MathCan/ConcreteJetCapture.lean": "8cc906f7b4177ed060012f11fe9dfe825863bcbd3f90dd7b8e98688da7bdd196"
+    },
+    "acceptance_tamper_controls": 8,
+    "finite_implementation_controls": {
+      "status": "passed",
+      "assertions": {
+        "polynomial_substitution": 168,
+        "integral_transport_entries": 168,
+        "signed_pair_compiler_agrees": 48,
+        "concrete_gate_row_bound": 372,
+        "frame_transport_and_correction": 48,
+        "hamming_one_hot": 48,
+        "sentinel_suffix_exact": 48,
+        "rank_coordinate_convention": 64,
+        "concrete_spatial_capture": 64
+      },
+      "total_assertions": 1028,
+      "streams": 16,
+      "decoded_frames": 48,
+      "maximum_test_gate_weight": "34",
+      "source_sha256": "e9d28b3ccbb28f0a04f676f1450c4a3208c8f75db7fc9cf09c39c9cafc439e30",
+      "scope": "Exact finite implementation controls; general Lean proofs remain the mathematical evidence. No analytic remainder or dense-resource theorem asserted."
+    }
+  },
+  "native_coverage": {
+    "4.32.0-rc1": "all 210 research roots",
+    "preserved 4.35.0": "181 core roots, including the two new common-bound modules; excludes the isolated Mathlib analysis"
+  },
+  "common_taylor_continuation": {
+    "status": "passed",
+    "new_authored_roots": 40,
+    "attributed_upstream_roots": 12,
+    "common_verdicts": {
+      "verified": 3537,
+      "unsupported": 0,
+      "rejected": 0
+    },
+    "analytic_verdicts": {
+      "verified": 22410,
+      "unsupported": 0,
+      "rejected": 0
+    },
+    "common_export_sha256": "afd5dee654f3a6dbd99050f6ce3efbd2f247a2f9189872834c4dc0c19257365b",
+    "analytic_export_sha256": "e6023490bcaffb9112c4ebb6d258c678107eb6c8b1d1686f933103787850041e",
+    "acceptance_tamper_controls": {
+      "common": 8,
+      "analytic": 10
+    },
+    "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+    "analytic_native_version": "4.32.0-rc1",
+    "format_review": {
+      "git_diff_check": "whitespace findings",
+      "disposition": "Retained frozen proof/evidence bytes; no mathematical or acceptance check failure."
+    }
+  }
 }

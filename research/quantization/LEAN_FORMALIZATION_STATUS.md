@@ -1,3 +1,8 @@
+Taylor-analysis continuation (2026-11-16): 40 authored roots and 12 attributed
+upstream roots now establish common gates, genuine scalar Taylor remainders,
+and decoded capture approximation bounds. All 210 research roots have replay
+evidence. Read COMMON_TAYLOR_FORMALIZATION_REPORT.md for exact scope and open work.
+
 Common gate continuation (2026-11-16): 23 new replayed roots establish the
 uniform 2^(k+1)*D^k transport bound and its exact/robust decoded spatial capture.
 Read COMMON_GATE_BOUND_REPORT.md. This checkpoint has 181 research roots.
