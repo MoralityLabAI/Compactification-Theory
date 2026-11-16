@@ -220,6 +220,17 @@ def main():
         full = args.full.read_bytes()
     else:
         p.error("supply --archive or both --fixture and --full")
+    if args.archive:
+        receipt_path = HERE / "results" / "nor23_first_frozen_receipt.json"
+        assert receipt_path.exists(), "original archive requires frozen receipt"
+        receipt = json.loads(receipt_path.read_text())
+        assert receipt["schema"] == "nor23.first_original_frozen_4096_coordinate_audits.v1"
+        assert receipt["registration_commit"] == (
+            "ed760cf15499bba38626f4f205c6f3b37feae49f")
+        assert len(fixture) == receipt["fixture_bytes"]
+        assert len(full) == receipt["full_result_bytes"]
+        assert sha256(fixture).hexdigest() == receipt["fixture_sha256"]
+        assert sha256(full).hexdigest() == receipt["full_result_sha256"]
     out = verify(fixture, full)
     print("NOR23 INDEPENDENT FIRST-SOURCE REPLAY", out)
     if args.check:
