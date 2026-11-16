@@ -1,0 +1,57 @@
+name: NOR-18R one-shot archive original hosted fixture and timing receipt
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor18r-one-shot-original-archive.yml'
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  preserve-original-benchmark-bytes:
+    if: github.ref == 'refs/heads/research/nor18r-cpu-bigint-memory-20261116'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor18r-original-public-only-64-case-fixture-and-timing-results
+          run-id: 43797844269
+          github-token: ${{ github.token }}
+          path: /tmp/nor18r-original
+      - name: Check immutable original public-only fixture and measured benchmark bytes
+        run: |
+          set -euo pipefail
+          test -f /tmp/nor18r-original/nor18r_public_fixture.json
+          test -f /tmp/nor18r-original/nor18r_full.json
+          echo "5d75f2971d8b94daa9b65caae68e65921f2a90cd267481c7bb80a881e937d186  /tmp/nor18r-original/nor18r_public_fixture.json" | sha256sum -c
+          echo "59d48c8c9fe1bdf80ee2662d0c18f069f8414a92d48ad7980e3bb19b2a10ad98  /tmp/nor18r-original/nor18r_full.json" | sha256sum -c
+          test "$(wc -c < /tmp/nor18r-original/nor18r_public_fixture.json)" -eq 1306733
+          test "$(wc -c < /tmp/nor18r-original/nor18r_full.json)" -eq 580813
+      - name: Preserve source-locked original data as one ZIP
+        run: |
+          set -euo pipefail
+          mkdir -p research/nor18r_runtime/results
+          zip -q -X -j research/nor18r_runtime/results/nor18r_original_hosted.zip \
+            /tmp/nor18r-original/nor18r_public_fixture.json \
+            /tmp/nor18r-original/nor18r_full.json
+          test "$(unzip -p research/nor18r_runtime/results/nor18r_original_hosted.zip nor18r_public_fixture.json | sha256sum | awk '{print $1}')" = \
+            5d75f2971d8b94daa9b65caae68e65921f2a90cd267481c7bb80a881e937d186
+          test "$(unzip -p research/nor18r_runtime/results/nor18r_original_hosted.zip nor18r_full.json | sha256sum | awk '{print $1}')" = \
+            59d48c8c9fe1bdf80ee2662d0c18f069f8414a92d48ad7980e3bb19b2a10ad98
+      - name: Commit unchanged source-hosted evidence to isolated research branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor18r_runtime/results/nor18r_original_hosted.zip
+          git diff --cached --check
+          git commit -m "NOR-18R: preserve original 64-case CPU measurements and public fixture bytes"
+          git push origin "HEAD:research/nor18r-cpu-bigint-memory-20261116"
