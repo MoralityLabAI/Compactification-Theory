@@ -49,6 +49,6 @@ The first CI job verifies source-only isolation and exhaustive finite combinator
 
 ## Scope and receipt status
 
-The NOR-25 registration and source are committed prior to the first held-out outcome. The first CI run and exact original output byte hashes belong in an appended, dated result section after completion. No numerical result is claimed in advance.
+The NOR-25 registration and source preceded all held-out outcomes. The [first prospective held-out experiment](RESULTS.md) PASSED all four registered primary gates in [GitHub Actions #43885131079](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43885131079). An independent replay reproduced 4,423,680 audited decisions. The [immutable first-run receipt](results/nor25_original_first_receipt.json) pins the original fixture and full result byte hashes. The [original_lock_audit.py](original_lock_audit.py) independently checks the exact original bytes, and can deterministically regenerate them after the Actions artifact retention period.
 
 The honest coefficient witness remains an external target-dependent oracle. The evaluation is restricted to finite synthetic algebraic programs, declared attack families, reproducible blind challenges and the stated support-shift stressor. It does not establish an unconditional full-output verifier or robustness to an attacker with schedule visibility.
