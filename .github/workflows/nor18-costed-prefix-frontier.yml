@@ -25,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Audit exact cache-work identity, native parity, sealed future and common-work cap
         run: python -m unittest research.nor18_costed_prefix.test_experiment -v
+      - name: Check original 28-arm frozen outcome receipt and full JSON SHA-256
+        run: python research/nor18_costed_prefix/receipt_audit.py --check
 
   fresh-cost-normalized-frontier:
     needs: source-safety-and-arithmetic-ledger
@@ -101,6 +103,8 @@ jobs:
           print('NOR18 PREREGISTERED PRIMARY PASSED',d['preregistered_primary_two_control_passed'])
           print('NOR18 ORIGINAL FULL JSON',len(raw),sha256(raw).hexdigest())
           PY
+      - name: Independently audit all 8064 policy decisions, proxy work, prefixes and contrasts
+        run: python research/nor18_costed_prefix/receipt_audit.py --check --full /tmp/nor18_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor18-frozen-source-288-case-common-work-depth-frontier
