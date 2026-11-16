@@ -1,0 +1,161 @@
+{
+  "schema": "nor21.frozen_first_degree_scaling_and_outside_family_receipt.v1",
+  "executed_date_utc": "2026-11-16",
+  "first_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43810513348",
+  "original_artifact_id": 14200154169,
+  "original_artifact_name": "nor21_degree512_1024_original_public_and_sealed_grades",
+  "fixture_bytes": 7248513,
+  "fixture_sha256": "c16f4b92db3f61f2753c853c01dc3d3c401c58d8e05138f0a3ca6d58e10d08c2",
+  "full_result_bytes": 197084,
+  "full_result_sha256": "c308a73f8267ff38b78dbbb9d0df909064de0608c5dbfc4ca8f6f84e0853ed29",
+  "source_seed_offset": 94210000,
+  "replicates": 2,
+  "observation_degrees": [
+    512,
+    1024
+  ],
+  "query_degrees": [
+    768,
+    1536
+  ],
+  "source_families": [
+    "wide_dense_small",
+    "wide_sparse_small",
+    "wide_rational_short"
+  ],
+  "case_kinds": [
+    "in_grammar",
+    "public_corrupt",
+    "future_shift"
+  ],
+  "case_count": 36,
+  "distinct_full_public_inputs": 36,
+  "cases_per_degree": 18,
+  "source_family_kind_combinations_per_degree": 9,
+  "warmups": 1,
+  "timed_repetitions": 3,
+  "timed_samples_per_mode": 108,
+  "total_timed_samples": 432,
+  "modes": [
+    "native16",
+    "cached16",
+    "stream16",
+    "chunk4"
+  ],
+  "source_fixture_contains_private_program": false,
+  "source_fixture_contains_true_query_output": false,
+  "primary_all_degrees_pass": true,
+  "observed_results_by_degree": {
+    "512": {
+      "cases": 18,
+      "median_complete_ms": {
+        "native16": 136.304738,
+        "cached16": 56.0536795,
+        "stream16": 53.543537,
+        "chunk4": 54.4928675
+      },
+      "median_complete_peak_KiB": {
+        "native16": 554.427734375,
+        "cached16": 1014.57421875,
+        "stream16": 535.3515625,
+        "chunk4": 601.23828125
+      },
+      "median_verifier_only_peak_KiB": {
+        "native16": 87.99609375,
+        "cached16": 580.97265625,
+        "stream16": 38.93359375,
+        "chunk4": 128.84765625
+      },
+      "median_paired_cpu_native_over_stream": 2.3623504947268534,
+      "median_paired_peak_stream_over_cached": 0.5189220853470777,
+      "stream_memory_lower_cases": 18,
+      "max_public_source_bits": 508,
+      "max_reciprocal_inverse_output_bits": 941,
+      "cpu_replicate_block_95": [
+        2.2909401184853584,
+        2.4344198198129883
+      ],
+      "memory_replicate_block_95": [
+        0.518353777520811,
+        0.5194903931733446
+      ],
+      "grade_by_kind": {
+        "in_grammar": {
+          "cases": 6,
+          "certified": 6,
+          "future_correct": 6,
+          "false_accept": 0
+        },
+        "public_corrupt": {
+          "cases": 6,
+          "certified": 0,
+          "future_correct": 0,
+          "false_accept": 0
+        },
+        "future_shift": {
+          "cases": 6,
+          "certified": 6,
+          "future_correct": 0,
+          "out_of_family_false_accept": 6
+        }
+      },
+      "primary_degree_pass": true
+    },
+    "1024": {
+      "cases": 18,
+      "median_complete_ms": {
+        "native16": 652.734059,
+        "cached16": 253.386937,
+        "stream16": 244.896954,
+        "chunk4": 245.803866
+      },
+      "median_complete_peak_KiB": {
+        "native16": 1701.5625,
+        "cached16": 2817.333984375,
+        "stream16": 1679.0234375,
+        "chunk4": 1857.76953125
+      },
+      "median_verifier_only_peak_KiB": {
+        "native16": 261.759765625,
+        "cached16": 1491.416015625,
+        "stream16": 119.646484375,
+        "chunk4": 409.052734375
+      },
+      "median_paired_cpu_native_over_stream": 2.4205598580230694,
+      "median_paired_peak_stream_over_cached": 0.4955825691544201,
+      "stream_memory_lower_cases": 18,
+      "max_public_source_bits": 1025,
+      "max_reciprocal_inverse_output_bits": 1760,
+      "cpu_replicate_block_95": [
+        2.3212502824345855,
+        2.499114185985426
+      ],
+      "memory_replicate_block_95": [
+        0.49358688250676647,
+        0.5372294031764089
+      ],
+      "grade_by_kind": {
+        "in_grammar": {
+          "cases": 6,
+          "certified": 6,
+          "future_correct": 6,
+          "false_accept": 0
+        },
+        "public_corrupt": {
+          "cases": 6,
+          "certified": 0,
+          "future_correct": 0,
+          "false_accept": 0
+        },
+        "future_shift": {
+          "cases": 6,
+          "certified": 6,
+          "future_correct": 0,
+          "out_of_family_false_accept": 6
+        }
+      },
+      "primary_degree_pass": true
+    }
+  },
+  "scope": "Exact Python coefficient-scaled public RRC25 interpreters and first hosted Ubuntu 24.04 CPU run; same registered source/target seed grid for all algorithms; two 9-case source replicates per degree; block percentile intervals conditional on two replicates only. Public-corrupt cases have no accepted program and safely abstain. Future-target overrides preserve publicly unique compatible programs but invalidate the true family-membership premise; false accepted futures demonstrate observational impossibility outside family. CPU and tracemalloc are measured outcomes; no low-level bigint or general theorem-proving guarantee."
+}
