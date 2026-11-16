@@ -45,3 +45,57 @@ python research/nor18r_runtime/benchmark.py --check \
 \`\`\`
 
 The hosted workflow separately verifies the source manifest, original public-mask parity, all 64×4×7 timing samples, memory ledgers and test-source integrity. Full original benchmark evidence is frozen by SHA-256 after the first successful run. Unexpected errors, parity failures or insufficient measurements block merge.
+
+
+## First executed CPU result (original source locked)
+
+[Original green hosted CPU and memory benchmark](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43797844269), artifact ID 14195445905, completed on 16 November 2026. Its public-only 64-source fixture and complete 7×4×64 timing records are **preserved byte-for-byte** in [results/nor18r_original_hosted.zip](results/nor18r_original_hosted.zip) and fingerprinted in [results/nor18r_first_frozen_receipt.json](results/nor18r_first_frozen_receipt.json).
+
+The original JSON fingerprints are:
+
+- Public-only NOR-18 source fixture: 1,306,733 bytes, SHA-256 \`5d75f2971d8b94daa9b65caae68e65921f2a90cd267481c7bb80a881e937d186\`.
+- Complete first measured CPU benchmark: 580,813 bytes, SHA-256 \`59d48c8c9fe1bdf80ee2662d0c18f069f8414a92d48ad7980e3bb19b2a10ad98\`.
+- Original NOR-18 288-case source record: SHA-256 \`9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b\`.
+
+The [independent archived-receipt auditor](receipt_audit.py) regenerates exact acceptance masks and candidate query predictions from the fixture's public data using the original corpus interpreter, checks 1,792 original nanosecond timing samples, all 256 separately measured peak allocation records, per-case inverse-operand bit sizes, and the deterministic 4,096-draw cohort-block bootstrap. It imports no benchmarking implementation. The separate native-parity test verifies the four original public algorithms and future-label isolation, while the full hosted benchmark is reproducible without changing frozen source selection.
+
+### Hosted platform and CPU measurements
+
+Measured on GitHub Actions Linux \`7.0.0-1019-azure\`, x86-64, CPython 3.12.16 compiled with GCC 15.2.0, reporting four logical CPUs. Garbage collection was collected immediately before each timed run and disabled during the measured segment. Each case/mode was warmed twice, timed seven times, and mode order was deterministically shuffled. Source generation and JSON loading were excluded from timings.
+
+| Public checker, including identical public query simulations | Median per-case complete CPU time | Median public-verification time | Median separately traced peak temporary allocation |
+| --- | ---: | ---: | ---: |
+| Native 16 independent checks | 23.913 ms | 21.291 ms | 74.1 KiB |
+| **Four-unary cached sixteen-candidate batch** | **4.327 ms** | **2.266 ms** | 128.2 KiB |
+| Degree-160 prefix cache + independent survivor checks | 12.331 ms | 9.706 ms | 112.8 KiB |
+| Degree-176 prefix cache + independent survivor checks | 8.836 ms | 5.744 ms | 120.6 KiB |
+
+The **median of the 64 paired complete-time speed ratios** was **4.32878×**, with cached full-batch execution faster in **64/64** cases. The preregistered speed criterion (median paired speedup at least 1.5× and cached faster on at least 48 of 64 public inputs) **passed**. The four-cohort block-bootstrap 95% interval was **4.280× to 4.396×**. This interval resamples the same four fixed generator cohorts and is conditional on this first hosted execution. It is not a cross-machine confidence interval or an independent-replication result.
+
+Per-family median paired speedups were 4.396× for late_source (32 cases), 4.323× for signed (16) and 4.204× for rational (16). Every mode exactly reproduced every publicly accepted template and every logical output-unanimity certificate on all sixty-four benchmark sources.
+
+### Exact integer operand workload and memory qualification
+
+The independent RRC25 reciprocal algorithm executes a quadratic number of Python bigint products per inversion. The observed multiplication counts and operand-bitwidth products, including the once-per-mode public query simulation, were:
+
+| Method | Observed R integer products across 64 cases | Sum of positive operand bitwidth products |
+| --- | ---: | ---: |
+| Native sixteen checks | 31,750,144 | 845,306,615 |
+| Cached sixteen-candidate batch | **4,476,928** | **163,683,594** |
+| Prefix160 plus native survivors | 18,724,608 | 227,918,645 |
+| Prefix176 plus native survivors | 16,549,888 | 215,773,495 |
+
+The second column is an **observed operand-size proxy**, computed from the exact integers passed into the original reciprocal recurrence. It measures multiplication count and operand bit widths, not the actual dynamic native integer multiplication instruction count or wall-clock cost of each operation. The call-multiplicity identity is kernel-proved in [MathCan NOR-18R PR #98](https://github.com/patrickdugan/MathCan/pull/98): eight native R inversions per public demonstration from U/V, plus sixteen more when the fixed base is R, versus one cached R inversion.
+
+Caching uses **more temporary Python allocation** in these source-locked tests, with median independently measured \`tracemalloc\` peaks of 128.2 KiB versus 74.1 KiB for the native repeated checker. Isolated-worker maximum RSS was 29,364 KiB for every mode, with no measurable rise over that worker's fixture-loaded baseline. That process-level peak does not resolve the temporary Python allocation difference; it also excludes the cost of loading source files on a fresh machine.
+
+NOR-18's arithmetic proxy predicted a cached-work benefit. NOR-18R establishes that the specifically tested CPython implementation also runs faster on this original held-out source subset, while revealing an allocation tradeoff. Generalization to a fresh source generator, other Python versions, different CPU microarchitectures, GPU implementations or production proof tasks remains to be tested.
+
+### Independently reproduce the frozen evidence
+
+\`\`\`sh
+python research/nor18r_runtime/receipt_audit.py --check \
+  --archive research/nor18r_runtime/results/nor18r_original_hosted.zip
+\`\`\`
+
+The complete archived fixture deliberately excludes all withheld query-output labels and planted program identities. It is suitable for independent public-only verifier microbenchmarks without unsealing NOR-18's future truth.
