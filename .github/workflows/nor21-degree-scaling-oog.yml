@@ -79,7 +79,7 @@ jobs:
   grade-after-frozen-cpu-and-memory:
     needs: preregistered-source-fixture
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 60
     env:
       PYTHONHASHSEED: '0'
       OMP_NUM_THREADS: '1'
