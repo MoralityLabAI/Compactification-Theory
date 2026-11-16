@@ -1,0 +1,26 @@
+{
+  "identity": {
+    "source_hash": "feb8d1a1cb2aff9903bd6a233cccdec70e2d6fa5f8fdbf6115ca03b7933ce818",
+    "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "backend": "transformers/bitsandbytes NF4 double-quant FP16 compute",
+    "use_cache": false,
+    "dtype": "float16",
+    "boundary": "one_based_decoder_block_output_last_input_token"
+  },
+  "shape": [
+    288,
+    3,
+    1024
+  ],
+  "dtype": "float16",
+  "selected_token_position": -1,
+  "layers_one_based": [
+    6,
+    12,
+    18
+  ],
+  "dataset_sha256": "dff06fc331a04dfd2c040d68d501e032819036452961a705b283f028261abf02",
+  "activations_sha256": "834fb38214d8de911075d1584be68b577322ec1fd4ba2a8bf8239b7760a1b4d8",
+  "margins_sha256": "842019e5eaf35c15acb8cc9858db447be47d509f0f45aa4cd624292bd5ecb738",
+  "complete": true
+}
