@@ -42,9 +42,11 @@ def new_rosters(original,limit=64):
         raise ValueError('only four-puzzle smoke or sixty-four-puzzle full')
     # Exhaust prior test rosters at full 64 samples, including pilots.
     prior16,_=smc16_rosters(original,limit=64)
+    from smc15_active_necessity import fresh_rosters as smc15_rosters
+    prior15,_=smc15_rosters(original,limit=64)
     seen_x=set()
     seen_y=set()
-    for roster in list(original.values())+list(prior16.values()):
+    for roster in list(original.values())+list(prior15.values())+list(prior16.values()):
         for row in roster:
             x,y=tuple(row['x']),tuple(row['target'])
             if x in seen_x or y in seen_y:
