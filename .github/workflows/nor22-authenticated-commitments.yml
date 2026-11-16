@@ -102,6 +102,11 @@ jobs:
           print('NOR22 ORIGINAL COMPLETE SOURCE-WORLD RESULT',
                 len(raw),sha256(raw).hexdigest())
           PY
+      - name: Independently regenerate planted source programs, target commitments and all 192 frozen world-policy outcomes
+        run: |
+          python research/nor22_authenticated_commitment/receipt_audit.py --check \
+            --fixture /tmp/nor22_fixture.json \
+            --full /tmp/nor22_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor22-authenticated-target-commitment-public-fixture-and-48-world-outcomes
