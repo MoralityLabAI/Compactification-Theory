@@ -1,3 +1,7 @@
+Common gate continuation (2026-11-16): 23 new replayed roots establish the
+uniform 2^(k+1)*D^k transport bound and its exact/robust decoded spatial capture.
+Read COMMON_GATE_BOUND_REPORT.md. This checkpoint has 181 research roots.
+
 # Lean spatial formalization status
 
 Hamming/Taylor continuation (2026-11-16): 63 additional proved and replayed
