@@ -25,6 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Verify prefix/full interpreter parity, proof soundness and private-future isolation
         run: python -m unittest research.nor17_prefix_certificates.test_experiment -v
+      - name: Verify source-locked first experiment receipt and accepted-model scope
+        run: python research/nor17_prefix_certificates/receipt_audit.py --check
 
   four-fresh-budgeted-verifier-cohorts:
     needs: exact-prefix-and-future-isolation
@@ -109,6 +111,8 @@ jobs:
           print('NOR17 PREFIX 4 REGISTERED CAPABILITY PASS',d['prefix_rank4_passed_two_control_criterion'])
           print('NOR17 FULL SOURCE SHA256',len(raw),hashlib.sha256(raw).hexdigest())
           PY
+      - name: Independently reconstruct all 3168 decisions, prefix soundness and 7 exact paired contrasts
+        run: python research/nor17_prefix_certificates/receipt_audit.py --check --full /tmp/nor17_full.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor17-288-case-source-locked-prefix-certificates-and-all-budgets
