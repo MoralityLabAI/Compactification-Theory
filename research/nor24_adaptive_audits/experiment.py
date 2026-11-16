@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+from itertools import islice
 from hashlib import sha256
 import json
 from math import comb
@@ -342,10 +343,10 @@ def exact_witness_accepts(proposed, true, checked, attacked, delta):
 
 def informed_attack(checked, support, radius):
     used = set(checked)
-    unseen = [i for i in sorted(support) if i not in used][:radius]
-    if len(unseen) != radius:
+    unseen = support.difference(used)
+    if len(unseen) < radius:
         raise ValueError("informed attack needs uninspected support")
-    return frozenset(unseen)
+    return frozenset(islice(iter(unseen), radius))
 
 
 def private_truth_only_after_proposal(row, predicted):
