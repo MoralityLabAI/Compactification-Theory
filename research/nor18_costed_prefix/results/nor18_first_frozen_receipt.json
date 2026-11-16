@@ -1,0 +1,164 @@
+{
+  "schema": "nor18.frozen_coefficient_work_depth_frontier_first_hosted_receipt.v1",
+  "executed_utc_date": "2026-11-16",
+  "original_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43790898276",
+  "original_artifact_id": 14192526748,
+  "original_artifact_name": "nor18-frozen-source-288-case-common-work-depth-frontier",
+  "original_full_json_uncompressed_bytes": 12896423,
+  "original_full_json_sha256": "9905aa23466b98ba2068e6daf9206d35c453b8b3b75bd27c3ab7ff8f0db4041b",
+  "frozen_gru_checkpoint_sha256": "54f225f2a61c52fee5a740576eaab3bcbc5280a595fc1ac1ac115ec8ac26c41b",
+  "frozen_original_train_manifest": "8383cd3df9fe582497f1e1df84ba5a2d1d48a190a3f4a321f8fa9f35b040071c",
+  "frozen_original_dev_manifest": "c236311a67369f453ee68c7d3d40acecb62e1c1a9c86867001410a71645d5af2",
+  "new_seed_offset": 93518000,
+  "new_cohort_public_manifests": [
+    "dfdb376913549a3f80854b195995225da8a5059de068d1e79abe4576b22c6cdd",
+    "41b1abf8e696657cf7181ca77158d7fc0fe180f6b6795ab957dcc76ef5018774",
+    "2597cd93d525ed570ff892bd800838c4761d81b57ddc259062afe0d5cd4cfe90",
+    "1214a8097a947571ce1fef042a91ef1586a760d350489e12de12943b4016960c"
+  ],
+  "source_cases_total": 288,
+  "primary_late_source_cases": 192,
+  "primary_original_gru_visible_hash_groups": 1,
+  "nonlate_model_visible_unique_inputs": 96,
+  "prefix_degrees": [
+    112,
+    128,
+    144,
+    160,
+    176
+  ],
+  "batched_full_degree": 192,
+  "work_multipliers": [
+    4,
+    8,
+    16
+  ],
+  "policy_arms": 28,
+  "work_model": "nor18.coefficient_operation_proxy.v1",
+  "primary_full_future_output_certifiable": 48,
+  "primary_late_source_certificates": {
+    "batch192_16": 48,
+    "batch192_4": 12,
+    "batch192_8": 48,
+    "d112_16": 0,
+    "d112_4": 0,
+    "d112_8": 0,
+    "d128_16": 0,
+    "d128_4": 0,
+    "d128_8": 0,
+    "d144_16": 0,
+    "d144_4": 0,
+    "d144_8": 0,
+    "d160_16": 38,
+    "d160_4": 0,
+    "d160_8": 28,
+    "d160_hash_4": 0,
+    "d160_original_4": 0,
+    "d176_16": 48,
+    "d176_4": 8,
+    "d176_8": 40,
+    "d176_hash_4": 8,
+    "d176_original_4": 8,
+    "greedy_16": 0,
+    "greedy_4": 0,
+    "greedy_8": 0,
+    "none_16": 0,
+    "none_4": 0,
+    "none_8": 0
+  },
+  "primary_late_source_work_proxy": {
+    "batch192_4": 4631692,
+    "batch192_8": 20115648,
+    "batch192_16": 20115648,
+    "d160_4": 8551124,
+    "d160_8": 29850402,
+    "d160_16": 37830336,
+    "d176_4": 8319374,
+    "d176_8": 28110290,
+    "d176_16": 32230556,
+    "none_4": 16685188,
+    "none_8": 25502246,
+    "none_16": 40080784,
+    "greedy_4": 7800768,
+    "greedy_8": 13179728,
+    "greedy_16": 17268910
+  },
+  "primary_late_source_work_caps": {
+    "4": 22411936,
+    "8": 44823872,
+    "16": 89647744
+  },
+  "primary_setup_feasible_counts": {
+    "d112_4": 192,
+    "d128_4": 192,
+    "d144_4": 173,
+    "d160_4": 44,
+    "d176_4": 44,
+    "batch192_4": 44,
+    "d160_8": 192,
+    "d176_8": 192,
+    "batch192_8": 192
+  },
+  "preregistered_primary_passed": true,
+  "primary_pair_gains_losses_p": {
+    "d176_4_vs_d160_4": [
+      8,
+      0,
+      0.0078125
+    ],
+    "d176_4_vs_none_4": [
+      8,
+      0,
+      0.0078125
+    ],
+    "d160_4_vs_none_4": [
+      0,
+      0,
+      1
+    ],
+    "batch192_4_vs_d176_4": [
+      4,
+      0,
+      0.125
+    ],
+    "batch192_8_vs_none_8": [
+      48,
+      0,
+      7.105427357601002e-15
+    ],
+    "d160_4_vs_d160_original_4": [
+      0,
+      0,
+      1
+    ],
+    "d176_4_vs_d176_hash_4": [
+      0,
+      0,
+      1
+    ]
+  },
+  "primary_four_cohort_certificates": {
+    "d176_4": [
+      1,
+      3,
+      1,
+      3
+    ],
+    "batch192_4": [
+      2,
+      3,
+      2,
+      5
+    ],
+    "batch192_8": [
+      13,
+      10,
+      14,
+      11
+    ]
+  },
+  "arm_certified_false_accepts": 0,
+  "negative_ranking_control_d176_4_certificates": 8,
+  "source_conditional_scope": "Exact coefficient-operation proxy (R quadratic, other unary linear), excludes Python runtime, memory, bigint bit lengths. Baseline header discovery and GRU inference omitted equally. Outputs conditional on planted program in finite 16-template source family.",
+  "research_conclusion": "Cost-normalized 176-depth improves over 160/none at 4-unit cap by 8 exact certified examples, p=.0078125 each. Batched complete public screen reaches full 48-case certifiable ceiling at 8 units with lower cumulative proxy work than depth176/8."
+}
