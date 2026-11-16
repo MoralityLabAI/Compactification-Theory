@@ -8,6 +8,17 @@ def main():
     original=preflight.RESULTS
     replay=original/"replay"
     replay.mkdir(exist_ok=True)
+    from core import fingerprint
+    existing=replay/"activation_replay.json"
+    data_hashes={n:preflight.sha(original/n) for n in ("activations.npy","margins.npy")}
+    script_sha=preflight.sha(preflight.ROOT/"check_activation_replay.py")
+    if existing.exists():
+        cached=json.loads(existing.read_text())
+        if (cached.get("source_hash")==fingerprint(preflight.ROOT)[0]
+                and cached.get("script_sha256")==script_sha and cached.get("data_hashes")==data_hashes
+                and cached["status"]=="passed"):
+            print("Reused matching successful zero-hook control receipts")
+            return
     # Keep the campaign's hardware/memory/cache receipts intact.
     preflight.RESULTS=replay
     from smoke import torch,load
@@ -36,7 +47,7 @@ def main():
     runtime.close()
     result=dict(status="passed" if all(x["passed"] for x in output) else "failed",states=output,
                 hidden_absolute_tolerance=0.002,margin_absolute_tolerance=0.03125,
-                source_hash=runtime.source_hash,script_sha256=preflight.sha(preflight.ROOT/"check_activation_replay.py"),
+                source_hash=runtime.source_hash,script_sha256=script_sha,data_hashes=data_hashes,
                 condition="new_zero_hook_identity_control; different setting from extraction",
                 successful_forward_passes=runtime.successes)
     result["trainable_parameter_tensors"]=trainable
