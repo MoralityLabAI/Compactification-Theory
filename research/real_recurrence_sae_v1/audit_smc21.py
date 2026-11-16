@@ -127,10 +127,16 @@ def audit_calibration(cal,frozen,old_dir):
                      original['target_other_active_ids'][slot]) or
                     mapping[m['source_feature']]!=m['target_feature']):
                     raise ValueError('calibration old/new feature identities changed')
+                # Historical SMC19 clean SAE coefficients were evaluated in
+                # source FP32. Reconstructing those same states on separate
+                # hosts changes last-bit FP32 arithmetic. Restrict a 1e-5
+                # tolerance to comparisons with that historical receipt;
+                # all *new* physical gradient/edit/residual checks below keep
+                # their original tighter 2e-7 numerical requirement.
                 if (not close(m['target_clean_coefficient'],
-                              original['target_match_clean_coefficients'][slot]) or
+                              original['target_match_clean_coefficients'][slot],1e-5) or
                     not close(m['other_clean_coefficient'],
-                              original['target_other_active_coefficients'][slot])):
+                              original['target_other_active_coefficients'][slot],1e-5)):
                     raise ValueError('SMC19 calibration receiving coefficients changed')
                 check_native(m['source_delta_48'],m['target_delta_48'],
                              m['other_delta_48'],
@@ -142,7 +148,7 @@ def audit_calibration(cal,frozen,old_dir):
                 g=m['physical_gradient_48']
                 if len(g)!=48 or any(not math.isfinite(x) for x in g):
                     raise ValueError('clean task-margin gradient missing')
-                if not all(close(m[key],original[prior_key][slot])
+                if not all(close(m[key],original[prior_key][slot],1e-5)
                            for key,prior_key in (('source_native_drop','source_drop'),
                                                  ('target_native_drop','matched_drop'),
                                                  ('other_native_drop','other_active_drop'))):
