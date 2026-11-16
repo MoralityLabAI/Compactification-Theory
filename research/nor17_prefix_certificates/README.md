@@ -75,7 +75,7 @@ The first frozen experiment finished on 16 November 2026. [Original green Action
 
     827b9aab53674567d7aa77c655e33c8800ba9a7372a0f3bdc889cdbf4d9c6b7b
 
-and is pinned in [results/nor17_first_frozen_receipt.json](results/nor17_first_frozen_receipt.json). The independent [receipt_audit.py](receipt_audit.py) reconstructs the arithmetic of 3,168 case-arm decisions, 4,608 public candidate-output digests, exact sound prefix/full acceptance-mask inclusion, all costs and seven paired contrasts.
+and is preserved directly in Git as [results/nor17_full.zip](results/nor17_full.zip), with [results/nor17_first_frozen_receipt.json](results/nor17_first_frozen_receipt.json) pinning its provenance. The ZIP is approximately 303 KB and the original uncompressed byte stream is independently SHA-256 checked in permanent CI. The independent [receipt_audit.py](receipt_audit.py) reconstructs the arithmetic of 3,168 case-arm decisions, 4,608 public candidate-output digests, exact sound prefix/full acceptance-mask inclusion, all costs and seven paired contrasts.
 
 ### Primary: 192 independently generated complete-public late_source cases
 
