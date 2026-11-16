@@ -1,0 +1,106 @@
+name: NOR-24 one-shot SHA-pinned original first-run evidence publication
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor24-original-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive-original:
+    if: github.ref == 'refs/heads/research/nor24-trained-adaptive-audits-20261116'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor24-trained-adaptive-audits-20261116
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor24_original_24_public_sources_and_12_heldout_audits
+          run-id: 43870686549
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor24-original
+      - name: Verify exact immutable first-run source and result before archiving
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          import json
+          root=Path('/tmp/nor24-original')
+          f=(root/'nor24_fixture.json').read_bytes()
+          r=(root/'nor24_full.json').read_bytes()
+          assert len(f)==4300923
+          assert sha256(f).hexdigest()=='88285e2400566c633d211071ace59784987d6458d743db478321dc90f33ef001'
+          assert len(r)==737700
+          assert sha256(r).hexdigest()=='ed54eabd70637a42c34caf66d04bcadd50f890a1ced46cea0132f8767b476807'
+          a=json.loads(f)
+          b=json.loads(r)
+          assert a['schema']=='nor24.public_source_only_24_disjoint_train_test.v1'
+          assert b['schema']=='nor24.train_only_sequential_structured_coordinate_audit.v1'
+          assert len(a['cases'])==24 and len(b['source_records'])==12
+          assert b['registered_primary_pass']
+          assert b['primary_wins_vs_uniform']==11 and b['primary_wins_vs_shuffle']==11
+          assert abs(b['primary_weighted_mean_gain_vs_uniform']-0.28824055989583336)<1e-14
+          assert b['fixture_sha256']==sha256(f).hexdigest()
+          receipt={
+            'schema':'nor24.first_preregistered_train_only_posterior_audits.v1',
+            'date_utc':'2026-11-16',
+            'preregistered_source_commit':'780c822c34314c0dead2cd1331280ca2f8978332',
+            'first_completed_run':'https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43870686549',
+            'original_artifact_id':14227198490,
+            'original_artifact_name':'nor24_original_24_public_sources_and_12_heldout_audits',
+            'fixture_bytes':len(f),'fixture_sha256':sha256(f).hexdigest(),
+            'result_bytes':len(r),'result_sha256':sha256(r).hexdigest(),
+            'train_sources':12,'test_sources':12,'train_episodes':768,
+            'heldout_trials_per_source_policy':1024,
+            'heldout_clean_challenge_schedules_replayed':12288,
+            'heldout_world_policy_budget_decisions_replayed':2764800,
+            'primary_posterior_wins_over_uniform':11,
+            'primary_posterior_wins_over_shuffled':11,
+            'primary_mean_weighted_absolute_gain':b['primary_weighted_mean_gain_vs_uniform'],
+            'registered_primary_pass':True,
+            'independent_replay_pass':True,
+            'scope':'Known attack-support templates and assumed truthful extra target witness. Off-template counterexample and informed attacker remain blind spots.'
+          }
+          out=Path('research/nor24_adaptive_audits/results')
+          out.mkdir(parents=True,exist_ok=True)
+          z=out/'nor24_original_hosted.zip'
+          with ZipFile(z,'w',ZIP_DEFLATED,compresslevel=9) as archive:
+            for name,data in [('nor24_fixture.json',f),('nor24_full.json',r)]:
+              info=ZipInfo(name,(2026,11,16,0,0,0))
+              info.compress_type=ZIP_DEFLATED
+              archive.writestr(info,data,compress_type=ZIP_DEFLATED,compresslevel=9)
+          (out/'nor24_first_frozen_receipt.json').write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+          print('NOR24 ORIGINAL PERMANENT ZIP',len(z.read_bytes()),sha256(z.read_bytes()).hexdigest())
+          PY
+      - name: Verify the publisher archive by rerunning original independent RRC25 grader
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from research.nor24_adaptive_audits.receipt_audit import audit
+          p=Path('research/nor24_adaptive_audits/results/nor24_original_hosted.zip')
+          with ZipFile(p) as z:
+            assert sorted(z.namelist())==['nor24_fixture.json','nor24_full.json']
+            assert z.testzip() is None
+            receipt=audit(z.read('nor24_fixture.json'),z.read('nor24_full.json'))
+          assert receipt['test_clean_schedules_replayed']==12288
+          print('NOR24 PERMANENT ORIGINAL REPLAY',receipt)
+          PY
+      - name: Commit original immutable evidence and receipt to isolated research branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor24_adaptive_audits/results/nor24_original_hosted.zip \
+                  research/nor24_adaptive_audits/results/nor24_first_frozen_receipt.json
+          git commit -m "NOR-24: archive byte-identical original prospective result and independent receipt"
+          git push origin HEAD:research/nor24-trained-adaptive-audits-20261116
