@@ -1,0 +1,25 @@
+{
+  "identity": {
+    "source_hash": "feb8d1a1cb2aff9903bd6a233cccdec70e2d6fa5f8fdbf6115ca03b7933ce818",
+    "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "backend": "transformers/bitsandbytes NF4 double-quant FP16 compute",
+    "use_cache": false,
+    "dtype": "float16",
+    "boundary": "one_based_decoder_block_output_last_input_token"
+  },
+  "events": [
+    {
+      "label": "complete",
+      "allocated_bytes": 782566400,
+      "reserved_bytes": 1635778560,
+      "peak_allocated_bytes": 1522431488,
+      "device_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+      "elapsed_seconds": 17.30119464800009,
+      "successful_forward_passes": 2,
+      "cache_hits": 0,
+      "batch_wall_seconds": 17.301199282000198
+    }
+  ],
+  "allocation_ceiling_bytes": 3400000000,
+  "status": "complete"
+}

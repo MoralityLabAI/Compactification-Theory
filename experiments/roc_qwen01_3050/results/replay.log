@@ -1,0 +1,57 @@
+{"devices": [{"index": "0", "uuid": "GPU-113d2889-9c86-faac-ad21-8db35f945b89", "name": "NVIDIA GeForce RTX 3050 Laptop GPU", "memory_mib": "4096", "used_mib": "0", "driver": "610.62"}], "selected_device": {"index": "0", "uuid": "GPU-113d2889-9c86-faac-ad21-8db35f945b89", "name": "NVIDIA GeForce RTX 3050 Laptop GPU", "memory_mib": "4096", "used_mib": "0", "driver": "610.62"}, "cuda_device_name": "NVIDIA GeForce RTX 3050 Laptop GPU", "cuda_compute_capability": [8, 6], "pytorch_cuda": "12.1", "packages": {"torch": "2.5.1+cu121", "transformers": "5.3.0", "accelerate": "1.13.0", "bitsandbytes": "0.49.2", "numpy": "2.2.6", "scipy": "1.15.3", "huggingface-hub": "1.7.1", "safetensors": "0.7.0", "tokenizers": "0.22.2", "psutil": "7.2.2", "triton": "3.1.0"}, "python": "3.10.12", "platform": "Linux-6.18.58.1-microsoft-standard-WSL2-x86_64-with-glibc2.35", "host_ram_total": 16771723264, "host_ram_available": 15486582784, "allocated_ceiling_bytes": 3400000000, "allocator_cap_bytes": 3200000000, "source_commit": "83f7bb331209b178044a6131b8dcf62c1a36594b"}
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+Loading weights:   0%|          | 0/320 [00:00<?, ?it/s]Loading weights:   0%|          | 1/320 [00:04<25:22,  4.77s/it]Loading weights:   2%|▏         | 6/320 [00:08<06:44,  1.29s/it]Loading weights:  21%|██        | 66/320 [00:08<00:20, 12.20it/s]Loading weights:  42%|████▏     | 134/320 [00:08<00:06, 29.88it/s]Loading weights:  63%|██████▎   | 201/320 [00:09<00:02, 53.18it/s]Loading weights:  90%|████████▉ | 287/320 [00:09<00:00, 93.00it/s]Loading weights: 100%|██████████| 320/320 [00:09<00:00, 34.68it/s]
+{"label": "complete", "allocated_bytes": 782566400, "reserved_bytes": 1635778560, "peak_allocated_bytes": 1522431488, "device_name": "NVIDIA GeForce RTX 3050 Laptop GPU", "elapsed_seconds": 17.30119464800009, "successful_forward_passes": 2, "cache_hits": 0, "batch_wall_seconds": 17.301199282000198}
+{
+  "status": "passed",
+  "states": [
+    {
+      "state_id": "heldout_001",
+      "layers": [
+        6,
+        12,
+        18
+      ],
+      "per_layer_max_absolute_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bitwise_equal": true,
+      "margin_absolute_error": 0.0,
+      "actual_zero_hook_l2": 0.0,
+      "forward_key": "283b8f1727bfbf9940857d092d41fe0ab35e8f76c1161d9559fff3441d41700d",
+      "passed": true
+    },
+    {
+      "state_id": "heldout_000",
+      "layers": [
+        6,
+        12,
+        18
+      ],
+      "per_layer_max_absolute_error": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "bitwise_equal": true,
+      "margin_absolute_error": 0.0,
+      "actual_zero_hook_l2": 0.0,
+      "forward_key": "04c7cf32beae373a11e9407300870a329a8309e313931ef8faef0d34daf389c4",
+      "passed": true
+    }
+  ],
+  "hidden_absolute_tolerance": 0.002,
+  "margin_absolute_tolerance": 0.03125,
+  "source_hash": "feb8d1a1cb2aff9903bd6a233cccdec70e2d6fa5f8fdbf6115ca03b7933ce818",
+  "script_sha256": "722589600f73cd360c2696ae8ecc8e2339d479c28cef664e6676d970025ba72f",
+  "data_hashes": {
+    "activations.npy": "834fb38214d8de911075d1584be68b577322ec1fd4ba2a8bf8239b7760a1b4d8",
+    "margins.npy": "842019e5eaf35c15acb8cc9858db447be47d509f0f45aa4cd624292bd5ecb738"
+  },
+  "condition": "new_zero_hook_identity_control; different setting from extraction",
+  "successful_forward_passes": 2,
+  "trainable_parameter_tensors": 0,
+  "loaded_in_4bit": true
+}
