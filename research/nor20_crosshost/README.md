@@ -46,3 +46,52 @@ This is an exact synthetic-program-family verifier experiment. Python tracemallo
     python research/nor20_crosshost/benchmark.py --fixture nor20_public_fixture.json --check --out nor20_benchmark.json
 
 The workflow runs source fixture creation and hashing before any benchmark job, then freezes original CPU/memory results and audits the complete original first-run records before merge.
+
+
+## First executed cross-host outcome
+
+The first preregistered cross-host campaign passed [GitHub Actions #43807479206](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/43807479206). Its original **64-case public-only fixture**, Linux result, Windows result and cross-host comparison JSON were preserved byte-for-byte by a temporary write-capable publisher, then published in the source-controlled [nor20_original_crosshost.zip](results/nor20_original_crosshost.zip). The temporary publisher was deleted after its successful archival commit. The [frozen first-result receipt](results/nor20_first_frozen_receipt.json) contains the exact four SHA-256 hashes; the [independent auditor](receipt_audit.py) replays full native verification, all timing sample arithmetic and the reciprocal operand widths from the archive.
+
+The original public fixture is **5,416,693 bytes**, SHA-256:
+
+    de7ed801e0e8708afebdbe3699d9074375b156795b40372eb77e2a4a13218c19
+
+Identical bytes and public case masks were provided to both OS jobs. None of the fixture's 64 sources overlaps the 288-case NOR-18 original public manifest. Each of the four independent RNG cohorts contributed one case from each of the sixteen nominal bit-width × source-family combinations.
+
+### First Linux and Windows measurements
+
+| CPU public verifier statistic | Ubuntu 24.04 x86-64 | Windows Server 2025 AMD64 |
+| --- | ---: | ---: |
+| Original independent sixteen-check median complete CPU time | 29.330 ms | 22.213 ms |
+| Eager cached sixteen-check median complete CPU time | 5.778 ms | 4.625 ms |
+| **Streaming verify-first median complete CPU time** | **5.570 ms** | **4.337 ms** |
+| **Median paired native/streaming speedup** | **4.382×** | **4.331×** |
+| Eager-cached median complete peak Python allocation | 282.02 KiB | 282.01 KiB |
+| **Streaming median complete peak Python allocation** | **172.09 KiB** | **172.08 KiB** |
+| **Median of paired stream/cache peak allocation ratios** | **0.55063** | **0.55061** |
+| Number of individual source cases with lower streaming peak | 64/64 | 64/64 |
+| All exact public acceptance masks and certificates equal | 64/64 | 64/64 |
+| **Preregistered CPU and memory criterion** | **Pass** | **Pass** |
+
+The 4,096-draw four-cohort-block bootstrap percentiles for the paired allocation ratio were **[0.54192, 0.56381]** on Ubuntu and **[0.54191, 0.56381]** on Windows. For the native-to-streaming complete runtime ratio, the conditional intervals were **[4.344, 4.445]** and **[4.285, 4.409]**, respectively. These are source-cohort resampling intervals, not confidence bounds across different CPUs.
+
+The Linux runner used CPython 3.12.16 compiled with GCC 13.3.0, on Linux kernel 7.0.0-1017-azure. Windows used CPython 3.12.10 built with MSVC 19.43 and reported an AMD64 Family 26 Model 2 processor. Each runner reported four logical CPUs. This is an **operating-system/compiler comparison with different hosted environments**; the source-locked experiment cannot isolate whether differences in absolute time arise from the OS, compiler, CPU microarchitecture or scheduling.
+
+### Wider coefficients and the memory frontier
+
+The wide-rational sources reached a median per-case **maximum public input width of 2,193.5 bits**, even though the nominal seed polynomial coefficient widths were only 4–16 bits. That is exactly the failure mode for a simple source-bitwidth-to-intermediate-bitwidth estimate. The observed reciprocal transform on an already rational source may simplify again, so the inverse recurrence's maximum bit width needs to be recorded separately.
+
+With 16-bit nominal width across all four families, the Linux median complete temporary allocation rose to about **426 KiB** for eager caching and **289 KiB** for streaming, with a paired ratio of **0.586**. In the four-bit stratum the corresponding medians were **200 KiB** and **107 KiB**, with a paired ratio of **0.511**. Thus absolute allocation grows with wider coefficients and the fractional reduction varies by tier, while the streaming implementation remained cheaper on **every** measured case. The large-rational family independently retained the same speed/memory direction.
+
+The observed improvement under this new synthetic generator strengthens the evidence that coefficient streaming reduces Python allocation without sacrificing cached unary computation. It does not establish a hardware-independent guarantee, a constant-total-memory bound, or transfer to non-enumerated theorem-proving tasks.
+
+### Original artifact and permanent replay
+
+- Public fixture: **5,416,693 bytes**, SHA-256 de7ed801e0e8708afebdbe3699d9074375b156795b40372eb77e2a4a13218c19
+- Linux complete benchmark: **683,486 bytes**, SHA-256 6c033440be72ae470769e7a152286677cba8fa3b676e9f9207d0c335ab1ec01d
+- Windows complete benchmark: **683,275 bytes**, SHA-256 85686b13b4526d926f10b0b4f476bea82ab9d2f88dbc63d02704268f9ef88158
+- Independent two-host comparison: **1,296 bytes**, SHA-256 3a048cfbafb7c9e87f28ed04d7d7e2ecd1b06b3be5c513351aa7fb11fa6a07c4
+
+The permanent source CI first reads the checksum-pinned ZIP and checks **4,480 original nanosecond timing samples**, **1,280 complete and verifier-only tracemalloc records**, **640 mode-specific reciprocal integer workloads** and **16,384 deterministic bootstrap draws**, while recalculating all 128 native public masks. A second hosted source/Windows/Linux benchmark remains reproducible from the registered generator and fixture serialization. That rerun may have different raw times and Python memory allocations, which are reported separately from the original immutable first-run evidence.
+
+The companion [MathCan NOR-20 PR #104](https://github.com/patrickdugan/MathCan/pull/104) proves an observed operand-bitwidth-product upper bound, width-aware packed candidate-array savings, and magnitude-independent exact integer streaming comparisons.
