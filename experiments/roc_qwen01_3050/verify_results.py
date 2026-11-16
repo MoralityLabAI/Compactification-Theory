@@ -52,6 +52,7 @@ def main():
     assert s["full_ROC_card"] is False and s["neural_same_state_jacobian"] is False
     replay=json.loads((RESULTS/"replay"/"activation_replay.json").read_text())
     assert replay["status"]=="passed"
+    assert replay["source_hash"]==s["source_hash"]
     receipt=dict(status="passed",source_hash=s["source_hash"],null_rows=count,
         per_state_rows=len(states),intervention_rows=len(interventions),
         physical_route_valid_count=sum(int(x["physical_route_valid"]) for x in primary),

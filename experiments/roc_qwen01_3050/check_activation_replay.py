@@ -24,7 +24,7 @@ def main():
         receipt,vectors=runtime.forward(rows[i],delta=np.zeros(1024),layer=12,capture=LAYERS)
         errors=[float(np.max(np.abs(vectors[layer].astype(float)-acts[i,j].astype(float))))
                 for j,layer in enumerate(LAYERS)]
-        exact=all(np.array_equal(vectors[layer],acts[i,j]) for j,layer in enumerate(LAYERS))
+        exact=all(vectors[layer].tobytes()==acts[i,j].tobytes() for j,layer in enumerate(LAYERS))
         margin_error=abs(receipt["margin_a_minus_b"]-float(margins[i]))
         output.append(dict(state_id=rows[i]["state_id"],layers=list(LAYERS),
             per_layer_max_absolute_error=errors,bitwise_equal=exact,margin_absolute_error=margin_error,
