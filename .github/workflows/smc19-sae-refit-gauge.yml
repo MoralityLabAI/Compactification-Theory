@@ -1,0 +1,197 @@
+name: SMC-19 independent SAE refits and orthogonal transport
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC19_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc19_sae_refit.py'
+      - 'research/real_recurrence_sae_v1/audit_smc19.py'
+      - 'research/real_recurrence_sae_v1/test_smc19_sae_refit.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc19.py'
+      - '.github/workflows/smc19-sae-refit-gauge.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC19_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc19_sae_refit.py'
+      - 'research/real_recurrence_sae_v1/audit_smc19.py'
+      - 'research/real_recurrence_sae_v1/test_smc19_sae_refit.py'
+      - 'research/real_recurrence_sae_v1/test_audit_smc19.py'
+      - '.github/workflows/smc19-sae-refit-gauge.yml'
+  workflow_dispatch:
+
+jobs:
+  freeze-four-independent-refits-and-calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original source-compatible pinned CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Test gauge control, refit permutation calibration and stdlib receipt audit
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc19_sae_refit.py' -v
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_audit_smc19.py' -v
+      - name: Fetch exact source pretrained teacher and original SAE71
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc19/original
+      - name: Fetch original independent B501/B701 teacher and SAE71/89 weights
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc19/independent
+      - name: Fetch original position-and-visible-digit conditioned Hungarian assignments
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc19/conditioned
+      - name: Verify exact original source artifact SHA256
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc19/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc19/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc19/conditioned/conditioned.json" | sha256sum -c -
+      - name: Train and freeze four source-only validation-selected SAE refits
+        run: |
+          python research/real_recurrence_sae_v1/smc19_sae_refit.py \
+            --phase freeze --fetch-source \
+            --original-artifact runs/smc19/original \
+            --independent-artifact runs/smc19/independent \
+            --conditioned-receipt runs/smc19/conditioned/conditioned.json \
+            --frozen-dir runs/smc19/frozen
+      - name: Archive source-verified refit weights and original calibration before any new test
+        uses: actions/upload-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          path: runs/smc19/frozen
+          retention-days: 90
+          if-no-files-found: error
+
+  frozen-four-puzzle-pilot:
+    needs: freeze-four-independent-refits-and-calibration
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Fetch original pretrained and independent teacher weights
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc19/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc19/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc19/conditioned
+      - name: Recover frozen four SAE snapshots and calibration from this workflow
+        uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          path: runs/smc19/frozen
+      - name: Bounded four-puzzle one-pair refit and orthogonal-gauge pilot
+        run: |
+          python research/real_recurrence_sae_v1/smc19_sae_refit.py \
+            --phase evaluate --fetch-source \
+            --original-artifact runs/smc19/original \
+            --independent-artifact runs/smc19/independent \
+            --conditioned-receipt runs/smc19/conditioned/conditioned.json \
+            --frozen-dir runs/smc19/frozen \
+            --pilot-puzzles 4 --pair-limit 1 --out runs/smc19/pilot.json
+      - name: Independently verify new SAE weights and pilot causal receipts
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc19.py \
+            --receipt runs/smc19/pilot.json \
+            --frozen-dir runs/smc19/frozen \
+            --out runs/smc19/pilot-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc19-four-puzzle-gauge-and-causal-pilot
+          path: |
+            runs/smc19/pilot.json
+            runs/smc19/pilot-audit.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  fresh-128-puzzle-four-refit-full:
+    needs: frozen-four-puzzle-pilot
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible pinned CPU PyTorch
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Fetch original source pretrained checkpoint and SAE
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc19/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc19/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc19/conditioned
+      - name: Recover exact archived four fitted SAEs and calibration
+        uses: actions/download-artifact@v4
+        with:
+          name: smc19-four-refit-checkpoints-and-calibration
+          path: runs/smc19/frozen
+      - name: Four independent SAE refit causal panels, two new disjoint 64-puzzle families
+        run: |
+          python research/real_recurrence_sae_v1/smc19_sae_refit.py \
+            --phase evaluate --fetch-source \
+            --original-artifact runs/smc19/original \
+            --independent-artifact runs/smc19/independent \
+            --conditioned-receipt runs/smc19/conditioned/conditioned.json \
+            --frozen-dir runs/smc19/frozen \
+            --out runs/smc19/full.json
+      - name: Independent stdlib source and causal pair/family replay
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc19.py \
+            --receipt runs/smc19/full.json \
+            --frozen-dir runs/smc19/frozen \
+            --out runs/smc19/audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc19-full-independent-refit-causal-and-audit
+          path: |
+            runs/smc19/full.json
+            runs/smc19/audit.json
+          retention-days: 90
+          if-no-files-found: warn

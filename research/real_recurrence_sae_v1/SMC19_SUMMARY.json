@@ -1,0 +1,234 @@
+{
+  "schema": "SMC-19/green-source-locked-SAE-refit-gauge-summary-v1",
+  "original_pre_registration_commit": "fd96967fbf251c884a8a705d6d8a68c0c2cddd2e",
+  "original_experimental_code_commit": "fc819a7ec273027aff20ff49db3b539b46b3687b",
+  "successful_full_workflow_id": 43810248525,
+  "frozen_checkpoint_calibration_artifact_id": 14199643904,
+  "full_raw_and_audit_artifact_id": 14200232278,
+  "frozen_checkpoint_calibration_archive_sha256": "43630f8b9e6e7fbd07f8c668dc607f8b53c3a6b78cd47ce43aefe33bc005cb9e",
+  "full_raw_and_audit_archive_sha256": "8fb7509fb7844456e433f3c4fde35963d8191666551b2b57d9b32c191cc253e8",
+  "frozen_json_sha256": "612b7bd0bd206043d0766b398e85dd3e6bf62e9ce3d8427ecdbf4cbd4c0db52b",
+  "full_json_sha256": "49318e017a381079864c96fdcda47f6cc7ec81ceefc3fd4d7859687c70734f62",
+  "independent_audit_json_sha256": "4f2eb9c146e0d15047138603b4038f79ba10fa42cab0b1b608dcaa135d9256e1",
+  "original_source_receipt_sha256s": {
+    "original_pretrained_sae": "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087",
+    "new_teacher_train": "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3",
+    "clue_conditioned_calibration": "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07"
+  },
+  "fresh_manifest_sha256": {
+    "smc19_novel_30": "32a8a1eaa04f853c62dfb1209ac0217dd81c7b0e756dc6cf37ecd3c2f68eb7d5",
+    "smc19_novel_34": "4348f6cfcc3866fe6624ad6c35297f9bba23519ef91c2c06fe6863653bbbab2a"
+  },
+  "n_independently_refitted_sae_weights": 4,
+  "trained_refit_checkpoint_receipts": [
+    {
+      "teacher_seed": 501,
+      "sae_seed": 131,
+      "validation_normalized_mse": 0.1539667397737503,
+      "selected_step": 300,
+      "fp32_fingerprint": "69264a77f786971182e7ea8c55358c2d64c12fa1d21c1508efdaaf7518946001",
+      "checkpoint_file_sha256": "5d0ef48f0fb132f24b9c8390b1b7c6868b3b048fc40a74b4328cfcf428f2c30e"
+    },
+    {
+      "teacher_seed": 501,
+      "sae_seed": 167,
+      "validation_normalized_mse": 0.13260908424854279,
+      "selected_step": 300,
+      "fp32_fingerprint": "f2c542bd0901783f9ef36e96de308c8c079ba195ce3421145fb4a1ca8c1d8d88",
+      "checkpoint_file_sha256": "fdd9fc2404250e7a8dce6e07176f277437d7aabdf902c3ca456483e4e0fe5e50"
+    },
+    {
+      "teacher_seed": 701,
+      "sae_seed": 131,
+      "validation_normalized_mse": 0.13113123178482056,
+      "selected_step": 300,
+      "fp32_fingerprint": "005848fa622c6b1b6678c7dbea763f10e73fa6ceba19ac46b085007577647ba0",
+      "checkpoint_file_sha256": "674cce9460d19a355ff782c92b525156f13b24c86383af63df86404711c04c9a"
+    },
+    {
+      "teacher_seed": 701,
+      "sae_seed": 167,
+      "validation_normalized_mse": 0.13641637563705444,
+      "selected_step": 300,
+      "fp32_fingerprint": "d8d700622f89b5144deb333235105a1a71bcc7c947b099bcd892d15f8fe9f09a",
+      "checkpoint_file_sha256": "8e85377b83a2b26b88217ef04e82ef85c26b62a4d1d3e0a98a6e94b4c914bdd0"
+    }
+  ],
+  "n_pair_family_puzzle_cases": 512,
+  "n_selected_goal_token_records": 4096,
+  "registered_pairs_passed_both_families": 2,
+  "registered_pairs_tested": 4,
+  "orthogonal_transport_control": {
+    "seed": 20261919,
+    "tested_puzzles": 4,
+    "tested_goal_tokens": 32,
+    "orthogonality_max_error": 8.881784197001252e-16,
+    "feature_code_max_abs_error": 5.329070518200751e-15,
+    "clean_logits_max_abs_error": 1.0658141036401503e-14,
+    "native_erase_logits_max_abs_error": 1.1102230246251565e-14,
+    "passed_registered_tolerance": true
+  },
+  "pair_family": [
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc19_novel_30",
+      "eligible_goals": 163,
+      "nonempty_puzzles": 61,
+      "matched_minus_other_active_signed_concordance": 0.36809815950920244,
+      "puzzle_bootstrap95": [
+        0.17964071856287425,
+        0.5524861878453039
+      ],
+      "matched_concordance_mean": 0.38650306748466257,
+      "other_active_concordance_mean": 0.018404907975460124,
+      "matched_support_overlap_mean": 0.4171971455216408,
+      "clue_shuffled_support_overlap_mean": 0.07653356424998492,
+      "random_support_overlap_mean": 0.04103973726159893,
+      "target_matched_atom_active_rate": 0.318359375,
+      "matched_clean_correct_to_wrong_rate": 0.04907975345849991,
+      "other_active_clean_correct_to_wrong_rate": 0.07975459843873978,
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_501_SAE_131",
+      "family": "smc19_novel_34",
+      "eligible_goals": 188,
+      "nonempty_puzzles": 63,
+      "matched_minus_other_active_signed_concordance": 0.14893617021276595,
+      "puzzle_bootstrap95": [
+        -0.043010752688172046,
+        0.32608695652173914
+      ],
+      "matched_concordance_mean": 0.26595744680851063,
+      "other_active_concordance_mean": 0.11702127659574468,
+      "matched_support_overlap_mean": 0.405381943564862,
+      "clue_shuffled_support_overlap_mean": 0.08015046291984618,
+      "random_support_overlap_mean": 0.043065200094133615,
+      "target_matched_atom_active_rate": 0.3671875,
+      "matched_clean_correct_to_wrong_rate": 0.0904255285859108,
+      "other_active_clean_correct_to_wrong_rate": 0.06914893537759781,
+      "registered_family_gate": false
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc19_novel_30",
+      "eligible_goals": 230,
+      "nonempty_puzzles": 63,
+      "matched_minus_other_active_signed_concordance": 0.41739130434782606,
+      "puzzle_bootstrap95": [
+        0.2336448598130841,
+        0.6220472440944882
+      ],
+      "matched_concordance_mean": 0.4434782608695652,
+      "other_active_concordance_mean": 0.02608695652173913,
+      "matched_support_overlap_mean": 0.35498649533838034,
+      "clue_shuffled_support_overlap_mean": 0.11487268470227718,
+      "random_support_overlap_mean": 0.10170717595610768,
+      "target_matched_atom_active_rate": 0.44921875,
+      "matched_clean_correct_to_wrong_rate": 0.056521739810705185,
+      "other_active_clean_correct_to_wrong_rate": 0.08695652335882187,
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_501_SAE_167",
+      "family": "smc19_novel_34",
+      "eligible_goals": 224,
+      "nonempty_puzzles": 64,
+      "matched_minus_other_active_signed_concordance": 0.375,
+      "puzzle_bootstrap95": [
+        0.22439024390243903,
+        0.5296803652968036
+      ],
+      "matched_concordance_mean": 0.45535714285714285,
+      "other_active_concordance_mean": 0.08035714285714286,
+      "matched_support_overlap_mean": 0.3499710652977228,
+      "clue_shuffled_support_overlap_mean": 0.11834490729961544,
+      "random_support_overlap_mean": 0.10050154302734882,
+      "target_matched_atom_active_rate": 0.4375,
+      "matched_clean_correct_to_wrong_rate": 0.0625,
+      "other_active_clean_correct_to_wrong_rate": 0.1071428582072258,
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc19_novel_30",
+      "eligible_goals": 161,
+      "nonempty_puzzles": 61,
+      "matched_minus_other_active_signed_concordance": 0.34782608695652173,
+      "puzzle_bootstrap95": [
+        0.14634146341463414,
+        0.5481481481481482
+      ],
+      "matched_concordance_mean": 0.3167701863354037,
+      "other_active_concordance_mean": -0.031055900621118012,
+      "matched_support_overlap_mean": 0.35836226725950837,
+      "clue_shuffled_support_overlap_mean": 0.05391589438659139,
+      "random_support_overlap_mean": 0.05541087896563113,
+      "target_matched_atom_active_rate": 0.314453125,
+      "matched_clean_correct_to_wrong_rate": 0.04968944191932678,
+      "other_active_clean_correct_to_wrong_rate": 0.04968944191932678,
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_701_SAE_131",
+      "family": "smc19_novel_34",
+      "eligible_goals": 150,
+      "nonempty_puzzles": 60,
+      "matched_minus_other_active_signed_concordance": 0.44,
+      "puzzle_bootstrap95": [
+        0.21794871794871795,
+        0.6616541353383458
+      ],
+      "matched_concordance_mean": 0.3333333333333333,
+      "other_active_concordance_mean": -0.10666666666666667,
+      "matched_support_overlap_mean": 0.3458719137124717,
+      "clue_shuffled_support_overlap_mean": 0.05324074043892324,
+      "random_support_overlap_mean": 0.053144289762713015,
+      "target_matched_atom_active_rate": 0.29296875,
+      "matched_clean_correct_to_wrong_rate": 0.0533333346247673,
+      "other_active_clean_correct_to_wrong_rate": 0.09333333373069763,
+      "registered_family_gate": true
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc19_novel_30",
+      "eligible_goals": 136,
+      "nonempty_puzzles": 61,
+      "matched_minus_other_active_signed_concordance": 0.19117647058823528,
+      "puzzle_bootstrap95": [
+        -0.031007751937984496,
+        0.4461538461538462
+      ],
+      "matched_concordance_mean": 0.3382352941176471,
+      "other_active_concordance_mean": 0.14705882352941177,
+      "matched_support_overlap_mean": 0.35730131063610315,
+      "clue_shuffled_support_overlap_mean": 0.06746720601222478,
+      "random_support_overlap_mean": 0.019627700763521716,
+      "target_matched_atom_active_rate": 0.265625,
+      "matched_clean_correct_to_wrong_rate": 0.06617647409439087,
+      "other_active_clean_correct_to_wrong_rate": 0.05147058889269829,
+      "registered_family_gate": false
+    },
+    {
+      "target": "newB_701_SAE_167",
+      "family": "smc19_novel_34",
+      "eligible_goals": 119,
+      "nonempty_puzzles": 56,
+      "matched_minus_other_active_signed_concordance": 0.15126050420168066,
+      "puzzle_bootstrap95": [
+        -0.125,
+        0.4090909090909091
+      ],
+      "matched_concordance_mean": 0.2773109243697479,
+      "other_active_concordance_mean": 0.12605042016806722,
+      "matched_support_overlap_mean": 0.34727044869214296,
+      "clue_shuffled_support_overlap_mean": 0.07055362610844895,
+      "random_support_overlap_mean": 0.023244598822202533,
+      "target_matched_atom_active_rate": 0.232421875,
+      "matched_clean_correct_to_wrong_rate": 0.05042016878724098,
+      "other_active_clean_correct_to_wrong_rate": 0.10924369841814041,
+      "registered_family_gate": false
+    }
+  ],
+  "limits": "Frozen original B501/B701 teacher weights and SAE71; four new SAE fits trained independently on the same original source states. Same teacher and repeated puzzle-generator families are correlated. Source-pinned signed causal correspondence is distinct from task capability or uniquely identified feature semantics. The independent audit replays saved numerical receipts and SHA-checks refit files, not neural forward passes."
+}
