@@ -50,10 +50,13 @@ def main():
     smoke=json.loads((RESULTS/"smoke.json").read_text())
     assert smoke["status"]=="passed" and 32<=smoke["tokens"]<=64
     assert s["full_ROC_card"] is False and s["neural_same_state_jacobian"] is False
+    replay=json.loads((RESULTS/"replay"/"activation_replay.json").read_text())
+    assert replay["status"]=="passed"
     receipt=dict(status="passed",source_hash=s["source_hash"],null_rows=count,
         per_state_rows=len(states),intervention_rows=len(interventions),
         physical_route_valid_count=sum(int(x["physical_route_valid"]) for x in primary),
-        peak_allocated_bytes=s["peak_allocated_bytes"],hashes_checked=len(s["result_hashes"]))
+        peak_allocated_bytes=s["peak_allocated_bytes"],hashes_checked=len(s["result_hashes"]),
+        activation_replay_status=replay["status"])
     save(RESULTS/"verification.json",receipt)
     print(json.dumps(receipt,indent=2))
 
