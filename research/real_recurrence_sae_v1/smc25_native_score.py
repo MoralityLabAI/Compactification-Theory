@@ -15,7 +15,7 @@ HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from smc14_causal_transfer import source_group_context
 from smc24_native_score import (
-    native_score_case,admitted_frozen_stage1,check_archived_edit
+    native_score_case,check_archived_edit
 )
 from smc25_candidate_effects import (
     CAL_SCHEMA,PRED_SCHEMA,FAMILIES,B_COMPONENTS,TEACHERS,
@@ -107,6 +107,42 @@ def summary(rows,family,component,draws=BOOT):
     }
 
 
+def admitted_smc25_stage1(frozen,ctx):
+    """Verify and use canonical input-only FP32 state in SMC-25 registered families.
+
+    Same physical and source-parity contract as the pre-data SMC-24E fix,
+    but with SMC-25 cohorts; its test goal outcomes are not accessed.
+    """
+    canonical={}
+    drift={}
+    for family in FAMILIES:
+        canonical[family]={}
+        drift[family]={}
+        for teacher in TEACHERS:
+            item=frozen["archived_source_stage1"][family][teacher]
+            archived=torch.tensor(item["tensor"],dtype=torch.float32)
+            if (tuple(item["shape"])!=(PUZZLES,81,48) or
+                    tuple(archived.shape)!=(PUZZLES,81,48)):
+                raise ValueError("wrong canonical source FP32 state dimensions")
+            if sha(archived.contiguous().numpy().tobytes())!=item["tensor_sha256"]:
+                raise ValueError("original frozen source FP32 byte SHA mismatch")
+            recomputed=ctx[teacher]["cohorts"][family]["stage1"]
+            mismatch=float((archived-recomputed).abs().max())
+            if mismatch>1e-4:
+                raise ArithmeticError("SMC25 canonical source cross-host stage drift")
+            with torch.no_grad():
+                state=archived.double()
+                native=ctx[teacher]["model64"]
+                for _ in range(3):
+                    state=native.block(state)
+                clean=native.head(state).detach()
+            if tuple(clean.shape)!=(PUZZLES,81,10) or not bool(torch.isfinite(clean).all()):
+                raise ArithmeticError("invalid SMC25 canonical clean FP64 logits")
+            drift[family][teacher]=mismatch
+            canonical[family][teacher]={"stage":archived,"clean":clean}
+    return canonical,drift
+
+
 def check_frozen_prediction(pred,cal_raw,cal,snapshot,manifest):
     if pred["schema"]!=PRED_SCHEMA or pred["protocol_sha256"]!=protocol_digest():
         raise ValueError("unregistered frozen prediction")
@@ -137,7 +173,7 @@ def score_native(original,independent,conditioned,calibration,prediction,allow_f
     rosters,manifest=generate_fresh(old)
     check_frozen_prediction(frozen,cal_raw,cal,snapshot,manifest)
     ctx,_=source_group_context(models,components,rosters,tuple(FAMILIES))
-    canonical,drift=admitted_frozen_stage1(frozen,ctx)
+    canonical,drift=admitted_smc25_stage1(frozen,ctx)
     result={}
     for family,cases in rosters.items():
         cells={}
