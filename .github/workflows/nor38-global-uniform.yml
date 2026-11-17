@@ -1,0 +1,33 @@
+name: NOR-38 registered global uniform reserve pre-data tests
+
+on:
+  push:
+    branches:
+      - research/nor38-global-uniform-curvature-20261117
+    paths:
+      - 'research/nor38_global_uniform/**'
+      - '.github/workflows/nor38-global-uniform.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prospective-registration-and-predata-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original NOR-38 preregistration before any source or outcome
+        run: |
+          git merge-base --is-ancestor 37f9ed96b122ea16fb681dd5df638cbc4285d1e4 HEAD
+          test -s research/nor38_global_uniform/REGISTRATION.md
+      - name: Check first NOR-37 original archive pins and new-policy exact math
+        run: |
+          python -m compileall -q research/nor38_global_uniform
+          python -m unittest research.nor38_global_uniform.test_experiment -v
