@@ -1,0 +1,40 @@
+name: NOR-40 stronger CAL attackers, archived-source pre-data controls
+
+on:
+  push:
+    branches:
+      - research/nor40-strong-adversaries-20261117
+    paths:
+      - 'research/nor40_strong_adversaries/**'
+      - '.github/workflows/nor40-strong-adversaries.yml'
+  pull_request:
+    paths:
+      - 'research/nor40_strong_adversaries/**'
+      - '.github/workflows/nor40-strong-adversaries.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistration-and-historical-only-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify first prospective NOR40 registration predates any data
+        run: |
+          git merge-base --is-ancestor dbc1adbe0e30b9c0e36421cf07cebcf376d6a1ec HEAD
+          test -s research/nor40_strong_adversaries/REGISTRATION.md
+      - name: Deny fresh-source previews and verify 276 immutable historical identities
+        run: |
+          python research/nor40_strong_adversaries/predata_isolation_audit.py
+      - name: Test source-independent attack certificates and frozen protocol
+        run: |
+          python -m compileall -q research/nor40_strong_adversaries
+          python -m unittest research.nor40_strong_adversaries.test_experiment -v
