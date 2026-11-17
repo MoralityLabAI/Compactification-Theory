@@ -1,0 +1,51 @@
+{
+  "status": "accepted",
+  "export_sha256": "6bfd90183165feaf27bb3afe122abddd2786bf4b44ba972b3e3c7eb9975ca321",
+  "verdicts": {
+    "verified": 29110,
+    "unsupported": 0,
+    "rejected": 0
+  },
+  "constants_compared": 30602,
+  "source_sha256": {
+    "research/approximation_mathlib432/ApproximationMathlib/SharpTransport.lean": "564f936fedf50d320c6000cb6dc7a3efd1ed6b560af443280f840453f5ecd2c5"
+  },
+  "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+  "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+  "standard_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "new_authored_roots": 25,
+  "research_roots_total": 282,
+  "acceptance_tamper_controls": 15,
+  "structural_auditor_controls": 7,
+  "roots": [
+    "MathCan.SharpResidual.component_contDiff",
+    "MathCan.SharpResidual.scaled_tensor_residual",
+    "MathCan.SharpResidual.normalized_tensor_residual",
+    "MathCan.SharpResidual.top_component_residual",
+    "MathCan.SharpJet.isometry_derivative_difference",
+    "MathCan.SharpJet.fderiv_derivative_difference",
+    "MathCan.SharpJet.iterated_derivative_difference",
+    "MathCan.SharpJet.component_derivative_difference",
+    "MathCan.SharpJet.sharp_component_transport",
+    "MathCan.SharpJet.uniform_component_budget",
+    "MathCan.SharpJet.sharp_jet_transport",
+    "MathCan.SharpAlphabet.prediction_error",
+    "MathCan.SharpAlphabet.innovation_bound",
+    "MathCan.SharpAlphabet.sharp_frame",
+    "MathCan.SharpAlphabet.analytic_sharp_frame",
+    "MathCan.SharpAlphabet.component_sharp_frame",
+    "MathCan.SharpAlphabet.sharp_frames",
+    "MathCan.SharpAlphabet.sharp_decoded_accuracy",
+    "MathCan.SharpCapture.jet_accuracy",
+    "MathCan.SharpCapture.smooth_decoded_approximation",
+    "MathCan.SharpCapture.holder_decoded_approximation",
+    "MathCan.HolderCapture.constant_prediction",
+    "MathCan.HolderCapture.holder_step_residual",
+    "MathCan.HolderCapture.holder_residuals",
+    "MathCan.HolderCapture.holder_decoded_approximation"
+  ]
+}

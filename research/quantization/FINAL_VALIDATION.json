@@ -10,7 +10,7 @@
     "unsupported": 0,
     "rejected": 0
   },
-  "formal_theorems": 257,
+  "formal_theorems": 282,
   "spatial_test_suites": 6,
   "spatial_assertions": 8299,
   "previous_component_assertions": 83362,
@@ -20,7 +20,7 @@
     "4.32.0-rc1",
     "preserved 4.35.0"
   ],
-  "full_theorem_scope": "Query-independent multivariate Taylor jets, constructed correction frames and coefficient accuracy, decoded spatial capture, and smooth/Holder polynomial approximation proved. Sharp small-alphabet transport bounds, domain/geometry specialization and dense ReLU arithmetic/resource realization remain open.",
+  "full_theorem_scope": "Sharp normalized multivariate derivative-component Taylor residuals proved. Bounded correction alphabets, constructed decoded accuracy and approximation proved under an explicit true-jet matrix residual contract; degree-zero Holder specialization discharges that contract. General higher-order normalized/grouped matrix identification, domain/geometry and dense ReLU arithmetic/resources remain open.",
   "spatial_source_sha256": "bc006e0ec2a227eac72657367b5211a7b71c1adfb74a87cc66336e9ded8ad910",
   "spatial_tests_sha256": "e14bb4cd2296a445582453c0a7e41d957b5594b5b66214f63bb1dc1730943ba8",
   "materialized_circuit_certificate": {
@@ -173,6 +173,22 @@
       "command": [
         "C:\\Python312\\python.exe",
         "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\Compactification-Theory\\research\\quantization\\transport_capture_controls.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "sharp_acceptance",
+      "command": [
+        "C:/Python312/python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_sharp432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "sharp_acceptance_controls",
+      "command": [
+        "C:/Python312/python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\test_sharp_acceptance.py"
       ],
       "exit_code": 0
     }
@@ -389,5 +405,61 @@
       "MathCan.SynthesisCapture.decoded_coefficient_accuracy",
       "MathCan.SynthesisCapture.reference_accuracy"
     ]
+  },
+  "sharp_transport_continuation": {
+    "status": "accepted",
+    "export_sha256": "6bfd90183165feaf27bb3afe122abddd2786bf4b44ba972b3e3c7eb9975ca321",
+    "verdicts": {
+      "verified": 29110,
+      "unsupported": 0,
+      "rejected": 0
+    },
+    "constants_compared": 30602,
+    "source_sha256": {
+      "research/approximation_mathlib432/ApproximationMathlib/SharpTransport.lean": "564f936fedf50d320c6000cb6dc7a3efd1ed6b560af443280f840453f5ecd2c5"
+    },
+    "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+    "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+    "standard_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "new_authored_roots": 25,
+    "research_roots_total": 282,
+    "acceptance_tamper_controls": 15,
+    "structural_auditor_controls": 7,
+    "roots": [
+      "MathCan.SharpResidual.component_contDiff",
+      "MathCan.SharpResidual.scaled_tensor_residual",
+      "MathCan.SharpResidual.normalized_tensor_residual",
+      "MathCan.SharpResidual.top_component_residual",
+      "MathCan.SharpJet.isometry_derivative_difference",
+      "MathCan.SharpJet.fderiv_derivative_difference",
+      "MathCan.SharpJet.iterated_derivative_difference",
+      "MathCan.SharpJet.component_derivative_difference",
+      "MathCan.SharpJet.sharp_component_transport",
+      "MathCan.SharpJet.uniform_component_budget",
+      "MathCan.SharpJet.sharp_jet_transport",
+      "MathCan.SharpAlphabet.prediction_error",
+      "MathCan.SharpAlphabet.innovation_bound",
+      "MathCan.SharpAlphabet.sharp_frame",
+      "MathCan.SharpAlphabet.analytic_sharp_frame",
+      "MathCan.SharpAlphabet.component_sharp_frame",
+      "MathCan.SharpAlphabet.sharp_frames",
+      "MathCan.SharpAlphabet.sharp_decoded_accuracy",
+      "MathCan.SharpCapture.jet_accuracy",
+      "MathCan.SharpCapture.smooth_decoded_approximation",
+      "MathCan.SharpCapture.holder_decoded_approximation",
+      "MathCan.HolderCapture.constant_prediction",
+      "MathCan.HolderCapture.holder_step_residual",
+      "MathCan.HolderCapture.holder_residuals",
+      "MathCan.HolderCapture.holder_decoded_approximation"
+    ],
+    "date": "2026-11-17",
+    "frozen_batch": "accepted",
+    "native_kernel": "accepted",
+    "full_comparison": "matched",
+    "report": "SHARP_TRANSPORT_REPORT.md"
   }
 }

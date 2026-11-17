@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "lean": "4.32.0-rc1",
+  "new_authored_roots": 25,
+  "research_roots_total": 282,
+  "source_sha256": {
+    "research/approximation_mathlib432/ApproximationMathlib/SharpTransport.lean": "564f936fedf50d320c6000cb6dc7a3efd1ed6b560af443280f840453f5ecd2c5"
+  },
+  "binary_sha256": {
+    "toolchains/lean-4.32.0-rc1-linux/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "toolchains/lean-4.32.0-rc1-linux/bin/leanchecker": "c7c51e296d28dd443ed60f9414feef41253ede89dea76dbb2adde29768c3ed5f",
+    "toolchains/lean-4.32.0-rc1-linux/lib/lean/LeanChecker.olean": "7ba4f458fef64a5c75f2eef1760d2c21690bd8a41210d298330c7554cf2e5c50",
+    "replay432/lean4export-source/.lake/build/bin/lean4export": "e6580597a1482740114b5a1a05add574334a5eeaed5f4f5c9cd670e146859009",
+    "build/oxilean-verify": "831e7ad751d69d7f27e8ee59ec40246a6256e971e11f418b0e92f9722771e9fa"
+  },
+  "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+  "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+  "olean_sha256": {
+    "ApproximationMathlib.SharpTransport": "52dfef540bdca073c672d253fdeeeefc0075706c352200b1a5be96a27f320559"
+  },
+  "mirror_receipts_sha256": {
+    "executable_mirror.json": "0230a48916d305f49856807659a48d2a6e0cdb01f0975435d8c50057dcddcd01",
+    "executable_mirror_after.json": "d34708cfed6cbc35abec7feeda3cd8f8f238c46c76ea79bfd536ed7b4144e1a1",
+    "executable_mirror_before.json": "ecb290d9ad208215e5968943708e89c705796e378ad886baeef467ec9a39d296",
+    "exporter_library_mirror.json": "1c540909a0232faa2a20878e33d690d70df624dd20856bf2581e6a0e3440becb",
+    "exporter_library_mirror_after.json": "509131f41de29441a148589f3606fb2800f085f992b4c5ec28eb5e82b1b34f5f",
+    "mathlib_mirror.json": "5c874626705abffb5294d927f6c67e2f0fcc0ee86454a0dd7bccd4b5ac18e6b7",
+    "mathlib_mirror_after.json": "72195b29a68b618c29bbee716e6f2306346d3a2c7d24a460533ddfa0ee18ab53",
+    "mathlib_mirror_before.json": "5c874626705abffb5294d927f6c67e2f0fcc0ee86454a0dd7bccd4b5ac18e6b7",
+    "mirror_used.json": "799941905c04f84ad9019c1c582aa18c20afd4eb15e78b6ea13393e70713dc47",
+    "runtime_mirror.json": "d6f9e81fc21f096974d8a7a09ee7b026aaea9f99a18c42500a7b6e1313f8e218",
+    "runtime_mirror_after.json": "40b232223d4ea3c39687cf28b95d27b7b461b59c12af04d42ca9b74d5b76dfef",
+    "runtime_mirror_before.json": "0118537c9969d6363aa00d2cd8eed034bce9d1966d87e47df5c1c1d0d020337d"
+  },
+  "prior_proofs": "All prior accepted source hashes, including synthesis, remain unchanged",
+  "development": "Incremental language-server checks are excluded from final acceptance; separate frozen batch build required"
+}

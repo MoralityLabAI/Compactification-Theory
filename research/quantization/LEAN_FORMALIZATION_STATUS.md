@@ -143,3 +143,16 @@ restoring the bundle uses the same runtime/exporter paths documented in
 Toolchain binaries and compiled oleans are not included in the delivery.
 
 All work remains local. No pushes or messages were sent.
+
+## Sharp transport continuation, 2026-11-17
+
+The frozen research module `ApproximationMathlib.SharpTransport` adds 25
+authored roots, bringing the campaign to 282 roots (Hodge separate).
+Native Lean and OxiLean accept every new root; 29110 dependency declarations
+are verified with zero unsupported/rejected, and 30602 native/export
+constants match. See [SHARP_TRANSPORT_REPORT.md](SHARP_TRANSPORT_REPORT.md).
+The analytic component residual is proved from the original highest-derivative
+Holder hypothesis. The general matrix-layout identification remains explicit;
+the degree-zero Holder decoder is completely instantiated. These current results
+supersede the earlier local-only status and general inverse-tau alphabet bound.
+No email, direct message or repository comment accompanies this continuation.
