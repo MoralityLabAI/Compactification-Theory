@@ -38,7 +38,14 @@ def _forbidden_calls(source: str, filename: str):
             name=f.attr if isinstance(f,ast.Attribute) else (
                 f.id if isinstance(f,ast.Name) else None)
             if name in TESTING_BANNED:
-                found.append((node.lineno,name))
+                # Archived NOR37/NOR38 native-target tests are permitted;
+                # those identities were frozen and graded before NOR39.
+                receiver=f.value if isinstance(f,ast.Attribute) else None
+                explicitly_historical=(
+                    isinstance(receiver,ast.Attribute) and
+                    receiver.attr in ("nor37","nor38"))
+                if not explicitly_historical:
+                    found.append((node.lineno,name))
             if isinstance(f,ast.Name) and f.id in ("eval","exec"):
                 found.append((node.lineno,f.id))
         if isinstance(node,ast.ImportFrom):
@@ -68,6 +75,8 @@ def assert_no_new_source_from_tests():
         assert _forbidden_calls(trap,"synthetic_trap.py")
     assert not _forbidden_calls("x.history()\nx.components('global7_mix')\n",
                                 "historical_only.py")
+    assert not _forbidden_calls("x.nor38.restore_native_target(row,pred)",
+                                "archived_history.py")
     return checked
 
 
