@@ -14,6 +14,7 @@ import math
 from pathlib import Path
 import random
 import statistics
+import struct
 import sys
 
 HERE=Path(__file__).resolve().parent
@@ -87,6 +88,33 @@ def verify_frozen(cal,raw_cal,pred,raw_pred,scored):
         raise ValueError("prospectively registered fresh seeds differ")
     if set(pred["test_prediction_data"])!=set(FAMILIES) or set(scored["test_data"])!=set(FAMILIES):
         raise ValueError("fresh cohort list differs")
+    # Independently reconstruct the exact FP32 source input tensor digests
+    # using Python stdlib packing of JSON-recorded float32 values.
+    archive=pred.get("archived_source_stage1",{})
+    drift=scored.get("source_stage1_cross_runner_max_abs",{})
+    if set(archive)!=set(FAMILIES) or set(drift)!=set(FAMILIES):
+        raise ValueError("pre-outcome archived physical source replay incomplete")
+    for family in FAMILIES:
+        if set(archive[family])!={"B501","B701"} or set(drift[family])!={"B501","B701"}:
+            raise ValueError("frozen stage-one independent teacher roster changed")
+        for teacher in ("B501","B701"):
+            item=archive[family][teacher]
+            if item["shape"]!=[64,81,48] or len(item["tensor"])!=64:
+                raise ValueError("wrong physical stage-one tensor shape")
+            flattened=[]
+            for puzzle in item["tensor"]:
+                if len(puzzle)!=81: raise ValueError("stage-one missing one of 81 token states")
+                for token in puzzle:
+                    if len(token)!=48: raise ValueError("stage-one token has wrong hidden width")
+                    if any(not math.isfinite(float(v)) for v in token):
+                        raise ValueError("nonfinite archived physical source")
+                    flattened.extend(token)
+            packed=struct.pack("<"+str(len(flattened))+"f",*flattened)
+            if sha(packed)!=item["tensor_sha256"]:
+                raise ValueError("archived FP32 tensor hash differs from original input-only prediction")
+            value=float(drift[family][teacher])
+            if not math.isfinite(value) or not 0<=value<=1e-4:
+                raise ValueError("cross-runner FP32 source state drift exceeds registered admission")
     raw_text=raw_pred.decode()
     for term in ('"truth_digit"','"goal_truth_digits"','"target":','"true_D"','"margins"'):
         if term in raw_text:
