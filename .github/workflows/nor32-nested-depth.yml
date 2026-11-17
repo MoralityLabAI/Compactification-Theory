@@ -32,7 +32,7 @@ jobs:
       - name: Source splits, independent root domains, attack budget and commitment controls
         run: |
           python -m compileall -q research/nor32_nested_audit_depth
-          python -m unittest research.nor32_matched_root.test_experiment -v
+          python -m unittest research.nor32_nested_audit_depth.test_experiment -v
 
   prep-independent-root-24-sources-and-9216-commitments:
     needs: freeze-registration-and-finite-tests
