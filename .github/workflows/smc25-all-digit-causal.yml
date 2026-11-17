@@ -1,0 +1,254 @@
+name: SMC-25 all-digit label-blind causal prediction
+
+on:
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC25_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc25_candidate_effects.py'
+      - 'research/real_recurrence_sae_v1/smc25_native_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc25.py'
+      - 'research/real_recurrence_sae_v1/test_smc25_candidate_effects.py'
+      - '.github/workflows/smc25-all-digit-causal.yml'
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC25_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc25_candidate_effects.py'
+      - 'research/real_recurrence_sae_v1/smc25_native_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc25.py'
+      - 'research/real_recurrence_sae_v1/test_smc25_candidate_effects.py'
+      - '.github/workflows/smc25-all-digit-causal.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  source-calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-locked CPU Torch 2.7.1 and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - name: Run seven source-independent classwise tangent tests
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc25_candidate_effects.py' -v
+          python -m compileall -q research/real_recurrence_sae_v1/smc25_candidate_effects.py research/real_recurrence_sae_v1/smc25_native_score.py research/real_recurrence_sae_v1/audit_smc25.py
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/conditioned
+      - name: Check immutable original SMC-11C and SMC-13 source artifacts
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc25/source/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc25/source/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc25/source/conditioned/conditioned.json" | sha256sum -c -
+      - name: Fit class-temperature only on old 64 SMC-13 calibration puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc25_candidate_effects.py \
+            --stage calibration --fetch-source \
+            --original-artifact runs/smc25/source/original \
+            --independent-artifact runs/smc25/source/independent \
+            --conditioned-receipt runs/smc25/source/conditioned/conditioned.json \
+            --out runs/smc25/calibration.json
+          python - <<'PY'
+          import json
+          d=json.load(open('runs/smc25/calibration.json'))
+          assert d['fresh_source_generated'] is False
+          assert set(d['teacher_temperatures'])=={'B501','B701'}
+          assert all(x['calibration_goals']==512 for x in d['teacher_temperatures'].values())
+          assert all(x['temperature'] in [.5,1,2,4,8] for x in d['teacher_temperatures'].values())
+          print("SMC25_TEMPERATURE_LOCKED",d['teacher_temperatures'])
+          PY
+          sha256sum runs/smc25/calibration.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc25-old-calibration-temperature-lock
+          path: runs/smc25/calibration.json
+          if-no-files-found: error
+
+  target-blind-prediction:
+    needs: source-calibration
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical CPU Torch and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc25-old-calibration-temperature-lock
+          path: runs/smc25/lock
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/conditioned
+      - name: Freeze nine candidate effects per goal on 128 new puzzle INPUTS
+        run: |
+          python research/real_recurrence_sae_v1/smc25_candidate_effects.py \
+            --stage prediction --fetch-source \
+            --original-artifact runs/smc25/source/original \
+            --independent-artifact runs/smc25/source/independent \
+            --conditioned-receipt runs/smc25/source/conditioned/conditioned.json \
+            --calibration runs/smc25/lock/calibration.json \
+            --out runs/smc25/prediction.json
+          python - <<'PY'
+          import json
+          d=json.load(open('runs/smc25/prediction.json'))
+          assert not d['contains_test_labels'] and not d['uses_test_true_digit_gradient']
+          assert set(d['test_prediction_data'])=={'smc25_novel30','smc25_novel34'}
+          assert all(len(rows)==64 for family in d['test_prediction_data'].values() for rows in family.values())
+          for family in d['test_prediction_data'].values():
+              for rows in family.values():
+                  for p in rows:
+                      for g in p['goals']:
+                          if g['status']=='eligible':
+                              assert len(g['classwise_effects'])==9
+                              assert len(g['calibrated_digit_distribution'])==9
+          print("SMC25_TARGET_BLIND_PREDICTIONS_FROZEN")
+          PY
+          sha256sum runs/smc25/prediction.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc25-label-blind-all-nine-candidate-effects
+          path: runs/smc25/prediction.json
+          if-no-files-found: error
+
+  native-scoring:
+    needs: target-blind-prediction
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install same pinned CPU numerical stack
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc25-old-calibration-temperature-lock
+          path: runs/smc25/lock
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc25-label-blind-all-nine-candidate-effects
+          path: runs/smc25/prediction
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc25/source/conditioned
+      - name: Score original physical feature kill and sham after prediction freeze
+        run: |
+          python research/real_recurrence_sae_v1/smc25_native_score.py \
+            --fetch-source \
+            --original-artifact runs/smc25/source/original \
+            --independent-artifact runs/smc25/source/independent \
+            --conditioned-receipt runs/smc25/source/conditioned/conditioned.json \
+            --calibration runs/smc25/lock/calibration.json \
+            --prediction runs/smc25/prediction/prediction.json \
+            --out runs/smc25/scored.json
+          python - <<'PY'
+          import json
+          d=json.load(open('runs/smc25/scored.json'))
+          assert d['n_unique_puzzles']==128 and d['n_goal_slots']==4096
+          assert set(d['test_data'])=={'smc25_novel30','smc25_novel34'}
+          assert len(d['pair_success'])==4
+          print("SMC25_NATIVE_SCORED",d['pair_success'],d['program_success'])
+          PY
+          sha256sum runs/smc25/scored.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc25-native-numeric-finite-causal-effects
+          path: runs/smc25/scored.json
+          if-no-files-found: warn
+
+  independent-audit:
+    needs: native-scoring
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc25-old-calibration-temperature-lock
+          path: runs/smc25/cal
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc25-label-blind-all-nine-candidate-effects
+          path: runs/smc25/pred
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc25-native-numeric-finite-causal-effects
+          path: runs/smc25/score
+      - name: Independently verify source, nine-digit predictions and all registered gates
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc25.py \
+            --calibration runs/smc25/cal/calibration.json \
+            --prediction runs/smc25/pred/prediction.json \
+            --scored runs/smc25/score/scored.json \
+            --out runs/smc25/audit.json
+          sha256sum runs/smc25/audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc25-independent-source-causal-prediction-audit
+          path: runs/smc25/audit.json
+          if-no-files-found: error
