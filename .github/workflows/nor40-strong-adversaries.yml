@@ -37,4 +37,4 @@ jobs:
       - name: Test source-independent attack certificates and frozen protocol
         run: |
           python -m compileall -q research/nor40_strong_adversaries
-          python -m unittest research.nor40_strong_adversaries.test_experiment -v
+          python -m unittest research.nor40_strong_adversaries.test_experiment research.nor40_strong_adversaries.test_independent_parity -v
