@@ -1,0 +1,89 @@
+{
+  "schema": "nor27.first_original_hosted_sha_locked_receipt.v1",
+  "registered_first_commit": "bcc49dfb96acd9a9aae51925630b2f04f69e2315",
+  "first_hosted_run_id": 44015771328,
+  "first_independent_replay_job_id": 133813586870,
+  "first_original_artifact_id": 14298756859,
+  "fixture": {
+    "name": "nor27_fixture.json",
+    "bytes": 2328063,
+    "sha256": "2d660516122efee0211555fdb321b347da91a667bbb688cff6435b4267f3e4b6",
+    "source_only": true,
+    "sources": 12
+  },
+  "outcome": {
+    "name": "nor27_full.json",
+    "bytes": 472774,
+    "sha256": "5c3597a9436cc33d6d9be81b1e53ad456b3b2b775872ab2d17c536972d88d428",
+    "sources": 12,
+    "preview_trials_per_source": 1024,
+    "calibration_per_bucket": 128,
+    "evaluation_per_bucket": 256,
+    "seed_buckets": [
+      1,
+      4,
+      16
+    ],
+    "attack_replicates": 4
+  },
+  "registered_scientific_pass": true,
+  "primary_gates": {
+    "preview_degradation": true,
+    "preview_degree_agreement": true,
+    "raw_seed_bits_sensitivity": true,
+    "exact_witness_controls": true
+  },
+  "preview_source_means": {
+    "0": 0.029459635416666668,
+    "2": 0.023600260416666668,
+    "4": 0.014892578125,
+    "6": 0.007161458333333333,
+    "8": 0
+  },
+  "preview_empirical_by_output_length": {
+    "769": {
+      "0": 0.038411458333333336,
+      "2": 0.02978515625,
+      "4": 0.01806640625,
+      "6": 0.008626302083333334,
+      "8": 0
+    },
+    "1537": {
+      "0": 0.0205078125,
+      "2": 0.017415364583333332,
+      "4": 0.01171875,
+      "6": 0.005696614583333333,
+      "8": 0
+    }
+  },
+  "preview_theoretical_by_output_length": {
+    "769": {
+      "0": 0.041472037884508386,
+      "2": 0.03130878612820775,
+      "4": 0.02101047561412465,
+      "6": 0.010574946861770337,
+      "8": 0
+    },
+    "1537": {
+      "0": 0.020785271588813218,
+      "2": 0.015639980825353207,
+      "4": 0.010460850661818687,
+      "6": 0.005247613681759236,
+      "8": 0
+    }
+  },
+  "seed_prefix_source_means": {
+    "hybrid_50|0": 0.029541015625,
+    "hybrid_50|2": 0.032246907552083336,
+    "hybrid_50|4": 0.030766805013020832,
+    "uniform16|0": 0.06355794270833333,
+    "uniform16|2": 0.060811360677083336,
+    "uniform16|4": 0.060511271158854164
+  },
+  "caveats": [
+    "The revealed reserve-coordinate prefix and raw seed high bits are different kinds of leakage.",
+    "The 12 source identities are the independent units; seed buckets and challenge trials are correlated within source.",
+    "A deterministic publicly reproducible RNG harness cannot establish deployment seed secrecy or cryptographic unpredictability.",
+    "An external authentic exact target-coefficient witness is assumed."
+  ]
+}
