@@ -1,0 +1,62 @@
+name: NOR-42 historical original-source off-grammar prefix and oracle smoke
+
+on:
+  push:
+    branches:
+      - research/nor42-paired-ood-archived-smoke-20261118
+    paths:
+      - 'research/nor42_paired_program_ood/**'
+      - '.github/workflows/nor42-archived-paired-smoke.yml'
+  pull_request:
+    paths:
+      - 'research/nor42_paired_program_ood/**'
+      - '.github/workflows/nor42-archived-paired-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_48_archived_only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check syntax and archived-only unit tests with exact uniform oracle probability
+        run: |
+          python -m compileall -q research/nor42_paired_program_ood
+          python -m unittest research.nor42_paired_program_ood.test_paired_model -v
+      - name: Read-only recheck permanent original 48-source JSON SHA and exact hypergeometric fractions
+        run: |
+          python research/nor42_paired_program_ood/original_archive_audit.py
+      - name: Generate historical-only 48-source off-grammar demo receipts
+        run: |
+          python -u research/nor42_paired_program_ood/paired_model.py \
+            --out /tmp/nor42_archived_48_smoke.json
+      - name: Confirm no fresh prospective NOR42 source identities or EVAL scores appear
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor42_archived_48_smoke.json').read_bytes()
+          result=json.loads(raw)
+          assert result['schema']=='nor42.archived_nor40_late_suffix_smoke.v1'
+          assert result['historical_source_units']==48
+          assert result['new_nor42_source_units']==0
+          assert len(result['records'])==48
+          assert result['source_archive_sha256']=='b51e8031715754c36661b74cff0c26e672fdc21355ff0dc9ab48efded3901de5'
+          assert all(r['paired_public_prefix_equal']
+                    and not r['paired_future_targets_equal']
+                    and r['native_clean_template_mask_cardinality']==1
+                    for r in result['records'])
+          print('NOR42 HISTORICAL SMOKE SHA',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor42_historical_48_paired_suffix_smoke
+          path: /tmp/nor42_archived_48_smoke.json
+          retention-days: 90

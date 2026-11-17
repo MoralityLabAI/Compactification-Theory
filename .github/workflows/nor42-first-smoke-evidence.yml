@@ -1,0 +1,68 @@
+name: NOR-42 one-shot immutable historical-only smoke evidence publisher
+
+on:
+  push:
+    branches:
+      - research/nor42-paired-ood-archived-smoke-20261118
+    paths:
+      - '.github/workflows/nor42-first-smoke-evidence.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_exact_historical_smoke:
+    if: github.ref == 'refs/heads/research/nor42-paired-ood-archived-smoke-20261118' && contains(github.event.head_commit.message, 'NOR42-ARCHIVE-SMOKE')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor42-paired-ood-archived-smoke-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor42_historical_48_paired_suffix_smoke
+          run-id: 44130867274
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor42_smoke_original
+      - name: Verify original historical-only JSON bytes and first run provenance
+        run: |
+          test ! -e research/nor42_paired_program_ood/results/nor42_archived_48_smoke.json
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          import json
+          raw=Path('/tmp/nor42_smoke_original/nor42_archived_48_smoke.json').read_bytes()
+          assert len(raw)==36963
+          assert sha256(raw).hexdigest()==(
+             '411e6e1e30ce262a5604cb60e99b314ff3742413f8d526f4257585a48666f3f9')
+          x=json.loads(raw)
+          assert x['schema']=='nor42.archived_nor40_late_suffix_smoke.v1'
+          assert len(x['records'])==48 and x['new_nor42_source_units']==0
+          assert all(r['paired_public_prefix_equal'] and not r['paired_future_targets_equal']
+                     for r in x['records'])
+          print('NOR42 FIRST HISTORICAL SMOKE BYTES SHA',len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Copy original raw JSON unchanged and commit with concurrent update retries
+        run: |
+          mkdir -p research/nor42_paired_program_ood/results
+          cp /tmp/nor42_smoke_original/nor42_archived_48_smoke.json \
+             research/nor42_paired_program_ood/results/nor42_archived_48_smoke.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor42_paired_program_ood/results/nor42_archived_48_smoke.json
+          git commit -m "NOR-42: archive original historical-only 48-source smoke SHA receipt"
+          for attempt in $(seq 1 15); do
+            git fetch origin research/nor42-paired-ood-archived-smoke-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor42-paired-ood-archived-smoke-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
