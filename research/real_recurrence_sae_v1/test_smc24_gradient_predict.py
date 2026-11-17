@@ -100,6 +100,12 @@ class GradientPredictorTests(unittest.TestCase):
         recovered_k,recovered_s=check_archived_edit(payload,info,sae,mu,scale,cov,dec)
         self.assertTrue(torch.equal(recovered_k,kill))
         self.assertTrue(torch.equal(recovered_s,sham))
+        # FP32 encoder forward on another host may move <= 1e-4.
+        moved=h.clone()
+        moved[0]+=5e-5
+        changed={**payload,"archived_h":moved}
+        a,b=check_archived_edit(changed,info,sae,mu,scale,cov,dec)
+        self.assertTrue(torch.equal(a,kill) and torch.equal(b,sham))
         tampered={**payload,"edit_sham":(sham+torch.eye(48,dtype=torch.float64)[0]*.02).tolist()}
         with self.assertRaisesRegex(ValueError,"dose|tangent"):
             check_archived_edit(tampered,info,sae,mu,scale,cov,dec)
