@@ -1,0 +1,58 @@
+{
+  "attack_restarts_per_family": 8,
+  "auditor_and_attacker_policy_classes": 10,
+  "blind_attack_control_families": 4,
+  "calibration_schedules_per_source": 256,
+  "date_utc": "2026-11-17",
+  "excluded_historical_source_units": 156,
+  "expected_replayed_crossplay_decisions": 30277632,
+  "first_original_artifact_id": 14327326409,
+  "first_original_artifact_name": "nor37_first_original_source_and_stochastic_policyaware_grade",
+  "first_original_grader_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44079786124",
+  "first_registration_commit": "a87401971de2cdefd7f36110fc6beae009c43bef",
+  "heldout_schedules_per_source": 512,
+  "new_independent_source_units": 24,
+  "original_file_bytes_sha256": {
+    "nor37_fixture.json": {
+      "bytes": 4857464,
+      "sha256": "f969925a159aa3e36d7061e2e65e0a6b9e6e0f82634e2a7e52b4dac874df6710"
+    },
+    "nor37_full.json": {
+      "bytes": 559101,
+      "sha256": "4852bd7de8012484db34404519553ae4d1e9f388203f2fdbf8b7516a534b684c"
+    }
+  },
+  "recorded_direct_integer_witness_pairs": 29568,
+  "registered_five_gates": {
+    "feature_aligned_curvature_signal_retained": true,
+    "original_source_native_witness_and_full_replay": true,
+    "stochastic50_mixture_resilience_and_top_gain": true,
+    "stochastic50_selfplay_improves": true,
+    "stochastic50_worst_calibrated_class_improves": true
+  },
+  "registered_primary_pass": true,
+  "schema": "nor37.original_first_sourceheldout_stochastic_curvature.v1",
+  "scope": "Finite synthetic RRC25. Random public curvature window and independent per-atom uniform exploration. External honest true-target coefficient witness and independent private audit coins assumed. Greedy attacker is approximate.",
+  "source_aware_exploration_tradeoff": 0.32645170603295337,
+  "source_direction_wins": {
+    "mix_self_stoch50_minus_deterministic": 24,
+    "mix_top_stoch50_minus_original": 24,
+    "self_stoch50_minus_deterministic": 24,
+    "top_deterministic_minus_atom_random": 24,
+    "top_stoch50_minus_atom_random": 24,
+    "worst_class_stoch50_minus_deterministic": 24
+  },
+  "source_means": {
+    "mix_self_stoch50_minus_deterministic": 0.013115564982096354,
+    "mix_top_stoch50_minus_original": 0.05932643687247575,
+    "self_stoch50_minus_deterministic": 0.01007080078125,
+    "top_deterministic_minus_atom_random": 0.1742166500265201,
+    "top_stoch50_minus_atom_random": 0.05687332262050345,
+    "worst_class_stoch50_minus_deterministic": 0.010457356770833334
+  },
+  "stochastic_sensitivity_levels": [
+    25,
+    50,
+    75
+  ]
+}
