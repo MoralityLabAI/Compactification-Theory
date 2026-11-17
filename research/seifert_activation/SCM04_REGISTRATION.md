@@ -1,0 +1,15 @@
+# SCM-04 preregistration: triple-linking activation capture
+
+**Registered:** 2026-11-13. **Exploratory only until trained RMP artifacts are mounted.** This is an independent extension of SCM-02/03. Previously sealed datasets, checkpoints, gates and result files remain unchanged. Any choices made after inspecting model outcomes must be marked post hoc, with a new holdout before confirmatory claims.
+
+The existing `rmp_capture.py` captures three distinct downstream token positions per task, injects after visit 0, freezes a two-row SAE decoder chart and intervention axes, and compares 32 against 64 samples on 64 group-disjoint discovery-half examples from `monitor_calibration` across RMP's four core task families.
+
+**Exact computation:** reject nonclosed loops, sampled projected collisions, unresolved crossings, and incomplete pure-braid traces. Record raw x-position-order `mu123`, the starting rank-to-token permutation, its parity and token-order-corrected `mu123`. For nonzero pairwise linking record the gcd and residue class. Use the cubic method only when every pairwise linking number is zero; otherwise use the budgeted exact-longitude calculation. Verify 32/64 angular agreement. Record full Artin action where feasible, independent winding and Alexander, and the number of forward passes.
+
+**Required phase-cut falsifier:** for each selected candidate with nonzero Milnor number, repeat analysis after at least four deterministic cyclic shifts of the stored angle frames, without recomputing neural states. The corrected token-order invariant must agree at every valid shift. A raw sign change with rank permutation is expected and should be recorded. A corrected disagreement is an extraction or sampling failure.
+
+**Causal validation:** after selecting features and radii on discovery, use previously unexamined reporting-half groups. Compare task loss/prediction under intervened and clean runs. Include chart-only random orthogonal transformations while preserving injected SAE directions, norm-matched random intervention directions, and label-shuffled effect controls. Summarize Milnor incidence, absolute value, sign (with frozen orientation), false-positive chart rate, and whether the invariant contributes held-out explanatory power beyond existing metrics. A null or unstable rate is a negative result.
+
+**Compression validation:** apply SCM-02's piecewise-linear pair-clearance certificate to SAE/PCA-reconstructed trace frames. Where it certifies braid preservation, exact Milnor agreement is mandatory. Otherwise explicitly compute both Milnor values and mark the outcome observational; report reconstruction error, compression payload bits, GPU seconds, intervention calls and task effect. Do not infer a surface-level distinction.
+
+**Stop gates:** any unsupported continuous-path claim, phase-cut inconsistency, train/test leakage, or increased false-positive rate under random charts prevents an empirical claim. Neurobehavioral effects remain unmeasured until genuine model artifacts become available.

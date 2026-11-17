@@ -21,8 +21,9 @@ import torch
 from knot import InvalidBraidTrace, extract_closed_braid, normalized_alexander, braid_seifert_surface
 from winding import verify_pure_braid
 from nonabelian import ArtinWordBudgetExceeded, artin_witness
+from milnor import token_order_milnor
 
-SCHEMA = "scm03/rmp-cyclic/v2"
+SCHEMA = "scm04/rmp-cyclic/v3"
 
 
 def sha256_file(path: Path) -> str:
@@ -34,8 +35,9 @@ def sha256_file(path: Path) -> str:
 
 
 def sha256_tensor(tensor: torch.Tensor) -> str:
-    # Canonical little-endian float64 bytes, without requiring NumPy.
-    # PyTorch's CPU-only wheel may be installed without NumPy on fresh CI.
+    # Stable little-endian float64 bytes without NumPy, which some clean CPU
+    # PyTorch environments do not install by default. Hashes must replay even
+    # when only torch and the Python standard library are available.
     values = tensor.detach().cpu().to(torch.float64).contiguous().reshape(-1).tolist()
     raw = struct.pack(f'<{len(values)}d', *values)
     return hashlib.sha256(raw).hexdigest()
@@ -186,12 +188,20 @@ def analyze_cycle(trace: dict, *, clearance: float = 1e-7,
                     'image_lengths':witness['image_lengths'],
                     'scope':witness['scope'],
                 }
-                # Short exact images support collision-free replay comparison.
-                # For large images, hash is an integrity receipt only.
+                # Small witnesses support collision-free exact replay comparisons;
+                # long witnesses keep a hash for receipt integrity only.
                 if sum(witness['image_lengths'])<=1_024:
                     item['artin']['images']=witness['images']
             except ArtinWordBudgetExceeded as exc:
                 item['artin']={'status':'budget_exceeded', 'reason':str(exc)}
+            if braid.n_strands == 3:
+                try:
+                    item['milnor'] = token_order_milnor(
+                        frames, braid.word, max_letters=max_artin_letters)
+                except ArtinWordBudgetExceeded as exc:
+                    item['milnor'] = {'status': 'budget_exceeded', 'reason': str(exc)}
+            else:
+                item['milnor'] = {'status': 'not_applicable', 'reason': 'three-strand invariant'}
             result.append(item)
         except (InvalidBraidTrace, ValueError, ArithmeticError) as exc:
             result.append({'visit':visit+1,'valid':False,'reject_reason':str(exc)})
@@ -221,7 +231,17 @@ def compare_double_resolution(coarse: dict, fine: dict, *,
         else:
             nonabelian_match=False
             comparison='unavailable'
+        am, bm = a.get('milnor', {}), b.get('milnor', {})
+        milnor_available = (am.get('status') in ('exact_integer', 'modulo_indeterminacy')
+                            and bm.get('status') in ('exact_integer', 'modulo_indeterminacy'))
+        milnor_match = (am['mu123_token_order'] == bm['mu123_token_order']
+                        and am['indeterminacy_gcd'] == bm['indeterminacy_gcd']) if milnor_available else None
+        closure_invariants_match = bool(abelian_match and (milnor_match if milnor_available else
+                          am.get('status') == bm.get('status') == 'not_applicable'))
         report.append({'visit':a['visit'],'match':bool(abelian_match and nonabelian_match),
+                       'milnor_match': milnor_match,
+                       'closure_invariants_match': closure_invariants_match,
+                       'closure_scope': 'equality_of_tested_invariants_not_link_isotopy', 
                        'abelian_match':abelian_match,
                        'nonabelian_match':bool(nonabelian_match) if artin_available else None,
                        'nonabelian_comparison':comparison,
