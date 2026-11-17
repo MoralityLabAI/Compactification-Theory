@@ -37,7 +37,7 @@ jobs:
       - name: Test nested CAL, new input grammar and source-block scientific gates
         run: |
           python -m compileall -q research/nor41_scale_ood
-          python -m unittest research.nor41_scale_ood.test_experiment research.nor41_scale_ood.test_independent_parity -v
+          python -m unittest research.nor41_scale_ood.test_experiment research.nor41_scale_ood.test_independent_parity research.nor41_scale_ood.test_posthoc_analysis -v
 
   first_public_only_fixture:
     if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR41-FIRST-GRADE')
