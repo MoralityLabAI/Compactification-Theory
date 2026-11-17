@@ -27,7 +27,7 @@ jobs:
         run: |
           git merge-base --is-ancestor 4a5f3750d240d46c031e0cb432fb7b1a884cfbe9 HEAD
           test -s research/nor39_clean_global_uniform/REGISTRATION.md
-      - name: Static provenance guard: test suite must never reconstruct a new NOR39 source
+      - name: Static provenance guard for clean source-only pre-data tests
         run: |
           python research/nor39_clean_global_uniform/predata_isolation_audit.py
       - name: Check first NOR-38 original archive pins, full-output reserve and independent replayer parity
