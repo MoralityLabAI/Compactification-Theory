@@ -37,4 +37,4 @@ jobs:
       - name: Test nested CAL, new input grammar and source-block scientific gates
         run: |
           python -m compileall -q research/nor41_scale_ood
-          python -m unittest research.nor41_scale_ood.test_experiment -v
+          python -m unittest research.nor41_scale_ood.test_experiment research.nor41_scale_ood.test_independent_parity -v
