@@ -13,7 +13,7 @@ from math import comb,isclose
 from pathlib import Path
 from zipfile import ZipFile
 
-ROOT=Path(__file__).resolve().parents[2]
+ROOT=Path(__file__).resolve().parents[3]
 if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 from research.rrc_compactification import compound25 as corpus
 from research.nor21_degree_scaling import receipt_audit as native21
