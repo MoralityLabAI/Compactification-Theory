@@ -110,8 +110,15 @@ def check_archived_edit(physical, info, sae, mean, scale, cov, dec):
         raise ValueError("frozen erasure violates physical decoder dose cap")
     A=cov[active]
     affine=torch.tensor([float(code[target])+TAU,0,0,0],dtype=torch.float64)
-    if float((A@kill-affine).abs().max())>1e-8:
-        raise ValueError("archived kill violates physical selective encoder constraints")
+    residual=(A@kill-affine).abs()
+    target_roundoff=float(residual[0])
+    protected_constraint=float(residual[1:].max())
+    if (target_roundoff>CODE_TOL*(1+abs(float(code[target]))) or
+            protected_constraint>1e-8):
+        raise ValueError(
+            "archived kill violates source-calibrated physical constraints "
+            +str({"target_fp32_residual":target_roundoff,
+                  "protected_fp64_residual":protected_constraint}))
     if float((A@sham).abs().max())>1e-8:
         raise ValueError("archived sham is not tangent to all four active encoder rows")
     killed=fp32_code(sae,mean,scale,physical["archived_h"].double()-kill)
