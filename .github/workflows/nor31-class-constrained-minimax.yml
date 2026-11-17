@@ -15,6 +15,18 @@ permissions:
   contents: read
 
 jobs:
+  original-first-run-readonly-sha-and-independent-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-pin original TRAIN, fresh TEST and original grade bytes, then independently replay every decision
+        run: |
+          python research/nor31_class_constrained_minimax/original_archive_audit.py
+
   historical-training-before-any-new-source:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
