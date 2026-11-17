@@ -1,0 +1,143 @@
+{
+  "arithmetic_preflight": {
+    "blas_dot_gamma_assumed": true,
+    "ieee_binary64_preflight_passed": true,
+    "numpy_version": "2.3.5",
+    "physical_torch_cuda_execution_certified": false
+  },
+  "backend_code_sha256": {
+    "ball_centered.py": "0182c9a82e8583677f3d9f1a5c2d57acc5463c139032b923df0acd413fb39066",
+    "fast_centered.py": "de41650f9e215b45aca86958010a45b76898af87d54f348269dde72cda298c78"
+  },
+  "cases": [
+    {
+      "all_empirical_torch64_shadow_within_balls": true,
+      "beta": 0.1,
+      "case": "tied_beta_010",
+      "floating_execution_certified": false,
+      "frequency_sha256": "476007c2e71a7330d37aaa2fe42e412a8f3c01e456b84fc5ee022cb10e679af1",
+      "ideal_real_source_bound_conditional": true,
+      "model_sha256": "e258f0df99f47f48ec8ca1e13e21335d249e355df9e106407857d9c21fb07ed9",
+      "model_shape": {
+        "heads": 4,
+        "hidden": 128,
+        "sequence": 64,
+        "visits": 8
+      },
+      "numpy_arithmetic_contract": "IEEE_binary64_BLAS_dot_standard_forward_error_assumed",
+      "observed_link_certified": false,
+      "passed_radius_cap": true,
+      "per_visit_empirical_torch64_shadow_distance": [
+        1.7504803983221107e-15,
+        2.5785725030209653e-15,
+        3.0376211746400176e-15,
+        3.577274475490403e-15,
+        4.1580540109250655e-15,
+        4.305873011205398e-15,
+        4.80445125544709e-15,
+        5.008921442345559e-15
+      ],
+      "per_visit_max_clean_radius": [
+        2.18734123473e-09,
+        1.515048783698e-08,
+        9.213214687257e-08,
+        5.5010793150687e-07,
+        3.27898262260337e-06,
+        1.956131803508534e-05,
+        0.000116824310176219,
+        0.0006983757702776453
+      ],
+      "radius_cap": 0.01,
+      "reinjection": false,
+      "tied": true,
+      "trained_rmp_checkpoint_present": false
+    },
+    {
+      "all_empirical_torch64_shadow_within_balls": true,
+      "beta": 0.25,
+      "case": "tied_beta_025_negative",
+      "floating_execution_certified": false,
+      "frequency_sha256": "476007c2e71a7330d37aaa2fe42e412a8f3c01e456b84fc5ee022cb10e679af1",
+      "ideal_real_source_bound_conditional": true,
+      "model_sha256": "e258f0df99f47f48ec8ca1e13e21335d249e355df9e106407857d9c21fb07ed9",
+      "model_shape": {
+        "heads": 4,
+        "hidden": 128,
+        "sequence": 64,
+        "visits": 8
+      },
+      "numpy_arithmetic_contract": "IEEE_binary64_BLAS_dot_standard_forward_error_assumed",
+      "observed_link_certified": false,
+      "passed_radius_cap": false,
+      "per_visit_empirical_torch64_shadow_distance": [
+        1.8654916545003666e-15,
+        2.8073464734379024e-15,
+        3.7906260329133775e-15,
+        4.945835357265386e-15,
+        5.90868639619456e-15,
+        7.110146992969498e-15,
+        8.208737333168517e-15,
+        9.47796409608496e-15
+      ],
+      "per_visit_max_clean_radius": [
+        1.309549260963e-08,
+        2.8133626406907e-07,
+        5.8077243976746e-06,
+        0.00012010452622914354,
+        0.002488647551144904,
+        0.05161454021456979,
+        1.088917706798635,
+        38.91046168039483
+      ],
+      "radius_cap": 1.0,
+      "reinjection": false,
+      "tied": true,
+      "trained_rmp_checkpoint_present": false
+    },
+    {
+      "all_empirical_torch64_shadow_within_balls": true,
+      "beta": 0.25,
+      "case": "untied_reinjection_beta_025",
+      "floating_execution_certified": false,
+      "frequency_sha256": "476007c2e71a7330d37aaa2fe42e412a8f3c01e456b84fc5ee022cb10e679af1",
+      "ideal_real_source_bound_conditional": true,
+      "model_sha256": "ab355c529c55f5f70bd4368a8b16f9f3bba8ed657f2e749229cd1208fd58ce8a",
+      "model_shape": {
+        "heads": 4,
+        "hidden": 128,
+        "sequence": 64,
+        "visits": 8
+      },
+      "numpy_arithmetic_contract": "IEEE_binary64_BLAS_dot_standard_forward_error_assumed",
+      "observed_link_certified": false,
+      "passed_radius_cap": true,
+      "per_visit_empirical_torch64_shadow_distance": [
+        2.867847872503354e-15,
+        5.51494976112676e-15,
+        8.963710843793108e-15,
+        1.2226008132002127e-14,
+        1.6115792842470178e-14,
+        2.2074043706718765e-14,
+        2.7766817816412996e-14,
+        3.126363445571174e-14
+      ],
+      "per_visit_max_clean_radius": [
+        1.309549769065e-08,
+        1.0796751850122e-07,
+        5.2741521696513e-07,
+        1.9197771967248e-06,
+        5.75183432667526e-06,
+        1.486458195328107e-05,
+        3.438693369167061e-05,
+        7.341518116129866e-05
+      ],
+      "radius_cap": 0.005,
+      "reinjection": true,
+      "tied": false,
+      "trained_rmp_checkpoint_present": false
+    }
+  ],
+  "date": "2026-11-14",
+  "schema": "scm10_full_rmp_shape_IEEE_source_ball_v1",
+  "scope": "synthetic_fullshape_exact_real_under_declared_IEEE_BLAS_contract"
+}
