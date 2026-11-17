@@ -1,0 +1,270 @@
+name: SMC-26 four independent Sudoku teachers and causal sign utility
+
+on:
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC26_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/SMC26_RESULTS.md'
+      - 'research/real_recurrence_sae_v1/smc26_train.py'
+      - 'research/real_recurrence_sae_v1/smc26_predict.py'
+      - 'research/real_recurrence_sae_v1/smc26_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc26.py'
+      - 'research/real_recurrence_sae_v1/test_smc26_sign_utility.py'
+      - '.github/workflows/smc26-sign-utility.yml'
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC26_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/SMC26_RESULTS.md'
+      - 'research/real_recurrence_sae_v1/smc26_train.py'
+      - 'research/real_recurrence_sae_v1/smc26_predict.py'
+      - 'research/real_recurrence_sae_v1/smc26_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc26.py'
+      - 'research/real_recurrence_sae_v1/test_smc26_sign_utility.py'
+      - '.github/workflows/smc26-sign-utility.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  train-old-only-calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install original Torch 2.7.1 CPU and NumPy 2.2.6
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - name: Source-independent unit checks before new teacher training
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc26_sign_utility.py' -v
+          python -m compileall -q research/real_recurrence_sae_v1/smc26_train.py research/real_recurrence_sae_v1/smc26_predict.py research/real_recurrence_sae_v1/smc26_score.py research/real_recurrence_sae_v1/audit_smc26.py
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/conditioned
+      - name: Verify source file byte SHAs before training
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc26/source/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc26/source/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc26/source/conditioned/conditioned.json" | sha256sum -c -
+      - name: Train B811 and B919 on old training/val and calibrate all four on old calibration
+        run: |
+          python research/real_recurrence_sae_v1/smc26_train.py \
+            --fetch-source \
+            --original-artifact runs/smc26/source/original \
+            --independent-artifact runs/smc26/source/independent \
+            --conditioned-receipt runs/smc26/source/conditioned/conditioned.json \
+            --bundle runs/smc26/train/bundle.pt \
+            --out runs/smc26/train/calibration.json
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          c=json.loads(Path("runs/smc26/train/calibration.json").read_text())
+          assert c["new_puzzles_generated"] is False
+          assert c["new_teacher_seed_roster"] == [811,919]
+          assert len(c["new_teacher_model_SAE_training"])==2
+          assert set(c["all_teacher_temperatures"])=={"B501","B701","B811","B919"}
+          assert all(x["n_calibration_goals"]==512 for x in c["all_teacher_temperatures"].values())
+          assert hashlib.sha256(Path("runs/smc26/train/bundle.pt").read_bytes()).hexdigest()==c["bundle_sha256"]
+          print("SMC26_4_TEACHERS_PRETEST_FROZEN",c["all_four_capability_matched"],c["bundle_sha256"])
+          PY
+          sha256sum runs/smc26/train/calibration.json runs/smc26/train/bundle.pt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          path: |
+            runs/smc26/train/calibration.json
+            runs/smc26/train/bundle.pt
+          if-no-files-found: error
+
+  target-blind-predict:
+    needs: train-old-only-calibrate
+    runs-on: ubuntu-latest
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical pinned CPU Torch and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          path: runs/smc26/train
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/conditioned
+      - name: Freeze target-free sign policies on 256 new Sudoku source inputs
+        run: |
+          python research/real_recurrence_sae_v1/smc26_predict.py \
+            --fetch-source \
+            --original-artifact runs/smc26/source/original \
+            --independent-artifact runs/smc26/source/independent \
+            --conditioned-receipt runs/smc26/source/conditioned/conditioned.json \
+            --bundle runs/smc26/train/bundle.pt \
+            --calibration runs/smc26/train/calibration.json \
+            --source-state runs/smc26/prediction/state1.pt \
+            --out runs/smc26/prediction/prediction.json
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          p=json.loads(Path("runs/smc26/prediction/prediction.json").read_text())
+          assert p["contains_test_true_labels"] is False
+          assert p["contains_test_outcomes"] is False
+          assert len(p["test_prediction_data"])==2
+          assert all(len(v)==4 for v in p["test_prediction_data"].values())
+          assert all(len(rows)==128 for v in p["test_prediction_data"].values() for rows in v.values())
+          assert hashlib.sha256(Path("runs/smc26/prediction/state1.pt").read_bytes()).hexdigest()==p["source_stage1_binary_sha256"]
+          assert all(len(g["classwise_effects"])==9 for v in p["test_prediction_data"].values() for rows in v.values() for row in rows for g in row["goals"] if g["status"]=="eligible")
+          print("SMC26_256_INPUTS_SEALED")
+          PY
+          sha256sum runs/smc26/prediction/prediction.json runs/smc26/prediction/state1.pt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc26-target-blind-256-puzzle-signed-policies
+          path: |
+            runs/smc26/prediction/prediction.json
+            runs/smc26/prediction/state1.pt
+          if-no-files-found: error
+
+  native-score:
+    needs: target-blind-predict
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install identical numerical stack
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          path: runs/smc26/train
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-target-blind-256-puzzle-signed-policies
+          path: runs/smc26/prediction
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc26/source/conditioned
+      - name: Apply archived physical states and score native three-step sign utility
+        run: |
+          python research/real_recurrence_sae_v1/smc26_score.py \
+            --fetch-source \
+            --original-artifact runs/smc26/source/original \
+            --independent-artifact runs/smc26/source/independent \
+            --conditioned-receipt runs/smc26/source/conditioned/conditioned.json \
+            --bundle runs/smc26/train/bundle.pt \
+            --calibration runs/smc26/train/calibration.json \
+            --prediction runs/smc26/prediction/prediction.json \
+            --source-state runs/smc26/prediction/state1.pt \
+            --out runs/smc26/score/scored.json
+          python - <<'PY'
+          import json
+          d=json.load(open("runs/smc26/score/scored.json"))
+          assert d["n_unique_new_sudoku_puzzles"]==256
+          assert d["n_predeclared_goal_slots"]==8192
+          assert len(d["teacher_pair_success"])==4
+          print("SMC26_REGISTERED_STATUS",d["registered_scientific_status"],d["teacher_pair_success"])
+          PY
+          sha256sum runs/smc26/score/scored.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc26-frozen-native-sign-utility-scored
+          path: runs/smc26/score/scored.json
+          if-no-files-found: warn
+
+  independent-audit:
+    needs: native-score
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          path: runs/smc26/train
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-target-blind-256-puzzle-signed-policies
+          path: runs/smc26/prediction
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-frozen-native-sign-utility-scored
+          path: runs/smc26/score
+      - name: Reconstruct all 8192 slots and registered 5000-puzzle bootstrap
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc26.py \
+            --calibration runs/smc26/train/calibration.json \
+            --bundle runs/smc26/train/bundle.pt \
+            --prediction runs/smc26/prediction/prediction.json \
+            --source-state runs/smc26/prediction/state1.pt \
+            --scored runs/smc26/score/scored.json \
+            --out runs/smc26/audit/audit.json
+          sha256sum runs/smc26/audit/audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc26-independent-4teacher-source-and-utility-audit
+          path: runs/smc26/audit/audit.json
+          if-no-files-found: error
