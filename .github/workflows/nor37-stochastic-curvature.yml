@@ -1,0 +1,174 @@
+name: NOR-37 prospective randomized curvature audit and greedy policy-aware cross-play
+
+on:
+  push:
+    paths:
+      - 'research/nor37_stochastic_curvature/**'
+      - '.github/workflows/nor37-stochastic-curvature.yml'
+  pull_request:
+    paths:
+      - 'research/nor37_stochastic_curvature/**'
+      - '.github/workflows/nor37-stochastic-curvature.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistered-history-and-exact-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze first NOR37 preregistration as ancestor before any generated data
+        run: |
+          git merge-base --is-ancestor a87401971de2cdefd7f36110fc6beae009c43bef HEAD
+          test -s research/nor37_stochastic_curvature/REGISTRATION.md
+      - name: Verify immutable first NOR36 source/grade evidence and 156 historic source identities
+        run: |
+          python research/nor36_policyaware_curvature/original_archive_audit.py
+      - name: Compile exact stochastic audit, source-only and greedy fairness controls
+        run: |
+          python -m compileall -q research/nor37_stochastic_curvature
+          python -m unittest research.nor37_stochastic_curvature.test_experiment -v
+
+  freeze-independent-new-public-source-fixture:
+    needs: preregistered-history-and-exact-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Draw 24 new source-only RRC25 problems after registration, before all attacks
+        run: |
+          python research/nor37_stochastic_curvature/experiment.py \
+            --make-fixture /tmp/nor37_fixture.json
+      - name: Check exact public source isolation, original pre-data roster and SHA
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          raw=Path('/tmp/nor37_fixture.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor37.new_public_only_reps56to59.v1'
+          assert x['registered_first_commit']=='a87401971de2cdefd7f36110fc6beae009c43bef'
+          assert x['replicates']==[56,57,58,59]
+          assert x['source_offset']==130037000
+          assert x['public_only'] and x['planted_and_private_target_absent']
+          assert x['attack_witness_and_audit_absent']
+          assert x['excluded_historical_sources']==156
+          assert len(x['cases'])==24
+          assert len({r['full_public_input_sha256'] for r in x['cases']})==24
+          assert Counter(r['degree'] for r in x['cases'])=={512:12,1024:12}
+          assert not any(any(k in r for k in (
+             'program','future','target','attack','witness','audit')) for r in x['cases'])
+          print('NOR37 FIRST SOURCE-ONLY PUBLIC FIXTURE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor37_first_frozen_public_only_24_source_fixture
+          path: /tmp/nor37_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  first-registered-calibrated-stochastic-curvature-game:
+    needs: freeze-independent-new-public-source-fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor37_first_frozen_public_only_24_source_fixture
+          path: /tmp/nor37
+      - name: Calibrate 10 equal-budget policy-aware attackers on 256 CAL then score 512 independent EVAL schedules
+        run: |
+          python research/nor37_stochastic_curvature/experiment.py \
+            --fixture /tmp/nor37/nor37_fixture.json \
+            --out /tmp/nor37/nor37_full.json
+      - name: Preserve preregistered PASS or scientific FAIL and first complete SHA
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          f=Path('/tmp/nor37/nor37_fixture.json').read_bytes()
+          raw=Path('/tmp/nor37/nor37_full.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor37.stochastic_intraatom_curvature_policyaware.v1'
+          assert x['registration_first_commit']=='a87401971de2cdefd7f36110fc6beae009c43bef'
+          assert x['public_fixture_sha256']==sha256(f).hexdigest()
+          assert x['fresh_source_units']==len(x['source_records'])==24
+          assert x['historical_sources_excluded']==156
+          assert x['component_auditor_arms']==[
+            'uniform','static_prior','posterior','hybrid_25','hybrid_50','hybrid_75']
+          assert x['original_mix_weights']==[2,0,1,1,4,8]
+          assert len(x['auditor_policies'])==10
+          assert len(x['transform_modes'])==6
+          assert len(x['blind_control_families'])==4
+          assert x['calibration_schedules_per_source']==256
+          assert x['heldout_schedules_per_source']==512
+          assert x['greedy_restarts_per_policy']==8
+          assert x['audit_budget']==16 and x['attack_radius']==4
+          assert x['public_proposals_frozen_before_private_truth']
+          assert x['calibrated_attacks_frozen_before_independent_heldout_schedules']
+          assert x['authentic_external_target_coefficient_witness_assumed']
+          assert len(x['registered_five_gates'])==5
+          assert x['registered_five_gates']['original_source_native_witness_and_full_replay']
+          assert all(r['honest_target_false_rejections']==0
+                     and r['fully_schedule_informed_attacker_detections']==0
+                     and r['delta_decision_disagreements']==0
+                     and all(v==0 for v in r['exact_quota_and_control_checks'].values())
+                     and len(r['greedy_attack_sets'])==10
+                     and len(r['blind_attack_sets'])==4
+                     and len(r['crossplay_weighted_numerators'])==14
+                     and len(r['realized_mixture_attack_hits'])==14
+                     for r in x['source_records'])
+          print('NOR37 FIRST FROZEN PUBLIC SOURCE SHA256',len(f),sha256(f).hexdigest())
+          print('NOR37 FIRST COMPLETE GRADED OUTCOME SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR37 SCIENTIFIC REGISTERED PASS',x['registered_primary_pass'])
+          print('NOR37 REGISTERED FIVE GATES',x['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor37_first_original_source_and_stochastic_policyaware_grade
+          path: |
+            /tmp/nor37/nor37_fixture.json
+            /tmp/nor37/nor37_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent-exact-source-and-stochastic-greedy-replay:
+    needs: first-registered-calibrated-stochastic-curvature-game
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor37_first_original_source_and_stochastic_policyaware_grade
+          path: /tmp/nor37
+      - name: Independently reconstruct original source, trial-ID-set greedy, all stochastic plans and heldout decisions
+        run: |
+          python research/nor37_stochastic_curvature/receipt_audit.py --check \
+            --fixture /tmp/nor37/nor37_fixture.json \
+            --full /tmp/nor37/nor37_full.json
