@@ -1,7 +1,8 @@
 """NOR-30 registration, optimizer, public-only source and witness controls."""
 from __future__ import annotations
 from fractions import Fraction
-from itertools import combinations
+from itertools import combinations, permutations
+from collections import Counter
 from math import comb
 import unittest
 
@@ -96,6 +97,23 @@ class NOR30ProspectiveTests(unittest.TestCase):
                 self.assertEqual(len(att),n.R)
                 self.assertEqual(len(set(att)),n.R)
                 self.assertEqual(att,n.best_response(cov,w,"a"*64,name,rep))
+
+    def test_retrospective_shuffled_prior_equivalent_to_uniform_sampling(self):
+        """Post-result equivalence audit; leaves prospective gates unchanged.
+
+        Applying a uniformly chosen permutation to any fixed ordered list
+        of k distinct ranks yields exactly the same k-tuple distribution
+        as inspecting the first k positions of a uniform permutation.
+        """
+        for m in range(3,7):
+            static_ranks=tuple(reversed(range(m)))
+            perms=list(permutations(range(m)))
+            for k in range(1,min(m,3)+1):
+                shuffled=Counter(tuple(p[i] for i in static_ranks[:k])
+                                 for p in perms)
+                uniform=Counter(tuple(p[:k]) for p in perms)
+                self.assertEqual(shuffled,uniform,(m,k))
+                self.assertEqual(sum(shuffled.values()),len(perms))
 
     def test_training_and_test_phase_separation(self):
         self.assertNotEqual(n.phase_digest("a"*64,"calibration"),
