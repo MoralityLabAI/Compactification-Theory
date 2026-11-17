@@ -33,7 +33,7 @@ jobs:
       - name: Check first NOR-38 original archive pins, full-output reserve and independent replayer parity
         run: |
           python -m compileall -q research/nor39_clean_global_uniform
-          python -m unittest research.nor39_clean_global_uniform.test_experiment research.nor39_clean_global_uniform.test_posthoc_analysis -v
+          python -m unittest research.nor39_clean_global_uniform.test_experiment research.nor39_clean_global_uniform.test_posthoc_analysis research.nor39_clean_global_uniform.test_uncertainty_audit -v
 
   first_public_only_fixture:
     if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR39-FIRST-GRADE')
