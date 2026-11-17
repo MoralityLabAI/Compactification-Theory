@@ -1,0 +1,258 @@
+{
+  "checks": {
+    "balanced_family_topology_cells_verified": 56,
+    "development_candidates_checked": 6,
+    "fresh_unique_encoded_inputs": 5120,
+    "fresh_unique_signatures": 5120,
+    "frozen_models_verified": 9,
+    "mediation_cells_checked": 720,
+    "recorded_predictions_regraded": 138240,
+    "semantic_pairs_reconstructed": 1536
+  },
+  "completed_sha256": "775b067fa5fb6ca3d658923d619938bd051c5d8d291ae9e9e23f42babc4c025a",
+  "encoded_observation_overlap": {
+    "clean": {
+      "id": {
+        "ids": [],
+        "n": 1024,
+        "overlap_n": 0
+      },
+      "ood": {
+        "ids": [],
+        "n": 1024,
+        "overlap_n": 0
+      }
+    },
+    "pairs": {
+      "id": {
+        "both_overlap_n": 0,
+        "either_overlap_n": 0,
+        "ids": [],
+        "n": 512
+      },
+      "ood": {
+        "both_overlap_n": 0,
+        "either_overlap_n": 0,
+        "ids": [],
+        "n": 1024
+      }
+    },
+    "reference_role_counts": {
+      "scm19_cumulative_known": 10221,
+      "scm20_cumulative_known": 25181
+    },
+    "reference_unique_inputs": 38621,
+    "scope": "complete registered historical catalog plus every SCM21 pre-final role; strict actual coefficient-input novelty"
+  },
+  "factorial_quotas": {
+    "clean_id": {
+      "product/additive": 85,
+      "product/cascade": 85,
+      "product/fork": 85,
+      "product/hadamard": 85,
+      "signed/additive": 86,
+      "signed/cascade": 86,
+      "signed/fork": 86,
+      "signed/hadamard": 86,
+      "sparse/additive": 85,
+      "sparse/cascade": 85,
+      "sparse/fork": 85,
+      "sparse/hadamard": 85
+    },
+    "clean_ood": {
+      "lacunary/additive": 64,
+      "lacunary/cascade": 64,
+      "lacunary/fork": 64,
+      "lacunary/hadamard": 64,
+      "rational/additive": 64,
+      "rational/cascade": 64,
+      "rational/fork": 64,
+      "rational/hadamard": 64,
+      "squared/additive": 64,
+      "squared/cascade": 64,
+      "squared/fork": 64,
+      "squared/hadamard": 64,
+      "twisted_product/additive": 64,
+      "twisted_product/cascade": 64,
+      "twisted_product/fork": 64,
+      "twisted_product/hadamard": 64
+    },
+    "pair_id": {
+      "product/additive": 43,
+      "product/cascade": 43,
+      "product/fork": 43,
+      "product/hadamard": 43,
+      "signed/additive": 43,
+      "signed/cascade": 43,
+      "signed/fork": 43,
+      "signed/hadamard": 43,
+      "sparse/additive": 42,
+      "sparse/cascade": 42,
+      "sparse/fork": 42,
+      "sparse/hadamard": 42
+    },
+    "pair_ood": {
+      "lacunary/additive": 64,
+      "lacunary/cascade": 64,
+      "lacunary/fork": 64,
+      "lacunary/hadamard": 64,
+      "rational/additive": 64,
+      "rational/cascade": 64,
+      "rational/fork": 64,
+      "rational/hadamard": 64,
+      "squared/additive": 64,
+      "squared/cascade": 64,
+      "squared/fork": 64,
+      "squared/hadamard": 64,
+      "twisted_product/additive": 64,
+      "twisted_product/cascade": 64,
+      "twisted_product/fork": 64,
+      "twisted_product/hadamard": 64
+    }
+  },
+  "journal_events": {
+    "all_weights_and_directions_frozen": 1,
+    "campaign_completed": 1,
+    "forward_called": 74448,
+    "mediation_cell_completed": 744,
+    "optimizer_completed": 16000,
+    "oracle_call": 372274,
+    "patched_prediction_selected": 11712,
+    "prediction_selected": 11664,
+    "process_started": 1
+  },
+  "memory": {
+    "allocated_mb": 24.490234375,
+    "minimum_free_mb": 3245.7000007629395,
+    "reserved_mb": 30.0
+  },
+  "model_work_replayed": {
+    "forward_examples": 403584,
+    "model_calls": 74448,
+    "readout_examples": 403584,
+    "recurrent_example_visits": 1614336,
+    "recurrent_token_visits": 43587072
+  },
+  "official_roster_calls": 0,
+  "parameter_step_statistics": {
+    "capped_updates": 5371,
+    "maximum_l2": 0.009999516420066357,
+    "sum_l2": 147.64040928939357
+  },
+  "passed": true,
+  "registration_commit": "f26b858",
+  "schema": "scm21.audit.v1",
+  "terminal_fiber_checks": [
+    {
+      "model": "causal",
+      "seed": 191,
+      "terminal_fiber_first_readout_max": 8.159406661434332e-07
+    },
+    {
+      "model": "control",
+      "seed": 191,
+      "terminal_fiber_first_readout_max": 8.159406661434332e-07
+    },
+    {
+      "model": "warm",
+      "seed": 191,
+      "terminal_fiber_first_readout_max": 8.159406661434332e-07
+    },
+    {
+      "model": "causal",
+      "seed": 1191,
+      "terminal_fiber_first_readout_max": 8.187728326447541e-07
+    },
+    {
+      "model": "control",
+      "seed": 1191,
+      "terminal_fiber_first_readout_max": 8.187728326447541e-07
+    },
+    {
+      "model": "warm",
+      "seed": 1191,
+      "terminal_fiber_first_readout_max": 8.187728326447541e-07
+    },
+    {
+      "model": "causal",
+      "seed": 2191,
+      "terminal_fiber_first_readout_max": 1.0214386065854342e-06
+    },
+    {
+      "model": "control",
+      "seed": 2191,
+      "terminal_fiber_first_readout_max": 1.0214386065854342e-06
+    },
+    {
+      "model": "warm",
+      "seed": 2191,
+      "terminal_fiber_first_readout_max": 1.0214386065854342e-06
+    }
+  ],
+  "training_after_final": false,
+  "training_stages": {
+    "s1191_lambda0.25/train": {
+      "forwards": 3000,
+      "updates": 1000
+    },
+    "s1191_lambda0/train": {
+      "forwards": 3000,
+      "updates": 1000
+    },
+    "s191_lambda0.25/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s191_lambda0.5/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s191_lambda0/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s2191_lambda0.25/train": {
+      "forwards": 3000,
+      "updates": 1000
+    },
+    "s2191_lambda0/train": {
+      "forwards": 3000,
+      "updates": 1000
+    }
+  },
+  "verification_oracle_requests": {
+    "check_candidate": 178348,
+    "convolution": 37569,
+    "execute": 437514,
+    "grade": 40108,
+    "make_case": 9633,
+    "reciprocal": 34759,
+    "unary": 209166
+  },
+  "verification_physical_caches": {
+    "convolution": {
+      "currsize": 30885,
+      "hits": 6684,
+      "maxsize": 32768,
+      "misses": 30885
+    },
+    "execute": {
+      "currsize": 32768,
+      "hits": 369112,
+      "maxsize": 32768,
+      "misses": 68402
+    },
+    "reciprocal": {
+      "currsize": 32582,
+      "hits": 2177,
+      "maxsize": 32768,
+      "misses": 32582
+    },
+    "unary": {
+      "currsize": 32768,
+      "hits": 78046,
+      "maxsize": 32768,
+      "misses": 131120
+    }
+  }
+}
