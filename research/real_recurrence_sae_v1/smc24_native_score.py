@@ -18,7 +18,7 @@ HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from smc14_causal_transfer import source_group_context
 from smc15_tangent_conditioning import load_and_lock_inputs
-from smc23_native_first import affine_physical, four_arm_logits, plan_target_native
+from smc23_native_first import affine_physical, four_arm_logits, fp32_code, TAU, MAX_DOSE_MULTIPLE, CODE_TOL
 from smc24_gradient_predict import (
     B_COMPONENTS, TEACHERS, FAMILIES, GOALS, PUZZLES,
     BOOT, MIN_GOALS, MIN_PUZZLES, PRED_SCHEMA,
@@ -37,10 +37,94 @@ def check_input_predictions(frozen, original_bytes, snapshot,manifest):
         raise ValueError("leaked test target or test-label gradient in prediction source")
     if set(frozen["test_prediction_data"])!=set(FAMILIES):
         raise ValueError("incorrect new-test family roster")
+    if set(frozen.get("archived_source_stage1",{}))!=set(FAMILIES):
+        raise ValueError("canonical pretest FP32 source-stage archive missing")
+    if any(set(frozen["archived_source_stage1"][fam])!=set(TEACHERS) for fam in FAMILIES):
+        raise ValueError("canonical source teacher anchors missing")
     text=original_bytes.decode("utf-8")
     for forbidden in ('"truth_digit"', '"goal_truth_digits"', '"target":', '"native_true_margin"'):
         if forbidden in text:
             raise ValueError("prediction artifact contains forbidden test-score field")
+
+
+def admitted_frozen_stage1(frozen,ctx):
+    """Input-only physical FP32 source state is canonical for native scoring.
+
+    Native model recomputation checks cross-runner numerical parity, but no
+    source-reoptimization or post-label edits are allowed after prediction.
+    """
+    store={}
+    drift={}
+    for family in FAMILIES:
+        store[family]={}
+        drift[family]={}
+        for teacher in TEACHERS:
+            part=frozen["archived_source_stage1"][family][teacher]
+            archived=torch.tensor(part["tensor"],dtype=torch.float32)
+            if tuple(part["shape"])!=(PUZZLES,81,48) or tuple(archived.shape)!=(PUZZLES,81,48):
+                raise ValueError("saved source stage-one physical shape differs")
+            if sha(archived.contiguous().numpy().tobytes())!=part["tensor_sha256"]:
+                raise ValueError("canonical archived FP32 tensor bytes altered")
+            recomputed=ctx[teacher]["cohorts"][family]["stage1"]
+            mismatch=float((archived-recomputed).abs().max())
+            if mismatch>1e-4:
+                raise ArithmeticError("cross-runner stage-one source drift exceeds preoutcome threshold")
+            teacher64=ctx[teacher]["model64"]
+            with torch.no_grad():
+                state=archived.double()
+                for _ in range(3):
+                    state=teacher64.block(state)
+                clean=teacher64.head(state).detach()
+            if not bool(torch.isfinite(clean).all()):
+                raise ArithmeticError("nonfinite native clean task outputs")
+            drift[family][teacher]=mismatch
+            store[family][teacher]={"stage":archived,"clean":clean}
+    return store,drift
+
+
+def check_archived_edit(physical, info, sae, mean, scale, cov, dec):
+    """Re-validate archived feature choice and input constraints, outcome-blind."""
+    if info["status"]!="eligible":
+        raise ValueError("only eligible frozen edits can enter native scoring")
+    target=int(info["feature"])
+    active=[int(a) for a in info["active_ids"]]
+    if len(active)!=4 or len(set(active))!=4 or target!=active[0]:
+        raise ValueError("frozen target-native top-four selection changed")
+    kill=torch.tensor(physical["edit_kill"],dtype=torch.float64)
+    sham=torch.tensor(physical["edit_sham"],dtype=torch.float64)
+    if kill.shape!=(48,) or sham.shape!=(48,):
+        raise ValueError("wrong frozen physical intervention size")
+    if not bool(torch.isfinite(kill).all()) or not bool(torch.isfinite(sham).all()):
+        raise ValueError("nonfinite frozen input-only edit")
+    dose=float(kill.norm())
+    if (abs(dose-float(sham.norm()))>1e-8 or
+        abs(dose-float(info["dose"]))>1e-8):
+        raise ValueError("frozen hard sham is not equal physical dose")
+    code=fp32_code(sae,mean,scale,physical["archived_h"])
+    values,ids=code.topk(5,sorted=True)
+    if active!=ids[:4].tolist() or bool((values[:4]<=0).any()) or not float(values[0])>float(values[1]):
+        raise ValueError("archived source SAE target-native top-four changed")
+    if float((values-torch.tensor(info["top5_activities"],dtype=torch.float64)).abs().max())>1e-4:
+        raise ValueError("source FP32 SAE reencoding drifts from frozen source")
+    if not 0<dose<=MAX_DOSE_MULTIPLE*float(code[target])*float(dec[target].norm())+1e-8:
+        raise ValueError("frozen erasure violates physical decoder dose cap")
+    A=cov[active]
+    affine=torch.tensor([float(code[target])+TAU,0,0,0],dtype=torch.float64)
+    if float((A@kill-affine).abs().max())>1e-8:
+        raise ValueError("archived kill violates physical selective encoder constraints")
+    if float((A@sham).abs().max())>1e-8:
+        raise ValueError("archived sham is not tangent to all four active encoder rows")
+    killed=fp32_code(sae,mean,scale,physical["archived_h"].double()-kill)
+    sham_code=fp32_code(sae,mean,scale,physical["archived_h"].double()-sham)
+    if float(killed[target])>1e-7:
+        raise ValueError("archived target-native code did not erase")
+    for i in active[1:]:
+        if float(killed[i])<=0 or abs(float(killed[i]-code[i]))>CODE_TOL*(1+float(code[i])):
+            raise ValueError("archived kill fails other active SAE support")
+    for i in active:
+        if float(sham_code[i])<=0 or abs(float(sham_code[i]-code[i]))>CODE_TOL*(1+float(code[i])):
+            raise ValueError("archived sham lost original active SAE support")
+    return kill,sham
 
 
 def native_score_case(model, stage, clean, truth, token, feat, kill, sham):
@@ -174,12 +258,16 @@ def score_native(original, independent, conditioned, prediction, fetch_source):
     rosters,manifest=fresh_rosters(old)
     check_input_predictions(frozen,raw,snapshot,manifest)
     ctx,_=source_group_context(models,components,rosters,tuple(FAMILIES))
+    canonical,drift=admitted_frozen_stage1(frozen,ctx)
     score_data={}
     for family,new_rows in rosters.items():
         cells={}
         for component in B_COMPONENTS:
             teacher_id,sae,mean,scale=components[component]
             cov,dec=affine_physical(sae,mean,scale)
+            teacher=ctx[teacher_id]["model64"]
+            saved_stage=canonical[family][teacher_id]["stage"]
+            saved_clean=canonical[family][teacher_id]["clean"]
             t=ctx[teacher_id]
             predictions=frozen["test_prediction_data"][family][component]
             if len(predictions)!=PUZZLES:
@@ -191,8 +279,8 @@ def score_native(original, independent, conditioned, prediction, fetch_source):
                 if (record["puzzle_index"]!=pi or record["seed"]!=r["seed"] or
                         record["visible_input"]!=r["x"] or len(record["goals"])!=GOALS):
                     raise ValueError("source frozen predictions refer to other puzzle inputs")
-                stage=t["cohorts"][family]["stage1"][pi]
-                clean=t["cohorts"][family]["clean_logits"][pi]
+                stage=saved_stage[pi]
+                clean=saved_clean[pi]
                 goals=t["cohorts"][family]["positions"][pi]
                 truth=t["cohorts"][family]["truth_at_goals"][pi]
                 if record["positions"]!=goals.tolist():
@@ -202,22 +290,19 @@ def score_native(original, independent, conditioned, prediction, fetch_source):
                     tok=int(goals[j])
                     if g["token"]!=tok or g["goal_index"]!=j:
                         raise ValueError("wrong frozen goal order")
-                    info,kill,sham=plan_target_native(
-                        stage[tok],sae,mean,scale,cov,dec,
-                        f"SMC24|{family}|{pi}|{component}|{j}")
-                    if info!=g["input_plan"] or info["status"]!=g["status"]:
-                        raise ValueError("source geometry changed after archived prediction")
+                    info=g["input_plan"]
+                    if info["status"]!=g["status"] or info["feature"]!=g["feature"]:
+                        raise ValueError("registered pre-outcome eligibility or feature identity changed")
                     record_goal={"goal_index":j,"token":tok,"status":g["status"],
                                  "feature":g["feature"],"input_plan":info}
                     if g["status"]=="eligible":
-                        assert kill is not None and sham is not None
-                        if not torch.equal(kill,torch.tensor(g["edit_kill"],dtype=torch.float64)):
-                            raise ValueError("source frozen erasure edit bytes changed")
-                        if not torch.equal(sham,torch.tensor(g["edit_sham"],dtype=torch.float64)):
-                            raise ValueError("source frozen sham edit bytes changed")
+                        # Task labels are never passed into this input check.
+                        physical={"archived_h":stage[tok],
+                                  "edit_kill":g["edit_kill"],"edit_sham":g["edit_sham"]}
+                        kill,sham=check_archived_edit(physical,info,sae,mean,scale,cov,dec)
                         record_goal["predictions"]=g["predictions"]
                         record_goal["observed"]=native_score_case(
-                            t["model64"],stage,clean,int(truth[j]),tok,
+                            teacher,stage,clean,int(truth[j]),tok,
                             g["feature"],kill,sham)
                         record_goal["registered_MAE_gains"]=error_contrast(
                             record_goal["observed"]["true_D"],g["predictions"])
@@ -235,16 +320,18 @@ def score_native(original, independent, conditioned, prediction, fetch_source):
         "schema":SCORE_SCHEMA,"protocol_sha256":proto_hash(),
         "source_snapshot":snapshot,"prediction_artifact_sha256":sha(raw),
         "test_manifest":manifest,
+        "source_stage1_cross_runner_max_abs":drift,
+        "canonical_physical_source":"archived input-only FP32 stage1 from frozen prediction job",
         "n_fresh_puzzles":PUZZLES*2,
         "n_components":len(B_COMPONENTS),
         "n_goal_slots":GOALS*PUZZLES*2*len(B_COMPONENTS),
         "calibration_used_for_predictions_only":True,
-        "runtime":"native original 3-block FP64 PyTorch CPU after source FP32 stage1",
+        "runtime":"native original 3-block FP64 PyTorch CPU after archived source FP32 stage1",
         "test_data":score_data,
         "pair_success":decisions,
         "program_success":any(decisions[x] for x in B_COMPONENTS[:2]) and any(
             decisions[x] for x in B_COMPONENTS[2:]),
-        "limitations":"A learned calibration-only statistical gradient approximation, not native test gradient access or new teacher weights."
+        "limitations":"Calibration-frozen hidden-state gradient prediction; no test-label-gradient fit or new teacher weights."
     }
 
 
