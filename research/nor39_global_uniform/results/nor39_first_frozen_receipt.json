@@ -1,0 +1,41 @@
+{
+  "artifact_id": 14336748652,
+  "historical_source_units_excluded": 228,
+  "original_bytes_sha256": {
+    "nor39_fixture.json": {
+      "bytes": 8457812,
+      "sha256": "3dd23e71663d3c179ecacd437892c650469a6980230e71c353840f3b8f5a290c"
+    },
+    "nor39_full.json": {
+      "bytes": 930059,
+      "sha256": "995b6e110c829fd9a8ebb036e4e08ef64cfccee8298bff0def255c53f35c17c6"
+    }
+  },
+  "original_grade_run": 44102073143,
+  "procedural_source_sequence_clean": true,
+  "procedural_verification": "All NOR39 pre-data unit tests consume only SHA-archived historical NOR38 source identities. Complete NOR39 original public-only fixture frozen in its own preceding workflow job before CAL, EVAL, private truth or attack reconstruction.",
+  "registration": "4a5f3750d240d46c031e0cb432fb7b1a884cfbe9",
+  "schema": "nor39.original_first_grade_archive.v1",
+  "scorer_gates": {
+    "exact_global_floor_and_witness_integrity": true,
+    "global7_competitive_vs_original_mix_worst": true,
+    "global7_improves_curvature_mix_selfplay": true,
+    "global7_retains_top_curvature_signal": true,
+    "source_archive_and_replay_integrity_contract": true
+  },
+  "scorer_primary_pass": true,
+  "source_direction_wins": {
+    "global7_self_minus_deterministic_self": 48,
+    "global7_top_minus_atom_random": 45,
+    "global7_worst_minus_original_worst_tolerance": 45
+  },
+  "source_means": {
+    "deterministic_top_minus_atom_random": 0.16426244722118524,
+    "global7_self_minus_deterministic_self": 0.020760913689931233,
+    "global7_top_minus_atom_random": 0.03780749027296373,
+    "global7_worst_minus_original_worst": -0.003584484259287516
+  },
+  "source_units": 48,
+  "zip_archive_bytes": 3014180,
+  "zip_archive_sha256": "492b54bec77975d6c0c36f810fba38cc086a11c8e47b7d487767b94bb0efde10"
+}
