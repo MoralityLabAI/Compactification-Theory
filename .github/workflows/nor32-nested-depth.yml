@@ -1,0 +1,292 @@
+name: NOR-32 preregistered equal-budget calibration versus leaked evaluation root
+
+on:
+  push:
+    paths:
+      - 'research/nor32_nested_audit_depth/**'
+      - '.github/workflows/nor32-nested-depth.yml'
+  pull_request:
+    paths:
+      - 'research/nor32_nested_audit_depth/**'
+      - '.github/workflows/nor32-nested-depth.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freeze-registration-and-finite-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate initial NOR-32 source-independent registration parent
+        run: |
+          git merge-base --is-ancestor 44d8c506de2b2079c167cb0ce5f3a2eb620028b5 HEAD
+          test -s research/nor32_nested_audit_depth/REGISTRATION.md
+      - name: Source splits, independent root domains, attack budget and commitment controls
+        run: |
+          python -m compileall -q research/nor32_nested_audit_depth
+          python -m unittest research.nor32_matched_root.test_experiment -v
+      - name: SHA-check all eight exact original hosted first-run files
+        run: python research/nor32_nested_audit_depth/original_archive_audit.py
+      - name: Reproduce labeled retrospective coverage diagnostic from immutable original schedules
+        run: python research/nor32_nested_audit_depth/coverage_diagnostic.py
+
+  prep-independent-root-24-sources-and-9216-commitments:
+    needs: freeze-registration-and-finite-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate and freeze first 24 genuinely fresh public-only RRC25 sources
+        run: |
+          mkdir -p /tmp/nor32_prep
+          python research/nor32_nested_audit_depth/source.py --make-fixture \
+            /tmp/nor32_prep/nor32_fixture.json
+          python research/nor32_nested_audit_depth/source.py --validate \
+            /tmp/nor32_prep/nor32_fixture.json
+      - name: Freeze original source-only bytes before calibration root exists
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          x=Path('/tmp/nor32_prep/nor32_fixture.json').read_bytes()
+          obj=json.loads(x)
+          assert obj['schema']=='nor32.public_only_24_fresh_sources.v1'
+          assert obj['source_offset']==160032000
+          assert obj['replicates']==[26,27,28,29]
+          assert len(obj['cases'])==24
+          assert len({c['full_public_input_sha256'] for c in obj['cases']})==24
+          assert obj['source_only'] and obj['hidden_truth_absent']
+          assert obj['attack_sets_absent'] and obj['challenge_entropy_absent']
+          print('NOR32 SOURCE FROZEN',len(x),sha256(x).hexdigest())
+          PY
+      - name: Mint first independent 256-bit OS calibration root and 2048 per-policy schedules
+        run: |
+          python research/nor32_nested_audit_depth/sampler.py \
+            --phase calibration --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --out /tmp/nor32_prep/nor32_calibration.json
+      - name: Freeze calibration root and all calibration schedules before attack choices
+        run: |
+          python research/nor32_nested_audit_depth/sampler.py --phase calibration \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --verify /tmp/nor32_prep/nor32_calibration.json
+      - name: Choose 9216 blind pre-root attacks from 2048 calibration schedules and publish salted commitments
+        run: |
+          python research/nor32_nested_audit_depth/attacks.py \
+            --class independent_calibration --make \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --phase /tmp/nor32_prep/nor32_calibration.json \
+            --sealed /tmp/nor32_prep/nor32_pre_sealed.json \
+            --manifest /tmp/nor32_prep/nor32_pre_manifest.json
+      - name: Check every original attack and deliberately mutated opening before eval root mint
+        run: |
+          python research/nor32_nested_audit_depth/attacks.py \
+            --class independent_calibration --verify \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --phase /tmp/nor32_prep/nor32_calibration.json \
+            --sealed /tmp/nor32_prep/nor32_pre_sealed.json \
+            --manifest /tmp/nor32_prep/nor32_pre_manifest.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          for k in ('fixture','calibration','pre_sealed','pre_manifest'):
+              blob=Path('/tmp/nor32_prep',f'nor32_{k}.json').read_bytes()
+              print('NOR32 FIRST ORIGINAL PREP',k,len(blob),sha256(blob).hexdigest())
+          m=json.loads(Path('/tmp/nor32_prep/nor32_pre_manifest.json').read_bytes())
+          assert m['attack_count']==9216 and not m['root_of_phase_known_before_committing']
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor32_first_source_calibration_precommitment
+          path: /tmp/nor32_prep/
+          if-no-files-found: error
+          retention-days: 90
+
+  challenge-evaluation-root-after-precommit:
+    needs: prep-independent-root-24-sources-and-9216-commitments
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_first_source_calibration_precommitment
+          path: /tmp/nor32_prep
+      - name: Check all original binding commitments prior to evaluation seed generation
+        run: |
+          python research/nor32_nested_audit_depth/attacks.py \
+            --class independent_calibration --verify \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --phase /tmp/nor32_prep/nor32_calibration.json \
+            --sealed /tmp/nor32_prep/nor32_pre_sealed.json \
+            --manifest /tmp/nor32_prep/nor32_pre_manifest.json
+      - name: Mint independent fresh OS evaluation root and freeze 24x3x2048 schedules
+        run: |
+          mkdir -p /tmp/nor32_evaluation
+          python research/nor32_nested_audit_depth/sampler.py \
+            --phase evaluation \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --manifest /tmp/nor32_prep/nor32_pre_manifest.json \
+            --calibration /tmp/nor32_prep/nor32_calibration.json \
+            --out /tmp/nor32_evaluation/nor32_evaluation.json
+      - name: SHA-freeze evaluation phase before leaked-root attacker is invoked
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          a=json.loads(Path('/tmp/nor32_prep/nor32_calibration.json').read_bytes())
+          b=Path('/tmp/nor32_evaluation/nor32_evaluation.json').read_bytes()
+          z=json.loads(b)
+          assert a['root_hex_disclosed_after_freeze']!=z['root_hex_disclosed_after_freeze']
+          assert a['phase']=='calibration' and z['phase']=='evaluation'
+          assert a['root_origin']==z['root_origin']=='os_secrets_token_bytes_32'
+          assert len(z['records'])==24
+          assert all(len(v)==2048 for row in z['records'] for v in row['schedules'].values())
+          print('NOR32 EVALUATION ROOT COMMITMENT',z['root_commitment_sha256'])
+          print('NOR32 EVALUATION SCHEDULE FREEZE',len(b),sha256(b).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor32_first_independent_evaluation_os_root
+          path: /tmp/nor32_evaluation/
+          if-no-files-found: error
+          retention-days: 90
+
+  leaked-root-matched-9216-attacks-and-first-grading:
+    needs: challenge-evaluation-root-after-precommit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_first_source_calibration_precommitment
+          path: /tmp/nor32_prep
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_first_independent_evaluation_os_root
+          path: /tmp/nor32_evaluation
+      - name: With leaked evaluation root, search exact same 512/1024/1536/2048 nested budgets and tie seeds
+        run: |
+          mkdir -p /tmp/nor32_late
+          python research/nor32_nested_audit_depth/attacks.py \
+            --class leaked_evaluation_root --make \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --phase /tmp/nor32_evaluation/nor32_evaluation.json \
+            --calibration /tmp/nor32_prep/nor32_calibration.json \
+            --pre-manifest /tmp/nor32_prep/nor32_pre_manifest.json \
+            --sealed /tmp/nor32_late/nor32_late_sealed.json \
+            --manifest /tmp/nor32_late/nor32_late_manifest.json
+      - name: Independently check all 9216 postroot commitments and changed positions
+        run: |
+          python research/nor32_nested_audit_depth/attacks.py \
+            --class leaked_evaluation_root --verify \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --phase /tmp/nor32_evaluation/nor32_evaluation.json \
+            --calibration /tmp/nor32_prep/nor32_calibration.json \
+            --pre-manifest /tmp/nor32_prep/nor32_pre_manifest.json \
+            --sealed /tmp/nor32_late/nor32_late_sealed.json \
+            --manifest /tmp/nor32_late/nor32_late_manifest.json
+      - name: Grade exact target witness on 2,359,296 matched fixed-batch decisions
+        run: |
+          python research/nor32_nested_audit_depth/grade.py \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --calibration /tmp/nor32_prep/nor32_calibration.json \
+            --pre-sealed /tmp/nor32_prep/nor32_pre_sealed.json \
+            --pre-manifest /tmp/nor32_prep/nor32_pre_manifest.json \
+            --evaluation /tmp/nor32_evaluation/nor32_evaluation.json \
+            --late-sealed /tmp/nor32_late/nor32_late_sealed.json \
+            --late-manifest /tmp/nor32_late/nor32_late_manifest.json \
+            --out /tmp/nor32_late/nor32_full.json
+      - name: Freeze exact original grading bytes and retain any scientific FAIL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          for name in ('late_sealed','late_manifest','full'):
+              raw=Path('/tmp/nor32_late',f'nor32_{name}.json').read_bytes()
+              print('NOR32 FIRST ORIGINAL LATE',name,len(raw),sha256(raw).hexdigest())
+          z=json.loads(Path('/tmp/nor32_late/nor32_full.json').read_bytes())
+          assert z['schema']=='nor32.prospective_independent_calibration_vs_leaked_eval_root.v1'
+          assert z['fixed_batch_decisions']==23592960
+          assert len(z['source_records'])==24
+          assert z['original_early_commitments']==9216
+          assert z['post_eval_root_commitments']==9216
+          assert z['per_schedule_informed_tests']==147456
+          assert z['per_schedule_informed_detections']==0
+          assert z['delta_disagreements']==0
+          print('NOR32 REGISTERED SCIENTIFIC PASS',z['registered_primary_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor32_first_leaked_root_attacks_and_full_outcome
+          path: /tmp/nor32_late/
+          if-no-files-found: error
+          retention-days: 90
+
+  independent-first-original-schedule-and-attack-replay:
+    needs: leaked-root-matched-9216-attacks-and-first-grading
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_first_source_calibration_precommitment
+          path: /tmp/nor32_prep
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_first_independent_evaluation_os_root
+          path: /tmp/nor32_evaluation
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_first_leaked_root_attacks_and_full_outcome
+          path: /tmp/nor32_late
+      - name: Rebuild native RRC25 targets, both independent HMAC roots, greedy searches and all decisions
+        run: |
+          python research/nor32_nested_audit_depth/receipt_audit.py \
+            --fixture /tmp/nor32_prep/nor32_fixture.json \
+            --calibration /tmp/nor32_prep/nor32_calibration.json \
+            --pre-sealed /tmp/nor32_prep/nor32_pre_sealed.json \
+            --pre-manifest /tmp/nor32_prep/nor32_pre_manifest.json \
+            --evaluation /tmp/nor32_evaluation/nor32_evaluation.json \
+            --late-sealed /tmp/nor32_late/nor32_late_sealed.json \
+            --late-manifest /tmp/nor32_late/nor32_late_manifest.json \
+            --outcome /tmp/nor32_late/nor32_full.json
+      - name: Independently verify source-controlled SHA-256 of all original first-run artifacts
+        run: python research/nor32_nested_audit_depth/original_archive_audit.py
+      - name: Reproduce labeled retrospective coverage diagnostic from immutable original schedules
+        run: python research/nor32_nested_audit_depth/coverage_diagnostic.py
