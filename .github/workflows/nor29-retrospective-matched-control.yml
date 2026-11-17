@@ -1,0 +1,57 @@
+name: NOR-29 retrospective matched-optimization-budget leakage control
+
+on:
+  push:
+    paths:
+      - 'research/nor29_early_entropy/retrospective_matched_control.py'
+      - '.github/workflows/nor29-retrospective-matched-control.yml'
+  pull_request:
+    paths:
+      - 'research/nor29_early_entropy/retrospective_matched_control.py'
+      - '.github/workflows/nor29-retrospective-matched-control.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  matched-calibration-versus-root-aware-retrospective:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm retained original first-run source, commitments, root and outcome SHA256
+        run: python research/nor29_early_entropy/original_archive_audit.py
+      - name: Recompute 32 matched greedy policy-aware attacks from an independent 512-schedule calibration root
+        run: |
+          python research/nor29_early_entropy/retrospective_matched_control.py \
+            --out /tmp/nor29_matched_control.json
+      - name: Check original source hashes and explicit retrospective status
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          p=Path('/tmp/nor29_matched_control.json')
+          a=p.read_bytes()
+          x=json.loads(a)
+          assert x['schema']=='nor29.retrospective_matched_schedule_knowledge_control.v1'
+          assert x['status']=='RETROSPECTIVE_DIAGNOSTIC_AFTER_REGISTERED_NOR29_FIRST_RESULT'
+          assert x['source_count']==24
+          assert x['calibration_schedules_per_source_policy']==512
+          assert x['evaluation_schedules_per_source_policy']==512
+          assert x['attack_replicas_per_source_policy']==32
+          assert len(x['source_records'])==24
+          print('NOR29 POSTHOC MATCHED ATTACK BYTE HASH',len(a),sha256(a).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor29_posthoc_matched_root_knowledge_control
+          path: /tmp/nor29_matched_control.json
+          if-no-files-found: error
+          retention-days: 90
