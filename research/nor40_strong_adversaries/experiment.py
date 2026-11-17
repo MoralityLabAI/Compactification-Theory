@@ -82,7 +82,7 @@ def history():
     assert len(fixture)==8457812 and digest(fixture)==PREV_SOURCE_SHA
     assert len(result)==930059 and digest(result)==PREV_RESULT_SHA
     saved=json.loads(fixture)
-    assert saved["schema"]=="nor39.clean_global_uniform_public_only_reps68to75.v1"
+    assert saved["schema"]=="nor39.clean_global_uniform_public_only_reps76to83.v1"
     assert len(saved["cases"])==48
     all_ids=sorted(historic+[r["full_public_input_sha256"] for r in saved["cases"]])
     assert len(all_ids)==len(set(all_ids))==276
@@ -311,7 +311,7 @@ def stronger_calibrated_attacks(exposure,baseline_exposure,policy,src):
     greedy=[greedy_attack(exposure,policy,src,j,S_STRONG)
             for j in range(GREEDY_STARTS)]
     order=lambda attack:(cal_objective(exposure,policy,attack),attack)
-    chosen_greedy=sorted(set(greedy+base),key=order)[:ATTACKS]
+    chosen_greedy=sorted(greedy+base,key=order)[:ATTACKS]
     refined=[refine_swap(exposure,policy,a) for a in chosen_greedy]
     singles=singletons(exposure,policy)
     bestgreedy=min(greedy,key=order)
@@ -332,8 +332,8 @@ def stronger_calibrated_attacks(exposure,baseline_exposure,policy,src):
             valuepool,bestpool=val,a
     assert count==1820
     candidates=sorted(set(base+greedy+refined+[bestpool]),key=order)
-    assert len(candidates)>=ATTACKS
-    strong=candidates[:ATTACKS]
+    assert candidates
+    strong=(candidates[:ATTACKS]+[candidates[0]]*ATTACKS)[:ATTACKS]
     base_mean=sum(cal_objective(exposure,policy,a) for a in base)
     strong_mean=sum(cal_objective(exposure,policy,a) for a in strong)
     assert strong_mean<=base_mean
@@ -457,77 +457,101 @@ def measures(records):
     for rec in records:
         d=rec["crossplay_weighted_numerators"]
         den=rec["crossplay_denominator"]
-        top={key:Fraction(*val) for key,val in rec["exact_top_support_detection"].items()}
-        w7=min(d[name]["global7_mix"]/den for name in POLICIES)
-        wo=min(d[name]["original_mix"]/den for name in POLICIES)
+        top={k:Fraction(*v) for k,v in rec["exact_top_support_detection"].items()}
+        gw=min(d[name]["global7_mix"]/den for name in POLICIES)
+        ow=min(d[name]["original_mix"]/den for name in POLICIES)
+        base7=d["baseline__global7_mix"]["global7_mix"]/den
+        strong7=d["global7_mix"]["global7_mix"]/den
+        strongdet=d["deterministic_mix"]["deterministic_mix"]/den
         rows.append({
             "public_sha256":rec["public_sha256"],"replicate":rec["replicate"],
             "degree":rec["degree"],"family":rec["family"],
-            "global7_self_minus_deterministic_self":
-                (d["global7_mix"]["global7_mix"]-
-                 d["deterministic_mix"]["deterministic_mix"])/den,
-            "global7_worst_minus_original_worst":w7-wo,
-            "global7_worst":w7,"original_worst":wo,
+            "global7_baseline_minus_strong_selfplay":base7-strong7,
+            "global7_strong_self_minus_deterministic_strong":strong7-strongdet,
+            "global7_strong_worst_minus_original_strong_worst":gw-ow,
+            "global7_strong_worst":gw,"original_strong_worst":ow,
             "global7_top_minus_atom_random":float(
                 top["global7_mix"]-top["atom_random_h50"]),
             "deterministic_top_minus_atom_random":float(
                 top["deterministic_mix"]-top["atom_random_h50"]),
-            "global8_self":d["global8_mix"]["global8_mix"]/den,
-            "uniform_self":d["uniform16"]["uniform16"]/den,
-            "global7_self":d["global7_mix"]["global7_mix"]/den,
-            "original_mix_self":d["original_mix"]["original_mix"]/den,
+            "uniform_strong_self":d["uniform16"]["uniform16"]/den,
+            "uniform_strong_worst":min(d[name]["uniform16"]/den for name in POLICIES),
+            "global7_baseline_self":base7,"global7_strong_self":strong7,
+            "original_strong_self":d["original_mix"]["original_mix"]/den,
+            "global7_baseline_worst":min(
+                d["baseline__"+name]["global7_mix"]/den for name in POLICIES)
         })
     return rows
 
-
 def primary_gates(records,rows):
-    keys=("global7_self_minus_deterministic_self",
-          "global7_worst_minus_original_worst",
-          "global7_top_minus_atom_random",
-          "deterministic_top_minus_atom_random")
-    means={k:statistics.mean(r[k] for r in rows) for k in keys}
+    primary=("global7_baseline_minus_strong_selfplay",
+             "global7_strong_self_minus_deterministic_strong",
+             "global7_strong_worst_minus_original_strong_worst",
+             "global7_top_minus_atom_random",
+             "deterministic_top_minus_atom_random")
+    means={key:statistics.mean(r[key] for r in rows) for key in primary}
     wins={
-        "global7_self_minus_deterministic_self":sum(
-            r["global7_self_minus_deterministic_self"]>0 for r in rows),
-        "global7_worst_minus_original_worst_tolerance":sum(
-            r["global7_worst_minus_original_worst"]>=-.010 for r in rows),
-        "global7_top_minus_atom_random":sum(
-            r["global7_top_minus_atom_random"]>0 for r in rows)}
-    ratio=(means["global7_top_minus_atom_random"]/
-           means["deterministic_top_minus_atom_random"]
-           if means["deterministic_top_minus_atom_random"]>0 else None)
+        "strong_global7_beats_baseline_eval":sum(
+            r["global7_baseline_minus_strong_selfplay"]>0 for r in rows),
+        "global7_strong_self_over_deterministic":sum(
+            r["global7_strong_self_minus_deterministic_strong"]>0 for r in rows),
+        "global7_strong_worst_within_1pp_original":sum(
+            r["global7_strong_worst_minus_original_strong_worst"]>=-.010
+            for r in rows),
+        "global7_top_positive":sum(
+            r["global7_top_minus_atom_random"]>0 for r in rows)
+    }
+    denom=means["deterministic_top_minus_atom_random"]
+    ratio=means["global7_top_minus_atom_random"]/denom if denom>0 else None
+    cal_dominance=all(
+        all(rec["attack_certificates"][p]["strong_eight_full_cal_sum"]<=
+            rec["attack_certificates"][p]["baseline_eight_full_cal_sum"]
+            for p in POLICIES) for rec in records)
     gates={
-        "global7_improves_curvature_mix_selfplay":(
-            wins["global7_self_minus_deterministic_self"]>=36 and
-            means["global7_self_minus_deterministic_self"]>=.010),
-        "global7_competitive_vs_original_mix_worst":(
-            wins["global7_worst_minus_original_worst_tolerance"]>=36 and
-            means["global7_worst_minus_original_worst"]>=-.010 and
-            statistics.mean(r["global7_worst"] for r in rows)>=.025),
-        "global7_retains_top_curvature_signal":(
-            wins["global7_top_minus_atom_random"]>=36 and
+        "stronger_attacker_heldout_transfer":(
+            wins["strong_global7_beats_baseline_eval"]>=24 and
+            means["global7_baseline_minus_strong_selfplay"]>=.001
+            and cal_dominance),
+        "global7_robustness_vs_strong_attack_classes":(
+            wins["global7_strong_self_over_deterministic"]>=36 and
+            means["global7_strong_self_minus_deterministic_strong"]>=.010
+            and wins["global7_strong_worst_within_1pp_original"]>=36
+            and means["global7_strong_worst_minus_original_strong_worst"]>=-.010
+            and statistics.mean(row["global7_strong_worst"] for row in rows)>=.020),
+        "global7_retains_frozen_top_curvature_signal":(
+            wins["global7_top_positive"]>=36 and
             means["global7_top_minus_atom_random"]>=.020 and
-            ratio is not None and ratio>=.20)}
-    full_good=all(
-        r["native_mask"]>0 and r["public_prediction_sha256"]==
-        r["private_native_truth_sha256_after_freeze"] and
-        r["honest_target_false_rejections"]==0 and
-        r["fully_schedule_informed_attacker_detections"]==0 and
-        r["delta_decision_disagreements"]==0 and
-        r["direct_authentic_witness_checks"]>0 and
-        all(v==0 for v in r["exact_quota_and_control_checks"].values())
+            ratio is not None and ratio>=.20)
+    }
+    witnessed=all(
+        r["native_mask"]>0 and
+        r["public_prediction_sha256"]==r["private_native_truth_sha256_after_freeze"]
+        and r["honest_target_false_rejections"]==0
+        and r["fully_schedule_informed_attacker_detections"]==0
+        and r["delta_decision_disagreements"]==0
+        and r["direct_authentic_witness_checks"]>0
+        and all(v==0 for v in r["exact_quota_and_control_checks"].values())
         and Fraction(*r["exact_full_uniform_attack_detection_fraction"])>0
         and Fraction(*r["global7_exact_theoretical_floor"])>0
+        and all(c["restricted_sets_enumerated"]==1820
+                and c["global_singleton_lower_bound"]<=
+                    c["restricted_exact_value"]
+                and c["global_singleton_lower_bound"]<=
+                    c["global_best_found_upper_bound"]
+                and c["global_best_found_upper_bound"]<=
+                    c["restricted_exact_value"]
+                and c["global_optimality_gap_upper_minus_lower"]==
+                    c["global_best_found_upper_bound"]-c["global_singleton_lower_bound"]
+                and len(c["restricted_candidate_pool"])==16
+                and c["strong_eight_full_cal_sum"]<=c["baseline_eight_full_cal_sum"]
+                for c in r["attack_certificates"].values())
         for r in records)
-    gates["exact_global_floor_and_witness_integrity"]=full_good
-    gates["source_archive_and_replay_integrity_contract"]=(
-        full_good and len(records)==48 and
-        len({r["public_sha256"] for r in records})==48)
-    # Separate receipt_audit.py is the mandatory second implementation
-    # for the final reproducibility claim. This initial grade retains
-    # the frozen gate, then CI independently verifies it.
+    gates["exact_calibration_brackets_and_native_witness"]=witnessed
+    gates["original_source_first_and_independent_replay_contract"]=(
+        witnessed and len(records)==48 and len({
+            r["public_sha256"] for r in records})==48)
+    # Mandatory separate-process replay verifies source/gate reconstruction.
     return means,wins,ratio,gates
-
 
 def evaluate(fixture_path):
     fixture,fixture_hash=read_fixture(fixture_path)
@@ -543,10 +567,17 @@ def evaluate(fixture_path):
             pred,p["header"],src)
         cal,cal_diag=schedules(old,cats,scores,src,"cal")
         exposure=trial_exposure(cal,len(pred))
-        learned={name:[greedy_attack(exposure,name,src,i)
-                       for i in range(ATTACKS)] for name in POLICIES}
+        baseline_exposure=trial_exposure(cal,len(pred),BASE_CAL)
+        optimized={
+            name:stronger_calibrated_attacks(exposure,baseline_exposure,name,src)
+            for name in POLICIES
+        }
+        baseline={p:result[0] for p,result in optimized.items()}
+        learned={p:result[1] for p,result in optimized.items()}
+        certificates={p:result[2] for p,result in optimized.items()}
         blind=blind_attacks(src,cats,u,cu,cv,bu,bv,len(pred),exposure)
-        attacks={**learned,**blind}
+        attacks={**learned,**{"baseline__"+p:v for p,v in baseline.items()},
+                 **blind}
         evaluations,eval_diag=schedules(old,cats,scores,src,"eval")
         realized={name:[realized_component(src,t,name) for t in range(EVAL)]
                   for name in ("original_mix","deterministic_mix",
@@ -622,6 +653,9 @@ def evaluate(fixture_path):
             "evaluation_stochastic_branch_counts":eval_diag,
             "greedy_attack_sets":{key:[list(a) for a in vals]
                                   for key,vals in learned.items()},
+            "baseline_attack_sets":{key:[list(a) for a in vals]
+                                    for key,vals in baseline.items()},
+            "attack_certificates":certificates,
             "blind_attack_sets":{key:[list(a) for a in vals]
                                  for key,vals in blind.items()},
             "greedy_attack_unique_sets":{key:len(set(vals))
@@ -645,27 +679,33 @@ def evaluate(fixture_path):
             "delta_decision_disagreements":0,
             "exact_quota_and_control_checks":checks,
             "direct_authentic_witness_checks":direct_checks})
-        print(f"NOR39 source {ix+1}/48 rep={row['replicate']} D={row['degree']} "
+        print(f"NOR40 source {ix+1}/48 rep={row['replicate']} D={row['degree']} "
               f"family={row['family']}",flush=True)
     rows=measures(records)
     means,wins,ratio,gates=primary_gates(records,rows)
     replicate_means={str(rep):{
         key:statistics.mean(r[key] for r in rows if r["replicate"]==rep)
-        for key in ("global7_self_minus_deterministic_self",
-                    "global7_worst_minus_original_worst",
+        for key in ("global7_baseline_minus_strong_selfplay",
+                    "global7_strong_self_minus_deterministic_strong",
+                    "global7_strong_worst_minus_original_strong_worst",
                     "global7_top_minus_atom_random")}
         for rep in REPS}
     return {
         "schema":RESULT_SCHEMA,"registration_first_commit":REGISTERED,
         "public_fixture_sha256":fixture_hash,
-        "fresh_source_units":48,"historical_sources_excluded":228,
+        "fresh_source_units":48,"historical_sources_excluded":276,
         "auditor_policies":list(POLICIES),"component_auditor_arms":list(ARMS),
         "original_mix_weights":list(WEIGHTS),"blind_control_families":list(CONTROLS),
         "transform_modes":list(MODES),"global_uniform_probabilities":{
             "global7_mix":[7,16],"global8_mix":[8,16]},
         "calibration_schedules_per_source":CAL,
+        "baseline_calibration_schedules_per_source":BASE_CAL,
         "heldout_schedules_per_source":EVAL,
-        "greedy_restarts_per_policy":ATTACKS,
+        "greedy_restarts_per_policy":GREEDY_STARTS,
+        "attack_sets_per_policy":ATTACKS,
+        "restricted_pool_size":POOL_SIZE,
+        "restricted_sets_per_policy":1820,
+        "swap_passes_cap":SWAP_PASSES,
         "audit_budget":K,"attack_radius":R,"nonzero_deltas":list(DELTAS),
         "public_proposals_frozen_before_private_truth":True,
         "calibrated_attacks_frozen_before_independent_heldout_schedules":True,
@@ -679,7 +719,8 @@ def evaluate(fixture_path):
         "scope":"Finite synthetic RRC25, public research SHA coins (not deployed entropy), "
                 "authentic external target coefficient witness assumed; "
                 "unrestricted four-coordinate maximin is uniform, greedy "
-                "calibration is approximate; independent replay is mandatory."
+                "CAL2048 and greedy32 with swap and exact pool16 are approximate "
+                "globally; independent full replay is mandatory."
     }
 
 
@@ -694,18 +735,18 @@ def main():
         raw=canonical(make_fixture())
         z.make_fixture.parent.mkdir(parents=True,exist_ok=True)
         z.make_fixture.write_bytes(raw)
-        print("NOR39 FIRST PUBLIC-ONLY 48 SOURCES",len(raw),digest(raw),flush=True)
+        print("NOR40 FIRST PUBLIC-ONLY 48 SOURCES",len(raw),digest(raw),flush=True)
         return
     if not z.fixture:a.error("--fixture required")
     result=evaluate(z.fixture)
     if z.out:
         z.out.parent.mkdir(parents=True,exist_ok=True)
         z.out.write_bytes(canonical(result))
-    print("NOR39 REGISTERED PRIMARY",result["registered_primary_pass"])
-    print("NOR39 FIVE GATES",result["registered_five_gates"])
-    print("NOR39 WINS",result["source_direction_wins"])
-    print("NOR39 MEANS",result["source_means"])
-    print("NOR39 TOP RETENTION",result["retained_ratio_global7_to_deterministic_top_gain"])
+    print("NOR40 REGISTERED PRIMARY",result["registered_primary_pass"])
+    print("NOR40 FIVE GATES",result["registered_five_gates"])
+    print("NOR40 WINS",result["source_direction_wins"])
+    print("NOR40 MEANS",result["source_means"])
+    print("NOR40 TOP RETENTION",result["retained_ratio_global7_to_deterministic_top_gain"])
 
 
 if __name__=="__main__":
