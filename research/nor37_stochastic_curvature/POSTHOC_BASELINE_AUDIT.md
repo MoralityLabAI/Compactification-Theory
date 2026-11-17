@@ -16,16 +16,16 @@ Recomputed directly from the original JSON's `source_records[*].crossplay_weight
 
 | Defender | Self-play detection | Mean per-source worst calibrated class | Exact conditional TOP support |
 | --- | ---: | ---: | ---: |
-| original_h50 | 3.140% | 3.118% | 17.674% |
-| atom_random_h50 | 3.074% | 2.914% | 17.756% |
-| deterministic_h50 | 1.265% | 0.965% | 35.177% |
-| stochastic25_h50 | 1.743% | 1.743% | 26.420% |
-| stochastic50_h50 | 2.273% | 2.033% | 23.443% |
-| stochastic75_h50 | 2.799% | 2.650% | 20.659% |
-| uniform16 | **5.963%** | **5.913%** | 6.103% |
-| original_mix | 4.028% | 3.867% | 14.393% |
-| deterministic_mix | 1.503% | 1.503% | 34.144% |
-| stochastic50_mix | 2.814% | 2.814% | 20.326% |
+| original_h50 | 3.140% | 2.548% | 17.674% |
+| atom_random_h50 | 3.074% | 2.397% | 17.756% |
+| deterministic_h50 | 1.265% | 0.743% | 35.177% |
+| stochastic25_h50 | 1.743% | 1.351% | 26.420% |
+| stochastic50_h50 | 2.273% | 1.788% | 23.443% |
+| stochastic75_h50 | 2.799% | 2.198% | 20.659% |
+| uniform16 | **5.963%** | **5.269%** | 6.103% |
+| original_mix | 4.028% | 3.512% | 14.393% |
+| deterministic_mix | 1.503% | 1.295% | 34.144% |
+| stochastic50_mix | 2.814% | 2.537% | 20.326% |
 
 All values above can be regenerated from the original fully archived grader and are outside the five prospective criteria except where stated there.
 
@@ -58,7 +58,7 @@ Pr[detection | A] = alpha * u(m,16,4) + (1-alpha)*Pr_C[detection | A]
 
 This certifies a full-coordinate exploration floor, which per-atom exploration alone cannot give when an attacked atom receives zero audit quota. A global uniform branch also spends audit budget on coordinates that public curvature scores consider unimportant.
 
-An exploratory linear program over the **existing ten NOR-37 calibrated attacker classes** selected about **51.3% uniform16 + 48.7% deterministic_mix**, giving a *development-set* worst-class mean of 3.862% while preserving +2.0 pp exact TOP support advantage over atom_random_h50. Requiring at least 25% of the deterministic top advantage selected approximately **42.9% uniform16 + 57.1% deterministic_mix**, development-set worst-class mean 3.476%. Leave-one-replicate-out reoptimizations picked uniform fractions 49.5%-52.4% and 41.2%-43.9% respectively. These are post-hoc optimizations against attacks trained for OTHER policies; they say nothing definitive about a new mixture's own calibrated greedy best response.
+An exploratory linear program maximizing the **minimum across ten source-averaged NOR-37 calibrated attacker-class rates** selected about **51.3% uniform16 + 48.7% deterministic_mix**, giving a *development-set* minimum of source-averaged class rates of 3.862% while preserving +2.0 pp exact TOP support advantage over atom_random_h50. Requiring at least 25% of the deterministic top advantage selected approximately **42.9% uniform16 + 57.1% deterministic_mix**, development-set worst-class mean 3.476%. Leave-one-replicate-out reoptimizations picked uniform fractions 49.5%-52.4% and 41.2%-43.9% respectively. These are post-hoc optimizations against attacks trained for OTHER policies; they say nothing definitive about a new mixture's own calibrated greedy best response.
 
 For NOR-38, freeze one or more *simple rational* whole-output uniform/curvature mixtures on fresh sources before any defender-specific attacker calibration. Include original_mix and pure uniform16 as primary baselines. Require a named top-curvature advantage together with a bound on absolute worst-class detection and a uniform gap, all assessed at the independent source level. Calibrate fresh greedy responses to the NEW mixtures, including a class targeting the mixture's public uniform probability, and test attack positions in old zero-quota atoms. Record exact full-output minmax ceilings alongside finite-schedule results. A fresh cohort and a new prospective registration are required for any NOR-38 PASS claim.
 
