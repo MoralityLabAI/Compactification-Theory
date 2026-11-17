@@ -135,5 +135,14 @@ jobs:
           git add research/nor37_stochastic_curvature/results/nor37_original_hosted.zip \
                   research/nor37_stochastic_curvature/results/nor37_first_frozen_receipt.json
           git commit -m "NOR-37: archive first prospectively registered stochastic-auditor result"
-          git pull --rebase origin research/nor37-stochastic-intraatom-curvature-20261117
-          git push origin HEAD:research/nor37-stochastic-intraatom-curvature-20261117
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor37-stochastic-intraatom-curvature-20261117
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor37-stochastic-intraatom-curvature-20261117; then
+              echo 'NOR37 immutable first original evidence pushed successfully'
+              exit 0
+            fi
+            sleep 2
+          done
+          echo 'NOR37 archive push encountered repeated concurrent updates'
+          exit 1
