@@ -1,0 +1,66 @@
+name: NOR-29 one-shot retrospective matched attacker result publisher
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor29-matched-original-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve-original-retrospective-matched-budget-control:
+    if: github.ref == 'refs/heads/research/nor29-early-entropy-leak-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: research/nor29-early-entropy-leak-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor29_posthoc_matched_root_knowledge_control
+          run-id: 44026440700
+          github-token: ${{ github.token }}
+          path: /tmp/nor29_matched
+      - name: Independently SHA-check and source-control the executed posthoc diagnostic
+        run: |
+          python research/nor29_early_entropy/original_archive_audit.py
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          src=Path('/tmp/nor29_matched/nor29_matched_control.json')
+          raw=src.read_bytes()
+          assert len(raw)==29223
+          assert hashlib.sha256(raw).hexdigest()=='db2ec77170067868b81fd2a69576f8f0e7d7889ec3874b802fbd2725a4a21aa2'
+          a=json.loads(raw)
+          assert a['schema']=='nor29.retrospective_matched_schedule_knowledge_control.v1'
+          assert a['status']=='RETROSPECTIVE_DIAGNOSTIC_AFTER_REGISTERED_NOR29_FIRST_RESULT'
+          assert a['source_count']==24 and len(a['source_records'])==24
+          assert a['calibration_schedules_per_source_policy']==512
+          assert a['evaluation_schedules_per_source_policy']==512
+          assert a['attack_replicas_per_source_policy']==32
+          assert a['original_fixture_sha256']=='27a38ace5359329555b3a42696308dc5c4d7cd2ed16eced7265ec7b7fba041df'
+          assert a['original_challenge_sha256']=='ca62e44967c796b5445f5d1e592da7206f5fe237d26dbf55ff3273017bd93410'
+          assert a['original_outcome_sha256']=='9d13345da6c8e1292d06b2c25a40459f7b2f33251399a56b3da425073dd6832a'
+          h=a['policy_means']['hybrid_50']
+          assert h['positive_source_pairs_matched_minus_early_root']==24
+          assert h['mean_matched_minus_early_root']>0.03
+          dst=Path('research/nor29_early_entropy/results/nor29_retrospective_matched_control.json')
+          dst.write_bytes(raw)
+          print('NOR29 RETROSPECTIVE ORIGINAL MATCHED CONTROL SAVED',len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - name: Commit executed matched 512-schedule control without touching registered experiment
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor29_early_entropy/results/nor29_retrospective_matched_control.json
+          git diff --cached --quiet && { echo 'Original retrospective receipt already saved'; exit 0; }
+          git commit -m 'NOR-29 posthoc: preserve source-locked matched 512-schedule calibrated attack comparator'
+          git push origin HEAD:refs/heads/research/nor29-early-entropy-leak-20261117
