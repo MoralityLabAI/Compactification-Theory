@@ -1,0 +1,42 @@
+name: NOR-42 prospective paired native-program OOD and authentic witness
+
+on:
+  push:
+    branches:
+      - research/nor42-prospective-paired-grammar-ood-20261118
+    paths:
+      - 'research/nor42_paired_program_ood/prospective/**'
+      - '.github/workflows/nor42-paired-grammar-ood.yml'
+  pull_request:
+    paths:
+      - 'research/nor42_paired_program_ood/prospective/**'
+      - '.github/workflows/nor42-paired-grammar-ood.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistration_and_historical_only_tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify first registration ancestor before ANY prospective source generation
+        run: |
+          git merge-base --is-ancestor 9bf353b7c76535e581ff026098cd682914a90ef0 HEAD
+          test -s research/nor42_paired_program_ood/prospective/REGISTRATION.md
+      - name: Static no-new-source preview and original 388-id SHA exclusion guard
+        run: |
+          python research/nor42_paired_program_ood/prospective/predata_isolation_audit.py
+      - name: Historical-source and synthetic-only unit tests with independent model/plan parity
+        run: |
+          python -m compileall -q research/nor42_paired_program_ood/prospective
+          python -m unittest \
+            research.nor42_paired_program_ood.prospective.test_experiment \
+            research.nor42_paired_program_ood.prospective.test_independent_parity -v
