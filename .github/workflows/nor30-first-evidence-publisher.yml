@@ -1,0 +1,112 @@
+name: NOR-30 one-shot original historical-train and heldout-evidence archive
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor30-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve-first-source-locked-evidence:
+    if: github.ref == 'refs/heads/research/nor30-sourceheldout-minimax-audit-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor30-sourceheldout-minimax-audit-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor30_original_train_public_test_and_minimax_full_outcome
+          run-id: 44027909426
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor30-first
+      - name: SHA-check exact original TRAIN, public TEST, and full outcome bytes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          import json
+          root=Path('/tmp/nor30-first')
+          files={
+              'nor30_train_receipt.json':(3113,'df9414c3ee3132a90fe8e6cb5fd231332e480fe9e87ea5b3c3bef86045330c84'),
+              'nor30_fixture.json':(2284577,'9961afd81cac78b32fc5280fe54291f7db4dca0cf85cb6624560ddac420e1878'),
+              'nor30_full.json':(337563,'4189235f7cb5c14f3c7d1028abda264d893c7b5e5d2eda0c4c1de091f052b9c8'),
+          }
+          raw={}
+          for name,(size,digest) in files.items():
+              raw[name]=(root/name).read_bytes()
+              assert len(raw[name])==size,(name,size,len(raw[name]))
+              assert sha256(raw[name]).hexdigest()==digest,name
+          t=json.loads(raw['nor30_train_receipt.json'])
+          f=json.loads(raw['nor30_fixture.json'])
+          o=json.loads(raw['nor30_full.json'])
+          assert t['schema']=='nor30.nor26_only_frozen_grid_minimax.v1'
+          assert t['constrained_solution']['weights']==[3,0,0,13,0,0,0]
+          assert f['schema']=='nor30.fresh_public_only_12_source.v1'
+          assert o['schema']=='nor30.heldout_constrained_minimax_blind_audit.v1'
+          assert o['registered_primary_pass']
+          assert o['primary_wins_against_hybrid50_self_response']==12
+          assert o['primary_wins_against_hybrid50_worst']==12
+          assert o['training_receipt_sha256']==files['nor30_train_receipt.json'][1]
+          assert o['fixture_sha256']==files['nor30_fixture.json'][1]
+          assert len(f['cases'])==len(o['source_records'])==12
+          evidence=Path('research/nor30_minimax_audits/results')
+          evidence.mkdir(parents=True,exist_ok=True)
+          archive=evidence/'nor30_original_hosted.zip'
+          with ZipFile(archive,'w',compression=ZIP_DEFLATED,compresslevel=9) as z:
+              for name,data in raw.items():
+                  info=ZipInfo(name,(2026,11,17,0,0,0))
+                  info.compress_type=ZIP_DEFLATED
+                  z.writestr(info,data,compress_type=ZIP_DEFLATED,compresslevel=9)
+          receipt={
+              'schema':'nor30.original_sourceheldout_minimax_first_run.v1',
+              'date_utc':'2026-11-17',
+              'registration_first_commit':'118dc142b1bd9143218f9868fea248c53ddc62dc',
+              'original_complete_green_run':'https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44027909426',
+              'original_artifact_id':14303208219,
+              'original_artifact_name':'nor30_original_train_public_test_and_minimax_full_outcome',
+              'historical_training_public_sources':12,
+              'new_test_public_sources':12,
+              'historical_7x7_integer_game_sha256':t['historical_matrix_sha256'],
+              'constrained_minimax_weights':t['constrained_solution']['weights'],
+              'training_grid_candidates_all':74613,
+              'new_source_only_split_before_test_grade':True,
+              'original_file_bytes_and_sha256':{
+                  name:{'bytes':size,'sha256':digest}
+                  for name,(size,digest) in files.items()},
+              'replay_matched_original':True,
+              'first_run_primary_pass':o['registered_primary_pass'],
+              'wins_self':o['primary_wins_against_hybrid50_self_response'],
+              'wins_worst':o['primary_wins_against_hybrid50_worst'],
+              'mean_self_response_gain':o['primary_mean_self_response_gain'],
+              'distributional_degeneracy':'shuffled_prior first 16 coefficients are uniform under a random permutation; trained [3,0,0,13,0,0,0] has the same ideal distribution as uniform16',
+              'interpretation_scope':'12 correlated source units and fixed policy-aware attack families; target witness authenticity and private future coins are external assumptions.'
+          }
+          (evidence/'nor30_first_frozen_receipt.json').write_text(
+              json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          print('NOR30 FIRST ORIGINAL ZIP BYTES AND SHA256',
+                len(archive.read_bytes()),sha256(archive.read_bytes()).hexdigest())
+          PY
+      - name: Reconstruct and inspect the exact first archived historical and prospective evidence
+        run: |
+          python research/nor30_minimax_audits/receipt_audit.py --check \
+            --training /tmp/nor30-first/nor30_train_receipt.json \
+            --fixture /tmp/nor30-first/nor30_fixture.json \
+            --full /tmp/nor30-first/nor30_full.json
+      - name: Commit original immutable first-run evidence to isolated research branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor30_minimax_audits/results/nor30_original_hosted.zip \
+                  research/nor30_minimax_audits/results/nor30_first_frozen_receipt.json
+          git commit -m "NOR-30: preserve original train, test, and minimax heldout evidence"
+          git push origin HEAD:research/nor30-sourceheldout-minimax-audit-20261117
