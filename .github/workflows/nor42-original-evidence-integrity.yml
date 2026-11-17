@@ -1,0 +1,73 @@
+name: NOR-42 immutable first-pair source and grade SHA audit
+
+on:
+  push:
+    branches:
+      - research/nor42-prospective-paired-grammar-ood-20261118
+    paths:
+      - 'research/nor42_paired_program_ood/prospective/results/**'
+      - 'research/nor42_paired_program_ood/prospective/original_archive_audit.py'
+      - 'research/nor42_paired_program_ood/prospective/posthoc_analysis.py'
+      - 'research/nor42_paired_program_ood/prospective/RESULTS.md'
+      - '.github/workflows/nor42-original-evidence-integrity.yml'
+  pull_request:
+    paths:
+      - 'research/nor42_paired_program_ood/prospective/results/**'
+      - 'research/nor42_paired_program_ood/prospective/original_archive_audit.py'
+      - 'research/nor42_paired_program_ood/prospective/posthoc_analysis.py'
+      - 'research/nor42_paired_program_ood/prospective/RESULTS.md'
+      - '.github/workflows/nor42-original-evidence-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify_first_source_grade_and_posthoc:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify SHA-frozen original public source, first grade and five PASS flags
+        run: |
+          python research/nor42_paired_program_ood/prospective/original_archive_audit.py
+      - name: Recompute source-pair and block statistics from immutable first raw ZIP
+        run: |
+          python research/nor42_paired_program_ood/prospective/posthoc_analysis.py \
+            --full research/nor42_paired_program_ood/prospective/results/nor42_original_first_hosted.zip \
+            --json-out /tmp/nor42_first_posthoc.json \
+            --markdown-out /tmp/nor42_first_posthoc.md \
+            > /tmp/nor42_posthoc_stdout.txt
+          python - <<'PY'
+          import json,math
+          from pathlib import Path
+          x=json.loads(Path('/tmp/nor42_first_posthoc.json').read_text())
+          assert x['schema']=='nor42.prospective_original_grade_posthoc.v1'
+          assert x['original_registration']=='9bf353b7c76535e581ff026098cd682914a90ef0'
+          assert x['independent_pair_units']==64 and x['replicate_blocks']==16
+          assert x['true_target_worlds']==128
+          assert x['original_science_pass_unchanged'] is True
+          assert len(x['original_five_gates_unchanged'])==5
+          assert all(x['original_five_gates_unchanged'].values())
+          assert len(x['absolute_detection_means'])==5
+          assert math.isclose(
+            x['original_source_means_unchanged']['global7_hidden_detection'],
+            .86287522315979,abs_tol=1e-14)
+          assert math.isclose(
+            x['original_source_means_unchanged']['ood_global7_minus_uniform'],
+            -.05527067184448242,abs_tol=1e-14)
+          assert x['witnessfree_hidden_false_acceptance_rate']==1.0
+          assert x['public_only_exact_prediction_pair_mean']==.5
+          print('NOR42 SHA-LOCKED FIRST GRADE RECOMPUTATION PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor42_first_sha_locked_posthoc
+          path: |
+            /tmp/nor42_first_posthoc.json
+            /tmp/nor42_first_posthoc.md
+          retention-days: 90
+          if-no-files-found: error
