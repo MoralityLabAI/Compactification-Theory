@@ -1,0 +1,9 @@
+# SMC-25E: source-family-independent canonical FP32 replay
+
+**Engineering amendment, 17 November 2026, before any new SMC-25 native true-digit scoring.** The original [SMC25_PROTOCOL.md](SMC25_PROTOCOL.md) registration and its seed bases, candidate predictors, calibrated temperatures, matched hard shams, physical radius and all scientific success thresholds are unchanged.
+
+Initial [Actions run #44111941521](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44111941521) passed all seven source-independent tests, the 64-puzzle original SMC-13-only temperature calibration, and the fresh 128-puzzle *test-label-free* prediction artifact. The scoring job halted before any per-goal true-digit effect was evaluated. Its replay function was imported from SMC-24 and iterated the literal SMC-24 novel30/novel34 family names; the SMC-25 input archive contains only SMC-25 novel30/novel34 family names, so it raised KeyError at archived source retrieval.
+
+Repair the scorer with a family-parameterized replay function scoped solely to the original SMC-25 registered families. Preserve the exact original FP32 archive tensor shape (64,81,48) per teacher, byte SHA256, source-model FP32 reexecution max absolute discrepancy <=1e-4, frozen FP64 three-block clean continuation and bitwise clean/zero-self matching. The function may neither refit calibration temperature nor reselect the native feature/sham. Add a regression test verifying both registered family names are admitted.
+
+All prior input-only calibration/prediction artifacts remain preserved as engineering records. The repaired workflow will regenerate every source artifact and fresh prediction from the original fixed seeds in a new four-stage run, and score only after the frozen prediction artifact is uploaded. The amendment does not read or inspect true-digit effects and does not revise any SMC-23/24 result or sealed ARG-03-N cases.
