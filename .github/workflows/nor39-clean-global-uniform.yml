@@ -35,6 +35,18 @@ jobs:
           python -m compileall -q research/nor39_clean_global_uniform
           python -m unittest research.nor39_clean_global_uniform.test_experiment research.nor39_clean_global_uniform.test_posthoc_analysis research.nor39_clean_global_uniform.test_uncertainty_audit -v
 
+  permanent-original-archive-byte-lock:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recheck NOR39 first source and grade byte pins and 228 archived exclusions
+        run: |
+          python research/nor39_clean_global_uniform/original_archive_audit.py
+
   first_public_only_fixture:
     if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR39-FIRST-GRADE')
     needs: prospective-registration-and-predata-tests
