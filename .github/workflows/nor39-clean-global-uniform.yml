@@ -1,0 +1,156 @@
+name: NOR-39 prospective global uniform-reserve audit, frozen 48 sources, policy-aware cross-play
+
+on:
+  push:
+    branches:
+      - research/nor39-clean-global-uniform-20261117
+    paths:
+      - 'research/nor39_clean_global_uniform/**'
+      - '.github/workflows/nor39-clean-global-uniform.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  prospective-registration-and-predata-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original NOR-39 preregistration before any source or outcome
+        run: |
+          git merge-base --is-ancestor 4a5f3750d240d46c031e0cb432fb7b1a884cfbe9 HEAD
+          test -s research/nor39_clean_global_uniform/REGISTRATION.md
+      - name: Check first NOR-37 original archive pins, full-output reserve and independent replayer parity
+        run: |
+          python -m compileall -q research/nor39_clean_global_uniform
+          python -m unittest research.nor39_clean_global_uniform.test_experiment -v
+
+  first_public_only_fixture:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR39-FIRST-GRADE')
+    needs: prospective-registration-and-predata-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze complete 48 fresh PUBLIC-only source inputs before calibration and grading
+        run: |
+          python research/nor39_clean_global_uniform/experiment.py --make-fixture /tmp/nor39_fixture.json
+      - name: Independently check public-only source roster SHA and all fields
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor39_fixture.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor39.clean_global_uniform_public_only_reps68to75.v1'
+          assert x['registered_first_commit']=='4a5f3750d240d46c031e0cb432fb7b1a884cfbe9'
+          assert x['replicates']==list(range(68,76))
+          assert x['source_offset']==130039000
+          assert x['excluded_historical_sources']==228
+          assert x['public_only'] and x['planted_and_private_target_absent']
+          assert x['attack_witness_and_audit_absent']
+          assert len(x['cases'])==48
+          assert len({r['full_public_input_sha256'] for r in x['cases']})==48
+          assert Counter(r['degree'] for r in x['cases'])=={512:24,1024:24}
+          assert not any(any(name in r for name in
+            ('program','future','target','attack','witness','audit')) for r in x['cases'])
+          print('NOR39 FIRST PUBLIC ONLY SOURCE BYTES SHA',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor39_first_original_public_only_source_fixture
+          path: /tmp/nor39_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  first_registered_global_uniform_grade:
+    needs: first_public_only_fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      PYTHONHASHSEED: "0"
+      OMP_NUM_THREADS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor39_first_original_public_only_source_fixture
+          path: /tmp/nor39
+      - name: Grade seven equal-budget adversarially calibrated auditors on 48 first sources
+        run: |
+          python -u research/nor39_clean_global_uniform/experiment.py \
+            --fixture /tmp/nor39/nor39_fixture.json \
+            --out /tmp/nor39/nor39_full.json
+      - name: Preserve original first grade and scientific PASS or FAIL without tuning
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          import json
+          f=Path('/tmp/nor39/nor39_fixture.json').read_bytes()
+          raw=Path('/tmp/nor39/nor39_full.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor39.clean_global_uniform_policyaware.v1'
+          assert x['registration_first_commit']=='4a5f3750d240d46c031e0cb432fb7b1a884cfbe9'
+          assert x['public_fixture_sha256']==sha256(f).hexdigest()
+          assert x['fresh_source_units']==len(x['source_records'])==48
+          assert x['historical_sources_excluded']==228
+          assert len(x['auditor_policies'])==7 and len(x['registered_five_gates'])==5
+          assert x['global_uniform_probabilities']=={'global7_mix':[7,16],'global8_mix':[8,16]}
+          assert x['calibration_schedules_per_source']==256
+          assert x['heldout_schedules_per_source']==512
+          assert x['greedy_restarts_per_policy']==8
+          assert x['audit_budget']==16 and x['attack_radius']==4
+          assert all(r['honest_target_false_rejections']==0 and
+                     r['fully_schedule_informed_attacker_detections']==0 and
+                     r['delta_decision_disagreements']==0 and
+                     all(v==0 for v in r['exact_quota_and_control_checks'].values())
+                     for r in x['source_records'])
+          print('NOR39 FIRST FROZEN PUBLIC SOURCE BYTES SHA256',len(f),sha256(f).hexdigest())
+          print('NOR39 FIRST COMPLETE GRADE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR39 ORIGINAL SCIENCE PASS',x['registered_primary_pass'])
+          print('NOR39 FIVE PRE-FROZEN GATES',x['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor39_first_original_source_and_global_uniform_grade
+          path: |
+            /tmp/nor39/nor39_fixture.json
+            /tmp/nor39/nor39_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent_full_source_greedy_and_exact_crossplay_replay:
+    needs: first_registered_global_uniform_grade
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor39_first_original_source_and_global_uniform_grade
+          path: /tmp/nor39
+      - name: Independently regenerate 48 sources, all 7 greedy attackers and all 12x7 heldout crossplay
+        run: |
+          python -u research/nor39_clean_global_uniform/receipt_audit.py --check \
+            --fixture /tmp/nor39/nor39_fixture.json \
+            --full /tmp/nor39/nor39_full.json
