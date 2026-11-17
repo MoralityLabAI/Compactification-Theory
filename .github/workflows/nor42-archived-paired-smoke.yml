@@ -29,6 +29,9 @@ jobs:
         run: |
           python -m compileall -q research/nor42_paired_program_ood
           python -m unittest research.nor42_paired_program_ood.test_paired_model -v
+      - name: Read-only recheck permanent original 48-source JSON SHA and exact hypergeometric fractions
+        run: |
+          python research/nor42_paired_program_ood/original_archive_audit.py
       - name: Generate historical-only 48-source off-grammar demo receipts
         run: |
           python -u research/nor42_paired_program_ood/paired_model.py \
