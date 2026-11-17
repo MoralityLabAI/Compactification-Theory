@@ -33,6 +33,9 @@ N_OLD="f978a2c388715056e7999e01d4ddc30f6c24a778b0e6e3e741a070902223430c"
 def canonical(a):
     return (json.dumps(a,sort_keys=True,indent=2,ensure_ascii=True)+"\n").encode()
 
+def hash_future(y):
+    return sha256(json.dumps(y,separators=(",",":")).encode()).hexdigest()
+
 
 def seed(*fields):
     return int.from_bytes(sha256("|".join(map(str,fields)).encode("ascii")).digest(),"big")
