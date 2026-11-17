@@ -12,7 +12,9 @@ The 24 public source identities were fresh replicates 12–15, at 512/1024 obser
 | Uniform16 | 6.0626% | 1.0986% | 4.9639 pp |
 | Static trained-risk16 | 6.1198% | 0.0000% | 6.1198 pp |
 
-Hybrid blind-minus-root-aware detection was positive in **24/24 independent source pairs**, and the equal-source mean difference was **+0.053197224934895836** absolute, exceeding the frozen >=20/24 and +0.010 gates. All five registered requirements **PASSED**. The source-paired median difference was **4.5837 pp**. A retrospective source-block percentile bootstrap with 10,000 resamples (seed 202611290111) gave a descriptive 95% interval of approximately **3.97 to 6.96 pp**. Audit/attack repeated draws inside a source were not counted as independent sources.
+Hybrid blind-minus-root-aware detection was positive in **24/24 independent source pairs**, and the equal-source mean difference was **+0.053197224934895836** absolute, exceeding the frozen >=20/24 and +0.010 gates. All five registered requirements **PASSED**.
+
+A separate concurrent [Actions #44025482938](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44025482938) drew a different 256-bit OS root and fresh commitment nonces for the same frozen 24 public sources and original 32 source-specific blind attack coordinates. Its independently replayed result also passed: **24/24 hybrid source-pair decreases**, hybrid blind **5.4741%**, early-root-aware **0.0641%**, and **5.4100 pp** mean reduction. These are additional randomization trials on the **same source identities**, not 24 new source units. All immutable first-run hashes and the registered canonical numbers continue to refer to #44025451594. The source-paired median difference was **4.5837 pp**. A retrospective source-block percentile bootstrap with 10,000 resamples (seed 202611290111) gave a descriptive 95% interval of approximately **3.97 to 6.96 pp**. Audit/attack repeated draws inside a source were not counted as independent sources.
 
 Degree-group means:
 
