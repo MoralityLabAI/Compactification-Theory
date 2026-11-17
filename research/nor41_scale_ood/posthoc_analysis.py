@@ -63,6 +63,8 @@ def analyze(grade,with_signflips=True):
     assert len(recs)==len(rows)==grade["fresh_source_units"]==64
     assert set(r["replicate"] for r in rows)==set(REPS)
     assert len({r["public_sha256"] for r in rows})==64
+    assert len({r["public_sha256"] for r in recs})==64
+    assert {r["public_sha256"] for r in recs}=={r["public_sha256"] for r in rows}
     assert all(sum(r["replicate"]==rep for r in rows)==4 for rep in REPS)
     assert {r["family"] for r in rows}==set(FAMILIES)
     assert {r["degree"] for r in rows}=={512,1024}
