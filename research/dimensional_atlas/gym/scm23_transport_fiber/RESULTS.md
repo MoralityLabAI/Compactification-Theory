@@ -28,3 +28,6 @@ At half patch norm, gradient fiber produces 9/768 transfers. No rank-four fiber 
 The full standalone research package contains the original 768-pair Boolean outcomes, frozen hashes and independent audit. This GitHub source includes a deterministic replay that verifies every seed's numeric endpoints.
 
 **Limits:** fresh synthetic F11 looped neural execution, supervised gradient calibration, no original SCM-20 checkpoint evidence, no EvalMath ARG-01 OOD claim, no certified Seifert topology or new trained-model reasoning advantage. Historical SCM-20 results are unchanged.
+## Cross-machine CPU replay
+
+The first hosted Python 3.13 / PyTorch 2.10.0+cpu replay reproduced both seeds 191 and 1191 exactly, while seed 2191's gradient-fiber arm produced **44/256** rather than the sandbox's **46/256**. All other method counts matched, and the registered gate failed on both machines. This is a two-case numerical execution difference in a deterministic training and finite-score pipeline; the original local receipt remains unchanged. A narrowly scoped hosted check permits only this disclosed 44/46 count variation and requires every other count and the registered failed gate to match. The difference has not been traced to a particular CPU kernel.
