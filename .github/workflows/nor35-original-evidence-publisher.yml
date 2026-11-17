@@ -1,0 +1,122 @@
+name: NOR-35 one-shot preserve first corrected, independently verified source and outcome
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor35-original-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve-first-valid-intraatom-result:
+    if: github.ref == 'refs/heads/research/nor35-intraatom-curvature-rerank-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor35-intraatom-curvature-rerank-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor35_original_source_and_curvature_intraatom_grade
+          run-id: 44064368383
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor35-original
+      - name: Verify exact original byte SHA and preregistered five-gate primary result
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          import json
+          root=Path('/tmp/nor35-original')
+          files={
+            'nor35_fixture.json':(4539616,
+              '7a517c8a9f87b15e12362da2dd99d188933a018a233fe2d043ea4aca9c4b02ef'),
+            'nor35_full.json':(706150,
+              '194a0709ed5672dbb8b6706b4d40d6f8f3a28e28164dc3275005d8421ccd05a6')
+          }
+          raw={}
+          for name,(size,expected) in files.items():
+            b=(root/name).read_bytes()
+            assert len(b)==size,(name,len(b),size)
+            assert sha256(b).hexdigest()==expected,name
+            raw[name]=b
+          fixture=json.loads(raw['nor35_fixture.json'])
+          result=json.loads(raw['nor35_full.json'])
+          assert fixture['schema']=='nor35.public_only_new_reps48to51.v1'
+          assert fixture['registration_commit']=='3773c1b1522f419e54f34252b0c743018105bc79'
+          assert result['schema']=='nor35.eight_atom_curvature_targeted_vs_quota_random.v1'
+          assert result['preregistered_first_commit']==fixture['registration_commit']
+          assert result['source_public_fixture_sha256']==files['nor35_fixture.json'][1]
+          assert fixture['public_only'] and fixture['private_program_and_future_absent']
+          assert fixture['attack_witness_and_policy_absent'] and fixture['excluded_history_count']==108
+          assert len(fixture['cases'])==len(result['source_records'])==24
+          assert result['registered_primary_pass']
+          assert all(result['registered_five_gates'].values())
+          assert result['source_wins']=={'B':24,'C':24,'I':24,'M':24}
+          assert abs(result['source_mean_primary']['C']-.16727684758697386)<1e-14
+          assert abs(result['source_mean_primary']['B']-.16720555074605523)<1e-14
+          assert abs(result['source_mean_primary']['I']+.021356544234316415)<1e-14
+          assert abs(result['source_mean_primary']['M']-.1961563549684854)<1e-14
+          assert all(r['eight_atom_quota_mismatches']==0 and
+                     r['legitimate_witness_false_rejections']==0 and
+                     r['schedule_informed_attacker_detected']==0 and
+                     r['shift_decision_disagreements']==0 and
+                     r['direct_authentic_integer_witness_pair_checks']==96
+                     for r in result['source_records'])
+          out=Path('research/nor35_intraatom_curvature/results')
+          out.mkdir(parents=True,exist_ok=True)
+          archive=out/'nor35_original_hosted.zip'
+          with ZipFile(archive,'w',ZIP_DEFLATED,compresslevel=9) as z:
+            for name,b in raw.items():
+              item=ZipInfo(name,(2026,11,17,0,0,0))
+              item.compress_type=ZIP_DEFLATED
+              z.writestr(item,b,compress_type=ZIP_DEFLATED,compresslevel=9)
+          receipt={
+            'schema':'nor35.original_corrected_sourceheldout_curvature.v1',
+            'registered_date_utc':'2026-11-17',
+            'registration_first_commit':'3773c1b1522f419e54f34252b0c743018105bc79',
+            'first_valid_complete_replay_run':'https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44064368383',
+            'original_artifact_id':14319982047,
+            'original_artifact_name':'nor35_original_source_and_curvature_intraatom_grade',
+            'pre_grade_implementation_correction':'Ascending-index tie-breaking for bottom curvature was aligned with first registration before this result; prior branch run 44064001927 was not used and lacked replay code.',
+            'original_file_bytes_and_sha256':{
+              name:{'bytes':size,'sha256':h} for name,(size,h) in files.items()},
+            'fresh_public_source_count':24,'historical_sources_excluded':108,
+            'fixed_blind_attack_sets_replayed':1536,
+            'source_arm_transformed_challenge_plans_replayed':294912,
+            'original_audit_world_decisions_replayed':18874368,
+            'direct_true_integer_witness_checks':2304,
+            'frozen_mix_weights':[2,0,1,1,4,8],
+            'source_primary_means':result['source_mean_primary'],
+            'source_primary_wins':result['source_wins'],
+            'original_registered_five_gates':result['registered_five_gates'],
+            'registered_primary_pass':True,
+            'independent_source_atom_attack_and_fraction_replay_passed':True,
+            'scope':'Source-public predicted curvature and fixed eight risk atom budgets; exact target-dependent external oracle authenticity and independent actual private audit coins are assumptions.'
+          }
+          (out/'nor35_first_frozen_receipt.json').write_text(
+              json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          print('NOR35 ORIGINAL SOURCE-CONTROLLED EVIDENCE ZIP BYTES SHA256',
+                len(archive.read_bytes()),sha256(archive.read_bytes()).hexdigest())
+          PY
+      - name: Independent exact historical source and first result replay before archiving
+        run: |
+          python research/nor35_intraatom_curvature/receipt_audit.py --check \
+            --fixture /tmp/nor35-original/nor35_fixture.json \
+            --full /tmp/nor35-original/nor35_full.json
+      - name: Commit immutable first original evidence files and SHA receipt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor35_intraatom_curvature/results/nor35_original_hosted.zip \
+                  research/nor35_intraatom_curvature/results/nor35_first_frozen_receipt.json
+          git commit -m "NOR-35: preserve first source-locked valid curvature PASS and independent SHA receipt"
+          git push origin HEAD:research/nor35-intraatom-curvature-rerank-20261117
