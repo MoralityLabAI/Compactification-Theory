@@ -55,10 +55,7 @@ class WitnessTest(unittest.TestCase):
         altered[checked[0]]+=1
         self.assertTrue(verifier.verified_sample_rejection(altered,
             self.claim,opens))
-        self.assertFalse(verifier.verified_sample_rejection(altered,
-            self.claim,[self.tree.opening(i)
-            for i in range(16) if i!=checked[0]]+[self.tree.opening(33)]
-            ) if checked[0]<16 and checked[0]!=33 else True) if False else None
+
 
     def test_all_signed_manifest_context_replays_fail(self):
         self.reject(source=sha256(b"wrong source").hexdigest())
