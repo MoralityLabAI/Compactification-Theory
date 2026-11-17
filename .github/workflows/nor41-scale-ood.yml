@@ -1,0 +1,171 @@
+name: NOR-41 registered CAL scaling and input OOD pre-data source isolation
+
+on:
+  push:
+    branches:
+      - research/nor41-scale-ood-cal-transfer-20261117
+    paths:
+      - 'research/nor41_scale_ood/**'
+      - '.github/workflows/nor41-scale-ood.yml'
+  pull_request:
+    paths:
+      - 'research/nor41_scale_ood/**'
+      - '.github/workflows/nor41-scale-ood.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistration_historical_only_predata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify immutable prospective registration ancestor and complete science gates
+        run: |
+          git merge-base --is-ancestor 87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f HEAD
+          test -s research/nor41_scale_ood/REGISTRATION.md
+      - name: Enforce old-source-only test isolation and 324 source archive SHA pins
+        run: |
+          python research/nor41_scale_ood/predata_isolation_audit.py
+      - name: Test nested CAL, new input grammar and source-block scientific gates
+        run: |
+          python -m compileall -q research/nor41_scale_ood
+          python -m unittest research.nor41_scale_ood.test_experiment research.nor41_scale_ood.test_independent_parity research.nor41_scale_ood.test_posthoc_analysis -v
+
+  first_public_only_fixture:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR41-FIRST-GRADE')
+    needs: preregistration_historical_only_predata
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze all 64 public-only original source identities before ANY private source reconstruction
+        run: |
+          python -u research/nor41_scale_ood/experiment.py --make-fixture /tmp/nor41_fixture.json
+      - name: Independently attest first source-only SHA, original 324 exclusions and every registered cell
+        run: |
+          python research/nor41_scale_ood/predata_isolation_audit.py \
+            --no-tests --fixture /tmp/nor41_fixture.json
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor41_fixture.json').read_bytes()
+          # Pin the byte-identical first source-only generation from failed
+          # admission job #44124006976. The mismatch was only an old 48 count.
+          assert len(raw)==9618649
+          assert sha256(raw).hexdigest()==(
+            '4073090e5888ed10283d82dc5153758d299ed7cfe9c753be39ba2c2bd4c7119d')
+          a=json.loads(raw)
+          assert a['schema']=='nor41.scale_ood_public_only_reps84to99.v1'
+          assert a['registered_first_commit']=='87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f'
+          assert a['public_only'] and a['planted_and_private_target_absent']
+          assert a['attack_witness_and_audit_absent']
+          assert a['excluded_historical_sources']==324
+          assert a['replicates']==list(range(84,100))
+          assert a['families']==['wide_dense_small','wide_regime_blocks']
+          assert len(a['cases'])==len({x['full_public_input_sha256'] for x in a['cases']})==64
+          assert Counter(x['degree'] for x in a['cases'])=={512:32,1024:32}
+          assert Counter(x['family'] for x in a['cases'])=={
+            'wide_dense_small':32,'wide_regime_blocks':32}
+          print('NOR41 FIRST ORIGINAL PUBLIC ONLY SOURCE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor41_first_original_64_public_only_sources
+          path: /tmp/nor41_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  first_frozen_registered_eval:
+    needs: first_public_only_fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor41_first_original_64_public_only_sources
+          path: /tmp/nor41
+      - name: Grade the four frozen policies at nested CAL256-4096 on 1024 independent EVAL
+        run: |
+          python -u research/nor41_scale_ood/experiment.py \
+            --fixture /tmp/nor41/nor41_fixture.json \
+            --out /tmp/nor41/nor41_full.json
+      - name: Freeze first raw grader SHA and all registered PASS/FAIL gates as emitted
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          f=Path('/tmp/nor41/nor41_fixture.json').read_bytes()
+          b=Path('/tmp/nor41/nor41_full.json').read_bytes()
+          g=json.loads(b)
+          assert g['schema']=='nor41.input_ood_nested_cal_transfer.v1'
+          assert g['registration_first_commit']=='87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f'
+          assert g['public_fixture_sha256']==sha256(f).hexdigest()
+          assert g['fresh_source_units']==len(g['source_records'])==64
+          assert g['historical_sources_excluded']==324
+          assert len(g['registered_five_gates'])==5 and all(
+            type(x) is bool for x in g['registered_five_gates'].values())
+          assert g['registered_primary_pass']==all(g['registered_five_gates'].values())
+          assert g['calibration_prefix_budgets']==[256,512,2048,4096]
+          assert g['calibration_schedules_per_source']==4096
+          assert g['heldout_schedules_per_source']==1024
+          assert g['greedy_starts_per_policy_budget']==16
+          assert g['selected_attack_sets_per_policy_budget']==8
+          assert len(g['auditor_policies'])==4 and len(g['blind_control_families'])==6
+          assert all(len(r['calibrated_attacks'])==4
+                    and len(r['attack_certificates'])==4
+                    and len(r['crossplay_weighted_numerators'])==22
+                    for r in g['source_records'])
+          print('NOR41 FIRST ORIGINAL SOURCE BYTES SHA256',len(f),sha256(f).hexdigest())
+          print('NOR41 FIRST ORIGINAL GRADE BYTES SHA256',len(b),sha256(b).hexdigest())
+          print('NOR41 ORIGINAL SCIENCE PASS',g['registered_primary_pass'])
+          print('NOR41 ORIGINAL FIVE GATES',g['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor41_first_original_source_and_nested_grade
+          path: |
+            /tmp/nor41/nor41_fixture.json
+            /tmp/nor41/nor41_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent_input_and_all_heldout_crossplay:
+    needs: first_frozen_registered_eval
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor41_first_original_source_and_nested_grade
+          path: /tmp/nor41
+      - name: Rebuild new input grammar, original native programs, nested attack pools and 22x4 heldout crossplay
+        run: |
+          python -u research/nor41_scale_ood/receipt_audit.py --check \
+            --fixture /tmp/nor41/nor41_fixture.json \
+            --full /tmp/nor41/nor41_full.json
