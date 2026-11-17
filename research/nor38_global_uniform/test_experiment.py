@@ -1,4 +1,4 @@
-"""Pre-data NOR-38 tests. Do not inspect first held-out source or grade files."""
+"""Pre-data NOR-38 tests use archived NOR-37 public sources, never the new cohort."""
 from __future__ import annotations
 import unittest
 from collections import Counter
@@ -11,7 +11,7 @@ class NOR38PreDataTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.old=x.history()
-        cls.row=x.new_source(60,512,x.FAMILIES[0],set(cls.old))
+        cls.row=x.nor37.new_source(56,512,x.FAMILIES[0],set(x.nor37.history()))
         cls.public=x.nor37.public_proposal(cls.row)
         cls.src=cls.row["full_public_input_sha256"]
         cls.geometry=x.nor37.source_geometry(
@@ -24,7 +24,7 @@ class NOR38PreDataTests(unittest.TestCase):
         self.assertEqual(x.REPS,tuple(range(60,68)))
         self.assertEqual(x.OFFSET,130038000)
         self.assertEqual(x.REGISTERED,"37f9ed96b122ea16fb681dd5df638cbc4285d1e4")
-        self.assertNotIn(self.src,self.old)
+        self.assertIn(self.src,self.old)
         self.assertEqual((x.K,x.R,x.CAL,x.EVAL,x.ATTACKS),(16,4,256,512,8))
         self.assertEqual(x.WEIGHTS,(2,0,1,1,4,8))
         self.assertEqual(len(x.POLICIES),7)
@@ -33,12 +33,12 @@ class NOR38PreDataTests(unittest.TestCase):
     def test_first_public_source_has_no_private_leaks(self):
         r=self.row
         self.assertEqual(r["split"],"TEST")
-        self.assertEqual(r["source_seed"],x.source_seed(60,512,x.FAMILIES[0]))
+        self.assertEqual(r["source_seed"],x.nor37.source_seed(56,512,x.FAMILIES[0]))
         self.assertTrue(all(k not in r for k in
                             ("program","future","target","attack","witness","audit")))
         self.assertEqual(r["original_native_public_mask"],self.public["mask"])
         self.assertEqual(len(self.public["pred"]),769)
-        self.assertEqual(x.restore_native_target(r,self.public["pred"]),self.public["pred"])
+        self.assertEqual(x.nor37.restore_native_target(r,self.public["pred"]),self.public["pred"])
 
     def test_mixture_exact_integer_weights(self):
         self.assertEqual(x.POLICIES,(
