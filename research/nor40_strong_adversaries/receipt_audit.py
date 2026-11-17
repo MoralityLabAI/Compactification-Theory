@@ -260,37 +260,149 @@ def policy_schedules(old,atoms,scores,src,phase):
     return out,dict(branches)
 
 
-def independent_greedy_attacks(plans,src,m):
-    visited=trial_id_sets(plans,m)
-    out={}
+def independent_cal_vectors(plans,m):
+    """Build a fresh bitset per coordinate from source-public CAL schedule records."""
+    rows={}
+    for mode,arms in plans.items():
+        for arm,schedules in arms.items():
+            arr=[0 for _ in range(m)]
+            for t,plan in enumerate(schedules):
+                bit=1<<t
+                for index in plan:arr[index]|=bit
+            rows[(mode,arm)]=arr
+    return rows
+
+
+def independent_cost(visited,policy,attack):
+    total=0
+    for mode,arm,weight in component_parts(policy):
+        coverage=0
+        for i in attack:coverage|=visited[(mode,arm)][i]
+        total+=weight*coverage.bit_count()
+    return total
+
+
+def independent_greedy(visited,policy,src,rep,stream):
+    order=list(range(len(visited[component_parts(policy)[0][:2]])))
+    random.Random(seed(stream,src,policy,rep)).shuffle(order)
+    cover={p[:2]:0 for p in component_parts(policy)}
+    selected=set()
+    for _ in range(R):
+        chosen=None
+        minimum=None
+        for i in order:
+            if i in selected:continue
+            score=0
+            for mode,arm,weight in component_parts(policy):
+                score+=weight*(cover[(mode,arm)]|visited[(mode,arm)][i]).bit_count()
+            if minimum is None or score<minimum:
+                chosen,minimum=i,score
+        assert chosen is not None
+        selected.add(chosen)
+        for mode,arm,weight in component_parts(policy):
+            cover[(mode,arm)]|=visited[(mode,arm)][chosen]
+    return tuple(sorted(selected))
+
+
+def independent_refinement(visited,policy,initial):
+    best=tuple(sorted(initial))
+    objective=independent_cost(visited,policy,best)
+    m=len(visited[component_parts(policy)[0][:2]])
+    for _ in range(SWAP_PASSES):
+        candidate_best=best
+        candidate_score=objective
+        for excluded in best:
+            three=tuple(x for x in best if x!=excluded)
+            chosen=set(three)
+            prefix={}
+            for mode,arm,_ in component_parts(policy):
+                cover=0
+                for idx in three:cover|=visited[(mode,arm)][idx]
+                prefix[(mode,arm)]=cover
+            for replacement in range(m):
+                if replacement in chosen:continue
+                a=tuple(sorted(three+(replacement,)))
+                val=sum(weight*(prefix[(mode,arm)]|
+                     visited[(mode,arm)][replacement]).bit_count()
+                        for mode,arm,weight in component_parts(policy))
+                if (val<candidate_score or
+                    (val==candidate_score and val<objective and
+                     a<candidate_best)):
+                    candidate_best,candidate_score=a,val
+        if candidate_score>=objective:break
+        best,objective=candidate_best,candidate_score
+    return best
+
+
+def independent_strong_games(plans,src,m):
+    """Recompute every CAL attack and exact restricted certificate independently."""
+    exposure=independent_cal_vectors(plans,m)
+    mask=(1<<BASE_CAL)-1
+    base={(mode,arm):[v&mask for v in arr]
+          for (mode,arm),arr in exposure.items()}
+    saved_baseline={}
+    saved_strong={}
+    receipts={}
+    from itertools import combinations
     for policy in POLICIES:
-        parts=component_parts(policy)
-        variants=[]
-        for restart in range(ATTACKS):
-            order=list(range(m))
-            random.Random(seed(202611400078,src,policy,restart)).shuffle(order)
-            used=set()
-            exposed={p[:2]:set() for p in parts}
-            for _ in range(R):
-                best=None
-                best_cost=None
-                for i in order:
-                    if i in used:continue
-                    cost=sum(w*len(exposed[(mode,arm)]|visited[(mode,arm)][i])
-                             for mode,arm,w in parts)
-                    if best_cost is None or cost<best_cost:
-                        best,best_cost=i,cost
-                assert best is not None
-                used.add(best)
-                for mode,arm,_ in parts:
-                    exposed[(mode,arm)].update(visited[(mode,arm)][best])
-            variants.append(tuple(sorted(used)))
-        out[policy]=variants
-    return out,visited
+        baseline=[independent_greedy(base,policy,src,rep,202611400078)
+                  for rep in range(ATTACKS)]
+        greedy=[independent_greedy(exposure,policy,src,rep,202611400077)
+                for rep in range(GREEDY_STARTS)]
+        def key(support):return (independent_cost(exposure,policy,support),support)
+        local_initial=sorted(greedy+baseline,key=key)[:ATTACKS]
+        refined=[independent_refinement(exposure,policy,a) for a in local_initial]
+        singleton=[sum(w*exposure[(mode,arm)][i].bit_count()
+                       for mode,arm,w in component_parts(policy))
+                   for i in range(m)]
+        first=min(greedy,key=key)
+        candidate_indices=list(first)
+        for i in sorted(range(m),key=lambda j:(singleton[j],j)):
+            if i not in candidate_indices:candidate_indices.append(i)
+            if len(candidate_indices)==POOL_SIZE:break
+        pool=tuple(sorted(candidate_indices))
+        assert len(pool)==POOL_SIZE
+        smallest=None
+        bestpool=None
+        counted=0
+        for attack in combinations(pool,R):
+            counted+=1
+            score=independent_cost(exposure,policy,attack)
+            if smallest is None or (score,attack)<(smallest,bestpool):
+                smallest,bestpool=score,attack
+        assert counted==1820
+        candidates=sorted(set(baseline+greedy+refined+[bestpool]),key=key)
+        strong=(candidates[:ATTACKS]+[candidates[0]]*ATTACKS)[:ATTACKS]
+        bsum=sum(independent_cost(exposure,policy,a) for a in baseline)
+        ssum=sum(independent_cost(exposure,policy,a) for a in strong)
+        bound=sorted(singleton)[R-1]
+        upper=independent_cost(exposure,policy,strong[0])
+        assert bound<=upper<=smallest and ssum<=bsum
+        saved_baseline[policy]=baseline
+        saved_strong[policy]=strong
+        receipts[policy]={
+            "baseline_greedy_sets":[list(a) for a in baseline],
+            "full_cal_greedy32_sets":[list(a) for a in greedy],
+            "locally_refined_sets":[list(a) for a in refined],
+            "restricted_candidate_pool":list(pool),
+            "restricted_exact_optimum":list(bestpool),
+            "restricted_exact_value":smallest,
+            "restricted_sets_enumerated":counted,
+            "global_singleton_lower_bound":bound,
+            "global_best_found_upper_bound":upper,
+            "global_optimality_gap_upper_minus_lower":upper-bound,
+            "baseline_eight_full_cal_sum":bsum,
+            "strong_eight_full_cal_sum":ssum,
+            "baseline_unique_count":len(set(baseline)),
+            "strong_unique_count":len(set(strong)),
+            "solver_scope":"exact_pool16; global lower bound is fourth smallest singleton"}
+    return saved_baseline,saved_strong,receipts,exposure
+
+
 
 
 def independent_blind(src,atoms,u,cu,cv,bu,bv,m,visited):
-    exposure=[sum(w*len(visited[(mode,arm)][i])
+    exposure=[sum(w*visited[(mode,arm)][i].bit_count()
                   for mode,arm,w in component_parts("deterministic_mix"))
               for i in range(m)]
     pool=sorted(range(m),key=lambda i:(exposure[i],i))[:min(m,96)]
