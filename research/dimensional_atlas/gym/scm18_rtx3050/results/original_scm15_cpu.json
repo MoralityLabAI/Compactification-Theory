@@ -1,0 +1,200 @@
+{
+  "adapter_sha256": "eaf3bfbaabe48ebaeeebff488f07b94eff36c72105fc3e03ccf843607245d2c5",
+  "atlas_diagnostic": {
+    "empirical_second_difference_norm": [
+      0.45366203784942627,
+      0.7413195967674255,
+      1.034210205078125,
+      1.3989269733428955
+    ],
+    "eps": 0.01,
+    "feature_axes": [
+      0,
+      1
+    ],
+    "status": "finite_difference_diagnostic_only",
+    "subspace_alignment_singular_values": [
+      [
+        0.9264591932296753,
+        0.8964688181877136
+      ],
+      [
+        0.9736599326133728,
+        0.9681654572486877
+      ],
+      [
+        0.9912403225898743,
+        0.9730854034423828
+      ]
+    ],
+    "visit_singular_values": [
+      [
+        1.338432788848877,
+        0.9856133460998535
+      ],
+      [
+        1.6721327304840088,
+        1.1434125900268555
+      ],
+      [
+        2.2993452548980713,
+        1.2834076881408691
+      ],
+      [
+        2.9912209510803223,
+        1.4150872230529785
+      ]
+    ]
+  },
+  "backend": "toy",
+  "by_family": {
+    "sae_atvpd": {
+      "periodic": {
+        "false_future_acceptances": 1,
+        "future_accuracy": 0.6666666666666666,
+        "mean_exact_queries": 7.083333333333333,
+        "n": 12,
+        "prefix_acceptance": 0.75
+      }
+    },
+    "shuffled_visit_gates": {
+      "periodic": {
+        "false_future_acceptances": 1,
+        "future_accuracy": 0.6666666666666666,
+        "mean_exact_queries": 7.083333333333333,
+        "n": 12,
+        "prefix_acceptance": 0.75
+      }
+    },
+    "tied_base": {
+      "periodic": {
+        "false_future_acceptances": 1,
+        "future_accuracy": 0.6666666666666666,
+        "mean_exact_queries": 7.166666666666667,
+        "n": 12,
+        "prefix_acceptance": 0.75
+      }
+    },
+    "zero_sae_codes": {
+      "periodic": {
+        "false_future_acceptances": 1,
+        "future_accuracy": 0.6666666666666666,
+        "mean_exact_queries": 7.166666666666667,
+        "n": 12,
+        "prefix_acceptance": 0.75
+      }
+    }
+  },
+  "discovery_count": 12,
+  "frontier_peak_count": 4,
+  "frontier_peaks": [
+    {
+      "case_id": "discovery:220009",
+      "family": "sparse",
+      "first_fault": 3,
+      "frontier_proxy": 0.014101433066221384,
+      "graph": [
+        "I",
+        "N",
+        "R"
+      ],
+      "topology": "additive"
+    },
+    {
+      "case_id": "discovery:220004",
+      "family": "iid",
+      "first_fault": 0,
+      "frontier_proxy": 0.005044762331705827,
+      "graph": [
+        "S",
+        "R",
+        "I"
+      ],
+      "topology": "cascade"
+    },
+    {
+      "case_id": "discovery:220007",
+      "family": "sparse",
+      "first_fault": 0,
+      "frontier_proxy": 0.0036168407935362598,
+      "graph": [
+        "S",
+        "I",
+        "R"
+      ],
+      "topology": "cascade"
+    },
+    {
+      "case_id": "discovery:220002",
+      "family": "iid",
+      "first_fault": 0,
+      "frontier_proxy": 0.0036138674387565027,
+      "graph": [
+        "S",
+        "I",
+        "I"
+      ],
+      "topology": "additive"
+    }
+  ],
+  "generated_gold_sha256": "206bce50b12a5a34dd382392357e032f6a5eb30ff94b743b151628f92e03d140",
+  "generated_public_sha256": "f3691f7a8927ad90b2b3cba8e17def8dc6d194e535d6718f5058dfc0b3c7dc6c",
+  "math_source_verified": false,
+  "measured_training_seconds": 4.98,
+  "model_sha256": "21cd4d747fb4058af7c87a4ad80a01b95ef432091381a4d50fd3141b05e87b56",
+  "new_evaluation_count": 8,
+  "new_replay_count": 16,
+  "phases": {
+    "base": {
+      "last_loss": 4.28666353225708,
+      "steps": 3
+    },
+    "frontier_replay": {
+      "last_loss": 4.384710311889648,
+      "steps": 2
+    },
+    "sae": {
+      "last_loss": 0.9518283009529114,
+      "steps": 2
+    },
+    "vpd": {
+      "last_loss": 4.052099227905273,
+      "steps": 3
+    }
+  },
+  "provenance_warning": "finite-difference geometry is diagnostic only; frontier tuned on discovery; exact test future used only after freeze",
+  "results": {
+    "sae_atvpd": {
+      "false_future_acceptances": 1,
+      "future_accuracy": 0.6666666666666666,
+      "mean_exact_queries": 7.083333333333333,
+      "n": 12,
+      "prefix_acceptance": 0.75
+    },
+    "shuffled_visit_gates": {
+      "false_future_acceptances": 1,
+      "future_accuracy": 0.6666666666666666,
+      "mean_exact_queries": 7.083333333333333,
+      "n": 12,
+      "prefix_acceptance": 0.75
+    },
+    "tied_base": {
+      "false_future_acceptances": 1,
+      "future_accuracy": 0.6666666666666666,
+      "mean_exact_queries": 7.166666666666667,
+      "n": 12,
+      "prefix_acceptance": 0.75
+    },
+    "zero_sae_codes": {
+      "false_future_acceptances": 1,
+      "future_accuracy": 0.6666666666666666,
+      "mean_exact_queries": 7.166666666666667,
+      "n": 12,
+      "prefix_acceptance": 0.75
+    }
+  },
+  "schema": "scm15.atlas_vpd.v0",
+  "seed": 15,
+  "status": "executed_synthetic_gym",
+  "train_count": 24
+}

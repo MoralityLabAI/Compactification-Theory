@@ -1,0 +1,35 @@
+{
+  "resolved_environment_failures": [
+    "Default Windows sandbox TEMP was not writable by test artifacts; redirected TEMP/TMP to workspace",
+    "CRLF checkout conversion violated inherited literal-byte receipt locks; original LF Git-blob verification passed without editing historical experiment content"
+  ],
+  "status": "passed",
+  "suites": [
+    {
+      "passed": true,
+      "seconds": 6.404,
+      "suite": "SCM15",
+      "tests": 14
+    },
+    {
+      "passed": true,
+      "seconds": 7.99,
+      "suite": "SCM16",
+      "tests": 15,
+      "verification_source": "raw Git blobs at the untouched SCM17 parent; avoids Windows checkout line-ending conversion"
+    },
+    {
+      "passed": true,
+      "seconds": 6.373,
+      "suite": "SCM17",
+      "tests": 18
+    },
+    {
+      "passed": true,
+      "seconds": 5.157,
+      "suite": "SCM18",
+      "tests": 7
+    }
+  ],
+  "total_tests": 54
+}

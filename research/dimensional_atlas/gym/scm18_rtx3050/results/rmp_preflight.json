@@ -1,0 +1,48 @@
+{
+  "hashes": {
+    "RMP_source/research_gym/interp/analysis.py": "7b395db79ab4a0e1999ba6690139ebb2d507203fe6ba7130815b486d00c34d2e",
+    "RMP_source/research_gym/interp/dictionaries.py": "c4dc88b2244c0096d22937212664e90e6c60f74523b1233c3a6906c8c92d729e",
+    "RMP_source/research_gym/interp/models.py": "37cfda166cdfb299d7b670fe7bef7a6df2c0393656e5f782a810b1b17a758916",
+    "RMP_source/research_gym/interp/phase2.py": "8d8f4093e96dcb1f84056e70eea4a21f37acd75719e03929c815ae4cb52e697d",
+    "RMP_source/research_gym/neural/looped_decoder.py": "e7e4c3f020cc4d7c980ddf842c8388bb1199241e522781e4b14335dd493e2321",
+    "RMP_source/research_gym/neural/schedule_executor.py": "9a41a564d312f067facf53a49759bb3dadd9f8e63d0598d7a78b9181d96ec455",
+    "SCM17_source/campaign.py": "69aaca09294bb9139ff53bc31491e3b2e48c64550535551e7420495f416ea989",
+    "SCM17_source/rmp_fiber.py": "2ee89ecee6051505e96681d2c9cd9d8e8dd964e2c3bda6f4fadd2a41df2ca306"
+  },
+  "missing": [
+    "checkpoint",
+    "checkpoint_integrity_receipt",
+    "dictionary_metrics",
+    "monitor_bundle",
+    "selected_D_shared",
+    "training_config"
+  ],
+  "model": "LOOP-T s1",
+  "schema": "scm17/rmp-trained-fiber/v1",
+  "scientific_status": {
+    "exact_nonlinear_head_kernel_claimed": false,
+    "trained_RMP_measured": false,
+    "unopened_sealed_test": true
+  },
+  "source": {
+    "RMP_source/research_gym/interp/analysis.py": "..\\LoopedTransformers\\research_gym\\interp\\analysis.py",
+    "RMP_source/research_gym/interp/dictionaries.py": "..\\LoopedTransformers\\research_gym\\interp\\dictionaries.py",
+    "RMP_source/research_gym/interp/models.py": "..\\LoopedTransformers\\research_gym\\interp\\models.py",
+    "RMP_source/research_gym/interp/phase2.py": "..\\LoopedTransformers\\research_gym\\interp\\phase2.py",
+    "RMP_source/research_gym/neural/looped_decoder.py": "..\\LoopedTransformers\\research_gym\\neural\\looped_decoder.py",
+    "RMP_source/research_gym/neural/schedule_executor.py": "..\\LoopedTransformers\\research_gym\\neural\\schedule_executor.py",
+    "SCM17_source/campaign.py": "C:\\Users\\patri\\Documents\\Codex\\2026-11-14\\files-pasted-by-the-user-codex\\work\\Compactification-Theory\\research\\dimensional_atlas\\gym\\scm17\\campaign.py",
+    "SCM17_source/rmp_fiber.py": "C:\\Users\\patri\\Documents\\Codex\\2026-11-14\\files-pasted-by-the-user-codex\\work\\Compactification-Theory\\research\\dimensional_atlas\\gym\\scm17\\rmp_fiber.py",
+    "checkpoint": "..\\LoopedTransformers\\artifacts\\LOOP-T-core4-ds-s1\\checkpoints\\C3.pt",
+    "checkpoint_integrity_receipt": "..\\LoopedTransformers\\artifacts\\LOOP-T-core4-ds-s1\\checkpoints\\C3.pt.receipt.json",
+    "dictionary_metrics": "..\\LoopedTransformers\\experiments\\recurrence_monitorability_v0\\phase2\\dictionaries.json",
+    "selected_D_shared": "..\\LoopedTransformers\\shared_dictionary.pt",
+    "training_config": "..\\LoopedTransformers\\experiments\\recurrence_monitorability_v0\\runs\\LOOP-T-core4-ds-s1\\result.json"
+  },
+  "splits": {
+    "fit": "monitor_train",
+    "frame": "monitor_calibration/selection_half",
+    "readout": "monitor_calibration/reporting_half"
+  },
+  "status": "blocked_external_artifacts"
+}
