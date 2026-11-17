@@ -44,6 +44,12 @@ The 8/16 uniform-reserve sensitivity arm produces higher adversarial self-play a
 
 Pure uniform16 remains highest for worst calibrated attacker coverage. The 7/16 reserve's exact unconditional fixed-support floor is **3.5357% at m=769** and **1.7952% at m=1537**, given ideal fresh independent private random draws. These are analytic policy floors, not required finite 512-schedule empirical lower limits. A realized-schedule-informed adversary still chooses unchecked coordinates.
 
+## Independent complete replay passed
+
+The [first original four-job run #44098045627](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44098045627) completed SUCCESS, including separate-process independent reconstruction of **48 original source programs, 2,688 distinct source/attacker-restart tuples, 1,920 fixed blind attack-set draws, 884,736 component CAL/EVAL audit plans and 68,419,584 cross-play world decisions**. All original source means, 48-source direction tallies, exact TOP fractions and five original grade booleans reproduce. The independent implementation does not import the NOR38 evaluator.
+
+The first unmodified 48-source and grade bytes were permanently archived on the research branch in [nor38_original_first_hosted.zip](results/nor38_original_first_hosted.zip) and [nor38_first_frozen_receipt.json](results/nor38_first_frozen_receipt.json), with both SHA pins, archived ZIP digest and original GitHub Actions run ID. This archiver includes the strict process-deviation caveat.
+
 ## Source subgroup and uncertainty diagnostics (exploratory)
 
 Source-paired descriptive normal-approximate intervals across eight replicate-block means (48 source rows, six per replicate) give:
@@ -63,6 +69,8 @@ The originally committed pre-data unit test at [first test commit f04e28a](https
 The test was corrected in [commit e5d46ef](https://github.com/MoralityLabAI/Compactification-Theory/commit/e5d46ef7369e4cfb16f9188ef8a94a67ffc117b) to use archived **NOR-37 historical** sources, and later CI tests passed. This repair happened prior to the first complete NOR-38 fixture and grader. Nevertheless, the preregistration required the complete public-only fixture to be frozen before restoring any private native source program. The original grader's gate checks source/grade SHA parity and independent replay; they do not detect this earlier development-test information exposure.
 
 **Procedural integrity assessment: FAIL for the strict first-frozen-source-before-private-truth condition, even if the original scorer's five booleans all show PASS.** The earlier preview contains no recorded defender-specific greedy calibration outcome or held-out EVAL result, and there is no evidence of numerical threshold retuning based on the preview. The strict chronology remains violated. Preserve the original grade and signatures without retroactively changing the frozen result or respecifying the primary gates.
+
+As a NONREGISTERED leave-one-previewed-source sensitivity calculation, excluding the single originally previewed rep-60, D512, `wide_dense_small` identity leaves 47 sources. The global7-vs-deterministic own-attack self-play difference remains **+1.9750pp (47/47 positive)**, its mean worst-class gap from original_mix remains **−0.2874pp**, exact TOP gain remains **+3.2306pp (43/47 positive)**, and retained deterministic top benefit remains **20.2887%**. Those numbers show the mean improvement is not driven by the previewed source, while the original procedural chronological breach still requires fresh-cohort confirmation.
 
 A clean confirmatory follow-up must preregister a completely new source cohort with no source generator or native target restoration applied to its identities during pre-data unit tests. Test fixture code exclusively with archived historical sources or synthetic sentinel identities. Then archive the full public-only roster before any private target reconstruction, calibration or EVAL plans for the new cohort; rerun the seven-policy symmetric greedy comparison unchanged and separately independently replay every decision.
 
