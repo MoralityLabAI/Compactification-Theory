@@ -26,7 +26,7 @@ PREVIOUS_SHA="37fa2aeedeb5ab54bc1082ec2d50f8a084c4f4a7d6279acd5d122396d760e504"
 PREVIOUS_GRADE_SHA="9c69d663d4d1511e664e930c0f8ed42d8d6f59c4d10557323fb5ee54478c036d"
 TESTING_BANNED={"new_source","make_fixture","restore_native_target",
                 "regenerate_native","evaluate"}
-SCHEMA="nor39.global_uniform_public_only_reps68to75.v1"
+SCHEMA="nor39.clean_global_uniform_public_only_reps68to75.v1"
 
 
 def _forbidden_calls(source: str, filename: str):
