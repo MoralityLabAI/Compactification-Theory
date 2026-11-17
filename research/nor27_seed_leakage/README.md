@@ -44,7 +44,7 @@ From the repository root on Python 3.12 with standard-library dependencies:
 
 CI has a first job for protocol ancestry and exact finite controls, a separate first source-only fixture freeze and prospective experiment, and an independent second-process replayer implemented without importing the NOR-27 evaluator.
 
-Original immutable byte hashes and research results will be appended after the first complete experiment and independent replay. Keep scientific FAIL if any precommitted criterion fails.
+The first [prospective result](RESULTS.md) PASSED all four registered criteria in [Actions #44015771328](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44015771328), with an independent second-process replay of 577,536 attack decisions. Both unaltered original byte streams are source-controlled in [the permanent first-run archive](results/nor27_original_hosted.zip), pinned by [their SHA-256 receipt](results/nor27_first_original_receipt.json), and checked by [the read-only auditor](original_archive_audit.py) in both applied CI verification jobs.
 
 ## Interpretation
 
