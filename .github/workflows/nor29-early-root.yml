@@ -3,11 +3,29 @@ name: NOR-29 preregistered early entropy disclosure and 32-attack cohorts
 on:
   push:
     paths:
-      - 'research/nor29_early_entropy/**'
+      - 'research/nor29_early_entropy/prepare.py'
+      - 'research/nor29_early_entropy/challenge.py'
+      - 'research/nor29_early_entropy/leaked_root_attacker.py'
+      - 'research/nor29_early_entropy/grade.py'
+      - 'research/nor29_early_entropy/receipt_audit.py'
+      - 'research/nor29_early_entropy/test_experiment.py'
+      - 'research/nor29_early_entropy/original_archive_audit.py'
+      - 'research/nor29_early_entropy/REGISTRATION.md'
+      - 'research/nor29_early_entropy/results/nor29_original_hosted.zip'
+      - 'research/nor29_early_entropy/results/nor29_first_original_receipt.json'
       - '.github/workflows/nor29-early-root.yml'
   pull_request:
     paths:
-      - 'research/nor29_early_entropy/**'
+      - 'research/nor29_early_entropy/prepare.py'
+      - 'research/nor29_early_entropy/challenge.py'
+      - 'research/nor29_early_entropy/leaked_root_attacker.py'
+      - 'research/nor29_early_entropy/grade.py'
+      - 'research/nor29_early_entropy/receipt_audit.py'
+      - 'research/nor29_early_entropy/test_experiment.py'
+      - 'research/nor29_early_entropy/original_archive_audit.py'
+      - 'research/nor29_early_entropy/REGISTRATION.md'
+      - 'research/nor29_early_entropy/results/nor29_original_hosted.zip'
+      - 'research/nor29_early_entropy/results/nor29_first_original_receipt.json'
       - '.github/workflows/nor29-early-root.yml'
   workflow_dispatch:
 
