@@ -1,0 +1,97 @@
+{
+  "schema": "nor31.first_original_24_source_matched_root_receipt.v1",
+  "registration_commit": "dd0e9f60cdab90ed2b2fb482dedc7496f7f50870",
+  "first_initiated_actions_run": 44032053843,
+  "independent_replay_job": 133867148826,
+  "original_artifacts": {
+    "precommitment": 14304994094,
+    "evaluation": 14305008802,
+    "leaked_and_outcome": 14305103339
+  },
+  "original_raw": {
+    "fixture": {
+      "name": "nor31_fixture.json",
+      "bytes": 4903051,
+      "sha256": "534c8729c12c542eebeb9f7faafb2dc8e1f118acff2990ced1198d11ec4e5802"
+    },
+    "calibration": {
+      "name": "nor31_calibration.json",
+      "bytes": 11085703,
+      "sha256": "5682975ac484298f7bf86431c42d2efebbeb4afb3d836c4497b22b158bdd7ab5"
+    },
+    "pre_sealed": {
+      "name": "nor31_pre_sealed.json",
+      "bytes": 961146,
+      "sha256": "0c42be81044caf2fdd92733932da37bf8c9532cc271433818fabfcd002a46cb3"
+    },
+    "pre_manifest": {
+      "name": "nor31_pre_manifest.json",
+      "bytes": 575889,
+      "sha256": "a5d0c7b4ca88792d9f744aab81561dca958487e297ba2fa1345acda61ef3d4a2"
+    },
+    "evaluation": {
+      "name": "nor31_evaluation.json",
+      "bytes": 11085804,
+      "sha256": "a9d62bd119d3b22293e94b137be472491745165fe198a8d2e25e636e1621fb5f"
+    },
+    "late_sealed": {
+      "name": "nor31_late_sealed.json",
+      "bytes": 958920,
+      "sha256": "a3c9d76101a85c384bb5715e16ec30ea2c52dda76d30c2695036ed3adcbd6847"
+    },
+    "late_manifest": {
+      "name": "nor31_late_manifest.json",
+      "bytes": 575952,
+      "sha256": "401becc1e480e5c1d380c591d72290893b40a6edc052558e82f6540551cf904f"
+    },
+    "outcome": {
+      "name": "nor31_full.json",
+      "bytes": 1567701,
+      "sha256": "c51ad4cf053fd4d44a7e36f47357b49b58f89f8c4fdfcfb62aecd773dd8893f5"
+    }
+  },
+  "roots": {
+    "calibration_sha256": "80b51e1bfa0c2598cd17ed79d6180b13925363e7890f7856ffa98b0b6f9023a4",
+    "evaluation_sha256": "8e65d104cfd878fb18efbcdde329f173fe73a4170cb65361ad1a22726820e085"
+  },
+  "first_scientific_result": {
+    "registered_primary_pass": true,
+    "source_count": 24,
+    "committed_pre_attacks": 2304,
+    "committed_late_attacks": 2304,
+    "changed_supports_between_conditions": 1536,
+    "fixed_batch_decisions": 2359296,
+    "per_schedule_informed_evasion_checks": 36864,
+    "positive_hybrid_source_pairs": 24,
+    "primary_paired_mean_reduction": 0.030230204264322918,
+    "primary_paired_median_reduction": 0.024932861328125,
+    "equal_source_rates": {
+      "hybrid_50": {
+        "independent_calibration": 0.031125386555989582,
+        "leaked_evaluation_root": 0.0008951822916666666
+      },
+      "uniform16": {
+        "independent_calibration": 0.059252421061197914,
+        "leaked_evaluation_root": 0.010271708170572916
+      },
+      "static_prior": {
+        "independent_calibration": 0,
+        "leaked_evaluation_root": 0
+      }
+    },
+    "descriptive_source_block_bootstrap_10000_seed_202611310117_95pct": [
+      0.025980631510416668,
+      0.034693400065104164
+    ],
+    "all_five_primary_gates_passed": true
+  },
+  "secondary_concurrent_run": {
+    "id": 44032085437,
+    "original_scientific_pass": true,
+    "same_source_roster": true,
+    "different_calibration_and_evaluation_roots": true,
+    "paired_positive_source_count": 24,
+    "hybrid_paired_mean_reduction": 0.02790069580078125
+  },
+  "interpretation": "Equal-budget matched greedy searches. The late attacker sees the actual evaluation root and optimizes in-sample; independent calibration attacks train on a different root. Source identities are the statistical units and both CI runs reuse the same source seeds. Root freshness, SHA binding, HMAC security and the authenticated exact target witness are exogenous assumptions."
+}
