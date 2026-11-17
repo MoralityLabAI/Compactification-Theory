@@ -362,12 +362,12 @@ def evaluate(fixture_path):
                         sums[mode][arm][family]+=p
                     checkmask=sum(1<<i for i in inspected)
                     for family,variations in attacks.items():
-                        for attack in variations:
+                        for attack_idx,attack in enumerate(variations):
                             found=bool(checkmask & sum(1<<i for i in attack))
                             counts[mode][arm][family]+=found
                             if chosen_arms[trial]==arm:
                                 realized[mode][family]+=found
-                            if trial==0 and attack==variations[0]:
+                            if trial==0 and attack_idx==0:
                                 for delta in DELTAS:
                                     witnessed=not nor24.exact_witness_accepts(
                                         predicted,truth,inspected,frozenset(attack),delta)
