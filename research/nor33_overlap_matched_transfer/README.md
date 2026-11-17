@@ -1,0 +1,13 @@
+# NOR-33: exact overlap-matched support transfer
+
+**Prospective protocol frozen November 17, 2026** in the first NOR-33 commit [9e14d11](REGISTRATION.md), before new source or grade data. Builds on the registered NOR-32 source-transfer FAIL at [Compactification-Theory PR #201](https://github.com/MoralityLabAI/Compactification-Theory/pull/201).
+
+NOR-32 identified a source of apparent OOD family transfer failure: new curvature-based support sets overlapped known high-magnitude/tail risk coordinates. NOR-33 directly fixes that overlap instead of comparing nominal family labels. On 24 new source-distinct RRC25 problems, seven public support-ranking mechanisms each produce size-96 attack supports with exactly 0,24,48,72,96 positions in the old tail ∪ magnitude ∪ lag union, and eight fixed blind radius-four attacks per cell have exactly 0,1,2,3,4 altered coefficients inside that union respectively.
+
+Every trial uses **16 authentic exact target-output coefficient queries**. The same unchanged NOR-25 auditors and frozen NOR-31 mixture [2,0,1,1,4,8]/16 are compared with hybrid_50 and pure uniform. The principal statistics are source-paired mixture-minus-hybrid rates at zero and full historical overlap, the across-overlap difference, and the curvature-versus-matched-random residual at intermediate overlap. The five numerical and correctness gates were fixed in [REGISTRATION.md](REGISTRATION.md).
+
+At support union overlap 24z positions and exactly z of four changed coordinates in that block, the per-schedule expected detection against a *uniform conditional attack draw* has a closed form: one minus the product of the two block hypergeometric miss probabilities. A separate MathCan NOR-33 Lean module proves the exact combinatorial product and the equality of two audit policies with identical inspections in the same two support blocks. Comparing observed 8-attack rates to these conditional expectations provides a finite-sampling diagnostic; repeated attacks and schedules share the same 24 source identities.
+
+**First held-out outcome:** this document is committed before any new NOR-33 source generation. Append raw original fixture/grade SHA-256 receipts, source-wise results and the exact original registered PASS or FAIL only after hosted evaluation and independent replay. Do not change overlap levels, source roster, gates or attack counts after seeing outcomes.
+
+The experiment uses finite synthetic RRC25 and assumes a truthful external target-output witness. Reproducible public SHA-seeded challenge streams are not production audit secrecy; a fully informed attacker seeing the realized complete schedule can evade every partial check.
