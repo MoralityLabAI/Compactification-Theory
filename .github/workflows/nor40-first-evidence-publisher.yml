@@ -1,0 +1,58 @@
+name: NOR-40 one-shot immutable original source/grade evidence publisher
+
+on:
+  push:
+    branches:
+      - research/nor40-strong-adversaries-20261117
+    paths:
+      - '.github/workflows/nor40-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  publish-only-after-first-original-grade-and-full-replay:
+    if: github.ref == 'refs/heads/research/nor40-strong-adversaries-20261117' && contains(github.event.head_commit.message, 'NOR40-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor40-strong-adversaries-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor40_first_original_source_and_strong_attack_grade
+          run-id: 44110593049
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor40-first
+      - name: Preserve byte-for-byte original first public source and grade, including scientific FAIL
+        run: |
+          test ! -e research/nor40_strong_adversaries/results/nor40_first_frozen_receipt.json
+          python research/nor40_strong_adversaries/first_evidence_archive.py \
+            --fixture /tmp/nor40-first/nor40_fixture.json \
+            --grade /tmp/nor40-first/nor40_full.json \
+            --destination research/nor40_strong_adversaries/results \
+            --artifact-id 14343000877
+      - name: Commit immutable original first grade and source with concurrent-update retries
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor40_strong_adversaries/results/nor40_original_first_hosted.zip \
+                  research/nor40_strong_adversaries/results/nor40_first_frozen_receipt.json
+          git commit -m "NOR-40: archive first registered strong-attacker source and grade as scored"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor40-strong-adversaries-20261117
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor40-strong-adversaries-20261117; then
+              echo "NOR40 original first archive committed"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "Concurrent-update retries exhausted" >&2
+          exit 1

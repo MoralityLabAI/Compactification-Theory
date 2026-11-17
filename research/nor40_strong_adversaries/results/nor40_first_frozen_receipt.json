@@ -1,0 +1,52 @@
+{
+  "archive_zip_bytes": 3624637,
+  "archive_zip_sha256": "1ef743e51066c902c82beb96be5b3d6b99bb501f65b8298749a5808649000a9c",
+  "baseline_calibration_schedules_per_source": 256,
+  "calibration_schedules_per_source": 2048,
+  "first_original_artifact_id": 14343000877,
+  "first_original_artifact_name": "nor40_first_original_source_and_strong_attack_grade",
+  "first_original_grade_run": 44110593049,
+  "first_registration_commit": "dbc1adbe0e30b9c0e36421cf07cebcf376d6a1ec",
+  "greedy_starts_per_policy": 32,
+  "heldout_schedules_per_source": 512,
+  "historical_source_units_excluded": 276,
+  "limitation": "Partial-support threat model uses authenticated true-target integer coefficient witness and genuinely hidden audit randomness. Reproducible SHA streams are public fixtures. Pool16 exact enumeration is not full-domain proof.",
+  "new_source_units": 48,
+  "original_file_bytes_sha256": {
+    "nor40_fixture.json": {
+      "bytes": 9387973,
+      "sha256": "b51e8031715754c36661b74cff0c26e672fdc21355ff0dc9ab48efded3901de5"
+    },
+    "nor40_full.json": {
+      "bytes": 3492789,
+      "sha256": "42adeebcbf92626c080a6f0f5cb906eed491d6b5ed67250ba7b70bd6d0559092"
+    }
+  },
+  "original_five_gates": {
+    "exact_calibration_brackets_and_native_witness": true,
+    "global7_retains_frozen_top_curvature_signal": true,
+    "global7_robustness_vs_strong_attack_classes": true,
+    "original_source_first_and_independent_replay_contract": true,
+    "stronger_attacker_heldout_transfer": true
+  },
+  "original_science_pass": true,
+  "restricted_search_pool_size": 16,
+  "restricted_sets_per_policy": 1820,
+  "schema": "nor40.first_original_strong_adversary_archive.v1",
+  "selected_attack_sets_per_policy": 8,
+  "source_direction_wins": {
+    "global7_strong_self_over_deterministic": 48,
+    "global7_strong_worst_within_1pp_original": 44,
+    "global7_top_positive": 45,
+    "strong_global7_beats_baseline_eval": 28
+  },
+  "source_means": {
+    "deterministic_top_minus_atom_random": 0.16358794273669844,
+    "global7_baseline_minus_strong_selfplay": 0.0017321109771728516,
+    "global7_strong_self_minus_deterministic_strong": 0.021272897720336914,
+    "global7_strong_worst_minus_original_strong_worst": -0.0032936731974283853,
+    "global7_top_minus_atom_random": 0.03666088181474852
+  },
+  "source_only_first_fixture_frozen_before_grade": true,
+  "source_only_first_fixture_sha256": "b51e8031715754c36661b74cff0c26e672fdc21355ff0dc9ab48efded3901de5"
+}

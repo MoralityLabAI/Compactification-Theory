@@ -1,0 +1,176 @@
+name: NOR-40 stronger CAL attackers, archived-source pre-data controls
+
+on:
+  push:
+    branches:
+      - research/nor40-strong-adversaries-20261117
+    paths:
+      - 'research/nor40_strong_adversaries/**'
+      - '.github/workflows/nor40-strong-adversaries.yml'
+  pull_request:
+    paths:
+      - 'research/nor40_strong_adversaries/**'
+      - '.github/workflows/nor40-strong-adversaries.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  first_frozen_public_only_source_fixture:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR40-FIRST-GRADE')
+    needs: preregistration-and-historical-only-tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze all 48 new original TEST public-only inputs before CAL/EVAL or native target restoration
+        run: |
+          python -u research/nor40_strong_adversaries/experiment.py --make-fixture /tmp/nor40_fixture.json
+      - name: Independently verify complete source-only roster, original registration and 276 SHA exclusions
+        run: |
+          python research/nor40_strong_adversaries/predata_isolation_audit.py \
+            --no-tests --fixture /tmp/nor40_fixture.json
+          python - <<'PY'
+          import json
+          from hashlib import sha256
+          from collections import Counter
+          from pathlib import Path
+          raw=Path('/tmp/nor40_fixture.json').read_bytes()
+          a=json.loads(raw)
+          assert a['schema']=='nor40.strong_adversary_public_only_reps76to83.v1'
+          assert a['registered_first_commit']=='dbc1adbe0e30b9c0e36421cf07cebcf376d6a1ec'
+          assert a['public_only'] and a['planted_and_private_target_absent']
+          assert a['attack_witness_and_audit_absent']
+          assert a['source_offset']==130040000
+          assert a['excluded_historical_sources']==276
+          assert len(a['cases'])==48
+          assert len(set(r['full_public_input_sha256'] for r in a['cases']))==48
+          assert Counter(r['degree'] for r in a['cases'])=={512:24,1024:24}
+          print('NOR40 ORIGINAL PUBLIC ONLY FIXTURE BYTES SHA',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor40_first_frozen_public_only_48_sources
+          path: /tmp/nor40_fixture.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_registered_stronger_adversary_grade:
+    needs: first_frozen_public_only_source_fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor40_first_frozen_public_only_48_sources
+          path: /tmp/nor40
+      - name: Train separate CAL256/8 and CAL2048/32 attackers and score frozen 512-EVAL crossplay
+        run: |
+          python -u research/nor40_strong_adversaries/experiment.py \
+            --fixture /tmp/nor40/nor40_fixture.json \
+            --out /tmp/nor40/nor40_full.json
+      - name: Preserve original scientific PASS or FAIL and first SHA receipts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          f=Path('/tmp/nor40/nor40_fixture.json').read_bytes()
+          b=Path('/tmp/nor40/nor40_full.json').read_bytes()
+          g=json.loads(b)
+          assert g['schema']=='nor40.strong_calibration_policyaware.v1'
+          assert g['registration_first_commit']=='dbc1adbe0e30b9c0e36421cf07cebcf376d6a1ec'
+          assert g['public_fixture_sha256']==sha256(f).hexdigest()
+          assert g['fresh_source_units']==48 and g['historical_sources_excluded']==276
+          assert len(g['source_records'])==48 and len(g['registered_five_gates'])==5
+          assert len(g['auditor_policies'])==7 and len(g['blind_control_families'])==6
+          assert g['calibration_schedules_per_source']==2048
+          assert g['baseline_calibration_schedules_per_source']==256
+          assert g['heldout_schedules_per_source']==512
+          assert g['greedy_restarts_per_policy']==32
+          assert g['attack_sets_per_policy']==8
+          assert g['restricted_pool_size']==16
+          assert all(len(r['attack_certificates'])==7
+                     and len(r['greedy_attack_sets'])==7
+                     and len(r['baseline_attack_sets'])==7
+                     and len(r['blind_attack_sets'])==6
+                     and len(r['crossplay_weighted_numerators'])==20
+                     for r in g['source_records'])
+          print('NOR40 FIRST SOURCE BYTES SHA256',len(f),sha256(f).hexdigest())
+          print('NOR40 FIRST GRADER BYTES SHA256',len(b),sha256(b).hexdigest())
+          print('NOR40 REGISTERED SCIENCE PASS',g['registered_primary_pass'])
+          print('NOR40 REGISTERED GATES',g['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor40_first_original_source_and_strong_attack_grade
+          path: |
+            /tmp/nor40/nor40_fixture.json
+            /tmp/nor40/nor40_full.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  independent_source_attack_cal_cert_and_full_crossplay:
+    needs: first_registered_stronger_adversary_grade
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor40_first_original_source_and_strong_attack_grade
+          path: /tmp/nor40
+      - name: Independently recreate source programs, 32 starts, swap/pool certificates and all 20x7 heldout decisions
+        run: |
+          python -u research/nor40_strong_adversaries/receipt_audit.py --check \
+            --fixture /tmp/nor40/nor40_fixture.json \
+            --full /tmp/nor40/nor40_full.json
+
+  permanent_original_source_grade_sha_lock:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify first raw source and grade bytes, original scientific gates and deterministic ZIP SHA
+        run: |
+          python research/nor40_strong_adversaries/original_archive_audit.py
+
+  preregistration-and-historical-only-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify first prospective NOR40 registration predates any data
+        run: |
+          git merge-base --is-ancestor dbc1adbe0e30b9c0e36421cf07cebcf376d6a1ec HEAD
+          test -s research/nor40_strong_adversaries/REGISTRATION.md
+      - name: Deny fresh-source previews and verify 276 immutable historical identities
+        run: |
+          python research/nor40_strong_adversaries/predata_isolation_audit.py
+      - name: Test source-independent attack certificates and frozen protocol
+        run: |
+          python -m compileall -q research/nor40_strong_adversaries
+          python -m unittest research.nor40_strong_adversaries.test_experiment research.nor40_strong_adversaries.test_independent_parity research.nor40_strong_adversaries.test_posthoc_analysis -v
