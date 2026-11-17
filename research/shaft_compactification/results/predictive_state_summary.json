@@ -1,0 +1,116 @@
+{
+  "base_seeds": [
+    101,
+    202
+  ],
+  "cross_substrate": {
+    "101_to_202": {
+      "correct_goal_oracle": {
+        "all_32_step_accuracy": 0.991272,
+        "last_8_step_accuracy": 0.968018
+      },
+      "semantic_code_inferred_from_source": {
+        "all_32_step_accuracy": 0.991272,
+        "last_8_step_accuracy": 0.968018
+      },
+      "source_state_to_code_exact_goal_accuracy": 1,
+      "uncalibrated_other_hidden_exact_at_12": 0.083984,
+      "wrong_goal_control": {
+        "all_32_step_accuracy": 0.532471,
+        "last_8_step_accuracy": 0.536377
+      },
+      "zero_state_erasure": {
+        "all_32_step_accuracy": 0.50647,
+        "last_8_step_accuracy": 0.519043
+      }
+    },
+    "202_to_101": {
+      "correct_goal_oracle": {
+        "all_32_step_accuracy": 0.988403,
+        "last_8_step_accuracy": 0.957031
+      },
+      "semantic_code_inferred_from_source": {
+        "all_32_step_accuracy": 0.988403,
+        "last_8_step_accuracy": 0.957031
+      },
+      "source_state_to_code_exact_goal_accuracy": 1,
+      "uncalibrated_other_hidden_exact_at_12": 0.167969,
+      "wrong_goal_control": {
+        "all_32_step_accuracy": 0.529785,
+        "last_8_step_accuracy": 0.533203
+      },
+      "zero_state_erasure": {
+        "all_32_step_accuracy": 0.497681,
+        "last_8_step_accuracy": 0.487549
+      }
+    }
+  },
+  "evidence_class": "trained_cpu_toy_behavior_distillation",
+  "experiment": "SHAFT-COMP-07",
+  "full_local_receipt_sha256": "3d10e0c5b3cf4ecb3d6301cf106f3aba2160cf108a0499e8ff923cebda42c5cd",
+  "probe_behavioral_supervision": "frozen-model four-query response signatures (no goal IDs)",
+  "probe_train_depths": [
+    4,
+    8,
+    12
+  ],
+  "results": {
+    "101": {
+      "calibration_teacher_bit_accuracy": 1,
+      "exact_true_goal_by_depth": {
+        "4": 1,
+        "8": 1,
+        "12": 1,
+        "24": 0.816406,
+        "40": 0.568359,
+        "64": 0.3125
+      },
+      "probe_bit_accuracy_by_depth": {
+        "4": 1,
+        "8": 1,
+        "12": 1,
+        "24": 0.94043,
+        "40": 0.860352,
+        "64": 0.770508
+      },
+      "teacher_bit_accuracy_by_depth": {
+        "4": 1,
+        "8": 1,
+        "12": 1,
+        "24": 0.980957,
+        "40": 0.874023,
+        "64": 0.79541
+      },
+      "shuffled_label_exact_true_goal_at_12": 0.013672
+    },
+    "202": {
+      "calibration_teacher_bit_accuracy": 1,
+      "exact_true_goal_by_depth": {
+        "4": 1,
+        "8": 1,
+        "12": 1,
+        "24": 0.931641,
+        "40": 0.671875,
+        "64": 0.425781
+      },
+      "probe_bit_accuracy_by_depth": {
+        "4": 1,
+        "8": 1,
+        "12": 1,
+        "24": 0.98291,
+        "40": 0.881836,
+        "64": 0.808594
+      },
+      "teacher_bit_accuracy_by_depth": {
+        "4": 1,
+        "8": 1,
+        "12": 1,
+        "24": 0.984375,
+        "40": 0.894043,
+        "64": 0.772949
+      },
+      "shuffled_label_exact_true_goal_at_12": 0.039062
+    }
+  },
+  "test_contexts_per_seed_per_depth": 512
+}

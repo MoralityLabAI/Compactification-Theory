@@ -1,0 +1,27 @@
+{
+  "evidence": "exhaustive finite 16-goal 4-query temporal reference",
+  "previous_input_sentinel": 0,
+  "family_sensitivity": {
+    "lag_rotate": {
+      "goal_current_combinations_history_sensitive": 56,
+      "total_goal_current_combinations": 64,
+      "first_sensitive_witness": {
+        "goal": 1,
+        "current_query": 0,
+        "previous_0_reply": 1,
+        "previous_1_reply": 0
+      }
+    },
+    "lag_match": {
+      "goal_current_combinations_history_sensitive": 64,
+      "total_goal_current_combinations": 64,
+      "first_sensitive_witness": {
+        "goal": 0,
+        "current_query": 0,
+        "previous_0_reply": 1,
+        "previous_1_reply": 0
+      }
+    }
+  },
+  "reason": "same goal ID and current input can yield different answers after different histories"
+}

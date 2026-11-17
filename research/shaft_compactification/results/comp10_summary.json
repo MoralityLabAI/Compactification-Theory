@@ -1,0 +1,228 @@
+{
+  "experiment": "SHAFT-COMP-10",
+  "evidence": "locally_executed_trained_toy_grus",
+  "date": "2026-11-10",
+  "torch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "base_model_seeds": [
+    101,
+    202
+  ],
+  "trained_parameters_each": 3265,
+  "independent_test_trials_per_condition": 512,
+  "calibration_prefixes_per_goal": 192,
+  "observation_depths": [
+    12,
+    24,
+    40,
+    64
+  ],
+  "budgets": [
+    3,
+    6,
+    12,
+    24
+  ],
+  "full_local_receipt_sha256": {
+    "endogenous": "6225e31f3153c4b9bd66a95d63ea155ef43f68a660930c37ae8477e8e8276737",
+    "adaptive_main": "fc7dd0c8e8b34c7ddd12241993b61f43cf1d8ed4397fb3789b7eab74eccb52b2",
+    "adaptive_replica": "5f19f4f3c1f3745376672935cace314a5dfca268782944144e88920ad0865fd0"
+  },
+  "definitions": {
+    "unique_correct": "true gauge is sole lowest-scoring mapping, ties count as failures",
+    "selection": "true synthetic gauge available during calibration, held-out recurrent prefixes during evaluation",
+    "matched_bsc": "same estimated marginal target error rate from independent calibration prefixes"
+  },
+  "conditions": [
+    {
+      "direction": "101_to_202",
+      "depth": 40,
+      "selected": [
+        5,
+        6,
+        12
+      ],
+      "estimated_worst_margin": 3.197917,
+      "replicates": [
+        {
+          "seed_base": 83000,
+          "unique_at_six": {
+            "adaptive": 512,
+            "onehot": 470,
+            "balanced_six": 473
+          }
+        },
+        {
+          "seed_base": 93000,
+          "unique_at_six": {
+            "adaptive": 512,
+            "onehot": 475,
+            "balanced_six": 468
+          }
+        }
+      ]
+    },
+    {
+      "direction": "101_to_202",
+      "depth": 64,
+      "selected": [
+        2,
+        4,
+        10
+      ],
+      "estimated_worst_margin": 2,
+      "replicates": [
+        {
+          "seed_base": 83000,
+          "unique_at_six": {
+            "adaptive": 512,
+            "onehot": 340,
+            "balanced_six": 174
+          },
+          "unique_at_24": {
+            "adaptive": 512,
+            "onehot": 493,
+            "balanced_six": 457
+          }
+        },
+        {
+          "seed_base": 93000,
+          "unique_at_six": {
+            "adaptive": 512,
+            "onehot": 346,
+            "balanced_six": 156
+          },
+          "unique_at_24": {
+            "adaptive": 512,
+            "onehot": 479,
+            "balanced_six": 456
+          }
+        }
+      ]
+    },
+    {
+      "direction": "202_to_101",
+      "depth": 40,
+      "selected": [
+        9,
+        10,
+        12
+      ],
+      "estimated_worst_margin": 3.958333,
+      "replicates": [
+        {
+          "seed_base": 83000,
+          "unique_at_six": {
+            "adaptive": 512,
+            "onehot": 114,
+            "balanced_six": 511
+          }
+        },
+        {
+          "seed_base": 93000,
+          "unique_at_six": {
+            "adaptive": 512,
+            "onehot": 108,
+            "balanced_six": 511
+          }
+        }
+      ]
+    },
+    {
+      "direction": "202_to_101",
+      "depth": 64,
+      "selected": [
+        8,
+        12,
+        14
+      ],
+      "estimated_worst_margin": 2,
+      "replicates": [
+        {
+          "seed_base": 83000,
+          "unique_at_six": {
+            "adaptive": 471,
+            "onehot": 0,
+            "balanced_six": 233
+          },
+          "unique_at_24": {
+            "adaptive": 512,
+            "onehot": 0,
+            "balanced_six": 454
+          }
+        },
+        {
+          "seed_base": 93000,
+          "unique_at_six": {
+            "adaptive": 462,
+            "onehot": 0,
+            "balanced_six": 252
+          },
+          "unique_at_24": {
+            "adaptive": 512,
+            "onehot": 0,
+            "balanced_six": 466
+          }
+        }
+      ]
+    }
+  ],
+  "endogenous_at_depth64": [
+    {
+      "direction": "101_to_202",
+      "design": "onehot",
+      "bit_error": 0.062012,
+      "query_errors": [
+        0.001546,
+        0.149902,
+        0.041341,
+        0.055257
+      ],
+      "unique_at_six": 347,
+      "iid_bsc_unique_at_six": 481,
+      "unique_at_24": 490
+    },
+    {
+      "direction": "101_to_202",
+      "design": "balanced_six",
+      "bit_error": 0.253194,
+      "query_errors": [
+        0.001872,
+        0.334961,
+        0.16805,
+        0.507894
+      ],
+      "unique_at_six": 165,
+      "iid_bsc_unique_at_six": 223,
+      "unique_at_24": 447
+    },
+    {
+      "direction": "202_to_101",
+      "design": "onehot",
+      "bit_error": 0.420268,
+      "query_errors": [
+        0.310303,
+        0.718587,
+        0.336019,
+        0.316162
+      ],
+      "unique_at_six": 0,
+      "iid_bsc_unique_at_six": 17,
+      "unique_at_24": 0
+    },
+    {
+      "direction": "202_to_101",
+      "design": "balanced_six",
+      "bit_error": 0.216675,
+      "query_errors": [
+        0.330078,
+        0.291667,
+        0.219645,
+        0.025309
+      ],
+      "unique_at_six": 240,
+      "iid_bsc_unique_at_six": 273,
+      "unique_at_24": 454
+    }
+  ]
+}

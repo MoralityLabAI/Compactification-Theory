@@ -1,0 +1,139 @@
+{
+  "source_repo": "MoralityLabAI/LoopedTransformers",
+  "source_branch": "rmp-v0-phase2",
+  "source_commit": "642ee1868b3fdd826f8b10f9f105b30ab5147a0a",
+  "source_path": "experiments/recurrence_monitorability_v0/loopscope_toy_q5_tca/q5_report.json",
+  "source_blob_sha": "688160e259ef779f7df3bc09a4548b9d5006c205",
+  "registered_rule": "F1/F8 < 0.05 predicts extrapolation when heldout accuracy >= 0.90",
+  "n_valid": 12,
+  "correct": 9,
+  "n_extrap": 8,
+  "decision": "weak",
+  "spearman": {
+    "f1_over_f8": -0.7178626459739169,
+    "final_loss": -0.3843103054203798,
+    "probe_all": 0.9274026747955487
+  },
+  "rows": [
+    {
+      "arm": "lam0.01_s4",
+      "seed": 4,
+      "lambda": 0.01,
+      "f1_f8": 0.22067709267139435,
+      "heldout_accuracy": 0.990234375,
+      "extrap": true,
+      "pred_extrap": false,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0.01_s5",
+      "seed": 5,
+      "lambda": 0.01,
+      "f1_f8": 0.03537536412477493,
+      "heldout_accuracy": 1,
+      "extrap": true,
+      "pred_extrap": true,
+      "tca_valid": true
+    },
+    {
+      "arm": "lam0.01_s6",
+      "seed": 6,
+      "lambda": 0.01,
+      "f1_f8": 0.032908160239458084,
+      "heldout_accuracy": 1,
+      "extrap": true,
+      "pred_extrap": true,
+      "tca_valid": true
+    },
+    {
+      "arm": "lam0.01_s7",
+      "seed": 7,
+      "lambda": 0.01,
+      "f1_f8": 0.038774166256189346,
+      "heldout_accuracy": 1,
+      "extrap": true,
+      "pred_extrap": true,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0.01_s8",
+      "seed": 8,
+      "lambda": 0.01,
+      "f1_f8": 0.060249313712120056,
+      "heldout_accuracy": 1,
+      "extrap": true,
+      "pred_extrap": false,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0.01_s9",
+      "seed": 9,
+      "lambda": 0.01,
+      "f1_f8": 0.025968335568904877,
+      "heldout_accuracy": 1,
+      "extrap": true,
+      "pred_extrap": true,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0_s4",
+      "seed": 4,
+      "lambda": 0,
+      "f1_f8": 0.10848706215620041,
+      "heldout_accuracy": 0.298583984375,
+      "extrap": false,
+      "pred_extrap": false,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0_s5",
+      "seed": 5,
+      "lambda": 0,
+      "f1_f8": 0.05327022448182106,
+      "heldout_accuracy": 0.44091796875,
+      "extrap": false,
+      "pred_extrap": false,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0_s6",
+      "seed": 6,
+      "lambda": 0,
+      "f1_f8": 0.10305611789226532,
+      "heldout_accuracy": 0.87646484375,
+      "extrap": false,
+      "pred_extrap": false,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0_s7",
+      "seed": 7,
+      "lambda": 0,
+      "f1_f8": 0.18110696971416473,
+      "heldout_accuracy": 0.30322265625,
+      "extrap": false,
+      "pred_extrap": false,
+      "tca_valid": true
+    },
+    {
+      "arm": "lam0_s8",
+      "seed": 8,
+      "lambda": 0,
+      "f1_f8": 0.04378233850002289,
+      "heldout_accuracy": 0.981201171875,
+      "extrap": true,
+      "pred_extrap": true,
+      "tca_valid": false
+    },
+    {
+      "arm": "lam0_s9",
+      "seed": 9,
+      "lambda": 0,
+      "f1_f8": 0.050291214138269424,
+      "heldout_accuracy": 0.999755859375,
+      "extrap": true,
+      "pred_extrap": false,
+      "tca_valid": true
+    }
+  ]
+}

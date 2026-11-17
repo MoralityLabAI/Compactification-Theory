@@ -1,0 +1,227 @@
+{
+  "cross_substrate": {
+    "101_to_202": {
+      "behavioral_code_transfer": {
+        "correct_goal_oracle": {
+          "all_32_step_accuracy": 0.991272,
+          "last_8_step_accuracy": 0.968018
+        },
+        "semantic_code_inferred_from_source": {
+          "all_32_step_accuracy": 0.991272,
+          "last_8_step_accuracy": 0.968018
+        },
+        "source_state_to_code_exact_goal_accuracy": 1,
+        "wrong_goal_control": {
+          "all_32_step_accuracy": 0.532471,
+          "last_8_step_accuracy": 0.536377
+        },
+        "zero_state_erasure": {
+          "all_32_step_accuracy": 0.50647,
+          "last_8_step_accuracy": 0.519043
+        }
+      },
+      "uncalibrated_probe_on_other_hidden_space": {
+        "12": {
+          "probe_exact_true_goal_rate": 0.083984,
+          "probe_vs_teacher_bit_accuracy": 0.609375,
+          "probe_vs_true_goal_bit_accuracy": 0.609375,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "64": {
+          "probe_exact_true_goal_rate": 0.082031,
+          "probe_vs_teacher_bit_accuracy": 0.572266,
+          "probe_vs_true_goal_bit_accuracy": 0.613281,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.768555
+        }
+      }
+    },
+    "202_to_101": {
+      "behavioral_code_transfer": {
+        "correct_goal_oracle": {
+          "all_32_step_accuracy": 0.988403,
+          "last_8_step_accuracy": 0.957031
+        },
+        "semantic_code_inferred_from_source": {
+          "all_32_step_accuracy": 0.988403,
+          "last_8_step_accuracy": 0.957031
+        },
+        "source_state_to_code_exact_goal_accuracy": 1,
+        "wrong_goal_control": {
+          "all_32_step_accuracy": 0.529785,
+          "last_8_step_accuracy": 0.533203
+        },
+        "zero_state_erasure": {
+          "all_32_step_accuracy": 0.497681,
+          "last_8_step_accuracy": 0.487549
+        }
+      },
+      "uncalibrated_probe_on_other_hidden_space": {
+        "12": {
+          "probe_exact_true_goal_rate": 0.167969,
+          "probe_vs_teacher_bit_accuracy": 0.614746,
+          "probe_vs_true_goal_bit_accuracy": 0.614746,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "64": {
+          "probe_exact_true_goal_rate": 0.109375,
+          "probe_vs_teacher_bit_accuracy": 0.684082,
+          "probe_vs_true_goal_bit_accuracy": 0.595703,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.788574
+        }
+      }
+    }
+  },
+  "models": {
+    "101": {
+      "calibration_teacher_bit_accuracy": 1,
+      "independent_test": {
+        "4": {
+          "probe_exact_true_goal_rate": 1,
+          "probe_vs_teacher_bit_accuracy": 1,
+          "probe_vs_true_goal_bit_accuracy": 1,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "8": {
+          "probe_exact_true_goal_rate": 1,
+          "probe_vs_teacher_bit_accuracy": 1,
+          "probe_vs_true_goal_bit_accuracy": 1,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "12": {
+          "probe_exact_true_goal_rate": 1,
+          "probe_vs_teacher_bit_accuracy": 1,
+          "probe_vs_true_goal_bit_accuracy": 1,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "24": {
+          "probe_exact_true_goal_rate": 0.816406,
+          "probe_vs_teacher_bit_accuracy": 0.955566,
+          "probe_vs_true_goal_bit_accuracy": 0.94043,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.980957
+        },
+        "40": {
+          "probe_exact_true_goal_rate": 0.568359,
+          "probe_vs_teacher_bit_accuracy": 0.928711,
+          "probe_vs_true_goal_bit_accuracy": 0.860352,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.874023
+        },
+        "64": {
+          "probe_exact_true_goal_rate": 0.3125,
+          "probe_vs_teacher_bit_accuracy": 0.932129,
+          "probe_vs_true_goal_bit_accuracy": 0.770508,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.79541
+        }
+      },
+      "probe_fit_loss": 0.0029205,
+      "shuffled_labels_control_test": {
+        "12": {
+          "probe_exact_true_goal_rate": 0.013672,
+          "probe_vs_teacher_bit_accuracy": 0.46875,
+          "probe_vs_true_goal_bit_accuracy": 0.46875,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "64": {
+          "probe_exact_true_goal_rate": 0.048828,
+          "probe_vs_teacher_bit_accuracy": 0.444336,
+          "probe_vs_true_goal_bit_accuracy": 0.458008,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.792969
+        }
+      }
+    },
+    "202": {
+      "calibration_teacher_bit_accuracy": 1,
+      "independent_test": {
+        "4": {
+          "probe_exact_true_goal_rate": 1,
+          "probe_vs_teacher_bit_accuracy": 1,
+          "probe_vs_true_goal_bit_accuracy": 1,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "8": {
+          "probe_exact_true_goal_rate": 1,
+          "probe_vs_teacher_bit_accuracy": 1,
+          "probe_vs_true_goal_bit_accuracy": 1,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "12": {
+          "probe_exact_true_goal_rate": 1,
+          "probe_vs_teacher_bit_accuracy": 1,
+          "probe_vs_true_goal_bit_accuracy": 1,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "24": {
+          "probe_exact_true_goal_rate": 0.931641,
+          "probe_vs_teacher_bit_accuracy": 0.98877,
+          "probe_vs_true_goal_bit_accuracy": 0.98291,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.984375
+        },
+        "40": {
+          "probe_exact_true_goal_rate": 0.671875,
+          "probe_vs_teacher_bit_accuracy": 0.928223,
+          "probe_vs_true_goal_bit_accuracy": 0.881836,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.894043
+        },
+        "64": {
+          "probe_exact_true_goal_rate": 0.425781,
+          "probe_vs_teacher_bit_accuracy": 0.884277,
+          "probe_vs_true_goal_bit_accuracy": 0.808594,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.772949
+        }
+      },
+      "probe_fit_loss": 0.001836,
+      "shuffled_labels_control_test": {
+        "12": {
+          "probe_exact_true_goal_rate": 0.039062,
+          "probe_vs_teacher_bit_accuracy": 0.492188,
+          "probe_vs_true_goal_bit_accuracy": 0.492188,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 1
+        },
+        "64": {
+          "probe_exact_true_goal_rate": 0.058594,
+          "probe_vs_teacher_bit_accuracy": 0.564941,
+          "probe_vs_true_goal_bit_accuracy": 0.550781,
+          "sample_count": 512,
+          "teacher_vs_true_goal_bit_accuracy": 0.776855
+        }
+      }
+    }
+  },
+  "status": "trained_cpu_toy_behavior_distillation",
+  "torch": "2.10.0+cpu",
+  "training": {
+    "base_model_seeds": [
+      101,
+      202
+    ],
+    "probe": "24-to-4 linear sigmoid classifier, BCE, Adam 400 steps",
+    "probe_cal_contexts_per_goal_per_depth": 12,
+    "probe_supervision": "four frozen-model one-step counterfactual output bits; no goal IDs",
+    "probe_train_contexts_per_goal_per_depth": 48,
+    "probe_train_depths": [
+      4,
+      8,
+      12
+    ],
+    "purpose": "observer-relative compression, not actual independent-agent recovery",
+    "test_contexts_per_goal_per_depth": 32
+  }
+}

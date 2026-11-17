@@ -1,0 +1,251 @@
+{
+  "experiment": "SHAFT-COMP-15",
+  "status": "registered_2x2_factorial_completed",
+  "protocol_path": "research/shaft_compactification/SHAFT_COMP_15_PROTOCOL.md",
+  "protocol_commit": "0240f2f3378647d1106111b000e0aa425cdaee27",
+  "evidence": "in-memory synthetic 3265-parameter GRUs, fully trained on four-bit lookup tasks",
+  "torch": "2.10.0+cpu",
+  "numpy": "2.3.5",
+  "calibration_seeds": [
+    101,
+    202
+  ],
+  "heldout_seeds": [
+    707,
+    808,
+    909,
+    1001
+  ],
+  "state_dim": 24,
+  "observations_per_readout": 4,
+  "depths": [
+    12,
+    40
+  ],
+  "pairs_per_goal": 16,
+  "goals": 16,
+  "diagnostic_steps": 5,
+  "outcome_steps": 32,
+  "rank_relative_threshold": 0.001,
+  "score_directions": "Rank deficit and directional sensitivity both assigned higher-is-more-divergence",
+  "readout_derivatives": {
+    "learned": "frozen four-output linear probe W",
+    "native": "derivative of four counterfactual GRUCell plus nonlinear readout logits"
+  },
+  "calibration": {
+    "total": 1024,
+    "eligible": 819,
+    "positives": 60,
+    "auc": {
+      "learned_rank": 0.447497,
+      "learned_direction": 0.679996,
+      "native_rank": 0.387352,
+      "native_direction": 0.696794,
+      "learned_direction_normed": 0.585727,
+      "native_direction_normed": 0.642929,
+      "state_distance": 0.552525
+    },
+    "primary_direction_minus_rank": 0.232499
+  },
+  "heldout": {
+    "total": 2048,
+    "eligible": 1534,
+    "positives": 118,
+    "auc": {
+      "learned_rank": 0.484385,
+      "learned_direction": 0.710225,
+      "native_rank": 0.440053,
+      "native_direction": 0.722051,
+      "learned_direction_normed": 0.673525,
+      "native_direction_normed": 0.693234,
+      "state_distance": 0.514459
+    },
+    "contrasts": {
+      "learned_direction_minus_rank": 0.22584,
+      "native_direction_minus_rank": 0.281998,
+      "native_minus_learned_rank": -0.044332,
+      "native_minus_learned_direction": 0.011826,
+      "interaction": 0.056158
+    }
+  },
+  "heldout_by_model": {
+    "707": {
+      "eligible": 362,
+      "positives": 44,
+      "learned_rank_auc": 0.489601,
+      "learned_direction_auc": 0.682461,
+      "native_rank_auc": 0.402587,
+      "native_direction_auc": 0.721055,
+      "primary_delta": 0.19286
+    },
+    "808": {
+      "eligible": 424,
+      "positives": 24,
+      "learned_rank_auc": 0.578594,
+      "learned_direction_auc": 0.785208,
+      "native_rank_auc": 0.483854,
+      "native_direction_auc": 0.749896,
+      "primary_delta": 0.206614
+    },
+    "909": {
+      "eligible": 362,
+      "positives": 24,
+      "learned_rank_auc": 0.407421,
+      "learned_direction_auc": 0.675419,
+      "native_rank_auc": 0.504376,
+      "native_direction_auc": 0.629808,
+      "primary_delta": 0.267998
+    },
+    "1001": {
+      "eligible": 386,
+      "positives": 26,
+      "learned_rank_auc": 0.480876,
+      "learned_direction_auc": 0.668803,
+      "native_rank_auc": 0.408868,
+      "native_direction_auc": 0.738782,
+      "primary_delta": 0.187927
+    }
+  },
+  "inference": {
+    "primary_difference_auc": 0.22584,
+    "primary_difference_bootstrap95": [
+      0.158064,
+      0.292475
+    ],
+    "learned_direction_bootstrap95": [
+      0.66127,
+      0.75927
+    ],
+    "learned_rank_bootstrap95": [
+      0.43383,
+      0.53613
+    ],
+    "native_direction_bootstrap95": [
+      0.677582,
+      0.769099
+    ],
+    "native_rank_bootstrap95": [
+      0.397232,
+      0.484575
+    ],
+    "permutation_two_sided_p_centered": 0.000999,
+    "permutation_null_mean": 0.019203,
+    "permutation_trials": 1000,
+    "bootstrap_trials_valid": 1000,
+    "positive_model_count": 4,
+    "prespecified_support_criteria_met": true,
+    "leave_one_model_out_primary_deltas": {
+      "707": 0.233527,
+      "808": 0.210279,
+      "909": 0.21698,
+      "1001": 0.237164
+    },
+    "uncertainty_scope": "resampling pairs within four fixed GRU seeds and depths, not between-model confidence"
+  },
+  "native_jacobian_autograd_max_abs": 0.00000286102294921875,
+  "model_hashes": {
+    "101": {
+      "base": "20ca5ce2e003958a81ec16de17e3e95f99f74efac7fdc07b52c6897214af6f16",
+      "probe": "1fd2ed29cd3acd8c97bab32b9bacb5ee788dea01615457ec0c9201478e122c46"
+    },
+    "202": {
+      "base": "3ed16bfdba4cf1c50b177f0e1f119c123b53ce567426e7b79e7110b681730b01",
+      "probe": "27df5a93fd7a2ae75e550b8bd1a0a8a21fefd84c7d87bf294625faabd14669a9"
+    },
+    "707": {
+      "base": "04dba5888c92387f2dd8d13eede138eea6c767fc1131a3f4a452fd0936f0d069",
+      "probe": "36c4ca4282856f12c0a4ddf4535811e8259ba2ee7fb8fff34d1051a98bb34c5d"
+    },
+    "808": {
+      "base": "309f93496462667aa0e08b3b5fcaa2442a6a36d622d1fd7984f0eb2a0df1e473",
+      "probe": "88692a4334deda176f7dce6c445b43cd8988de0479ab8751c4b42a7c64488237"
+    },
+    "909": {
+      "base": "6d1dd00a35df6ce965a15293767a7473c926cf7dae89e80c4294e724e57e1441",
+      "probe": "b300940d1bb392e99c14322ae3cae582e4f1172d00043bd3e2e8c018d4eb0c10"
+    },
+    "1001": {
+      "base": "09b58a8220c4bd174576a7ad8ccff7cf6eeceee2aa93ae8a9cdb554d1ecbb939",
+      "probe": "ba3ef821d5d5bcec141fb4f5474e0ee018b4833bcf0951be72f2d3c240c7192f"
+    }
+  },
+  "strict_win_tie_counts": {
+    "calibration": {
+      "positive": 60,
+      "negative": 759,
+      "scores": {
+        "learned_rank": [
+          15826,
+          9106
+        ],
+        "learned_direction": [
+          30967,
+          0
+        ],
+        "native_rank": [
+          14881,
+          5518
+        ],
+        "native_direction": [
+          31732,
+          0
+        ],
+        "learned_direction_normed": [
+          26674,
+          0
+        ],
+        "native_direction_normed": [
+          29279,
+          0
+        ],
+        "state_distance": [
+          25162,
+          0
+        ]
+      }
+    },
+    "heldout": {
+      "positive": 118,
+      "negative": 1416,
+      "scores": {
+        "learned_rank": [
+          62941,
+          35988
+        ],
+        "learned_direction": [
+          118670,
+          0
+        ],
+        "native_rank": [
+          62768,
+          21519
+        ],
+        "native_direction": [
+          120646,
+          0
+        ],
+        "learned_direction_normed": [
+          112538,
+          0
+        ],
+        "native_direction_normed": [
+          115831,
+          0
+        ],
+        "state_distance": [
+          85960,
+          0
+        ]
+      }
+    }
+  },
+  "full_receipt_sha256": "c9c4ec664780be6ffa631748edb6d64ab338011b4132212f93210150ce38c667",
+  "independent_replay_sha256": "c9c4ec664780be6ffa631748edb6d64ab338011b4132212f93210150ce38c667",
+  "scope_limitations": [
+    "Four held-out seeds, 118 divergence events, synthetic four-bit task family",
+    "Task readouts and recurrent weights remain intact throughout",
+    "The registered contrast isolates rank vs direction at fixed learned readout",
+    "Potential correlations among pairs within a model are not covered by within-model bootstrap",
+    "Neither metric identifies an unknown misaligned objective or agent persistence"
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "experiment": "SHAFT-COMP-11",
+  "evidence": "trained_toy_gru_local_synthetic_perturbation_and_on_manifold_tests",
+  "torch": "2.10.0+cpu",
+  "frozen_full_receipt_hashes": {
+    "nullspace": "23b7de2fd5d909d0750c053e6d5a0eaa8cd50f7bc04c47d076a8aec3decd9df3",
+    "naturally_reachable": "8243dada64de114dddfa5a54daf504a940eb6a9dcc58d8e23350f1525058dc83"
+  },
+  "parameters_per_gru": 3265,
+  "seeds": [
+    101,
+    202
+  ],
+  "states_per_depth_per_seed": 512,
+  "perturbation": {
+    "radii": [
+      0.75,
+      1.5,
+      3
+    ],
+    "future_horizons": [
+      0,
+      1,
+      4,
+      12
+    ],
+    "arm_types": [
+      "null",
+      "row",
+      "random"
+    ],
+    "probe_rank": 4,
+    "hidden_dimension": 24,
+    "note": "nullspace is orthogonal to learned linear behavioral probe weights; interventions may leave the natural recurrent-state manifold"
+  },
+  "nullspace_results": [
+    {
+      "seed": "101",
+      "depth": 12,
+      "radius": 0.75,
+      "code_preserved": 1,
+      "changed_now": 0,
+      "changed_12": 0.048828,
+      "max_logit_shift": 0.00000381
+    },
+    {
+      "seed": "101",
+      "depth": 12,
+      "radius": 1.5,
+      "code_preserved": 1,
+      "changed_now": 0.060547,
+      "changed_12": 0.109375,
+      "max_logit_shift": 0.00000572
+    },
+    {
+      "seed": "101",
+      "depth": 12,
+      "radius": 3,
+      "code_preserved": 1,
+      "changed_now": 0.355469,
+      "changed_12": 0.302734,
+      "max_logit_shift": 0.00001144
+    },
+    {
+      "seed": "101",
+      "depth": 40,
+      "radius": 0.75,
+      "code_preserved": 1,
+      "changed_now": 0.201172,
+      "changed_12": 0.123047,
+      "max_logit_shift": 0.00000286
+    },
+    {
+      "seed": "101",
+      "depth": 40,
+      "radius": 1.5,
+      "code_preserved": 1,
+      "changed_now": 0.351562,
+      "changed_12": 0.224609,
+      "max_logit_shift": 0.00000501
+    },
+    {
+      "seed": "101",
+      "depth": 40,
+      "radius": 3,
+      "code_preserved": 1,
+      "changed_now": 0.595703,
+      "changed_12": 0.441406,
+      "max_logit_shift": 0.00000954
+    },
+    {
+      "seed": "202",
+      "depth": 12,
+      "radius": 0.75,
+      "code_preserved": 1,
+      "changed_now": 0,
+      "changed_12": 0.023438,
+      "max_logit_shift": 0.00000381
+    },
+    {
+      "seed": "202",
+      "depth": 12,
+      "radius": 1.5,
+      "code_preserved": 1,
+      "changed_now": 0.033203,
+      "changed_12": 0.085938,
+      "max_logit_shift": 0.00000381
+    },
+    {
+      "seed": "202",
+      "depth": 12,
+      "radius": 3,
+      "code_preserved": 1,
+      "changed_now": 0.291016,
+      "changed_12": 0.236328,
+      "max_logit_shift": 0.00000572
+    },
+    {
+      "seed": "202",
+      "depth": 40,
+      "radius": 0.75,
+      "code_preserved": 1,
+      "changed_now": 0.150391,
+      "changed_12": 0.089844,
+      "max_logit_shift": 0.00000286
+    },
+    {
+      "seed": "202",
+      "depth": 40,
+      "radius": 1.5,
+      "code_preserved": 1,
+      "changed_now": 0.257812,
+      "changed_12": 0.175781,
+      "max_logit_shift": 0.00000286
+    },
+    {
+      "seed": "202",
+      "depth": 40,
+      "radius": 3,
+      "code_preserved": 1,
+      "changed_now": 0.486328,
+      "changed_12": 0.34375,
+      "max_logit_shift": 0.00000477
+    }
+  ],
+  "natural_state_pairs": [
+    {
+      "seed": "101",
+      "depth": 12,
+      "code_agreement": 1,
+      "matching_pairs": 512,
+      "diverged_0": 0,
+      "diverged_12": 0.025391,
+      "diverged_32": 0.076172,
+      "note": "diverged_ values conditional on equal predicted four-bit code; same synthetic task, independent input prefixes"
+    },
+    {
+      "seed": "101",
+      "depth": 40,
+      "code_agreement": 0.734375,
+      "matching_pairs": 376,
+      "diverged_0": 0.140957,
+      "diverged_12": 0.074468,
+      "diverged_32": 0.103723,
+      "note": "diverged_ values conditional on equal predicted four-bit code; same synthetic task, independent input prefixes"
+    },
+    {
+      "seed": "101",
+      "depth": 64,
+      "code_agreement": 0.695312,
+      "matching_pairs": 356,
+      "diverged_0": 0.185393,
+      "diverged_12": 0.064607,
+      "diverged_32": 0.081461,
+      "note": "diverged_ values conditional on equal predicted four-bit code; same synthetic task, independent input prefixes"
+    },
+    {
+      "seed": "202",
+      "depth": 12,
+      "code_agreement": 1,
+      "matching_pairs": 512,
+      "diverged_0": 0,
+      "diverged_12": 0.021484,
+      "diverged_32": 0.072266,
+      "note": "diverged_ values conditional on equal predicted four-bit code; same synthetic task, independent input prefixes"
+    },
+    {
+      "seed": "202",
+      "depth": 40,
+      "code_agreement": 0.800781,
+      "matching_pairs": 410,
+      "diverged_0": 0.197561,
+      "diverged_12": 0.121951,
+      "diverged_32": 0.104878,
+      "note": "diverged_ values conditional on equal predicted four-bit code; same synthetic task, independent input prefixes"
+    },
+    {
+      "seed": "202",
+      "depth": 64,
+      "code_agreement": 0.673828,
+      "matching_pairs": 345,
+      "diverged_0": 0.092754,
+      "diverged_12": 0.078261,
+      "diverged_32": 0.081159,
+      "note": "diverged_ values conditional on equal predicted four-bit code; same synthetic task, independent input prefixes"
+    }
+  ]
+}

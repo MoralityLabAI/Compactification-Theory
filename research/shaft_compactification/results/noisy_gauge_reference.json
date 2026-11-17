@@ -1,0 +1,1400 @@
+{
+  "budgets": [
+    3,
+    6,
+    12,
+    24
+  ],
+  "designs": {
+    "balanced": {
+      "base_anchor_cycle": [
+        3,
+        5,
+        6,
+        9,
+        10,
+        12
+      ],
+      "conditions": {
+        "p00_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p00_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 57,
+            "chernoff_union_bound_probability": 0.06272894,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.062666,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 9280,
+            "successes_lexicographic_tiebreak": 1000,
+            "sufficient_margin_certificates": 967,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 967
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00022984,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 18352,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 36771,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 73654,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p00_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 500,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.75262,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 6079,
+            "successes_lexicographic_tiebreak": 748,
+            "sufficient_margin_certificates": 524,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 524
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 63,
+            "chernoff_union_bound_probability": 0.06272894,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.06812,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 12164,
+            "successes_lexicographic_tiebreak": 1005,
+            "sufficient_margin_certificates": 961,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 961
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00022984,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 24489,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 49008,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p05_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 117,
+            "chernoff_union_bound_probability": 0.6708392,
+            "flipped_observed_bits_total": 612,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.234717,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 956,
+            "sufficient_margin_certificates": 904,
+            "true_in_minimum_score_set": 1019,
+            "unique_correct_recoveries": 904
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 5,
+            "chernoff_union_bound_probability": 0.02032636,
+            "flipped_observed_bits_total": 1212,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.008166,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 1019,
+            "sufficient_margin_certificates": 993,
+            "true_in_minimum_score_set": 1023,
+            "unique_correct_recoveries": 1018
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00002551,
+            "flipped_observed_bits_total": 2413,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1019,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 4868,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1023,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p05_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 207,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 452,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.72829,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 9205,
+            "successes_lexicographic_tiebreak": 857,
+            "sufficient_margin_certificates": 672,
+            "true_in_minimum_score_set": 949,
+            "unique_correct_recoveries": 764
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 18,
+            "chernoff_union_bound_probability": 0.20808945,
+            "flipped_observed_bits_total": 915,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.068159,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 18344,
+            "successes_lexicographic_tiebreak": 1015,
+            "sufficient_margin_certificates": 855,
+            "true_in_minimum_score_set": 1019,
+            "unique_correct_recoveries": 1001
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00228888,
+            "flipped_observed_bits_total": 1802,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.000106,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 36766,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 992,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 3.4e-7,
+            "flipped_observed_bits_total": 3653,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 73742,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1022,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p05_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 601,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 314,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 1.885328,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 6079,
+            "successes_lexicographic_tiebreak": 587,
+            "sufficient_margin_certificates": 327,
+            "true_in_minimum_score_set": 882,
+            "unique_correct_recoveries": 352
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 184,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 605,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.525889,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 12154,
+            "successes_lexicographic_tiebreak": 901,
+            "sufficient_margin_certificates": 631,
+            "true_in_minimum_score_set": 973,
+            "unique_correct_recoveries": 802
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 7,
+            "chernoff_union_bound_probability": 0.08073931,
+            "flipped_observed_bits_total": 1249,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.029866,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 24373,
+            "successes_lexicographic_tiebreak": 1020,
+            "sufficient_margin_certificates": 854,
+            "true_in_minimum_score_set": 1020,
+            "unique_correct_recoveries": 1014
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00037439,
+            "flipped_observed_bits_total": 2513,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.000086,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 48991,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 991,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p10_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 348,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1265,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.872013,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 802,
+            "sufficient_margin_certificates": 650,
+            "true_in_minimum_score_set": 987,
+            "unique_correct_recoveries": 650
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 45,
+            "chernoff_union_bound_probability": 0.29100732,
+            "flipped_observed_bits_total": 2423,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.094697,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 1007,
+            "sufficient_margin_certificates": 818,
+            "true_in_minimum_score_set": 1020,
+            "unique_correct_recoveries": 975
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00430867,
+            "flipped_observed_bits_total": 4975,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.000667,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 902,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00000119,
+            "flipped_observed_bits_total": 9820,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 992,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p10_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 363,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 868,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 1.601432,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 9129,
+            "successes_lexicographic_tiebreak": 707,
+            "sufficient_margin_certificates": 446,
+            "true_in_minimum_score_set": 868,
+            "unique_correct_recoveries": 569
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 84,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1785,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.35986,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 18357,
+            "successes_lexicographic_tiebreak": 960,
+            "sufficient_margin_certificates": 588,
+            "true_in_minimum_score_set": 986,
+            "unique_correct_recoveries": 911
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 4,
+            "chernoff_union_bound_probability": 0.0530804,
+            "flipped_observed_bits_total": 3630,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.020089,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 36769,
+            "successes_lexicographic_tiebreak": 1021,
+            "sufficient_margin_certificates": 724,
+            "true_in_minimum_score_set": 1021,
+            "unique_correct_recoveries": 1017
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00016625,
+            "flipped_observed_bits_total": 7344,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.000001,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 73674,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 876,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p10_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 638,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 639,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 2.673661,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 6116,
+            "successes_lexicographic_tiebreak": 458,
+            "sufficient_margin_certificates": 247,
+            "true_in_minimum_score_set": 728,
+            "unique_correct_recoveries": 263
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 286,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1275,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 1.20182,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 12186,
+            "successes_lexicographic_tiebreak": 755,
+            "sufficient_margin_certificates": 372,
+            "true_in_minimum_score_set": 869,
+            "unique_correct_recoveries": 637
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 58,
+            "chernoff_union_bound_probability": 0.50967685,
+            "flipped_observed_bits_total": 2537,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.21194,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 24574,
+            "successes_lexicographic_tiebreak": 970,
+            "sufficient_margin_certificates": 525,
+            "true_in_minimum_score_set": 990,
+            "unique_correct_recoveries": 938
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 3,
+            "chernoff_union_bound_probability": 0.01225045,
+            "flipped_observed_bits_total": 5008,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.007109,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 49133,
+            "successes_lexicographic_tiebreak": 1020,
+            "sufficient_margin_certificates": 688,
+            "true_in_minimum_score_set": 1021,
+            "unique_correct_recoveries": 1019
+          }
+        },
+        "p20_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 662,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 2513,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 2.587211,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 447,
+            "sufficient_margin_certificates": 258,
+            "true_in_minimum_score_set": 775,
+            "unique_correct_recoveries": 258
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 326,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 4900,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 1.120191,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 767,
+            "sufficient_margin_certificates": 263,
+            "true_in_minimum_score_set": 913,
+            "unique_correct_recoveries": 623
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 56,
+            "chernoff_union_bound_probability": 0.50967685,
+            "flipped_observed_bits_total": 9765,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.176359,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 986,
+            "sufficient_margin_certificates": 246,
+            "true_in_minimum_score_set": 1007,
+            "unique_correct_recoveries": 953
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 2,
+            "chernoff_union_bound_probability": 0.01225045,
+            "flipped_observed_bits_total": 19697,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.004901,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1023,
+            "sufficient_margin_certificates": 171,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1022
+          }
+        },
+        "p20_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 540,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1855,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 3.248703,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 9251,
+            "successes_lexicographic_tiebreak": 387,
+            "sufficient_margin_certificates": 161,
+            "true_in_minimum_score_set": 557,
+            "unique_correct_recoveries": 245
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 271,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 3690,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 1.808584,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 18447,
+            "successes_lexicographic_tiebreak": 650,
+            "sufficient_margin_certificates": 168,
+            "true_in_minimum_score_set": 748,
+            "unique_correct_recoveries": 549
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 87,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 7400,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.509991,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 36842,
+            "successes_lexicographic_tiebreak": 900,
+            "sufficient_margin_certificates": 140,
+            "true_in_minimum_score_set": 932,
+            "unique_correct_recoveries": 857
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 5,
+            "chernoff_union_bound_probability": 0.08970426,
+            "flipped_observed_bits_total": 14620,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.03555,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 73774,
+            "successes_lexicographic_tiebreak": 1018,
+            "sufficient_margin_certificates": 107,
+            "true_in_minimum_score_set": 1018,
+            "unique_correct_recoveries": 1013
+          }
+        },
+        "p20_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 686,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1241,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 3.98558,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 6070,
+            "successes_lexicographic_tiebreak": 241,
+            "sufficient_margin_certificates": 93,
+            "true_in_minimum_score_set": 469,
+            "unique_correct_recoveries": 112
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 446,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 2451,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 2.775206,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 12287,
+            "successes_lexicographic_tiebreak": 470,
+            "sufficient_margin_certificates": 116,
+            "true_in_minimum_score_set": 615,
+            "unique_correct_recoveries": 333
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 202,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 4948,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 1.281781,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 24607,
+            "successes_lexicographic_tiebreak": 753,
+            "sufficient_margin_certificates": 100,
+            "true_in_minimum_score_set": 821,
+            "unique_correct_recoveries": 675
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 43,
+            "chernoff_union_bound_probability": 0.6345813,
+            "flipped_observed_bits_total": 9825,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.242509,
+            "min_clean_pairwise_distance": 32,
+            "observed_bits_total": 49201,
+            "successes_lexicographic_tiebreak": 969,
+            "sufficient_margin_certificates": 73,
+            "true_in_minimum_score_set": 985,
+            "unique_correct_recoveries": 943
+          }
+        }
+      }
+    },
+    "onehot": {
+      "base_anchor_cycle": [
+        1,
+        2,
+        4
+      ],
+      "conditions": {
+        "p00_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p00_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 201,
+            "chernoff_union_bound_probability": 0.22816759,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.224116,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 9184,
+            "successes_lexicographic_tiebreak": 941,
+            "sufficient_margin_certificates": 823,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 823
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 10,
+            "chernoff_union_bound_probability": 0.01185739,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.009766,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 18378,
+            "successes_lexicographic_tiebreak": 1020,
+            "sufficient_margin_certificates": 1014,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1014
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00004578,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 36723,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 73692,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p00_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 644,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 1.042322,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 6130,
+            "successes_lexicographic_tiebreak": 683,
+            "sufficient_margin_certificates": 380,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 380
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 207,
+            "chernoff_union_bound_probability": 0.22816759,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.221957,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12223,
+            "successes_lexicographic_tiebreak": 942,
+            "sufficient_margin_certificates": 817,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 817
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 13,
+            "chernoff_union_bound_probability": 0.01185739,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.012695,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24557,
+            "successes_lexicographic_tiebreak": 1019,
+            "sufficient_margin_certificates": 1011,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1011
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00004578,
+            "flipped_observed_bits_total": 0,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 49162,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 1024,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p05_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 245,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 584,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.394363,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 904,
+            "sufficient_margin_certificates": 577,
+            "true_in_minimum_score_set": 1010,
+            "unique_correct_recoveries": 768
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 33,
+            "chernoff_union_bound_probability": 0.12107937,
+            "flipped_observed_bits_total": 1189,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.048736,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 1009,
+            "sufficient_margin_certificates": 707,
+            "true_in_minimum_score_set": 1021,
+            "unique_correct_recoveries": 988
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 2,
+            "chernoff_union_bound_probability": 0.00392496,
+            "flipped_observed_bits_total": 2355,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.002348,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 1022,
+            "sufficient_margin_certificates": 824,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1022
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.0000051,
+            "flipped_observed_bits_total": 4885,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 920,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p05_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 335,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 462,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 0.980969,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 9200,
+            "successes_lexicographic_tiebreak": 801,
+            "sufficient_margin_certificates": 515,
+            "true_in_minimum_score_set": 928,
+            "unique_correct_recoveries": 621
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 96,
+            "chernoff_union_bound_probability": 0.4740965,
+            "flipped_observed_bits_total": 894,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.232368,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 18351,
+            "successes_lexicographic_tiebreak": 970,
+            "sufficient_margin_certificates": 564,
+            "true_in_minimum_score_set": 1009,
+            "unique_correct_recoveries": 917
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 4,
+            "chernoff_union_bound_probability": 0.03821172,
+            "flipped_observed_bits_total": 1819,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.014352,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 36680,
+            "successes_lexicographic_tiebreak": 1020,
+            "sufficient_margin_certificates": 675,
+            "true_in_minimum_score_set": 1022,
+            "unique_correct_recoveries": 1018
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.000452,
+            "flipped_observed_bits_total": 3739,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.000032,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 73542,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 771,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p05_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 652,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 315,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 1.985181,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 6147,
+            "successes_lexicographic_tiebreak": 545,
+            "sufficient_margin_certificates": 274,
+            "true_in_minimum_score_set": 858,
+            "unique_correct_recoveries": 289
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 285,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 614,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.732694,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12302,
+            "successes_lexicographic_tiebreak": 857,
+            "sufficient_margin_certificates": 452,
+            "true_in_minimum_score_set": 955,
+            "unique_correct_recoveries": 685
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 55,
+            "chernoff_union_bound_probability": 0.26457328,
+            "flipped_observed_bits_total": 1241,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.129543,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24476,
+            "successes_lexicographic_tiebreak": 1004,
+            "sufficient_margin_certificates": 547,
+            "true_in_minimum_score_set": 1016,
+            "unique_correct_recoveries": 961
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 4,
+            "chernoff_union_bound_probability": 0.01517404,
+            "flipped_observed_bits_total": 2467,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.007537,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 48928,
+            "successes_lexicographic_tiebreak": 1021,
+            "sufficient_margin_certificates": 671,
+            "true_in_minimum_score_set": 1023,
+            "unique_correct_recoveries": 1019
+          }
+        },
+        "p10_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 479,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1262,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 1.092256,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 727,
+            "sufficient_margin_certificates": 265,
+            "true_in_minimum_score_set": 970,
+            "unique_correct_recoveries": 509
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 170,
+            "chernoff_union_bound_probability": 0.59050807,
+            "flipped_observed_bits_total": 2499,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.289355,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 947,
+            "sufficient_margin_certificates": 289,
+            "true_in_minimum_score_set": 1005,
+            "unique_correct_recoveries": 839
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 16,
+            "chernoff_union_bound_probability": 0.05303244,
+            "flipped_observed_bits_total": 5063,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.028984,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 1017,
+            "sufficient_margin_certificates": 266,
+            "true_in_minimum_score_set": 1021,
+            "unique_correct_recoveries": 1005
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 0,
+            "chernoff_union_bound_probability": 0.00084705,
+            "flipped_observed_bits_total": 9888,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.000021,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1024,
+            "sufficient_margin_certificates": 245,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1024
+          }
+        },
+        "p10_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 437,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 877,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 1.795018,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 9170,
+            "successes_lexicographic_tiebreak": 646,
+            "sufficient_margin_certificates": 326,
+            "true_in_minimum_score_set": 830,
+            "unique_correct_recoveries": 461
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 184,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1775,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 0.623825,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 18336,
+            "successes_lexicographic_tiebreak": 855,
+            "sufficient_margin_certificates": 284,
+            "true_in_minimum_score_set": 940,
+            "unique_correct_recoveries": 768
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 43,
+            "chernoff_union_bound_probability": 0.2071698,
+            "flipped_observed_bits_total": 3609,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.120847,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 36792,
+            "successes_lexicographic_tiebreak": 993,
+            "sufficient_margin_certificates": 257,
+            "true_in_minimum_score_set": 1014,
+            "unique_correct_recoveries": 971
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 1,
+            "chernoff_union_bound_probability": 0.01007009,
+            "flipped_observed_bits_total": 7326,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.003406,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 73620,
+            "successes_lexicographic_tiebreak": 1023,
+            "sufficient_margin_certificates": 222,
+            "true_in_minimum_score_set": 1024,
+            "unique_correct_recoveries": 1023
+          }
+        },
+        "p10_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 687,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 606,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 2.764784,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 6148,
+            "successes_lexicographic_tiebreak": 440,
+            "sufficient_margin_certificates": 193,
+            "true_in_minimum_score_set": 739,
+            "unique_correct_recoveries": 217
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 398,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1208,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 1.383335,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12318,
+            "successes_lexicographic_tiebreak": 696,
+            "sufficient_margin_certificates": 251,
+            "true_in_minimum_score_set": 854,
+            "unique_correct_recoveries": 522
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 120,
+            "chernoff_union_bound_probability": 0.86808763,
+            "flipped_observed_bits_total": 2463,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.410391,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24599,
+            "successes_lexicographic_tiebreak": 926,
+            "sufficient_margin_certificates": 224,
+            "true_in_minimum_score_set": 971,
+            "unique_correct_recoveries": 858
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 15,
+            "chernoff_union_bound_probability": 0.09206935,
+            "flipped_observed_bits_total": 4863,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.045381,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 49046,
+            "successes_lexicographic_tiebreak": 1010,
+            "sufficient_margin_certificates": 208,
+            "true_in_minimum_score_set": 1017,
+            "unique_correct_recoveries": 1002
+          }
+        },
+        "p20_missing00": {
+          "3": {
+            "ambiguous_minimum_score_trials": 670,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 2395,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 2.686218,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 12288,
+            "successes_lexicographic_tiebreak": 426,
+            "sufficient_margin_certificates": 85,
+            "true_in_minimum_score_set": 791,
+            "unique_correct_recoveries": 257
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 413,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 4812,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 1.338828,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 24576,
+            "successes_lexicographic_tiebreak": 732,
+            "sufficient_margin_certificates": 45,
+            "true_in_minimum_score_set": 901,
+            "unique_correct_recoveries": 523
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 150,
+            "chernoff_union_bound_probability": 0.86808763,
+            "flipped_observed_bits_total": 9597,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.373551,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 49152,
+            "successes_lexicographic_tiebreak": 928,
+            "sufficient_margin_certificates": 9,
+            "true_in_minimum_score_set": 981,
+            "unique_correct_recoveries": 837
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 18,
+            "chernoff_union_bound_probability": 0.09206935,
+            "flipped_observed_bits_total": 19341,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.047959,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 98304,
+            "successes_lexicographic_tiebreak": 1015,
+            "sufficient_margin_certificates": 0,
+            "true_in_minimum_score_set": 1017,
+            "unique_correct_recoveries": 999
+          }
+        },
+        "p20_missing25": {
+          "3": {
+            "ambiguous_minimum_score_trials": 587,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1851,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 3.318923,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 9240,
+            "successes_lexicographic_tiebreak": 359,
+            "sufficient_margin_certificates": 104,
+            "true_in_minimum_score_set": 554,
+            "unique_correct_recoveries": 205
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 364,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 3695,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 1.999991,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 18476,
+            "successes_lexicographic_tiebreak": 596,
+            "sufficient_margin_certificates": 33,
+            "true_in_minimum_score_set": 719,
+            "unique_correct_recoveries": 457
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 162,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 7392,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 0.776797,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 36918,
+            "successes_lexicographic_tiebreak": 839,
+            "sufficient_margin_certificates": 13,
+            "true_in_minimum_score_set": 899,
+            "unique_correct_recoveries": 753
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 28,
+            "chernoff_union_bound_probability": 0.28165875,
+            "flipped_observed_bits_total": 14784,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.147352,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 73833,
+            "successes_lexicographic_tiebreak": 994,
+            "sufficient_margin_certificates": 2,
+            "true_in_minimum_score_set": 1003,
+            "unique_correct_recoveries": 975
+          }
+        },
+        "p20_missing50": {
+          "3": {
+            "ambiguous_minimum_score_trials": 736,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 1268,
+            "mean_clean_pairwise_distance": 6.1277,
+            "mean_posterior_gauge_entropy_bits": 4.01011,
+            "min_clean_pairwise_distance": 2,
+            "observed_bits_total": 6177,
+            "successes_lexicographic_tiebreak": 216,
+            "sufficient_margin_certificates": 75,
+            "true_in_minimum_score_set": 471,
+            "unique_correct_recoveries": 96
+          },
+          "6": {
+            "ambiguous_minimum_score_trials": 532,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 2487,
+            "mean_clean_pairwise_distance": 12.2553,
+            "mean_posterior_gauge_entropy_bits": 2.900599,
+            "min_clean_pairwise_distance": 4,
+            "observed_bits_total": 12306,
+            "successes_lexicographic_tiebreak": 427,
+            "sufficient_margin_certificates": 61,
+            "true_in_minimum_score_set": 600,
+            "unique_correct_recoveries": 272
+          },
+          "12": {
+            "ambiguous_minimum_score_trials": 302,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 4928,
+            "mean_clean_pairwise_distance": 24.5106,
+            "mean_posterior_gauge_entropy_bits": 1.538275,
+            "min_clean_pairwise_distance": 8,
+            "observed_bits_total": 24527,
+            "successes_lexicographic_tiebreak": 680,
+            "sufficient_margin_certificates": 19,
+            "true_in_minimum_score_set": 779,
+            "unique_correct_recoveries": 543
+          },
+          "24": {
+            "ambiguous_minimum_score_trials": 90,
+            "chernoff_union_bound_probability": 1,
+            "flipped_observed_bits_total": 9893,
+            "mean_clean_pairwise_distance": 49.0213,
+            "mean_posterior_gauge_entropy_bits": 0.472212,
+            "min_clean_pairwise_distance": 16,
+            "observed_bits_total": 49256,
+            "successes_lexicographic_tiebreak": 918,
+            "sufficient_margin_certificates": 5,
+            "true_in_minimum_score_set": 947,
+            "unique_correct_recoveries": 861
+          }
+        }
+      }
+    }
+  },
+  "evidence": "exact_finite_geometry_plus_seeded_mcar_bsc_monte_carlo",
+  "gauge_count": 48,
+  "missing_percent": [
+    0,
+    25,
+    50
+  ],
+  "noise_percent": [
+    0,
+    5,
+    10,
+    20
+  ],
+  "seed": 20261110,
+  "source_observations": "clean, exact binary reference signatures",
+  "target_observations": "independent coordinate erasures and bit flips",
+  "three_anchor_minimax": {
+    "distinct_triplets_checked": 560,
+    "max_min_distance": 4,
+    "optimal_triples": [
+      [
+        3,
+        5,
+        6
+      ],
+      [
+        3,
+        5,
+        9
+      ],
+      [
+        3,
+        6,
+        10
+      ],
+      [
+        3,
+        9,
+        10
+      ],
+      [
+        5,
+        6,
+        12
+      ],
+      [
+        5,
+        9,
+        12
+      ],
+      [
+        6,
+        10,
+        12
+      ],
+      [
+        9,
+        10,
+        12
+      ]
+    ]
+  },
+  "tie_break": "first (lexicographic) among equal minimum-Hamming scores",
+  "trials_per_condition": 1024,
+  "true_gauge": {
+    "output_flip": 1,
+    "target_query_permutation": [
+      1,
+      0,
+      3,
+      2
+    ]
+  }
+}

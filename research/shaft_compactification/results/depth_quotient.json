@@ -1,0 +1,68 @@
+{
+  "complete_goal_erasure_classes": [
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "goals": 16,
+  "horizons": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "joint_substrates_offsets_0_2": [
+    {
+      "behavior_classes": 1,
+      "minimal_fixed_length_code_bits": 0
+    },
+    {
+      "behavior_classes": 4,
+      "minimal_fixed_length_code_bits": 2
+    },
+    {
+      "behavior_classes": 16,
+      "minimal_fixed_length_code_bits": 4
+    },
+    {
+      "behavior_classes": 16,
+      "minimal_fixed_length_code_bits": 4
+    },
+    {
+      "behavior_classes": 16,
+      "minimal_fixed_length_code_bits": 4
+    }
+  ],
+  "note": "Behavior classes depend on observer coverage. The scalar recurrence is a sharp algebraic bound, not a neural certificate.",
+  "scalar_depth_defects": {
+    "L=0,delta=1,depth=5": 1.0,
+    "L=1,delta=1,depth=5": 5.0,
+    "L=2,delta=1,depth=5": 31.0
+  },
+  "single_substrate_offset_0": [
+    {
+      "behavior_classes": 1,
+      "minimal_fixed_length_code_bits": 0
+    },
+    {
+      "behavior_classes": 2,
+      "minimal_fixed_length_code_bits": 1
+    },
+    {
+      "behavior_classes": 4,
+      "minimal_fixed_length_code_bits": 2
+    },
+    {
+      "behavior_classes": 8,
+      "minimal_fixed_length_code_bits": 3
+    },
+    {
+      "behavior_classes": 16,
+      "minimal_fixed_length_code_bits": 4
+    }
+  ],
+  "status": "constructed_exact_finite_reference_only"
+}

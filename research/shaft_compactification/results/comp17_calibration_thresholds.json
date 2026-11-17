@@ -1,0 +1,75 @@
+{
+  "experiment": "SHAFT-COMP-17",
+  "phase": "calibration",
+  "registration_commit": "938560c3cad9d2d8cf298f349311900a2510e0fe",
+  "calibration_seeds": {
+    "xor_lag": [
+      1301,
+      1302
+    ],
+    "parity_gate": [
+      1401,
+      1402
+    ]
+  },
+  "threshold_algorithm": "np.quantile(negative_scores,0.9,method='higher'); predict iff score > threshold",
+  "thresholds": {
+    "history_direction": 18.48828887939453,
+    "instant_direction": 12.010499954223633
+  },
+  "source_operating_points": {
+    "history_direction": {
+      "threshold": 18.48828887939453,
+      "negatives": 437,
+      "false_positives": 43,
+      "fpr": 0.098398,
+      "positives": 55,
+      "true_positives": 17,
+      "tpr": 0.309091
+    },
+    "instant_direction": {
+      "threshold": 12.010499954223633,
+      "negatives": 437,
+      "false_positives": 43,
+      "fpr": 0.098398,
+      "positives": 55,
+      "true_positives": 4,
+      "tpr": 0.072727
+    }
+  },
+  "per_family_calibration": {
+    "xor_lag": {
+      "history_direction": {
+        "threshold": 17.881263732910156
+      },
+      "instant_direction": {
+        "threshold": 15.116454124450684
+      }
+    },
+    "parity_gate": {
+      "history_direction": {
+        "threshold": 18.782262802124023
+      },
+      "instant_direction": {
+        "threshold": 7.176684379577637
+      }
+    }
+  },
+  "calibration_auc": {
+    "history_direction": 0.73264,
+    "instant_direction": 0.583982,
+    "history_direction_norm": 0.686291,
+    "instant_direction_norm": 0.52694,
+    "pair_distance": 0.536634
+  },
+  "calibration_eligible": 492,
+  "calibration_positives": 55,
+  "model_training_fresh_accuracy_12": {
+    "1301": 1,
+    "1302": 1,
+    "1401": 1,
+    "1402": 1
+  },
+  "full_calibration_sha256": "f07496403ef26dff938b6d9c87030ac245ae0e784bcc098a1c57edce39540790",
+  "provenance": "Frozen and committed before any heldout seed fitting/evaluation; calibration labels available only for this threshold selection."
+}

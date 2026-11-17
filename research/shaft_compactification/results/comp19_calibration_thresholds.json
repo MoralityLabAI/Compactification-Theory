@@ -1,0 +1,94 @@
+{
+  "experiment": "SHAFT-COMP-19",
+  "phase": "calibration_thresholds",
+  "registration_commit": "6b063812cfbf913910e1eed60f33b279a64bf87a",
+  "calibration_model_seeds": [
+    1901,
+    1902,
+    1903,
+    1904
+  ],
+  "source_code_sha256": "5cc5467e0864aaae94b6a708b2140778bec823c881211d65c5922f1a85525291",
+  "threshold_rule": "numpy quantile method=higher at 0.9 of pooled eligible calibration negatives; predict iff feature > numeric threshold",
+  "evaluation_outcome": "any native six-query disagreement after steps 8,16,32 over two independent future sequences",
+  "calibration_counts": {
+    "total": 8192,
+    "eligible": 1012,
+    "positives": 300,
+    "negatives": 712
+  },
+  "pooled_thresholds": {
+    "history": 4.71539831161499,
+    "duplicate": 3.846395969390869
+  },
+  "source_operating_points": {
+    "history": {
+      "false_positives": 71,
+      "true_positives": 45,
+      "negatives": 712,
+      "positives": 300
+    },
+    "duplicate": {
+      "false_positives": 71,
+      "true_positives": 34,
+      "negatives": 712,
+      "positives": 300
+    }
+  },
+  "cell_thresholds": {
+    "gru_rotate": {
+      "history": 3.2233786582946777,
+      "duplicate": 5.185125827789307
+    },
+    "lstm_rotate": {
+      "history": 5.149593353271484,
+      "duplicate": 6.532215595245361
+    },
+    "gru_match": {
+      "history": 2.8409600257873535,
+      "duplicate": 2.755469560623169
+    },
+    "lstm_match": {
+      "history": 5.169455051422119,
+      "duplicate": 3.699551582336426
+    }
+  },
+  "calibration_models": {
+    "gru_rotate": {
+      "seed": 1901,
+      "d12_accuracy": 0.996908,
+      "d32_accuracy": 0.987854,
+      "eligible": 141,
+      "positives": 44,
+      "model_sha": "73e7c93afc639ade023ea0de9e38a16126e939c987de2787e01bdb9349ad7429",
+      "receipt_sha": "900a48a01359ad3dc68a29ae0505795d533651aa209f5baf9849b05c72f8352b"
+    },
+    "lstm_rotate": {
+      "seed": 1902,
+      "d12_accuracy": 1,
+      "d32_accuracy": 0.99585,
+      "eligible": 351,
+      "positives": 158,
+      "model_sha": "cd083775ff51008dd932f887addfa123e981f3328f07457980a2393303b3b90d",
+      "receipt_sha": "e50b6d013eef9b5284947eb850301f16cc6423a8b12e69f9ccdbe1665cddfbc0"
+    },
+    "gru_match": {
+      "seed": 1903,
+      "d12_accuracy": 0.999837,
+      "d32_accuracy": 0.995422,
+      "eligible": 197,
+      "positives": 54,
+      "model_sha": "983d138238b02cfe7715133ca85a0040179eef8b40336272a20502355a68f556",
+      "receipt_sha": "d524e2e342c57458fff53c95b673780669fc6e9bfa0eee7f5c09b4e2664ea33f"
+    },
+    "lstm_match": {
+      "seed": 1904,
+      "d12_accuracy": 1,
+      "d32_accuracy": 0.998962,
+      "eligible": 323,
+      "positives": 44,
+      "model_sha": "96b71759972de29ca23c0dcc463cd384066fa1fef667a3063b7254ffcf5b02b1",
+      "receipt_sha": "2c88f70e3970672926b92ec07351b77cbb6c06708c1b9117005b5e4839f9297a"
+    }
+  }
+}
