@@ -1,0 +1,22 @@
+name: SCM21 BPD observable quotient crosswalk
+on:
+  pull_request:
+    paths:
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/**'
+      - '.github/workflows/scm-bpd-causal-quotient.yml'
+  push:
+    paths:
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/**'
+      - '.github/workflows/scm-bpd-causal-quotient.yml'
+jobs:
+  pinned-public-receipt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Execute read-only instrument tests
+        run: python -m unittest discover -s research/dimensional_atlas/gym/bpd_quotient_bridge/tests -v
+      - name: Audit SCM21 committed public summary and pinned Git blob
+        run: python -m research.dimensional_atlas.gym.bpd_quotient_bridge.audit --check
