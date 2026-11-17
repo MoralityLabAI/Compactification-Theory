@@ -36,7 +36,8 @@ jobs:
           python research/nor40_strong_adversaries/first_evidence_archive.py \
             --fixture /tmp/nor40-first/nor40_fixture.json \
             --grade /tmp/nor40-first/nor40_full.json \
-            --destination research/nor40_strong_adversaries/results
+            --destination research/nor40_strong_adversaries/results \
+            --artifact-id 14343000877
       - name: Independently reconstruct all source, CAL greedy/swap/pool, EVAL and first-grade decisions
         run: |
           python -u research/nor40_strong_adversaries/receipt_audit.py --check \
