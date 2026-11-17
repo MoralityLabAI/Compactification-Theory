@@ -36,7 +36,7 @@ def audit_first_valid_original():
     assert receipt["original_file_bytes_and_sha256"]=={
         name:{"bytes":size,"sha256":digest}
         for name,(size,digest) in ORIGINAL.items()}
-    assert receipt["new_public_source_count"]==receipt["fresh_public_source_count"] if "new_public_source_count" in receipt else receipt["fresh_public_source_count"]==24
+    assert receipt["fresh_public_source_count"]==24
     assert receipt["historical_sources_excluded"]==108
     assert receipt["fixed_blind_attack_sets_replayed"]==1536
     assert receipt["source_arm_transformed_challenge_plans_replayed"]==294912
