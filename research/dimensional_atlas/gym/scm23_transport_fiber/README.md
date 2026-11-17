@@ -6,9 +6,9 @@ This follows merged SCM-22 PR #206, with the same tied four-visit F11 arithmetic
 
 The independent *compact* replay is [compact_replay.py](compact_replay.py), using the SCM-22 source already on main. Run on CPU:
 
-\`\`\`bash
+```bash
 OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 python research/dimensional_atlas/gym/scm23_transport_fiber/compact_replay.py
-\`\`\`
+```
 
 The full research archive also contains a granular 768-pair outcome receipt, a read-only independent auditor with 25 passing tests, and a separately gated SCM-20 checkpoint-host script. The checkpoint script has not been run against private SCM-20 weights.
 
