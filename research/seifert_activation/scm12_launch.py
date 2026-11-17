@@ -186,8 +186,8 @@ def launch(lock_path:Path,out_dir:Path,*,device:str='cpu',python:str=sys.executa
             paths_out[model,chart]=output
     # The comparison is strict: any model mismatch, altered chart intervention,
     # or missing group causes a failure rather than a cherry-picked partial result.
-    from scm12_compare import compare_files
-    report=compare_files(paths_out)
+    from scm13_receipt_integrity import strict_compare_files
+    report=strict_compare_files(paths_out)
     with (out_dir/'paired_summary.json').open('x',encoding='utf-8') as file:
         json.dump(report,file,indent=2,sort_keys=True)
         file.write('\n')
