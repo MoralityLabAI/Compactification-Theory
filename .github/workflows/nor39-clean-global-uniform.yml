@@ -27,7 +27,10 @@ jobs:
         run: |
           git merge-base --is-ancestor 4a5f3750d240d46c031e0cb432fb7b1a884cfbe9 HEAD
           test -s research/nor39_clean_global_uniform/REGISTRATION.md
-      - name: Check first NOR-37 original archive pins, full-output reserve and independent replayer parity
+      - name: Static provenance guard: test suite must never reconstruct a new NOR39 source
+        run: |
+          python research/nor39_clean_global_uniform/predata_isolation_audit.py
+      - name: Check first NOR-38 original archive pins, full-output reserve and independent replayer parity
         run: |
           python -m compileall -q research/nor39_clean_global_uniform
           python -m unittest research.nor39_clean_global_uniform.test_experiment -v
@@ -68,6 +71,10 @@ jobs:
             ('program','future','target','attack','witness','audit')) for r in x['cases'])
           print('NOR39 FIRST PUBLIC ONLY SOURCE BYTES SHA',len(raw),sha256(raw).hexdigest())
           PY
+      - name: Independently attest public-only fixture without evaluating a single native target
+        run: |
+          python research/nor39_clean_global_uniform/predata_isolation_audit.py \
+            --no-tests --fixture /tmp/nor39_fixture.json
       - uses: actions/upload-artifact@v4
         with:
           name: nor39_first_original_public_only_source_fixture
