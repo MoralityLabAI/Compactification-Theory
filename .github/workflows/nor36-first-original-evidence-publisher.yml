@@ -1,0 +1,119 @@
+name: NOR-36 one-shot preserve original first registered policy-aware attack evidence
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor36-first-original-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  pin-and-preserve-first-original-source-and-attack-grade:
+    if: github.ref == 'refs/heads/research/nor36-policyaware-curvature-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor36-policyaware-curvature-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor36_original_frozen_public_sources_and_full_policyaware_outcome
+          run-id: 44069984005
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor36-first
+      - name: Pin complete raw original experiment SHA and scientific primary flags
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          import json
+          original={
+            'nor36_fixture.json':(4224502,'881bf776e8e77eff6b8a5406789d07a4ced2eed9394a62b27d02d835c99355a4'),
+            'nor36_full.json':(341232,'ffc9ebaf5b8e16c93e01c2c71cc387e4c8a455505f5af8cb3c9cad42ea9a44b5')
+          }
+          raw={}
+          for name,(size,h) in original.items():
+            data=(Path('/tmp/nor36-first')/name).read_bytes()
+            assert len(data)==size,(name,len(data))
+            assert sha256(data).hexdigest()==h,name
+            raw[name]=data
+          f=json.loads(raw['nor36_fixture.json'])
+          r=json.loads(raw['nor36_full.json'])
+          assert f['schema']=='nor36.new_public_only_reps52to55.v1'
+          assert r['schema']=='nor36.policy_aware_curvature_frozen_greedy_attack.v1'
+          assert f['registration_first_commit']==r['registration_first_commit']==(
+              'ede05db28b814d5000ac855fecb3b762876c6f9e')
+          assert f['source_only'] and f['planted_program_and_private_target_absent']
+          assert f['attacks_and_challenge_schedules_absent']
+          assert len(f['cases'])==len(r['source_records'])==24
+          assert r['excluded_historical_sources']==f['excluded_historical_source_count']==132
+          assert r['public_only_fixture_sha256']==original['nor36_fixture.json'][1]
+          assert r['frozen_mixture_weights']==[2,0,1,1,4,8]
+          assert r['calibration_trials']==256 and r['heldout_trials']==512
+          assert r['greedy_attack_restarts']==8
+          assert r['budget']==16 and r['attack_radius']==4
+          assert r['registered_primary_pass']
+          assert all(r['registered_five_gates'].values())
+          assert r['source_direction_wins']=={
+              'self_curv_weaker':24,'fixed_curv_attacks_expose_weakness':24,
+              'top_h50_gain':24,'mix_self_curv_weaker':24,'top_mix_gain':24}
+          assert all(rec['honest_false_rejects']==rec['schedule_informed_detection']==
+                     rec['atom_quota_mismatches']==rec['nonzero_shift_disagreements']==0
+                     for rec in r['source_records'])
+          folder=Path('research/nor36_policyaware_curvature/results')
+          folder.mkdir(parents=True,exist_ok=True)
+          archive=folder/'nor36_original_hosted.zip'
+          with ZipFile(archive,'w',ZIP_DEFLATED,compresslevel=9) as z:
+            for name,data in raw.items():
+              info=ZipInfo(name,(2026,11,17,0,0,0))
+              info.compress_type=ZIP_DEFLATED
+              z.writestr(info,data,compress_type=ZIP_DEFLATED,compresslevel=9)
+          receipt={
+            'schema':'nor36.original_first_registered_policyaware_curvature.v1',
+            'registered_date_utc':'2026-11-17',
+            'first_registration_commit':'ede05db28b814d5000ac855fecb3b762876c6f9e',
+            'first_completed_grader_run':'https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44069984005',
+            'first_original_artifact_id':14322985791,
+            'first_original_artifact_name':'nor36_original_frozen_public_sources_and_full_policyaware_outcome',
+            'original_source_and_grade_bytes_sha256':{
+                name:{'bytes':size,'sha256':h} for name,(size,h) in original.items()},
+            'original_source_units':24,'historical_source_units_excluded':132,
+            'frozen_mixture_weights':[2,0,1,1,4,8],
+            'attacker_classes':6,'greedy_restarts_per_class':8,
+            'blind_control_families':4,'blind_restarts_per_family':8,
+            'calibration_schedule_count':256,'evaluation_schedule_count':512,
+            'independent_policy_world_decisions':13762560,
+            'registered_source_direction_wins':r['source_direction_wins'],
+            'registered_equal_source_mean_differences':r['source_equal_mean_primary'],
+            'original_registered_five_gates':r['registered_five_gates'],
+            'registered_scientific_primary_pass':True,
+            'first_independent_replay_note':'Original initial run replay failed on a source_only field-name mismatch. The original byte streams were preserved unchanged and the independent replayer was fixed in a separate commit.',
+            'scope':'Finite source-predicted RRC25. Same-budget approximate greedy attacker, frozen before independent heldout audit coins; external true-target witness and production coin secrecy assumed.'
+          }
+          (folder/'nor36_first_frozen_receipt.json').write_text(
+              json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          print('NOR36 ORIGINAL SOURCE-LOCKED ARCHIVE SHA',len(archive.read_bytes()),
+                sha256(archive.read_bytes()).hexdigest())
+          PY
+      - name: Independently replay the exact first original source and grade before committing
+        run: |
+          python research/nor36_policyaware_curvature/receipt_audit.py --check \
+            --fixture /tmp/nor36-first/nor36_fixture.json \
+            --full /tmp/nor36-first/nor36_full.json
+      - name: Commit the first original bytes and immutable receipt, reconciling concurrent note commits
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor36_policyaware_curvature/results/nor36_original_hosted.zip \
+                  research/nor36_policyaware_curvature/results/nor36_first_frozen_receipt.json
+          git commit -m "NOR-36: preserve immutable first policy-aware result and source SHA receipts"
+          git pull --rebase origin research/nor36-policyaware-curvature-20261117
+          git push origin HEAD:research/nor36-policyaware-curvature-20261117
