@@ -1,0 +1,109 @@
+{
+  "device": "cuda",
+  "load_seconds": 40.64,
+  "model": {
+    "files_verified": [
+      "config.json",
+      "configuration_nanbeige.py",
+      "model-00001-of-00002.safetensors",
+      "model-00002-of-00002.safetensors",
+      "model.safetensors.index.json",
+      "modeling_nanbeige.py",
+      "tokenizer.json"
+    ],
+    "hash_seconds": 17.94,
+    "repo": "Nanbeige/Nanbeige4.2-3B",
+    "revision": "451ed48c3273ecef7ea8faaa43c31ce529763bb1"
+  },
+  "model_class": "NanbeigeForCausalLM",
+  "note": "GPU, bf16, 2 development prompts (0 shots), 16 candidate rows; loop-t readout vs NanbeigeModel.forward with num_loops=t; no grading. Run 2026-11-13 under vramorama run --vram 13G.",
+  "parameters": 4169800704,
+  "parity": [
+    {
+      "case_id": "calibration:signed:00001",
+      "loop_ms": [
+        2449.5,
+        802.7,
+        849.3
+      ],
+      "loops1": {
+        "argmax_equal": true,
+        "max_abs_logprob_diff": 0.0
+      },
+      "loops2": {
+        "argmax_equal": true,
+        "max_abs_logprob_diff": 0.0
+      },
+      "loops3": {
+        "argmax_equal": true,
+        "max_abs_logprob_diff": 0.0
+      },
+      "relative_step": [
+        23.135143280029297,
+        6.078072547912598,
+        0.8083352446556091
+      ],
+      "tokens": 459
+    },
+    {
+      "case_id": "calibration:signed:00002",
+      "loop_ms": [
+        739.4,
+        741.7,
+        741.5
+      ],
+      "loops1": {
+        "argmax_equal": true,
+        "max_abs_logprob_diff": 0.0
+      },
+      "loops2": {
+        "argmax_equal": true,
+        "max_abs_logprob_diff": 0.0
+      },
+      "loops3": {
+        "argmax_equal": true,
+        "max_abs_logprob_diff": 0.0
+      },
+      "relative_step": [
+        23.255414962768555,
+        6.030481815338135,
+        0.835866391658783
+      ],
+      "tokens": 402
+    }
+  ],
+  "peak_allocated_bytes": 9431180288,
+  "profile": "nanbeige",
+  "prompt_tokens": {
+    "development_shots0": {
+      "max": 457,
+      "mean": 355.67424242424244,
+      "min": 348
+    },
+    "development_shots4": {
+      "max": 1223,
+      "mean": 1121.6742424242425,
+      "min": 1114
+    },
+    "test_shots0": {
+      "max": 426,
+      "mean": 354.0416666666667,
+      "min": 348
+    },
+    "test_shots4": {
+      "max": 1192,
+      "mean": 1120.0416666666667,
+      "min": 1114
+    }
+  },
+  "schema": "algernon.arg02.checkpoint_check.v1",
+  "tokenizer": {
+    "bos": 166100,
+    "op_token_ids": {
+      "I": 324,
+      "N": 411,
+      "R": 385,
+      "S": 319
+    }
+  }
+}

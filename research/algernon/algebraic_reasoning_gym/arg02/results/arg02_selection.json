@@ -1,0 +1,56 @@
+{
+  "block": [
+    8,
+    12
+  ],
+  "depth": 16,
+  "dev_future12_depth1": 52,
+  "dev_future12_selected": 68,
+  "dev_gain": 16,
+  "rule": "max development future-correct at 12 checks over blocks x depths>1; tie -> smaller depth, earlier block",
+  "selection_shots_sha256": "ef71c759906a81c9b7f09eda43cc22bd73a6b0eb6e289fc319070ff37322c0c5",
+  "shots": 4,
+  "stage": "blocks",
+  "table": {
+    "dev_block_12_16": {
+      "cases": 132,
+      "future12_by_depth": {
+        "1": 52,
+        "16": 57,
+        "2": 58,
+        "4": 48,
+        "8": 47
+      }
+    },
+    "dev_block_16_20": {
+      "cases": 132,
+      "future12_by_depth": {
+        "1": 52,
+        "16": 55,
+        "2": 49,
+        "4": 42,
+        "8": 48
+      }
+    },
+    "dev_block_4_8": {
+      "cases": 132,
+      "future12_by_depth": {
+        "1": 52,
+        "16": 44,
+        "2": 47,
+        "4": 53,
+        "8": 55
+      }
+    },
+    "dev_block_8_12": {
+      "cases": 132,
+      "future12_by_depth": {
+        "1": 52,
+        "16": 68,
+        "2": 48,
+        "4": 48,
+        "8": 49
+      }
+    }
+  }
+}

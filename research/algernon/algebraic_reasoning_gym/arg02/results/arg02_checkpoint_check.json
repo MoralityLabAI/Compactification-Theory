@@ -1,0 +1,124 @@
+{
+  "device": "cpu",
+  "ff_control": {
+    "files_verified": [
+      "config.json",
+      "model.safetensors-00001-of-00001.safetensors",
+      "model.safetensors.index.json",
+      "tokenizer.json",
+      "tokenizer_config.json"
+    ],
+    "hash_seconds": 6.3,
+    "repo": "Qwen/Qwen3.5-2B-Base",
+    "revision": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c"
+  },
+  "load_seconds": 3.81,
+  "model": {
+    "files_verified": [
+      "config.json",
+      "model.safetensors-00001-of-00001.safetensors",
+      "model.safetensors.index.json",
+      "tokenizer.json",
+      "tokenizer_config.json"
+    ],
+    "hash_seconds": 2.56,
+    "repo": "Qwen/Qwen3.5-0.8B-Base",
+    "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+  },
+  "model_class": "Qwen3_5ForCausalLM",
+  "note": "CPU, bf16, 2 development prompts, first 2 candidate rows; no grading. Run 2026-11-10 under vramorama run --vram 256M --max-commit 85.",
+  "parity": [
+    {
+      "case_id": "calibration:signed:00001",
+      "depth2_relative_residual": 0.580950915813446,
+      "max_abs_logprob_diff": 0.0,
+      "seconds": 13.82,
+      "tokens": 433,
+      "top_token_equal": true
+    },
+    {
+      "case_id": "calibration:signed:00002",
+      "depth2_relative_residual": 0.5842715501785278,
+      "max_abs_logprob_diff": 0.0,
+      "seconds": 9.97,
+      "tokens": 376,
+      "top_token_equal": true
+    }
+  ],
+  "prompt_tokens": {
+    "development_shots0": {
+      "canonical": {
+        "max": 431,
+        "mean": 328.8484848484849,
+        "min": 321
+      }
+    },
+    "development_shots4": {
+      "canonical": {
+        "max": 1194,
+        "mean": 1091.8484848484848,
+        "min": 1084
+      }
+    },
+    "test_shots0": {
+      "canonical": {
+        "max": 399,
+        "mean": 327.2760416666667,
+        "min": 321
+      },
+      "space": {
+        "max": 351,
+        "mean": 279.2760416666667,
+        "min": 273
+      },
+      "swap": {
+        "max": 399,
+        "mean": 327.2760416666667,
+        "min": 321
+      },
+      "swap_space": {
+        "max": 351,
+        "mean": 279.2760416666667,
+        "min": 273
+      }
+    },
+    "test_shots4": {
+      "canonical": {
+        "max": 1162,
+        "mean": 1090.2760416666667,
+        "min": 1084
+      },
+      "space": {
+        "max": 1114,
+        "mean": 1042.2760416666667,
+        "min": 1036
+      },
+      "swap": {
+        "max": 1162,
+        "mean": 1090.2760416666667,
+        "min": 1084
+      },
+      "swap_space": {
+        "max": 1114,
+        "mean": 1042.2760416666667,
+        "min": 1036
+      }
+    }
+  },
+  "schema": "algernon.arg02.checkpoint_check.v1",
+  "text_parameters": 752393024,
+  "tokenizer": {
+    "class": "Qwen2Tokenizer",
+    "op_token_ids": {
+      "I": 353,
+      "N": 443,
+      "R": 423,
+      "S": 326
+    },
+    "tail_ids": [
+      198,
+      10374,
+      25
+    ]
+  }
+}

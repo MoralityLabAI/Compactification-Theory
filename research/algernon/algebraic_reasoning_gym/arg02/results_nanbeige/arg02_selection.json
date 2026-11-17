@@ -1,0 +1,25 @@
+{
+  "block": [
+    0,
+    22
+  ],
+  "depth": 8,
+  "dev_future12_depth1": 49,
+  "dev_future12_selected": 63,
+  "dev_gain": 14,
+  "rule": "max development future-correct at 12 checks over blocks x depths>1; tie -> smaller depth, earlier block",
+  "selection_shots_sha256": "0b0e901ee5eb5462acb7805ef244029339fb6fc0d4712d2610a950c6f9a417c1",
+  "shots": 0,
+  "stage": "blocks",
+  "table": {
+    "dev_block_0_22": {
+      "cases": 132,
+      "future12_by_depth": {
+        "1": 49,
+        "2": 45,
+        "4": 53,
+        "8": 63
+      }
+    }
+  }
+}
