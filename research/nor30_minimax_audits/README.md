@@ -16,7 +16,9 @@ Known-template attacks (tail, coefficient magnitude, lag, uniform and an exclude
 
 ## Original first-run evidence
 
-This section is intentionally left as a registration-only record until the dependent TRAIN, TEST, and separate-process REPLAY jobs finish. Raw first-run source and grade SHA-256 receipts and numerical results must be added without changing the frozen protocol or the predeclared PASS/FAIL thresholds.
+The first registered study completed with **primary PASS** in [Actions run #44027909426](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44027909426). All four original CI jobs passed, including an independent replay of 4,816,896 exact held-out policy/attacker/witness decisions. The first-run TRAIN, public TEST, and outcome files are committed byte-for-byte in [results/nor30_original_hosted.zip](results/nor30_original_hosted.zip), with a [frozen SHA-256 receipt](results/nor30_first_frozen_receipt.json). Details and source-level table: [RESULTS.md](RESULTS.md).
+
+**Retrospective scope finding:** the fitted mixture assigned 13/16 weight to shuffled_prior and 3/16 to uniform. A uniformly permuted fixed ranking selects an exactly uniform k-coordinate subset under ideal sampling. This fitted mixture is distributionally equivalent to pure uniform16, so the observed adversarial improvement over hybrid50 measures the value of broad random exploration and carries a substantial in-template detection cost. An exhaustive small finite-permutation test was added after the first result as a labeled retrospective diagnostic, leaving the registration unchanged.
 
 ## Scope
 
