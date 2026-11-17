@@ -1,0 +1,45 @@
+name: SCM-BPD CQ02 trained observer provenance bridge
+on:
+  push:
+    paths:
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/cq02_integrity.py'
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/tests/test_cq02_integrity.py'
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/CQ02_CROSSWALK.md'
+      - '.github/workflows/scm-bpd-cq02-crosswalk.yml'
+  pull_request:
+    paths:
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/cq02_integrity.py'
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/tests/test_cq02_integrity.py'
+      - 'research/dimensional_atlas/gym/bpd_quotient_bridge/CQ02_CROSSWALK.md'
+      - '.github/workflows/scm-bpd-cq02-crosswalk.yml'
+permissions:
+  contents: read
+jobs:
+  verify-cross-repo-observer-receipts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: MoralityLabAI/BPD
+          ref: 9fa5b333386f11cef1a792c98532eeefadbaa812
+          path: external/bpd
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source and refusal unit tests
+        run: python -m unittest discover -s research/dimensional_atlas/gym/bpd_quotient_bridge/tests -p test_cq02_integrity.py -v
+      - name: Verify exact published BPD native and SCM21 JSON receipts
+        run: |
+          python -m research.dimensional_atlas.gym.bpd_quotient_bridge.cq02_integrity \
+            --bpd-native external/bpd/mechinterp/bpd/theory/cq02_trained_observer/results/cq02_native_hosted.json \
+            --scm21 research/dimensional_atlas/gym/scm21_conservative_causal/results/summary.json \
+            --check --out /tmp/scm-bpd-cq02-crosswalk.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scm-bpd-cq02-crosswalk-${{ github.run_id }}
+          path: /tmp/scm-bpd-cq02-crosswalk.json
+          retention-days: 30
+          if-no-files-found: warn
