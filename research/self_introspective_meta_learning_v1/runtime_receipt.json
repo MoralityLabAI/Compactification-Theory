@@ -1,0 +1,114 @@
+{
+  "attempts": [
+    {
+      "alpha": "1/40",
+      "attempt": 1,
+      "candidate_checkpoint": "967154e5d847b51618dff6a75df075b67255e92e7fd709e5728844b30b9f37ac",
+      "floors": {
+        "aggregate": 0.025,
+        "retain:T0": -0.08,
+        "target": 0.05
+      },
+      "intervals": {
+        "aggregate": [
+          0.1757958857862853,
+          0.2792578251512147
+        ],
+        "retain:T0": [
+          -0.0517309696824647,
+          0.0517309696824647
+        ],
+        "target": [
+          0.4538842646925353,
+          0.5573462040574647
+        ]
+      },
+      "means": {
+        "aggregate": 0.22752685546875,
+        "retain:T0": 0.0,
+        "target": 0.505615234375
+      },
+      "operator": "retain_b",
+      "parent_checkpoint": "ebcf09ec50a1300ac0930642aa4961bc668f388b74ad90d08eb5e511ca27c2a8",
+      "seed_commitment": "ac637862b9e90d6d70e006b7c27b9fdc1c5a7d0e87f7d1d49c65ca5f434626fb",
+      "status": "promoted",
+      "target": "T1"
+    },
+    {
+      "alpha": "1/120",
+      "attempt": 2,
+      "candidate_checkpoint": "0f45f8bcd9d4c5e86a5106280b9fc92958bbbb29cc636f3d3791aeeb0fa58d92",
+      "floors": {
+        "aggregate": 0.025,
+        "retain:T0": -0.08,
+        "retain:T1": -0.08,
+        "target": 0.05
+      },
+      "intervals": {
+        "aggregate": [
+          0.23396506759937122,
+          0.3497751667756288
+        ],
+        "retain:T0": [
+          -0.05790504958812878,
+          0.05790504958812878
+        ],
+        "retain:T1": [
+          -0.05790504958812878,
+          0.05790504958812878
+        ],
+        "target": [
+          0.9149953410368712,
+          1.0
+        ]
+      },
+      "means": {
+        "aggregate": 0.2918701171875,
+        "retain:T0": 0.0,
+        "retain:T1": 0.0,
+        "target": 0.972900390625
+      },
+      "operator": "install_shear",
+      "parent_checkpoint": "967154e5d847b51618dff6a75df075b67255e92e7fd709e5728844b30b9f37ac",
+      "seed_commitment": "5d1bf44c483394d8465c0d82f5b6999d70eab69a778068c35ef7fbfa9019d7a3",
+      "status": "promoted",
+      "target": "T4"
+    }
+  ],
+  "exact_baseline_accuracy": {
+    "T0": 1,
+    "T1": 0.5,
+    "T4": 0.03225806451612903
+  },
+  "exact_final_accuracy": {
+    "T0": 1.0,
+    "T1": 1.0,
+    "T4": 1.0
+  },
+  "experiment_blocks_per_attempt": 4096,
+  "final_checkpoint": "0f45f8bcd9d4c5e86a5106280b9fc92958bbbb29cc636f3d3791aeeb0fa58d92",
+  "limits": [
+    "No neural model or 27B proposer was trained or queried",
+    "Finite public task spaces, privileged successor-state training labels",
+    "Broker and proposer not OS-isolated; test source assumes honest independent acquisition",
+    "Fresh-batch bounds are distributional to the fixed synthetic domain",
+    "No trained experiment-selection policy or independent semantic task-family evaluation"
+  ],
+  "model_kind": "recurrent finite transition table with privileged one-step supervision",
+  "normal_tests": "passed",
+  "optimized_tests": "passed",
+  "schema": "siml01.runtime_receipt.v1",
+  "source_sha256": {
+    "README.md": "9de43c67f8e52f740ecdcc3933349df128f5bda8fb05d7124b178b537685e274",
+    "RUNNER.md": "f3750560a64c7b1f96187d7a2f2445cf15520c7e5e1a69665903a9634eb5a6d6",
+    "SKILL.md": "6c24a5674de6490d7c8219d293ea152deb55a2b915077add4da0d54f3209756b",
+    "gate_math.py": "df08e9a882b79d4a21f91189d517620e1d575317cd9837ab0001db19de85e213",
+    "microlearner.py": "dc5f5df975097519313e1d38e34e4d727483ddb395c6655e63abae408eaa75a8",
+    "promotion.py": "cfdfd4ea556a64f003d8870bcb9ab15f155f1d2d8875ad64dfa48c1d67e304a2",
+    "receipt.json": "fa7b73bbaec44519a2b41d9f95375d3a307311156a40f013f7be366c89c19105",
+    "test_gate_math.py": "a26a8ab94235c6a5819e950e9b1589fd8861854d742e1c05bf1cbd4cfbb57a5f",
+    "test_runtime.py": "59e59c6066708d7fa91e576255aa4a681b36fa0b97e07b35602f73dc91043804"
+  },
+  "status": "finite_executed_cpu",
+  "total_tests": 34
+}

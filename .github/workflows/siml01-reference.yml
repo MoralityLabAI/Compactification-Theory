@@ -1,0 +1,54 @@
+name: SIML-01 finite CPU reference
+on:
+  pull_request:
+    paths:
+      - 'research/self_introspective_meta_learning_v1/**'
+      - '.github/workflows/siml01-reference.yml'
+  push:
+    paths:
+      - 'research/self_introspective_meta_learning_v1/**'
+      - '.github/workflows/siml01-reference.yml'
+jobs:
+  finite_reference:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify frozen v0.2 source hashes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          p = Path('research/self_introspective_meta_learning_v1')
+          receipt = json.loads((p / 'runtime_receipt.json').read_text())
+          frozen = {name: sha for name, sha in receipt['source_sha256'].items()
+                    if name not in ('README.md', 'RUNNER.md', 'SKILL.md')}
+          # These documentation files now contain a separate SIML-01N extension.
+          # The original source-hashed finite reference code remains pinned.
+          for name, expected in frozen.items():
+              got = hashlib.sha256((p / name).read_bytes()).hexdigest()
+              if got != expected:
+                  raise SystemExit(f"Hash mismatch: {name}")
+          print("Verified", len(frozen), "frozen source hashes; extended docs excluded.")
+          PY
+      - name: Unit tests in normal mode
+        run: python -m unittest discover -s research/self_introspective_meta_learning_v1 -p 'test_*.py' -v
+      - name: Unit tests in optimized mode
+        run: python -O -m unittest discover -s research/self_introspective_meta_learning_v1 -p 'test_*.py' -v
+      - name: Run fresh finite promotion and check accepted endpoints
+        run: |
+          python research/self_introspective_meta_learning_v1/promotion.py --output "$RUNNER_TEMP/siml" --blocks 4096 > "$RUNNER_TEMP/result.json"
+          python - <<'PY'
+          from pathlib import Path
+          import json, os
+          result = json.loads((Path(os.environ['RUNNER_TEMP']) / 'result.json').read_text())
+          assert result['chain_verified']
+          assert len(result['attempts']) == 2
+          assert all(r['status'] == 'promoted' for r in result['attempts'])
+          assert all(abs(v - 1) < 1e-12 for v in result['exact_accuracy'].values())
+          print('Finite promotions and independent-block scores pass.')
+          PY
