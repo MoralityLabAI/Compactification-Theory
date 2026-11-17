@@ -161,7 +161,7 @@ def load_all_models(original,independent,conditioned,bundle,calibration,fetch_so
         models[name]=teacher
         comps[f"{name}_SAE71"]=(name,sae,state["sae_mean"],state["sae_scale"])
     for name in OLD_TEACHERS:
-        original_name=f"new{name}_SAE_71"
+        original_name=f"newB_{name[1:]}_SAE_71"
         if original_name not in comps:
             raise ValueError("old source-frozen SAE 71 missing")
         comps[f"{name}_SAE71"]=comps[original_name]
