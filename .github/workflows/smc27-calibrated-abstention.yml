@@ -1,0 +1,303 @@
+name: SMC-27 original teacher calibration-selected abstention
+
+on:
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC27_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/SMC27_PREOUTCOME_AMENDMENT.md'
+      - 'research/real_recurrence_sae_v1/smc27_calibrate.py'
+      - 'research/real_recurrence_sae_v1/smc27_predict.py'
+      - 'research/real_recurrence_sae_v1/smc27_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc27.py'
+      - 'research/real_recurrence_sae_v1/test_smc27_abstention.py'
+      - '.github/workflows/smc27-calibrated-abstention.yml'
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC27_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/SMC27_PREOUTCOME_AMENDMENT.md'
+      - 'research/real_recurrence_sae_v1/smc27_calibrate.py'
+      - 'research/real_recurrence_sae_v1/smc27_predict.py'
+      - 'research/real_recurrence_sae_v1/smc27_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc27.py'
+      - 'research/real_recurrence_sae_v1/test_smc27_abstention.py'
+      - '.github/workflows/smc27-calibrated-abstention.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  old-only-threshold-calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-compatible Torch and NumPy CPU
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - name: Test frozen source and utility arithmetic
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc27_abstention.py' -v
+          python -m compileall -q research/real_recurrence_sae_v1/smc27_calibrate.py research/real_recurrence_sae_v1/smc27_predict.py research/real_recurrence_sae_v1/smc27_score.py research/real_recurrence_sae_v1/audit_smc27.py
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          run-id: 44130482978
+          github-token: ${{ github.token }}
+          path: runs/smc27/original_teachers
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/conditioned
+      - name: Verify EXACT original source training and pretrained SHA256
+        run: |
+          echo "408348eeecc300e7518ee7e8ea14d71caac29821aff39aaaa5ee819c794231f1  runs/smc27/original_teachers/bundle.pt" | sha256sum -c -
+          echo "145312c04648847c409b506aecdf1a3464af855d4ec8aa638eb0d604185512c9  runs/smc27/original_teachers/calibration.json" | sha256sum -c -
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc27/source/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc27/source/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc27/source/conditioned/conditioned.json" | sha256sum -c -
+      - name: Select native abstention threshold on OLD 64 calibration puzzles only
+        run: |
+          python research/real_recurrence_sae_v1/smc27_calibrate.py \
+            --fetch-source \
+            --original-artifact runs/smc27/source/original \
+            --independent-artifact runs/smc27/source/independent \
+            --conditioned-receipt runs/smc27/source/conditioned/conditioned.json \
+            --bundle runs/smc27/original_teachers/bundle.pt \
+            --old-calibration runs/smc27/original_teachers/calibration.json \
+            --out runs/smc27/old_threshold/selected.json
+          python - <<'PY'
+          import json
+          d=json.load(open("runs/smc27/old_threshold/selected.json"))
+          assert d["has_generated_fresh_smc27_puzzles"] is False
+          assert set(d["teacher_calibration"])=={"B501","B701","B811","B919"}
+          assert all(len(d["teacher_calibration"][t]["per_puzzle"])==64 for t in d["teacher_calibration"])
+          assert all(len(d["teacher_calibration"][t]["threshold_selection"]["threshold_grid_scores"])==9 for t in d["teacher_calibration"])
+          print("SMC27_OLD_THRESHOLDS_FROZEN",{
+            t:(v["threshold_selection"]["selected_threshold"],v["threshold_selection"]["status"])
+            for t,v in d["teacher_calibration"].items()})
+          PY
+          sha256sum runs/smc27/old_threshold/selected.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc27-OLD-puzzle-calibration-threshold-frozen
+          path: runs/smc27/old_threshold/selected.json
+          if-no-files-found: error
+
+  freeze-fresh-input-predictions:
+    needs: old-only-threshold-calibration
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact source Torch and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc27-OLD-puzzle-calibration-threshold-frozen
+          path: runs/smc27/old_threshold
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          run-id: 44130482978
+          github-token: ${{ github.token }}
+          path: runs/smc27/original_teachers
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/conditioned
+      - name: Generate 256 NEW Sudoku inputs and archive target-free SMC27 decisions
+        run: |
+          python research/real_recurrence_sae_v1/smc27_predict.py \
+            --fetch-source \
+            --original-artifact runs/smc27/source/original \
+            --independent-artifact runs/smc27/source/independent \
+            --conditioned-receipt runs/smc27/source/conditioned/conditioned.json \
+            --bundle runs/smc27/original_teachers/bundle.pt \
+            --old-calibration runs/smc27/original_teachers/calibration.json \
+            --threshold-calibration runs/smc27/old_threshold/selected.json \
+            --source-state runs/smc27/frozen_input/state1.pt \
+            --out runs/smc27/frozen_input/prediction.json
+          python - <<'PY'
+          import json,hashlib
+          from pathlib import Path
+          d=json.load(open("runs/smc27/frozen_input/prediction.json"))
+          assert d["test_labels_present"] is False and d["test_effects_present"] is False
+          assert d["test_answer_conditioned_gradients_present"] is False
+          assert set(d["test_prediction_data"])=={"smc27_novel30","smc27_novel34"}
+          assert all(len(item)==4 for item in d["test_prediction_data"].values())
+          assert all(len(rows)==128 for family in d["test_prediction_data"].values() for rows in family.values())
+          assert hashlib.sha256(Path("runs/smc27/frozen_input/state1.pt").read_bytes()).hexdigest()==d["selected_source_stage1_sha256"]
+          for family in d["test_prediction_data"].values():
+              for rows in family.values():
+                  for item in rows:
+                      for goal in item["goals"]:
+                          if goal["status"]=="eligible":
+                              assert len(goal["classwise_effects"])==9
+                              assert len(goal["actions"])==6
+          print("SMC27_256_NEW_INPUT_PREDICTIONS_SEALED")
+          PY
+          sha256sum runs/smc27/frozen_input/prediction.json runs/smc27/frozen_input/state1.pt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc27-target-free-threshold-frozen-256-puzzle-predictions
+          path: |
+            runs/smc27/frozen_input/prediction.json
+            runs/smc27/frozen_input/state1.pt
+          if-no-files-found: error
+
+  native-score:
+    needs: freeze-fresh-input-predictions
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact source compatible CPU stack
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc27-OLD-puzzle-calibration-threshold-frozen
+          path: runs/smc27/old_threshold
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc27-target-free-threshold-frozen-256-puzzle-predictions
+          path: runs/smc27/frozen_input
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          run-id: 44130482978
+          github-token: ${{ github.token }}
+          path: runs/smc27/original_teachers
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc27/source/conditioned
+      - name: Native three-step finite source scorer with original frozen threshold
+        run: |
+          python research/real_recurrence_sae_v1/smc27_score.py \
+            --fetch-source \
+            --original-artifact runs/smc27/source/original \
+            --independent-artifact runs/smc27/source/independent \
+            --conditioned-receipt runs/smc27/source/conditioned/conditioned.json \
+            --bundle runs/smc27/original_teachers/bundle.pt \
+            --old-calibration runs/smc27/original_teachers/calibration.json \
+            --calibration runs/smc27/old_threshold/selected.json \
+            --prediction runs/smc27/frozen_input/prediction.json \
+            --source-state runs/smc27/frozen_input/state1.pt \
+            --out runs/smc27/scoring/scored.json
+          python - <<'PY'
+          import json
+          r=json.load(open("runs/smc27/scoring/scored.json"))
+          assert r["n_new_puzzles"]==256
+          assert r["n_preselected_goal_measurement_slots"]==8192
+          assert set(r["teacher_two_cohort_success"])=={"B501","B701","B811","B919"}
+          print("SMC27_NATIVE_SCIENTIFIC_STATUS",r["registered_scientific_status"],r["teacher_two_cohort_success"])
+          PY
+          sha256sum runs/smc27/scoring/scored.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc27-frozen-threshold-native-finite-sign-utility-scored
+          path: runs/smc27/scoring/scored.json
+          if-no-files-found: warn
+
+  independent-audit:
+    needs: native-score
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc27-OLD-puzzle-calibration-threshold-frozen
+          path: runs/smc27/old_threshold
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc27-target-free-threshold-frozen-256-puzzle-predictions
+          path: runs/smc27/frozen_input
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc27-frozen-threshold-native-finite-sign-utility-scored
+          path: runs/smc27/scoring
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc26-pretest-new-teachers-and-calibration
+          run-id: 44130482978
+          github-token: ${{ github.token }}
+          path: runs/smc27/original_teachers
+      - name: Independent old threshold, complete puzzle and 24-test bootstrap audit WITHOUT Torch
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc27.py \
+            --old-calibration runs/smc27/original_teachers/calibration.json \
+            --bundle runs/smc27/original_teachers/bundle.pt \
+            --calibration runs/smc27/old_threshold/selected.json \
+            --prediction runs/smc27/frozen_input/prediction.json \
+            --source-state runs/smc27/frozen_input/state1.pt \
+            --scored runs/smc27/scoring/scored.json \
+            --out runs/smc27/audit/audit.json
+          sha256sum runs/smc27/audit/audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc27-independent-old-calibration-new-native-utility-audit
+          path: runs/smc27/audit/audit.json
+          if-no-files-found: error

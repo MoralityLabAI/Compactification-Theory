@@ -26,7 +26,7 @@ All four satisfy the **predeclared 40–60% original-calibration capability matc
 The source-locked training artifact preserves canonical FP32 teacher parameter hashes and SAE hashes:
 - B811 original **science-producing** teacher SHA256 82948725c7cbb0bfad59fa8d0b0ba2ace288493d3c0e450326e1a228f9c60873; SAE SHA256 fa493c4533119f53c896c16d1899c49c08973a61930131171c42fb2298c366a9.
 - B919 original teacher SHA256 51f0141fa07ce29fc1eeb3181d522c27190d87ba74e8a60ab0f69bc80b5c6e63; SAE SHA256 92557e647ab4f194e03a3d32078388fec6e6d149567f64d80135d38a4a5bf9fc.
-- Frozen source new-teacher bundle SHA256 9d18efbe4a88fbfce6ffe346f60693b17629eddfd1121068fcab010c332c508d.
+- Frozen source new-teacher bundle SHA256 408348eeecc300e7518ee7e8ea14d71caac29821aff39aaaa5ee819c794231f1. This value was independently checked against the original SMC-26 science-producing training artifact #14349821694. The previously printed 9d18efbe... hash came from a later training rerun and does not identify the original science-producing model bundle.
 
 Repeated hosted retraining from the same registered seeds can produce different teacher tensor-byte fingerprints between jobs. Consequently the original source checkpoint files above, held by the original complete science run, are the identity of this original test. Subsequent retraining on already examined fixed puzzle seeds is a source/engineering QA repetition; it is neither a second independent prospective test nor a reason to choose a favorable outcome.
 
