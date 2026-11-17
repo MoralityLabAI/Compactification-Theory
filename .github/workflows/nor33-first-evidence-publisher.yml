@@ -1,0 +1,114 @@
+name: NOR-33 one-shot immutable first prospective overlap game evidence publisher
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor33-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve-original-first-source-locked-pass:
+    if: github.ref == 'refs/heads/research/nor33-overlap-matched-transfer-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor33-overlap-matched-transfer-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor33_original_24_source_overlap_matched_full_outcome
+          run-id: 44046554983
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor33-first
+      - name: Verify exact original source and result bytes before preservation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          import json
+          input=Path('/tmp/nor33-first')
+          expected={
+            'nor33_fixture.json':(4547200,'16f3b397aea17adbd1462666142a13e933c8da67a1286e1e6418d32b22090db8'),
+            'nor33_full.json':(1761233,'88d37a957f7d3be42b76213b351df921a08556654a90a2ed21df1b66788d6a62')
+          }
+          raw={}
+          for name,(size,original_sha) in expected.items():
+            a=(input/name).read_bytes()
+            assert len(a)==size,(name,len(a))
+            assert sha256(a).hexdigest()==original_sha,name
+            raw[name]=a
+          fixture=json.loads(raw['nor33_fixture.json'])
+          result=json.loads(raw['nor33_full.json'])
+          assert fixture['schema']=='nor33.source_only_reps40to43.v1'
+          assert result['schema']=='nor33.first_matched_overlap_attack_transfer.v1'
+          assert result['public_fixture_sha256']==expected['nor33_fixture.json'][1]
+          assert len(fixture['cases'])==len(result['source_records'])==24
+          assert result['registered_primary_pass'] is True
+          assert all(result['registered_five_gates'].values())
+          assert result['source_wins']=={'gradient':24,'low':24,'high':24,'curvature_residual':24}
+          assert result['support_families']==[
+            'central','stride17','low_abs','curvature','anti_prior','hash','stratified_random']
+          assert result['overlap_strata_z']==[0,1,2,3,4]
+          assert result['frozen_nor31_weights']==[2,0,1,1,4,8]
+          assert all(len(r['cell_records'])==35 and
+                     r['honest_false_rejections']==0 and
+                     r['fully_informed_attack_detections']==0 and
+                     r['delta_decision_disagreements']==0 and
+                     r['direct_exact_witness_pairs']==840
+                     for r in result['source_records'])
+          folder=Path('research/nor33_overlap_matched_transfer/results')
+          folder.mkdir(parents=True,exist_ok=True)
+          archived=folder/'nor33_original_hosted.zip'
+          with ZipFile(archived,'w',ZIP_DEFLATED,compresslevel=9) as z:
+            for name,a in raw.items():
+              item=ZipInfo(name,(2026,11,17,0,0,0))
+              item.compress_type=ZIP_DEFLATED
+              z.writestr(item,a,compress_type=ZIP_DEFLATED,compresslevel=9)
+          receipt={
+            'schema':'nor33.original_first_source_locked_overlap_matched.v1',
+            'registered_date_utc':'2026-11-17',
+            'preregistered_first_commit':'9e14d1132744272c6c674e3799cea47cdb70b031',
+            'first_completed_all_green_run':'https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44046554983',
+            'first_original_artifact_id':14311872570,
+            'original_artifact_name':'nor33_original_24_source_overlap_matched_full_outcome',
+            'original_files':{name:{'bytes':n,'sha256':digest} for name,(n,digest) in expected.items()},
+            'source_public_units':24,'previous_source_units_excluded':60,
+            'support_rankings':7,'overlap_strata':5,
+            'matched_support_cells':840,'attack_sets':6720,
+            'auditor_world_decisions_independently_replayed':20643840,
+            'exact_witness_pair_checks':20160,
+            'frozen_mixture_weights':[2,0,1,1,4,8],
+            'source_wins':result['source_wins'],
+            'equal_source_means':result['equal_source_means'],
+            'registered_five_gates':result['registered_five_gates'],
+            'registered_primary_pass':True,
+            'independent_source_attack_schedule_and_count_replay_passed':True,
+            'scope':'Finite RRC25 public-derived matched support rankings with exact overlap and attack-block conditioning. Authentic target witness and independently hidden audit coins assumed.'
+          }
+          (folder/'nor33_first_frozen_receipt.json').write_text(
+            json.dumps(receipt,indent=2,sort_keys=True)+'\n')
+          print('NOR33 ORIGINAL ARCHIVE FIRST BYTES SHA',len(archived.read_bytes()),
+                sha256(archived.read_bytes()).hexdigest())
+          PY
+      - name: Independently replay first original source and full result files before committing
+        run: |
+          python research/nor33_overlap_matched_transfer/receipt_audit.py --check \
+            --fixture /tmp/nor33-first/nor33_fixture.json \
+            --full /tmp/nor33-first/nor33_full.json
+      - name: Commit original source-locked byte evidence and immutable first receipt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor33_overlap_matched_transfer/results/nor33_original_hosted.zip \
+                  research/nor33_overlap_matched_transfer/results/nor33_first_frozen_receipt.json
+          git commit -m "NOR-33: preserve immutable first registered overlap-matched PASS and source SHA receipts"
+          git push origin HEAD:research/nor33-overlap-matched-transfer-20261117
