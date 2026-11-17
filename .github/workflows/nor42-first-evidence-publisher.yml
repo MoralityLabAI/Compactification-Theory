@@ -36,7 +36,8 @@ jobs:
           python research/nor42_paired_program_ood/prospective/first_evidence_archive.py \
             --fixture /tmp/nor42_original/nor42_fixture.json \
             --grade /tmp/nor42_original/nor42_full.json \
-            --out research/nor42_paired_program_ood/prospective/results
+            --out research/nor42_paired_program_ood/prospective/results \
+            --artifact-id 14352479533
       - name: Commit exact first original source/grade ZIP and receipt with concurrency retries
         run: |
           git config user.name "github-actions[bot]"
@@ -54,3 +55,5 @@ jobs:
             sleep 2
           done
           exit 1
+# First 64-source public fixture SHA f8bc6ef3db4fda78709f2b7cd1a6a09989dbc087bcfb963d00961cc23ce4f033
+# Original first grade SHA bd57751d94ea49755888000675b0df8fce6490873683268b8f8625518701adae; original science PASS.
