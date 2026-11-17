@@ -15,6 +15,18 @@ permissions:
   contents: read
 
 jobs:
+  permanent-first-run-sha-and-independent-fail-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-pin original source and FAIL outcome, then independently replay all audited decisions
+        run: |
+          python research/nor32_ood_audits/original_archive_audit.py
+
   frozen-historical-policy-and-small-exact-controls:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
