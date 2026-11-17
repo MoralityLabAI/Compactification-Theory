@@ -287,7 +287,7 @@ def replay(fixture_raw,grade_raw):
     assert fixture["schema"]=="nor36.new_public_only_reps52to55.v1"
     assert grade["schema"]=="nor36.policy_aware_curvature_frozen_greedy_attack.v1"
     assert fixture["registration_first_commit"]==grade["registration_first_commit"]==FIRST
-    assert fixture["public_only"] and fixture["planted_program_and_private_target_absent"]
+    assert fixture["source_only"] and fixture["planted_program_and_private_target_absent"]
     assert fixture["attacks_and_challenge_schedules_absent"]
     assert fixture["excluded_historical_source_count"]==len(previous)==132
     assert fixture["historical_source_roster_sha256"]==sha256(canonical(previous)).hexdigest()
