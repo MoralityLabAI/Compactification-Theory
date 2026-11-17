@@ -1,0 +1,82 @@
+{
+  "experiment": "WS-01",
+  "run_date": "2026-10-29",
+  "implementation": "research/warped_superfluid_v1/run_experiment.py",
+  "domain": "dimensionless toy model, not experimental or observational fit",
+  "parameters": {
+    "M5_cubed": 1,
+    "k": 1,
+    "L": 4,
+    "u": 0.25,
+    "chi0": 0.4,
+    "N_nodes": 257
+  },
+  "spectrum": {
+    "randall_sundrum": [
+      0.07025859883733368,
+      0.12875629945851214,
+      0.18688967505802212
+    ],
+    "matching_speed_only": [
+      0.05260144877566088,
+      0.11204930352851943,
+      0.17131501662758547
+    ],
+    "backreacted_scalar_wall": [
+      0.06707396650497205,
+      0.12249331229910551,
+      0.17758038061697187
+    ],
+    "relative_shift_speed_only_vs_RS": [
+      -0.25131656984155837,
+      -0.12975672646895262,
+      -0.0833361095287972
+    ],
+    "relative_shift_scalar_wall_vs_RS": [
+      -0.045327296374566985,
+      -0.04864218050492112,
+      -0.04981171077621097
+    ],
+    "RS_max_relative_errors_N65_N129_N257": [
+      0.006233367229161042,
+      0.0015753016704856896,
+      0.00039487688311078177
+    ]
+  },
+  "strong_warp": {
+    "kL": 35,
+    "scaled_first_four_positive_masses": [
+      3.831705970207508,
+      7.015586669815619,
+      10.173468135062718,
+      13.323691936314221
+    ],
+    "first_mode_weighted_IR_last_ln10_fraction": 0.9999931582014607
+  },
+  "einstein_scalar": {
+    "flat_wall_exact_residual_max": 2.6645352591003757e-15,
+    "flat_bvp_constraint_residual_max": 2.0694557179012918e-13,
+    "ds4_H": 0.005,
+    "ds4_constraint_residual_max": 3.3990588121923793e-12,
+    "ds4_final_A": 4.105662986613438
+  },
+  "finite_density_phase": {
+    "constraint": "For a 4D Lorentz-invariant warp, X*P_X must vanish for a sole phase-only extra stress source",
+    "finite_density_full_5D_solution": "not constructed"
+  },
+  "kessence": {
+    "model": "P=-V0+alpha X^2",
+    "sound_speed_squared": 0.3333333333333333,
+    "kinetic_density_scaling": "a^-4",
+    "r0": 0.001,
+    "w_z0": -0.9960119641076771,
+    "w_z1": -0.9389312977099236,
+    "w_z3": -0.42081447963800905
+  },
+  "tests": {
+    "total": 8,
+    "passed": 8,
+    "environment": "local Python 3.12+ numpy 2.3.5 scipy 1.17.0",
+    "github_actions": "not yet run"
+  }
+}
