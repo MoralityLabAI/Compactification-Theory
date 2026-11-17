@@ -4,7 +4,6 @@ on:
   pull_request:
     paths:
       - 'research/real_recurrence_sae_v1/SMC26_PROTOCOL.md'
-      - 'research/real_recurrence_sae_v1/SMC26_RESULTS.md'
       - 'research/real_recurrence_sae_v1/smc26_train.py'
       - 'research/real_recurrence_sae_v1/smc26_predict.py'
       - 'research/real_recurrence_sae_v1/smc26_score.py'
@@ -14,7 +13,6 @@ on:
   push:
     paths:
       - 'research/real_recurrence_sae_v1/SMC26_PROTOCOL.md'
-      - 'research/real_recurrence_sae_v1/SMC26_RESULTS.md'
       - 'research/real_recurrence_sae_v1/smc26_train.py'
       - 'research/real_recurrence_sae_v1/smc26_predict.py'
       - 'research/real_recurrence_sae_v1/smc26_score.py'
