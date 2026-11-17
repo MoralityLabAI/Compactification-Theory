@@ -6,8 +6,8 @@
 Can a calibration-derived four-dimensional state-difference subspace transfer a named mathematical operation more effectively than equally sized, **per-pair norm-matched** SAE/head-fiber and random head-fiber subspaces, without altering clean mathematical predictions?
 
 ## Exact environment
-- Prime field F_11. First operator in {(1,1),(1,3),(2,1),(3,2)} and second in {(1,2),(2,4),(3,1),(4,3)}, representing \`t -> a*t+b (mod 11)\`.
-- Input: one-hot first operation (4), second operation (4), operand (11), irrelevant nuisance token (8). Exact target \`g2(g1(x)) mod 11\`, independently checked using Python integer arithmetic.
+- Prime field F_11. First operator in {(1,1),(1,3),(2,1),(3,2)} and second in {(1,2),(2,4),(3,1),(4,3)}, representing `t -> a*t+b (mod 11)`.
+- Input: one-hot first operation (4), second operation (4), operand (11), irrelevant nuisance token (8). Exact target `g2(g1(x)) mod 11`, independently checked using Python integer arithmetic.
 - Counterfactual pairs: identical second op, operand and nuisance token; change only first op. Exclude pairs with identical mathematical outcomes; require both unpatched predictions correct for the *primary clean-eligible* population.
 - Model: 48-hidden, four-head, four-visit, *weight-tied* full-attention pre-norm block; a learned linear classifier reads final CLS after LayerNorm. Three training seeds (191,1191,2191), 400 steps, AdamW LR 0.002, batch128, FP32. No GPU use.
 - Select fixed visit index 1 (the second recurrent visit) for primary intervention; report other visits exploratory. Matched evaluation done with frozen weights.
@@ -19,7 +19,7 @@ Can a calibration-derived four-dimensional state-difference subspace transfer a 
 - The readout includes LayerNorm, therefore its linear kernel is **not** an exact nonlinear final-readout null. Explicitly test the terminal visit as a diagnostic.
 
 ## Outcome and interpretation
-- Generate a fixed 256 held-out pairs per seed after calibration and freezing using seeds \`20261117 + model_seed\`. Do not select hyperparameters or intervention norms on these pairs. Report clean eligibility, all arm successes and exact pairwise discordances between difference-PCA and SAE-fiber. Use a paired exact binomial sign test descriptive only, because data share model seeds and finite semantic combinations.
+- Generate a fixed 256 held-out pairs per seed after calibration and freezing using seeds `20261117 + model_seed`. Do not select hyperparameters or intervention norms on these pairs. Report clean eligibility, all arm successes and exact pairwise discordances between difference-PCA and SAE-fiber. Use a paired exact binomial sign test descriptive only, because data share model seeds and finite semantic combinations.
 - First report all three seeds, full clean accuracy, calibration basis ranks, explained variation, actual per-pair norm errors, task-family (second op) breakdown, and budget/CPU time.
 - Positive mechanistic gate: difference-PCA beats both matched-rank/matched-norm fibers in every seed by at least 10 percentage points **and** achieves >=50% donor transfer on eligible pairs. If gate fails retain null.
 - This measures a synthetic operation intervention, not source-certified topology, pretrained reasoning, a goodfire VPD decomposition, or causal benefit on trained SCM-20.
