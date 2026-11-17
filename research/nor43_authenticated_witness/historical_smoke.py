@@ -12,7 +12,6 @@ import json
 import random
 import statistics
 import sys
-import time
 from collections import Counter
 from hashlib import sha256
 from pathlib import Path
@@ -115,10 +114,8 @@ def historical_source_smoke():
         authority=verifier.verify_signed_manifest(
             signed,pinned,src,row["degree"],m,PROVIDER_ID)
         openings=[hidden_tree.opening(i) for i in checked]
-        t0=time.perf_counter()
         actual=verifier.verified_sample_rejection(
             clean,authority,openings)
-        elapsed=(time.perf_counter()-t0)*1000
         assert actual==bool(set(checked)&S)
 
         # The clean world is also a valid potential true target, and the same
@@ -181,7 +178,6 @@ def historical_source_smoke():
             "sixteen_openings_payload_bytes":proofbytes,
             "bytes_per_opening_mean":proofbytes/K,
             "merkle_depth":hidden_tree.depth,
-            "independent_merkle_verify_ms_exploratory":elapsed,
             "first_hidden_difference_coefficient":min(S),
             "hidden_world_equal_public_prefix":(
                 true_hidden[:row["degree"]+1]==clean[:row["degree"]+1])
