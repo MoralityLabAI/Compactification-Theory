@@ -35,6 +35,8 @@ jobs:
           python -m unittest research.nor31_matched_root.test_experiment -v
       - name: SHA-check all eight exact original hosted first-run files
         run: python research/nor31_matched_root/original_archive_audit.py
+      - name: Reproduce labeled retrospective coverage diagnostic from immutable original schedules
+        run: python research/nor31_matched_root/coverage_diagnostic.py
 
   prep-independent-root-24-sources-and-2304-commitments:
     needs: freeze-registration-and-finite-tests
@@ -286,3 +288,5 @@ jobs:
             --outcome /tmp/nor31_late/nor31_full.json
       - name: Independently verify source-controlled SHA-256 of all original first-run artifacts
         run: python research/nor31_matched_root/original_archive_audit.py
+      - name: Reproduce labeled retrospective coverage diagnostic from immutable original schedules
+        run: python research/nor31_matched_root/coverage_diagnostic.py
