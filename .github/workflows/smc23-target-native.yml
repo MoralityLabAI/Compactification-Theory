@@ -1,0 +1,177 @@
+name: SMC-23 target-native selective SAE erasure
+
+on:
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC23_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc23_native_first.py'
+      - 'research/real_recurrence_sae_v1/test_smc23_native_first.py'
+      - 'research/real_recurrence_sae_v1/audit_smc23.py'
+      - '.github/workflows/smc23-target-native.yml'
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC23_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc23_native_first.py'
+      - 'research/real_recurrence_sae_v1/test_smc23_native_first.py'
+      - 'research/real_recurrence_sae_v1/audit_smc23.py'
+      - '.github/workflows/smc23-target-native.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned PyTorch CPU and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - name: Source-independent code verification
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc23_native_first.py' -v
+          python -m compileall -q research/real_recurrence_sae_v1/smc23_native_first.py
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc23/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc23/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc23/source/conditioned
+      - name: Admit original receipt hashes
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc23/source/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc23/source/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc23/source/conditioned/conditioned.json" | sha256sum -c -
+      - name: Run calibration-only fit with original 64 older puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc23_native_first.py \
+            --stage calibration --fetch-source \
+            --original-artifact runs/smc23/source/original \
+            --independent-artifact runs/smc23/source/independent \
+            --conditioned-receipt runs/smc23/source/conditioned/conditioned.json \
+            --out runs/smc23/calibration.json
+          python - <<'PY'
+          import json
+          r=json.load(open("runs/smc23/calibration.json"))
+          assert r["stage"]=="calibration"
+          assert list(r["data"])==["feature_calibration"]
+          assert len(r["data"]["feature_calibration"])==5
+          assert all(len(x["per_puzzle"])==64 for x in r["data"]["feature_calibration"].values())
+          print("SMC23_CALIBRATION_LOCKED",r["protocol_sha256"])
+          PY
+          sha256sum runs/smc23/calibration.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc23-pretest-calibration-lock
+          path: runs/smc23/calibration.json
+          if-no-files-found: error
+
+  fresh-test:
+    needs: calibration
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned PyTorch CPU and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc23-pretest-calibration-lock
+          path: runs/smc23/lock
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc23/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc23/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc23/source/conditioned
+      - name: Fresh test on 128 new puzzle clusters, after calibration lock exists
+        run: |
+          python research/real_recurrence_sae_v1/smc23_native_first.py \
+            --stage test --fetch-source \
+            --original-artifact runs/smc23/source/original \
+            --independent-artifact runs/smc23/source/independent \
+            --conditioned-receipt runs/smc23/source/conditioned/conditioned.json \
+            --calibration runs/smc23/lock/calibration.json \
+            --out runs/smc23/full.json
+          python - <<'PY'
+          import json
+          r=json.load(open("runs/smc23/full.json"))
+          assert r["stage"]=="test"
+          assert set(r["data"])=={"smc23_novel30","smc23_novel34"}
+          assert len(r["data"]["smc23_novel30"])==5
+          assert len(r["data"]["smc23_novel34"])==5
+          assert all(len(x["per_puzzle"])==64 for v in r["data"].values() for x in v.values())
+          print("SMC23_FRESH_RUN_FINISHED",r["pair_success"],r["program_success"])
+          PY
+          sha256sum runs/smc23/full.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc23-fresh-native-128-puzzle-receipts
+          path: runs/smc23/full.json
+          if-no-files-found: warn
+
+  independent-audit:
+    needs: fresh-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc23-pretest-calibration-lock
+          path: runs/smc23/lock
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc23-fresh-native-128-puzzle-receipts
+          path: runs/smc23/raw
+      - name: Independent standard-library 128-puzzle check
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc23.py \
+            --calibration runs/smc23/lock/calibration.json \
+            --full runs/smc23/raw/full.json \
+            --out runs/smc23/audit.json
+          sha256sum runs/smc23/audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc23-independent-audit
+          path: runs/smc23/audit.json
