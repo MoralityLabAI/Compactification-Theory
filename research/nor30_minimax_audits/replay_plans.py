@@ -39,23 +39,19 @@ def generate_schedules(regions,digest,stage):
     return schedules
 
 
-def attack_greedy(plans,weights,digest,name,restart):
-    """Alternative set-union objective, separate from production bitsets."""
-    assert name in ATTACKERS
-    m=max((max(v) for plan in plans.values() for checked in plan
-           for v in [checked]), default=-1)+1
-    # The true coefficient universe may exceed the largest observed
-    # schedule index. Use the public support universe supplied as m.
-    raise AssertionError("call attack_greedy_known_m, not inferred length")
-
-
-def attack_greedy_known_m(plans,m,weights,digest,name,restart):
-    assert name in ATTACKERS and 0<=restart<NREPS
-    cover={a:[set() for _ in range(m)] for a in ARMS}
+def cover_by_policy(plans,m):
+    cover={arm:[set() for _ in range(m)] for arm in ARMS}
     for arm in ARMS:
         for trial,checked in enumerate(plans[arm]):
             for i in checked:
                 cover[arm][i].add(trial)
+    return cover
+
+
+def attack_greedy_from_cover(cover,weights,digest,name,restart):
+    """Independent set-union objective, not production integer bitsets."""
+    assert name in ATTACKERS and 0<=restart<NREPS
+    m=len(cover[ARMS[0]])
     rng=random.Random(keyed(202611300092,digest,name,restart))
     order=list(range(m))
     rng.shuffle(order)
