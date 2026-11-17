@@ -1,3 +1,9 @@
+Current checkpoint (2026-11-17): intrinsic closed-cube regularity and concrete
+anchor coverage are proved for the decoded safe-phase approximation theorem.
+58 new verified roots bring the campaign to 374. See
+[CUBE_APPROXIMATION_REPORT.md](CUBE_APPROXIMATION_REPORT.md). Phase aggregation
+and dense quantized ReLU resource realization remain open. Earlier checkpoints follow.
+
 Multivariate synthesis continuation: 47 new authored roots prove arbitrary-dimensional
 Taylor jet synthesis, constructed tau/2 coefficient accuracy and decoded smooth/Holder
 approximation. All 257 research roots now have replay evidence. See
@@ -166,3 +172,13 @@ residual or coefficient-accuracy premise. It uses J=sum_(r=0)^k d^r registers;
 the earlier grouped-coordinate layout is separate. See
 [MATRIX_TRANSPORT_REPORT.md](MATRIX_TRANSPORT_REPORT.md) for the theorem and
 remaining domain/geometry and dense-network resource obligations.
+
+## Closed-cube and anchor coverage continuation, 2026-11-17
+
+58 new verified roots bring the research total to 374. Intrinsic closed-cube
+regularity now suffices for decoded spatial approximation. Clipped grid anchors,
+their bounded motion tags, serpentine schedule and selected-anchor distance are
+constructed and proved. The grid-scale coefficient error includes the required
+D^k factor. See [CUBE_APPROXIMATION_REPORT.md](CUBE_APPROXIMATION_REPORT.md) for
+the precise safe-phase theorem and remaining phase aggregation and network
+resource obligations.

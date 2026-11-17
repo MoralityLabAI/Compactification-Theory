@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "lean": "4.32.0-rc1",
+  "new_authored_roots": 58,
+  "research_roots_total": 374,
+  "source_sha256": {
+    "research/approximation_mathlib432/ApproximationMathlib/CubeApproximation.lean": "ac12e290700873a1cd1d62dbcaebc77b9ee6d3596aee0fac75cef727db4541f1"
+  },
+  "binary_sha256": {
+    "toolchains/lean-4.32.0-rc1-linux/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "toolchains/lean-4.32.0-rc1-linux/bin/leanchecker": "c7c51e296d28dd443ed60f9414feef41253ede89dea76dbb2adde29768c3ed5f",
+    "toolchains/lean-4.32.0-rc1-linux/lib/lean/LeanChecker.olean": "7ba4f458fef64a5c75f2eef1760d2c21690bd8a41210d298330c7554cf2e5c50",
+    "replay432/lean4export-source/.lake/build/bin/lean4export": "e6580597a1482740114b5a1a05add574334a5eeaed5f4f5c9cd670e146859009",
+    "build/oxilean-verify": "831e7ad751d69d7f27e8ee59ec40246a6256e971e11f418b0e92f9722771e9fa"
+  },
+  "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+  "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+  "source_mirror_sha256": "1c08f044faa81724171967e2d17d72eae1eaacca0126bd4de7fae65d52f5d77a",
+  "olean_sha256": {
+    "ApproximationMathlib.CubeApproximation": "c3fa87237b48c6a3410a927966c6eb7e74f5db1015ebb1b834e28424c66ed59a"
+  },
+  "mirror_receipts_sha256": {
+    "executable_mirror.json": "fb4509684358cb564a04fdffe8953b43bcaa6d54d4205b2945becabbfd783f8f",
+    "executable_mirror_after.json": "26b9a8f42fbd9786f5557f5c45c9b893b4fbdad15701cd152f3fe0fac89cf046",
+    "executable_mirror_before.json": "9e9fc5a52953b6cb466146628aa5eb8c202519f416857a6756ad66bd0b606f3f",
+    "exporter_library_mirror.json": "716cea6c1c65868fc5785dce09b7fac800a935d466d110b85ed2eb73bc9881c8",
+    "exporter_library_mirror_after.json": "91891a98d57f1beeb8159d64ed37e6a881ec6661236a151bb3b8c4e8899ea8a9",
+    "exporter_library_mirror_before.json": "3d3aa334e81a41eff7ba861ea0e5c2bf475e1bea4d4c96bd5f4dcc2b8c0a55cf",
+    "extra_executable_mirror.json": "f094fa24d578f930673639ce47a50650247e69a2cc5e66f1ffc2a629e62258b7",
+    "extra_executable_mirror_after.json": "96ef5ccc3a6d02cd8386ec6a95e8ab479466f11686403ab7ec2c0a4207e88e3a",
+    "extra_executable_mirror_before.json": "78241149bbc69854b3c801c55ab25d6cded1ff6e0e476e8bd6419961e8611642",
+    "mathlib_mirror.json": "5c874626705abffb5294d927f6c67e2f0fcc0ee86454a0dd7bccd4b5ac18e6b7",
+    "mathlib_mirror_after.json": "e4e3af107073b088a3de1a16517b5c8863973c7f8b0e26e742f78eb7f2121a2e",
+    "mathlib_mirror_before.json": "da83c00bc5c3330a5fc8659091ed72234ba0f5d848d346e3cf4d964170334a3b",
+    "mirror_used.json": "799941905c04f84ad9019c1c582aa18c20afd4eb15e78b6ea13393e70713dc47",
+    "previous_module_mirror.json": "7a6d0f2201c7373bde63d905b770f9d32ec05a06d8115e86a2f415ff52705631",
+    "previous_module_mirror_after.json": "f9fba9e3bd8cf02aeee09f46876f134a48f9dd160b11a46a566a6bff895b4b16",
+    "previous_module_mirror_before.json": "85146fb0e4d17388bf35f3e6ae2eb69bf63b9715ab4fecb9a69959704f6c5625",
+    "runtime_mirror.json": "d6f9e81fc21f096974d8a7a09ee7b026aaea9f99a18c42500a7b6e1313f8e218",
+    "runtime_mirror_after.json": "815d2045d81ab16cc9c29e9e3a0923d35c9a26410cb4b442fff77a144cad693b",
+    "runtime_mirror_before.json": "2052eacfeaed73ea5963c4c155b9f348e7a0fe0e855be853af33a1b4c5ee8a72",
+    "source_mirror.json": "1c08f044faa81724171967e2d17d72eae1eaacca0126bd4de7fae65d52f5d77a"
+  },
+  "scope": "Intrinsic closed-cube Taylor jets, exact clipped-anchor serpentine schedule, bounded motion tags and decoded spatial approximation. The selected-anchor distance is derived; the grid-scale coefficient error has its required D^k factor. Safe-phase aggregation and dense ReLU resource realization remain separate."
+}

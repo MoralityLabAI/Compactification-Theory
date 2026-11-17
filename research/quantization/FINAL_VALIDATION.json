@@ -10,7 +10,7 @@
     "unsupported": 0,
     "rejected": 0
   },
-  "formal_theorems": 316,
+  "formal_theorems": 374,
   "spatial_test_suites": 6,
   "spatial_assertions": 8299,
   "previous_component_assertions": 83362,
@@ -20,7 +20,7 @@
     "4.32.0-rc1",
     "preserved 4.35.0"
   ],
-  "full_theorem_scope": "General ordered tensor-word matrix compatibility, sharp normalized transport residuals, bounded correction alphabets, and decoded higher-order Taylor approximation proved with no matrix, residual or coefficient-accuracy premise. Grouped coordinates, domain/geometry and dense quantized ReLU resource realization remain separate.",
+  "full_theorem_scope": "Intrinsic closed-cube Taylor jets, exact clipped-anchor serpentine schedule, bounded motion tags and decoded spatial approximation. The selected-anchor distance is derived; the grid-scale coefficient error has its required D^k factor. Safe-phase aggregation and dense ReLU resource realization remain separate.",
   "spatial_source_sha256": "bc006e0ec2a227eac72657367b5211a7b71c1adfb74a87cc66336e9ded8ad910",
   "spatial_tests_sha256": "e14bb4cd2296a445582453c0a7e41d957b5594b5b66214f63bb1dc1730943ba8",
   "materialized_circuit_certificate": {
@@ -205,6 +205,22 @@
       "command": [
         "C:/Python312/python.exe",
         "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\test_matrix_acceptance.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "cube_acceptance",
+      "command": [
+        "C:/Python312/python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\accept_cube432.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "cube_controls",
+      "command": [
+        "C:/Python312/python.exe",
+        "C:\\Users\\patri\\Documents\\Codex\\2026-11-15\\files-pasted-by-the-user-oxilean\\work\\test_cube_acceptance.py"
       ],
       "exit_code": 0
     }
@@ -539,5 +555,91 @@
     ],
     "date": "2026-11-17",
     "report": "MATRIX_TRANSPORT_REPORT.md"
+  },
+  "closed_cube_continuation": {
+    "status": "accepted",
+    "export_sha256": "285242bb16a5260d1b7bb0721530c1de0c6ff2db20e8e9b5f79673a889ee6fa9",
+    "verdicts": {
+      "verified": 28954,
+      "unsupported": 0,
+      "rejected": 0
+    },
+    "constants_compared": 30436,
+    "source_sha256": {
+      "research/approximation_mathlib432/ApproximationMathlib/CubeApproximation.lean": "ac12e290700873a1cd1d62dbcaebc77b9ee6d3596aee0fac75cef727db4541f1"
+    },
+    "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+    "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+    "standard_axioms": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "new_authored_roots": 58,
+    "research_roots_total": 374,
+    "acceptance_tamper_controls": 19,
+    "structural_auditor_controls": 7,
+    "roots": [
+      "MathCan.CubeTaylor.cube_convex",
+      "MathCan.CubeTaylor.cube_uniqueDiff",
+      "MathCan.CubeTaylor.cube_segment",
+      "MathCan.CubeTaylor.dir_smooth",
+      "MathCan.CubeTaylor.dir_tensor",
+      "MathCan.CubeTaylor.line_smooth",
+      "MathCan.CubeTaylor.line_derivatives",
+      "MathCan.CubeTaylor.dir_ofFn",
+      "MathCan.CubeTaylor.line_polynomial",
+      "MathCan.CubeTaylor.line_tensor",
+      "MathCan.CubeTaylor.holder_remainder",
+      "MathCan.CubeTaylor.value_label",
+      "MathCan.CubeTaylor.evaluation_values",
+      "MathCan.CubeTaylor.axes_tensor",
+      "MathCan.CubeTaylor.axes_difference",
+      "MathCan.CubeTaylor.values_axes",
+      "MathCan.CubeTaylor.row_compatibility",
+      "MathCan.CubeTaylor.row_zero",
+      "MathCan.CubeTaylor.axis_line_polynomial",
+      "MathCan.CubeTaylor.axis_line_holder",
+      "MathCan.CubeTaylor.axis_remainder",
+      "MathCan.CubeTaylor.values_bound",
+      "MathCan.CubeTaylor.matrix_residual",
+      "MathCan.CubeTaylor.evaluation_error",
+      "MathCan.CubeAnchors.digit_div",
+      "MathCan.CubeAnchors.digit_mod",
+      "MathCan.CubeAnchors.unrank_bound",
+      "MathCan.CubeAnchors.unrank_rank",
+      "MathCan.CubeAnchors.anchor_in_cube",
+      "MathCan.CubeAnchors.clip_rescale",
+      "MathCan.CubeAnchors.safe_coverage",
+      "MathCan.CubeAnchors.selected_anchor",
+      "MathCan.CubeAnchors.selected_coverage",
+      "MathCan.CubeCapture.axis_segment",
+      "MathCan.CubeCapture.targets_residuals",
+      "MathCan.CubeCapture.normalized_approximation",
+      "MathCan.CubeCapture.decoded_approximation",
+      "MathCan.CubeWalk.adjacent_symm",
+      "MathCan.CubeWalk.adjacent_cons",
+      "MathCan.CubeWalk.adjacent_head",
+      "MathCan.CubeWalk.unrank_step",
+      "MathCan.CubeWalk.point_in_cube",
+      "MathCan.CubeWalk.lattice_step",
+      "MathCan.CubeWalk.delta_motion",
+      "MathCan.CubeWalk.adjacent_motion",
+      "MathCan.CubeWalk.clamp_cast",
+      "MathCan.CubeWalk.point_anchor",
+      "MathCan.CubeWalk.edge_step",
+      "MathCan.CubeWalk.schedule_length",
+      "MathCan.CubeWalk.anchors_zero",
+      "MathCan.CubeWalk.anchors_succ",
+      "MathCan.CubeWalk.schedule_anchors",
+      "MathCan.CubeSpatial.query_fine",
+      "MathCan.CubeSpatial.query_valid",
+      "MathCan.CubeSpatial.schedule_inside",
+      "MathCan.CubeSpatial.schedule_selected",
+      "MathCan.CubeSpatial.micro_scale_le_one",
+      "MathCan.CubeSpatial.approximation"
+    ],
+    "date": "2026-11-17",
+    "report": "CUBE_APPROXIMATION_REPORT.md"
   }
 }
