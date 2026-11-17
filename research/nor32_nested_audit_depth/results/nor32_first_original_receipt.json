@@ -1,0 +1,127 @@
+{
+  "schema": "nor32.first_original_nested_batch_receipt.v1",
+  "registration_first_commit": "44d8c506de2b2079c167cb0ce5f3a2eb620028b5",
+  "first_initiated_actions_run": 44043154269,
+  "first_independent_replay_job": 133904863094,
+  "original_artifact_ids": {
+    "precommitment": 14309883126,
+    "evaluation": 14310601753,
+    "leaked_and_outcome": 14309604710
+  },
+  "original_raw": {
+    "fixture": {
+      "file": "nor32_fixture.json",
+      "bytes": 4450803,
+      "sha256": "c0023b7523843bb61fc2ec408b61236757fd1cd250fb22158f360a873d29f6ef"
+    },
+    "calibration": {
+      "file": "nor32_calibration.json",
+      "bytes": 44298667,
+      "sha256": "c56590ae0f00b34647c52ecea5afd6820b67096758b4e520f1187ca1d881a18e"
+    },
+    "pre_sealed": {
+      "file": "nor32_pre_sealed.json",
+      "bytes": 4038843,
+      "sha256": "fa3249c47f17d23a395aeb430af48879fbdbba0342e9635004c5615556765e7b"
+    },
+    "pre_manifest": {
+      "file": "nor32_pre_manifest.json",
+      "bytes": 2493018,
+      "sha256": "c9734a14fbeab9b2005fce6e86a1beca3eb81d90628b6de0d2954261ff0d082b"
+    },
+    "evaluation": {
+      "file": "nor32_evaluation.json",
+      "bytes": 44299963,
+      "sha256": "0fa8f37bcdec68e1872ae0eb48acbbce249f57a91ef9a6003bf58fa6e15af6de"
+    },
+    "late_sealed": {
+      "file": "nor32_late_sealed.json",
+      "bytes": 4028084,
+      "sha256": "c0a0a241762bad54652b608332f226e921bac0ccdaa6cfb0a135a0a4cd11ca1d"
+    },
+    "late_manifest": {
+      "file": "nor32_late_manifest.json",
+      "bytes": 2493081,
+      "sha256": "9f02d769a57b5f0ecd0c8355c0f85e56af605741456a6ce2eb52c13f1b8e3281"
+    },
+    "outcome": {
+      "file": "nor32_full.json",
+      "bytes": 10401552,
+      "sha256": "51f28b3028a783b6182c8549f69d85119be27f16c92632ebd786891f60ba5833"
+    }
+  },
+  "os_roots": {
+    "calibration_commitment": "bb96b21616774e89d370a508ace4e8ef64e798d15523904b2eccae6f1196e5a5",
+    "evaluation_commitment": "b8d0280bd8140768f51afb29a9c5524d91ff85ddc70cfa5a35b6b6a332db7cae"
+  },
+  "first_result": {
+    "registered_primary_pass": true,
+    "source_units": 24,
+    "depths": [
+      512,
+      1024,
+      1536,
+      2048
+    ],
+    "early_commitments": 9216,
+    "late_commitments": 9216,
+    "changed_support_count": 6144,
+    "fixed_batch_decisions": 23592960,
+    "per_schedule_informed_controls": 147456,
+    "long_output_hybrid_four_never_inspected_feasible": {
+      "512": 12,
+      "1024": 11,
+      "1536": 0,
+      "2048": 0
+    },
+    "short_output_hybrid_four_never_inspected_feasible": {
+      "512": 3,
+      "1024": 0,
+      "1536": 0,
+      "2048": 0
+    },
+    "hybrid2048_positive_source_pairs": 24,
+    "hybrid2048_equal_source_detection_difference": 0.020960489908854168,
+    "hybrid2048_difference_median": 0.02101898193359375,
+    "hybrid2048_descriptive_source_bootstrap_95pct": [
+      0.019149144490559895,
+      0.02293841044108073
+    ],
+    "all_five_registered_gates_passed": true,
+    "hybrid_detection": {
+      "512": {
+        "independent_calibration": 0.03168487548828125,
+        "leaked_evaluation_root": 0.0012181599934895833
+      },
+      "1024": {
+        "independent_calibration": 0.03212865193684896,
+        "leaked_evaluation_root": 0.005771636962890625
+      },
+      "1536": {
+        "independent_calibration": 0.0315492418077257,
+        "leaked_evaluation_root": 0.009613884819878472
+      },
+      "2048": {
+        "independent_calibration": 0.032521565755208336,
+        "leaked_evaluation_root": 0.011561075846354166
+      }
+    }
+  },
+  "second_concurrent_run": {
+    "run": 44043166494,
+    "registered_pass": true,
+    "independent_os_roots": true,
+    "same_source_roster": true,
+    "long_hybrid_feasible_512": 12,
+    "long_hybrid_feasible_2048": 0,
+    "hybrid2048_positive_source_pairs": 24,
+    "hybrid2048_detection_difference": 0.019570032755533855
+  },
+  "assumptions": [
+    "One new OS calibration root and one different OS evaluation root sampled in dependent CI jobs",
+    "External honest exact target-coefficient witness of the RRC25 synthetic program",
+    "SHA256 commitment binding and HMAC pseudorandomness are computational assumptions",
+    "Known-root greedy attacks optimize on the exact evaluation schedule prefix in sample, not on a held-out root",
+    "24 source identities are statistical units; 32 attack restarts and nested schedules are repeated observations"
+  ]
+}

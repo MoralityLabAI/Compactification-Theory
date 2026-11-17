@@ -24,6 +24,10 @@ For m output positions and hybrid risk8/uniform8, the ideal expected untouched c
 
 The full-uniform16 control has expected untouched m*(1-16/m)**n; static16 leaves m−16 untouched forever. Under ideal independent sampling, Pr(at least four untouched) is bounded by expected untouched /4 using Markov. These benchmark probabilities concern ideal uniform randomness. The root and HMAC sampler in the experiment represent an operational computational model under explicit SHA, HMAC and OS entropy assumptions.
 
+## First original registered result
+
+The [prospective first-run report](RESULTS.md) records a **registered PASS** on all five original gates in [Actions #44043154269](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44043154269), with exact independent replay of **23,592,960** decisions. On long outputs, the count of sources containing four completely untouched coefficients fell **12/12 → 11/12 → 0/12 → 0/12** as the nested batch increased. At depth2048 hybrid detection was 3.2522% with independent calibration versus 1.1561% with early root disclosure, a +2.096pp paired difference on 24/24 sources. All eight original first-run byte streams are SHA-locked in [the receipt](results/nor32_first_original_receipt.json) and preserved in [the binary archive](results/nor32_original_hosted.zip).
+
 ## Reproduction
 
 Python 3.12, standard library, staged GitHub Actions jobs for source/calibration precommit, evaluation-root freeze, late-root attack grading and independent source-locked replay. All paths below are example local work directories:
