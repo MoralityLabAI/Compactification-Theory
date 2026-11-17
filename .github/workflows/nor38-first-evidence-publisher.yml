@@ -1,0 +1,102 @@
+name: NOR-38 publish original first SHA-locked source and grade
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor38-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive-first-raw-grade:
+    if: github.ref == 'refs/heads/research/nor38-global-uniform-curvature-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor38-global-uniform-curvature-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor38_first_original_source_and_global_uniform_grade
+          run-id: 44098045627
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor38-first
+      - name: Archive exact original source/grade SHA plus explicit procedural caveat
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
+          import json
+          expected={
+              'nor38_fixture.json':(9319507,'37fa2aeedeb5ab54bc1082ec2d50f8a084c4f4a7d6279acd5d122396d760e504'),
+              'nor38_full.json':(929756,'9c69d663d4d1511e664e930c0f8ed42d8d6f59c4d10557323fb5ee54478c036d'),
+          }
+          original={}
+          for name,(length,hexdigest) in expected.items():
+              b=(Path('/tmp/nor38-first')/name).read_bytes()
+              assert len(b)==length and sha256(b).hexdigest()==hexdigest,name
+              original[name]=b
+          f=json.loads(original['nor38_fixture.json'])
+          g=json.loads(original['nor38_full.json'])
+          assert f['registered_first_commit']==g['registration_first_commit']==(
+              '37f9ed96b122ea16fb681dd5df638cbc4285d1e4')
+          assert g['public_fixture_sha256']==expected['nor38_fixture.json'][1]
+          assert len(f['cases'])==len(g['source_records'])==48
+          assert g['registered_primary_pass'] and len(g['registered_five_gates'])==5
+          assert all(g['registered_five_gates'].values())
+          assert g['source_direction_wins']=={
+              'global7_self_minus_deterministic_self':48,
+              'global7_top_minus_atom_random':44,
+              'global7_worst_minus_original_worst_tolerance':46}
+          out=Path('research/nor38_global_uniform/results')
+          out.mkdir(parents=True,exist_ok=True)
+          archive=out/'nor38_original_first_hosted.zip'
+          with ZipFile(archive,'w',ZIP_DEFLATED,compresslevel=9) as z:
+              for name,data in original.items():
+                  info=ZipInfo(name,(2026,11,17,0,0,0))
+                  info.compress_type=ZIP_DEFLATED
+                  z.writestr(info,data,compress_type=ZIP_DEFLATED,compresslevel=9)
+          manifest={
+              'schema':'nor38.original_first_grade_archive.v1',
+              'registration':'37f9ed96b122ea16fb681dd5df638cbc4285d1e4',
+              'original_grade_run':44098045627,'artifact_id':14335990453,
+              'original_bytes_sha256':{name:{'bytes':n,'sha256':s}
+                                       for name,(n,s) in expected.items()},
+              'zip_archive_bytes':len(archive.read_bytes()),
+              'zip_archive_sha256':sha256(archive.read_bytes()).hexdigest(),
+              'source_units':48,'historical_source_units_excluded':180,
+              'source_means':g['source_means'],
+              'source_direction_wins':g['source_direction_wins'],
+              'scorer_gates':g['registered_five_gates'],
+              'scorer_primary_pass':g['registered_primary_pass'],
+              'procedural_source_sequence_clean':False,
+              'procedural_deviation':'Original pre-data unit test previewed restored private native truth for NOR38 rep60 D512 source before first 48-source public fixture was frozen; see RESULTS.md. Preserve scorer PASS but strict chronological claim fails.'
+          }
+          (out/'nor38_first_frozen_receipt.json').write_text(
+              json.dumps(manifest,sort_keys=True,indent=2)+'\n')
+          print('NOR38 FIRST SHA-LOCKED ORIGINAL ARCHIVE',manifest['zip_archive_sha256'])
+          PY
+      - name: Push first original receipt; handle concurrent branch commits
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor38_global_uniform/results/nor38_original_first_hosted.zip \
+                  research/nor38_global_uniform/results/nor38_first_frozen_receipt.json
+          git commit -m "NOR-38: persist first original public and grade bytes with process caveat"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor38-global-uniform-curvature-20261117
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor38-global-uniform-curvature-20261117; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
