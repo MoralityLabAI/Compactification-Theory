@@ -1,0 +1,58 @@
+{
+  "calibration_budgets": [
+    256,
+    512,
+    2048,
+    4096
+  ],
+  "deterministic_zip_bytes": 3388660,
+  "deterministic_zip_sha256": "0752c8c736ebe4460d02d655d7513662093d5c9dd2ea6e632a0ea76705469d12",
+  "excluded_prior_source_units": 324,
+  "first_original_grade_artifact_id": null,
+  "first_source_generation_check_failure": "Prior 48-source count assertion after successful 64-source generation; no CAL, EVAL, private target or grade executed in that stopped run",
+  "first_source_generation_run": 44124006976,
+  "first_upload_qualified_grade_run": 44124795440,
+  "heldout_schedules": 1024,
+  "original_file_bytes_sha256": {
+    "nor41_fixture.json": {
+      "bytes": 9618649,
+      "sha256": "4073090e5888ed10283d82dc5153758d299ed7cfe9c753be39ba2c2bd4c7119d"
+    },
+    "nor41_full.json": {
+      "bytes": 5007355,
+      "sha256": "4efa6bdb1dd3656d0fbb6639065a8f2d934bd4a1acb952c128748cea9918de58"
+    }
+  },
+  "original_five_gates": {
+    "global7_frontier_survives_4096_cal_attack": true,
+    "novel_input_family_top_gain_retained": true,
+    "scale_sensitive_cal_to_eval_transfer": false,
+    "source_first_native_witness_and_full_replay_contract": true,
+    "stronger_cal4096_evaluation_transfer": true
+  },
+  "original_scientific_pass": false,
+  "original_source_means": {
+    "degree512_minus_degree1024_transfer": -0.0014911442995071411,
+    "global7_budget_transfer": 0.0020128265023231506,
+    "global7_strong_self_minus_deterministic": 0.023062601685523987,
+    "global7_strong_worst_absolute": 0.03077615797519684,
+    "global7_strong_worst_minus_original": -0.005321606993675232,
+    "ood_deterministic_top_gain": 0.16240857816409263,
+    "ood_top_gain": 0.03550110552554582
+  },
+  "original_source_wins": {
+    "global7_worst_within_1pp_original": 56,
+    "positive_degree_scale_blocks": 5,
+    "positive_ood_top_sources": 28,
+    "strong_global7_self_advantage_source_wins": 64,
+    "strong_global7_transfer_source_wins": 45
+  },
+  "predata_amendment_01_commit": "e5a95cad1ffdcd019f153cd09dd4d48b40848ef9",
+  "registration_first_commit": "87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f",
+  "schema": "nor41.original_first_nested_cal_ood_archive.v1",
+  "scope": "Input-family OOD only; original program grammar. The source-first fixture contains public inputs and observed prefixes only. Authenticated output witness and hidden coins are external.",
+  "separate_independent_replay": "Track GitHub Actions original run independently",
+  "source_original_generated_bytes": 9618649,
+  "source_original_generated_sha256": "4073090e5888ed10283d82dc5153758d299ed7cfe9c753be39ba2c2bd4c7119d",
+  "source_units": 64
+}
