@@ -29,6 +29,7 @@ from research.nor37_stochastic_curvature import experiment as nor37
 from research.nor40_strong_adversaries import experiment as nor40
 
 REGISTERED="87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f"
+AMENDMENT_01="e5a95cad1ffdcd019f153cd09dd4d48b40848ef9"
 FIXTURE_SCHEMA="nor41.scale_ood_public_only_reps84to99.v1"
 RESULT_SCHEMA="nor41.input_ood_nested_cal_transfer.v1"
 PREV_SOURCE_SHA="b51e8031715754c36661b74cff0c26e672fdc21355ff0dc9ab48efded3901de5"
@@ -149,6 +150,7 @@ def make_fixture():
           for rep in REPS for d in DEGREES for fam in FAMILIES]
     assert len(rows)==64 and len(seen)==388
     return {"schema":FIXTURE_SCHEMA,"registered_first_commit":REGISTERED,
+            "predata_amendment_01_commit":AMENDMENT_01,
             "replicates":list(REPS),"degrees":list(DEGREES),
             "source_offset":OFFSET,"families":list(FAMILIES),
             "public_only":True,"planted_and_private_target_absent":True,
@@ -161,6 +163,7 @@ def read_fixture(path):
     x=json.loads(raw)
     hist=history()
     assert x["schema"]==FIXTURE_SCHEMA and x["registered_first_commit"]==REGISTERED
+    assert x["predata_amendment_01_commit"]==AMENDMENT_01
     assert x["replicates"]==list(REPS) and x["degrees"]==list(DEGREES)
     assert x["source_offset"]==OFFSET and x["families"]==list(FAMILIES)
     assert x["public_only"] and x["planted_and_private_target_absent"]
@@ -330,11 +333,18 @@ def nested_attacks(exposure,policy,src,budget):
     assert len(choices)==1820
     exact_score,exact_attack=min(choices)
     ranking=sorted(set(greedy+refined+[exact_attack]),key=order)
-    selected=(ranking[:ATTACKS]+[ranking[0]]*ATTACKS)[:ATTACKS]
-    assert len(selected)==ATTACKS
-    selected_sum=sum(cal_objective(subset,policy,a) for a in selected)
     greedy_sum=sum(cal_objective(subset,policy,a) for a in ranked[:ATTACKS])
-    assert selected_sum<=greedy_sum
+    selected=None
+    selected_sum=None
+    chosen_unique=0
+    for q in range(min(ATTACKS,len(ranking)),0,-1):
+        proposal=(ranking[:q]+[ranking[0]]*(ATTACKS-q))
+        val=sum(cal_objective(subset,policy,a) for a in proposal)
+        if val<=greedy_sum:
+            selected,selected_sum,chosen_unique=proposal,val,q
+            break
+    assert selected is not None and len(selected)==ATTACKS
+    assert chosen_unique>=1 and selected_sum<=greedy_sum
     lower=sorted(scores)[R-1]
     upper=cal_objective(subset,policy,selected[0])
     assert 0<=lower<=upper<=exact_score
@@ -352,6 +362,7 @@ def nested_attacks(exposure,policy,src,budget):
         "greedy_best8_cal_sum":greedy_sum,
         "selected_best8_cal_sum":selected_sum,
         "selected_attack_uniques":len(set(selected)),
+        "max_distinct_subject_to_cal_dominance":chosen_unique,
         "solver_scope":"exact_pool16; lower is global fourth singleton"
     }
 
@@ -696,6 +707,7 @@ def evaluate(fixture_path):
     means,wins,ratio,blocks,gates=primary_gates(records,rows)
     return {
         "schema":RESULT_SCHEMA,"registration_first_commit":REGISTERED,
+        "predata_amendment_01_commit":AMENDMENT_01,
         "public_fixture_sha256":fixture_sha,
         "fresh_source_units":64,"historical_sources_excluded":324,
         "replicates":list(REPS),"degrees":list(DEGREES),"families":list(FAMILIES),
