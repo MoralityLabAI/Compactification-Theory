@@ -15,7 +15,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
-from research.nor32_matched_root import source
+from research.nor32_nested_audit_depth import source
 from research.nor24_adaptive_audits import experiment as n24
 from research.nor25_robust_audits import experiment as n25
 from research.nor28_commit_entropy import challenge_sampler as nor28
