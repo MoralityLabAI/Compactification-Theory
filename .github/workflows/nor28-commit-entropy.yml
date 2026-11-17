@@ -1,0 +1,209 @@
+name: NOR-28 attack commitment before fresh OS audit entropy
+
+on:
+  push:
+    paths:
+      - 'research/nor28_commit_entropy/**'
+      - '.github/workflows/nor28-commit-entropy.yml'
+  pull_request:
+    paths:
+      - 'research/nor28_commit_entropy/**'
+      - '.github/workflows/nor28-commit-entropy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-protocol-and-exact-unit-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check first NOR-28 registration predates experiment
+        run: |
+          git merge-base --is-ancestor da296c8d0cdfd8f42066896dca35bb16b7502f4d HEAD
+          test -s research/nor28_commit_entropy/REGISTRATION.md
+      - name: Compile all stage scripts and run source isolation, binding and exact sampling tests
+        run: |
+          python -m compileall -q research/nor28_commit_entropy
+          python -m unittest research.nor28_commit_entropy.test_experiment -v
+
+  prep-source-and-attack-commitment:
+    needs: frozen-protocol-and-exact-unit-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate first original source-only fixture before attack or entropy
+        run: |
+          mkdir -p /tmp/nor28_prep
+          python research/nor28_commit_entropy/experiment.py \
+            --make-fixture /tmp/nor28_prep/nor28_fixture.json
+      - name: Lock source identities before committing any attack
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          b=Path('/tmp/nor28_prep/nor28_fixture.json').read_bytes()
+          x=json.loads(b)
+          assert x['schema']=='nor28.public_only_12_sources.v1'
+          assert x['source_offset']==129328000 and x['replicates']==[10,11]
+          assert x['source_only'] and x['private_truth_absent']
+          assert x['attacks_absent'] and x['challenge_entropy_absent']
+          assert len(x['cases'])==12
+          assert len({r['full_public_input_sha256'] for r in x['cases']})==12
+          assert all(not any(t in r for t in ('program','future','attack','nonce','entropy'))
+                     for r in x['cases'])
+          print('NOR28 SOURCE FROZEN BEFORE ATTACK',len(b),sha256(b).hexdigest())
+          PY
+      - name: Create salted attack preimages and publish original commitment manifest
+        run: |
+          python research/nor28_commit_entropy/experiment.py --commit-attacks \
+            --fixture /tmp/nor28_prep/nor28_fixture.json \
+            --sealed /tmp/nor28_prep/nor28_sealed.json \
+            --manifest /tmp/nor28_prep/nor28_manifest.json
+      - name: Verify all openings and freeze PREP file hashes before next job
+        run: |
+          python research/nor28_commit_entropy/experiment.py --verify-openings \
+            --fixture /tmp/nor28_prep/nor28_fixture.json \
+            --sealed /tmp/nor28_prep/nor28_sealed.json \
+            --manifest /tmp/nor28_prep/nor28_manifest.json
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          root=Path('/tmp/nor28_prep')
+          for name in ('fixture','sealed','manifest'):
+              a=(root/f'nor28_{name}.json').read_bytes()
+              print('NOR28 ORIGINAL PREP',name,len(a),sha256(a).hexdigest())
+          x=json.loads((root/'nor28_manifest.json').read_bytes())
+          assert x['attack_count']==96 and x['challenge_entropy_absent']
+          print('NOR28 ATTACKS PRECOMMITTED BEFORE CHALLENGE JOB')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor28_first_precommitted_sources_attacks
+          path: /tmp/nor28_prep/
+          if-no-files-found: error
+          retention-days: 90
+
+  challenge-after-precommit-fresh-entropy:
+    needs: prep-source-and-attack-commitment
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor28_first_precommitted_sources_attacks
+          path: /tmp/nor28_prep
+      - name: Verify public manifest and original sealed preimages BEFORE minting any root
+        run: |
+          python research/nor28_commit_entropy/experiment.py --verify-openings \
+            --fixture /tmp/nor28_prep/nor28_fixture.json \
+            --sealed /tmp/nor28_prep/nor28_sealed.json \
+            --manifest /tmp/nor28_prep/nor28_manifest.json
+      - name: Mint fresh OS entropy with secrets.token_bytes(32), freeze root and every audit schedule
+        run: |
+          mkdir -p /tmp/nor28_challenge
+          python research/nor28_commit_entropy/challenge_sampler.py \
+            --fixture /tmp/nor28_prep/nor28_fixture.json \
+            --manifest /tmp/nor28_prep/nor28_manifest.json \
+            --out /tmp/nor28_challenge/nor28_challenges.json
+      - name: Fix and hash all challenge schedules before opening sealed attacks in grader
+        run: |
+          python - <<'PY'
+          import json
+          from hashlib import sha256
+          from pathlib import Path
+          b=Path('/tmp/nor28_challenge/nor28_challenges.json').read_bytes()
+          x=json.loads(b)
+          assert x['schema']=='nor28.fresh_os_entropy_512_audits_per_source.v1'
+          assert x['root_origin']=='os_secrets_token_bytes_32'
+          assert len(bytes.fromhex(x['root_hex_disclosed_after_commit']))==32
+          assert len(x['records'])==12
+          assert all(all(len(s)==512 for s in r['schedules'].values())
+                     for r in x['records'])
+          print('NOR28 ORIGINAL SCHEDULE FREEZE',len(b),sha256(b).hexdigest())
+          print('NOR28 ENTROPY ROOT COMMITMENT',x['root_commitment_sha256'])
+          PY
+      - name: Open attacks only after schedule freeze and independently grade exact witness
+        run: |
+          python research/nor28_commit_entropy/grade.py \
+            --fixture /tmp/nor28_prep/nor28_fixture.json \
+            --manifest /tmp/nor28_prep/nor28_manifest.json \
+            --sealed /tmp/nor28_prep/nor28_sealed.json \
+            --challenge /tmp/nor28_challenge/nor28_challenges.json \
+            --out /tmp/nor28_challenge/nor28_full.json
+      - name: Audit complete counts, scientific PASS or FAIL and original file SHA receipts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          out=Path('/tmp/nor28_challenge')
+          fixture=Path('/tmp/nor28_prep')
+          for place,names in ((fixture,('fixture','sealed','manifest')),
+                              (out,('challenges','full'))):
+              for name in names:
+                  blob=(place/f'nor28_{name}.json').read_bytes()
+                  print('NOR28 FIRST ORIGINAL',name,len(blob),sha256(blob).hexdigest())
+          z=json.loads((out/'nor28_full.json').read_bytes())
+          assert z['independent_decisions']==147456
+          assert z['attack_commitment_count']==96
+          assert z['postcommit_leakage_decision_changes']==0
+          assert z['fully_informed_after_schedule_detected']==0
+          assert z['deliberate_mutations_rejected']==96
+          assert z['nonzero_shift_disagreements']==0
+          print('NOR28 REGISTERED SCIENTIFIC PASS',z['registered_primary_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor28_first_os_entropy_schedules_and_outcomes
+          path: /tmp/nor28_challenge/
+          if-no-files-found: error
+          retention-days: 90
+
+  independent-commitment-sample-decision-replay:
+    needs: challenge-after-precommit-fresh-entropy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor28_first_precommitted_sources_attacks
+          path: /tmp/nor28_prep
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor28_first_os_entropy_schedules_and_outcomes
+          path: /tmp/nor28_challenge
+      - name: Independently reconstruct sources, salted SHA openings, unbiased HMAC draws and all decisions
+        run: |
+          python research/nor28_commit_entropy/receipt_audit.py \
+            --fixture /tmp/nor28_prep/nor28_fixture.json \
+            --manifest /tmp/nor28_prep/nor28_manifest.json \
+            --sealed /tmp/nor28_prep/nor28_sealed.json \
+            --challenge /tmp/nor28_challenge/nor28_challenges.json \
+            --out /tmp/nor28_challenge/nor28_full.json
