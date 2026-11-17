@@ -22,7 +22,7 @@ from smc14_causal_transfer import goal_positions
 from smc23_native_first import plan_target_native,affine_physical
 from smc25_candidate_effects import label_blind_tangent,candidate_predictions
 from smc26_train import load_all_models,TEACHERS,digest
-from smc26_audit import PRIOR_SOURCE_COHORTS
+from audit_smc26 import PRIOR_SOURCE_COHORTS
 from smc26_predict import fresh_rosters as previous_smc26
 from smc27_calibrate import (policy,protocol_sha,SCHEMA as CAL_SCHEMA,
                             OLD_BUNDLE_SHA,OLD_CAL_SHA)
