@@ -108,7 +108,8 @@ class NOR38PreDataTests(unittest.TestCase):
         m,k,r=7,2,2
         draws=list(combinations(range(m),k))
         attacks=list(combinations(range(m),r))
-        rate=Fraction(sum(bool(set(q)&set(a)) for q in draws),len(draws))
+        attack=attacks[0]
+        rate=Fraction(sum(bool(set(q)&set(attack)) for q in draws),len(draws))
         self.assertEqual(rate,Fraction(1)-Fraction(comb(m-k,r),comb(m,r)))
         for attack in attacks:
             same=Fraction(sum(bool(set(q)&set(attack)) for q in draws),
