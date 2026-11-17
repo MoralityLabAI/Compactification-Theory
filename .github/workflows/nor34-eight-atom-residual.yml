@@ -1,0 +1,160 @@
+name: NOR-34 prospective eight-atom curvature matched residual and independent replay
+
+on:
+  push:
+    paths:
+      - 'research/nor34_eight_atom_curvature/**'
+      - '.github/workflows/nor34-eight-atom-residual.yml'
+  pull_request:
+    paths:
+      - 'research/nor34_eight_atom_curvature/**'
+      - '.github/workflows/nor34-eight-atom-residual.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-preregistered-source-and-finite-count-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Assert original NOR34 registration predates all new code and sources
+        run: |
+          git merge-base --is-ancestor ef6d7b4d0374d0310a640258d94eaf474fb66c4b HEAD
+          test -s research/nor34_eight_atom_curvature/REGISTRATION.md
+      - name: SHA-check immutable NOR33 original 24-source PASS and all 84 old sources
+        run: |
+          python research/nor33_overlap_matched_transfer/original_archive_audit.py
+      - name: Exact small eight-atom hypergeometric, two-shift and source privacy controls
+        run: |
+          python -m compileall -q research/nor34_eight_atom_curvature
+          python -m unittest research.nor34_eight_atom_curvature.test_experiment -v
+
+  freeze-public-only-new-24-source-fixture:
+    needs: frozen-preregistered-source-and-finite-count-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate exactly 24 new public-source-only full inputs after preregistration
+        run: |
+          python research/nor34_eight_atom_curvature/experiment.py \
+            --make-fixture /tmp/nor34_fixture.json
+      - name: Freeze complete source privacy and old-84 disjointness SHA
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor34_fixture.json').read_bytes()
+          f=json.loads(raw)
+          assert f['schema']=='nor34.new_public_only_reps44to47.v1'
+          assert f['registration_commit']=='ef6d7b4d0374d0310a640258d94eaf474fb66c4b'
+          assert f['replicates']==[44,45,46,47] and f['offset']==130034000
+          assert f['public_only'] and f['private_future_and_program_absent']
+          assert f['attacks_and_witness_absent']
+          assert f['historical_source_count']==84
+          assert len(f['cases'])==24
+          assert len({s['full_public_input_sha256'] for s in f['cases']})==24
+          assert Counter(s['degree'] for s in f['cases'])=={512:12,1024:12}
+          assert not any(any(k in s for k in ('program','future','target','attack','witness'))
+                         for s in f['cases'])
+          print('NOR34 FROZEN FIRST PUBLIC SOURCE FIXTURE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor34_first_original_frozen_public_24_sources
+          path: /tmp/nor34_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  grade-original-conditional-curvature-and-eight-pattern-controls:
+    needs: freeze-public-only-new-24-source-fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor34_first_original_frozen_public_24_sources
+          path: /tmp/nor34
+      - name: Score curvature, coarse-union and full-eight-atom exact conditional attack laws
+        run: |
+          python research/nor34_eight_atom_curvature/experiment.py \
+            --fixture /tmp/nor34/nor34_fixture.json \
+            --out /tmp/nor34/nor34_full.json
+      - name: Verify all original checks and publish PASS or FAIL without changing gates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          pub=(Path('/tmp/nor34')/'nor34_fixture.json').read_bytes()
+          raw=(Path('/tmp/nor34')/'nor34_full.json').read_bytes()
+          d=json.loads(raw)
+          assert d['schema']=='nor34.sourceheldout_eight_atom_curvature_residual.v1'
+          assert d['preregistered_first_commit']=='ef6d7b4d0374d0310a640258d94eaf474fb66c4b'
+          assert d['source_public_fixture_sha256']==sha256(pub).hexdigest()
+          assert d['new_public_source_count']==len(d['source_records'])==24
+          assert d['excluded_historic_sources']==84
+          assert d['auditor_arms']==[
+              'uniform','static_prior','posterior','hybrid_25','hybrid_50','hybrid_75']
+          assert d['frozen_mix_weights']==[2,0,1,1,4,8]
+          assert d['paired_attack_laws']==['curvature','coarse','eight_atom']
+          assert all(len(s['paired_attack_records'])==16
+                     and s['honest_false_rejections']==0
+                     and s['schedule_informed_attacker_detections']==0
+                     and s['direct_exact_integer_witness_checks']==1152
+                     and s['shift_detection_disagreements']==0
+                     for s in d['source_records'])
+          assert d['preregistered_five_gates']['full_original_source_witness_replay_controls']
+          print('NOR34 FIRST SOURCE BYTE SHA',len(pub),sha256(pub).hexdigest())
+          print('NOR34 ORIGINAL FULL RESULT BYTE SHA',len(raw),sha256(raw).hexdigest())
+          print('NOR34 REGISTERED PRIMARY SCIENTIFIC PASS',d['registered_primary_pass'])
+          print('NOR34 REGISTERED FIVE GATES',d['preregistered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor34_original_24_sources_curvature_coarse_eight_atom_outcome
+          path: |
+            /tmp/nor34/nor34_fixture.json
+            /tmp/nor34/nor34_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independently-replay-original-eight-atom-evidence:
+    needs: grade-original-conditional-curvature-and-eight-pattern-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor34_original_24_sources_curvature_coarse_eight_atom_outcome
+          path: /tmp/nor34
+      - name: Independently reconstruct original RRC25, 8 atom quotas, exact expectations and all world decisions
+        run: |
+          python research/nor34_eight_atom_curvature/receipt_audit.py --check \
+            --fixture /tmp/nor34/nor34_fixture.json \
+            --full /tmp/nor34/nor34_full.json
