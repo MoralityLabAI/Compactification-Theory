@@ -119,4 +119,7 @@ jobs:
           git add research/nor35_intraatom_curvature/results/nor35_original_hosted.zip \
                   research/nor35_intraatom_curvature/results/nor35_first_frozen_receipt.json
           git commit -m "NOR-35: preserve first source-locked valid curvature PASS and independent SHA receipt"
+          # A research report may be committed while the independent original
+          # replay runs. Preserve those newer commits instead of overwriting.
+          git pull --rebase origin research/nor35-intraatom-curvature-rerank-20261117
           git push origin HEAD:research/nor35-intraatom-curvature-rerank-20261117
