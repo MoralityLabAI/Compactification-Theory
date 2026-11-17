@@ -7,7 +7,7 @@ import torch
 
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
-from smc26_train import TEACHERS,NEW_SEEDS,protocol_sha
+from smc26_train import TEACHERS,NEW_SEEDS,protocol_sha,prior_component_key
 from smc26_predict import policy,fresh_rosters,FAMILIES,SIZE,THRESHOLD
 from smc26_score import (target_class,decision_utility,case_summary,
                          COST,CONTROLS)
@@ -30,6 +30,12 @@ class SMC26Tests(unittest.TestCase):
         self.assertEqual(FAMILIES["smc26_novel34"],(202636040000,34))
         self.assertEqual(SIZE,128)
         self.assertEqual(sum(p.numel() for p in TinyRecursiveModel(48,4).parameters()),44001)
+
+    def test_original_SMC13_B_teacher_SAE_aliases_are_source_exact(self):
+        self.assertEqual(prior_component_key("B501"),"newB_501_SAE_71")
+        self.assertEqual(prior_component_key("B701"),"newB_701_SAE_71")
+        with self.assertRaises(ValueError):
+            prior_component_key("B811")
 
     def test_predeclared_ternary_decision_and_cost(self):
         self.assertEqual(THRESHOLD,.15)
