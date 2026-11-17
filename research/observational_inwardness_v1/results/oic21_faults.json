@@ -1,0 +1,1058 @@
+{
+  "aggregates": [
+    {
+      "kinds": [
+        {
+          "correct": 79,
+          "episodes": 80,
+          "kind": "clean",
+          "mean_accuracy": 0.9875,
+          "worst_seed_accuracy": 0.9375
+        },
+        {
+          "correct": 198,
+          "episodes": 480,
+          "kind": "flip",
+          "mean_accuracy": 0.4125,
+          "worst_seed_accuracy": 0.3645833333333333
+        },
+        {
+          "correct": 416,
+          "episodes": 480,
+          "kind": "erase",
+          "mean_accuracy": 0.8666666666666666,
+          "worst_seed_accuracy": 0.8541666666666666
+        }
+      ],
+      "n": 4,
+      "split": "full"
+    },
+    {
+      "kinds": [
+        {
+          "correct": 75,
+          "episodes": 80,
+          "kind": "clean",
+          "mean_accuracy": 0.9375,
+          "worst_seed_accuracy": 0.9375
+        },
+        {
+          "correct": 196,
+          "episodes": 480,
+          "kind": "flip",
+          "mean_accuracy": 0.4083333333333333,
+          "worst_seed_accuracy": 0.3541666666666667
+        },
+        {
+          "correct": 415,
+          "episodes": 480,
+          "kind": "erase",
+          "mean_accuracy": 0.8645833333333333,
+          "worst_seed_accuracy": 0.8541666666666666
+        }
+      ],
+      "n": 4,
+      "split": "heldout"
+    },
+    {
+      "kinds": [
+        {
+          "correct": 167,
+          "episodes": 180,
+          "kind": "clean",
+          "mean_accuracy": 0.9277777777777777,
+          "worst_seed_accuracy": 0.8888888888888888
+        },
+        {
+          "correct": 657,
+          "episodes": 1440,
+          "kind": "flip",
+          "mean_accuracy": 0.45625,
+          "worst_seed_accuracy": 0.4305555555555556
+        },
+        {
+          "correct": 1156,
+          "episodes": 1440,
+          "kind": "erase",
+          "mean_accuracy": 0.8027777777777778,
+          "worst_seed_accuracy": 0.7986111111111112
+        }
+      ],
+      "n": 6,
+      "split": "full"
+    },
+    {
+      "kinds": [
+        {
+          "correct": 166,
+          "episodes": 180,
+          "kind": "clean",
+          "mean_accuracy": 0.9222222222222222,
+          "worst_seed_accuracy": 0.8888888888888888
+        },
+        {
+          "correct": 630,
+          "episodes": 1440,
+          "kind": "flip",
+          "mean_accuracy": 0.4375,
+          "worst_seed_accuracy": 0.4166666666666667
+        },
+        {
+          "correct": 1161,
+          "episodes": 1440,
+          "kind": "erase",
+          "mean_accuracy": 0.80625,
+          "worst_seed_accuracy": 0.7847222222222222
+        }
+      ],
+      "n": 6,
+      "split": "heldout"
+    },
+    {
+      "kinds": [
+        {
+          "correct": 264,
+          "episodes": 320,
+          "kind": "clean",
+          "mean_accuracy": 0.825,
+          "worst_seed_accuracy": 0.8125
+        },
+        {
+          "correct": 1567,
+          "episodes": 3200,
+          "kind": "flip",
+          "mean_accuracy": 0.48968749999999994,
+          "worst_seed_accuracy": 0.478125
+        },
+        {
+          "correct": 2378,
+          "episodes": 3200,
+          "kind": "erase",
+          "mean_accuracy": 0.743125,
+          "worst_seed_accuracy": 0.734375
+        }
+      ],
+      "n": 8,
+      "split": "full"
+    },
+    {
+      "kinds": [
+        {
+          "correct": 261,
+          "episodes": 320,
+          "kind": "clean",
+          "mean_accuracy": 0.815625,
+          "worst_seed_accuracy": 0.796875
+        },
+        {
+          "correct": 1566,
+          "episodes": 3200,
+          "kind": "flip",
+          "mean_accuracy": 0.489375,
+          "worst_seed_accuracy": 0.4765625
+        },
+        {
+          "correct": 2380,
+          "episodes": 3200,
+          "kind": "erase",
+          "mean_accuracy": 0.74375,
+          "worst_seed_accuracy": 0.7375
+        }
+      ],
+      "n": 8,
+      "split": "heldout"
+    }
+  ],
+  "corruption": "all individual flip and erase positions, one per history",
+  "elapsed_seconds": 12.975,
+  "likelihood_noise": 0.04,
+  "n": [
+    4,
+    6,
+    8
+  ],
+  "results": [
+    {
+      "cache_states": 292,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 1.0,
+          "correct": 16,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.9237936758896124
+        },
+        {
+          "accuracy": 0.4583333333333333,
+          "correct": 44,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.4167158435886238
+        },
+        {
+          "accuracy": 0.8645833333333334,
+          "correct": 83,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.7817252891887073
+        }
+      ],
+      "seed": 0,
+      "split": "full"
+    },
+    {
+      "cache_states": 575,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 1.0,
+          "correct": 16,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.8781926979532639
+        },
+        {
+          "accuracy": 0.3645833333333333,
+          "correct": 35,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.3326518852051141
+        },
+        {
+          "accuracy": 0.8645833333333334,
+          "correct": 83,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.745623422752999
+        }
+      ],
+      "seed": 1,
+      "split": "full"
+    },
+    {
+      "cache_states": 869,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 1.0,
+          "correct": 16,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.9102024071586813
+        },
+        {
+          "accuracy": 0.40625,
+          "correct": 39,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.37515123971333697
+        },
+        {
+          "accuracy": 0.875,
+          "correct": 84,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.7839529356623123
+        }
+      ],
+      "seed": 2,
+      "split": "full"
+    },
+    {
+      "cache_states": 1154,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 0.9375,
+          "correct": 15,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.8527999751435639
+        },
+        {
+          "accuracy": 0.4166666666666667,
+          "correct": 40,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.37503334882238754
+        },
+        {
+          "accuracy": 0.8541666666666666,
+          "correct": 82,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.7479211842602149
+        }
+      ],
+      "seed": 3,
+      "split": "full"
+    },
+    {
+      "cache_states": 1451,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 1.0,
+          "correct": 16,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.9383590468042163
+        },
+        {
+          "accuracy": 0.4166666666666667,
+          "correct": 40,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.3830879294917009
+        },
+        {
+          "accuracy": 0.875,
+          "correct": 84,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.8058664109631485
+        }
+      ],
+      "seed": 4,
+      "split": "full"
+    },
+    {
+      "cache_states": 1732,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 0.9375,
+          "correct": 15,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.8284973315245473
+        },
+        {
+          "accuracy": 0.3541666666666667,
+          "correct": 34,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.3334486212650065
+        },
+        {
+          "accuracy": 0.8541666666666666,
+          "correct": 82,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.739481491245714
+        }
+      ],
+      "seed": 0,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 2017,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 0.9375,
+          "correct": 15,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.8514549134955988
+        },
+        {
+          "accuracy": 0.3854166666666667,
+          "correct": 37,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.3628031008981365
+        },
+        {
+          "accuracy": 0.8541666666666666,
+          "correct": 82,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.7545423036319833
+        }
+      ],
+      "seed": 1,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 2305,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 0.9375,
+          "correct": 15,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.8551715716561354
+        },
+        {
+          "accuracy": 0.4270833333333333,
+          "correct": 41,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.3989024939819605
+        },
+        {
+          "accuracy": 0.8541666666666666,
+          "correct": 82,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.7574558966461858
+        }
+      ],
+      "seed": 2,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 2591,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 0.9375,
+          "correct": 15,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.8614398378751231
+        },
+        {
+          "accuracy": 0.4270833333333333,
+          "correct": 41,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.3888196399925227
+        },
+        {
+          "accuracy": 0.8541666666666666,
+          "correct": 82,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.7525009486806876
+        }
+      ],
+      "seed": 3,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 2884,
+      "n": 4,
+      "panels": [
+        {
+          "accuracy": 0.9375,
+          "correct": 15,
+          "episodes": 16,
+          "kind": "clean",
+          "mean_posterior_true": 0.8490495217671993
+        },
+        {
+          "accuracy": 0.4479166666666667,
+          "correct": 43,
+          "episodes": 96,
+          "kind": "flip",
+          "mean_posterior_true": 0.3950450626859561
+        },
+        {
+          "accuracy": 0.90625,
+          "correct": 87,
+          "episodes": 96,
+          "kind": "erase",
+          "mean_posterior_true": 0.8051157441249801
+        }
+      ],
+      "seed": 4,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 3831,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.8888888888888888,
+          "correct": 32,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.8043109678519629
+        },
+        {
+          "accuracy": 0.4826388888888889,
+          "correct": 139,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.42741568224737597
+        },
+        {
+          "accuracy": 0.8020833333333334,
+          "correct": 231,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7054268946423297
+        }
+      ],
+      "seed": 0,
+      "split": "full"
+    },
+    {
+      "cache_states": 4779,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9444444444444444,
+          "correct": 34,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.845963808924917
+        },
+        {
+          "accuracy": 0.4305555555555556,
+          "correct": 124,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.39538590952063424
+        },
+        {
+          "accuracy": 0.8055555555555556,
+          "correct": 232,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7044187179239588
+        }
+      ],
+      "seed": 1,
+      "split": "full"
+    },
+    {
+      "cache_states": 5732,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9444444444444444,
+          "correct": 34,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.857552816779822
+        },
+        {
+          "accuracy": 0.4409722222222222,
+          "correct": 127,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.4046453310652216
+        },
+        {
+          "accuracy": 0.7986111111111112,
+          "correct": 230,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7130782017767573
+        }
+      ],
+      "seed": 2,
+      "split": "full"
+    },
+    {
+      "cache_states": 6670,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9166666666666666,
+          "correct": 33,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.8224916620149263
+        },
+        {
+          "accuracy": 0.4548611111111111,
+          "correct": 131,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.4015386222613164
+        },
+        {
+          "accuracy": 0.8055555555555556,
+          "correct": 232,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.6975780244394719
+        }
+      ],
+      "seed": 3,
+      "split": "full"
+    },
+    {
+      "cache_states": 7636,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9444444444444444,
+          "correct": 34,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.8746123253141475
+        },
+        {
+          "accuracy": 0.4722222222222222,
+          "correct": 136,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.42844700834978217
+        },
+        {
+          "accuracy": 0.8020833333333334,
+          "correct": 231,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7320211088943515
+        }
+      ],
+      "seed": 4,
+      "split": "full"
+    },
+    {
+      "cache_states": 8567,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.8888888888888888,
+          "correct": 32,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.7779720157812412
+        },
+        {
+          "accuracy": 0.4166666666666667,
+          "correct": 120,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.37859930616634757
+        },
+        {
+          "accuracy": 0.7847222222222222,
+          "correct": 226,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.6712996334764086
+        }
+      ],
+      "seed": 0,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 9521,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9444444444444444,
+          "correct": 34,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.8641514439853412
+        },
+        {
+          "accuracy": 0.4409722222222222,
+          "correct": 127,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.39981243855967574
+        },
+        {
+          "accuracy": 0.8020833333333334,
+          "correct": 231,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7170426408272046
+        }
+      ],
+      "seed": 1,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 10480,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9166666666666666,
+          "correct": 33,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.8310724611276713
+        },
+        {
+          "accuracy": 0.4548611111111111,
+          "correct": 131,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.4103428018275911
+        },
+        {
+          "accuracy": 0.8125,
+          "correct": 234,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7151448063663032
+        }
+      ],
+      "seed": 2,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 11424,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9444444444444444,
+          "correct": 34,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.8514048189031039
+        },
+        {
+          "accuracy": 0.4340277777777778,
+          "correct": 125,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.39547965171983607
+        },
+        {
+          "accuracy": 0.8020833333333334,
+          "correct": 231,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7021487224249906
+        }
+      ],
+      "seed": 3,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 12379,
+      "n": 6,
+      "panels": [
+        {
+          "accuracy": 0.9166666666666666,
+          "correct": 33,
+          "episodes": 36,
+          "kind": "clean",
+          "mean_posterior_true": 0.8270227318230771
+        },
+        {
+          "accuracy": 0.4409722222222222,
+          "correct": 127,
+          "episodes": 288,
+          "kind": "flip",
+          "mean_posterior_true": 0.389785166715799
+        },
+        {
+          "accuracy": 0.8298611111111112,
+          "correct": 239,
+          "episodes": 288,
+          "kind": "erase",
+          "mean_posterior_true": 0.7229217479911554
+        }
+      ],
+      "seed": 4,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 14719,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.828125,
+          "correct": 53,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7388018965051133
+        },
+        {
+          "accuracy": 0.484375,
+          "correct": 310,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.43817848483024663
+        },
+        {
+          "accuracy": 0.75,
+          "correct": 480,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6615027288963807
+        }
+      ],
+      "seed": 0,
+      "split": "full"
+    },
+    {
+      "cache_states": 17091,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.828125,
+          "correct": 53,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.727299030370754
+        },
+        {
+          "accuracy": 0.4921875,
+          "correct": 315,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.4400782354042607
+        },
+        {
+          "accuracy": 0.75,
+          "correct": 480,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6565295761635703
+        }
+      ],
+      "seed": 1,
+      "split": "full"
+    },
+    {
+      "cache_states": 19458,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.828125,
+          "correct": 53,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7371418633095912
+        },
+        {
+          "accuracy": 0.490625,
+          "correct": 314,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.443502469427958
+        },
+        {
+          "accuracy": 0.734375,
+          "correct": 470,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.659561626724517
+        }
+      ],
+      "seed": 2,
+      "split": "full"
+    },
+    {
+      "cache_states": 21799,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.8125,
+          "correct": 52,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.6989332507284648
+        },
+        {
+          "accuracy": 0.478125,
+          "correct": 306,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.42808271279000526
+        },
+        {
+          "accuracy": 0.7421875,
+          "correct": 475,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6322580337480693
+        }
+      ],
+      "seed": 3,
+      "split": "full"
+    },
+    {
+      "cache_states": 24191,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.828125,
+          "correct": 53,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7542357473592721
+        },
+        {
+          "accuracy": 0.503125,
+          "correct": 322,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.45045510788664406
+        },
+        {
+          "accuracy": 0.7390625,
+          "correct": 473,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6726289778901696
+        }
+      ],
+      "seed": 4,
+      "split": "full"
+    },
+    {
+      "cache_states": 26511,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.828125,
+          "correct": 53,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7222926507341363
+        },
+        {
+          "accuracy": 0.4796875,
+          "correct": 307,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.4259491779814145
+        },
+        {
+          "accuracy": 0.7453125,
+          "correct": 477,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6439788567551317
+        }
+      ],
+      "seed": 0,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 28903,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.828125,
+          "correct": 53,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7544949775952535
+        },
+        {
+          "accuracy": 0.496875,
+          "correct": 318,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.44608130603723917
+        },
+        {
+          "accuracy": 0.7546875,
+          "correct": 483,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6751276941890502
+        }
+      ],
+      "seed": 1,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 31290,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.8125,
+          "correct": 52,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7242946322476272
+        },
+        {
+          "accuracy": 0.50625,
+          "correct": 324,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.45234806990245274
+        },
+        {
+          "accuracy": 0.7421875,
+          "correct": 475,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6589445182158417
+        }
+      ],
+      "seed": 2,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 33636,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.8125,
+          "correct": 52,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7205725767730894
+        },
+        {
+          "accuracy": 0.4875,
+          "correct": 312,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.43484592765161806
+        },
+        {
+          "accuracy": 0.7375,
+          "correct": 472,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6413324032746683
+        }
+      ],
+      "seed": 3,
+      "split": "heldout"
+    },
+    {
+      "cache_states": 36016,
+      "n": 8,
+      "panels": [
+        {
+          "accuracy": 0.796875,
+          "correct": 51,
+          "episodes": 64,
+          "kind": "clean",
+          "mean_posterior_true": 0.7105213705180646
+        },
+        {
+          "accuracy": 0.4765625,
+          "correct": 305,
+          "episodes": 640,
+          "kind": "flip",
+          "mean_posterior_true": 0.4174365183336805
+        },
+        {
+          "accuracy": 0.7390625,
+          "correct": 473,
+          "episodes": 640,
+          "kind": "erase",
+          "mean_posterior_true": 0.6510810450842237
+        }
+      ],
+      "seed": 4,
+      "split": "heldout"
+    }
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "splits": [
+    "full",
+    "heldout"
+  ],
+  "status": "exact_cyclic_posterior_noisy_online_adaptive_action_evaluation"
+}

@@ -1,0 +1,123 @@
+{
+  "attainable_prime_cases": [
+    {
+      "correction_threshold": 2,
+      "marked_erasures": 1,
+      "markers": [
+        0,
+        1
+      ],
+      "minimum_distance": 2,
+      "p": 5,
+      "pairs_checked": 250,
+      "query_horizon": 10,
+      "substitutions": 0
+    },
+    {
+      "correction_threshold": 3,
+      "marked_erasures": 2,
+      "markers": [
+        0,
+        1,
+        2
+      ],
+      "minimum_distance": 3,
+      "p": 5,
+      "pairs_checked": 250,
+      "query_horizon": 15,
+      "substitutions": 0
+    },
+    {
+      "correction_threshold": 3,
+      "marked_erasures": 0,
+      "markers": [
+        0,
+        1,
+        2
+      ],
+      "minimum_distance": 3,
+      "p": 5,
+      "pairs_checked": 250,
+      "query_horizon": 15,
+      "substitutions": 1
+    },
+    {
+      "correction_threshold": 4,
+      "marked_erasures": 1,
+      "markers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "minimum_distance": 4,
+      "p": 5,
+      "pairs_checked": 250,
+      "query_horizon": 20,
+      "substitutions": 1
+    },
+    {
+      "correction_threshold": 3,
+      "marked_erasures": 0,
+      "markers": [
+        0,
+        1,
+        2
+      ],
+      "minimum_distance": 3,
+      "p": 7,
+      "pairs_checked": 1029,
+      "query_horizon": 21,
+      "substitutions": 1
+    },
+    {
+      "correction_threshold": 4,
+      "marked_erasures": 1,
+      "markers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "minimum_distance": 4,
+      "p": 7,
+      "pairs_checked": 1029,
+      "query_horizon": 28,
+      "substitutions": 1
+    },
+    {
+      "correction_threshold": 5,
+      "marked_erasures": 0,
+      "markers": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "minimum_distance": 5,
+      "p": 7,
+      "pairs_checked": 1029,
+      "query_horizon": 35,
+      "substitutions": 2
+    },
+    {
+      "correction_threshold": 4,
+      "marked_erasures": 1,
+      "markers": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "minimum_distance": 4,
+      "p": 11,
+      "pairs_checked": 6655,
+      "query_horizon": 44,
+      "substitutions": 1
+    }
+  ],
+  "schema": "OIC31-MIXED-FAULT-PROPER-MARKER-V1",
+  "statement": "Sharp n(2e+r+1) for fixed proper-marker policies if n=p prime, 2<=2e+r+1<p",
+  "unrestricted_Q20_n7_status": "Open certificate; solver-reported UNSAT only"
+}

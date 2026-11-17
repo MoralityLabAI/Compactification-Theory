@@ -1,0 +1,476 @@
+{
+  "decoded_sha256": "8ecf2c3269ff7b1dce137d90e11ee12e6390f41ae306f7fa3107ab8e4582be36",
+  "experiment": "OIC-13",
+  "gzip_sha256": "3f713826b43956b36df34a1991f09b868c2560d0766fdef593205798c326caa0",
+  "limits": "Exact cyclic clock and visible XOR update are built into the architecture. Synthetic toy dynamics, not learned discovery of hidden topology.",
+  "model_fits": 120,
+  "pair_runs": 60,
+  "protocol": {
+    "architectures": [
+      "reflection_tied",
+      "oriented"
+    ],
+    "batch": 96,
+    "families": [
+      "fixed",
+      "rotating"
+    ],
+    "interpretation": "symbolic-clock inductive-bias control, not an emergent clock",
+    "lr": 0.014,
+    "n": [
+      4,
+      5,
+      6
+    ],
+    "numpy": "2.3.5",
+    "observation": "raw x_t only; internal phase supplied to model at t=0",
+    "optimizer": "Adam",
+    "oriented_readout": "sigmoid(w_cos cos(2pi z/n)+w_sin sin(2pi z/n)+bias)",
+    "phase_transition": "exact modular Z_n shift for rotating and identity for fixed",
+    "python": "3.13.5",
+    "readout_prior": "known XOR-visible update and distinguished z=0 event",
+    "reflection_tied_readout": "sigmoid(w_cos cos(2pi z/n)+bias)",
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "splits": [
+      "full",
+      "heldout"
+    ],
+    "tag": "OIC-13-STRUCTURAL-CLOCK-01",
+    "task": "OIC-12 actions, initial-phase encoding, frozen schedules and heldout split",
+    "torch": "2.10.0+cpu",
+    "train_action_probability": 0.7,
+    "train_steps": 350
+  },
+  "source_replay": "python clock_pilot.py --out results/oic13_full.json",
+  "source_sha256": "2ee86e085739374286d33ff309de8c7874ee55144b2c1cd651fbcaad0331e52d",
+  "status": "executed_cpu_structural_control",
+  "summary": [
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "reflection_tied",
+      "latch_code_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 4,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "full",
+      "trainable_parameters_per_model": 2
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "oriented",
+      "latch_code_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 4,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "full",
+      "trainable_parameters_per_model": 3
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "reflection_tied",
+      "latch_code_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 4,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "heldout",
+      "trainable_parameters_per_model": 2
+    },
+    {
+      "all_phase_faithful_runs": 0,
+      "architecture": "oriented",
+      "latch_code_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "latch_exact_fixed": 0.75,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 0.5,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 4,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "heldout",
+      "trainable_parameters_per_model": 3
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "reflection_tied",
+      "latch_code_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 5,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 0,
+      "oracle_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "full",
+      "trainable_parameters_per_model": 2
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "oriented",
+      "latch_code_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 5,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 0,
+      "oracle_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "full",
+      "trainable_parameters_per_model": 3
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "reflection_tied",
+      "latch_code_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 5,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 0,
+      "oracle_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "heldout",
+      "trainable_parameters_per_model": 2
+    },
+    {
+      "all_phase_faithful_runs": 0,
+      "architecture": "oriented",
+      "latch_code_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "latch_exact_fixed": 0.8,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 0.5,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 5,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 0,
+      "oracle_distances": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "heldout",
+      "trainable_parameters_per_model": 3
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "reflection_tied",
+      "latch_code_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 6,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "full",
+      "trainable_parameters_per_model": 2
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "oriented",
+      "latch_code_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 6,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "full",
+      "trainable_parameters_per_model": 3
+    },
+    {
+      "all_phase_faithful_runs": 5,
+      "architecture": "reflection_tied",
+      "latch_code_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "latch_exact_fixed": 1.0,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 1.0,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 6,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "heldout",
+      "trainable_parameters_per_model": 2
+    },
+    {
+      "all_phase_faithful_runs": 0,
+      "architecture": "oriented",
+      "latch_code_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "latch_exact_fixed": 0.8333333333333334,
+      "latch_exact_rotating": 1.0,
+      "latch_unseen_fixed": 0.5,
+      "latch_unseen_rotating": 1.0,
+      "models": 10,
+      "n": 6,
+      "noise_free_identifiable_runs": 5,
+      "one_bit_error_robust_runs": 5,
+      "oracle_distances": [
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "split": "heldout",
+      "trainable_parameters_per_model": 3
+    }
+  ],
+  "wall_seconds": 77.408
+}

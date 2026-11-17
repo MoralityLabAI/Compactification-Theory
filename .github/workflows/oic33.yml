@@ -1,0 +1,39 @@
+name: OIC-33 mandatory-address exact search cut
+
+on:
+  push:
+    paths:
+      - 'research/observational_inwardness_v1/oic33_*'
+      - 'research/observational_inwardness_v1/test_oic33_tight.py'
+      - 'research/observational_inwardness_v1/OIC33_*'
+      - 'research/observational_inwardness_v1/results/oic33_*'
+      - 'research/observational_inwardness_v1/oic28_affine.cpp'
+      - 'research/observational_inwardness_v1/oic28_verify.py'
+      - '.github/workflows/oic33.yml'
+  pull_request:
+    paths:
+      - 'research/observational_inwardness_v1/oic33_*'
+      - 'research/observational_inwardness_v1/test_oic33_tight.py'
+      - 'research/observational_inwardness_v1/OIC33_*'
+      - 'research/observational_inwardness_v1/results/oic33_*'
+      - 'research/observational_inwardness_v1/oic28_affine.cpp'
+      - 'research/observational_inwardness_v1/oic28_verify.py'
+      - '.github/workflows/oic33.yml'
+
+jobs:
+  finite-state-and-proof-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact finite Bellman and affine gauge tests
+        run: python -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic33_tight.py' -v
+      - name: Test under optimized Python
+        run: python -O -m unittest discover -s research/observational_inwardness_v1 -p 'test_oic33_tight.py' -v
+      - name: Verify pinned source and policy hashes, every true-world fault path
+        run: python research/observational_inwardness_v1/oic33_reference.py --check
+      - name: Recompile and fully recheck Q14 UNSAT and Q20 SAT
+        run: python research/observational_inwardness_v1/oic33_reference.py --cpp-check

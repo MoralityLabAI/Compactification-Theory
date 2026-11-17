@@ -1,0 +1,70 @@
+{
+  "cases": [
+    {
+      "first_optimal_word": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "guarantees_one_substitution": false,
+      "horizon": 5,
+      "maximum_minimum_cross_shift_distance": 2,
+      "normalized_schedules_checked": 16,
+      "prime": 2
+    },
+    {
+      "first_optimal_word": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "guarantees_one_substitution": true,
+      "horizon": 6,
+      "maximum_minimum_cross_shift_distance": 3,
+      "normalized_schedules_checked": 32,
+      "prime": 2
+    },
+    {
+      "first_optimal_word": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "guarantees_one_substitution": false,
+      "horizon": 7,
+      "maximum_minimum_cross_shift_distance": 2,
+      "normalized_schedules_checked": 729,
+      "prime": 3
+    },
+    {
+      "first_optimal_word": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        2,
+        2
+      ],
+      "guarantees_one_substitution": true,
+      "horizon": 8,
+      "maximum_minimum_cross_shift_distance": 3,
+      "normalized_schedules_checked": 2187,
+      "prime": 3
+    }
+  ],
+  "normalization": "global sensor-label translation sends first marker to 0",
+  "schema": "OIC32-SMALL-PRIME-EXHAUSTIVE-V1",
+  "statement": "fixed one-substitution minima p=2:Q6, p=3:Q8",
+  "status": "complete_small_finite_exhaustive_enumeration"
+}
