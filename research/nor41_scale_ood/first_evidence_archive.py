@@ -55,9 +55,10 @@ def archive(fixture:Path,grade:Path,output:Path,first_grade_run:int,
     assert all(len(rec["calibrated_attacks"])==4
                and len(rec["attack_certificates"])==4
                and len(rec["crossplay_weighted_numerators"])==22
-               and all(len(rec["calibrated_attacks"][str(n)])==4
-                       and all(len(rec["attack_certificates"][str(n)])==4
-                               for n in (256,512,2048,4096)))
+               and all(
+                   len(rec["calibrated_attacks"][str(n)])==4
+                   and len(rec["attack_certificates"][str(n)])==4
+                   for n in (256,512,2048,4096))
                for rec in g["source_records"])
     output.mkdir(parents=True,exist_ok=True)
     archive_file=output/"nor41_original_first_hosted.zip"
