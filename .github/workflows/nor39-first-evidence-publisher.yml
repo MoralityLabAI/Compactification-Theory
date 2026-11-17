@@ -56,7 +56,7 @@ jobs:
               'global7_self_minus_deterministic_self':48,
               'global7_top_minus_atom_random':45,
               'global7_worst_minus_original_worst_tolerance':45}
-          out=Path('research/nor39_global_uniform/results')
+          out=Path('research/nor39_clean_global_uniform/results')
           out.mkdir(parents=True,exist_ok=True)
           archive=out/'nor39_original_first_hosted.zip'
           with ZipFile(archive,'w',ZIP_DEFLATED,compresslevel=9) as z:
@@ -88,8 +88,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add research/nor39_global_uniform/results/nor39_original_first_hosted.zip \
-                  research/nor39_global_uniform/results/nor39_first_frozen_receipt.json
+          git rm -r --ignore-unmatch research/nor39_global_uniform/results
+          git add research/nor39_clean_global_uniform/results/nor39_original_first_hosted.zip \
+                  research/nor39_clean_global_uniform/results/nor39_first_frozen_receipt.json
           git commit -m "NOR-39: archive first clean source and grade bytes"
           for attempt in $(seq 1 20); do
             git fetch origin research/nor39-clean-global-uniform-20261117
