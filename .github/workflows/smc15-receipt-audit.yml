@@ -1,0 +1,46 @@
+name: SMC-15 independent frozen-receipt audit
+
+on:
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/audit_smc15_receipt.py'
+      - 'research/real_recurrence_sae_v1/SMC15_RESULTS.md'
+      - '.github/workflows/smc15-receipt-audit.yml'
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/audit_smc15_receipt.py'
+      - 'research/real_recurrence_sae_v1/SMC15_RESULTS.md'
+      - '.github/workflows/smc15-receipt-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  verify-pinned-full-json:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download original pinned SMC-15 full hosted receipt
+        uses: actions/download-artifact@v4
+        with:
+          name: smc15-source-locked-causal-tangent-receipts
+          run-id: 44086787126
+          github-token: ${{ github.token }}
+          path: runs/smc15/audit_input
+      - name: Audit every stored goal and source-registration hash without Torch
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc15_receipt.py \
+            --pilot runs/smc15/audit_input/calibration_pilot.json \
+            --full runs/smc15/audit_input/fresh_full.json \
+            --out runs/smc15/audit/independent.json
+          sha256sum runs/smc15/audit/independent.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc15-independent-raw-receipt-audit
+          path: runs/smc15/audit/independent.json
