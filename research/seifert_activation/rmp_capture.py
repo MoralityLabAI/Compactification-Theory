@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 import math
+import struct
 from pathlib import Path
 import sys
 from typing import Any, Sequence
@@ -19,8 +20,9 @@ import torch
 
 from knot import InvalidBraidTrace, extract_closed_braid, normalized_alexander, braid_seifert_surface
 from winding import verify_pure_braid
+from nonabelian import ArtinWordBudgetExceeded, artin_witness
 
-SCHEMA = "scm02/rmp-cyclic/v1"
+SCHEMA = "scm03/rmp-cyclic/v2"
 
 
 def sha256_file(path: Path) -> str:
@@ -32,7 +34,10 @@ def sha256_file(path: Path) -> str:
 
 
 def sha256_tensor(tensor: torch.Tensor) -> str:
-    raw = tensor.detach().cpu().to(torch.float64).contiguous().numpy().tobytes()
+    # Canonical little-endian float64 bytes, without requiring NumPy.
+    # PyTorch's CPU-only wheel may be installed without NumPy on fresh CI.
+    values = tensor.detach().cpu().to(torch.float64).contiguous().reshape(-1).tolist()
+    raw = struct.pack(f'<{len(values)}d', *values)
     return hashlib.sha256(raw).hexdigest()
 
 
@@ -153,7 +158,8 @@ def capture_cycle(model: Any, tokens: torch.Tensor, chart: torch.Tensor, *,
     }
 
 
-def analyze_cycle(trace: dict, *, clearance: float = 1e-7) -> list[dict]:
+def analyze_cycle(trace: dict, *, clearance: float = 1e-7,
+                  max_artin_letters: int = 20_000) -> list[dict]:
     """Conservative analyzer: rejected observations remain explicit records."""
     result=[]
     for visit, frames in enumerate(trace['frames_by_visit']):
@@ -161,7 +167,7 @@ def analyze_cycle(trace: dict, *, clearance: float = 1e-7) -> list[dict]:
             braid=extract_closed_braid(frames,clearance=clearance)
             linking=verify_pure_braid(frames,braid,clearance=clearance)
             surface=braid_seifert_surface(braid.n_strands,braid.word)
-            result.append({
+            item={
                 'visit':visit+1,'valid':True,'braid_word':list(braid.word),
                 'pair_winding':{f'{i},{j}':int(value) for (i,j),value in linking.items()},
                 'boundary_components':surface.boundary_components,
@@ -169,22 +175,56 @@ def analyze_cycle(trace: dict, *, clearance: float = 1e-7) -> list[dict]:
                 'alexander':str(normalized_alexander(braid.n_strands,braid.word)),
                 'n_crossings':len(braid.word),
                 'sampling_certificate':'polygonal_only',
-            })
+            }
+            try:
+                witness=artin_witness(braid.n_strands, braid.word,
+                                      max_letters=max_artin_letters)
+                item['artin']={
+                    'status':'exact',
+                    'nonidentity':not witness['is_identity'],
+                    'sha256':witness['sha256'],
+                    'image_lengths':witness['image_lengths'],
+                    'scope':witness['scope'],
+                }
+                # Short exact images support collision-free replay comparison.
+                # For large images, hash is an integrity receipt only.
+                if sum(witness['image_lengths'])<=1_024:
+                    item['artin']['images']=witness['images']
+            except ArtinWordBudgetExceeded as exc:
+                item['artin']={'status':'budget_exceeded', 'reason':str(exc)}
+            result.append(item)
         except (InvalidBraidTrace, ValueError, ArithmeticError) as exc:
             result.append({'visit':visit+1,'valid':False,'reject_reason':str(exc)})
     return result
 
 
-def compare_double_resolution(coarse: dict, fine: dict) -> list[dict]:
+def compare_double_resolution(coarse: dict, fine: dict, *,
+                              max_artin_letters: int = 20_000) -> list[dict]:
     """Compare invariant values by visit. Braid words may differ by Artin relations."""
-    left,right=analyze_cycle(coarse),analyze_cycle(fine)
+    left,right=(analyze_cycle(coarse,max_artin_letters=max_artin_letters),
+                analyze_cycle(fine,max_artin_letters=max_artin_letters))
     if len(left)!=len(right):
         raise ValueError('Different number of visits')
     report=[]
     for a,b in zip(left,right):
-        equal=bool(a['valid'] and b['valid'] and all(a[k]==b[k] for k in
+        abelian_match=bool(a['valid'] and b['valid'] and all(a[k]==b[k] for k in
                  ('pair_winding','alexander','boundary_components')))
-        report.append({'visit':a['visit'],'match':equal,
+        aw,bw=a.get('artin',{}),b.get('artin',{})
+        artin_available=(aw.get('status')=='exact' and bw.get('status')=='exact')
+        exact_images_available=artin_available and 'images' in aw and 'images' in bw
+        if exact_images_available:
+            nonabelian_match=aw['images']==bw['images']
+            comparison='exact_images'
+        elif artin_available:
+            nonabelian_match=aw['sha256']==bw['sha256']
+            comparison='sha256_receipt_only'
+        else:
+            nonabelian_match=False
+            comparison='unavailable'
+        report.append({'visit':a['visit'],'match':bool(abelian_match and nonabelian_match),
+                       'abelian_match':abelian_match,
+                       'nonabelian_match':bool(nonabelian_match) if artin_available else None,
+                       'nonabelian_comparison':comparison,
                        'coarse_valid':a['valid'],'fine_valid':b['valid']})
     return report
 
@@ -229,13 +269,14 @@ def main(argv: Sequence[str] | None = None) -> None:
     parser.add_argument('--features',type=int,nargs=2,required=True)
     parser.add_argument('--chart-control',choices=['sae','random-orthogonal'],default='sae')
     parser.add_argument('--inject-token',type=int,default=4)
-    parser.add_argument('--observed-tokens',type=int,nargs='+',default=[16,32])
+    parser.add_argument('--observed-tokens',type=int,nargs='+',default=[16,32,48])
     parser.add_argument('--radius',type=float,default=0.05)
     parser.add_argument('--angles',type=int,default=32)
     parser.add_argument('--double-sampling',action='store_true')
     parser.add_argument('--examples',type=int,default=64)
     parser.add_argument('--seed',type=int,default=20261113)
     parser.add_argument('--clearance',type=float,default=1e-7)
+    parser.add_argument('--max-artin-letters',type=int,default=20_000)
     parser.add_argument('--device',default='cuda' if torch.cuda.is_available() else 'cpu')
     parser.add_argument('--out',type=Path,required=True)
     args=parser.parse_args(argv)
@@ -295,13 +336,15 @@ def main(argv: Sequence[str] | None = None) -> None:
                 'family':str(data['families'][idx]),'target':int(data['targets'][idx]),
                 'token_sequence_sha256':sha256_tensor(tokens),
                 'features':list(args.features),**digests,
-                'capture':trace,'topology':analyze_cycle(trace,clearance=args.clearance),
+                'capture':trace,'topology':analyze_cycle(trace,clearance=args.clearance,
+                                                   max_artin_letters=args.max_artin_letters),
             }
             if args.double_sampling:
                 fine=capture_cycle(model,tokens,chart,inject_token=args.inject_token,
                       observed_tokens=args.observed_tokens,radius=args.radius,angles=2*args.angles,
                       intervention_axes=injection_axes)
-                record['double_resolution']=compare_double_resolution(trace,fine)
+                record['double_resolution']=compare_double_resolution(trace,fine,
+                                              max_artin_letters=args.max_artin_letters)
             writer.write(json.dumps(record,sort_keys=True,allow_nan=False)+'\n')
             writer.flush()
     print(json.dumps({'schema':SCHEMA,'out':str(args.out),'examples':len(indices),
