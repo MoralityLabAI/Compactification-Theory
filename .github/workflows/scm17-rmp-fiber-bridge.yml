@@ -1,0 +1,43 @@
+name: SCM-17 RMP local margin-fiber bridge
+
+on:
+  push:
+    paths:
+      - 'research/dimensional_atlas/gym/scm17/**'
+      - '.github/workflows/scm17-rmp-fiber-bridge.yml'
+  pull_request:
+    paths:
+      - 'research/dimensional_atlas/gym/scm17/**'
+      - '.github/workflows/scm17-rmp-fiber-bridge.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  rmp-hook-fiber-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install CPU neural dependency
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - name: Compile and test
+        run: |
+          python -m compileall -q research/dimensional_atlas/gym/scm17
+          python -m unittest discover -s research/dimensional_atlas/gym/scm17/tests -v
+      - name: Replay mock reference (no RMP weights)
+        run: |
+          python -m research.dimensional_atlas.gym.scm17.reference --check \
+            --out research/dimensional_atlas/gym/scm17/results/scm17_mock_reference.json
+      - name: Refuse missing trained model artifacts
+        run: |
+          python -m research.dimensional_atlas.gym.scm17.campaign --mode preflight \
+            --rmp-root /nonexistent/rmp --runs /nonexistent/runs \
+            --artifacts /nonexistent/artifacts --monitor-bundle /nonexistent/bundle \
+            --dictionary /nonexistent/sae.pt --metrics /nonexistent/metrics.json \
+            --output /tmp/scm17_not_started.json | grep blocked_external_artifacts
