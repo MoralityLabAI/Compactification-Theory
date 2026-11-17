@@ -47,7 +47,14 @@ def risk_order(pred,header,digest):
 
 def draw(root,phase,digest,arm,trial,m,order):
     assert phase in PHASES and arm in ARMS and 0<=trial<TRIALS
-    return nor28.schedule(subkey(root,phase),digest,arm,trial,m,order)
+    if arm=="static_prior":
+        return tuple(order[:K])
+    key=subkey(root,phase)
+    if arm=="uniform16":
+        return nor28.uniform_without_replacement(key,digest,arm,trial,range(m),K)
+    public=tuple(order[:T])
+    remaining=(i for i in range(m) if i not in set(public))
+    return public+nor28.uniform_without_replacement(key,digest,arm,trial,remaining,K-T)
 
 
 def make_phase(fixture_path,phase,manifest_path=None,calibration_path=None,root=None):
