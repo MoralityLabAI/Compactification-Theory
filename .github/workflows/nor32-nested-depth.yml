@@ -211,7 +211,7 @@ jobs:
             --pre-manifest /tmp/nor32_prep/nor32_pre_manifest.json \
             --sealed /tmp/nor32_late/nor32_late_sealed.json \
             --manifest /tmp/nor32_late/nor32_late_manifest.json
-      - name: Grade exact target witness on 2,359,296 matched fixed-batch decisions
+      - name: Grade exact target witness on 23,592,960 matched fixed-batch decisions
         run: |
           python research/nor32_nested_audit_depth/grade.py \
             --fixture /tmp/nor32_prep/nor32_fixture.json \
@@ -232,13 +232,13 @@ jobs:
               raw=Path('/tmp/nor32_late',f'nor32_{name}.json').read_bytes()
               print('NOR32 FIRST ORIGINAL LATE',name,len(raw),sha256(raw).hexdigest())
           z=json.loads(Path('/tmp/nor32_late/nor32_full.json').read_bytes())
-          assert z['schema']=='nor32.prospective_independent_calibration_vs_leaked_eval_root.v1'
+          assert z['schema']=='nor32.nested_depth_attack_coverage_and_detection.v1'
           assert z['fixed_batch_decisions']==23592960
           assert len(z['source_records'])==24
-          assert z['original_early_commitments']==9216
-          assert z['post_eval_root_commitments']==9216
-          assert z['per_schedule_informed_tests']==147456
-          assert z['per_schedule_informed_detections']==0
+          assert z['early_commitment_count']==9216
+          assert z['late_commitment_count']==9216
+          assert z['informed_per_trial_controls']==147456
+          assert z['informed_per_trial_detected']==0
           assert z['delta_disagreements']==0
           print('NOR32 REGISTERED SCIENTIFIC PASS',z['registered_primary_pass'])
           PY
