@@ -284,6 +284,7 @@ def predict(original,independent,conditioned,calibration,fetch_source):
     verify_calibration_receipt(frozen_fit,snapshot)
     families,manifest = fresh_rosters(old)
     result={}
+    source_stage_archive={}
     for family,rows in families.items():
         x=torch.tensor([r["x"] for r in rows],dtype=torch.long)
         positions=goal_positions(x)
@@ -291,6 +292,15 @@ def predict(original,independent,conditioned,calibration,fetch_source):
         for teacher in TEACHERS:
             with torch.no_grad():
                 stage[teacher]=models[teacher].reason_states(x)[1].detach()
+        # Archive canonical input-only FP32 anchors before native scoring.
+        # The same entire 81x48 tensor participates in every edit.
+        source_stage_archive[family] = {
+            teacher:{
+                "shape": list(stage[teacher].shape),
+                "tensor_sha256": sha(stage[teacher].contiguous().numpy().tobytes()),
+                "tensor": stage[teacher].tolist(),
+            } for teacher in TEACHERS
+        }
         components_out={}
         for component in B_COMPONENTS:
             teacher_id,sae,mean,scale=components[component]
@@ -331,6 +341,7 @@ def predict(original,independent,conditioned,calibration,fetch_source):
             "test_gradient_from_test_labels":False,
             "teacher_models":TEACHERS,"sae_components":B_COMPONENTS,
             "test_prediction_data":result,
+            "archived_source_stage1":source_stage_archive,
             "precision":"FP32 stage1, FP64 input-sham geometry and frozen ridge",
             "limitations":"The original teacher stage-one embeddings can encode task predictions, but no new correct-digit labels enter this prediction API."}
 
