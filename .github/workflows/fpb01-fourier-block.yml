@@ -1,0 +1,46 @@
+name: FPB-01 Boolean Fourier blind modes
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - 'research/fourier_block_probe_v1/**'
+      - '.github/workflows/fpb01-fourier-block.yml'
+  pull_request:
+    paths:
+      - 'research/fourier_block_probe_v1/**'
+      - '.github/workflows/fpb01-fourier-block.yml'
+  workflow_dispatch:
+jobs:
+  exact-fourier-and-block-sensitivity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact 17-bit Boolean and 34-bit spectral-transport controls
+        run: python -m unittest discover -s research/fourier_block_probe_v1 -p test_reference.py -v
+      - name: Exact rational source receipt
+        run: python research/fourier_block_probe_v1/reference.py --check --out /tmp/fpb01_exact.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fpb01-exact-fourier
+          path: /tmp/fpb01_exact.json
+  synthetic-heldout-probes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Cross-split probe and paired-feature regression checks
+        run: python -m unittest discover -s research/fourier_block_probe_v1 -p test_benchmark.py -v
+      - name: Frozen 4096-train 4096-test hidden-mode benchmark
+        run: python research/fourier_block_probe_v1/benchmark.py --seed 940132192 --train 4096 --test 4096 --out /tmp/fpb01_pilot.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fpb01-heldout-parity-probes
+          path: /tmp/fpb01_pilot.json
