@@ -64,6 +64,7 @@ The aggregate decline follows the exact forecast, while individual source rates 
 
 - **Source-only fixture:** 2,328,063 original bytes; SHA-256 2d660516122efee0211555fdb321b347da91a667bbb688cff6435b4267f3e4b6.
 - **Complete results:** 472,774 original bytes; SHA-256 5c3597a9436cc33d6d9be81b1e53ad456b3b2b775872ab2d17c536972d88d428.
+- The original files are now permanently source-controlled in [results/nor27_original_hosted.zip](results/nor27_original_hosted.zip), a **874,004-byte** ZIP whose two members match their first-run byte hashes. The read-only [original_archive_audit.py](original_archive_audit.py) is included in both CI verification jobs.
 - First original GitHub Actions #44015771328, artifact **14298756859**, with both files as originally emitted. [Original immutable receipt](results/nor27_first_original_receipt.json) fixes all source-count, leakage, statistical and file-hash fields.
 - The separate-process replayer is independent of the NOR-27 evaluator and directly reconstructs all public algebra inputs and the original seeded attack/schedule decisions.
 - Every original source's honest exact target passed; all tested nonzero shifts +1 and +4294049777 generated the same exact acceptance decision.
