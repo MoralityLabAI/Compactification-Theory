@@ -1,0 +1,58 @@
+{
+  "schema": "nor28.first_immutable_os_entropy_commitment_receipt.v1",
+  "registration_first_commit": "da296c8d0cdfd8f42066896dca35bb16b7502f4d",
+  "first_started_actions_run": 44019242345,
+  "first_prep_artifact_id": 14300925012,
+  "first_challenge_artifact_id": 14300611109,
+  "raw": {
+    "fixture": {
+      "name": "nor28_fixture.json",
+      "bytes": 2102486,
+      "sha256": "43a270313e331b4ecd6fa33722eac851888767b48b5b2c0a35e8fd9fcd627670"
+    },
+    "sealed": {
+      "name": "nor28_sealed.json",
+      "bytes": 32291,
+      "sha256": "62d758a60e59fb960e3aea70830ab891cf47d657ef443b164ccc9ecc01b9944d"
+    },
+    "manifest": {
+      "name": "nor28_manifest.json",
+      "bytes": 24847,
+      "sha256": "8cc8d5a15348f85b4c5aa32b99750a0b6e1588cca524c4d76ca8b8872914fdc4"
+    },
+    "challenges": {
+      "name": "nor28_challenges.json",
+      "bytes": 5538148,
+      "sha256": "0856647739357c3e7994a422d21fd340df1bf6479ea7a19b35e928e07f0c3ca7"
+    },
+    "full": {
+      "name": "nor28_full.json",
+      "bytes": 117857,
+      "sha256": "b65bf20fc0c493b5299a7fe7abb58a22d7a821b17c75707c8bea8fa33bf47ed8"
+    }
+  },
+  "original_root_commitment_sha256": "5c86c781af7fb459bab5fa41f3610a04e29ff743ba5fbe3c8aa4ac1eaebbeeaf",
+  "prospective_result": {
+    "registered_primary_pass": true,
+    "original_attack_commitments_opened": 96,
+    "forged_commitments_accepted": 0,
+    "attack_members_changed_after_commit": 0,
+    "postcommit_seed_leakage_decision_changes": 0,
+    "total_fixed_attack_auditor_challenge_decisions": 147456,
+    "source_units": 12,
+    "hybrid_calibrated_detection_source_mean": 0.0301513671875,
+    "static_calibrated_detection_source_mean": 0.0625,
+    "uniform_calibrated_detection_source_mean": 0.059407552083333336,
+    "hybrid_calibrated_source_wins_over_static": 10,
+    "hybrid_fresh_uniform_attack_source_mean": 0.15266927083333334,
+    "uniform_fresh_uniform_attack_source_mean": 0.0596923828125,
+    "static_fresh_uniform_attack_source_mean": 0.125
+  },
+  "interpretation": "The first initiated CI run is numbered 44019242345. A separate concurrent PR-triggered CI run #44019274608 drew different OS entropy and nonces and also passed. This receipt preserves the original bytes of the earlier initiated run. Registered PASS is paired source-level and timing/commitment-specific; static ranking has the higher arithmetic mean due to two source-level outliers.",
+  "limitations": [
+    "OS entropy provenance is trusted from the separate GitHub Actions runner and Python secrets interface, not independently certified hardware entropy.",
+    "SHA-256 commitment binding and HMAC-SHA256 pseudorandomness are computational assumptions.",
+    "The witness provides authentic exact private target coefficients in the finite synthetic RRC25 grammar.",
+    "Disclosing audit seed only after attack binding is a protocol-ordering invariant; future real deployments require trustworthy seed secrecy until the prescribed point."
+  ]
+}
