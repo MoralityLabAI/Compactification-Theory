@@ -50,3 +50,7 @@ The conditional guaranteed uniform-exploration contribution of `global7_mix` is 
 ## Statistical unit
 
 Each public source identity has one learned attack game. The 8 CAL baseline starts, 32 full-CAL starts, local swap trials, candidate-pool subsets and 512 EVAL schedules are algorithmic observations within the same source. NOR40 has 48 source-level registered comparisons, nested in eight replicate blocks each containing six related degree/family cells. The replicate-block intervals and attack uniqueness are descriptive. Any optimally selected or retrospectively retuned attack family using EVAL violates the prospective separation and requires an independent fresh cohort.
+
+## Lean companion
+
+The [merged MathCan PR #141](https://github.com/patrickdugan/MathCan/pull/141), commit [`61d653c`](https://github.com/patrickdugan/MathCan/commit/61d653c5bf9d1a4e1c9483a9c0c21b0677513869), kernel-verifies the four-distinct-rank pigeonhole statement and the fourth-smallest singleton lower bound under sorted-rank and nonnegative union-exposure hypotheses. It also verifies nonnegative integer policy-weight monotonicity. The full-domain CAL optimum bracket continues to have a potentially nonzero gap.
