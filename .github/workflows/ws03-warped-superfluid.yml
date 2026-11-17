@@ -1,0 +1,34 @@
+name: WS-03 Full 5D Warped Superfluid
+
+on:
+  pull_request:
+    paths:
+      - 'research/warped_superfluid_v3/**'
+      - '.github/workflows/ws03-warped-superfluid.yml'
+  push:
+    paths:
+      - 'research/warped_superfluid_v3/**'
+      - '.github/workflows/ws03-warped-superfluid.yml'
+
+jobs:
+  nonlinear-5d-bulk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install numerical requirements
+        run: python -m pip install -r research/warped_superfluid_v3/requirements.txt
+      - name: Verify 20 analytic and 5D evolution tests
+        working-directory: research/warped_superfluid_v3
+        run: python -m unittest discover -s tests -v
+      - name: Regenerate PDE convergence and radion figures
+        working-directory: research/warped_superfluid_v3
+        run: python run_experiment.py > /dev/null
+      - name: Upload 5D diagnostic evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: ws03-nonlinear-5d-evidence
+          path: research/warped_superfluid_v3/results/
