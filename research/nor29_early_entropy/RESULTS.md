@@ -72,7 +72,23 @@ The prior NOR-25 blind hypergeometric floor is approximately 4.147% for m=769 an
 
 The static ranking control illustrates the issue: its inspected positions are already public and deterministic, so an attacker can evade it without needing the root. The 6.12 pp static comparison is therefore a timing-and-optimization stressor, not evidence that static detection depends on root secrecy.
 
-A **separately labeled retrospective matched-budget diagnostic** is registered as a posthoc addition to this branch. It gives a policy-aware attacker the same 512-schedule greedy search budget, but on an independently derived public calibration root, before evaluating against the original OS-rooted schedules. Its results must be reported as exploratory, with a fresh-source prospective replication needed for confirmatory isolation of the seed-disclosure effect. This secondary calculation never changes NOR-29's frozen primary PASS/FAIL gate.
+### Executed retrospective matched-budget diagnostic
+
+The posthoc [matched-control script](retrospective_matched_control.py) has completed successfully and its **exact 29,223-byte JSON result** is source-controlled at [results/nor29_retrospective_matched_control.json](results/nor29_retrospective_matched_control.json), SHA-256 db2ec77170067868b81fd2a69576f8f0e7d7889ec3874b802fbd2725a4a21aa2. The original source, challenge and outcome SHA-256 are verified against the registered NOR-29 first-run archive. The calculation was designed and executed **after the registered first outcome**, and has no authority to change the registered PASS.
+
+For each source and auditor, this control constructs the same 32 greedy attack replicas and randomized tie orders using exactly **512** simulated audit schedules. The pre-root attacker sees a **separate, independently derived public calibration root**, not the actual OS-rooted evaluation schedules. The exposed-root attacker retains access to the actual evaluation batch. Both choose one fixed four-coordinate set per 512-schedule batch and use the same greedy algorithm.
+
+| Audit policy | 512-schedule independent calibration | 512-schedule actual leaked root | Added detection reduction |
+| --- | ---: | ---: | ---: |
+| **Hybrid_50** | **3.3033%** | **0.1673%** | **3.1359 pp** |
+| Uniform16 | 6.1867% | 1.0986% | 5.0880 pp |
+| Static trained-risk16 | 0% | 0% | 0 pp |
+
+Hybrid and uniform each showed a positive matched-calibration-minus-root-aware difference on **24/24 sources**. The hybrid paired median was **2.5848 pp**, and a descriptive source-block percentile bootstrap (10,000 resamples, seed 202611290121) gave approximately **2.705 to 3.595 pp** for the source-mean difference. The static control remained zero in both regimes because its schedule is public and deterministic.
+
+This comparison holds fixed the number of greedy attack candidates, tie streams, source inputs, policy knowledge, calibration batch size and evaluation trial count. Its remaining major difference is knowledge of the **actual** realized schedule batch. The diagnostic therefore provides better evidence of an incremental early-root disclosure effect, subject to posthoc analysis and correlation among source-world experiments. A fresh prospective study using this matched comparator as a registered primary arm remains necessary for confirmatory causal attribution.
+
+The original preregistered random-attack baseline of 5.4871% for hybrid remains unchanged, and the matched-calibration comparator of 3.3033% is a **distinct retrospective control**.
 
 ## Permanent first original evidence and replay
 
