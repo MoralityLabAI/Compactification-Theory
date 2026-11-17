@@ -24,7 +24,7 @@ from research.rrc_compactification import compound25 as corpus
 from research.nor21_degree_scaling import experiment as nor21
 from research.nor24_adaptive_audits import experiment as nor24
 from research.nor25_robust_audits import experiment as nor25
-from research.nor30_minimax_audits import train as historical
+from research.nor31_class_constrained_minimax import train as historical
 
 SCHEMA="nor31.fresh_source_sixclass_template_constrained_minimax.v1"
 FIXTURE_SCHEMA="nor31.source_only_new_12_reps24_25.v1"
