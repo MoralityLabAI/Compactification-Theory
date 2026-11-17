@@ -1,0 +1,272 @@
+{
+  "experiment": "SCH-01",
+  "evidence_grade": "deterministic_single_coder_fixture",
+  "sample_size": 8,
+  "pair_count": 28,
+  "coarse_positive_pairs": 21,
+  "faithful_positive_pairs": 0,
+  "comparisons": [
+    {
+      "a": "KURZWEIL",
+      "b": "JW",
+      "coarse_match": true,
+      "typed_agreement": 0.16666666666666666,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": false
+    },
+    {
+      "a": "KURZWEIL",
+      "b": "QURAN",
+      "coarse_match": true,
+      "typed_agreement": 0.16666666666666666,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "KURZWEIL",
+      "b": "PLOTINUS",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "KURZWEIL",
+      "b": "ADVAITA",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "KURZWEIL",
+      "b": "DAOISM",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "KURZWEIL",
+      "b": "MIGRATION",
+      "coarse_match": true,
+      "typed_agreement": 0.3333333333333333,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": false
+    },
+    {
+      "a": "KURZWEIL",
+      "b": "STEADY",
+      "coarse_match": false,
+      "typed_agreement": null,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": false
+    },
+    {
+      "a": "JW",
+      "b": "QURAN",
+      "coarse_match": true,
+      "typed_agreement": 0.5,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "JW",
+      "b": "PLOTINUS",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "JW",
+      "b": "ADVAITA",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "JW",
+      "b": "DAOISM",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "JW",
+      "b": "MIGRATION",
+      "coarse_match": true,
+      "typed_agreement": 0.16666666666666666,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": false
+    },
+    {
+      "a": "JW",
+      "b": "STEADY",
+      "coarse_match": false,
+      "typed_agreement": null,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": false
+    },
+    {
+      "a": "QURAN",
+      "b": "PLOTINUS",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "QURAN",
+      "b": "ADVAITA",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "QURAN",
+      "b": "DAOISM",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "QURAN",
+      "b": "MIGRATION",
+      "coarse_match": true,
+      "typed_agreement": 0.16666666666666666,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "QURAN",
+      "b": "STEADY",
+      "coarse_match": false,
+      "typed_agreement": null,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "PLOTINUS",
+      "b": "ADVAITA",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "PLOTINUS",
+      "b": "DAOISM",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "PLOTINUS",
+      "b": "MIGRATION",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "PLOTINUS",
+      "b": "STEADY",
+      "coarse_match": false,
+      "typed_agreement": null,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "ADVAITA",
+      "b": "DAOISM",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "source_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "ADVAITA",
+      "b": "MIGRATION",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "ADVAITA",
+      "b": "STEADY",
+      "coarse_match": false,
+      "typed_agreement": null,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "DAOISM",
+      "b": "MIGRATION",
+      "coarse_match": true,
+      "typed_agreement": 0,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "DAOISM",
+      "b": "STEADY",
+      "coarse_match": false,
+      "typed_agreement": null,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": true
+    },
+    {
+      "a": "MIGRATION",
+      "b": "STEADY",
+      "coarse_match": false,
+      "typed_agreement": null,
+      "faithful_match": false,
+      "status": "synthetic_control_pair",
+      "interpretive_pair": false
+    }
+  ],
+  "inference_allowed": [
+    "fixture_validation",
+    "label-erasure counterexample"
+  ],
+  "inference_excluded": [
+    "historical independence",
+    "empirical convergence",
+    "Bayesian evidence for metaphysics",
+    "AI model inference"
+  ]
+}

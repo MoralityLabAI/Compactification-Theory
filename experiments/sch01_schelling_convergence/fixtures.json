@@ -1,0 +1,181 @@
+{
+  "experiment": "SCH-01",
+  "retrieval_as_of": "2026-10-30",
+  "description": "Hand-coded paraphrases and explicit synthetic controls. Labels are research hypotheses, not measurements or quotations.",
+  "records": [
+    {
+      "id": "KURZWEIL",
+      "name": "Kurzweil's technological singularity",
+      "source_kind": "primary_doctrine",
+      "source_url": "https://www.writingsbyraykurzweil.com/a-singularity-q-a",
+      "source_locator": "2045 passage",
+      "annotation_status": "source_explicit",
+      "paraphrase": "Bounded biological capability precedes a predicted accelerating technological transformation.",
+      "stages": [
+        "D",
+        "T",
+        "E"
+      ],
+      "axes": {
+        "time": "future_discontinuity",
+        "agency": "technology",
+        "identity": "claimed_continuous_enhancement",
+        "ultimate": "unasserted",
+        "destination": "technologically_enhanced_life",
+        "authority": "human_technological"
+      }
+    },
+    {
+      "id": "JW",
+      "name": "Jehovah's Witnesses: Kingdom and resurrection",
+      "source_kind": "primary_doctrine",
+      "source_url": "https://www.jw.org/en/jehovahs-witnesses/faq/jehovah-witness-beliefs/",
+      "source_locator": "Beliefs 5–9",
+      "annotation_status": "source_explicit",
+      "paraphrase": "Present order gives way to divine government, resurrection, and enduring earthly paradise.",
+      "stages": [
+        "D",
+        "T",
+        "E"
+      ],
+      "axes": {
+        "time": "future_discontinuity",
+        "agency": "divine_intervention",
+        "identity": "divine_resurrection",
+        "ultimate": "transcendent_creator",
+        "destination": "restored_earthly_life",
+        "authority": "divine_kingdom"
+      }
+    },
+    {
+      "id": "QURAN",
+      "name": "Qur'anic eschatological renewal",
+      "source_kind": "primary_text_with_secondary_guide",
+      "source_url": "https://corpus.quran.com/translation.jsp?chapter=14&verse=48",
+      "source_locator": "Q 14:48; compare Q 42:11",
+      "annotation_status": "researcher_interpretation",
+      "paraphrase": "An appointed day brings changed heavens and earth, and creatures appear before the One.",
+      "stages": [
+        "D",
+        "T",
+        "E"
+      ],
+      "axes": {
+        "time": "future_discontinuity",
+        "agency": "divine_intervention",
+        "identity": "eschatological_appearance",
+        "ultimate": "transcendent_creator",
+        "destination": "judgment_and_new_creation",
+        "authority": "divine_judgment"
+      }
+    },
+    {
+      "id": "PLOTINUS",
+      "name": "Plotinian procession and reversion",
+      "source_kind": "secondary_analysis",
+      "source_url": "https://plato.stanford.edu/entries/plotinus/",
+      "source_locator": "Procession and reversion",
+      "annotation_status": "researcher_interpretation",
+      "paraphrase": "Multiplicity derives from intelligible principles; contemplative return is not a dated apocalypse.",
+      "stages": [
+        "D",
+        "T",
+        "E"
+      ],
+      "axes": {
+        "time": "ontological_reversion",
+        "agency": "contemplation",
+        "identity": "reversion_of_soul",
+        "ultimate": "the_one",
+        "destination": "contemplative_ascent",
+        "authority": "metaphysical_intellect"
+      }
+    },
+    {
+      "id": "ADVAITA",
+      "name": "Śaṅkara's Advaita Vedānta",
+      "source_kind": "secondary_analysis",
+      "source_url": "https://plato.stanford.edu/entries/shankara/",
+      "source_locator": "Nonduality and liberating recognition",
+      "annotation_status": "researcher_interpretation",
+      "paraphrase": "Liberation involves recognition of nonduality rather than producing a new cosmic state.",
+      "stages": [
+        "D",
+        "T",
+        "E"
+      ],
+      "axes": {
+        "time": "atemporal_recognition",
+        "agency": "liberating_knowledge",
+        "identity": "atman_brahman_identity",
+        "ultimate": "brahman",
+        "destination": "recognized_nonduality",
+        "authority": "scripture_and_reason"
+      }
+    },
+    {
+      "id": "DAOISM",
+      "name": "Daoist return and harmonization",
+      "source_kind": "secondary_analysis",
+      "source_url": "https://plato.stanford.edu/archives/spr2020/entries/daoism-religion/",
+      "source_locator": "Section 4.1, Dao and Ten Thousand Things",
+      "annotation_status": "researcher_interpretation",
+      "paraphrase": "Daoist returns occur through cultivation; the temporal meaning depends on lineage.",
+      "stages": [
+        "D",
+        "T",
+        "E"
+      ],
+      "axes": {
+        "time": "ongoing_return",
+        "agency": "cultivation",
+        "identity": "embodied_practitioner",
+        "ultimate": "dao",
+        "destination": "harmonization",
+        "authority": "the_way"
+      }
+    },
+    {
+      "id": "MIGRATION",
+      "name": "Synthetic negative control: software migration",
+      "source_kind": "synthetic_control",
+      "source_url": null,
+      "source_locator": "Hand-authored operational toy narrative",
+      "annotation_status": "synthetic",
+      "paraphrase": "An outdated system develops faults, undergoes migration, and persists in a changed state.",
+      "stages": [
+        "D",
+        "T",
+        "E"
+      ],
+      "axes": {
+        "time": "future_discontinuity",
+        "agency": "human_operators",
+        "identity": "software_migration",
+        "ultimate": "unasserted",
+        "destination": "operational_system",
+        "authority": "organizational"
+      }
+    },
+    {
+      "id": "STEADY",
+      "name": "Synthetic negative control: stable state",
+      "source_kind": "synthetic_control",
+      "source_url": null,
+      "source_locator": "Hand-authored single-state narrative",
+      "annotation_status": "synthetic",
+      "paraphrase": "A process remains stable without transition or final destination.",
+      "stages": [
+        "D"
+      ],
+      "axes": {
+        "time": "ongoing_stasis",
+        "agency": "none",
+        "identity": "unchanged",
+        "ultimate": "unasserted",
+        "destination": "unchanged",
+        "authority": "none"
+      }
+    }
+  ]
+}
