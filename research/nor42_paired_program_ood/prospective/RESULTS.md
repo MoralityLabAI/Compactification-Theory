@@ -36,7 +36,7 @@ Every policy uses **k=16** exact target coefficient queries. The proposed contin
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | Dense, original anchor | 32 | 335.41 | 98.5584% | 98.6328% | **99.3607%** | 99.7902% | 99.9268% |
 | Block-regime input, new family | 32 | 150.91 | 78.7614% | **78.7415%** | **73.2144%** | 76.3695% | 68.9156% |
-| **Equal-source pooled** | **64** | **243.16** | **88.6599%** | **88.6871%** | **86.2875%** | 88.0798% | 84.4209% |
+| **Equal-source pooled** | **64** | **243.16** | **88.6599%** | **88.6871%** | **86.2875%** | 88.0798% | 84.4212% |
 
 The exact uniform16 value is computed analytically for each true discrepancy set S:
 
