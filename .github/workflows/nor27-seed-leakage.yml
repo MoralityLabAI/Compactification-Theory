@@ -1,0 +1,126 @@
+name: NOR-27 preregistered audit seed and sample-output leakage
+
+on:
+  push:
+    paths:
+      - 'research/nor27_seed_leakage/**'
+      - '.github/workflows/nor27-seed-leakage.yml'
+  pull_request:
+    paths:
+      - 'research/nor27_seed_leakage/**'
+      - '.github/workflows/nor27-seed-leakage.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-registration-exact-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify first prospective registration ancestral to every experiment run
+        run: |
+          git merge-base --is-ancestor bcc49dfb96acd9a9aae51925630b2f04f69e2315 HEAD
+          test -s research/nor27_seed_leakage/REGISTRATION.md
+      - name: Exhaustive finite conditional floors, source isolation, RNG phase separation
+        run: |
+          python -m compileall -q research/nor27_seed_leakage
+          python -m unittest research.nor27_seed_leakage.test_experiment -v
+
+  prospective-first-source-and-leakage-evaluation:
+    needs: frozen-registration-exact-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize twelve new public-only exact algebra sources
+        run: |
+          python research/nor27_seed_leakage/experiment.py \
+            --make-fixture /tmp/nor27_fixture.json
+      - name: Freeze original fixture bytes before any seed-leakage generation or witness access
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor27_fixture.json').read_bytes()
+          z=json.loads(raw)
+          assert z["schema"]=="nor27.fresh_public_only_12_sources.v1"
+          assert z["offset"]==119327000 and z["replicates"]==[8,9]
+          assert z["source_only"] and z["hidden_truth_absent"]
+          assert z["audit_seeds_absent"] and z["leakage_and_attack_absent"]
+          assert len(z["cases"])==12
+          assert len({c["full_public_input_sha256"] for c in z["cases"]})==12
+          assert all(not any(k in c for k in
+                     ("program","future","attack","witness","audit_seed"))
+                     for c in z["cases"])
+          print("NOR27 FIRST PUBLIC SOURCE-ONLY BYTES SHA256",len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Evaluate blinded prefix and high-bit seed leakage, preserving PASS or FAIL
+        run: |
+          python research/nor27_seed_leakage/experiment.py \
+            --fixture /tmp/nor27_fixture.json --out /tmp/nor27_full.json
+      - name: Validate complete original outcomes and print first raw byte hashes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          a=Path('/tmp/nor27_fixture.json').read_bytes()
+          b=Path('/tmp/nor27_full.json').read_bytes()
+          z=json.loads(b)
+          assert z["schema"]=="nor27.seed_prefix_and_reserve_preview_leakage.v1"
+          assert z["fixture_sha256"]==sha256(a).hexdigest()
+          assert len(z["source_records"])==12
+          assert all(len(r["preview"])==5 and len(r["seed_prefix_buckets"])==42
+                     and len(r["seed_summary"])==6
+                     for r in z["source_records"])
+          assert all(r["honest_target_failures"]==0 and
+                     r["delta_disagreements"]==0 and
+                     r["fully_informed_preview_detections"]==0
+                     for r in z["source_records"])
+          print("NOR27 ORIGINAL SOURCE BYTES SHA256",len(a),sha256(a).hexdigest())
+          print("NOR27 ORIGINAL RESULT BYTES SHA256",len(b),sha256(b).hexdigest())
+          print("NOR27 REGISTERED SCIENTIFIC PASS",z["registered_primary_pass"])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor27-original-sources-and-leakage-outcomes
+          path: |
+            /tmp/nor27_fixture.json
+            /tmp/nor27_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent-seed-and-probe-leakage-decision-replay:
+    needs: prospective-first-source-and-leakage-evaluation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor27-original-sources-and-leakage-outcomes
+          path: /tmp/nor27_first
+      - name: Independently reconstruct both prospective games, seeds, attacks and source gates
+        run: |
+          python research/nor27_seed_leakage/receipt_audit.py \
+            --fixture /tmp/nor27_first/nor27_fixture.json \
+            --full /tmp/nor27_first/nor27_full.json
