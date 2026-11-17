@@ -15,6 +15,18 @@ permissions:
   contents: read
 
 jobs:
+  original-first-valid-byte-lock-and-full-independent-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-lock first corrected original source/grade and independently replay every world
+        run: |
+          python research/nor35_intraatom_curvature/original_archive_audit.py
+
   freeze-registration-and-exact-controls:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
