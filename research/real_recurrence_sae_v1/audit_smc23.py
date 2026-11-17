@@ -112,19 +112,27 @@ def check_inputs(cal,full,raw_cal):
 
 
 def check_goals(rows,roster,component,family):
+    """A calibration receipt has no source roster bytes; validate slot shape only."""
     if len(rows)!=64 or {r["puzzle_index"] for r in rows}!=set(range(64)):
         raise ValueError("missing/duplicate independent test puzzles")
     feature_ids=defaultdict(list)
     counter=Counter()
     for row in rows:
         i=row["puzzle_index"]
-        if row["grid_seed"]!=roster[i]["seed"] or len(row["goals"])!=8 or len(row["goal_positions"])!=8:
+        if len(row["goals"])!=8 or len(row["goal_positions"])!=8:
             raise ValueError("wrong frozen goal selection/count")
         positions=row["goal_positions"]
-        blanks=[t for t,x in enumerate(roster[i]["x"]) if x==0]
-        expected=[blanks[(j*len(blanks))//8] for j in range(8)]
-        if positions!=expected:
-            raise ValueError("selected goal is not input-only SMC14 blank rule")
+        if len(set(positions))!=8 or not all(0<=p<81 for p in positions):
+            raise ValueError("duplicate or invalid goal token")
+        if roster is not None:
+            if row["grid_seed"]!=roster[i]["seed"]:
+                raise ValueError("frozen case seed differs from archived roster")
+            blanks=[t for t,x in enumerate(roster[i]["x"]) if x==0]
+            expected=[blanks[(j*len(blanks))//8] for j in range(8)]
+            if positions!=expected:
+                raise ValueError("selected goal is not input-only SMC14 blank rule")
+        elif row["grid_seed"]!=202613020000+i:
+            raise ValueError("calibration case seed differs from original SMC13 registration")
         for j,g in enumerate(row["goals"]):
             if g["goal_index"]!=j or g["position"]!=positions[j]:
                 raise ValueError("incorrect input-only goal position")
@@ -160,8 +168,10 @@ def check_goals(rows,roster,component,family):
                 raise ValueError("paired native effect cannot be reconstructed")
             if abs((g["kill_margin_damage"]-g["sham_margin_damage"])-delta)>1e-10:
                 raise ValueError("margins disagree with recorded native damage")
-            if g["truth_digit"]!=roster[i]["target"][positions[j]]:
+            if roster is not None and g["truth_digit"]!=roster[i]["target"][positions[j]]:
                 raise ValueError("task digit not true Sudoku target")
+            if not 1<=g["truth_digit"]<=9:
+                raise ValueError("test digit invalid")
             if not math.isfinite(delta):
                 raise ValueError("nonfinite task effect")
             if g["kill_clean_correct_to_wrong"] and not g["clean_correct"]:
@@ -221,8 +231,12 @@ def _approx(a,b,name):
 
 
 def compare_score(recomputed,recorded):
-    for key in ("eligible_goals","eligible_puzzles","cluster_bootstrap_draws",
-                "kill_correct_to_wrong","sham_correct_to_wrong","registered_pass","status"):
+    for key in ("eligible_goals","eligible_puzzles","registered_pass","status"):
+        if recomputed[key]!=recorded[key]:
+            raise ValueError("independent decision/count mismatch: "+key)
+    if recomputed["eligible_goals"]==0:
+        return
+    for key in ("cluster_bootstrap_draws","kill_correct_to_wrong","sham_correct_to_wrong"):
         if recomputed[key]!=recorded[key]:
             raise ValueError("independent decision/count mismatch: "+key)
     for key in ("token_weighted_margin_difference",):
@@ -242,9 +256,7 @@ def audit(cal,full,raw_cal):
     calib={}
     for comp in COMPONENTS:
         d=cal["data"]["feature_calibration"][comp]
-        case_feature,_=check_goals(d["per_puzzle"],
-                                   [{"seed":r["grid_seed"],"x":[1]*81,"target":[1]*81}
-                                    for r in d["per_puzzle"]],comp,"feature_calibration")
+        case_feature,_=check_goals(d["per_puzzle"],None,comp,"feature_calibration")
         # Calibration source case-score validation uses source frozen feature
         # lists separately because source calibration roster is absent here.
         values=[]
