@@ -19,7 +19,7 @@ from smc24_gradient_predict import (
     GOALS,PUZZLES,FAMILIES,CAL_SCHEMA,PRED_SCHEMA,RIDGE,
     selected_goal_gradient,fit_ridge,predict_gradient,proto_hash,seed,
 )
-from smc24_native_score import native_score_case,summarize,error_contrast
+from smc24_native_score import native_score_case,summarize,error_contrast,check_archived_edit
 from audit_smc24 import independent_summary
 from smc23_native_first import affine_physical,plan_target_native
 from smc13_family import new_full_solution,dig_unique,count_solutions,rectangle_count
@@ -90,6 +90,19 @@ class GradientPredictorTests(unittest.TestCase):
         self.assertGreater(float((predictions["shuffled"]-g[0,0]).norm()),0)
         self.assertTrue(torch.equal(predict_gradient(fit,h)["ridge"],
                                     predict_gradient(fit,h)["ridge"]))
+
+    def test_preoutcome_archived_edit_revalidates_on_identical_source_state(self):
+        sae,mu,scale,h=make_sae()
+        cov,dec=affine_physical(sae,mu,scale)
+        info,kill,sham=plan_target_native(h,sae,mu,scale,cov,dec,"SMC24|fixture|1")
+        self.assertEqual(info["status"],"eligible")
+        payload={"archived_h":h,"edit_kill":kill.tolist(),"edit_sham":sham.tolist()}
+        recovered_k,recovered_s=check_archived_edit(payload,info,sae,mu,scale,cov,dec)
+        self.assertTrue(torch.equal(recovered_k,kill))
+        self.assertTrue(torch.equal(recovered_s,sham))
+        tampered={**payload,"edit_sham":(sham+torch.eye(48,dtype=torch.float64)[0]*.02).tolist()}
+        with self.assertRaisesRegex(ValueError,"dose|tangent"):
+            check_archived_edit(tampered,info,sae,mu,scale,cov,dec)
 
     def test_active_erasure_sham_and_finite_scoring(self):
         model=TinyTeacher().double().eval()
