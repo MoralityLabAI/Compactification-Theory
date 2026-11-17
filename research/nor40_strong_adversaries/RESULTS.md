@@ -80,3 +80,7 @@ Across all 48 first source fixtures the original native accepted-program mask co
 Pure uniform16 remains the exact unrestricted fixed-radius-four maximin auditor under genuine hidden random audit selection. Global7 retains the mathematically guaranteed independent uniform contribution `(7/16)[1−C(m−16,4)/C(m,4)]` for each fixed precommitted support. Public deterministic SHA replay streams do not provide deployed secrecy. The fully revealed-schedule-informed adversary still has unchecked coordinate evasion.
 
 **Next research question:** the modest CAL-to-EVAL transfer at future length 1537 and the large remaining CAL global bracket motivate [NOR-41](https://github.com/MoralityLabAI/Compactification-Theory/issues/227), a separately proposed scale and source-family transfer study. Its protocol remains a design proposal. The NOR-40 original raw evidence and science gates are preserved unchanged.
+
+## Formal audit update
+
+[MathCan PR #141](https://github.com/patrickdugan/MathCan/pull/141) was merged at `61d653c5` after Lean 4.35 kernel checking. It proves the fourth-smallest singleton rank argument used as a global CAL optimization lower bound, conditional on the sorted singleton costs and each selected singleton exposure being bounded by its union. The Python original grader and the independent replayer verify those numerical inputs. A valid lower bound and an exact optimum over the selected 16-position pool are distinct from a globally optimal learned attack.
