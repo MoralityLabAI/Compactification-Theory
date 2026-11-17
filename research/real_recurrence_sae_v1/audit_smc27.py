@@ -20,7 +20,7 @@ HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from smc13_family import (new_full_solution,dig_unique,count_solutions,
                           rectangle_count,fingerprint,build_rosters)
-from smc26_audit import PRIOR_SOURCE_COHORTS
+from audit_smc26 import PRIOR_SOURCE_COHORTS
 
 TEACHERS=("B501","B701","B811","B919")
 FAMILIES={"smc27_novel30":(202637030000,30),
