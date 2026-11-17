@@ -349,20 +349,29 @@ def evaluate(fixture_path):
         # averages provide both mixed-policy detector payoffs.
         pure_counts={}
         for name,attacks in all_attacks.items():
-            attackmasks=[sum(1<<i for i in a) for a in attacks]
             for policy in POLICIES:
-                components=pure_components(policy)
                 numerator=0
-                for mode,arm,w in components:
-                    for attackmask in attackmasks:
-                        # Coordinate exposure is an exact k16 witness decision
-                        # for a fixed blind alteration set.
+                for mode,arm,w in pure_components(policy):
+                    for changed in attacks:
+                        # Exact any-hit trial-ID union; iterate only the four
+                        # precommitted changed coordinates, not all m cells.
                         union_bits=0
-                        for i in range(len(pred)):
-                            if attackmask & (1<<i):
-                                union_bits|=cov[(mode,arm)][i]
+                        for i in changed:
+                            union_bits|=cov[(mode,arm)][i]
                         numerator+=w*union_bits.bit_count()
                 counts[name][policy]=numerator
+        # Descriptive categorical mixed rollout uses the SAME hidden
+        # independently sampled constituent arm for all attackers/trial.
+        realized_mix_hits={}
+        for name,attacks in all_attacks.items():
+            realized_mix_hits[name]={}
+            for policy in ("original_mix","atom_curv_mix"):
+                mode="original" if policy=="original_mix" else "atom_curvature50"
+                hits=0
+                for t,arm in enumerate(mixed):
+                    plan=set(evaluation[mode][arm][t])
+                    hits+=sum(int(bool(plan&set(changed))) for changed in attacks)
+                realized_mix_hits[name][policy]=hits
         denom=16*RESTARTS*EVAL
         for policy in POLICIES:
             assert sum(w for _,_,w in pure_components(policy))==16
@@ -416,6 +425,7 @@ def evaluate(fixture_path):
             "crossplay_weighted_numerators":counts,
             "crossplay_denominator":denom,
             "realized_mix_arm_draw_counts":dict(arm_draw_count),
+            "realized_mix_attack_hits_out_of_4096":realized_mix_hits,
             "top_support_exact_fraction":{k:[v.numerator,v.denominator] for k,v in top.items()},
             "uniform_blind_exact_fraction":[uniform_exact.numerator,uniform_exact.denominator],
             "original_mix_blind_floor_fraction":[floor.numerator,floor.denominator],
