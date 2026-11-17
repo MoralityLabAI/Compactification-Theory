@@ -203,14 +203,17 @@ def curvature_score(pred):
 def source_atoms(pred,head,digest):
     old,cats,u,cu,cv=nor34.partition(pred,head,digest)
     # NOR34 top curvature support is already fixed at 48 U + 48 V.
-    rank=nor33.full_rankings(pred,head,digest,old)["curvature"]
-    bu=frozenset([i for i in reversed(rank) if i in u][:48])
-    bv=frozenset([i for i in reversed(rank) if i not in u][:48])
+    score=curvature_score(pred)
+    # Lowest-curvature tie breaks by ASCENDING index, as preregistered.
+    # Reversing the descending ranking would reverse tie order too.
+    bottom=sorted(range(len(pred)),key=lambda i:(score[i],i))
+    bu=frozenset([i for i in bottom if i in u][:48])
+    bv=frozenset([i for i in bottom if i not in u][:48])
     assert len(bu)==len(bv)==48
     assert len(cu)==len(cv)==48
     m=len(pred)
     assert len(u)>=96 and m-len(u)>=96
-    return old,cats,u,cu,cv,bu,bv,curvature_score(pred)
+    return old,cats,u,cu,cv,bu,bv,score
 
 
 def attacks_for_source(digest,cats,u,cu,cv,bu,bv,m):
