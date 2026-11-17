@@ -1,0 +1,56 @@
+name: NOR-42 one-shot immutable first paired source and grade evidence publisher
+
+on:
+  push:
+    branches:
+      - research/nor42-prospective-paired-grammar-ood-20261118
+    paths:
+      - '.github/workflows/nor42-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive_first_original_source_and_science_grade:
+    if: github.ref == 'refs/heads/research/nor42-prospective-paired-grammar-ood-20261118' && contains(github.event.head_commit.message, 'NOR42-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor42-prospective-paired-grammar-ood-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor42_first_original_public_pair_and_authenticated_grade
+          run-id: 44138400655
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor42_original
+      - name: Copy the original source and grade bytes and preserve scientific FAIL if it occurs
+        run: |
+          test ! -e research/nor42_paired_program_ood/prospective/results/nor42_first_frozen_receipt.json
+          python research/nor42_paired_program_ood/prospective/first_evidence_archive.py \
+            --fixture /tmp/nor42_original/nor42_fixture.json \
+            --grade /tmp/nor42_original/nor42_full.json \
+            --out research/nor42_paired_program_ood/prospective/results
+      - name: Commit exact first original source/grade ZIP and receipt with concurrency retries
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor42_paired_program_ood/prospective/results/nor42_original_first_hosted.zip \
+                  research/nor42_paired_program_ood/prospective/results/nor42_first_frozen_receipt.json
+          git commit -m "NOR-42: archive first registered source and paired-world scientific PASS or FAIL"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor42-prospective-paired-grammar-ood-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor42-prospective-paired-grammar-ood-20261118; then
+              echo "NOR42 original first archive committed"
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
