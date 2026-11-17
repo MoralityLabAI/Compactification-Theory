@@ -155,6 +155,46 @@ class NOR38PreDataTests(unittest.TestCase):
                             [x.realized_component(self.src,t,"global8_mix")
                              for t in range(1000)])
 
+
+    def test_independent_replayer_on_archived_source_only(self):
+        from research.nor38_global_uniform import receipt_audit as audit
+        old,atoms,u,cu,cv,bu,bv,scores=audit.geometry(
+            self.public["pred"],self.public["header"])
+        self.assertEqual((list(map(len,atoms)),u,cu,cv,bu,bv),
+                         (list(map(len,self.cats)),self.union,
+                          self.cu,self.cv,self.bu,self.bv))
+        self.assertEqual(scores,self.scores)
+        for policy in x.POLICIES:
+            self.assertEqual(x.components(policy),audit.component_parts(policy))
+        cal,diag=x.schedules(self.risk,self.cats,self.scores,self.src,"cal")
+        separate,separate_diag=audit.policy_schedules(
+            old,atoms,scores,self.src,"cal")
+        self.assertEqual(x.canonical(cal),audit.canonical(separate))
+        self.assertEqual(diag,separate_diag)
+        cov=x.trial_exposure(cal,len(self.public["pred"]))
+        greedy,visits=audit.independent_greedy_attacks(
+            separate,self.src,len(self.public["pred"]))
+        for policy in x.POLICIES:
+            self.assertEqual(
+                [x.greedy_attack(cov,policy,self.src,t) for t in range(x.ATTACKS)],
+                greedy[policy])
+        blind=x.blind_attacks(self.src,self.cats,self.union,self.cu,self.cv,
+                              self.bu,self.bv,len(self.public["pred"]),cov)
+        independent_blind=audit.independent_blind(
+            self.src,atoms,u,cu,cv,bu,bv,len(self.public["pred"]),visits)
+        self.assertEqual({k:[list(a) for a in v] for k,v in blind.items()},
+                         {k:[list(a) for a in v] for k,v in independent_blind.items()})
+        ev,_=x.schedules(self.risk,self.cats,self.scores,self.src,"eval")
+        independent_eval,_=audit.policy_schedules(
+            old,atoms,scores,self.src,"eval")
+        self.assertEqual(x.canonical(ev),audit.canonical(independent_eval))
+        self.assertEqual(x.exact_top(ev,self.cu,self.cv),
+                         audit.exact_top(independent_eval,cu,cv))
+        for policy in ("global7_mix","global8_mix"):
+            self.assertEqual(
+                [x.realized_component(self.src,t,policy) for t in range(x.EVAL)],
+                [audit.realized_choice(self.src,t,policy) for t in range(x.EVAL)])
+
     def test_gates_built_at_48_source_level(self):
         rows=[{
             "global7_self_minus_deterministic_self":.015,
