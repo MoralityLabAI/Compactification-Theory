@@ -1,0 +1,74 @@
+name: NOR-43 one-shot original historical signed-root evidence archive
+
+on:
+  push:
+    branches:
+      - research/nor43-authenticated-merkle-historical-20261118
+    paths:
+      - '.github/workflows/nor43-archive-original-smoke.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_first_historical_64_pair_signed_root:
+    if: github.ref == 'refs/heads/research/nor43-authenticated-merkle-historical-20261118' && contains(github.event.head_commit.message, 'NOR43-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor43-authenticated-merkle-historical-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor43_historical_64_signed_source_merkle_smoke
+          run-id: 44144269593
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor43_first_original
+      - name: Verify first historical-only signed root JSON exact source and SHA
+        run: |
+          test ! -e research/nor43_authenticated_witness/results/nor43_archived_64_merkle.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          src=Path('/tmp/nor43_first_original/nor43_archived_64_merkle.json')
+          raw=src.read_bytes()
+          assert len(raw)==110749
+          assert sha256(raw).hexdigest()==(
+            'f7ff23b0ba47eca3607233fe32b61114247bce02561f15ff1b67360950007145')
+          x=json.loads(raw)
+          assert x['schema']=='nor43.historical_nor42_signed_merkle_reference_smoke.v1'
+          assert x['historical_source_pairs']==64
+          assert x['new_prospective_nor43_source_units']==0
+          assert x['provider_private_key_public_test_only']
+          assert x['all_pinned_key_self_signed_attacks_rejected']
+          assert x['all_witnessfree_hidden_selfconsistency_controls_accept']
+          assert len({r['original_nor42_public_sha256'] for r in x['source_records']})==64
+          assert sum(r['challenge_draw_hits_hidden_difference_support']
+                     for r in x['source_records'])==57
+          print('NOR43 ORIGINAL HOSTED RAW BYTES SHA',len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Commit byte-identical first historical root receipt
+        run: |
+          mkdir -p research/nor43_authenticated_witness/results
+          cp /tmp/nor43_first_original/nor43_archived_64_merkle.json \
+             research/nor43_authenticated_witness/results/nor43_archived_64_merkle.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor43_authenticated_witness/results/nor43_archived_64_merkle.json
+          git commit -m "NOR-43: preserve first 64 archived-source signed-root evidence SHA"
+          for attempt in $(seq 1 15); do
+            git fetch origin research/nor43-authenticated-merkle-historical-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor43-authenticated-merkle-historical-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
