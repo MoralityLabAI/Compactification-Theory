@@ -1,0 +1,247 @@
+name: SMC-24 frozen gradient prediction and native test
+
+on:
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC24_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/SMC24_PREOUTCOME_AMENDMENT.md'
+      - 'research/real_recurrence_sae_v1/smc24_gradient_predict.py'
+      - 'research/real_recurrence_sae_v1/smc24_native_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc24.py'
+      - 'research/real_recurrence_sae_v1/test_smc24_gradient_predict.py'
+      - '.github/workflows/smc24-gradient-prediction.yml'
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC24_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/SMC24_PREOUTCOME_AMENDMENT.md'
+      - 'research/real_recurrence_sae_v1/smc24_gradient_predict.py'
+      - 'research/real_recurrence_sae_v1/smc24_native_score.py'
+      - 'research/real_recurrence_sae_v1/audit_smc24.py'
+      - 'research/real_recurrence_sae_v1/test_smc24_gradient_predict.py'
+      - '.github/workflows/smc24-gradient-prediction.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  calibration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install source-matched CPU Torch and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - name: Independent native gradient and bootstrap regression tests
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc24_gradient_predict.py' -v
+          python -m compileall -q research/real_recurrence_sae_v1/smc24_gradient_predict.py research/real_recurrence_sae_v1/smc24_native_score.py research/real_recurrence_sae_v1/audit_smc24.py
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/conditioned
+      - name: Verify all three original source receipt SHA-256 hashes
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc24/source/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc24/source/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc24/source/conditioned/conditioned.json" | sha256sum -c -
+      - name: Fit gradient predictors on original SMC-13 calibration ONLY
+        run: |
+          python research/real_recurrence_sae_v1/smc24_gradient_predict.py \
+            --stage calibration --fetch-source \
+            --original-artifact runs/smc24/source/original \
+            --independent-artifact runs/smc24/source/independent \
+            --conditioned-receipt runs/smc24/source/conditioned/conditioned.json \
+            --out runs/smc24/calibration.json
+          python - <<'PY'
+          import json
+          r=json.load(open("runs/smc24/calibration.json"))
+          assert r['new_test_rosters_generated'] is False
+          assert set(r['fits'])=={'B501','B701'}
+          assert all(x['n_calibration_goals']==512 for x in r['fits'].values())
+          print("SMC24_PRETEST_FIT_FROZEN",r['protocol_sha256'])
+          PY
+          sha256sum runs/smc24/calibration.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc24-calibration-only-gradient-ridge
+          path: runs/smc24/calibration.json
+          if-no-files-found: error
+
+  prediction:
+    needs: calibration
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install same CPU build and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc24-calibration-only-gradient-ridge
+          path: runs/smc24/lock
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/conditioned
+      - name: Generate 128 source-disjoint new input grids and FREEZE ALL label-free predictions
+        run: |
+          python research/real_recurrence_sae_v1/smc24_gradient_predict.py \
+            --stage prediction --fetch-source \
+            --original-artifact runs/smc24/source/original \
+            --independent-artifact runs/smc24/source/independent \
+            --conditioned-receipt runs/smc24/source/conditioned/conditioned.json \
+            --calibration runs/smc24/lock/calibration.json \
+            --out runs/smc24/predictions.json
+          python - <<'PY'
+          import json
+          p=json.load(open("runs/smc24/predictions.json"))
+          assert p["test_targets_present"] is False
+          assert p["test_gradient_from_test_labels"] is False
+          assert set(p["archived_source_stage1"]) == {"smc24_novel30","smc24_novel34"}
+          assert all(set(p["archived_source_stage1"][f])=={"B501","B701"} for f in p["archived_source_stage1"])
+          assert set(p["test_prediction_data"]) == {"smc24_novel30","smc24_novel34"}
+          assert all(len(rows)==64 for d in p["test_prediction_data"].values() for rows in d.values())
+          print("SMC24_LABEL_FREE_PREDICTIONS_FROZEN")
+          PY
+          sha256sum runs/smc24/predictions.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc24-frozen-128-puzzle-label-free-predictions
+          path: runs/smc24/predictions.json
+          if-no-files-found: error
+
+  scoring:
+    needs: prediction
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install same source CPU build and NumPy
+        run: |
+          python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install numpy==2.2.6
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc24-frozen-128-puzzle-label-free-predictions
+          path: runs/smc24/predict
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/original
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/independent
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc24/source/conditioned
+      - name: Native test-label scoring ONLY after frozen predictor artifact
+        run: |
+          python research/real_recurrence_sae_v1/smc24_native_score.py \
+            --fetch-source \
+            --original-artifact runs/smc24/source/original \
+            --independent-artifact runs/smc24/source/independent \
+            --conditioned-receipt runs/smc24/source/conditioned/conditioned.json \
+            --prediction runs/smc24/predict/predictions.json \
+            --out runs/smc24/scored.json
+          python - <<'PY'
+          import json
+          d=json.load(open('runs/smc24/scored.json'))
+          assert d['n_fresh_puzzles']==128
+          assert d['n_goal_slots']==4096
+          assert len(d['pair_success'])==4
+          assert set(d['test_data'])=={'smc24_novel30','smc24_novel34'}
+          print('SMC24_NATIVE_SCORE_FROZEN',d['pair_success'])
+          PY
+          sha256sum runs/smc24/scored.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc24-frozen-predictor-native-outcomes
+          path: runs/smc24/scored.json
+          if-no-files-found: warn
+
+  independent-audit:
+    needs: scoring
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc24-calibration-only-gradient-ridge
+          path: runs/smc24/calibration
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc24-frozen-128-puzzle-label-free-predictions
+          path: runs/smc24/prediction
+      - uses: actions/download-artifact@v4
+        with:
+          name: smc24-frozen-predictor-native-outcomes
+          path: runs/smc24/scoring
+      - name: Recompute puzzle identities, all 4096 goals and corrected bootstrap gates WITHOUT Torch
+        run: |
+          python research/real_recurrence_sae_v1/audit_smc24.py \
+            --calibration runs/smc24/calibration/calibration.json \
+            --prediction runs/smc24/prediction/predictions.json \
+            --scored runs/smc24/scoring/scored.json \
+            --out runs/smc24/audit.json
+          sha256sum runs/smc24/audit.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smc24-independent-label-free-causal-prediction-audit
+          path: runs/smc24/audit.json
+          if-no-files-found: error
