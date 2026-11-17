@@ -329,7 +329,7 @@ def replay(source_raw,grade_raw):
                 for t in (0,1):
                     read=set(plans[mode][arm][t])
                     rejected=any(pred[i]!=hidden[i] for i in read)
-                    assert rejected==not read.isdisjoint(S)
+                    assert rejected==(not read.isdisjoint(S))
                     for _delta in (1,4294049777):
                         # With no additional malicious edit, the synthetic
                         # true-output witness rejects iff it reads S.
