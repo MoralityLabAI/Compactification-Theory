@@ -57,7 +57,9 @@ Independent process:
       --manifest /tmp/nor28_manifest.json \
       --challenge /tmp/nor28_challenges.json --out /tmp/nor28_full.json
 
-**Original results:** appended only after CI first-runs the registered sources, PREP and CHALLENGE jobs. Commit immutable first-run bytes afterward and independently verify their exact SHA-256 values in source-controlled CI. A source fixture includes no private generating program, future, attack positions or challenge entropy.
+**First prospective result:** [RESULTS.md](RESULTS.md), registered PASS in [Actions #44019242345](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44019242345), independently replayed in a separate process. Calibrated hybrid detected 3.015% versus 6.250% static and 5.941% uniform on the 12-source mean; the registered paired gate passed 10/12, with two static outlier wins reversing the source-mean comparison. All 96 original commitments opened, every deliberate change failed, all postcommit root disclosure views agreed pathwise, and full-schedule-informed attacks evaded but failed prior binding.
+
+The five original first-run source, sealed-attack, public manifest, OS challenge and outcome byte streams are permanently committed in [results/nor28_original_hosted.zip](results/nor28_original_hosted.zip). Their exact first-run SHA-256 values are pinned in [the source-locked receipt](results/nor28_first_original_receipt.json) and verified by [the read-only auditor](original_archive_audit.py) in CI. The source-only fixture excludes every generating program, future target, attack position and challenge entropy.
 
 ## Boundaries
 
