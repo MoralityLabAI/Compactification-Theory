@@ -1,0 +1,41 @@
+{
+  "artifact_id": 14335990453,
+  "historical_source_units_excluded": 180,
+  "original_bytes_sha256": {
+    "nor38_fixture.json": {
+      "bytes": 9319507,
+      "sha256": "37fa2aeedeb5ab54bc1082ec2d50f8a084c4f4a7d6279acd5d122396d760e504"
+    },
+    "nor38_full.json": {
+      "bytes": 929756,
+      "sha256": "9c69d663d4d1511e664e930c0f8ed42d8d6f59c4d10557323fb5ee54478c036d"
+    }
+  },
+  "original_grade_run": 44098045627,
+  "procedural_deviation": "Original pre-data unit test previewed restored private native truth for NOR38 rep60 D512 source before first 48-source public fixture was frozen; see RESULTS.md. Preserve scorer PASS but strict chronological claim fails.",
+  "procedural_source_sequence_clean": false,
+  "registration": "37f9ed96b122ea16fb681dd5df638cbc4285d1e4",
+  "schema": "nor38.original_first_grade_archive.v1",
+  "scorer_gates": {
+    "exact_global_floor_and_witness_integrity": true,
+    "global7_competitive_vs_original_mix_worst": true,
+    "global7_improves_curvature_mix_selfplay": true,
+    "global7_retains_top_curvature_signal": true,
+    "source_archive_and_replay_integrity_contract": true
+  },
+  "scorer_primary_pass": true,
+  "source_direction_wins": {
+    "global7_self_minus_deterministic_self": 48,
+    "global7_top_minus_atom_random": 44,
+    "global7_worst_minus_original_worst_tolerance": 46
+  },
+  "source_means": {
+    "deterministic_top_minus_atom_random": 0.15872309468668466,
+    "global7_self_minus_deterministic_self": 0.019888341426849365,
+    "global7_top_minus_atom_random": 0.032199659889415484,
+    "global7_worst_minus_original_worst": -0.0028877059618631997
+  },
+  "source_units": 48,
+  "zip_archive_bytes": 3431848,
+  "zip_archive_sha256": "39dfaa3d343a842ec4157f07b494ff2144d4bbdcb22f760678bd6fbdfb1dda60"
+}
