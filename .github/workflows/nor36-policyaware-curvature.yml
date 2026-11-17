@@ -1,0 +1,183 @@
+name: NOR-36 source-heldout policy-aware curvature greedy attack and replay
+
+on:
+  push:
+    paths:
+      - 'research/nor36_policyaware_curvature/**'
+      - '.github/workflows/nor36-policyaware-curvature.yml'
+  pull_request:
+    paths:
+      - 'research/nor36_policyaware_curvature/**'
+      - '.github/workflows/nor36-policyaware-curvature.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  permanent-original-first-grade-sha-and-independent-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-lock original NOR36 first fixture/grade and independently reconstruct all 13,762,560 decisions
+        run: |
+          python research/nor36_policyaware_curvature/original_archive_audit.py
+
+  freeze-registered-threat-model-and-source-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm original NOR36 registration is first, before all test sources
+        run: |
+          git merge-base --is-ancestor ede05db28b814d5000ac855fecb3b762876c6f9e HEAD
+          test -s research/nor36_policyaware_curvature/REGISTRATION.md
+      - name: Verify immutable NOR35 original SHA, 132 historical sources and independent replay
+        run: |
+          python research/nor35_intraatom_curvature/original_archive_audit.py
+      - name: Unit-test source/public-only isolation, identical attacker budgets, exact quotas and witnesses
+        run: |
+          python -m compileall -q research/nor36_policyaware_curvature
+          python -m unittest research.nor36_policyaware_curvature.test_experiment -v
+
+  freeze-24-public-only-test-sources-before-attacks:
+    needs: freeze-registered-threat-model-and-source-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate source-only 24 new RRC25 public inputs
+        run: |
+          python research/nor36_policyaware_curvature/experiment.py \
+            --make-fixture /tmp/nor36_fixture.json
+      - name: Freeze public-only source SHA and 132 historical source disjointness
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          raw=Path('/tmp/nor36_fixture.json').read_bytes()
+          f=json.loads(raw)
+          assert f['schema']=='nor36.new_public_only_reps52to55.v1'
+          assert f['registration_first_commit']=='ede05db28b814d5000ac855fecb3b762876c6f9e'
+          assert f['replicates']==[52,53,54,55]
+          assert f['source_offset']==130036000
+          assert f['source_only'] and f['planted_program_and_private_target_absent']
+          assert f['attacks_and_challenge_schedules_absent']
+          assert f['excluded_historical_source_count']==132
+          assert len(f['cases'])==24
+          assert len({r['full_public_input_sha256'] for r in f['cases']})==24
+          assert Counter(r['degree'] for r in f['cases'])=={512:12,1024:12}
+          assert not any(any(k in r for k in
+             ('program','future','target','attack','witness','audit')) for r in f['cases'])
+          print('NOR36 FIRST FROZEN PUBLIC SOURCE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor36_original_frozen_public_only_24_sources
+          path: /tmp/nor36_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  first-policy-aware-greedy-calibration-vs-heldout:
+    needs: freeze-24-public-only-test-sources-before-attacks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor36_original_frozen_public_only_24_sources
+          path: /tmp/nor36
+      - name: Source-lock 256 calibration schedules, 8 greedy attacks/defender then 512 fresh heldout plans
+        run: |
+          python research/nor36_policyaware_curvature/experiment.py \
+            --fixture /tmp/nor36/nor36_fixture.json \
+            --out /tmp/nor36/nor36_full.json
+      - name: Verify original source/witness controls and preserve registered PASS or FAIL
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          f=Path('/tmp/nor36/nor36_fixture.json').read_bytes()
+          raw=Path('/tmp/nor36/nor36_full.json').read_bytes()
+          o=json.loads(raw)
+          assert o['schema']=='nor36.policy_aware_curvature_frozen_greedy_attack.v1'
+          assert o['registration_first_commit']=='ede05db28b814d5000ac855fecb3b762876c6f9e'
+          assert o['public_only_fixture_sha256']==sha256(f).hexdigest()
+          assert o['fresh_source_count']==len(o['source_records'])==24
+          assert o['excluded_historical_sources']==132
+          assert o['frozen_mixture_weights']==[2,0,1,1,4,8]
+          assert len(o['attacker_and_auditor_policies'])==6
+          assert len(o['blind_control_families'])==4
+          assert o['calibration_trials']==256 and o['heldout_trials']==512
+          assert o['greedy_attack_restarts']==8
+          assert o['budget']==16 and o['attack_radius']==4
+          assert o['source_proposals_frozen_before_private_truth']
+          assert o['attack_sets_committed_before_heldout_schedules']
+          assert o['external_authenticated_exact_target_witness_assumed']
+          assert len(o['registered_five_gates'])==5
+          assert all(s['honest_false_rejects']==0
+                     and s['schedule_informed_detection']==0
+                     and s['atom_quota_mismatches']==0
+                     and s['nonzero_shift_disagreements']==0
+                     and s['direct_witness_pairs']>0
+                     and len(s['greedy_attacks'])==6
+                     and len(s['blind_attacks'])==4
+                     and len(s['crossplay_weighted_numerators'])==10
+                     and len(s['realized_mix_attack_hits_out_of_4096'])==10
+                     for s in o['source_records'])
+          assert o['registered_five_gates']['source_attacks_audits_truth_and_replay']
+          print('NOR36 FIRST FROZEN PUBLIC SOURCE SHA256',len(f),sha256(f).hexdigest())
+          print('NOR36 FIRST FROZEN ORIGINAL FULL GRADE SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR36 SCIENTIFIC REGISTERED PASS',o['registered_primary_pass'])
+          print('NOR36 FIVE FROZEN GATES',o['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor36_original_frozen_public_sources_and_full_policyaware_outcome
+          path: |
+            /tmp/nor36/nor36_fixture.json
+            /tmp/nor36/nor36_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent-source-greedy-and-all-audit-world-replay:
+    needs: first-policy-aware-greedy-calibration-vs-heldout
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor36_original_frozen_public_sources_and_full_policyaware_outcome
+          path: /tmp/nor36
+      - name: Independent exact native RRC25 source and greedy attack proposals, fresh trial-set EVAL score
+        run: |
+          python research/nor36_policyaware_curvature/receipt_audit.py --check \
+            --fixture /tmp/nor36/nor36_fixture.json \
+            --full /tmp/nor36/nor36_full.json

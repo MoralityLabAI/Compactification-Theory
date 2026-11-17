@@ -1,0 +1,59 @@
+{
+  "attacker_classes": 6,
+  "blind_control_families": 4,
+  "blind_restarts_per_family": 8,
+  "calibration_schedule_count": 256,
+  "evaluation_schedule_count": 512,
+  "first_completed_grader_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44069984005",
+  "first_independent_replay_note": "Original initial run replay failed on a source_only field-name mismatch. The original byte streams were preserved unchanged and the independent replayer was fixed in a separate commit.",
+  "first_original_artifact_id": 14322985791,
+  "first_original_artifact_name": "nor36_original_frozen_public_sources_and_full_policyaware_outcome",
+  "first_registration_commit": "ede05db28b814d5000ac855fecb3b762876c6f9e",
+  "frozen_mixture_weights": [
+    2,
+    0,
+    1,
+    1,
+    4,
+    8
+  ],
+  "greedy_restarts_per_class": 8,
+  "historical_source_units_excluded": 132,
+  "independent_policy_world_decisions": 13762560,
+  "original_registered_five_gates": {
+    "curvature_selfplay_less_robust": true,
+    "mixture_selfplay_erosion_and_top_gain": true,
+    "same_curvature_attack_exposes_weakness": true,
+    "source_attacks_audits_truth_and_replay": true,
+    "top_curvature_source_aligned_gain": true
+  },
+  "original_source_and_grade_bytes_sha256": {
+    "nor36_fixture.json": {
+      "bytes": 4224502,
+      "sha256": "881bf776e8e77eff6b8a5406789d07a4ced2eed9394a62b27d02d835c99355a4"
+    },
+    "nor36_full.json": {
+      "bytes": 341232,
+      "sha256": "ffc9ebaf5b8e16c93e01c2c71cc387e4c8a455505f5af8cb3c9cad42ea9a44b5"
+    }
+  },
+  "original_source_units": 24,
+  "registered_date_utc": "2026-11-17",
+  "registered_equal_source_mean_differences": {
+    "fixed_curv_attack_curv_minus_original": -0.019307454427083332,
+    "mix_self_curv_minus_original": -0.024271647135416668,
+    "self_curv_minus_original": -0.017903645833333332,
+    "top_curv_h50_gain": 0.17123715675223145,
+    "top_curv_mix_gain": 0.19588884837934054
+  },
+  "registered_scientific_primary_pass": true,
+  "registered_source_direction_wins": {
+    "fixed_curv_attacks_expose_weakness": 24,
+    "mix_self_curv_weaker": 24,
+    "self_curv_weaker": 24,
+    "top_h50_gain": 24,
+    "top_mix_gain": 24
+  },
+  "schema": "nor36.original_first_registered_policyaware_curvature.v1",
+  "scope": "Finite source-predicted RRC25. Same-budget approximate greedy attacker, frozen before independent heldout audit coins; external true-target witness and production coin secrecy assumed."
+}
