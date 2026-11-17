@@ -3,7 +3,7 @@ name: NOR-41 one-shot original first nested-CAL source and grade archival
 on:
   push:
     branches:
-      - research/nor41-scale-ood-cal-transfer-20261117
+      - research/nor41-first-original-evidence-20261118
     paths:
       - '.github/workflows/nor41-first-evidence-publisher.yml'
 
@@ -13,13 +13,13 @@ permissions:
 
 jobs:
   archive_first_original_grade:
-    if: github.ref == 'refs/heads/research/nor41-scale-ood-cal-transfer-20261117' && contains(github.event.head_commit.message, 'NOR41-ARCHIVE-FIRST')
+    if: github.ref == 'refs/heads/research/nor41-first-original-evidence-20261118' && contains(github.event.head_commit.message, 'NOR41-ARCHIVE-FIRST')
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: research/nor41-scale-ood-cal-transfer-20261117
+          ref: research/nor41-first-original-evidence-20261118
           persist-credentials: true
       - uses: actions/setup-python@v5
         with:
@@ -46,9 +46,9 @@ jobs:
                   research/nor41_scale_ood/results/nor41_first_frozen_receipt.json
           git commit -m "NOR-41: persist first SHA-locked public source and original grade, PASS or FAIL"
           for attempt in $(seq 1 20); do
-            git fetch origin research/nor41-scale-ood-cal-transfer-20261117
+            git fetch origin research/nor41-first-original-evidence-20261118
             git rebase FETCH_HEAD
-            if git push origin HEAD:research/nor41-scale-ood-cal-transfer-20261117; then
+            if git push origin HEAD:research/nor41-first-original-evidence-20261118; then
               exit 0
             fi
             sleep 2
