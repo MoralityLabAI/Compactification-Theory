@@ -82,7 +82,7 @@ def history():
     assert len(fixture)==8457812 and digest(fixture)==PREV_SOURCE_SHA
     assert len(result)==930059 and digest(result)==PREV_RESULT_SHA
     saved=json.loads(fixture)
-    assert saved["schema"]=="nor39.clean_global_uniform_public_only_reps76to83.v1"
+    assert saved["schema"]=="nor39.clean_global_uniform_public_only_reps68to75.v1"
     assert len(saved["cases"])==48
     all_ids=sorted(historic+[r["full_public_input_sha256"] for r in saved["cases"]])
     assert len(all_ids)==len(set(all_ids))==276
