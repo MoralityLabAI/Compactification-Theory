@@ -163,7 +163,7 @@ class NOR38PreDataTests(unittest.TestCase):
         self.assertEqual((list(map(len,atoms)),u,cu,cv,bu,bv),
                          (list(map(len,self.cats)),self.union,
                           self.cu,self.cv,self.bu,self.bv))
-        self.assertEqual(scores,self.scores)
+        self.assertEqual(scores,list(self.scores))
         for policy in x.POLICIES:
             self.assertEqual(x.components(policy),audit.component_parts(policy))
         cal,diag=x.schedules(self.risk,self.cats,self.scores,self.src,"cal")
