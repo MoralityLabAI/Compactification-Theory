@@ -1,0 +1,198 @@
+{
+  "checks": {
+    "fresh_unique_signatures": 4096,
+    "frozen_models_verified": 9,
+    "mediation_cells_checked": 720,
+    "recorded_predictions_regraded": 126624,
+    "semantic_pairs_reconstructed": 1536
+  },
+  "completed_sha256": "7f00bef873f514f5f428727567c1682a193ef9b6cbcb614e56e311d6e3ae24f2",
+  "encoded_observation_overlap": {
+    "clean": {
+      "id": {
+        "ids": [],
+        "n": 512,
+        "overlap_n": 0
+      },
+      "ood": {
+        "ids": [
+          "scm20/fresh_clean_ood/20900368"
+        ],
+        "n": 512,
+        "overlap_n": 1
+      }
+    },
+    "pairs": {
+      "id": {
+        "both_overlap_n": 0,
+        "either_overlap_n": 2,
+        "ids": [
+          "scm20/fresh_pair_id/21000355",
+          "scm20/fresh_pair_id/21000421"
+        ],
+        "n": 512
+      },
+      "ood": {
+        "both_overlap_n": 0,
+        "either_overlap_n": 0,
+        "ids": [],
+        "n": 1024
+      }
+    },
+    "reference_role_counts": {
+      "scm19_calibration_unique": 64,
+      "scm19_dev_id_unique": 256,
+      "scm19_dev_ood_unique": 128,
+      "scm19_training_unique": 8177,
+      "scm20_calibration_pair_unique": 64,
+      "scm20_calibration_unique": 64,
+      "scm20_dev_id_unique": 512,
+      "scm20_dev_ood_unique": 512,
+      "scm20_dev_pair_id_unique": 512,
+      "scm20_dev_pair_ood_unique": 1024,
+      "scm20_training_unique": 8191
+    },
+    "reference_unique_inputs": 19492,
+    "scope": "SCM19 training/development/clean calibration and all SCM20 pre-final roles; actual coefficient encoder input, excluding query; post-hoc diagnostic only"
+  },
+  "journal_events": {
+    "all_weights_and_directions_frozen": 1,
+    "campaign_completed": 1,
+    "forward_called": 106162,
+    "mediation_cell_completed": 744,
+    "optimizer_completed": 28000,
+    "oracle_call": 303858,
+    "patched_prediction_selected": 11458,
+    "prediction_selected": 7632,
+    "process_started": 1
+  },
+  "memory": {
+    "allocated_mb": 24.4833984375,
+    "minimum_free_mb": 3245.7000007629395,
+    "reserved_mb": 30.0
+  },
+  "model_work_replayed": {
+    "forward_examples": 512762,
+    "model_calls": 106162,
+    "readout_examples": 512762,
+    "recurrent_example_visits": 2051048,
+    "recurrent_token_visits": 55378296
+  },
+  "official_roster_calls": 0,
+  "passed": true,
+  "registration_commit": "179c01d",
+  "schema": "scm20.audit.v1",
+  "terminal_fiber_checks": [
+    {
+      "model": "causal",
+      "seed": 191,
+      "terminal_fiber_first_readout_max": 8.159406661434332e-07
+    },
+    {
+      "model": "control",
+      "seed": 191,
+      "terminal_fiber_first_readout_max": 8.159406661434332e-07
+    },
+    {
+      "model": "warm",
+      "seed": 191,
+      "terminal_fiber_first_readout_max": 8.159406661434332e-07
+    },
+    {
+      "model": "causal",
+      "seed": 1191,
+      "terminal_fiber_first_readout_max": 8.187728326447541e-07
+    },
+    {
+      "model": "control",
+      "seed": 1191,
+      "terminal_fiber_first_readout_max": 8.187728326447541e-07
+    },
+    {
+      "model": "warm",
+      "seed": 1191,
+      "terminal_fiber_first_readout_max": 8.187728326447541e-07
+    },
+    {
+      "model": "causal",
+      "seed": 2191,
+      "terminal_fiber_first_readout_max": 1.0214386065854342e-06
+    },
+    {
+      "model": "control",
+      "seed": 2191,
+      "terminal_fiber_first_readout_max": 1.0214386065854342e-06
+    },
+    {
+      "model": "warm",
+      "seed": 2191,
+      "terminal_fiber_first_readout_max": 1.0214386065854342e-06
+    }
+  ],
+  "training_after_final": false,
+  "training_stages": {
+    "s1191_lambda0/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s1191_lambda1/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s191_lambda0/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s191_lambda1/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s191_lambda4/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s2191_lambda0/train": {
+      "forwards": 12000,
+      "updates": 4000
+    },
+    "s2191_lambda1/train": {
+      "forwards": 12000,
+      "updates": 4000
+    }
+  },
+  "verification_oracle_requests": {
+    "check_candidate": 162747,
+    "convolution": 24868,
+    "execute": 383313,
+    "grade": 36123,
+    "make_case": 4896,
+    "reciprocal": 21698,
+    "unary": 148602
+  },
+  "verification_physical_caches": {
+    "convolution": {
+      "currsize": 19654,
+      "hits": 5214,
+      "maxsize": 32768,
+      "misses": 19654
+    },
+    "execute": {
+      "currsize": 32768,
+      "hits": 334472,
+      "maxsize": 32768,
+      "misses": 48841
+    },
+    "reciprocal": {
+      "currsize": 20639,
+      "hits": 1059,
+      "maxsize": 32768,
+      "misses": 20639
+    },
+    "unary": {
+      "currsize": 32768,
+      "hits": 66509,
+      "maxsize": 32768,
+      "misses": 82093
+    }
+  }
+}
