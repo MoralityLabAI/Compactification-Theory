@@ -39,7 +39,8 @@ jobs:
           python -m compileall -q research/nor42_paired_program_ood/prospective
           python -m unittest \
             research.nor42_paired_program_ood.prospective.test_experiment \
-            research.nor42_paired_program_ood.prospective.test_independent_parity -v
+            research.nor42_paired_program_ood.prospective.test_independent_parity \
+            research.nor42_paired_program_ood.prospective.test_posthoc_analysis -v
 
   first_64_public_only_source_pairs:
     if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR42-FIRST-GRADE')
