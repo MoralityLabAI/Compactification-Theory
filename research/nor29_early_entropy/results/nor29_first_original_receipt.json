@@ -1,0 +1,82 @@
+{
+  "schema": "nor29.first_original_precommit_root_leakage_receipt.v1",
+  "registration_first_commit": "2447248fa8c192991da695ed06af2d17d642dc5f",
+  "first_initiated_actions_run_id": 44025451594,
+  "original_replay_job_id": 133845463614,
+  "artifact_ids": {
+    "prep": 14301869762,
+    "challenge": 14302189068,
+    "leaked_root_outcomes": 14302398666
+  },
+  "original_sha256_root_commitment": "1a4050013073d3cc34ca7d2b5be08d60782ccaa5a4054aa8f0015a8ab37f1c2f",
+  "files": {
+    "fixture": {
+      "name": "nor29_fixture.json",
+      "bytes": 5786533,
+      "sha256": "27a38ace5359329555b3a42696308dc5c4d7cd2ed16eced7265ec7b7fba041df",
+      "stage": "PREP"
+    },
+    "early_sealed": {
+      "name": "nor29_early_sealed.json",
+      "bytes": 258995,
+      "sha256": "7ed26a2aaab2193ed9f6ba772f87b9f34ec68a465a6c8352b2f6e5ddb6c9ffa5",
+      "stage": "PREP"
+    },
+    "early_manifest": {
+      "name": "nor29_early_manifest.json",
+      "bytes": 198231,
+      "sha256": "00802911f45909b92a36e98f040961909e5428027d5f572114b1f71208b5dee1",
+      "stage": "PREP"
+    },
+    "challenge": {
+      "name": "nor29_challenges.json",
+      "bytes": 11081083,
+      "sha256": "ca62e44967c796b5445f5d1e592da7206f5fe237d26dbf55ff3273017bd93410",
+      "stage": "CHALLENGE"
+    },
+    "late_sealed": {
+      "name": "nor29_late_sealed.json",
+      "bytes": 935751,
+      "sha256": "5b51046b08b27eca398b20ab09fbe4546228d6323ca38b70b7ef46f6bf23f5a5",
+      "stage": "LATE_ROOT"
+    },
+    "late_manifest": {
+      "name": "nor29_late_manifest.json",
+      "bytes": 575748,
+      "sha256": "ce83db8b133d840c088ec214bc539024dc76b0d8421c0329491c070d04fe7703",
+      "stage": "LATE_ROOT"
+    },
+    "outcome": {
+      "name": "nor29_full.json",
+      "bytes": 1586040,
+      "sha256": "9d13345da6c8e1292d06b2c25a40459f7b2f33251399a56b3da425073dd6832a",
+      "stage": "GRADE"
+    }
+  },
+  "primary": {
+    "registered_pass": true,
+    "source_units": 24,
+    "blind_attacks_bound_before_root": 768,
+    "late_attacks_newly_bound_after_root": 2304,
+    "source_paired_hybrid_blind_minus_late_positive": 24,
+    "source_mean_hybrid_blind_minus_late": 0.053197224934895836,
+    "hybrid_blind_mean": 0.05487060546875,
+    "hybrid_early_root_aware_mean": 0.0016733805338541667,
+    "uniform16_blind_mean": 0.060625712076822914,
+    "uniform16_early_root_aware_mean": 0.010986328125,
+    "static_prior_blind_mean": 0.061197916666666664,
+    "static_prior_early_root_aware_mean": 0,
+    "fixed_batch_decisions": 2359296,
+    "per_challenge_informed_controls": 36864,
+    "per_challenge_informed_detections": 0,
+    "modified_attack_reopens_original_commitment": 0,
+    "nonzero_shift_decision_disagreements": 0
+  },
+  "limits": [
+    "Root-aware greedy attacks use actual evaluation schedules IN SAMPLE; they are fixed across each 512-audit batch and may differ across policy and source.",
+    "The pre-root baseline is uniform random attacked positions, while the root-aware arm optimizes knowledge of both policy and realized schedules. Their difference must not be attributed solely to root leakage.",
+    "Twenty-four source identities are the statistical units. All challenges share the original run's single 256-bit root under source-separated PRF domains.",
+    "Root entropy, SHA-256 preimage/collision resistance, HMAC-SHA256 security, runner chronology and authentic exact target-coefficient witnesses are external assumptions."
+  ],
+  "date": "2026-11-17"
+}
