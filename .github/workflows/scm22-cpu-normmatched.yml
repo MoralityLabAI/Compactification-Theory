@@ -1,0 +1,67 @@
+name: SCM-22 CPU norm-matched fiber and exact math
+on:
+  pull_request:
+    paths:
+      - 'research/dimensional_atlas/gym/scm22_normmatched/**'
+      - '.github/workflows/scm22-cpu-normmatched.yml'
+  push:
+    branches: [research/scm22-cpu-normmatched-fiber-20261117]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  cpu-source-and-synthetic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      OMP_NUM_THREADS: '2'
+      OPENBLAS_NUM_THREADS: '2'
+      MKL_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install CPU-only numerical dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu 'torch==2.10.0'
+          python -m pip install 'numpy==2.3.5'
+      - name: Run source unit tests
+        run: python -m unittest discover -s research/dimensional_atlas/gym/scm22_normmatched/tests -v
+      - name: Run preregistered matched-norm assay
+        run: |
+          python research/dimensional_atlas/gym/scm22_normmatched/run.py --out "$RUNNER_TEMP/scm22_cpu_report.json"
+          python - "$RUNNER_TEMP/scm22_cpu_report.json" <<'PY'
+          import json,sys
+          v=json.load(open(sys.argv[1]))
+          assert v['schema']=='scm22.cpu_normmatched_fiber.v1'
+          assert v['registered_protocol_sha256']=='5daa2344fabb543331e3a430fa88cb689984e4f4ccf1965b856ca927d8a0a1d4'
+          assert len(v['trained'])==3
+          for item in v['trained']:
+              p=item['primary']
+              n=p['eligible']; c=p['successes']
+              assert n>=64
+              assert max(p['norm_error_max'].values())<1e-5
+              assert c['sham']==0
+              assert c['difference_pca4']/n>=0.5
+              assert (c['difference_pca4']-c['sae_fiber4'])/n>=0.1
+              assert (c['difference_pca4']-c['random_fiber4'])/n>=0.1
+          assert v['scientific_gate']['passed']
+          print('SCM22 registered source-bound CPU gate PASS')
+          PY
+      - name: Run labeled post-hoc within-fiber diagnostic
+        run: |
+          python research/dimensional_atlas/gym/scm22_normmatched/diagnostic.py --out "$RUNNER_TEMP/scm22_diagnostic.json"
+          python - "$RUNNER_TEMP/scm22_diagnostic.json" <<'PY'
+          import json,sys
+          x=json.load(open(sys.argv[1]))
+          assert x['schema']=='scm22.posthoc_withinfiber_diagnostic.v1'
+          assert len(x['rows'])==3
+          assert 'post-hoc' in x['scope']
+          for row in x['rows']:
+              assert len(row['visit_sweep'])==4
+              for m in row['methods'].values():
+                  assert m['norm_error_max'] < 1e-5
+          print('SCM22 post-hoc instrument PASS')
+          PY
