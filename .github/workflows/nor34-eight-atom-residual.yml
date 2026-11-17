@@ -15,6 +15,18 @@ permissions:
   contents: read
 
 jobs:
+  permanent-original-first-run-evidence-sha-and-full-independent-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-verify original NOR34 fixture and result, then independently replay all 3,538,944 decisions
+        run: |
+          python research/nor34_eight_atom_curvature/original_archive_audit.py
+
   frozen-preregistered-source-and-finite-count-controls:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
