@@ -119,6 +119,7 @@ class NOR42PreData(unittest.TestCase):
                         "replicate":rep,"degree":d,"family":family,
                         "absolute_uniform_calibration_error":.005,
                         "global7_detection":.75,"uniform_detection":.80,
+                        "exact_uniform_probability":.80,
                         "global7_minus_uniform":-.05,
                         "global7_minus_exact_floor":.25
                     })
