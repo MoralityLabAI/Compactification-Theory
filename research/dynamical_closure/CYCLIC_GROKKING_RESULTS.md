@@ -1,0 +1,19 @@
+# CPU modular-addition checkpoint results
+
+Protocol and proof: [CYCLIC_GROKKING.md](CYCLIC_GROKKING.md). Nanda et al., [*Progress Measures for Grokking via Mechanistic Interpretability*](https://arxiv.org/abs/2301.05217), is the reference for Fourier multiplication and restricted/excluded logit losses. Our reduced-scale run is not a replication of its p=113 mainline.
+
+Raw checkpoints: `artifact://moralitylab/experiments/exp_01m6aw5afae7dtp2ezj2nkrekd/modular_checkpoints.json` (original 6,000-epoch run) and `artifact://moralitylab/experiments/exp_01m6awb9sjfx7t6v9brckp8ke2/modular_long.json` (explicitly exploratory 20,000-epoch follow-up). Both jobs were CPU-only with torch 2.11.0+cu130 in the same resolved `job-core` image; no GPU was allocated. Frequencies 15, 6, 12 were selected from independent calibration seed 91, then frozen for four confirmation seeds; the equal-sized nonselected spectral control used 1, 2, 3.
+
+| Seed/cohort | Final epoch | Train accuracy | Held-out accuracy | Raw held-out CE | All-diagonal held-out CE | Three-frequency restricted held-out CE |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 91, calibration | 6000 | 1.000 | 0.2140 | 15.85 | not reported | not reported |
+| 0, initial confirmation | 6000 | 1.000 | 0.07727 | 18.98 | 1.612 | 4.552 |
+| 1, initial confirmation | 6000 | 1.000 | 0.07132 | 20.14 | 1.699 | 4.669 |
+| 2, longer exploratory | 20000 | 1.000 | 0.1783 | 28.79 | 1.089 | 5.191 |
+| 3, longer exploratory | 20000 | 1.000 | 0.1040 | 22.44 | 1.033 | 6.908 |
+
+No confirmation seed reached the predeclared 0.9 held-out-accuracy event. The data therefore **cannot assess lead time or incremental warning beyond Nanda et al.'s measures**. The theorem separately establishes that all additive-shift future one-hot Bayes risks are identical for a given code. PCA and matched random-projection codes both had Bayes `k_star_index=4` already at epoch 0 in all four confirmation seeds, corresponding to first loss at one 8-bit coordinate. That is a false early warning if treated as evidence of a learned Fourier mechanism. The fixed affine decoder's penalized-objective `k_star_index=0` throughout and never met its predeclared warning. Its nominal 17 input slots and ridge penalty were fixed, but active coordinates and effective flexibility varied with k. The Bayes decoder is an unrestricted finite lookup that can exploit nearly injective quantized codes without learning a task rule.
+
+The restricted-test-CE cutoff `0.75 log(31)` (about 2.575) never fired. Excluded-training-CE exceeded ordinary training CE by 0.5 at epoch 250, without subsequent grokking in the observed horizons: a false alarm under this cutoff. The full diagonal logit filter sharply reduced test CE relative to raw logits, but has **more spectral degrees of freedom** than either three-frequency filter. The calibration-selected three-frequency filter did not consistently beat the matched three-frequency nonselected control; seeds 1 and 3 favored the control. This is compatible with a usable sum-structured logit component being obscured by other components, but does not identify a hidden circuit or establish eventual cleanup.
+
+**Limits.** The reduced architecture and p=31 differ from Nanda et al.'s mainline; neither duration produced grokking despite perfect training fit. The 20,000-epoch duration was chosen after inspecting the initial outcomes, and only its new seeds were unexposed to that result. Test pairs were scored at checkpoints for the published progress measures, so these curves are not a blind deployment forecast. Fourier logit ablation demonstrates functional dependence of the observed logits on frequency components, not causal sufficiency of hidden neurons. Future warning claims need an independently validated grokking setup, frozen frequency selection, matched decoder capacity and precision, and fresh evaluation seeds. EvalMath's canonical theory and ownership were not changed.
