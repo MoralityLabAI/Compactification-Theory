@@ -14,10 +14,13 @@ from __future__ import annotations
 import argparse
 from hashlib import sha256
 import json
+import sys
 from pathlib import Path
 from zipfile import ZipFile
 
 HERE=Path(__file__).resolve().parent
+ROOT=HERE.parents[1]
+if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 RESULTS=HERE/"results"
 REGISTERED="4a5f3750d240d46c031e0cb432fb7b1a884cfbe9"
 FIRST={
