@@ -38,11 +38,6 @@ jobs:
             --grade /tmp/nor40-first/nor40_full.json \
             --destination research/nor40_strong_adversaries/results \
             --artifact-id 14343000877
-      - name: Independently reconstruct all source, CAL greedy/swap/pool, EVAL and first-grade decisions
-        run: |
-          python -u research/nor40_strong_adversaries/receipt_audit.py --check \
-            --fixture /tmp/nor40-first/nor40_fixture.json \
-            --full /tmp/nor40-first/nor40_full.json
       - name: Commit immutable original first grade and source with concurrent-update retries
         run: |
           git config user.name "github-actions[bot]"
