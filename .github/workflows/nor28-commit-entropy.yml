@@ -33,6 +33,8 @@ jobs:
         run: |
           python -m compileall -q research/nor28_commit_entropy
           python -m unittest research.nor28_commit_entropy.test_experiment -v
+      - name: SHA audit five permanently archived first-run files
+        run: python research/nor28_commit_entropy/original_archive_audit.py
 
   prep-source-and-attack-commitment:
     needs: frozen-protocol-and-exact-unit-controls
@@ -207,3 +209,5 @@ jobs:
             --sealed /tmp/nor28_prep/nor28_sealed.json \
             --challenge /tmp/nor28_challenge/nor28_challenges.json \
             --out /tmp/nor28_challenge/nor28_full.json
+      - name: Verify immutable original PREP and CHALLENGE SHA-256 receipts in independent job
+        run: python research/nor28_commit_entropy/original_archive_audit.py
