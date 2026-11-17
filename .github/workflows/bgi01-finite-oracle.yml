@@ -1,0 +1,38 @@
+name: BGI-01 finite beneficial-drive oracle
+
+on:
+  pull_request:
+    paths:
+      - 'research/bgi_attractors_v1/**'
+      - '.github/workflows/bgi01-finite-oracle.yml'
+  push:
+    branches:
+      - 'research/bgi01-beneficial-attractor-stress-20261030'
+    paths:
+      - 'research/bgi_attractors_v1/**'
+      - '.github/workflows/bgi01-finite-oracle.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  finite-oracle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Unit regression
+        run: python3 -m unittest discover -s research/bgi_attractors_v1/tests -v
+      - name: Regenerate exact toy-state certificate
+        run: python3 research/bgi_attractors_v1/run.py
+      - name: Verify frozen pilot digest
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("research/bgi_attractors_v1/results/pilot_v1.json")
+          receipt = json.loads(p.read_text())
+          assert receipt["sha256_of_canonical_payload"] == "fe140500ce29976ade8c302904ff2d79d2b31de3d7a0c18eb79863534054b011"
+          print("BGI-01 reproducibility receipt passed")
+          PY
