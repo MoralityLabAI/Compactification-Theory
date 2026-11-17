@@ -1,0 +1,111 @@
+name: SMC-15 native causal tangent conditioning CPU
+
+on:
+  pull_request:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC15_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc15_tangent_conditioning.py'
+      - 'research/real_recurrence_sae_v1/test_smc15_tangent_conditioning.py'
+      - '.github/workflows/smc15-native-tangent.yml'
+  push:
+    paths:
+      - 'research/real_recurrence_sae_v1/SMC15_PROTOCOL.md'
+      - 'research/real_recurrence_sae_v1/smc15_tangent_conditioning.py'
+      - 'research/real_recurrence_sae_v1/test_smc15_tangent_conditioning.py'
+      - '.github/workflows/smc15-native-tangent.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  source-locked-native-geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 100
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install pinned numerical model source
+        run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Check the native intervention and statistics primitives
+        run: |
+          python -m unittest discover -s research/real_recurrence_sae_v1 -p 'test_smc15_tangent_conditioning.py' -v
+          python -m compileall -q research/real_recurrence_sae_v1/smc15_tangent_conditioning.py
+      - name: Fetch exactly frozen source SAE
+        uses: actions/download-artifact@v4
+        with:
+          name: smc11c-source-locked-same-fit-full
+          run-id: 43721281348
+          github-token: ${{ github.token }}
+          path: runs/smc15/original
+      - name: Fetch independently trained teachers and SAEs
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-independent-noncanonical-teachers
+          run-id: 43728006836
+          github-token: ${{ github.token }}
+          path: runs/smc15/independent
+      - name: Fetch SMC-13C independent calibration and null correspondence receipt
+        uses: actions/download-artifact@v4
+        with:
+          name: smc13-clue-conditioned-cross-teacher-transfer
+          run-id: 43729335868
+          github-token: ${{ github.token }}
+          path: runs/smc15/conditioned
+      - name: Verify exact input artifact hashes before accessing any model
+        run: |
+          echo "7caafcb54e36f508b49a082892b689789a751f86b52d6d206e955e3782431087  runs/smc15/original/joint-full.json" | sha256sum -c -
+          echo "1fc69e15c24087f631806a89d55beaf519c2f6ab58ac7b8193cf8fdc36d240e3  runs/smc15/independent/full.json" | sha256sum -c -
+          echo "3b4637699d5af236af2d3b8aa5d04e024025b16e0d59395535892c104d472d07  runs/smc15/conditioned/conditioned.json" | sha256sum -c -
+      - name: Pilot ONLY on first four existing SMC-13 calibration puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc15_tangent_conditioning.py \
+            --mode pilot --fetch-source \
+            --original-artifact runs/smc15/original \
+            --independent-artifact runs/smc15/independent \
+            --conditioned-receipt runs/smc15/conditioned/conditioned.json \
+            --out runs/smc15/calibration_pilot.json
+          python - <<'PY'
+          import json
+          r=json.load(open('runs/smc15/calibration_pilot.json'))
+          assert r['status']=='pilot'
+          assert r['new_puzzle_manifest']['type']=='SMC15/calibration-only-pilot'
+          assert list(r['data'])==['feature_calibration_pilot']
+          assert len(r['calibration_permutation_receipts'])==4
+          assert all(len(d['per_puzzle'])==4 for d in r['data']['feature_calibration_pilot'].values())
+          print('SMC15_PILOT_ADMITTED',r['torch_version'])
+          PY
+      - name: Run all five SAEs on 128 NEW uniquely solvable puzzles
+        run: |
+          python research/real_recurrence_sae_v1/smc15_tangent_conditioning.py \
+            --mode full --fetch-source \
+            --original-artifact runs/smc15/original \
+            --independent-artifact runs/smc15/independent \
+            --conditioned-receipt runs/smc15/conditioned/conditioned.json \
+            --out runs/smc15/fresh_full.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path('runs/smc15/fresh_full.json').read_text())
+          assert r['status']=='full'
+          assert r['new_puzzle_manifest']['targets_unique']
+          assert r['new_puzzle_manifest']['puzzles_unique']
+          assert len(r['calibration_permutation_receipts'])==4
+          assert set(r['data'])=={'smc15_novel30','smc15_novel34'}
+          for family,entries in r['data'].items():
+              assert len(entries)==5
+              assert len(r['source_to_target_coactivity'][family])==4
+              assert all(len(d['per_puzzle'])==64 for d in entries.values())
+          print('SMC15_FRESH_FULL_COMPLETE')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smc15-source-locked-causal-tangent-receipts
+          path: |
+            runs/smc15/calibration_pilot.json
+            runs/smc15/fresh_full.json
+          if-no-files-found: warn
