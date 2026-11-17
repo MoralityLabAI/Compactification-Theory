@@ -1,0 +1,173 @@
+name: NOR-42 prospective paired native-program OOD and authentic witness
+
+on:
+  push:
+    branches:
+      - research/nor42-prospective-paired-grammar-ood-20261118
+    paths:
+      - 'research/nor42_paired_program_ood/prospective/**'
+      - '.github/workflows/nor42-paired-grammar-ood.yml'
+  pull_request:
+    paths:
+      - 'research/nor42_paired_program_ood/prospective/**'
+      - '.github/workflows/nor42-paired-grammar-ood.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistration_and_historical_only_tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify first registration ancestor before ANY prospective source generation
+        run: |
+          git merge-base --is-ancestor 9bf353b7c76535e581ff026098cd682914a90ef0 HEAD
+          test -s research/nor42_paired_program_ood/prospective/REGISTRATION.md
+      - name: Static no-new-source preview and original 388-id SHA exclusion guard
+        run: |
+          python research/nor42_paired_program_ood/prospective/predata_isolation_audit.py
+      - name: Historical-source and synthetic-only unit tests with independent model/plan parity
+        run: |
+          python -m compileall -q research/nor42_paired_program_ood/prospective
+          python -m unittest \
+            research.nor42_paired_program_ood.prospective.test_experiment \
+            research.nor42_paired_program_ood.prospective.test_independent_parity \
+            research.nor42_paired_program_ood.prospective.test_posthoc_analysis -v
+
+  first_64_public_only_source_pairs:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR42-FIRST-GRADE')
+    needs: preregistration_and_historical_only_tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate and SHA-freeze 64 unique PUBLIC-ONLY original source pairs before any private truth
+        run: |
+          python -u research/nor42_paired_program_ood/prospective/experiment.py \
+            --make-fixture /tmp/nor42_fixture.json
+      - name: Independent original 388-source exclusion and public-only source-first admission
+        run: |
+          python research/nor42_paired_program_ood/prospective/predata_isolation_audit.py \
+            --no-tests --fixture /tmp/nor42_fixture.json
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor42_fixture.json').read_bytes()
+          a=json.loads(raw)
+          assert a['schema']=='nor42.paired_grammar_ood_public_only_reps100to115.v1'
+          assert a['registered_first_commit']=='9bf353b7c76535e581ff026098cd682914a90ef0'
+          assert a['public_only'] and a['planted_and_private_target_absent']
+          assert a['hidden_beta_transform_absent'] and a['attack_witness_and_audit_absent']
+          assert a['source_units']==64 and a['private_truth_worlds']==128
+          assert a['excluded_historical_sources']==388
+          assert a['replicates']==list(range(100,116))
+          assert a['families']==['wide_dense_small','wide_regime_blocks']
+          assert len(a['cases'])==len({r['full_public_input_sha256'] for r in a['cases']})==64
+          assert Counter(r['degree'] for r in a['cases'])=={512:32,1024:32}
+          assert Counter(r['family'] for r in a['cases'])=={
+            'wide_dense_small':32,'wide_regime_blocks':32}
+          assert all(r['paired_world_labels']==['clean','hidden']
+                     and r['paired_world_prior']==[1,2] for r in a['cases'])
+          print('NOR42 FIRST ORIGINAL PUBLIC-ONLY SOURCE BYTES SHA256',
+                len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor42_first_public_only_64_source_pairs
+          path: /tmp/nor42_fixture.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_registered_pair_and_witness_grade:
+    needs: first_64_public_only_source_pairs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor42_first_public_only_64_source_pairs
+          path: /tmp/nor42
+      - name: Grade clean vs hidden native suffix under k16 authentic true output witnesses
+        run: |
+          python -u research/nor42_paired_program_ood/prospective/experiment.py \
+            --fixture /tmp/nor42/nor42_fixture.json \
+            --out /tmp/nor42/nor42_full.json
+      - name: Preserve original registered scientific PASS or FAIL and first complete grade SHA
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          source=Path('/tmp/nor42/nor42_fixture.json').read_bytes()
+          raw=Path('/tmp/nor42/nor42_full.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor42.paired_program_ood_authenticated_witness.v1'
+          assert x['registration_first_commit']=='9bf353b7c76535e581ff026098cd682914a90ef0'
+          assert x['public_fixture_sha256']==sha256(source).hexdigest()
+          assert x['fresh_public_source_pairs']==len(x['source_records'])==64
+          assert x['two_world_targets']==128 and x['excluded_historical_sources']==388
+          assert x['heldout_schedules_per_source']==1024 and x['audit_budget']==16
+          assert x['hidden_suffix_offset_after_public']==32
+          assert x['auditor_policies']==[
+            'uniform16','original_mix','deterministic_mix','global7_mix']
+          assert len(x['registered_five_gates'])==5
+          assert all(type(v) is bool for v in x['registered_five_gates'].values())
+          assert x['registered_primary_pass']==all(x['registered_five_gates'].values())
+          assert all(len(r['mixture_detection_numerators'])==5
+                     and r['paired_worlds']==2 and
+                     r['public_predictor_correct_worlds']==1
+                     and r['hidden_outside_original_admissible_grammar']
+                     for r in x['source_records'])
+          print('NOR42 FIRST ORIGINAL SOURCE BYTES SHA256',len(source),sha256(source).hexdigest())
+          print('NOR42 FIRST COMPLETE GRADE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR42 FIRST REGISTERED SCIENTIFIC PASS',x['registered_primary_pass'])
+          print('NOR42 FIVE ORIGINAL REGISTERED GATES',x['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor42_first_original_public_pair_and_authenticated_grade
+          path: |
+            /tmp/nor42/nor42_fixture.json
+            /tmp/nor42/nor42_full.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  independent_full_native_pair_and_oracle_replay:
+    needs: first_registered_pair_and_witness_grade
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor42_first_original_public_pair_and_authenticated_grade
+          path: /tmp/nor42
+      - name: Independently rebuild 64 native source pairs, 128 hidden/clean worlds and every k16 witness decision
+        run: |
+          python -u research/nor42_paired_program_ood/prospective/receipt_audit.py \
+            --check --fixture /tmp/nor42/nor42_fixture.json \
+            --full /tmp/nor42/nor42_full.json
