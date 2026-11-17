@@ -23,6 +23,7 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
 if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 FIRST_REGISTRATION="87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f"
+AMENDMENT_01="e5a95cad1ffdcd019f153cd09dd4d48b40848ef9"
 PREVIOUS_SHA="b51e8031715754c36661b74cff0c26e672fdc21355ff0dc9ab48efded3901de5"
 PREVIOUS_GRADE_SHA="42adeebcbf92626c080a6f0f5cb906eed491d6b5ed67250ba7b70bd6d0559092"
 TESTING_BANNED={"new_source","make_fixture","restore_native_target",
@@ -105,6 +106,7 @@ def check_frozen_public_only(path: Path):
     x=json.loads(raw)
     assert x["schema"]==SCHEMA
     assert x["registered_first_commit"]==FIRST_REGISTRATION
+    assert x["predata_amendment_01_commit"]==AMENDMENT_01
     assert x["replicates"]==list(range(84,100))
     assert x["degrees"]==[512,1024]
     assert x["source_offset"]==130041000
