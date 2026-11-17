@@ -141,6 +141,18 @@ jobs:
             --fixture /tmp/nor40/nor40_fixture.json \
             --full /tmp/nor40/nor40_full.json
 
+  permanent_original_source_grade_sha_lock:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify first raw source and grade bytes, original scientific gates and deterministic ZIP SHA
+        run: |
+          python research/nor40_strong_adversaries/original_archive_audit.py
+
   preregistration-and-historical-only-tests:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
