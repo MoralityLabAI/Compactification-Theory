@@ -1,0 +1,208 @@
+name: NOR-31 class-collapsed template-constrained minimax and new-source game
+
+on:
+  push:
+    paths:
+      - 'research/nor31_class_constrained_minimax/**'
+      - '.github/workflows/nor31-class-constrained-minimax.yml'
+  pull_request:
+    paths:
+      - 'research/nor31_class_constrained_minimax/**'
+      - '.github/workflows/nor31-class-constrained-minimax.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  historical-training-before-any-new-source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify source preregistration precedes all prospective implementation and data
+        run: |
+          git merge-base --is-ancestor 7e37e8c57a68e7224a67626d2495e9bcf922a424 HEAD
+          test -s research/nor31_class_constrained_minimax/REGISTRATION.md
+      - name: Confirm immutable historical NOR26 and NOR30 original byte SHA receipts
+        run: |
+          python research/nor26_policy_aware_audits/original_archive_audit.py
+          python research/nor30_minimax_audits/original_archive_audit.py
+      - name: Freeze exact 7x6 attacker payoff and independent historical template constraint
+        run: |
+          python research/nor31_class_constrained_minimax/train.py \
+            --out /tmp/nor31_train_receipt.json
+      - name: Verify no TEST information in train-only class-quotient solution
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          b=Path('/tmp/nor31_train_receipt.json').read_bytes()
+          r=json.loads(b)
+          assert r['schema']=='nor31.historical_two_cohort_alias_collapsed_training.v1'
+          assert r['training_public_source_count']==24
+          assert len(r['historical_nor26_public_hashes'])==12
+          assert len(r['historical_nor30_public_hashes'])==12
+          assert r['test_source_information_used'] is False
+          assert r['auditors']==['uniform','static_prior','posterior','hybrid_25','hybrid_50','hybrid_75']
+          assert len(r['historical_nor26_matrix_integer_hits'])==7
+          assert len(r['historical_nor30_template_weighted_numerators'])==6
+          assert r['fitted_constrained']['historical_in_template_rate']>=.18
+          w=r['fitted_constrained']['weights']
+          assert len(w)==6 and sum(w)==16 and 2<=w[0]<=12 and sum(w[1:])>0
+          print('NOR31 ORIGINAL TRAIN RECEIPT BYTES SHA256',len(b),sha256(b).hexdigest())
+          print('NOR31 FROZEN SIX-CLASS WEIGHTS',w)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor31_original_historical_two_cohort_train_only
+          path: /tmp/nor31_train_receipt.json
+          if-no-files-found: error
+          retention-days: 90
+
+  prospective-source-only-fixture:
+    needs: historical-training-before-any-new-source
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor31_original_historical_two_cohort_train_only
+          path: /tmp/nor31-train
+      - name: Exact finite controls and class-collapsed public source semantics
+        run: python -m unittest research.nor31_class_constrained_minimax.test_experiment -v
+      - name: Generate 12 genuinely new public TEST sources after weights have been frozen
+        run: |
+          python research/nor31_class_constrained_minimax/experiment.py \
+            --train /tmp/nor31-train/nor31_train_receipt.json \
+            --make-fixture /tmp/nor31_fixture.json
+      - name: Confirm exact disjoint roster, source privacy and original byte identity
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor31_fixture.json').read_bytes()
+          data=json.loads(raw)
+          train=json.loads(Path('/tmp/nor31-train/nor31_train_receipt.json').read_bytes())
+          assert data['schema']=='nor31.source_only_new_12_reps24_25.v1'
+          assert data['registered_offset']==130031000
+          assert data['source_replicates']==[24,25]
+          assert data['source_only'] and data['private_program_and_true_target_absent']
+          assert data['attacks_and_witness_answers_absent']
+          assert len(data['cases'])==12
+          hashes=[x['full_public_input_sha256'] for x in data['cases']]
+          assert len(set(hashes))==12
+          assert set(hashes).isdisjoint(train['historical_nor26_public_hashes'])
+          assert set(hashes).isdisjoint(train['historical_nor30_public_hashes'])
+          assert Counter(x['degree'] for x in data['cases'])=={512:6,1024:6}
+          assert all(not any(k in row for k in ('program','future','target','attack','witness'))
+                     for row in data['cases'])
+          print('NOR31 FIRST FROZEN TEST PUBLIC SOURCE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor31_first_frozen_public_test_sources
+          path: /tmp/nor31_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  first-source-heldout-class-constrained-game:
+    needs: prospective-source-only-fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor31_original_historical_two_cohort_train_only
+          path: /tmp/nor31-original
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor31_first_frozen_public_test_sources
+          path: /tmp/nor31-original
+      - name: Score six-class constrained mixture and eight attack classes on fresh sealed sources
+        run: |
+          python research/nor31_class_constrained_minimax/experiment.py \
+            --train /tmp/nor31-original/nor31_train_receipt.json \
+            --fixture /tmp/nor31-original/nor31_fixture.json \
+            --out /tmp/nor31-original/nor31_full.json
+      - name: Validate original test result and preserve PASS or FAIL exactly as registered
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          p=Path('/tmp/nor31-original')
+          tr=(p/'nor31_train_receipt.json').read_bytes()
+          fi=(p/'nor31_fixture.json').read_bytes()
+          raw=(p/'nor31_full.json').read_bytes()
+          data=json.loads(raw)
+          assert data['schema']=='nor31.fresh_source_sixclass_template_constrained_minimax.v1'
+          assert data['train_receipt_sha256']==sha256(tr).hexdigest()
+          assert data['test_public_fixture_sha256']==sha256(fi).hexdigest()
+          assert data['historical_training_public_sources']==24
+          assert data['new_test_public_sources']==12
+          assert data['public_proposals_frozen_before_private_truth']
+          assert data['calibrated_attack_sets_frozen_before_eval_schedules']
+          assert data['train_weights_frozen_before_new_test_sources']
+          assert data['honest_external_exact_coefficient_witness_assumed']
+          assert len(data['source_records'])==len(data['primary_source_pairs'])==12
+          assert all(len(x['observations'])==84 for x in data['source_records'])
+          assert all(x['valid_target_false_rejections']==0 and
+                     x['fully_informed_attacker_detected']==0 and
+                     x['two_nonzero_shift_disagreements']==0
+                     for x in data['source_records'])
+          assert data['registered_five_gates']['native_truth_witness_floor_controls']
+          print('NOR31 FIRST TRAIN RECEIPT SHA256',len(tr),sha256(tr).hexdigest())
+          print('NOR31 FIRST PUBLIC TEST FIXTURE SHA256',len(fi),sha256(fi).hexdigest())
+          print('NOR31 FIRST COMPLETE RESULT SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR31 REGISTERED SCIENTIFIC PRIMARY PASS',data['registered_primary_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor31_original_historical_train_fresh_test_and_full_game
+          path: |
+            /tmp/nor31-original/nor31_train_receipt.json
+            /tmp/nor31-original/nor31_fixture.json
+            /tmp/nor31-original/nor31_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independent-full-original-replay:
+    needs: first-source-heldout-class-constrained-game
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor31_original_historical_train_fresh_test_and_full_game
+          path: /tmp/nor31-replay
+      - name: Independently reconstruct both historical cohorts, new source programs and every policy-world decision
+        run: |
+          python research/nor31_class_constrained_minimax/receipt_audit.py --check \
+            --train /tmp/nor31-replay/nor31_train_receipt.json \
+            --fixture /tmp/nor31-replay/nor31_fixture.json \
+            --full /tmp/nor31-replay/nor31_full.json
