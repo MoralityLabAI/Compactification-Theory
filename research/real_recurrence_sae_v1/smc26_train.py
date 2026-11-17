@@ -136,6 +136,13 @@ def train_and_calibrate(original,independent,conditioned,allow_fetch,bundle_path
     }
 
 
+def prior_component_key(name):
+    """Exact names published by original SMC-13A B teacher artifact."""
+    if name not in OLD_TEACHERS:
+        raise ValueError("source-native old teacher alias not registered")
+    return f"newB_{name[1:]}_SAE_71"
+
+
 def load_all_models(original,independent,conditioned,bundle,calibration,fetch_source):
     """Read the OLD frozen sources and the separately archived trained bundle."""
     models,comps,old,snapshot=load_source(original,independent,conditioned,fetch_source)
@@ -161,7 +168,7 @@ def load_all_models(original,independent,conditioned,bundle,calibration,fetch_so
         models[name]=teacher
         comps[f"{name}_SAE71"]=(name,sae,state["sae_mean"],state["sae_scale"])
     for name in OLD_TEACHERS:
-        original_name=f"newB_{name[1:]}_SAE_71"
+        original_name=prior_component_key(name)
         if original_name not in comps:
             raise ValueError("old source-frozen SAE 71 missing")
         comps[f"{name}_SAE71"]=comps[original_name]
