@@ -21,6 +21,7 @@ from zipfile import ZipFile
 
 HERE=Path(__file__).resolve().parent
 ROOT=HERE.parents[1]
+if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 FIRST_REGISTRATION="4a5f3750d240d46c031e0cb432fb7b1a884cfbe9"
 PREVIOUS_SHA="37fa2aeedeb5ab54bc1082ec2d50f8a084c4f4a7d6279acd5d122396d760e504"
 PREVIOUS_GRADE_SHA="9c69d663d4d1511e664e930c0f8ed42d8d6f59c4d10557323fb5ee54478c036d"
