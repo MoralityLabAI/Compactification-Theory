@@ -1,0 +1,195 @@
+name: NOR-30 frozen historical minimax and source-separated adversarial evaluation
+
+on:
+  push:
+    paths:
+      - 'research/nor30_minimax_audits/**'
+      - '.github/workflows/nor30-sourceheldout-minimax.yml'
+  pull_request:
+    paths:
+      - 'research/nor30_minimax_audits/**'
+      - '.github/workflows/nor30-sourceheldout-minimax.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freeze-training-before-test-sources:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check prospective registration is an ancestor of all code/data
+        run: |
+          git merge-base --is-ancestor 118dc142b1bd9143218f9868fea248c53ddc62dc HEAD
+          test -s research/nor30_minimax_audits/REGISTRATION.md
+      - name: Recheck only NOR-26 historical first-run fixture and outcome hashes
+        run: |
+          python research/nor26_policy_aware_audits/original_archive_audit.py
+      - name: Freeze exact 7x7 historical mixture before any NOR-30 TEST fixture exists
+        run: |
+          python research/nor30_minimax_audits/train.py \
+            --out /tmp/nor30_train_receipt.json
+      - name: Validate frozen train-only grid and its independent-sha provenance
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          import json
+          raw=Path('/tmp/nor30_train_receipt.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor30.nor26_only_frozen_grid_minimax.v1'
+          assert x['historical_source_count']==12
+          assert x['historical_denominator_per_cell']==49152
+          assert len(x['historical_integer_hit_matrix'])==7
+          assert all(len(row)==7 for row in x['historical_integer_hit_matrix'])
+          w=x['constrained_solution']['weights']
+          assert len(w)==7 and sum(w)==16 and 2<=w[0]<=12
+          assert x['test_information_used_for_training'] is False
+          print('NOR30 TRAIN-ONLY FROZEN RECEIPT',len(raw),sha256(raw).hexdigest())
+          print('NOR30 TRAIN-ONLY AUDITOR MIXTURE',list(zip(x['auditors'],w)))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor30_registered_historical_train_only_mixture
+          path: /tmp/nor30_train_receipt.json
+          if-no-files-found: error
+          retention-days: 90
+
+  freeze-fresh-source-only-test-fixture:
+    needs: freeze-training-before-test-sources
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor30_registered_historical_train_only_mixture
+          path: /tmp/nor30-train
+      - name: Exact small-game, lower-bound and new-source public-only controls
+        run: python -m unittest research.nor30_minimax_audits.test_experiment -v
+      - name: Generate the 12 new public-only test sources AFTER training artifact is frozen
+        run: |
+          python research/nor30_minimax_audits/experiment.py \
+            --training /tmp/nor30-train/nor30_train_receipt.json \
+            --make-fixture /tmp/nor30_fixture.json
+      - name: Freeze actual complete-public identities and prove no hidden labels are serialized
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor30_fixture.json').read_bytes()
+          z=json.loads(raw)
+          t=json.loads(Path('/tmp/nor30-train/nor30_train_receipt.json').read_bytes())
+          assert z['schema']=='nor30.fresh_public_only_12_source.v1'
+          assert z['source_offset']==130030000 and z['replicates']==[20,21]
+          assert z['public_source_only'] and z['private_target_absent'] and z['test_attacks_absent']
+          assert len(z['cases'])==12
+          assert len({r['full_public_input_sha256'] for r in z['cases']})==12
+          assert all(x['full_public_input_sha256'] not in t['historical_public_hashes'] for x in z['cases'])
+          assert Counter(r['observation_degree'] for r in z['cases'])=={512:6,1024:6}
+          assert not any(any(k in r for k in ('program','future','target','witness','attacks'))
+                         for r in z['cases'])
+          print('NOR30 FROZEN TEST PUBLIC INPUT BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor30_frozen_twelve_public_only_test_sources
+          path: /tmp/nor30_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  first-heldout-minimax-game:
+    needs: freeze-fresh-source-only-test-fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor30_registered_historical_train_only_mixture
+          path: /tmp/nor30-data
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor30_frozen_twelve_public_only_test_sources
+          path: /tmp/nor30-data
+      - name: Grade source-locked policy-aware attacks against frozen mixed audit distribution
+        run: |
+          python research/nor30_minimax_audits/experiment.py \
+            --training /tmp/nor30-data/nor30_train_receipt.json \
+            --fixture /tmp/nor30-data/nor30_fixture.json \
+            --out /tmp/nor30-data/nor30_full.json
+      - name: Independently check original test count and retain any scientific FAIL
+        run: |
+          python - <<'PY'
+          import json
+          from hashlib import sha256
+          from pathlib import Path
+          root=Path('/tmp/nor30-data')
+          tr=(root/'nor30_train_receipt.json').read_bytes()
+          so=(root/'nor30_fixture.json').read_bytes()
+          fu=(root/'nor30_full.json').read_bytes()
+          z=json.loads(fu)
+          assert z['schema']=='nor30.heldout_constrained_minimax_blind_audit.v1'
+          assert z['training_receipt_sha256']==sha256(tr).hexdigest()
+          assert z['fixture_sha256']==sha256(so).hexdigest()
+          assert z['training_source_count']==z['heldout_source_count']==12
+          assert len(z['source_records'])==len(z['primary_source_pairs'])==12
+          assert z['mandatory_exact_controls_pass']
+          assert z['positive_conditional_mixture_floor_verified']
+          assert all(r['legitimate_rejections']==0 and
+                     r['informed_attacker_detections']==0 and
+                     r['delta_decision_disagreements']==0
+                     for r in z['source_records'])
+          print('NOR30 ORIGINAL TRAIN',len(tr),sha256(tr).hexdigest())
+          print('NOR30 ORIGINAL TEST SOURCES',len(so),sha256(so).hexdigest())
+          print('NOR30 ORIGINAL FULL OUTCOME',len(fu),sha256(fu).hexdigest())
+          print('NOR30 PRIMARY SCIENTIFIC PASS',z['registered_primary_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor30_original_train_public_test_and_minimax_full_outcome
+          path: |
+            /tmp/nor30-data/nor30_train_receipt.json
+            /tmp/nor30-data/nor30_fixture.json
+            /tmp/nor30-data/nor30_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  separately-replay-exact-original-test:
+    needs: first-heldout-minimax-game
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor30_original_train_public_test_and_minimax_full_outcome
+          path: /tmp/nor30-replay
+      - name: Reconstruct frozen historical optimizer and all new masked sources and cross-play
+        run: |
+          python research/nor30_minimax_audits/receipt_audit.py --check \
+            --training /tmp/nor30-replay/nor30_train_receipt.json \
+            --fixture /tmp/nor30-replay/nor30_fixture.json \
+            --full /tmp/nor30-replay/nor30_full.json
