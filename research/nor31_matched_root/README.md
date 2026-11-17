@@ -56,6 +56,6 @@ The receipt auditor contains its own sparse HMAC sampling and schedule-ID-set gr
 
 ## Original evidence
 
-Once the first complete prospective run and independent replay pass, freeze the original eight raw files: public source fixture, OS calibration root/schedules, salted precommit openings and public manifest, OS evaluation root/schedules, leaked-root openings and new manifest, and complete per-source result. Permanently commit the unaltered original bytes, with SHA256 checks in the repository CI.
+The [first prospective source-level result](RESULTS.md) PASSED its registered criteria in [Actions #44032053843](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44032053843) with a +3.0230 percentage-point hybrid decrease and 24/24 positive source pairs, using the equal-budget matched 512-schedule greedy attack. A second independently rooted Actions #44032085437 run also passed, yielding a +2.7901 pp decrease on the same source roster. All 2,359,296 decision bits were independently replayed in each completed run.
 
-A source-block bootstrap and any retrospective analysis will be labeled as descriptive and cannot alter the preregistered thresholds or first-run outcome.
+The eight original unaltered first-run files are **permanently source-controlled** in [results/nor31_original_hosted.zip](results/nor31_original_hosted.zip), with eight raw byte SHA-256 values [pinned in the first receipt](results/nor31_first_original_receipt.json) and verified by a [read-only archive auditor](original_archive_audit.py) in both CI verification jobs. All descriptive bootstrap uncertainty is labeled retrospective and leaves the initial pre-data PASS/FAIL thresholds unchanged.

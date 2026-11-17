@@ -33,6 +33,8 @@ jobs:
         run: |
           python -m compileall -q research/nor31_matched_root
           python -m unittest research.nor31_matched_root.test_experiment -v
+      - name: SHA-check all eight exact original hosted first-run files
+        run: python research/nor31_matched_root/original_archive_audit.py
 
   prep-independent-root-24-sources-and-2304-commitments:
     needs: freeze-registration-and-finite-tests
@@ -282,3 +284,5 @@ jobs:
             --late-sealed /tmp/nor31_late/nor31_late_sealed.json \
             --late-manifest /tmp/nor31_late/nor31_late_manifest.json \
             --outcome /tmp/nor31_late/nor31_full.json
+      - name: Independently verify source-controlled SHA-256 of all original first-run artifacts
+        run: python research/nor31_matched_root/original_archive_audit.py
