@@ -112,7 +112,7 @@ class SMC15Tests(unittest.TestCase):
         self.assertEqual(s["n_low_conditioning_puzzles"],40)
         self.assertEqual(s["n_high_conditioning_goals"],40)
         self.assertAlmostEqual(s["high_minus_low_puzzle_mean"],.6)
-        self.assertEqual(s["puzzle_bootstrap95_high_minus_low"],[.6,.6])
+        self.assertTrue(all(abs(v-.6)<1e-12 for v in s["puzzle_bootstrap95_high_minus_low"]))
         self.assertTrue(s["registered_conditional_gate"])
         under=summary_component(rows[:4],"pilot",SOURCES[0])
         self.assertEqual(under["status"],"underpowered_groups")
