@@ -20,6 +20,14 @@ The mathematical companion [MathCan NOR-31](https://github.com/patrickdugan/Math
 
 ## First hosted outcome
 
-This heading is registered before any fresh NOR-31 data. Append raw source and result SHA-256 receipts and source-level outcomes only after the original CI and independent replay finish. Avoid retroactive threshold changes and treat 12 source identities, rather than repeated attack restarts/challenges, as the independent sample size.
+**PASS on all five frozen gates** in the first original complete [Actions run #44032550237](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44032550237), including separate-process reconstruction of both historical cohorts, all 12 original new public programs, and **4,128,768 policy-world decisions**.
+
+The frozen trained weights are **[2,0,1,1,4,8]/16**, with historical in-template rate 18.0236%. On 12 fresh sources, the mixture caught **4.03%** of its own policy-aware best responses versus hybrid_50's **3.19%**, and achieved **3.75% worst-case** against eight attacker classes versus hybrid_50's **2.70%**. All 12 sources favored NOR-31 on both preregistered adversarial comparisons. The mixture retained **17.36% mean in-template detection**, compared with hybrid_50's **22.37%**, with **10/12 source pairs** meeting the 75% relative-retention criterion. It caught **3.91%** of off-template attacks versus hybrid50's **3.17%**. The registered mean self-response gain was **+0.842 percentage points**.
+
+A pure uniform16 auditor still had stronger raw minimax detection against these policy-aware attacks (5.98% self-response, 5.41% worst-case) while detecting only 6.05% of the structured template attacks. NOR-31 is a **constrained balance**, not an unrestricted minimax solution. Two degree-1024 sources fell below the retained relative template-coverage gate, while 10 passed. The exact conditional ideal blind lower bounds are 5.2484% and 2.6467% at m=769/1537 output coordinates.
+
+The original TRAIN receipt (5,300 bytes, SHA256 ba6141e866324000e6fdb22068a9b56631e0eb5fddb8ec36daca16e5ce199dc0), new public-only TEST fixture (2,245,544 bytes, SHA256 b34f0cdefc7c4d06770af00ac659f11fd83b540fa40b02186157abc640bfae85), and complete first outcome (317,452 bytes, SHA256 f978a2c388715056e7999e01d4ddc30f6c24a778b0e6e3e741a070902223430c) are preserved in [the permanent first-run ZIP](results/nor31_original_hosted.zip), with [frozen receipt](results/nor31_first_frozen_receipt.json). Permanent read-only CI checks all original hashes and independently replays the original source/attack grid.
+
+See the detailed [RESULTS.md](RESULTS.md) for the source-level table, original experimental assumptions and the exact mixed-versus-pure-uniform tradeoff.
 
 The source interpreter is exact finite-series RRC25. Authenticated target coefficient witnesses and independently concealed audit randomness remain external assumptions. Public SHA-derived experimental streams are deterministic replay devices and carry no cryptographic unpredictability claim.
