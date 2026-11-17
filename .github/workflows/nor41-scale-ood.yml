@@ -1,0 +1,40 @@
+name: NOR-41 registered CAL scaling and input OOD pre-data source isolation
+
+on:
+  push:
+    branches:
+      - research/nor41-scale-ood-cal-transfer-20261117
+    paths:
+      - 'research/nor41_scale_ood/**'
+      - '.github/workflows/nor41-scale-ood.yml'
+  pull_request:
+    paths:
+      - 'research/nor41_scale_ood/**'
+      - '.github/workflows/nor41-scale-ood.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistration_historical_only_predata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify immutable prospective registration ancestor and complete science gates
+        run: |
+          git merge-base --is-ancestor 87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f HEAD
+          test -s research/nor41_scale_ood/REGISTRATION.md
+      - name: Enforce old-source-only test isolation and 324 source archive SHA pins
+        run: |
+          python research/nor41_scale_ood/predata_isolation_audit.py
+      - name: Test nested CAL, new input grammar and source-block scientific gates
+        run: |
+          python -m compileall -q research/nor41_scale_ood
+          python -m unittest research.nor41_scale_ood.test_experiment -v
