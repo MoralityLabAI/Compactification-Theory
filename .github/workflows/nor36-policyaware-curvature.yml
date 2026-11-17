@@ -15,6 +15,18 @@ permissions:
   contents: read
 
 jobs:
+  permanent-original-first-grade-sha-and-independent-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-lock original NOR36 first fixture/grade and independently reconstruct all 13,762,560 decisions
+        run: |
+          python research/nor36_policyaware_curvature/original_archive_audit.py
+
   freeze-registered-threat-model-and-source-controls:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
