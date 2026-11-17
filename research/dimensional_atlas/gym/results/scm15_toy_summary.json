@@ -1,0 +1,65 @@
+{
+  "adapter_sha256": "59ddcf711cc333c85e767c9c39e56dd7bfffc3dc1a354beaf98fb56d92376511",
+  "backend": "toy",
+  "discovery_count": 40,
+  "frontier_peak_count": 4,
+  "generated_gold_sha256": "f3d859622708c06e0b64d4a20f53b0c3cf7c1ea6384584c8e2464a29a8489365",
+  "generated_public_sha256": "cb20781990ce745cf6ffca516b45ff18023a60b70b6e3489333d67b57bd704df",
+  "math_source_verified": false,
+  "model_sha256": "ed56d80889817813dceede5b4a6ada9c23dd2c025000140a29ab696d01ed0d5a",
+  "new_evaluation_count": 8,
+  "new_replay_count": 16,
+  "phases": {
+    "base": {
+      "last_loss": 3.5626423358917236,
+      "steps": 40
+    },
+    "frontier_replay": {
+      "last_loss": 3.3620493412017822,
+      "steps": 20
+    },
+    "sae": {
+      "last_loss": 0.5269313454627991,
+      "steps": 25
+    },
+    "vpd": {
+      "last_loss": 3.4614624977111816,
+      "steps": 45
+    }
+  },
+  "provenance_warning": "finite-difference geometry is diagnostic only; frontier tuned on discovery; exact test future used only after freeze",
+  "results": {
+    "sae_atvpd": {
+      "false_future_acceptances": 0,
+      "future_accuracy": 0.5208333333333334,
+      "mean_exact_queries": 9.333333333333334,
+      "n": 48,
+      "prefix_acceptance": 0.5208333333333334
+    },
+    "shuffled_visit_gates": {
+      "false_future_acceptances": 0,
+      "future_accuracy": 0.5208333333333334,
+      "mean_exact_queries": 9.333333333333334,
+      "n": 48,
+      "prefix_acceptance": 0.5208333333333334
+    },
+    "tied_base": {
+      "false_future_acceptances": 0,
+      "future_accuracy": 0.5208333333333334,
+      "mean_exact_queries": 9.25,
+      "n": 48,
+      "prefix_acceptance": 0.5208333333333334
+    },
+    "zero_sae_codes": {
+      "false_future_acceptances": 0,
+      "future_accuracy": 0.5208333333333334,
+      "mean_exact_queries": 9.25,
+      "n": 48,
+      "prefix_acceptance": 0.5208333333333334
+    }
+  },
+  "schema": "scm15.atlas_vpd.v0",
+  "seed": 15,
+  "status": "synthetic_demo_unconfirmed_cross_machine",
+  "train_count": 160
+}
