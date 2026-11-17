@@ -15,6 +15,18 @@ permissions:
   contents: read
 
 jobs:
+  permanent-original-first-grade-sha-and-independent-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original first-run ZIP, exact raw SHA and all 30,277,632 independent audit decisions
+        run: |
+          python research/nor37_stochastic_curvature/original_archive_audit.py
+
   preregistered-history-and-exact-controls:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
