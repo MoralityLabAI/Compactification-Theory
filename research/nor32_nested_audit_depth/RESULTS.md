@@ -4,6 +4,8 @@
 
 ## Primary result: the four-unseen-coordinate threshold disappears
 
+The labeled [retrospective coverage diagnostic](coverage_diagnostic.py) verifies these original source counts, monotonicity and the ideal expected untouched-coordinate formula from the unchanged eight-file ZIP without rerunning any source or attack. It is a post-result explanatory check and cannot alter the precommitted pass criteria.
+
 The first 24 test sources were new, source-distinct RRC25 problems (replicates 26–29, observation D=512/1024, all three NOR-21 source families); no target values, secrets, changed coordinates or witness data entered their public-only fixture. Separate 256-bit OS calibration root C and evaluation root E produced two independent sets of 2,048 schedules per source/auditor; the four depths below are **nested prefixes of the SAME evaluation-root schedule list**.
 
 For a root-informed attacker committed AFTER viewing a batch, existence of four completely NEVER-inspected positions is necessary and sufficient for a four-coefficient attack detected in **zero out of n audits**. Under the NOR-32 HMAC sampler, the following counts and means were independently reproduced from the first original schedule bytes:
