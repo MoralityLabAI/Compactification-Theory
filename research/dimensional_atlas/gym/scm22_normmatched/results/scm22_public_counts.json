@@ -1,0 +1,118 @@
+{
+  "schema": "scm22.public_counts.v1",
+  "protocol_sha256": "5daa2344fabb543331e3a430fa88cb689984e4f4ccf1965b856ca927d8a0a1d4",
+  "frozen_source_sha256": {
+    "model": "734b7e59a10b70963c08180b52cf20b9e5a3ef1ccb86649bd815f05eab6e489d",
+    "geometry": "99c2fec188bc32ce794ccbd4495668e4076b75e8d7046b20f1607bbbe20cc62a",
+    "run": "48c4c7ea2397aec1bc95c5e69a8d42c97d3a85c0257035855f0e76c7f1fa7872"
+  },
+  "local_complete_receipt_sha256": "e20767682c1d3981859b47aab0e5c6bb4000f1c293d5667a2786acd769ffe3c0",
+  "local_posthoc_receipt_sha256": "169391e90f0cc609b306fb10309ba4c2ba55eaa4b0d40b01d128bf7045c19c54",
+  "evidence_class": "fresh trained synthetic F11 math loopers on sandbox CPU, not SCM20 private checkpoints",
+  "registered_gate_passed": true,
+  "cpu_work": {
+    "seeds": 3,
+    "updates_per_seed": 400,
+    "batch": 128,
+    "sae_updates_per_seed": 250,
+    "calibration_pairs_per_seed": 192,
+    "heldout_pairs_per_seed": 256,
+    "intervention_visit_index": 1,
+    "thread_count": 2,
+    "full_replay_seconds_approx": 18.3,
+    "peak_rss_kb_approx": 349664
+  },
+  "max_paired_norm_error_all_primary": 4.76837158203125e-7,
+  "rows": [
+    {
+      "seed": 191,
+      "n": 256,
+      "full": 255,
+      "diff_pca4": 194,
+      "state_pca4": 183,
+      "sae_fiber4": 5,
+      "random_fiber4": 1,
+      "half_norm_diff": 49,
+      "fiber_diff_posthoc": 13,
+      "visible_diff_posthoc": 186,
+      "first_visit_fiber_posthoc": 42,
+      "top4_variance": 0.6290403010427299
+    },
+    {
+      "seed": 1191,
+      "n": 256,
+      "full": 256,
+      "diff_pca4": 197,
+      "state_pca4": 195,
+      "sae_fiber4": 4,
+      "random_fiber4": 2,
+      "half_norm_diff": 51,
+      "fiber_diff_posthoc": 8,
+      "visible_diff_posthoc": 199,
+      "first_visit_fiber_posthoc": 29,
+      "top4_variance": 0.5615726289844775
+    },
+    {
+      "seed": 2191,
+      "n": 256,
+      "full": 256,
+      "diff_pca4": 181,
+      "state_pca4": 173,
+      "sae_fiber4": 2,
+      "random_fiber4": 0,
+      "half_norm_diff": 57,
+      "fiber_diff_posthoc": 11,
+      "visible_diff_posthoc": 188,
+      "first_visit_fiber_posthoc": 40,
+      "top4_variance": 0.5810176732021569
+    }
+  ],
+  "posthoc_visit_sweep": {
+    "fiber_diff_pca4": [
+      [
+        42,
+        13,
+        0,
+        0
+      ],
+      [
+        29,
+        8,
+        0,
+        0
+      ],
+      [
+        40,
+        11,
+        0,
+        0
+      ]
+    ],
+    "visible_diff_pca4": [
+      [
+        104,
+        186,
+        191,
+        172
+      ],
+      [
+        124,
+        199,
+        191,
+        169
+      ],
+      [
+        132,
+        188,
+        154,
+        157
+      ]
+    ]
+  },
+  "limitations": [
+    "Nuisance seeds are fresh but finite mathematical operation combinations recur; no OOD family generalization.",
+    "The linearly head-orthogonal SAE and random controls are not matched to readout-visible difference PCA except in rank and patch norm.",
+    "Within-fiber PCA and visit sweep were post-hoc and excluded from the registered gate.",
+    "Trained SCM20 weights remain external; no real model transfer is claimed."
+  ]
+}
