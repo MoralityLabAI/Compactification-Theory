@@ -1,0 +1,80 @@
+name: NOR-29 one-shot original root leakage artifact publisher
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor29-first-original-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  lock-first-precommit-osroot-and-late-attack-original-bytes:
+    if: github.ref == 'refs/heads/research/nor29-early-entropy-leak-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: research/nor29-early-entropy-leak-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor29_first_source_only_and_768_precommitments
+          run-id: 44025451594
+          github-token: ${{ github.token }}
+          path: /tmp/nor29_original_prep
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor29_first_new_root_and_frozen_audit_schedules
+          run-id: 44025451594
+          github-token: ${{ github.token }}
+          path: /tmp/nor29_original_challenge
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor29_first_leaked_root_attacks_and_full_results
+          run-id: 44025451594
+          github-token: ${{ github.token }}
+          path: /tmp/nor29_original_late
+      - name: Preserve the exact original seven SHA-pinned byte streams
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json,zipfile
+          ref=json.loads(Path('research/nor29_early_entropy/results/nor29_first_original_receipt.json').read_text())
+          inputs={
+            'PREP':Path('/tmp/nor29_original_prep'),
+            'CHALLENGE':Path('/tmp/nor29_original_challenge'),
+            'LATE_ROOT':Path('/tmp/nor29_original_late'),
+            'GRADE':Path('/tmp/nor29_original_late'),
+          }
+          content={}
+          for key,entry in ref['files'].items():
+              raw=(inputs[entry['stage']]/entry['name']).read_bytes()
+              assert len(raw)==entry['bytes'],(key,len(raw))
+              assert sha256(raw).hexdigest()==entry['sha256'],key
+              content[entry['name']]=raw
+          dst=Path('research/nor29_early_entropy/results/nor29_original_hosted.zip')
+          with zipfile.ZipFile(dst,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as out:
+              for name in sorted(content):
+                  info=zipfile.ZipInfo(name,date_time=(2026,11,17,0,0,0))
+                  info.compress_type=zipfile.ZIP_DEFLATED
+                  info.external_attr=0o644<<16
+                  out.writestr(info,content[name],compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+          print('NOR29 ORIGINAL SOURCE CONTROLLED ARCHIVE BYTES',dst.stat().st_size)
+          PY
+          python research/nor29_early_entropy/original_archive_audit.py
+      - name: Commit immutable original seven-file archive to registered NOR-29 research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor29_early_entropy/results/nor29_original_hosted.zip
+          git diff --cached --quiet && { echo 'NOR29 original archive already committed'; exit 0; }
+          git commit -m 'NOR-29: preserve immutable 24-source blind commitments, OS root, root-aware attacks and outcome'
+          git push origin HEAD:refs/heads/research/nor29-early-entropy-leak-20261117
