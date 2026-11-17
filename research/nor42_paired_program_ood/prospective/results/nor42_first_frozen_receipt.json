@@ -1,0 +1,51 @@
+{
+  "audit_queries_per_plan": 16,
+  "deterministic_zip_bytes": 2799867,
+  "deterministic_zip_sha256": "e60e97fd933f660c2274cb4a473ede7a98968d24eaf0dd3ae45ace1e1176cd0d",
+  "excluded_historical_source_ids": 388,
+  "external_witness_premise": "Synthetic oracle for true clean/hidden output coefficients; no real-world authenticated witness constructed.",
+  "first_original_grade_artifact_id": 14352479533,
+  "first_registration_commit": "9bf353b7c76535e581ff026098cd682914a90ef0",
+  "heldout_schedules_per_source": 1024,
+  "independent_replay": "Original separate CI replayer must be verified externally",
+  "new_source_pair_units": 64,
+  "original_first_run": 44138400655,
+  "original_first_source_bytes": 9059929,
+  "original_first_source_sha256": "f8bc6ef3db4fda78709f2b7cd1a6a09989dbc087bcfb963d00961cc23ce4f033",
+  "original_five_gates": {
+    "authenticated_hidden_detection_over_witnessfree_consistency": true,
+    "authenticated_uniform_exact_support_calibration": true,
+    "global7_competitive_offgrammar_new_family": true,
+    "paired_prefix_identity_and_future_underdetermination": true,
+    "source_first_hidden_witness_and_independent_replay_contract": true
+  },
+  "original_means": {
+    "absolute_uniform_calibration_error": 0.005563744924974411,
+    "exact_uniform_probability": 0.8865990428772373,
+    "global7_hidden_detection": 0.86287522315979,
+    "global7_minus_exact_floor": 0.4749881419009987,
+    "new_family_global7_detection": 0.7321438789367676,
+    "new_family_uniform_detection": 0.78741455078125,
+    "ood_global7_minus_uniform": -0.05527067184448242
+  },
+  "original_raw_file_bytes_sha256": {
+    "nor42_fixture.json": {
+      "bytes": 9059929,
+      "sha256": "f8bc6ef3db4fda78709f2b7cd1a6a09989dbc087bcfb963d00961cc23ce4f033"
+    },
+    "nor42_full.json": {
+      "bytes": 201956,
+      "sha256": "bd57751d94ea49755888000675b0df8fce6490873683268b8f8625518701adae"
+    }
+  },
+  "original_registered_science_pass": true,
+  "original_wins": {
+    "global7_exact_floor_within_5pp": 64,
+    "global7_hidden_detection_ge_10pct": 64,
+    "ood_global7_within_15pp_uniform": 24,
+    "uniform_calibration_within_8pp": 64
+  },
+  "paired_true_worlds": 128,
+  "schema": "nor42.original_first_paired_grammar_ood_archive.v1",
+  "source_only_first_fixture_frozen_before_true_worlds": true
+}
