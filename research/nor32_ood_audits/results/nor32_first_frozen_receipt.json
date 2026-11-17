@@ -1,0 +1,50 @@
+{
+  "auditor_policy_count": 6,
+  "blind_attacks_per_support": 8,
+  "calibration_schedules_per_source": 256,
+  "evaluation_schedules_per_source": 512,
+  "exact_witness_pairs_directly_rechecked": 87552,
+  "excluded_historical_source_units": 36,
+  "expected_independent_audit_decisions": 11206656,
+  "first_original_completed_grader_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44042332472",
+  "first_registration_commit": "07f0f91211c21b3a7ed540ebcb246faffc7377e0",
+  "frozen_mixture_weights": [
+    2,
+    0,
+    1,
+    1,
+    4,
+    8
+  ],
+  "legacy_template_mean": 0.1773871103922526,
+  "mean_ood_blind_gain": -0.005283355712890627,
+  "new_ood_support_family_count": 6,
+  "new_test_public_source_units": 24,
+  "original_artifact_id": 14310062534,
+  "original_artifact_name": "nor32_first_original_public_24_sources_and_ood_full_outcome",
+  "original_file_sizes_and_sha256": {
+    "nor32_fixture.json": {
+      "bytes": 3892735,
+      "sha256": "129dba8ef9b1ae64edf58f9b71d6de761c3f4ca4fe5be4224e2495e3353518b7"
+    },
+    "nor32_full.json": {
+      "bytes": 1142260,
+      "sha256": "4b475c62c7289574c9ff74b67e2634f9094b9c60f4d296269588cbe591bed0e9"
+    }
+  },
+  "policyaware_ood_source_wins": 19,
+  "policyaware_restarts_per_support_policy": 4,
+  "registered_date_utc": "2026-11-17",
+  "registered_five_gates": {
+    "blind_ood_mean_and_source_wins": false,
+    "calibrated_ood_and_legacy_template_retention": true,
+    "retain_60pct_of_pure_uniform_ood": true,
+    "source_witness_floor_replay_controls": true,
+    "worst_family_source_wins": true
+  },
+  "schema": "nor32.original_first_preregistered_ood_support_transfer.v1",
+  "scientific_primary_pass": false,
+  "scope": "Unseen support-generation mechanisms may overlap historical risk supports; assumed honest external exact target witness and independent audit coins.",
+  "source_ood_blind_wins": 4,
+  "worst_ood_family_wins": 24
+}
