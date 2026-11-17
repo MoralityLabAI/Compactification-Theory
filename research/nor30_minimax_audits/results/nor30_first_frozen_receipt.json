@@ -1,0 +1,43 @@
+{
+  "constrained_minimax_weights": [
+    3,
+    0,
+    0,
+    13,
+    0,
+    0,
+    0
+  ],
+  "date_utc": "2026-11-17",
+  "distributional_degeneracy": "shuffled_prior first 16 coefficients are uniform under a random permutation; trained [3,0,0,13,0,0,0] has the same ideal distribution as uniform16",
+  "first_run_primary_pass": true,
+  "historical_7x7_integer_game_sha256": "9dbffb5d3015f705e3b5b09464260ca5bd7f1dc5750047c35f63f2462dff1192",
+  "historical_training_public_sources": 12,
+  "interpretation_scope": "12 correlated source units and fixed policy-aware attack families; target witness authenticity and private future coins are external assumptions.",
+  "mean_self_response_gain": 0.03435389200846354,
+  "new_source_only_split_before_test_grade": true,
+  "new_test_public_sources": 12,
+  "original_artifact_id": 14303208219,
+  "original_artifact_name": "nor30_original_train_public_test_and_minimax_full_outcome",
+  "original_complete_green_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44027909426",
+  "original_file_bytes_and_sha256": {
+    "nor30_fixture.json": {
+      "bytes": 2284577,
+      "sha256": "9961afd81cac78b32fc5280fe54291f7db4dca0cf85cb6624560ddac420e1878"
+    },
+    "nor30_full.json": {
+      "bytes": 337563,
+      "sha256": "4189235f7cb5c14f3c7d1028abda264d893c7b5e5d2eda0c4c1de091f052b9c8"
+    },
+    "nor30_train_receipt.json": {
+      "bytes": 3113,
+      "sha256": "df9414c3ee3132a90fe8e6cb5fd231332e480fe9e87ea5b3c3bef86045330c84"
+    }
+  },
+  "registration_first_commit": "118dc142b1bd9143218f9868fea248c53ddc62dc",
+  "replay_matched_original": true,
+  "schema": "nor30.original_sourceheldout_minimax_first_run.v1",
+  "training_grid_candidates_all": 74613,
+  "wins_self": 12,
+  "wins_worst": 12
+}
