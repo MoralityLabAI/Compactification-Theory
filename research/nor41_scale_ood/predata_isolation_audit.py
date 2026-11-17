@@ -114,7 +114,7 @@ def check_frozen_public_only(path: Path):
     assert x["public_only"] and x["planted_and_private_target_absent"]
     assert x["attack_witness_and_audit_absent"]
     ids=[row["full_public_input_sha256"] for row in x["cases"]]
-    assert len(ids)==len(set(ids))==48
+    assert len(ids)==len(set(ids))==64
     assert set(ids).isdisjoint(historical_source_shas())
     assert sorted((r["replicate"],r["degree"],r["family"]) for r in x["cases"])==sorted(
         (rep,d,fam) for rep in range(84,100) for d in (512,1024)
