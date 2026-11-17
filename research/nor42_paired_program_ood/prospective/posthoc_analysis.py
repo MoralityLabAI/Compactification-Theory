@@ -144,7 +144,7 @@ def markdown(report):
          "| Auditor | Mean detection % |",
          "| --- | ---: |"]
     for p,v in report["absolute_detection_means"].items():
-        out.append(f"| \`{p}\` | {100*v:.4f} |")
+        out.append(f"| `{p}` | {100*v:.4f} |")
     out+=["","## Public pair/source strata","",
           "| Stratum | Pair units | Difference support mean | Exact uniform16 % | Empirical uniform16 % | Global7 % | Global7−uniform16 pp |",
           "| --- | ---: | ---: | ---: | ---: | ---: | ---: |"]
@@ -163,7 +163,7 @@ def markdown(report):
                 "global7_minus_exact_floor","absolute_uniform_calibration_error"):
         d=report["replicate_block_descriptive"][key]
         lo,hi=d["descriptive_t95_interval"]
-        out.append(f"| \`{key}\` | {100*d['mean']:+.3f}% | "
+        out.append(f"| `{key}` | {100*d['mean']:+.3f}% | "
                    f"[{100*lo:+.3f}, {100*hi:+.3f}]% | "
                    f"{d['positive_replicates']}/16 |")
     out+=["","Under a witness-free public-model self-consistency check, the "
