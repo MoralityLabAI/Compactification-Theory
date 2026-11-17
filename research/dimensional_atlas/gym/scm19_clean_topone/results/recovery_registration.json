@@ -1,0 +1,48 @@
+{
+  "changes": "rename logger payload kind to stratum; reconcile cumulative accounting only",
+  "clean_receipt_sha256": {
+    "clean_s1191.json": "ae0d50311ecd955e2c4df1dfe7b9bf09d39352f54de340cefe194878878f225d",
+    "clean_s191.json": "31b1401638596753f4e00a63be2e1020f22a85676dd26981c206a0a13e966b76",
+    "clean_s2191.json": "e003100b145f496e273b74abd3fb0645e4cdc6ce454259e297e81434ed8eff42"
+  },
+  "freeze_sha256": "4e04fab8b1b27039a89ce93d7c1412a5a24e65c08e40862cc5bf56578ed3b1f5",
+  "original_registration_commit": "a94d749",
+  "prior_check_grade_calls": {
+    "check_candidate": 38224,
+    "grade": 11152
+  },
+  "prior_journal_bytes": 17799906,
+  "prior_journal_sha256": "1ae776edf91d3a712cd3a159f26d6bb170ba0d1821b3fee57de2d8fc8d1ad44f",
+  "prior_minimum_free_mb": 3223.7000007629395,
+  "prior_peak": {
+    "allocated_mb": 40.9033203125,
+    "reserved_mb": 52.0
+  },
+  "prior_seconds": 387.3243172000075,
+  "prior_work": {
+    "adapter_optimizer_steps": 1200,
+    "base_optimizer_steps": 16000,
+    "forward_examples": 171200,
+    "model_calls": 21400,
+    "public_gram_multiplications": 482380288,
+    "readout_examples": 175808,
+    "recurrent_example_visits": 717056,
+    "recurrent_token_visits": 18371328,
+    "sae_optimizer_steps": 1200
+  },
+  "recovery_source_sha256": "f8ba2c02613e23f1aad00ab42c6933d24a99c51761152400242699c5a53db3e6",
+  "registered_client_date": "2026-11-15",
+  "schema": "scm19.logging_only_recovery.v1",
+  "scientific_choices_changed": false,
+  "tests_passed": 8,
+  "unchanged_registered_source_sha256": {
+    "research/dimensional_atlas/gym/model.py": "2982dfdbbf1ff4ddde64503f4dfe766c451e8fe629956321c636b97ff09df5c5",
+    "research/dimensional_atlas/gym/scm18_rtx3050/core.py": "f82b9630df5b0084be8554389d56d9b7ef7ab2ee8830da85e90bed5f699a6bd5",
+    "research/dimensional_atlas/gym/scm19_clean_topone/PROTOCOL.md": "10e07dac83db93cc31375665d8905e2a3693445483f0ad109f12246f0b9f4f6a",
+    "research/dimensional_atlas/gym/scm19_clean_topone/__init__.py": "023bd3518507cec5ab71fa1604a40d58fd3f502114561cde301d082af7555c41",
+    "research/dimensional_atlas/gym/scm19_clean_topone/campaign.py": "69c91bd62d43891038c6c3d435f04924bf8bbd6db5ce12c2ec5d11a714a950ad",
+    "research/dimensional_atlas/gym/scm19_clean_topone/config.json": "e8e293eda4e55ef3bb7fbe19a36e36bd7557fd268a857c49a91bc59f8d081025",
+    "research/dimensional_atlas/gym/scm19_clean_topone/core.py": "42428213351e3cbea419e78faabfc49c104d9fc74209c5fb6a6f1b615cc393f7",
+    "research/dimensional_atlas/gym/tasks.py": "ea9f3a2ea9312ac081c04a478d8235dc05dc274a439ecd40bd9274cb8ab47bc2"
+  }
+}

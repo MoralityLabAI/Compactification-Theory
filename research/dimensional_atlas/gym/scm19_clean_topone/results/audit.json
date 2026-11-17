@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "fresh_unique_public_signatures": 1536,
+    "frozen_models_and_frames_verified": 3,
+    "mediation_cells_checked": 480,
+    "recorded_predictions_regraded": 28672,
+    "semantic_pairs_reconstructed": 384,
+    "train_dev_calibration_unique_signatures": 8640
+  },
+  "completed_sha256": "06ec199ba8c20de796e9e60531e90d53914d287657b6a0ac2116c66743a4e012",
+  "inference_verifier_calls": 0,
+  "journal_events": {
+    "adapter_update": 1200,
+    "all_weights_and_directions_frozen": 2,
+    "forward_called": 24776,
+    "logging_recovery_started": 1,
+    "mediation_cell_completed": 480,
+    "optimizer_completed": 16000,
+    "oracle_call": 88296,
+    "prediction_selected": 2400,
+    "sae_update": 1200,
+    "training_case_labeled": 8192
+  },
+  "journal_forward_totals": {
+    "forward_examples": 197568,
+    "model_calls": 24776,
+    "recurrent_example_visits": 822528,
+    "recurrent_token_visits": 21219072
+  },
+  "journal_memory": {
+    "allocated_mb": 40.9033203125,
+    "minimum_free_mb": 3223.7000007629395,
+    "reserved_mb": 52.0
+  },
+  "official_roster_calls": 0,
+  "passed": true,
+  "registration_commit": "a94d749",
+  "schema": "scm19.independent_audit.v1",
+  "terminal_numerical_checks": [
+    {
+      "seed": 191,
+      "terminal_first_readout_fiber_residual_max": 7.727641104793292e-07
+    },
+    {
+      "seed": 1191,
+      "terminal_first_readout_fiber_residual_max": 1.3589996115115355e-06
+    },
+    {
+      "seed": 2191,
+      "terminal_first_readout_fiber_residual_max": 7.540993465227075e-07
+    }
+  ],
+  "training_after_final": false
+}

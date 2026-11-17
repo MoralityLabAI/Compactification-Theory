@@ -1,0 +1,176 @@
+{
+  "adapter_fitted": true,
+  "adapter_losses": [
+    {
+      "distillation": 2.452111402817536e-07,
+      "energy": 4.041794909426244e-06,
+      "math": 1.1223088502883911,
+      "step": 1,
+      "total": 1.1223089694976807
+    },
+    {
+      "distillation": 1.8466089386492968e-06,
+      "energy": 4.202888248983072e-06,
+      "math": 0.7795703411102295,
+      "step": 51,
+      "total": 0.7795712947845459
+    },
+    {
+      "distillation": 9.857045370154083e-06,
+      "energy": 1.2030768630211242e-05,
+      "math": 0.8160168528556824,
+      "step": 101,
+      "total": 0.8160219192504883
+    },
+    {
+      "distillation": 0.00025096803437918425,
+      "energy": 9.80167678790167e-05,
+      "math": 0.820762038230896,
+      "step": 151,
+      "total": 0.8208884596824646
+    },
+    {
+      "distillation": 0.00034446234349161386,
+      "energy": 0.0006077318685129285,
+      "math": 1.036354422569275,
+      "step": 201,
+      "total": 1.0365327596664429
+    },
+    {
+      "distillation": 0.0040876418352127075,
+      "energy": 0.0011368502164259553,
+      "math": 0.5158679485321045,
+      "step": 251,
+      "total": 0.5179231762886047
+    },
+    {
+      "distillation": 0.012744925916194916,
+      "energy": 0.002751455642282963,
+      "math": 0.9178582429885864,
+      "step": 301,
+      "total": 0.9242582321166992
+    },
+    {
+      "distillation": 0.02109444886445999,
+      "energy": 0.004875605460256338,
+      "math": 1.0259515047073364,
+      "step": 351,
+      "total": 1.0365475416183472
+    },
+    {
+      "distillation": 0.022588569670915604,
+      "energy": 0.008213736116886139,
+      "math": 1.9566833972930908,
+      "step": 400,
+      "total": 1.968059778213501
+    }
+  ],
+  "base_unchanged": true,
+  "checkpoint": {
+    "adapter_fitted": true,
+    "encoding": "coefficient",
+    "file": "frozen_s2191.pt",
+    "file_sha256": "c99a9712483e24b8a24315eaad2695bf34932434c0848579e3357cd9b40417b4",
+    "locked": true,
+    "model_sha256": "aaa25796765d89e3e7f528e534226b7321314faa3e2d0534fa0a5d0ba3f8a760",
+    "sae_sha256": "836a26da89cad693fdb33ac9a69fce83d9489467f2c5a5166b0a65c1c770c0a1",
+    "seed": 2191,
+    "steps": 4000
+  },
+  "development": {
+    "adapter": {
+      "dev_id": {
+        "accuracy": 0.62109375,
+        "correct": 159,
+        "false_future_acceptances": 6,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 256,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 165
+      },
+      "dev_ood": {
+        "accuracy": 0.4609375,
+        "correct": 59,
+        "false_future_acceptances": 5,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 128,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 64
+      }
+    },
+    "base": {
+      "dev_id": {
+        "accuracy": 0.6015625,
+        "correct": 154,
+        "false_future_acceptances": 6,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 256,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 160
+      },
+      "dev_ood": {
+        "accuracy": 0.453125,
+        "correct": 58,
+        "false_future_acceptances": 3,
+        "inference_verifier_calls": 0,
+        "initial_cls_correct": null,
+        "n": 128,
+        "predictions_per_case": 1,
+        "prefix_acceptances": 61
+      }
+    }
+  },
+  "dictionary_unchanged_during_adapter": true,
+  "frozen_base_sha256": "a34174a35a2ba1161c7f01907c9b5ee7f81fe0032ab633b46d1f8e1cf7fa023e",
+  "sae_losses": [
+    {
+      "reconstruction": 1.0090420246124268,
+      "step": 1
+    },
+    {
+      "reconstruction": 0.7763863205909729,
+      "step": 51
+    },
+    {
+      "reconstruction": 0.5705582499504089,
+      "step": 101
+    },
+    {
+      "reconstruction": 0.5424230098724365,
+      "step": 151
+    },
+    {
+      "reconstruction": 0.4832765460014343,
+      "step": 201
+    },
+    {
+      "reconstruction": 0.3878878951072693,
+      "step": 251
+    },
+    {
+      "reconstruction": 0.3865891695022583,
+      "step": 301
+    },
+    {
+      "reconstruction": 0.24470120668411255,
+      "step": 351
+    },
+    {
+      "reconstruction": 0.3775920271873474,
+      "step": 400
+    }
+  ],
+  "seed": 2191,
+  "work": {
+    "adapter_optimizer_steps": 400,
+    "forward_examples": 7424,
+    "model_calls": 928,
+    "readout_examples": 7424,
+    "recurrent_example_visits": 29696,
+    "recurrent_token_visits": 801792,
+    "sae_optimizer_steps": 400
+  }
+}
