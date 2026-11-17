@@ -1,0 +1,161 @@
+name: NOR-35 preregistered intra-atom curvature auditor source-heldout CPU test
+
+on:
+  push:
+    paths:
+      - 'research/nor35_intraatom_curvature/**'
+      - '.github/workflows/nor35-intraatom-curvature.yml'
+  pull_request:
+    paths:
+      - 'research/nor35_intraatom_curvature/**'
+      - '.github/workflows/nor35-intraatom-curvature.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freeze-registration-and-exact-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify registration precedes source creation and empirical code
+        run: |
+          git merge-base --is-ancestor 3773c1b1522f419e54f34252b0c743018105bc79 HEAD
+          test -s research/nor35_intraatom_curvature/REGISTRATION.md
+      - name: Verify original NOR34 source evidence, 108 historical cases, and full independent replay
+        run: |
+          python research/nor34_eight_atom_curvature/original_archive_audit.py
+      - name: Exact finite atom-budget, within-atom attack and integer witness tests
+        run: |
+          python -m compileall -q research/nor35_intraatom_curvature
+          python -m unittest research.nor35_intraatom_curvature.test_experiment -v
+
+  freeze-new-public-only-24-source-fixture:
+    needs: freeze-registration-and-exact-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate 24 new RRC25 public inputs before all attacks/schedules and any private target
+        run: |
+          python research/nor35_intraatom_curvature/experiment.py \
+            --make-fixture /tmp/nor35_fixture.json
+      - name: Byte-freeze new source-only fixture and verify 108 historical exclusion
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          from collections import Counter
+          raw=Path('/tmp/nor35_fixture.json').read_bytes()
+          f=json.loads(raw)
+          assert f['schema']=='nor35.public_only_new_reps48to51.v1'
+          assert f['registration_commit']=='3773c1b1522f419e54f34252b0c743018105bc79'
+          assert f['replicates']==[48,49,50,51] and f['offset']==130035000
+          assert f['public_only'] and f['private_program_and_future_absent']
+          assert f['attack_witness_and_policy_absent']
+          assert f['excluded_history_count']==108
+          assert len(f['cases'])==24
+          assert len({r['full_public_input_sha256'] for r in f['cases']})==24
+          assert Counter(r['degree'] for r in f['cases'])=={512:12,1024:12}
+          assert not any(any(k in r for k in
+            ('program','future','target','attack','witness','policies')) for r in f['cases'])
+          print('NOR35 ORIGINAL PUBLIC SOURCE FIXTURE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor35_original_frozen_public_24_source_inputs
+          path: /tmp/nor35_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  original-source-locked-curvature-audit:
+    needs: freeze-new-public-only-24-source-fixture
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor35_original_frozen_public_24_source_inputs
+          path: /tmp/nor35
+      - name: Evaluate source-locked exact conditional attack rates for original, random, curvature, inverse auditors
+        run: |
+          python research/nor35_intraatom_curvature/experiment.py \
+            --fixture /tmp/nor35/nor35_fixture.json \
+            --out /tmp/nor35/nor35_full.json
+      - name: Freeze first empirical outcome and maintain scientific FAIL when registered thresholds fail
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          fi=Path('/tmp/nor35/nor35_fixture.json').read_bytes()
+          raw=Path('/tmp/nor35/nor35_full.json').read_bytes()
+          o=json.loads(raw)
+          assert o['schema']=='nor35.eight_atom_curvature_targeted_vs_quota_random.v1'
+          assert o['source_public_fixture_sha256']==sha256(fi).hexdigest()
+          assert o['preregistered_first_commit']=='3773c1b1522f419e54f34252b0c743018105bc79'
+          assert o['source_units']==len(o['source_records'])==24
+          assert o['excluded_historical_units']==108
+          assert o['auditor_arms']==[
+              'uniform','static_prior','posterior','hybrid_25','hybrid_50','hybrid_75']
+          assert o['frozen_mix_weights']==[2,0,1,1,4,8]
+          assert o['attack_laws']==[
+              'top_curvature','bottom_curvature','eight_atom_matched','full_uniform']
+          assert len(o['registered_five_gates'])==5
+          assert all(r['legitimate_witness_false_rejections']==0
+                     and r['eight_atom_quota_mismatches']==0
+                     and r['schedule_informed_attacker_detected']==0
+                     and r['shift_decision_disagreements']==0
+                     and r['direct_authentic_integer_witness_pair_checks']==96
+                     for r in o['source_records'])
+          print('NOR35 ORIGINAL SOURCE BYTES SHA256',len(fi),sha256(fi).hexdigest())
+          print('NOR35 ORIGINAL GRADE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR35 SCIENTIFIC REGISTERED PASS',o['registered_primary_pass'])
+          print('NOR35 FIVE FROZEN GATES',o['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor35_original_source_and_curvature_intraatom_grade
+          path: |
+            /tmp/nor35/nor35_fixture.json
+            /tmp/nor35/nor35_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independently-replay-every-original-atom-and-witness:
+    needs: original-source-locked-curvature-audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor35_original_source_and_curvature_intraatom_grade
+          path: /tmp/nor35
+      - name: Independently reconstruct original native source, 4 attacks, 4 transforms and all exact conditional world decisions
+        run: |
+          python research/nor35_intraatom_curvature/receipt_audit.py --check \
+            --fixture /tmp/nor35/nor35_fixture.json \
+            --full /tmp/nor35/nor35_full.json
