@@ -1,0 +1,57 @@
+{
+  "schema": "scm23.public_summary.v1",
+  "seed_order": [
+    191,
+    1191,
+    2191
+  ],
+  "registered_gate_passed": false,
+  "passed_seeds": [
+    true,
+    false,
+    true
+  ],
+  "n_per_seed": 256,
+  "methods": {
+    "full": [
+      254,
+      256,
+      256
+    ],
+    "visible": [
+      167,
+      185,
+      186
+    ],
+    "gradient": [
+      36,
+      20,
+      46
+    ],
+    "fiber_difference": [
+      20,
+      5,
+      10
+    ],
+    "sae": [
+      1,
+      2,
+      4
+    ],
+    "random": [
+      3,
+      1,
+      0
+    ],
+    "sham": [
+      0,
+      0,
+      0
+    ]
+  },
+  "all_patches_matched_per_pair": true,
+  "max_norm_error_lt": 4.8e-7,
+  "full_cpu_source_receipt_sha256": "822efadf306952d734ffb0c4a8b09a75a8f926843dbc182066df0d064a246605",
+  "full_archive_only": true,
+  "private_scm20_run": false
+}
