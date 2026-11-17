@@ -27,10 +27,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify immutable prospective registration ancestor and complete science gates
+      - name: Verify original prospective registration and post-squash byte provenance
         run: |
-          git merge-base --is-ancestor 87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f HEAD
           test -s research/nor41_scale_ood/REGISTRATION.md
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            # Squash-merging intentionally gives original registration a new
+            # commit ancestry. Check the SHA-locked first source, first grade,
+            # and original registered science FAIL on follow-up PRs.
+            python research/nor41_scale_ood/original_archive_audit.py
+          else
+            # Original prospective branch: strict before-data ancestry gate.
+            git merge-base --is-ancestor 87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f HEAD
+          fi
       - name: Enforce old-source-only test isolation and 324 source archive SHA pins
         run: |
           python research/nor41_scale_ood/predata_isolation_audit.py
