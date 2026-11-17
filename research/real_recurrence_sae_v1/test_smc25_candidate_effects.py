@@ -13,9 +13,9 @@ HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from smc25_candidate_effects import (
     SMALL,TEMPERATURES,protocol_digest,weighted_median,class_effects,
-    candidate_predictions,label_blind_tangent,generate_fresh,FAMILIES
+    candidate_predictions,label_blind_tangent,generate_fresh,FAMILIES,TEACHERS,sha
 )
-from smc25_native_score import summary
+from smc25_native_score import summary,admitted_smc25_stage1
 from smc13_family import new_full_solution,dig_unique,count_solutions,rectangle_count
 
 
@@ -119,6 +119,26 @@ class CandidateEffectsTests(unittest.TestCase):
             class_effects(torch.zeros(9),torch.ones(9))
         with self.assertRaises(ValueError):
             candidate_predictions(torch.zeros(10),torch.ones(10),-1.)
+
+    def test_smc25_canonical_replay_accepts_new_family_names(self):
+        model=LinearToyTeacher().eval()
+        stage=torch.zeros((64,81,48),dtype=torch.float32)
+        item={"shape":[64,81,48],
+              "tensor_sha256":sha(stage.contiguous().numpy().tobytes()),
+              "tensor":stage.tolist()}
+        frozen={"archived_source_stage1":{
+            fam:{name:item for name in TEACHERS} for fam in FAMILIES
+        }}
+        ctx={name:{
+            "cohorts":{fam:{"stage1":stage} for fam in FAMILIES},
+            "model64":model
+        } for name in TEACHERS}
+        replay,drift=admitted_smc25_stage1(frozen,ctx)
+        self.assertEqual(set(replay),set(FAMILIES))
+        for fam in FAMILIES:
+            for teacher in TEACHERS:
+                self.assertEqual(drift[fam][teacher],0.)
+                self.assertEqual(tuple(replay[fam][teacher]["clean"].shape),(64,81,10))
 
     def test_new_source_seed_has_unique_noncanonical_solution(self):
         y=new_full_solution(202635030000)
