@@ -51,9 +51,8 @@ class NOR32OODTests(unittest.TestCase):
         offset=int(d[:16],16)%769
         self.assertEqual(o["stride17_96"],
                          frozenset((offset+17*j)%769 for j in range(96)))
-        self.assertTrue(o["low_abs96"].isdisjoint(
-            set(sorted(range(769),
-                key=lambda i:(-abs(prop["pred"][i]),i))[:24])) or True)
+        self.assertEqual(o["low_abs96"],frozenset(
+            sorted(range(769),key=lambda i:(abs(prop["pred"][i]),i))[:96]))
         self.assertEqual(o,n.unseen_supports(prop["pred"],prop["header"],d,old))
 
     def test_fixed_attacks_precede_audit_draws_and_tie_restarts(self):
