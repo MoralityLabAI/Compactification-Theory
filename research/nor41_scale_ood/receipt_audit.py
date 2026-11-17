@@ -24,6 +24,7 @@ from research.nor25_robust_audits import experiment as original25
 from research.nor36_policyaware_curvature import receipt_audit as original36
 
 REGISTERED="87dd3de03f43e79d83d45ed7a5c3a3bb1f20746f"
+AMENDMENT_01="e5a95cad1ffdcd019f153cd09dd4d48b40848ef9"
 ARMS=("uniform","static_prior","posterior","hybrid_25","hybrid_50","hybrid_75")
 WEIGHTS=(2,0,1,1,4,8)
 MODES=("original","atom_random","atom_curvature50")
@@ -368,9 +369,15 @@ def independent_nested_games(plans,src,m):
             optimum=min((independent_cost(exposure,policy,A),A)
                         for A in combinations(pool,R))
             candidates=sorted(set(greedy+swaps+[optimum[1]]),key=rating)
-            chosen=(candidates[:8]+[candidates[0]]*8)[:8]
-            selected_sum=sum(independent_cost(exposure,policy,a) for a in chosen)
             greedy_sum=sum(independent_cost(exposure,policy,a) for a in ranked[:8])
+            chosen=None;selected_sum=None;chosen_unique=0
+            for q in range(min(8,len(candidates)),0,-1):
+                trial=candidates[:q]+[candidates[0]]*(8-q)
+                val=sum(independent_cost(exposure,policy,a) for a in trial)
+                if val<=greedy_sum:
+                    chosen,selected_sum,chosen_unique=trial,val,q
+                    break
+            assert chosen is not None
             lower=sorted(singles)[3]
             upper=independent_cost(exposure,policy,chosen[0])
             assert 0<=lower<=upper<=optimum[0] and selected_sum<=greedy_sum
@@ -389,6 +396,7 @@ def independent_nested_games(plans,src,m):
                 "greedy_best8_cal_sum":greedy_sum,
                 "selected_best8_cal_sum":selected_sum,
                 "selected_attack_uniques":len(set(chosen)),
+                "max_distinct_subject_to_cal_dominance":chosen_unique,
                 "solver_scope":"exact_pool16; lower is global fourth singleton"
             }
         trained[str(budget)]=groups
@@ -491,6 +499,7 @@ def replay(fixture_raw,graded_raw):
     assert fixture["schema"]=="nor41.scale_ood_public_only_reps84to99.v1"
     assert grade["schema"]=="nor41.input_ood_nested_cal_transfer.v1"
     assert fixture["registered_first_commit"]==grade["registration_first_commit"]==REGISTERED
+    assert fixture["predata_amendment_01_commit"]==grade["predata_amendment_01_commit"]==AMENDMENT_01
     assert fixture["public_only"] and fixture["planted_and_private_target_absent"]
     assert fixture["attack_witness_and_audit_absent"]
     assert fixture["replicates"]==list(REPS) and fixture["degrees"]==list(DEGREES)
