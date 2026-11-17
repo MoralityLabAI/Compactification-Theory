@@ -1,0 +1,159 @@
+name: NOR-33 prospective source-locked overlap-matched transfer and replay
+
+on:
+  push:
+    paths:
+      - 'research/nor33_overlap_matched_transfer/**'
+      - '.github/workflows/nor33-overlap-matched-audits.yml'
+  pull_request:
+    paths:
+      - 'research/nor33_overlap_matched_transfer/**'
+      - '.github/workflows/nor33-overlap-matched-audits.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  first-registration-and-finite-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original prospective registration preceded code and test data
+        run: |
+          git merge-base --is-ancestor 9e14d1132744272c6c674e3799cea47cdb70b031 HEAD
+          test -s research/nor33_overlap_matched_transfer/REGISTRATION.md
+      - name: Source-lock all prior 60 public input hashes and original NOR32 FAIL
+        run: |
+          python research/nor32_ood_audits/original_archive_audit.py
+      - name: Exact all-subset two-block counts and original public/target isolation tests
+        run: |
+          python -m compileall -q research/nor33_overlap_matched_transfer
+          python -m unittest research.nor33_overlap_matched_transfer.test_experiment -v
+
+  fresh-source-only-24:
+    needs: first-registration-and-finite-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate new RRC25 public-only 24-source TEST roster
+        run: |
+          python research/nor33_overlap_matched_transfer/experiment.py \
+            --make-fixture /tmp/nor33_fixture.json
+      - name: SHA-freeze complete-public source IDs before attack/schedule generation
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          raw=Path('/tmp/nor33_fixture.json').read_bytes()
+          obj=json.loads(raw)
+          assert obj['schema']=='nor33.source_only_reps40to43.v1'
+          assert obj['registration_first_commit']=='9e14d1132744272c6c674e3799cea47cdb70b031'
+          assert obj['replicates']==[40,41,42,43]
+          assert obj['offset']==130033000
+          assert obj['public_only'] and obj['planted_and_true_future_absent']
+          assert obj['attack_and_external_witness_absent']
+          assert obj['prior_source_count']==60
+          assert len(obj['cases'])==24
+          assert len({x['full_public_input_sha256'] for x in obj['cases']})==24
+          assert Counter(x['degree'] for x in obj['cases'])=={512:12,1024:12}
+          assert not any(any(k in x for k in ('program','future','target','attack','witness'))
+                         for x in obj['cases'])
+          print('NOR33 ORIGINAL PROSPECTIVE PUBLIC-ONLY FIXTURE BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor33_first_frozen_public_source_fixture
+          path: /tmp/nor33_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  first-matched-overlap-heldout:
+    needs: fresh-source-only-24
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor33_first_frozen_public_source_fixture
+          path: /tmp/nor33
+      - name: Sample exact overlap-conditioned blind attacks and grade six frozen policies
+        run: |
+          python research/nor33_overlap_matched_transfer/experiment.py \
+            --fixture /tmp/nor33/nor33_fixture.json \
+            --out /tmp/nor33/nor33_full.json
+      - name: Check all source cells and retain scientific PASS or FAIL without retuning
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          fi=Path('/tmp/nor33/nor33_fixture.json').read_bytes()
+          raw=Path('/tmp/nor33/nor33_full.json').read_bytes()
+          z=json.loads(raw)
+          assert z['schema']=='nor33.first_matched_overlap_attack_transfer.v1'
+          assert z['public_fixture_sha256']==sha256(fi).hexdigest()
+          assert z['fresh_public_source_count']==24
+          assert z['frozen_nor31_weights']==[2,0,1,1,4,8]
+          assert len(z['support_families'])==7
+          assert z['overlap_strata_z']==[0,1,2,3,4]
+          assert len(z['source_records'])==len(z['source_level_primary'])==24
+          assert all(len(s['cell_records'])==35 and
+                     s['honest_false_rejections']==0 and
+                     s['fully_informed_attack_detections']==0 and
+                     s['direct_exact_witness_pairs']==840 and
+                     s['delta_decision_disagreements']==0
+                     for s in z['source_records'])
+          assert z['registered_five_gates']['frozen_sources_witness_and_independent_replay']
+          print('NOR33 FIRST FROZEN PUBLIC FIXTURE BYTES SHA256',len(fi),sha256(fi).hexdigest())
+          print('NOR33 FIRST FROZEN COMPLETE OUTCOME BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR33 REGISTERED SCIENTIFIC PRIMARY PASS',z['registered_primary_pass'])
+          print('NOR33 FIVE SCIENTIFIC GATES',z['registered_five_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor33_original_24_source_overlap_matched_full_outcome
+          path: |
+            /tmp/nor33/nor33_fixture.json
+            /tmp/nor33/nor33_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  independently-replay-original-sources-and-overlap-cells:
+    needs: first-matched-overlap-heldout
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor33_original_24_source_overlap_matched_full_outcome
+          path: /tmp/nor33
+      - name: Independent RRC25 program, support rankings, finite counts and trial-ID intersection replay
+        run: |
+          python research/nor33_overlap_matched_transfer/receipt_audit.py --check \
+            --fixture /tmp/nor33/nor33_fixture.json \
+            --full /tmp/nor33/nor33_full.json
