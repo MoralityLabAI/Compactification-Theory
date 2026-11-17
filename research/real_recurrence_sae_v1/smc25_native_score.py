@@ -187,9 +187,15 @@ def score_native(original,independent,conditioned,calibration,prediction,allow_f
                             torch.tensor(g["native_clean_logits"],dtype=torch.float64),
                             torch.zeros(10,dtype=torch.float64),
                             float(g["calibration_temperature"]))
-                        # Weighted reductions use original classwise effects and q.
+                        # Recompute all frozen probability and rival metadata without targets.
                         from smc25_candidate_effects import weighted_median
                         v=g["classwise_effects"];q=g["calibrated_digit_distribution"]
+                        if (len(v)!=9 or len(q)!=9 or
+                            max(abs(float(x)-float(y)) for x,y in zip(
+                                q,recompute["calibrated_digit_distribution"]))>1e-10 or
+                            g["rival_for_digit"]!=recompute["rival_for_digit"] or
+                            g["model_top_digit"]!=recompute["model_top_digit"]):
+                            raise ValueError("frozen label-blind candidate probabilities or rivals changed")
                         rotated=[q[(k-1)%9] for k in range(9)]
                         predictions_expected={
                             "calibrated_median":weighted_median(v,q),
