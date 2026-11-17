@@ -1,0 +1,78 @@
+name: NOR-31 one-shot archive of original matched-root evidence
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor31-original-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  commit-first-original-eight-sha-locked-files:
+    if: github.ref == 'refs/heads/research/nor31-matched-root-attack-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: research/nor31-matched-root-attack-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor31_first_source_calibration_precommitment
+          run-id: 44032053843
+          github-token: ${{ github.token }}
+          path: /tmp/nor31_original_prep
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor31_first_independent_evaluation_os_root
+          run-id: 44032053843
+          github-token: ${{ github.token }}
+          path: /tmp/nor31_original_evaluation
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor31_first_leaked_root_attacks_and_full_outcome
+          run-id: 44032053843
+          github-token: ${{ github.token }}
+          path: /tmp/nor31_original_late
+      - name: Check exact first-ever raw byte hashes, then make deterministic ZIP
+        run: |
+          python - <<'PY'
+          import json,hashlib,zipfile
+          from pathlib import Path
+          ref=json.loads(Path('research/nor31_matched_root/results/nor31_first_original_receipt.json').read_text())
+          dst=Path('research/nor31_matched_root/results/nor31_original_hosted.zip')
+          files={}
+          for kind,meta in ref['original_raw'].items():
+              base=('/tmp/nor31_original_prep' if kind in
+                    ('fixture','calibration','pre_sealed','pre_manifest')
+                    else '/tmp/nor31_original_evaluation' if kind=='evaluation'
+                    else '/tmp/nor31_original_late')
+              blob=(Path(base)/meta['name']).read_bytes()
+              assert len(blob)==meta['bytes'],(kind,'bytes')
+              assert hashlib.sha256(blob).hexdigest()==meta['sha256'],(kind,'sha256')
+              files[meta['name']]=blob
+          assert len(files)==8
+          with zipfile.ZipFile(dst,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for name in sorted(files):
+                  info=zipfile.ZipInfo(name,date_time=(2026,11,17,0,0,0))
+                  info.compress_type=zipfile.ZIP_DEFLATED
+                  info.external_attr=0o644<<16
+                  z.writestr(info,files[name],compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+          print('NOR31 FIRST SOURCE-CONTROLLED ARCHIVE',dst.stat().st_size)
+          PY
+          python research/nor31_matched_root/original_archive_audit.py
+      - name: Commit original source-only, calibration-root, evaluation-root and exact-result bytes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor31_matched_root/results/nor31_original_hosted.zip
+          git diff --cached --quiet && { echo 'Original archive already committed'; exit 0; }
+          git commit -m 'NOR-31: preserve original 24-source matched calibration and leaked OS-root evidence'
+          git push origin HEAD:refs/heads/research/nor31-matched-root-attack-20261117
