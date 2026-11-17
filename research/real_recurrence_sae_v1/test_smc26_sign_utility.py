@@ -11,7 +11,7 @@ from smc26_train import TEACHERS,NEW_SEEDS,protocol_sha,prior_component_key
 from smc26_predict import policy,fresh_rosters,FAMILIES,SIZE,THRESHOLD
 from smc26_score import (target_class,decision_utility,case_summary,
                          COST,CONTROLS)
-from audit_smc26 import independent_summary
+from audit_smc26 import independent_summary,PRIOR_SOURCE_COHORTS
 from smc25_candidate_effects import weighted_median,candidate_predictions
 from smc13_family import new_full_solution,dig_unique,count_solutions,rectangle_count
 from upstream_arch import TinyRecursiveModel
@@ -119,6 +119,12 @@ class SMC26Tests(unittest.TestCase):
         s=case_summary(rows,"B919","smc26_novel34",draws=100)
         self.assertFalse(s["registered_pass"])
         self.assertEqual(s["status"],"capability_mismatch")
+
+    def test_full_prior_campaign_source_inventory_is_registered(self):
+        self.assertEqual(len(PRIOR_SOURCE_COHORTS),10)
+        self.assertEqual(sum(n for _,_,n in PRIOR_SOURCE_COHORTS),640)
+        self.assertEqual(PRIOR_SOURCE_COHORTS[0],(202615030000,30,64))
+        self.assertEqual(PRIOR_SOURCE_COHORTS[-1],(202635040000,34,64))
 
     def test_new_sudoku_source_uses_prospective_noncanonical_family(self):
         grid=new_full_solution(202636030000)
