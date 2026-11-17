@@ -302,7 +302,7 @@ def audit(fixture_raw,full_raw):
                              for t in range(N) for a in attackset)
                 assert c["mixed_realized_detected_out_of_4096"]==realized
                 signed[(fam,z)]=mixedRate-hybridRate
-        assert rec["direct_exact_witness_pairs"]==35*6*4==expected_direct//(1) - 0 if False else rec["direct_exact_witness_pairs"]==840
+        assert rec["direct_exact_witness_pairs"]==35*6*4
         assert rec["honest_false_rejections"]==0
         assert rec["fully_informed_attack_detections"]==0
         assert rec["delta_decision_disagreements"]==0
