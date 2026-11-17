@@ -139,6 +139,38 @@ def confirm_source(raw_cal,raw_bundle,raw_pred,raw_stage,raw_score):
     return cal,pred,score
 
 
+# Independently enumerate every explicitly registered earlier fresh test cohort,
+# including those whose exclusion was indirect in the original SMC-26 producer.
+# This source-only check reads no model output and never selects a replacement.
+PRIOR_SOURCE_COHORTS = (
+    (202615030000,30,64), (202615040000,34,64),
+    (202616030000,30,64), (202616040000,34,64),
+    (202633030000,30,64), (202633040000,34,64),
+    (202634030000,30,64), (202634040000,34,64),
+    (202635030000,30,64), (202635040000,34,64),
+)
+
+
+def audit_all_historical_fresh_cohorts(current_x, current_y):
+    past_x=set()
+    past_y=set()
+    for base,holes,size in PRIOR_SOURCE_COHORTS:
+        for i in range(size):
+            grid_seed=base+i
+            target=new_full_solution(grid_seed)
+            clues=dig_unique(target,grid_seed+1000000,holes)
+            xt=tuple(clues);yt=tuple(target)
+            if xt in current_x or yt in current_y:
+                raise ValueError("SMC26 test solution/puzzle reused a prior SMC-15/16/23/24/25 source")
+            if xt in past_x or yt in past_y:
+                raise ValueError("historical prior source inventory repeated its own Sudoku grid")
+            past_x.add(xt)
+            past_y.add(yt)
+    if len(past_y)!=640:
+        raise ValueError("historical ten-cohort source inventory is incomplete")
+    return len(past_y)
+
+
 def check_cases(cal,pred,scored):
     manifest=pred["test_manifest"]
     if manifest["seed_bases"]!={n:list(pair) for n,pair in FAMILIES.items()} or manifest["n_per_family"]!=128:
@@ -247,7 +279,8 @@ def check_cases(cal,pred,scored):
                             raise ValueError("frozen offline policy gain arithmetic differs")
                     if abs(z["answer_conditioned_local_tangent"]-effects[truth-1])>1e-10:
                         raise ValueError("descriptive oracle tangent changed")
-    return n_all,n_eligible
+    historical_checked=audit_all_historical_fresh_cohorts(seen_x,seen_y)
+    return n_all,n_eligible,historical_checked
 
 
 def independent_summary(rows,teacher,family):
@@ -339,7 +372,7 @@ def _close(a,b,path="root"):
 
 def audit(raw_cal,raw_bundle,raw_pred,raw_stage,raw_score):
     cal,pred,score=confirm_source(raw_cal,raw_bundle,raw_pred,raw_stage,raw_score)
-    n_all,n_admit=check_cases(cal,pred,score)
+    n_all,n_admit,historical_count=check_cases(cal,pred,score)
     if n_all!=8192:
         raise ValueError("scored wrong number of prespecified slots")
     results=[]
@@ -373,6 +406,7 @@ def audit(raw_cal,raw_bundle,raw_pred,raw_stage,raw_score):
         "prediction_sha256":digest(raw_pred),"binary_source_SHA256":digest(raw_stage),
         "scored_native_sha256":digest(raw_score),
         "n_new_puzzles":256,"n_original_goal_slots":n_all,
+        "n_historical_fresh_puzzles_rechecked_independently":historical_count,
         "n_preoutcome_eligible_goal_measurements":n_admit,
         "n_independent_teacher_initializations":4,
         "capability_matched":match,
