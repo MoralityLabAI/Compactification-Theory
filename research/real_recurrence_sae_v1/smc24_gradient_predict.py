@@ -207,7 +207,8 @@ def fresh_rosters(old):
         output[name] = rows
     manifest = {
         "schema":"SMC24/fresh-noncanonical-unique-disjoint-v1",
-        "seed_bases":FAMILIES,"n_previous_excluded":excluded_count,
+        "seed_bases":{name:list(value) for name,value in FAMILIES.items()},
+        "n_previous_excluded":excluded_count,
         "n_per_family":PUZZLES,
         "cohorts":{
             name:{
