@@ -350,6 +350,15 @@ def replay(fixture_raw,grade_raw):
                 cross[name][policy]=score
         assert record["crossplay_weighted_numerators"]==cross
         assert record["crossplay_denominator"]==16*ATTACKS*EVAL
+        realized={}
+        for name,attacks in all_attacks.items():
+            realized[name]={}
+            for policy in ("original_mix","atom_curv_mix"):
+                mode="original" if policy=="original_mix" else "atom_curvature50"
+                realized[name][policy]=sum(
+                    int(bool(set(plans[mode][mixed[t]][t])&set(changed)))
+                    for t in range(EVAL) for changed in attacks)
+        assert record["realized_mix_attack_hits_out_of_4096"]==realized
         top=pure_rate(plans,cu,cv)
         assert record["top_support_exact_fraction"]=={
             name:[x.numerator,x.denominator] for name,x in top.items()}
