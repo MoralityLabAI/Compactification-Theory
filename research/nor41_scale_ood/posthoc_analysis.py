@@ -182,7 +182,7 @@ def markdown(report):
         "| --- | ---: | --- | ---: |"]
     for name,obj in report["block_sensitivity"].items():
         lo,hi=obj["descriptive_95_t_interval"]
-        lines.append(f"| \`{name}\` | {100*obj['mean']:+.4f} | "
+        lines.append(f"| `{name}` | {100*obj['mean']:+.4f} | "
                      f"[{100*lo:+.4f}, {100*hi:+.4f}] | {obj['positive_blocks']}/16 |")
     s=report["degree_scale_block_contrast"];lo,hi=s["descriptive_95_t_interval"]
     lines.extend(["",f"Degree512-minus-1024 CAL transfer contrast: "
@@ -193,7 +193,7 @@ def markdown(report):
                   "| Auditor | CAL256 self % | CAL512 self % | CAL2048 self % | CAL4096 self % | CAL4096 worst-class % |",
                   "| --- | ---: | ---: | ---: | ---: | ---: |"])
     for p,v in report["budget_policy_means"].items():
-        lines.append(f"| \`{p}\` | "+" | ".join(
+        lines.append(f"| `{p}` | "+" | ".join(
             f"{100*v[str(n)]['own_selfplay']:.4f}" for n in BUDGETS)+
             f" | {100*v['4096']['worst_four_calibrated_class']:.4f} |")
     lines.extend(["","## Source input family and length strata","",
