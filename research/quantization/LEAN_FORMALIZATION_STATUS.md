@@ -156,3 +156,13 @@ Holder hypothesis. The general matrix-layout identification remains explicit;
 the degree-zero Holder decoder is completely instantiated. These current results
 supersede the earlier local-only status and general inverse-tau alphabet bound.
 No email, direct message or repository comment accompanies this continuation.
+
+## General ordered matrix continuation, 2026-11-17
+
+34 new verified roots bring the research total to 316. The concrete tensor-word
+matrix is proved compatible with normalized analytic jets in every dimension and
+degree. The resulting decoded approximation theorem has no compatibility,
+residual or coefficient-accuracy premise. It uses J=sum_(r=0)^k d^r registers;
+the earlier grouped-coordinate layout is separate. See
+[MATRIX_TRANSPORT_REPORT.md](MATRIX_TRANSPORT_REPORT.md) for the theorem and
+remaining domain/geometry and dense-network resource obligations.

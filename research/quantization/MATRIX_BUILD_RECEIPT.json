@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "lean": "4.32.0-rc1",
+  "new_authored_roots": 34,
+  "research_roots_total": 316,
+  "source_sha256": {
+    "research/approximation_mathlib432/ApproximationMathlib/WordTransport.lean": "c9de50676106ae6112e343384ef93274b6a68f4255eff2cc98fffb7bf92ce350"
+  },
+  "binary_sha256": {
+    "toolchains/lean-4.32.0-rc1-linux/bin/lean": "e8baaa71855a616dc351028f3ad2200051b0671f423a1696a100e809302d5550",
+    "toolchains/lean-4.32.0-rc1-linux/bin/leanchecker": "c7c51e296d28dd443ed60f9414feef41253ede89dea76dbb2adde29768c3ed5f",
+    "toolchains/lean-4.32.0-rc1-linux/lib/lean/LeanChecker.olean": "7ba4f458fef64a5c75f2eef1760d2c21690bd8a41210d298330c7554cf2e5c50",
+    "replay432/lean4export-source/.lake/build/bin/lean4export": "e6580597a1482740114b5a1a05add574334a5eeaed5f4f5c9cd670e146859009",
+    "build/oxilean-verify": "831e7ad751d69d7f27e8ee59ec40246a6256e971e11f418b0e92f9722771e9fa"
+  },
+  "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+  "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+  "source_mirror_sha256": "055594d43d9c33e4a3855a0b470683d75dd15e21dbbca497c419c2ff86b119ea",
+  "olean_sha256": {
+    "ApproximationMathlib.WordTransport": "2ebb67085e4c229891a4e939e6a3d03d88c198f06354e48577f22a4704dc776e"
+  },
+  "mirror_receipts_sha256": {
+    "executable_mirror.json": "fb4509684358cb564a04fdffe8953b43bcaa6d54d4205b2945becabbfd783f8f",
+    "executable_mirror_after.json": "15b3276d93f5c4b773ae6172b85f614ac83acd9b67ea3ec8d3355b3a50d454d1",
+    "executable_mirror_before.json": "161d7d278eaefe5dc8da32709e2f10abae0f42a183edd991e3e6f4836e67ff2d",
+    "exporter_library_mirror.json": "716cea6c1c65868fc5785dce09b7fac800a935d466d110b85ed2eb73bc9881c8",
+    "exporter_library_mirror_after.json": "08e38f6df2d718a97b97ff231a79a98659f93155902aad4d268cff58e25cf0dd",
+    "exporter_library_mirror_before.json": "53cddb304a6bc827d3dacd9a3b28a4cd46641bef27ab4eb72d9d9b17ce3e3706",
+    "extra_executable_mirror.json": "f094fa24d578f930673639ce47a50650247e69a2cc5e66f1ffc2a629e62258b7",
+    "extra_executable_mirror_after.json": "de51c7d6c382080909558255ca047dd09287feab41c07f2225e71a65c9efef69",
+    "extra_executable_mirror_before.json": "f76321247eabd1957d27b5823b9ec561847b53dbeb4d84c434de103d718b09db",
+    "mathlib_mirror.json": "5c874626705abffb5294d927f6c67e2f0fcc0ee86454a0dd7bccd4b5ac18e6b7",
+    "mathlib_mirror_after.json": "96c2b9a35595ea87db58302ab15dc765bc0453b7cc8286e1d1fd34d8f6b4b56f",
+    "mathlib_mirror_before.json": "4207fb28f3b7efb38ca0cb3df8e4ac01ed17c5e3c37ed0683c99cd519204613c",
+    "mirror_used.json": "799941905c04f84ad9019c1c582aa18c20afd4eb15e78b6ea13393e70713dc47",
+    "previous_module_mirror.json": "33fd70e992f84b353b2bdd1c6eb07aee0de5d4d57dac95f92038ff8d950daddb",
+    "previous_module_mirror_after.json": "4a4c1496f7c09e3da4b541f035e6bd62b7e89c345daf04be7fd9f96d9657bdde",
+    "previous_module_mirror_before.json": "8856b9e84a44445d16085fbb078d480327c867f081b8aba0103e3e976d5483d0",
+    "runtime_mirror.json": "d6f9e81fc21f096974d8a7a09ee7b026aaea9f99a18c42500a7b6e1313f8e218",
+    "runtime_mirror_after.json": "1e21a602dbcdbb3f76c8146c55c9f7c921300f5e10cd6e945182be31b619c7d3",
+    "runtime_mirror_before.json": "38b0273f1f3060f26b1f547d9d98e8b6a186e7feb26f149e1feb63e3ab91fa31",
+    "source_mirror.json": "055594d43d9c33e4a3855a0b470683d75dd15e21dbbca497c419c2ff86b119ea"
+  },
+  "scope": "Ordered tensor-word representation. Compatibility, sharp residuals and decoded approximation are proved without a matrix or coefficient-accuracy hypothesis."
+}

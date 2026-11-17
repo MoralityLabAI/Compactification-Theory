@@ -1,0 +1,60 @@
+{
+  "status": "accepted",
+  "export_sha256": "8a219dee6229187be4f641651369ea94036dc9c9847679e17fc3e99f998eb5fb",
+  "verdicts": {
+    "verified": 29072,
+    "unsupported": 0,
+    "rejected": 0
+  },
+  "constants_compared": 30560,
+  "source_sha256": {
+    "research/approximation_mathlib432/ApproximationMathlib/WordTransport.lean": "c9de50676106ae6112e343384ef93274b6a68f4255eff2cc98fffb7bf92ce350"
+  },
+  "mathlib_revision": "360da6fa66c1273b76b6b2d8c5666fd5ac2e3b56",
+  "native_kernel_method": "Unmodified pinned LeanChecker.replayFromImports API; stock CLI path scan omitted",
+  "standard_axioms": [
+    "Classical.choice",
+    "Quot.sound",
+    "propext"
+  ],
+  "new_authored_roots": 34,
+  "research_roots_total": 316,
+  "acceptance_tamper_controls": 18,
+  "structural_auditor_controls": 7,
+  "roots": [
+    "MathCan.WordTransport.directional_append",
+    "MathCan.WordTransport.basis_cons",
+    "MathCan.WordTransport.directional_component",
+    "MathCan.WordTransport.directional_contDiff",
+    "MathCan.WordTransport.directional_ofFn",
+    "MathCan.WordTransport.repeated_component",
+    "MathCan.WordTransport.tensor_scale",
+    "MathCan.WordTransport.factorial_transport",
+    "MathCan.WordTransport.row_compatibility",
+    "MathCan.WordTransport.size_formula",
+    "MathCan.WordTransport.word_length",
+    "MathCan.WordTransport.word_pack",
+    "MathCan.WordTransport.matrix_integral",
+    "MathCan.WordTransport.matrix_application",
+    "MathCan.WordTransport.matrix_compatibility",
+    "MathCan.WordTransport.row_sub",
+    "MathCan.WordTransport.row_bound",
+    "MathCan.WordTransport.step_norm",
+    "MathCan.WordTransport.matrix_residual",
+    "MathCan.WordTransport.value_label",
+    "MathCan.WordTransport.values_bound",
+    "MathCan.WordTransport.evaluation_error",
+    "MathCan.WordTransport.evaluation_values",
+    "MathCan.WordCapture.finite_parameters",
+    "MathCan.WordCapture.amount_bound",
+    "MathCan.WordCapture.predict_bound",
+    "MathCan.WordCapture.innovation",
+    "MathCan.WordCapture.packet_update",
+    "MathCan.WordCapture.frames_length",
+    "MathCan.WordCapture.reference_accuracy",
+    "MathCan.WordCapture.captured_accuracy",
+    "MathCan.WordCapture.targets_residuals",
+    "MathCan.WordCapture.normalized_approximation",
+    "MathCan.WordCapture.decoded_approximation"
+  ]
+}
