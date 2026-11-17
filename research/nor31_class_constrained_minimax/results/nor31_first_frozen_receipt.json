@@ -1,0 +1,51 @@
+{
+  "date_utc": "2026-11-17",
+  "fresh_test_source_units": 12,
+  "historical_in_template_detection": 0.1802361806233724,
+  "historical_train_source_units": 24,
+  "independent_replay_passed": true,
+  "independently_replayed_policy_world_decisions": 4128768,
+  "original_artifact_id": 14306125618,
+  "original_artifact_name": "nor31_original_historical_train_fresh_test_and_full_game",
+  "original_file_sizes_and_sha256": {
+    "nor31_fixture.json": {
+      "bytes": 2245544,
+      "sha256": "b34f0cdefc7c4d06770af00ac659f11fd83b540fa40b02186157abc640bfae85"
+    },
+    "nor31_full.json": {
+      "bytes": 317452,
+      "sha256": "f978a2c388715056e7999e01d4ddc30f6c24a778b0e6e3e741a070902223430c"
+    },
+    "nor31_train_receipt.json": {
+      "bytes": 5300,
+      "sha256": "ba6141e866324000e6fdb22068a9b56631e0eb5fddb8ec36daca16e5ce199dc0"
+    }
+  },
+  "original_fully_green_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44032550237",
+  "preregistered_first_commit": "7e37e8c57a68e7224a67626d2495e9bcf922a424",
+  "registered_five_gates": {
+    "mean_self_response_gain": true,
+    "native_truth_witness_floor_controls": true,
+    "self_response_source_wins": true,
+    "template_mean_and_paired_retention": true,
+    "worst_case_source_wins": true
+  },
+  "registered_primary_pass": true,
+  "schema": "nor31.original_sourceheldout_sixclass_first_run.v1",
+  "scope": "Finite synthetic RRC25; assumed honest target-dependent external witness; blinded attack sets fixed before reproducible audit challenges.",
+  "source_mean_self_response_gain": 0.008420308430989584,
+  "source_mean_template_detection": 0.17363815307617186,
+  "source_self_response_wins": 12,
+  "source_template_retention_75pct_count": 10,
+  "source_worstcase_wins": 12,
+  "train_grid_enumerated": 20349,
+  "train_grid_feasible": 9424,
+  "trained_sixclass_weights": [
+    2,
+    0,
+    1,
+    1,
+    4,
+    8
+  ]
+}
