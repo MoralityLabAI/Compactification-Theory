@@ -1,0 +1,67 @@
+name: NOR-41 immutable first-grade FAIL source, hash and source-block audit
+
+on:
+  push:
+    branches:
+      - research/nor41-first-original-evidence-20261118
+    paths:
+      - 'research/nor41_scale_ood/results/**'
+      - 'research/nor41_scale_ood/original_archive_audit.py'
+      - 'research/nor41_scale_ood/RESULTS.md'
+      - '.github/workflows/nor41-original-evidence-integrity.yml'
+  pull_request:
+    paths:
+      - 'research/nor41_scale_ood/results/**'
+      - 'research/nor41_scale_ood/original_archive_audit.py'
+      - 'research/nor41_scale_ood/RESULTS.md'
+      - '.github/workflows/nor41-original-evidence-integrity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen_original_first_source_grade:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recheck first original 64 source and grade bytes, exact ZIP SHA and scientific FAIL
+        run: |
+          python research/nor41_scale_ood/original_archive_audit.py
+      - name: Recompute four CAL-budget curves and 16-block scale statistics without regenerating data
+        run: |
+          python research/nor41_scale_ood/posthoc_analysis.py \
+            --full research/nor41_scale_ood/results/nor41_original_first_hosted.zip \
+            --json-out /tmp/nor41_first_posthoc.json \
+            --markdown-out /tmp/nor41_first_posthoc.md \
+            > /tmp/nor41_report_stdout.txt
+          python - <<'PY'
+          from pathlib import Path
+          import json,math
+          j=json.loads(Path('/tmp/nor41_first_posthoc.json').read_text())
+          assert j['schema']=='nor41.posthoc_source_block_analysis.v1'
+          assert j['source_units']==64 and j['replicate_blocks']==16
+          assert j['original_registered_pass_unchanged'] is False
+          assert j['original_five_gates_unchanged']['scale_sensitive_cal_to_eval_transfer'] is False
+          assert sum(j['original_five_gates_unchanged'].values())==4
+          assert len(j['crossplay_22x4'])==22
+          assert len(j['budget_policy_means'])==4
+          assert math.isclose(j['degree_scale_block_contrast']['mean'],
+                              -.0014911442995071411,abs_tol=1e-14)
+          assert j['degree_scale_block_contrast']['positive_blocks']==5
+          assert math.isclose(j['source_level_means_as_scored']['global7_budget_transfer'],
+                              .0020128265023231506,abs_tol=1e-14)
+          print('NOR41 FIRST POSTHOC CHECKS PASS')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor41_first_sha_locked_posthoc
+          path: |
+            /tmp/nor41_first_posthoc.json
+            /tmp/nor41_first_posthoc.md
+          if-no-files-found: error
+          retention-days: 90
