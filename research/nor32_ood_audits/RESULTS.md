@@ -42,6 +42,37 @@ The curvature family had the largest differential, approximately **−5.97 perce
 
 The two degree groups exhibited different source-level rates: at degree 512, OOD blind mixture 9.205% versus hybrid_50 9.609%; at degree 1024, mixture 5.538% versus hybrid_50 6.191%. Across source identities the signs of blind gains varied, including four positive cases in 24.
 
+## Original 24-source paired rows
+
+The table is copied from the first 1,142,260-byte outcome before follow-up interpretation. OOD blind rates are equal averages of all six new supports. The calibrated column compares the two policies against their *own* greedy OOD attacks. Source family names below abbreviate the original wide input labels.
+
+| Rep | D | Input family | Mix OOD blind | Hybrid50 OOD blind | Blind paired difference | Calibrated self gain | Mix old-template rate |
+| ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: |
+| 32 | 512 | dense | 9.375% | 9.696% | −0.321 pp | +0.218 pp | 20.144% |
+| 32 | 512 | sparse | 9.390% | 10.095% | −0.705 pp | +0.800 pp | 19.912% |
+| 32 | 512 | rational | 9.329% | 9.908% | −0.579 pp | +0.262 pp | 19.856% |
+| 32 | 1024 | dense | 3.524% | 2.673% | +0.851 pp | +0.774 pp | 19.635% |
+| 32 | 1024 | sparse | 2.696% | 1.994% | +0.702 pp | +0.556 pp | 8.317% |
+| 32 | 1024 | rational | 6.628% | 7.715% | −1.086 pp | +0.243 pp | 17.167% |
+| 33 | 512 | dense | 6.516% | 5.522% | +0.994 pp | +1.959 pp | 20.117% |
+| 33 | 512 | sparse | 10.013% | 10.514% | −0.501 pp | +1.350 pp | 23.366% |
+| 33 | 512 | rational | 9.264% | 9.635% | −0.372 pp | −0.633 pp | 20.250% |
+| 33 | 1024 | dense | 3.431% | 3.353% | +0.078 pp | +0.636 pp | 14.691% |
+| 33 | 1024 | sparse | 3.939% | 4.244% | −0.305 pp | +0.675 pp | 12.751% |
+| 33 | 1024 | rational | 7.381% | 8.757% | −1.375 pp | +0.550 pp | 16.650% |
+| 34 | 512 | dense | 10.188% | 11.271% | −1.083 pp | +1.184 pp | 24.217% |
+| 34 | 512 | sparse | 8.133% | 8.215% | −0.082 pp | +0.920 pp | 14.967% |
+| 34 | 512 | rational | 9.835% | 10.514% | −0.680 pp | −0.108 pp | 19.967% |
+| 34 | 1024 | dense | 6.961% | 7.841% | −0.880 pp | −0.307 pp | 17.563% |
+| 34 | 1024 | sparse | 7.239% | 8.232% | −0.992 pp | +0.612 pp | 20.358% |
+| 34 | 1024 | rational | 6.403% | 7.418% | −1.014 pp | −0.496 pp | 17.339% |
+| 35 | 512 | dense | 9.801% | 10.531% | −0.730 pp | +0.291 pp | 20.016% |
+| 35 | 512 | sparse | 9.504% | 9.985% | −0.481 pp | +0.743 pp | 19.590% |
+| 35 | 512 | rational | 9.106% | 9.416% | −0.309 pp | +1.566 pp | 19.743% |
+| 35 | 1024 | dense | 5.504% | 6.938% | −1.434 pp | +0.904 pp | 10.540% |
+| 35 | 1024 | sparse | 6.581% | 8.232% | −1.651 pp | +0.606 pp | 11.282% |
+| 35 | 1024 | rational | 6.170% | 6.893% | −0.723 pp | −0.877 pp | 17.289% |
+
 ## Exact-control and statistical scope
 
 The registered finite mixture floor, assuming four changed positions fixed before hidden independent audit coins, was positive for both output lengths. All 24 original public masks and native future predictions agreed, all honest original targets passed, and fully schedule-informed attackers evaded by choosing unchecked coordinates.
