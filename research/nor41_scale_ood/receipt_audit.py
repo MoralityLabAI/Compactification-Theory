@@ -487,41 +487,43 @@ def scored_rows(records):
 def replay(fixture_raw,graded_raw):
     fixture=json.loads(fixture_raw)
     grade=json.loads(graded_raw)
-    historical=historical_source_ids()
-    assert fixture["schema"]=="nor40.strong_adversary_public_only_reps76to83.v1"
-    assert grade["schema"]=="nor40.strong_calibration_policyaware.v1"
+    previous=historical_source_ids()
+    assert fixture["schema"]=="nor41.scale_ood_public_only_reps84to99.v1"
+    assert grade["schema"]=="nor41.input_ood_nested_cal_transfer.v1"
     assert fixture["registered_first_commit"]==grade["registration_first_commit"]==REGISTERED
     assert fixture["public_only"] and fixture["planted_and_private_target_absent"]
     assert fixture["attack_witness_and_audit_absent"]
     assert fixture["replicates"]==list(REPS) and fixture["degrees"]==list(DEGREES)
-    assert fixture["excluded_historical_sources"]==len(historical)==276
-    assert fixture["prior_source_ids_sha256"]==sha256(canonical(historical)).hexdigest()
+    assert fixture["families"]==list(FAMILIES)
+    assert fixture["excluded_historical_sources"]==len(previous)==324
+    assert fixture["prior_source_ids_sha256"]==sha256(canonical(previous)).hexdigest()
     assert grade["public_fixture_sha256"]==sha256(fixture_raw).hexdigest()
-    assert grade["fresh_source_units"]==48 and grade["historical_sources_excluded"]==276
-    assert grade["auditor_policies"]==list(POLICIES)
-    assert grade["blind_control_families"]==list(CONTROLS)
+    assert grade["fresh_source_units"]==64 and grade["historical_sources_excluded"]==324
+    assert grade["auditor_policies"]==list(POLICIES) and grade["diagnostic_auditor"]==DIAGNOSTIC
+    assert grade["component_arms"]==list(ARMS)
     assert grade["transform_modes"]==list(MODES)
     assert grade["original_mix_weights"]==list(WEIGHTS)
-    assert grade["global_uniform_probabilities"]=={"global7_mix":[7,16],"global8_mix":[8,16]}
+    assert grade["blind_control_families"]==list(CONTROLS)
     assert grade["calibration_schedules_per_source"]==CAL
-    assert grade["baseline_calibration_schedules_per_source"]==BASE_CAL
+    assert grade["calibration_prefix_budgets"]==list(BUDGETS)
     assert grade["heldout_schedules_per_source"]==EVAL
-    assert grade["greedy_restarts_per_policy"]==GREEDY_STARTS
-    assert grade["attack_sets_per_policy"]==ATTACKS
-    assert grade["restricted_pool_size"]==POOL_SIZE
-    assert grade["restricted_sets_per_policy"]==1820
-    assert grade["swap_passes_cap"]==SWAP_PASSES
+    assert grade["greedy_starts_per_policy_budget"]==GREEDY_STARTS
+    assert grade["selected_attack_sets_per_policy_budget"]==ATTACKS
+    assert grade["exact_candidate_pool_size"]==POOL_SIZE
+    assert grade["exact_pool_combination_count"]==1820
     assert grade["audit_budget"]==K and grade["attack_radius"]==R
+    assert grade["global_uniform_probability"]==[7,16]
     assert grade["public_proposals_frozen_before_private_truth"]
     assert grade["calibrated_attacks_frozen_before_independent_heldout_schedules"]
     assert grade["authentic_external_target_coefficient_witness_assumed"]
-    ids=[row["full_public_input_sha256"] for row in fixture["cases"]]
-    assert len(ids)==len(set(ids))==len(fixture["cases"])==len(grade["source_records"])==48
-    assert set(ids).isdisjoint(historical)
-    assert {(r["replicate"],r["degree"],r["family"]) for r in fixture["cases"]}=={
+    ids=[r["full_public_input_sha256"] for r in fixture["cases"]]
+    assert len(ids)==len(set(ids))==64
+    assert set(ids).isdisjoint(set(previous))
+    assert {(row["replicate"],row["degree"],row["family"]) for row in fixture["cases"]}=={
         (rep,d,fam) for rep in REPS for d in DEGREES for fam in FAMILIES}
+    assert len(grade["source_records"])==64
     decision_count=0
-    all_witness=0
+    direct_count=0
     for idx,(row,rec) in enumerate(zip(fixture["cases"],grade["source_records"],strict=True)):
         src=row["full_public_input_sha256"]
         assert row["split"]=="TEST"
@@ -539,173 +541,174 @@ def replay(fixture_raw,graded_raw):
         assert rec["original_atom_sizes"]==list(map(len,atoms))
         assert rec["top_curvature_support_sha256"]==sha256(canonical(sorted(cu|cv))).hexdigest()
         assert rec["bottom_curvature_support_sha256"]==sha256(canonical(sorted(bu|bv))).hexdigest()
-        cal,cal_count=policy_schedules(old,atoms,scores,src,"cal")
+        cal=policy_schedules(old,atoms,scores,src,"cal")
         assert rec["calibration_plans_sha256"]==sha256(canonical(cal)).hexdigest()
-        assert rec["calibration_stochastic_branch_counts"]==cal_count
-        baseline,strong,certificate,visited=independent_strong_games(cal,src,len(pred))
-        assert rec["baseline_attack_sets"]=={
-            p:[list(a) for a in variants] for p,variants in baseline.items()}
-        assert rec["greedy_attack_sets"]=={
-            p:[list(a) for a in variants] for p,variants in strong.items()}
-        assert rec["greedy_attack_unique_sets"]=={
-            p:len(set(variants)) for p,variants in strong.items()}
-        assert rec["attack_certificates"]==certificate
-        blind=independent_blind(src,atoms,u,cu,cv,bu,bv,len(pred),visited)
+        learned,certs,exposure=independent_nested_games(cal,src,len(pred))
+        assert rec["calibrated_attacks"]=={
+            n:{p:[list(A) for A in variants] for p,variants in groups.items()}
+            for n,groups in learned.items()}
+        assert rec["attack_certificates"]==certs
+        blind=independent_blind(src,atoms,u,cu,cv,bu,bv,len(pred),exposure)
         assert rec["blind_attack_sets"]=={
-            p:[list(a) for a in variants] for p,variants in blind.items()}
-        attacks={**strong,**{"baseline__"+p:v for p,v in baseline.items()},**blind}
-        assert len(attacks)==20
-        ev,eval_counts=policy_schedules(old,atoms,scores,src,"eval")
-        assert rec["evaluation_plans_sha256"]==sha256(canonical(ev)).hexdigest()
-        assert rec["evaluation_stochastic_branch_counts"]==eval_counts
-        choices={p:[realized_choice(src,t,p) for t in range(EVAL)]
-                 for p in ("original_mix","deterministic_mix","stochastic50_mix",
-                           "global7_mix","global8_mix")}
-        realbranches={p:{"uniform":sum(mode=="original" and arm=="uniform"
-                                        for mode,arm in selected),
-                         "curvature":sum(mode=="atom_curvature50"
-                                        for mode,arm in selected)}
-                      for p,selected in choices.items()}
-        assert rec["realized_mixture_branch_counts"]==realbranches
-        ev_sets={(mode,arm):[set(plan) for plan in ev[mode][arm]]
-                 for mode in MODES for arm in ARMS}
+            p:[list(a) for a in A] for p,A in blind.items()}
+        attacks={**{f"cal{n}__{p}":learned[str(n)][p]
+                    for n in BUDGETS for p in POLICIES},**blind}
+        assert len(attacks)==22
+        evaluated=policy_schedules(old,atoms,scores,src,"eval")
+        assert rec["evaluation_plans_sha256"]==sha256(canonical(evaluated)).hexdigest()
+        selected={p:[realized_choice(src,t,p) for t in range(EVAL)]
+                  for p in ("original_mix","deterministic_mix","global7_mix")}
+        counts={p:{
+            "uniform":sum(mode=="original" and arm=="uniform" for mode,arm in choice),
+            "curvature":sum(mode=="atom_curvature50" for mode,arm in choice)
+        } for p,choice in selected.items()}
+        assert rec["realized_mixture_branch_counts"]==counts
+        plans={(mode,arm):[set(a) for a in evaluated[mode][arm]]
+               for mode in MODES for arm in ARMS}
         for arm in ARMS:
             for t in range(EVAL):
-                reference=ev_sets[("original",arm)][t]
-                quotas=[len(reference&cat) for cat in atoms]
+                original=plans[("original",arm)][t]
+                quota=[len(original&cat) for cat in atoms]
                 for mode in MODES:
-                    inspected=ev_sets[(mode,arm)][t]
-                    assert len(inspected)==K and [len(inspected&cat) for cat in atoms]==quotas
+                    read=plans[(mode,arm)][t]
+                    assert len(read)==K and [len(read&cat) for cat in atoms]==quota
         cross={}
-        realized={}
         for name,variants in attacks.items():
             cross[name]={}
             for policy in POLICIES:
                 total=0
-                for mode,arm,weight in component_parts(policy):
-                    for altered in variants:
-                        A=set(altered)
-                        total+=weight*sum(not read.isdisjoint(A)
-                                          for read in ev_sets[(mode,arm)])
+                for mode,arm,w in component_parts(policy):
+                    for A in variants:
+                        changed=set(A)
+                        total+=w*sum(not read.isdisjoint(changed)
+                                      for read in plans[(mode,arm)])
                         decision_count+=EVAL
                 cross[name][policy]=total
-            realized[name]={}
-            for policy,selected in choices.items():
-                realized[name][policy]=sum(
-                    int(not ev_sets[(mode,arm)][t].isdisjoint(set(altered)))
-                    for t,(mode,arm) in enumerate(selected) for altered in variants)
-        assert cross==rec["crossplay_weighted_numerators"]
+        assert rec["crossplay_weighted_numerators"]==cross
         assert rec["crossplay_denominator"]==DENOM*ATTACKS*EVAL
-        assert realized==rec["realized_mixture_attack_hits"]
-        top=exact_top(ev,cu,cv)
+        exact=exact_top(evaluated,cu,cv)
         assert rec["exact_top_support_detection"]=={
-            p:[v.numerator,v.denominator] for p,v in top.items()}
+            p:[v.numerator,v.denominator] for p,v in exact.items()}
         uniform=Fraction(1)-Fraction(comb(len(pred)-K,R),comb(len(pred),R))
         assert rec["exact_full_uniform_attack_detection_fraction"]==[
             uniform.numerator,uniform.denominator]
         assert rec["global7_exact_theoretical_floor"]==[
             (Fraction(7,16)*uniform).numerator,(Fraction(7,16)*uniform).denominator]
-        assert rec["global8_exact_theoretical_floor"]==[
-            (Fraction(1,2)*uniform).numerator,(Fraction(1,2)*uniform).denominator]
         assert rec["honest_target_false_rejections"]==0
         assert rec["fully_schedule_informed_attacker_detections"]==0
         assert rec["delta_decision_disagreements"]==0
         assert all(v==0 for v in rec["exact_quota_and_control_checks"].values())
-        direct_checks=0
+        direct=0
         for name,variants in attacks.items():
             for policy in POLICIES:
-                for changed in variants[:2]:
-                    A=set(changed)
+                for A in variants[:2]:
+                    changed=set(A)
                     for mode,arm,w in component_parts(policy):
                         for t in range(2):
-                            checked=ev_sets[(mode,arm)][t]
-                            # Reconstruct authentic output integers explicitly.
+                            checked=plans[(mode,arm)][t]
+                            hit=not checked.isdisjoint(changed)
                             for delta in (1,4294049777):
-                                proposed=list(pred)
-                                for i in A:proposed[i]+=delta
-                                rejected=any(proposed[i]!=pred[i] for i in checked)
-                                assert rejected==bool(checked&A)
-                            direct_checks+=1
-        assert rec["direct_authentic_witness_checks"]==direct_checks
-        all_witness+=direct_checks
-        print("NOR40 independently replayed source",idx+1,"/48",flush=True)
-    rows=scored_rows(grade["source_records"])
-    assert len(rows)==len(grade["source_level_primary"])==48
-    for got,expected in zip(grade["source_level_primary"],rows,strict=True):
-        assert got.keys()==expected.keys()
-        for k,v in expected.items():
-            if isinstance(v,float):
-                assert isclose(got[k],v,rel_tol=0,abs_tol=1e-13),(k,got[k],v)
-            else:assert got[k]==v,(k,got[k],v)
-    columns=("global7_baseline_minus_strong_selfplay",
-             "global7_strong_self_minus_deterministic_strong",
-             "global7_strong_worst_minus_original_strong_worst",
-             "global7_top_minus_atom_random",
-             "deterministic_top_minus_atom_random")
-    means={k:statistics.mean(row[k] for row in rows) for k in columns}
+                                modified=list(pred)
+                                for k in changed:modified[k]+=delta
+                                reject=any(modified[k]!=pred[k] for k in checked)
+                                assert reject==hit
+                            direct+=1
+        assert direct==rec["direct_authentic_witness_checks"]
+        direct_count+=direct
+        print(f"NOR41 independent source {idx+1}/64",flush=True)
+    derived=scored_rows(grade["source_records"])
+    assert len(derived)==len(grade["source_level_primary"])==64
+    for stored,computed in zip(grade["source_level_primary"],derived,strict=True):
+        assert stored.keys()==computed.keys()
+        for key,value in computed.items():
+            if isinstance(value,float):
+                assert isclose(stored[key],value,rel_tol=0,abs_tol=1e-13),(key,stored[key],value)
+            elif isinstance(value,dict):
+                for k,v in value.items():
+                    assert isclose(stored[key][k],v,rel_tol=0,abs_tol=1e-13)
+            else:assert stored[key]==value,(key,stored[key],value)
+    anchor=[x for x in derived if x["family"]=="wide_dense_small"]
+    ood=[x for x in derived if x["family"]=="wide_regime_blocks"]
+    low=[x for x in derived if x["degree"]==512]
+    high=[x for x in derived if x["degree"]==1024]
+    assert len(anchor)==len(ood)==len(low)==len(high)==32
+    m=lambda column,arr:statistics.mean(x[column] for x in arr)
+    diffs={rep:m("global7_256_minus_4096_eval",[
+           x for x in derived if x["replicate"]==rep and x["degree"]==512])-
+           m("global7_256_minus_4096_eval",[
+           x for x in derived if x["replicate"]==rep and x["degree"]==1024])
+           for rep in REPS}
+    dif=m("global7_256_minus_4096_eval",low)-m(
+        "global7_256_minus_4096_eval",high)
+    oodtop=m("global7_top_minus_atom_random",ood)
+    ooddet=m("deterministic_top_minus_atom_random",ood)
+    ratio=oodtop/ooddet if ooddet>0 else None
+    means={
+        "global7_budget_transfer":m("global7_256_minus_4096_eval",derived),
+        "degree512_minus_degree1024_transfer":dif,
+        "ood_top_gain":oodtop,
+        "ood_deterministic_top_gain":ooddet,
+        "global7_strong_self_minus_deterministic":m(
+            "global7_strong_self_minus_deterministic",derived),
+        "global7_strong_worst_minus_original":m(
+            "global7_strong_worst_minus_original",derived),
+        "global7_strong_worst_absolute":m("global7_strong_worst",derived)
+    }
     wins={
-        "strong_global7_beats_baseline_eval":sum(
-            row["global7_baseline_minus_strong_selfplay"]>0 for row in rows),
-        "global7_strong_self_over_deterministic":sum(
-            row["global7_strong_self_minus_deterministic_strong"]>0 for row in rows),
-        "global7_strong_worst_within_1pp_original":sum(
-            row["global7_strong_worst_minus_original_strong_worst"]>=-.010
-            for row in rows),
-        "global7_top_positive":sum(
-            row["global7_top_minus_atom_random"]>0 for row in rows)}
-    topden=means["deterministic_top_minus_atom_random"]
-    ratio=means["global7_top_minus_atom_random"]/topden if topden>0 else None
-    certificate_good=all(
-        all(rec["attack_certificates"][p]["strong_eight_full_cal_sum"]<=
-            rec["attack_certificates"][p]["baseline_eight_full_cal_sum"]
-            for p in POLICIES) for rec in grade["source_records"])
-    gate={
-        "stronger_attacker_heldout_transfer":(
-            wins["strong_global7_beats_baseline_eval"]>=24 and
-            means["global7_baseline_minus_strong_selfplay"]>=.001 and certificate_good),
-        "global7_robustness_vs_strong_attack_classes":(
-            wins["global7_strong_self_over_deterministic"]>=36 and
-            means["global7_strong_self_minus_deterministic_strong"]>=.010 and
-            wins["global7_strong_worst_within_1pp_original"]>=36 and
-            means["global7_strong_worst_minus_original_strong_worst"]>=-.010 and
-            statistics.mean(r["global7_strong_worst"] for r in rows)>=.020),
-        "global7_retains_frozen_top_curvature_signal":(
-            wins["global7_top_positive"]>=36 and
-            means["global7_top_minus_atom_random"]>=.020 and
-            ratio is not None and ratio>=.20),
-        "exact_calibration_brackets_and_native_witness":True,
-        "original_source_first_and_independent_replay_contract":True
+        "positive_degree_scale_blocks":sum(x>0 for x in diffs.values()),
+        "positive_ood_top_sources":sum(
+            x["global7_top_minus_atom_random"]>0 for x in ood),
+        "strong_global7_transfer_source_wins":sum(
+            x["global7_256_minus_4096_eval"]>0 for x in derived),
+        "strong_global7_self_advantage_source_wins":sum(
+            x["global7_strong_self_minus_deterministic"]>0 for x in derived),
+        "global7_worst_within_1pp_original":sum(
+            x["global7_strong_worst_minus_original"]>=-.010 for x in derived)
+    }
+    calgood=all(
+        all(rec["attack_certificates"][str(n)][p]["selected_best8_cal_sum"]<=
+            rec["attack_certificates"][str(n)][p]["greedy_best8_cal_sum"]
+            for n in BUDGETS for p in POLICIES)
+        for rec in grade["source_records"])
+    gates={
+        "scale_sensitive_cal_to_eval_transfer":(
+            wins["positive_degree_scale_blocks"]>=11 and dif>=.001),
+        "novel_input_family_top_gain_retained":(
+            wins["positive_ood_top_sources"]>=24 and oodtop>=.020
+            and ratio is not None and ratio>=.20),
+        "stronger_cal4096_evaluation_transfer":(
+            wins["strong_global7_transfer_source_wins"]>=32
+            and means["global7_budget_transfer"]>=.001 and calgood),
+        "global7_frontier_survives_4096_cal_attack":(
+            wins["strong_global7_self_advantage_source_wins"]>=48
+            and means["global7_strong_self_minus_deterministic"]>=.010
+            and wins["global7_worst_within_1pp_original"]>=48
+            and means["global7_strong_worst_minus_original"]>=-.010
+            and means["global7_strong_worst_absolute"]>=.020),
+        "source_first_native_witness_and_full_replay_contract":True
     }
     for k,v in means.items():
-        assert isclose(v,grade["source_means"][k],rel_tol=0,abs_tol=1e-13)
-    assert wins==grade["source_direction_wins"]
-    if ratio is None:
-        assert grade["retained_ratio_global7_to_deterministic_top_gain"] is None
-    else:
-        assert isclose(ratio,grade["retained_ratio_global7_to_deterministic_top_gain"],
-                       abs_tol=1e-13)
-    assert grade["registered_five_gates"]==gate
-    assert grade["registered_primary_pass"]==all(gate.values())
-    blocks={str(rep):{
-        k:statistics.mean(row[k] for row in rows if row["replicate"]==rep)
-        for k in ("global7_baseline_minus_strong_selfplay",
-                  "global7_strong_self_minus_deterministic_strong",
-                  "global7_strong_worst_minus_original_strong_worst",
-                  "global7_top_minus_atom_random")}
-        for rep in REPS}
-    assert grade["replicate_block_means"]==blocks
-    expected_count=48*20*ATTACKS*EVAL*sum(len(component_parts(p)) for p in POLICIES)
-    assert decision_count==expected_count
-    return {"replayed_new_sources":48,"excluded_historical_sources":276,
-            "baseline_attack_sets":48*len(POLICIES)*ATTACKS,
-            "full2048_greedy_starts":48*len(POLICIES)*GREEDY_STARTS,
-            "strong_attack_sets":48*len(POLICIES)*ATTACKS,
-            "blind_attack_sets":48*len(CONTROLS)*ATTACKS,
-            "component_cal_eval_plans":48*len(MODES)*len(ARMS)*(CAL+EVAL),
-            "crossplay_world_decisions":decision_count,
-            "native_integer_witness_pairs":all_witness,
-            "source_means":means,"source_wins":wins,
-            "science_pass":all(gate.values())}
+        assert isclose(grade["source_means"][k],v,rel_tol=0,abs_tol=1e-13)
+    assert grade["source_direction_wins"]==wins
+    if ratio is None:assert grade["retained_ood_top_gain_ratio"] is None
+    else:assert isclose(grade["retained_ood_top_gain_ratio"],ratio,abs_tol=1e-13)
+    assert grade["degree_scale_replica_block_contrasts"]=={
+        str(k):v for k,v in diffs.items()}
+    assert grade["registered_five_gates"]==gates
+    assert grade["registered_primary_pass"]==all(gates.values())
+    expected=64*22*ATTACKS*EVAL*sum(len(component_parts(p)) for p in POLICIES)
+    assert decision_count==expected
+    return {
+        "new_source_units":64,"historical_sources_excluded":324,
+        "cal4096_greedy_starts":64*len(POLICIES)*len(BUDGETS)*GREEDY_STARTS,
+        "calibrated_attack_sets":64*len(POLICIES)*len(BUDGETS)*ATTACKS,
+        "fixed_blind_attack_sets":64*len(CONTROLS)*ATTACKS,
+        "component_cal_eval_plans":64*len(MODES)*len(ARMS)*(CAL+EVAL),
+        "heldout_crossplay_decisions":decision_count,
+        "direct_integer_witness_pairs":direct_count,
+        "source_means":means,"source_wins":wins,
+        "registered_science_pass":all(gates.values())
+    }
 
 
 def main():
@@ -715,10 +718,10 @@ def main():
     a.add_argument("--check",action="store_true")
     args=a.parse_args()
     results=replay(args.fixture.read_bytes(),args.full.read_bytes())
-    print("NOR40 INDEPENDENT EXACT SOURCE / GREEDY / CROSSPLAY REPLAY",results)
+    print("NOR41 INDEPENDENT EXACT SOURCE / GREEDY / CROSSPLAY REPLAY",results)
     if args.check:
-        assert results["replayed_new_sources"]==48
-        assert results["crossplay_world_decisions"]==48*20*ATTACKS*EVAL*sum(len(component_parts(p)) for p in POLICIES)
+        assert results["new_source_units"]==64
+        assert results["heldout_crossplay_decisions"]==64*22*ATTACKS*EVAL*sum(len(component_parts(p)) for p in POLICIES)
 
 
 if __name__=="__main__":
