@@ -1,0 +1,28 @@
+name: SCM-23 frozen CPU head-fiber replay
+on:
+  pull_request:
+    paths:
+      - 'research/dimensional_atlas/gym/scm23_transport_fiber/**'
+      - 'research/dimensional_atlas/gym/scm22_normmatched/**'
+      - '.github/workflows/scm23-cpu-head-fiber.yml'
+  workflow_dispatch:
+jobs:
+  cpu-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu 'torch==2.10.0'
+          python -m pip install 'numpy==2.3.5'
+      - name: Reproduce frozen three-seed experiment
+        env:
+          OMP_NUM_THREADS: '2'
+          OPENBLAS_NUM_THREADS: '2'
+          MKL_NUM_THREADS: '2'
+        run: |
+          python research/dimensional_atlas/gym/scm23_transport_fiber/compact_replay.py
