@@ -1,0 +1,62 @@
+name: NOR-27 one-shot first original evidence publisher
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor27-original-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve-first-source-and-outcome-bytes:
+    if: github.ref == 'refs/heads/research/nor27-seed-leakage-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: research/nor27-seed-leakage-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor27-original-sources-and-leakage-outcomes
+          run-id: 44015771328
+          github-token: ${{ github.token }}
+          path: /tmp/nor27_first
+      - name: Check original bytes before committing source-controlled archive
+        run: |
+          python - <<'PY'
+          import hashlib,json,zipfile
+          from pathlib import Path
+          ref=json.loads(Path('research/nor27_seed_leakage/results/nor27_first_original_receipt.json').read_text())
+          out=Path('research/nor27_seed_leakage/results/nor27_original_hosted.zip')
+          original={}
+          for key in ('fixture','outcome'):
+              item=ref[key]
+              raw=Path('/tmp/nor27_first',item['name']).read_bytes()
+              assert len(raw)==item['bytes']
+              assert hashlib.sha256(raw).hexdigest()==item['sha256']
+              original[item['name']]=raw
+          with zipfile.ZipFile(out,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for name in sorted(original):
+                  info=zipfile.ZipInfo(name,date_time=(2026,11,17,0,0,0))
+                  info.compress_type=zipfile.ZIP_DEFLATED
+                  info.external_attr=0o644<<16
+                  z.writestr(info,original[name],compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
+          print('NOR27 PERMANENT ARCHIVE BYTES',out.stat().st_size)
+          PY
+          python research/nor27_seed_leakage/original_archive_audit.py
+      - name: Commit immutable original archive and remove one-shot publisher in follow-up
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor27_seed_leakage/results/nor27_original_hosted.zip
+          git diff --cached --quiet && { echo 'Original archive already committed'; exit 0; }
+          git commit -m 'NOR-27: preserve original prospective public source and leakage-outcome bytes'
+          git push origin HEAD:refs/heads/research/nor27-seed-leakage-20261117
