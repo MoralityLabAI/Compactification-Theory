@@ -1,0 +1,23 @@
+{
+  "schema":"scm21.scm20_public_snapshot.v1",
+  "source_repository":"MoralityLabAI/Compactification-Theory",
+  "source_path":"research/dimensional_atlas/gym/scm20_causal_consistency/results/summary.json",
+  "source_git_blob_sha1":"dd0fa7005aa67fd4e0d5b3b9faf513ff32744713",
+  "source_branch_at_extraction":"research/scm20-causal-consistency-20261116",
+  "source_pr":180,
+  "source_filter":{"model":"causal","visit":1},
+  "method_order":["full_cls","head_readable","head_fiber","pca4","semantic_diff4","sae_group4","native_write4","native_vpd_write","random_fiber4","sham"],
+  "rows":[
+    {"seed":191,"stratum":"id","n":128,"counts":[115,73,17,43,39,0,14,14,0,0],"mean_norms":[21.029,8.969,18.717,19.038,19.038,6.584,18.396,13.779,13.779,0]},
+    {"seed":191,"stratum":"ood","n":120,"counts":[105,52,16,32,38,2,15,12,1,0],"mean_norms":[17.74,7.818,15.55,15.665,15.843,5.381,15.203,11.389,11.389,0]},
+    {"seed":1191,"stratum":"id","n":128,"counts":[110,90,11,37,38,7,11,8,1,0],"mean_norms":[19.624,9.244,16.867,17.333,17.513,5.586,16.491,12.991,12.991,0]},
+    {"seed":1191,"stratum":"ood","n":128,"counts":[110,84,11,30,39,4,11,9,1,0],"mean_norms":[18.454,8.553,16.053,16.282,16.538,4.712,15.703,12.368,12.368,0]},
+    {"seed":2191,"stratum":"id","n":128,"counts":[110,92,8,34,45,10,8,8,1,0],"mean_norms":[24.245,9.169,22.038,22.057,22.278,5.409,21.731,17.153,17.153,0]},
+    {"seed":2191,"stratum":"ood","n":116,"counts":[89,64,5,23,18,4,4,4,2,0],"mean_norms":[21.448,8.848,19.19,19.422,19.342,5.203,18.868,14.805,14.805,0]}
+  ],
+  "clean":[
+    [191,"id",314,331],[191,"ood",218,229],
+    [1191,"id",299,322],[1191,"ood",205,231],
+    [2191,"id",310,318],[2191,"ood",209,220]
+  ]
+}

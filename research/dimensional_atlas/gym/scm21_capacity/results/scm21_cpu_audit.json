@@ -1,0 +1,279 @@
+{
+  "all_six_cells_semantic_exceeds_native_write": true,
+  "clean_accuracy_consequence": [
+    {
+      "causal": 314,
+      "delta": -17,
+      "seed": 191,
+      "stratum": "id",
+      "warm": 331
+    },
+    {
+      "causal": 218,
+      "delta": -11,
+      "seed": 191,
+      "stratum": "ood",
+      "warm": 229
+    },
+    {
+      "causal": 299,
+      "delta": -23,
+      "seed": 1191,
+      "stratum": "id",
+      "warm": 322
+    },
+    {
+      "causal": 205,
+      "delta": -26,
+      "seed": 1191,
+      "stratum": "ood",
+      "warm": 231
+    },
+    {
+      "causal": 310,
+      "delta": -8,
+      "seed": 2191,
+      "stratum": "id",
+      "warm": 318
+    },
+    {
+      "causal": 209,
+      "delta": -11,
+      "seed": 2191,
+      "stratum": "ood",
+      "warm": 220
+    }
+  ],
+  "limits": [
+    "Method-level totals contain no pairwise cross-method outcome identities; only sharp overlap bounds can be claimed.",
+    "Success counts across seeds reuse test cases; aggregate counts are not independent statistical trials.",
+    "Different PCA and native-write patches are not per-case norm-matched; mean-norm ratios cannot remove this confound.",
+    "The readout-visible method has higher effective rank and is not a rank-four matched comparator.",
+    "This is existing trained-model behavior from SCM-20 receipts; SCM-21 ran no trained checkpoint or new evaluation."
+  ],
+  "method_success_fraction": {
+    "full_cls": [
+      639,
+      748
+    ],
+    "head_fiber": [
+      68,
+      748
+    ],
+    "head_readable": [
+      455,
+      748
+    ],
+    "native_vpd_write": [
+      55,
+      748
+    ],
+    "native_write4": [
+      63,
+      748
+    ],
+    "pca4": [
+      199,
+      748
+    ],
+    "random_fiber4": [
+      6,
+      748
+    ],
+    "sae_group4": [
+      27,
+      748
+    ],
+    "semantic_diff4": [
+      217,
+      748
+    ],
+    "sham": [
+      0,
+      748
+    ]
+  },
+  "method_successes": {
+    "full_cls": 639,
+    "head_fiber": 68,
+    "head_readable": 455,
+    "native_vpd_write": 55,
+    "native_write4": 63,
+    "pca4": 199,
+    "random_fiber4": 6,
+    "sae_group4": 27,
+    "semantic_diff4": 217,
+    "sham": 0
+  },
+  "minimum_semantic_diff_only_vs_native_write_span": 154,
+  "per_cell": [
+    {
+      "full_cls": 115,
+      "guaranteed_semantic_only_vs_write_span": 25,
+      "mean_norm_ratio_semantic_to_write_span": 1.034899,
+      "n": 128,
+      "native_vpd_write": 14,
+      "native_write4": 14,
+      "pca4": 43,
+      "seed": 191,
+      "semantic_diff4": 39,
+      "stratum": "id"
+    },
+    {
+      "full_cls": 105,
+      "guaranteed_semantic_only_vs_write_span": 23,
+      "mean_norm_ratio_semantic_to_write_span": 1.042097,
+      "n": 120,
+      "native_vpd_write": 12,
+      "native_write4": 15,
+      "pca4": 32,
+      "seed": 191,
+      "semantic_diff4": 38,
+      "stratum": "ood"
+    },
+    {
+      "full_cls": 110,
+      "guaranteed_semantic_only_vs_write_span": 27,
+      "mean_norm_ratio_semantic_to_write_span": 1.061973,
+      "n": 128,
+      "native_vpd_write": 8,
+      "native_write4": 11,
+      "pca4": 37,
+      "seed": 1191,
+      "semantic_diff4": 38,
+      "stratum": "id"
+    },
+    {
+      "full_cls": 110,
+      "guaranteed_semantic_only_vs_write_span": 28,
+      "mean_norm_ratio_semantic_to_write_span": 1.053175,
+      "n": 128,
+      "native_vpd_write": 9,
+      "native_write4": 11,
+      "pca4": 30,
+      "seed": 1191,
+      "semantic_diff4": 39,
+      "stratum": "ood"
+    },
+    {
+      "full_cls": 110,
+      "guaranteed_semantic_only_vs_write_span": 37,
+      "mean_norm_ratio_semantic_to_write_span": 1.025171,
+      "n": 128,
+      "native_vpd_write": 8,
+      "native_write4": 8,
+      "pca4": 34,
+      "seed": 2191,
+      "semantic_diff4": 45,
+      "stratum": "id"
+    },
+    {
+      "full_cls": 89,
+      "guaranteed_semantic_only_vs_write_span": 14,
+      "mean_norm_ratio_semantic_to_write_span": 1.025122,
+      "n": 116,
+      "native_vpd_write": 4,
+      "native_write4": 4,
+      "pca4": 23,
+      "seed": 2191,
+      "semantic_diff4": 18,
+      "stratum": "ood"
+    }
+  ],
+  "per_stratum": {
+    "id": {
+      "full_cls": [
+        335,
+        384
+      ],
+      "head_fiber": [
+        36,
+        384
+      ],
+      "head_readable": [
+        255,
+        384
+      ],
+      "native_vpd_write": [
+        30,
+        384
+      ],
+      "native_write4": [
+        33,
+        384
+      ],
+      "pca4": [
+        114,
+        384
+      ],
+      "random_fiber4": [
+        2,
+        384
+      ],
+      "sae_group4": [
+        17,
+        384
+      ],
+      "semantic_diff4": [
+        122,
+        384
+      ],
+      "sham": [
+        0,
+        384
+      ]
+    },
+    "ood": {
+      "full_cls": [
+        304,
+        364
+      ],
+      "head_fiber": [
+        32,
+        364
+      ],
+      "head_readable": [
+        200,
+        364
+      ],
+      "native_vpd_write": [
+        25,
+        364
+      ],
+      "native_write4": [
+        30,
+        364
+      ],
+      "pca4": [
+        85,
+        364
+      ],
+      "random_fiber4": [
+        4,
+        364
+      ],
+      "sae_group4": [
+        10,
+        364
+      ],
+      "semantic_diff4": [
+        95,
+        364
+      ],
+      "sham": [
+        0,
+        364
+      ]
+    }
+  },
+  "schema": "scm21.retrospective_capacity_audit.v1",
+  "scientific_scope": "retrospective SCM-20 counts, exact deterministic arithmetic, not new model execution",
+  "semantic_norm_ratio_range": [
+    1.025122,
+    1.061973
+  ],
+  "semantic_vs_native_actual_difference": 162,
+  "semantic_vs_native_write_difference": 154,
+  "source_git_blob_sha1": "dd0fa7005aa67fd4e0d5b3b9faf513ff32744713",
+  "total_seed_task_comparisons": 748
+}
