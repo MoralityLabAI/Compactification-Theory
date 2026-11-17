@@ -1,0 +1,103 @@
+name: NOR-39 publish original first SHA-locked source and grade
+
+on:
+  push:
+    paths:
+      - '.github/workflows/nor39-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive-first-raw-grade:
+    if: github.ref == 'refs/heads/research/nor39-clean-global-uniform-20261117'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor39-clean-global-uniform-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor39_first_original_source_and_global_uniform_grade
+          run-id: 44102073143
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor39-first
+      - name: Archive exact original clean source/grade SHA
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
+          import json
+          expected={
+              'nor39_fixture.json':(8457812,'3dd23e71663d3c179ecacd437892c650469a6980230e71c353840f3b8f5a290c'),
+              'nor39_full.json':(930059,'995b6e110c829fd9a8ebb036e4e08ef64cfccee8298bff0def255c53f35c17c6'),
+          }
+          original={}
+          for name,(length,hexdigest) in expected.items():
+              b=(Path('/tmp/nor39-first')/name).read_bytes()
+              assert len(b)==length and sha256(b).hexdigest()==hexdigest,name
+              original[name]=b
+          f=json.loads(original['nor39_fixture.json'])
+          g=json.loads(original['nor39_full.json'])
+          assert f['registered_first_commit']==g['registration_first_commit']==(
+              '4a5f3750d240d46c031e0cb432fb7b1a884cfbe9')
+          assert g['public_fixture_sha256']==expected['nor39_fixture.json'][1]
+          assert len(f['cases'])==len(g['source_records'])==48
+          assert g['registered_primary_pass'] and len(g['registered_five_gates'])==5
+          assert all(g['registered_five_gates'].values())
+          assert g['source_direction_wins']=={
+              'global7_self_minus_deterministic_self':48,
+              'global7_top_minus_atom_random':45,
+              'global7_worst_minus_original_worst_tolerance':45}
+          out=Path('research/nor39_clean_global_uniform/results')
+          out.mkdir(parents=True,exist_ok=True)
+          archive=out/'nor39_original_first_hosted.zip'
+          with ZipFile(archive,'w',ZIP_DEFLATED,compresslevel=9) as z:
+              for name,data in original.items():
+                  info=ZipInfo(name,(2026,11,17,0,0,0))
+                  info.compress_type=ZIP_DEFLATED
+                  z.writestr(info,data,compress_type=ZIP_DEFLATED,compresslevel=9)
+          manifest={
+              'schema':'nor39.original_first_grade_archive.v1',
+              'registration':'4a5f3750d240d46c031e0cb432fb7b1a884cfbe9',
+              'original_grade_run':44102073143,'artifact_id':14336748652,
+              'original_bytes_sha256':{name:{'bytes':n,'sha256':s}
+                                       for name,(n,s) in expected.items()},
+              'zip_archive_bytes':len(archive.read_bytes()),
+              'zip_archive_sha256':sha256(archive.read_bytes()).hexdigest(),
+              'source_units':48,'historical_source_units_excluded':228,
+              'source_means':g['source_means'],
+              'source_direction_wins':g['source_direction_wins'],
+              'scorer_gates':g['registered_five_gates'],
+              'scorer_primary_pass':g['registered_primary_pass'],
+              'procedural_source_sequence_clean':True,
+              'procedural_verification':'All NOR39 pre-data unit tests consume only SHA-archived historical NOR38 source identities. Complete NOR39 original public-only fixture frozen in its own preceding workflow job before CAL, EVAL, private truth or attack reconstruction.'
+          }
+          (out/'nor39_first_frozen_receipt.json').write_text(
+              json.dumps(manifest,sort_keys=True,indent=2)+'\n')
+          print('NOR39 FIRST SHA-LOCKED ORIGINAL ARCHIVE',manifest['zip_archive_sha256'])
+          PY
+      - name: Push first original receipt; handle concurrent branch commits
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -r --ignore-unmatch research/nor39_global_uniform/results
+          git add research/nor39_clean_global_uniform/results/nor39_original_first_hosted.zip \
+                  research/nor39_clean_global_uniform/results/nor39_first_frozen_receipt.json
+          git commit -m "NOR-39: archive first clean source and grade bytes"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor39-clean-global-uniform-20261117
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor39-clean-global-uniform-20261117; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
