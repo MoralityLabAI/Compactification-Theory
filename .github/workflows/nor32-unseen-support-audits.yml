@@ -1,0 +1,168 @@
+name: NOR-32 registered six unseen attack supports and source-heldout audit transfer
+
+on:
+  push:
+    paths:
+      - 'research/nor32_ood_audits/**'
+      - '.github/workflows/nor32-unseen-support-audits.yml'
+  pull_request:
+    paths:
+      - 'research/nor32_ood_audits/**'
+      - '.github/workflows/nor32-unseen-support-audits.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  permanent-first-run-sha-and-independent-fail-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-pin original source and FAIL outcome, then independently replay all audited decisions
+        run: |
+          python research/nor32_ood_audits/original_archive_audit.py
+
+  frozen-historical-policy-and-small-exact-controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify NOR-32 preregistration was committed before heldout data
+        run: |
+          git merge-base --is-ancestor 07f0f91211c21b3a7ed540ebcb246faffc7377e0 HEAD
+          test -s research/nor32_ood_audits/REGISTRATION.md
+      - name: Verify original NOR-31 three SHA receipts, source-only masks, inherited minmax
+        run: |
+          python research/nor31_class_constrained_minimax/original_archive_audit.py
+      - name: Compile and run exact finite uniform-attack duality and OOD support tests
+        run: |
+          python -m compileall -q research/nor32_ood_audits
+          python -m unittest research.nor32_ood_audits.test_experiment -v
+
+  freeze-new-public-only-twentyfour-test-sources:
+    needs: frozen-historical-policy-and-small-exact-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate 24 distinct source-only RRC25 inputs on fixed unseen seed roster
+        run: |
+          python research/nor32_ood_audits/experiment.py \
+            --make-fixture /tmp/nor32_fixture.json
+      - name: Freeze raw complete-public source bytes and reject private data leakage
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          from collections import Counter
+          import json
+          a=Path('/tmp/nor32_fixture.json').read_bytes()
+          z=json.loads(a)
+          assert z['schema']=='nor32.fresh_public_only_reps32to35.v1'
+          assert z['registered_offset']==130032000
+          assert z['replicates']==[32,33,34,35]
+          assert z['public_only'] and z['private_truth_and_program_absent']
+          assert z['attacked_positions_and_witness_absent']
+          assert z['historical_public_hash_count']==36
+          assert len(z['cases'])==24
+          assert len({r['full_public_input_sha256'] for r in z['cases']})==24
+          assert Counter(r['degree'] for r in z['cases'])=={512:12,1024:12}
+          assert all(not any(k in r for k in (
+              'program','future','target','attack','witness')) for r in z['cases'])
+          print('NOR32 FROZEN FIRST NEW PUBLIC SOURCE FIXTURE BYTES SHA256',len(a),sha256(a).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor32_original_public_only_24_sources
+          path: /tmp/nor32_fixture.json
+          if-no-files-found: error
+          retention-days: 90
+
+  evaluate-primary-ood-and-calibrated-controls:
+    needs: freeze-new-public-only-twentyfour-test-sources
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_original_public_only_24_sources
+          path: /tmp/nor32
+      - name: Evaluate six new support-generating mechanisms and paired uniform/hybrid controls
+        run: |
+          python research/nor32_ood_audits/experiment.py \
+            --fixture /tmp/nor32/nor32_fixture.json \
+            --out /tmp/nor32/nor32_full.json
+      - name: Report and preserve both registered PASS and scientific FAIL
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nor32')
+          source=(p/'nor32_fixture.json').read_bytes()
+          full=(p/'nor32_full.json').read_bytes()
+          o=json.loads(full)
+          assert o['schema']=='nor32.unseen_six_support_equal_budget_transfer.v1'
+          assert o['public_fixture_sha256']==sha256(source).hexdigest()
+          assert o['frozen_mixture_weights']==[2,0,1,1,4,8]
+          assert o['fresh_public_source_count']==len(o['source_records'])==24
+          assert len(o['source_level_primary'])==24
+          assert len(o['ood_support_families'])==6
+          assert all(len(s['arm_counts'])==28*6 for s in o['source_records'])
+          assert all(s['honest_target_false_rejections']==0 and
+                     s['fully_informed_attack_detections']==0 and
+                     s['nonzero_shift_decision_disagreements']==0 and
+                     s['public_prediction_sha256']==s['sealed_true_future_sha256_after_freeze']
+                     for s in o['source_records'])
+          assert o['registered_five_gates']['source_witness_floor_replay_controls']
+          print('NOR32 FROZEN FIRST FULL RESULT BYTES SHA256',len(full),sha256(full).hexdigest())
+          print('NOR32 FIRST REGISTERED SCIENTIFIC PASS',o['registered_primary_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor32_first_original_public_24_sources_and_ood_full_outcome
+          path: |
+            /tmp/nor32/nor32_fixture.json
+            /tmp/nor32/nor32_full.json
+          if-no-files-found: warn
+          retention-days: 90
+
+  separate-process-exact-ood-source-and-attack-replay:
+    needs: evaluate-primary-ood-and-calibrated-controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor32_first_original_public_24_sources_and_ood_full_outcome
+          path: /tmp/nor32
+      - name: Independently rebuild all new RRC25 truths, supports, greedy attacks and heldout decisions
+        run: |
+          python research/nor32_ood_audits/receipt_audit.py --check \
+            --fixture /tmp/nor32/nor32_fixture.json \
+            --full /tmp/nor32/nor32_full.json
