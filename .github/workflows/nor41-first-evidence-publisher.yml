@@ -1,0 +1,56 @@
+name: NOR-41 one-shot original first nested-CAL source and grade archival
+
+on:
+  push:
+    branches:
+      - research/nor41-scale-ood-cal-transfer-20261117
+    paths:
+      - '.github/workflows/nor41-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive_first_original_grade:
+    if: github.ref == 'refs/heads/research/nor41-scale-ood-cal-transfer-20261117' && contains(github.event.head_commit.message, 'NOR41-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor41-scale-ood-cal-transfer-20261117
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor41_first_original_source_and_nested_grade
+          run-id: 44124795440
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor41-original
+      - name: Preserve first original source and first scored scientific PASS or FAIL without mutations
+        run: |
+          test ! -e research/nor41_scale_ood/results/nor41_first_frozen_receipt.json
+          python research/nor41_scale_ood/first_evidence_archive.py \
+            --fixture /tmp/nor41-original/nor41_fixture.json \
+            --grade /tmp/nor41-original/nor41_full.json \
+            --out research/nor41_scale_ood/results \
+            --first-grade-run 44124795440
+      - name: Commit exact original bytes with safe concurrent writer retry
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor41_scale_ood/results/nor41_original_first_hosted.zip \
+                  research/nor41_scale_ood/results/nor41_first_frozen_receipt.json
+          git commit -m "NOR-41: persist first SHA-locked public source and original grade, PASS or FAIL"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor41-scale-ood-cal-transfer-20261117
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor41-scale-ood-cal-transfer-20261117; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
