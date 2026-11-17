@@ -33,6 +33,8 @@ jobs:
         run: |
           python -m compileall -q research/nor27_seed_leakage
           python -m unittest research.nor27_seed_leakage.test_experiment -v
+      - name: Verify original first-hosted evidence hashes without regeneration
+        run: python research/nor27_seed_leakage/original_archive_audit.py
 
   prospective-first-source-and-leakage-evaluation:
     needs: frozen-registration-exact-controls
@@ -124,3 +126,5 @@ jobs:
           python research/nor27_seed_leakage/receipt_audit.py \
             --fixture /tmp/nor27_first/nor27_fixture.json \
             --full /tmp/nor27_first/nor27_full.json
+      - name: Recheck source-controlled original file hashes after the independent replay
+        run: python research/nor27_seed_leakage/original_archive_audit.py
