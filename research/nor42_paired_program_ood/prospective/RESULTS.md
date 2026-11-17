@@ -1,6 +1,6 @@
 # NOR-42: first prospective paired-program grammar OOD and authenticated-witness results
 
-**Original registered first scorer: PASS, 5/5 gates true.** The 64 new public-source pairs and 128 clean/hidden target-world cases were prospectively registered at commit [`9bf353b`](https://github.com/MoralityLabAI/Compactification-Theory/commit/9bf353b7c76535e581ff026098cd682914a90ef0), before generating any new NOR42 source. The first hosted [source-only fixture and grader run #44138400655](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44138400655) completed the original scorer, with a separate independent native-program/world/audit-plan replay job. Its completion must be checked before describing the full replayer contract as externally verified.
+**Original registered first scorer: PASS, 5/5 gates true.** The 64 new public-source pairs and 128 clean/hidden target-world cases were prospectively registered at commit [`9bf353b`](https://github.com/MoralityLabAI/Compactification-Theory/commit/9bf353b7c76535e581ff026098cd682914a90ef0), before generating any new NOR42 source. The first hosted [source-only fixture, grader and full independent replay run #44138400655](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44138400655) completed all four stages SUCCESS. The separate implementation independently reconstructed all 64 programs, 128 clean/hidden target worlds, 1,179,648 component audit plans, and every registered source mean and gate.
 
 ## First original immutable evidence
 
@@ -24,7 +24,7 @@ The public original native 16-class acceptance mask has cardinality **one on 64/
 | Uniform16 authentic witness calibration to exact discrepancy support | Source-mean absolute EVAL-vs-exact error **0.5564pp**, 64/64 sources within 8pp error | PASS |
 | Hidden truth detectability with an authentic witness, against witness-free self-consistency | Global7 authenticated hidden detection **86.2875%** across 64; 64/64 sources ≥10%; witness-free clean-model consistency accepts both possible worlds | PASS |
 | Global7 competitive with unrestricted uniform16 on the new input family | New-family Global7 **73.2144%**, uniform16 **78.7415%**; mean gap **−5.5271pp**, 24/32 pairs within the registered −15pp tolerance; conditional uniform-reserve analytic floor check 64/64 | PASS, source-count threshold met exactly |
-| Source-only historical exclusions, exact coefficients and independent replay contract | Original source and witness integrity flags true; all 64 pair IDs novel, all k16 plans/quotas and first-stage SHA checks pass | PASS in original scorer; separate replay evidence required |
+| Source-only historical exclusions, exact coefficients and independent replay contract | Original source and witness integrity flags true; all 64 pair IDs novel, all k16 plans/quotas and first-stage SHA checks pass; independent full replay green | **PASS, independently verified** |
 
 The original first-run JSON records `registered_primary_pass: true` and all five original registered booleans true. Gate 4 passes narrowly by its within-tolerance source count **24/32**. The new-family deficit relative to uniform16 remains substantive and is reported in full.
 
@@ -70,6 +70,6 @@ The 64 source pairs, grouped into 16 replicate blocks of four, are the independe
 
 ## Reproducibility and next experiment
 
-The first original registered science PASS and first raw source/grade ZIP are archived unchanged. The [independent separate-process replay](receipt_audit.py) must reproduce 64 source programs, 128 paired true-world states, every fixed policy component plan, all true-output/witness support intersections, the original registered source means and the five booleans before the final reproducibility claim is closed.
+The first original registered science PASS and first raw source/grade ZIP are archived unchanged. The independent [separate-process replay](receipt_audit.py) completed successfully in [original run #44138400655](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44138400655), rebuilding **64 source programs, 128 paired true-world states, 1,179,648 component plans, 1,179,648 weighted component hit decisions and 4,352 direct integer witness comparisons**. The independent source means, direction wins and all five original scientific gates match the byte-frozen first grader. The authenticated future-output oracle remains a synthetic external premise.
 
 The next research frontier is **true witness provenance** and program-family novelty beyond the constructed hidden suffix. A future registered study could model the cost of obtaining authenticated output coefficients, or compare hidden target evidence under an actual cryptographic commitment or external oracle. Keep this prospective NOR42 first score and its thresholds unchanged.
