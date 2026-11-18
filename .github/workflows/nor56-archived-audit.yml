@@ -1,0 +1,29 @@
+name: NOR-56 permanent read-only original signed v2 3-of-5 FAIL SHA audit
+
+on:
+  push:
+    paths:
+      - 'research/nor56_batch_codec/results/**'
+      - 'research/nor56_batch_codec/original_archive_audit.py'
+      - '.github/workflows/nor56-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor56_batch_codec/results/**'
+      - 'research/nor56_batch_codec/original_archive_audit.py'
+      - '.github/workflows/nor56-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  immutable_original_first_signed_batch_v2_source_CPU_and_3_of_5_FAIL:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit first raw source/CPU SHA, full vectors, original failed speed gates and untimed phases
+        run: python research/nor56_batch_codec/original_archive_audit.py
