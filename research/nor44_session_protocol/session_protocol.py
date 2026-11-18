@@ -241,12 +241,22 @@ class VerifierSession:
 
     def _require(self,phase,now_epoch):
         if self.phase!=phase:
-            raise SessionError(f"invalid phase: expected {phase}, found {self.phase}")
-        _require_not_expired(self.context,now_epoch)
+            prior=self.phase
+            self.phase="failed"
+            raise SessionError(f"invalid phase: expected {phase}, found {prior}")
+        try:
+            _require_not_expired(self.context,now_epoch)
+        except Exception:
+            self.phase="failed"
+            raise
 
     def precommit(self,model_proposal_sha256, *, now_epoch):
         self._require("created",now_epoch)
-        digest=_hex_digest(model_proposal_sha256,"model proposal")
+        try:
+            digest=_hex_digest(model_proposal_sha256,"model proposal")
+        except Exception:
+            self.phase="failed"
+            raise
         receipt=_sign("precommit",{
             "protocol":RECEIPT_PROTOCOL,
             "context":dict(self.context),
