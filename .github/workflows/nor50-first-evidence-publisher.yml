@@ -1,0 +1,145 @@
+name: NOR-50 one-shot immutable first CPU 4-of-5 FAIL publisher
+
+on:
+  push:
+    branches:
+      - research/nor50-memoized-exact-cpu-20261118
+    paths:
+      - '.github/workflows/nor50-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_first_64_source_engineering_fail:
+    if: github.ref == 'refs/heads/research/nor50-memoized-exact-cpu-20261118' && contains(github.event.head_commit.message, 'NOR50-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor50-memoized-exact-cpu-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor50_first_64_fresh_memoized_exact_cpu
+          run-id: 44265466762
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor50_original
+      - name: Freeze original raw evidence bytes into compressed source-controlled ZIP
+        run: |
+          test ! -e research/nor50_memoized_exact/results/nor50_first_original_hosted.zip
+          mkdir -p research/nor50_memoized_exact/results
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          from hashlib import sha256
+          source=Path('/tmp/nor50_original')
+          cpu=(source/'nor50_first_original_cpu.json').read_bytes()
+          fixture=(source/'nor50_first_public_only_fixture.json').read_bytes()
+          assert len(cpu)==118129 and sha256(cpu).hexdigest()=='69344bc6be09246296a5d6c0ac2e22b58031da2ed303f67be69d49bd78cb7f2e'
+          assert len(fixture)==9428144 and sha256(fixture).hexdigest()=='5a64a6d0ff9d9a4d74535443bc02b1d069cb6bc76b441da35acdb016dd1d9a93'
+          x=json.loads(cpu)
+          assert x['registration_first_commit']=='a3b7a211e312235f8e9363612aff4173f50a3a4e'
+          assert x['source_only_first_sha256']==sha256(fixture).hexdigest()
+          assert x['source_count']==64 and x['repeat_count']==5
+          assert len(x['five_first_registered_gates'])==5
+          assert x['first_engineering_pass'] is False
+          assert sum(x['five_first_registered_gates'].values())==4
+          out=Path('research/nor50_memoized_exact/results')
+          archive=out/'nor50_first_original_hosted.zip'
+          with ZipFile(archive,'w',compression=ZIP_DEFLATED,compresslevel=9) as z:
+              for name,raw in [('nor50_first_original_cpu.json',cpu),
+                               ('nor50_first_public_only_fixture.json',fixture)]:
+                  info=ZipInfo(name,date_time=(1980,1,1,0,0,0))
+                  info.compress_type=ZIP_DEFLATED
+                  z.writestr(info,raw,compress_type=ZIP_DEFLATED,compresslevel=9)
+          receipt={
+            'schema':'nor50.first_original_cpu_archive.v1',
+            'first_run':44265466762,
+            'first_artifact_id':14409649467,
+            'first_public_roster_artifact_id':14409798029,
+            'first_registration_sha':'a3b7a211e312235f8e9363612aff4173f50a3a4e',
+            'raw_cpu_bytes':118129,
+            'raw_cpu_sha256':'69344bc6be09246296a5d6c0ac2e22b58031da2ed303f67be69d49bd78cb7f2e',
+            'raw_source_bytes':9428144,
+            'raw_source_sha256':'5a64a6d0ff9d9a4d74535443bc02b1d069cb6bc76b441da35acdb016dd1d9a93',
+            'archive_zip_bytes':archive.stat().st_size,
+            'archive_zip_sha256':sha256(archive.read_bytes()).hexdigest(),
+            'original_gates':x['five_first_registered_gates'],
+            'original_engineering_pass':False,
+            'original_multi_R_count':x['by_R_stratum']['at_least_two']['count'],
+            'original_multi_R_cached_over_direct':x['by_R_stratum']['at_least_two']['median_cached_over_original'],
+            'original_multi_R_gmp_over_cached':x['by_R_stratum']['at_least_two']['median_gmp_over_cached'],
+            'original_low_R_cached_over_direct':x['by_R_stratum']['at_most_one']['median_cached_over_original'],
+            'original_secondary_workload':x['secondary_workload_totals_and_bootstrap'],
+            'scope':'Historical grammar, new synthetic public sources, nonsuccinct exact CPU. Trusted reference provider and honest authority external.'
+          }
+          (out/'nor50_first_receipt.json').write_text(json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          print('NOR50 immutable first raw SHA',receipt['raw_cpu_sha256'])
+          print('NOR50 source-first SHA',receipt['raw_source_sha256'])
+          print('NOR50 original engineering 4/5 FAIL')
+          PY
+      - name: Permanent independent original SHA, gate, and ratio audit
+        run: python research/nor50_memoized_exact/original_archive_audit.py
+      - name: Preserve findings with original FAIL distinguished from secondary diagnostics
+        run: |
+          cat > research/nor50_memoized_exact/RESULTS.md <<'EOF'
+          # NOR-50: memoization-controlled exact inverse CPU benchmark
+
+          **First original engineering verdict: FAIL (4/5 registered gates).** The source-registered [first hosted run #44265466762](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44265466762) completed 64 new source identities in 16 replicate blocks 200–215, with all four exact output vector and independent Merkle-root arms matching. Registration [a3b7a211](https://github.com/MoralityLabAI/Compactification-Theory/commit/a3b7a211e312235f8e9363612aff4173f50a3a4e) predates first source generation and timing. Source-only roster was uploaded and SHA-frozen before any CPU job.
+
+          ## Immutable original first-run evidence
+          - The original CPU JSON is **118,129 bytes** with SHA256 `69344bc6be09246296a5d6c0ac2e22b58031da2ed303f67be69d49bd78cb7f2e`.
+          - The original 64-source public-only fixture is **9,428,144 bytes** with SHA256 `5a64a6d0ff9d9a4d74535443bc02b1d069cb6bc76b441da35acdb016dd1d9a93`.
+          - Both byte-identical files are retained in [results/nor50_first_original_hosted.zip](results/nor50_first_original_hosted.zip), whose independent ZIP SHA is captured in [results/nor50_first_receipt.json](results/nor50_first_receipt.json). The [original_archive_audit.py](original_archive_audit.py) independently recomputes full-source counts, source-level median timing ratios, gate booleans, and byte hashes.
+          - Original artifact ID **14409649467**; first pre-CPU roster artifact ID **14409798029**.
+          - Signed-program/session/provider, root tampering and source controls run in an unchanged separate predata suite; all original exact/root comparisons passed. The public signing keys are research fixtures.
+
+          ## Five original registered gates
+          | Frozen gate | Original observed | Verdict |
+          | --- | ---: | --- |
+          | R>=2 memoized/direct sourcewise median <0.70 and n>=8 | 19 sources, **0.511636×** | PASS |
+          | R>=2 GMP/memoized sourcewise median <0.90 | **1.183263×** | **FAIL** |
+          | R<=1 memoized/direct sourcewise median <1.10 and n>=8 | 45 sources, **1.002072×** | PASS |
+          | Exact vectors/root parity and deduplication/signed controls | **64/64**, predata green | PASS |
+          | New disjoint source, upstream SHA, reentrancy, 5 repeats | **64 sources, 16 blocks** | PASS |
+
+          Signed active-R counts were 17 zero-R, 28 one-R, 16 two-R, and three three-R programs. For R>=2, the NOR45 memoized native executor was approximately 48.8% faster than the repeated-recomputation original. NOR47 GMP full-trace verification was **18.3% slower** than cached direct on the same sourcewise-median criterion. Part of NOR47–49's apparent GMP advantage therefore came from redundant inverse recomputation in the original NOR45 baseline. This is an engineering result on the registered finite synthetic source cohort.
+
+          ## Predeclared secondary matched-workload totals
+          Summing the 64 per-source median complete arithmetic+Merkle runtimes:
+          | Exact backend | Sum of source-median runtimes | Ratio to NOR45 |
+          | --- | ---: | ---: |
+          | NOR45 original direct | 5548.319 ms | 1.000× |
+          | NOR50 memoized exact native | **4068.977 ms** | **0.733371×** |
+          | NOR49 count-R dispatcher | 4912.469 ms | 0.885398× |
+          | NOR47 full GMP trace | 7487.768 ms | 1.349556× |
+
+          The 8,192-resample 16-replicate-block descriptive bootstrap interval for the memoized/original matched-workload ratio was **[0.6580, 0.8261]**. These secondary workload totals illuminate a mixed program population and never replace the original registered **4/5 FAIL**. Trace production times and transparent payload bytes are recorded separately, outside each equally charged arithmetic+root arm.
+
+          ## Next mechanism direction
+          Use the cached native executor as the direct-computation comparator in later exact-verifier studies. Test high-bit-width and longer series on a new precommitted cohort before claiming an asymptotic GMP advantage, and account for trace production/transfer, source-aware routing, and independent signed provider checks. The current transparent witness is nonsuccinct and neither honest-program authority nor external true-future correctness is established by these synthetic CPU results.
+          EOF
+      - name: Commit exact first original ZIP, signed receipt, and negative result report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor50_memoized_exact/results/nor50_first_original_hosted.zip \
+                  research/nor50_memoized_exact/results/nor50_first_receipt.json \
+                  research/nor50_memoized_exact/RESULTS.md
+          git commit -m 'NOR-50: archive immutable first 64-source GMP residual gate FAIL'
+          for i in $(seq 1 12); do
+            git fetch origin research/nor50-memoized-exact-cpu-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor50-memoized-exact-cpu-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
