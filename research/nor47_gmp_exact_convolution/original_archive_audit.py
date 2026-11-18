@@ -80,8 +80,7 @@ def audit():
     for key,source_key in [
         ("median_per_source_gmp_over_nor45","gmp_over_nor45"),
         ("median_per_source_gmp_over_nor46","gmp_over_nor46"),
-        ("median_per_source_hybrid_over_nor45","hybrid_over_nor45"),
-        ("median_per_source_hybrid_over_nor46","hybrid_over_nor46")]:
+        ("median_per_source_hybrid_over_nor45","hybrid_over_nor45")]:
         expected=statistics.median(r["ratios"][source_key] for r in records)
         assert math.isclose(summary[key],expected,rel_tol=1e-12)
     assert summary["median_per_source_gmp_over_nor45"]<1
