@@ -1,0 +1,197 @@
+name: NOR-53 one-shot immutable original first 5-of-5 PASS evidence publisher
+
+on:
+  push:
+    branches:
+      - research/nor53-native-gmp-pack-20261118
+    paths:
+      - '.github/workflows/nor53-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_first_original_gmp_pack_pass:
+    if: github.ref == 'refs/heads/research/nor53-native-gmp-pack-20261118' && contains(github.event.head_commit.message, 'NOR53-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor53-native-gmp-pack-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor53_first_original_60_native_pack_CPU
+          run-id: 44282552137
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor53_first
+      - name: Preserve raw first source/CPU JSON bytes with original registered PASS
+        run: |
+          set -eu
+          test ! -e research/nor53_native_pack/results/nor53_first_original_hosted.zip
+          mkdir -p research/nor53_native_pack/results
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          folder=Path('/tmp/nor53_first')
+          cpu=(folder/'nor53_first_original_cpu.json').read_bytes()
+          public=(folder/'nor53_first_original_60_public_sources.json').read_bytes()
+          assert len(cpu)==142008
+          assert sha256(cpu).hexdigest()=='b1e4f810624568af8b53794fa9e0a4890961f7f6b5f8dbd3d4c766e511974dee'
+          assert len(public)==1473688
+          assert sha256(public).hexdigest()=='b7e65cdacefced6fcf1084922fdaeaaa4da5af1cf9066681471e4be1cd99ad61'
+          x,src=json.loads(cpu),json.loads(public)
+          assert x['schema']=='nor53.first_60_source_native_gmp_packed_cpu.v1'
+          assert src['schema']=='nor53.first_60_public_only_native_gmp_sources.v1'
+          assert x['first_registration_sha']==src['first_registration_sha']=='ae56f414251a8485d127fc8f9899a24237870adf'
+          assert x['first_public_only_source_sha256']==sha256(public).hexdigest()
+          assert x['source_count']==x['source_success_count']==60
+          assert x['source_failure_count']==0
+          assert len(x['first_original_five_registered_gates'])==5
+          assert all(x['first_original_five_registered_gates'].values())
+          assert x['first_original_engineering_pass'] is True
+          dest=Path('research/nor53_native_pack/results')
+          archive=dest/'nor53_first_original_hosted.zip'
+          with ZipFile(archive,'w',compression=ZIP_DEFLATED,compresslevel=9) as z:
+              for filename,raw in (
+                 ('nor53_first_original_cpu.json',cpu),
+                 ('nor53_first_original_60_public_sources.json',public)):
+                  info=ZipInfo(filename,date_time=(1980,1,1,0,0,0))
+                  info.compress_type=ZIP_DEFLATED
+                  z.writestr(info,raw,compress_type=ZIP_DEFLATED,compresslevel=9)
+          all60=x['overall']
+          high=x['primary_longest_high_width']
+          sparse=x['primary_sparse']
+          primary={
+             'median_all_60_fast_full_over_original_full':
+                 all60['median_fast_full_over_original_full'],
+             'median_eight_longest_high_bit_fast_full_over_original':
+                 high['median_fast_full_over_original_full'],
+             'median_48_sparse_fast_compressed_over_original':
+                 sparse['median_fast_compressed_over_original_compressed']
+          }
+          receipt={
+             'schema':'nor53.first_original_60_source_cpu_archive.v1',
+             'original_run':44282552137,
+             'first_cpu_artifact_id':14418133716,
+             'first_source_only_artifact_id':14416469176,
+             'first_registration_sha':'ae56f414251a8485d127fc8f9899a24237870adf',
+             'raw_cpu_bytes':142008,
+             'raw_cpu_sha256':'b1e4f810624568af8b53794fa9e0a4890961f7f6b5f8dbd3d4c766e511974dee',
+             'raw_public_source_bytes':1473688,
+             'raw_public_source_sha256':'b7e65cdacefced6fcf1084922fdaeaaa4da5af1cf9066681471e4be1cd99ad61',
+             'archive_zip_bytes':archive.stat().st_size,
+             'archive_zip_sha256':sha256(archive.read_bytes()).hexdigest(),
+             'original_five_registered_gates':x['first_original_five_registered_gates'],
+             'original_first_engineering_pass':True,
+             'original_primary_results':primary,
+             'original_by_length':x['by_length'],
+             'original_by_profile':x['by_profile'],
+             'original_secondary_source_median_workload':x['secondary_ten_block_workload'],
+             'original_runtime':{'cpu_model':x['cpu_model'],
+                                  'python_version':x['python_version'],
+                                  'gmp':x['gmp_dependency_and_fast_backend']},
+             'scope':'Algebra-only transparent exact signed integer witnesses on 60 new synthetic inputs; full roots and resource caps; no m3073 signed-program extension.'
+          }
+          (dest/'nor53_first_receipt.json').write_text(
+              json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          def ratio(value):
+              return f'{value:.6f}x'
+          groups=x['by_profile']
+          lines=[
+            '# NOR-53: first preregistered native GMP pack/unpack exact CPU result',
+            '',
+            '**First original engineering result: PASS, all 5/5 registered gates.**',
+            '',
+            'First [GitHub Actions run #44282552137](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44282552137) completed 60 SHA-disjoint source-only inputs with five interleaved four-arm exact signed CPU comparisons. All complete output integer vectors and original full-length independent Merkle roots matched, with previously verified adversarial source/witness controls. The [registration commit ae56f414](https://github.com/MoralityLabAI/Compactification-Theory/commit/ae56f414251a8485d127fc8f9899a24237870adf) precedes the first source-only job and the first CPU timing.',
+            '',
+            '## Original immutable evidence',
+            '',
+            '- Original first CPU JSON: **142,008 bytes**, SHA256 `b1e4f810624568af8b53794fa9e0a4890961f7f6b5f8dbd3d4c766e511974dee`.',
+            '- Original public-only 60-source fixture: **1,473,688 bytes**, SHA256 `b7e65cdacefced6fcf1084922fdaeaaa4da5af1cf9066681471e4be1cd99ad61`.',
+            '- Both original byte streams appear unchanged in [results/nor53_first_original_hosted.zip](results/nor53_first_original_hosted.zip). Independent [first receipt](results/nor53_first_receipt.json) pins the ZIP SHA and first gate values; the permanent [original_archive_audit.py](original_archive_audit.py) recalculates source medians, exact full roots and source hashes without retiming.',
+            '- First source-only artifact **14416469176** uploaded in the upstream job. First original full CPU artifact **14418133716**. Hosted Python 3.12, gmpy2 2.3.2, same-run five-repeat full-output/root arithmetic; shared session/signature/transport costs excluded equally.',
+            '',
+            '## Original five frozen engineering gates',
+            '',
+            '| Registered gate | Original first observation | Verdict |',
+            '| --- | ---: | --- |',
+            f'| Median fast full GMP/original full GMP on 60 sources <0.70 | **{ratio(primary["median_all_60_fast_full_over_original_full"])}** | PASS |',
+            f'| Eight m3073 high-bit sources fast full/original full <0.50 | **{ratio(primary["median_eight_longest_high_bit_fast_full_over_original"])}** | PASS |',
+            f'| All 48 sparse fast compressed/original compressed GMP <0.85 | **{ratio(primary["median_48_sparse_fast_compressed_over_original"])}** | PASS |',
+            '| All exact signed vectors/full Merkle roots and forged witness/resource controls | **60/60 + predata** | PASS |',
+            '| Source-first SHA, original caps, five interleaved repeats and unchanged NOR46 process-global verifier | **PASS** | PASS |',
+            '',
+            'The first sourcewise-median full exact verification ratio corresponds to an **85.7% reduction in time** using GMP native pack/unpack. Among the eight longest, high-bit cases, the sourcewise-median ratio **0.072464x** represents a 92.8% reduction. On all sparse sources, adding the fast native digit packing/extraction on top of NOR52 support compression reduced complete GMP verifier time by about 40.3%.',
+            '',
+            '## By-profile original fixed source medians',
+            '',
+            '| Profile | Source count | Fast full / original full | Fast compressed / original compressed |',
+            '| --- | ---: | ---: | ---: |'
+          ]
+          for name in ('s1-b2','s4-b2','s8-b2','s4-b8','s4-b16'):
+              item=groups[name]
+              lines.append(
+                f'| {name} | {item["count"]} | '
+                f'{ratio(item["median_fast_full_over_original_full"])} | '
+                f'{ratio(item["median_fast_compressed_over_original_compressed"])} |')
+          lines+=['','## Predeclared secondary matched-workload totals','',
+                  '| Complete exact verifier arm | Sum of 60 source-median CPU times | Ratio to original full GMP |',
+                  '| --- | ---: | ---: |']
+          totals=x['secondary_ten_block_workload']['source_median_total_ms']
+          baseline=totals['original_full_gmp_root']
+          for name,label in (
+             ('original_full_gmp_root','Original NOR47 full GMP'),
+             ('fast_full_gmp_root','NOR53 fast full GMP'),
+             ('original_compressed_gmp_root','NOR52 original compressed GMP'),
+             ('fast_compressed_gmp_root','NOR53 fast compressed GMP')):
+              lines.append(f'| {label} | {totals[name]:.3f} ms | {totals[name]/baseline:.6f}x |')
+          lines+=[
+            '',
+            'These are sums of individual source medians, a predeclared secondary throughput diagnostic; the registered engineering criterion uses sourcewise median ratios. Ten matched replicate/profile block bootstrap intervals remain inside the raw first JSON. No first performance gate is changed by these secondary totals.',
+            '',
+            '## Mechanism and limitations',
+            '',
+            'The original NOR47 exact carry-free signed Kronecker multiplication formula and full coefficient/packed-bit resource caps are unchanged. gmpy2.pack/unpack replace repeated Python-loop shifts and extraction while preserving exact signed cross-term correction. This experiment measures the implemented GMP packing API under one hosted Linux CPU, not an asymptotic theorem or a universal runtime guarantee.',
+            '',
+            'The reference full exact inverse was independently generated outside every timed verifier arm, with production/serialization costs recorded separately in the original JSON. All four timed arms validate an untrusted full witness, return the same complete integer vector and rebuild its original full independent Merkle root. The compressed fast arm separately checks the original full witness and source support before shortening the convolution, including the original full resource caps.',
+            '',
+            'This is a transparent, nonsuccinct exact algebra-only kernel experiment. It does not extend NOR45 signed native program grammar to m3073, authenticate an external provider, prove true-world honesty, establish zero knowledge, or include network/signature/transport costs in these CPU ratios.',
+            '',
+            '## Next controlled frontier',
+            '',
+            'Evaluate whether compressed native recurrence and fast native GMP verification cross over by precision/density using a new timing-clean panel. The existing NOR52 compressed-native baseline and the NOR53 fast-GMP source cohorts have different identities/hardware runs and should be compared only through a new same-run controlled benchmark. Add witness serialization/transport and full signed-program acceptance costs as separately reported integration work.',
+            ''
+          ]
+          Path('research/nor53_native_pack/RESULTS.md').write_text('\n'.join(lines))
+          print('NOR53 ORIGINAL FIRST SOURCE SHA',receipt['raw_public_source_sha256'])
+          print('NOR53 ORIGINAL FIRST CPU SHA',receipt['raw_cpu_sha256'])
+          print('NOR53 ORIGINAL FIRST FIVE GATES',receipt['original_five_registered_gates'])
+          print('NOR53 FIRST ENGINEERING PASS 5/5',receipt['original_first_engineering_pass'])
+          PY
+      - name: Independently verify original raw SHA, all source timing ratios and first gate values
+        run: python research/nor53_native_pack/original_archive_audit.py
+      - name: Commit first original raw exact CPU/source bytes and original PASS unchanged
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor53_native_pack/results/nor53_first_original_hosted.zip \
+                  research/nor53_native_pack/results/nor53_first_receipt.json \
+                  research/nor53_native_pack/RESULTS.md
+          git commit -m 'NOR-53: preserve first original 60-source native GMP 5-of-5 PASS'
+          for i in $(seq 1 12); do
+            git fetch origin research/nor53-native-gmp-pack-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor53-native-gmp-pack-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
