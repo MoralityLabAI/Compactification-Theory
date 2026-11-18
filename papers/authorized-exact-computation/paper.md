@@ -243,6 +243,8 @@ NOR-60 closes the engineering sequence with a factorial comparison inside the si
 | C | Support-compressed, unary results reused within the call | Fresh complete tree |
 | D | Support-compressed, unary results reused within the call | Warm static geometry |
 
+: The two-by-two NOR-60 design. Each arm runs the same signed authorization checks.
+
 The fixed panel has two observed degrees, three source strides, five program profiles, and two sign replicates, giving 60 cases. Forty have sparse support. Profile P4 requests R in each of the base, left, and right positions and adds an N suffix, giving 12 repeated-reciprocal cases. Three performance gates require the sparse C/A median below 0.70, the complete D/A workload ratio below 0.80, and the P4 C/A median below 0.65. Exact full-vector/root parity and preservation of the first evidence supply the remaining gates [NOR60REG].
 
 Before new source generation, the archive loader checked 588 original NOR-51 through NOR-59 query vectors using a schema-independent content digest. The historical program/input audit additionally covers the 60 NOR-59 rows that contain a program. Earlier reciprocal-only records supply full query content without a program specification. New records must be unique and disjoint at each applicable level. This extends the previous record-hash exclusion to the actual full vectors; algebraic or isomorphism equivalence remains outside that exact-content test.

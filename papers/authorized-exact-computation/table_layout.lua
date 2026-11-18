@@ -18,3 +18,12 @@ function Table(t)
   end
   return t
 end
+
+-- Flush the NOR-60 figures before the gym section begins in the PDF.
+function Header(h)
+  if FORMAT:match("latex") and h.level == 2
+      and pandoc.utils.stringify(h.content):match("^7%. Authorized Exact Gym") then
+    return {pandoc.RawBlock("latex", "\\clearpage"), h}
+  end
+  return h
+end
