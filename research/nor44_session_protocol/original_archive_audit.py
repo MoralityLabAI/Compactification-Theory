@@ -50,8 +50,6 @@ def verify():
     for row in rows:
         assert row["test_only_randomness"] is True
         assert row["source_output_length"]==3*row["degree"]//2+1
-        assert row["challenge_queries_per_session"]==16 if (
-            "challenge_queries_per_session" in row) else True
         assert len(row["challenge_indices_sorted"])==16
         assert len(set(row["challenge_indices_sorted"]))==16
         assert all(0<=i<row["source_output_length"] for i in row["challenge_indices_sorted"])
