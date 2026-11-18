@@ -101,5 +101,86 @@ class NOR48Dispatch(unittest.TestCase):
         self.assertEqual(verifier.verified_trace_values(trace,query,program,d),hidden)
 
 
+    def test_full_signed_source_session_program_provider_and_root_controls(self):
+        from hashlib import sha256
+        from research.nor42_paired_program_ood.prospective import experiment as nor42
+        from research.nor43_authenticated_witness import signed_witness as trees
+        from research.nor44_session_protocol import session_protocol as session
+        from research.nor45_authorized_program import program_authority as authority
+        from research.nor45_authorized_program import historical_smoke as historic
+        fixture,grade=old.nor45.load_original()
+        cases={r["full_public_input_sha256"]:r for r in fixture["cases"]}
+        pin_provider=trees.test_reference_public_key()
+        pin_verifier=session.public_key_bytes(session.test_verifier_private_key())
+        signer=authority.test_authority_private_key()
+        pin_authority=authority.public_key_of(signer)
+        for expected_route in ("nor45_direct","gmp_full_trace"):
+            program,query,d,transcript,hidden=next(
+                case for case in self.examples if
+                new.authorized_routing_key(case[0],case[2],len(case[1]))==expected_route)
+            source=next((row for row in cases.values()
+                if row["public_query_input"]==list(query) and row["degree"]==d))
+            sha=source["full_public_input_sha256"]
+            proposed=nor42.nor37.public_proposal(source)["pred"]
+            sess=session.VerifierSession(
+                source_sha256=sha,observed_degree=d,
+                coefficient_count=len(query),provider_id=trees.PROVIDER_ID,
+                pinned_provider_public_key=pin_provider,
+                verifier_signing_key=session.test_verifier_private_key(),
+                expires_epoch=100,
+                nonce=sha256(("NOR48/SIGNED-SESSION/"+sha).encode()).digest(),
+                test_only=True)
+            pre=sess.precommit(session.proposal_digest(proposed,sess.context),now_epoch=1)
+            true_tree=trees.OutputTree(hidden)
+            reference=session.sign_provider_reference(
+                true_tree,pre,sess.context,pin_verifier,
+                trees.test_private_key(),now_epoch=2)
+            cert=authority.sign_authorized_program(
+                program=program,query=query,context=sess.context,
+                precommit_receipt=pre,pinned_verifier_public_key=pin_verifier,
+                expected_output_merkle_root=true_tree.root.hex(),
+                program_authority_signer=signer,now_epoch=2)
+            args=dict(
+                certificate=cert,untrusted_trace=transcript,query=query,
+                session_context=sess.context,precommit_receipt=pre,
+                provider_reference=reference,
+                pinned_program_authority_key=pin_authority,
+                expected_program_authority_id=authority.TEST_AUTHORITY_ID,
+                pinned_verifier_public_key=pin_verifier,
+                pinned_provider_public_key=pin_provider,now_epoch=2)
+            matched=new.verify_authorized_dispatch(**args)
+            self.assertEqual(matched["values"],hidden)
+            self.assertEqual(matched["root_sha256"],true_tree.root.hex())
+            self.assertEqual(matched["backend"],expected_route)
+            for hint in ("gmp_full_trace","nor45_direct","untrusted"):
+                self.assertEqual(new.verify_authorized_dispatch(
+                    **args,unsigned_backend_hint=hint)["backend"],expected_route)
+            bad=copy.deepcopy(cert)
+            bad["signature_hex"]="00"*64
+            with self.assertRaises((ValueError,TypeError)):
+                new.verify_authorized_dispatch(**{**args,"certificate":bad})
+            with self.assertRaises((ValueError,TypeError)):
+                new.verify_authorized_dispatch(**{
+                    **args,"expected_program_authority_id":"ATTACKER"})
+            bad_ref=session.sign_provider_reference(
+                trees.OutputTree(proposed),pre,sess.context,pin_verifier,
+                trees.test_private_key(),now_epoch=2)
+            with self.assertRaises((ValueError,TypeError)):
+                new.verify_authorized_dispatch(**{
+                    **args,"provider_reference":bad_ref})
+            if expected_route=="nor45_direct":
+                bad_trace=copy.deepcopy(transcript)
+                bad_trace["output_coefficients"][-1]="9000000"
+                self.assertEqual(new.verify_authorized_dispatch(
+                    **{**args,"untrusted_trace":bad_trace})["values"],hidden)
+            else:
+                bad_trace=copy.deepcopy(transcript)
+                bad_trace["unary_transforms"]["R"][-1]=str(
+                    int(bad_trace["unary_transforms"]["R"][-1])+1)
+                with self.assertRaises((ValueError,TypeError)):
+                    new.verify_authorized_dispatch(**{
+                        **args,"untrusted_trace":bad_trace})
+
+
 if __name__=="__main__":
     unittest.main()
