@@ -89,14 +89,20 @@ class NOR44SyntheticSessionTest(unittest.TestCase):
         self.prepare(s)
         with self.assertRaises(p.SessionError):
             s.precommit(p.proposal_digest(self.hidden,s.context),now_epoch=7)
-        s.challenge(now_epoch=7,test_indices=self.challenge)
-        with self.assertRaises(p.SessionError):
-            s.finish(self.hidden,[self.true_tree.opening(i)
-                                 for i in self.challenge],now_epoch=7)
         self.assertEqual(s.phase,"failed")
         with self.assertRaises(p.SessionError):
-            s.finish(self.clean,[self.true_tree.opening(i)
-                                 for i in self.challenge],now_epoch=7)
+            s.challenge(now_epoch=7,test_indices=self.challenge)
+        # Separate valid session: a changed post-root reveal fails and cannot retry.
+        fresh=self.session(nonce=b"r"*32)
+        self.prepare(fresh)
+        fresh.challenge(now_epoch=7,test_indices=self.challenge)
+        with self.assertRaises(p.SessionError):
+            fresh.finish(self.hidden,[self.true_tree.opening(i)
+                                    for i in self.challenge],now_epoch=7)
+        self.assertEqual(fresh.phase,"failed")
+        with self.assertRaises(p.SessionError):
+            fresh.finish(self.clean,[self.true_tree.opening(i)
+                                    for i in self.challenge],now_epoch=7)
 
     def test_unrequested_individually_valid_proofs_fail(self):
         s=self.session()
