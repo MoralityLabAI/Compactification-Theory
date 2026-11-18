@@ -13,3 +13,5 @@ Five preregistered engineering gates cover 48-source exact output/root parity, l
 NOR51 tests a synthetic exact arithmetic kernel and is **not** a complete authorized native verifier at 3073 coefficients. NOR45 signed authority, external provider honesty, session transport and real-world witness security remain outside the claims.
 
 **First timing state:** the runner is armed only by a source-commit message `NOR51-FIRST-CPU` after the source-free tests pass. The first 48-source roster must be separately uploaded before the dependent CPU measurement begins.
+
+**First original source and CPU trigger:** predata CI passed on the frozen implementation, including exact Newton parity against quadratic inverses and malicious witness/resource checks. This commit starts the first source-only 48-case SHA freeze; only its dependent job may subsequently execute first NOR51 CPU timings. The original PASS/FAIL verdict and raw SHA will be retained without changing the registered gates.
