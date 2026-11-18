@@ -42,7 +42,7 @@ def main():
     assert fixture["source_domain"]=="NOR57B/SOURCE/v1"
     assert fixture["source_count"]==x["source_count"]==x["source_success_count"]==60
     assert x["source_failure_count"]==0
-    assert fixture["excluded_original_source_IDs"]==x["previous_original_source_exclusions"]==408
+    assert fixture["excluded_original_source_IDs"]==408 and x["previous_original_source_exclusions"]==348
     assert x["selector_native_count"]==8 and x["selector_gmp_count"]==52
     assert len(x["source_records"])==60 and x["repeat_count"]==5
     assert x["original_five_registered_gates"]==EXPECTED_GATES
@@ -85,6 +85,7 @@ def main():
         "original_workload_ms":totals,
         "original_profile_stats":x["by_profile"],
         "original_secondary_ten_block":x["secondary_ten_block_workload"],
+        "source_exclusions_metadata_discrepancy":{"original_CPU_metadata_reports":348,"upstream_public_roster_and_source_check_excluded":408},
         "prior_original_NOR57_unscored_FAIL_archive_SHA256":
             "d6feae134d340a4f15535b4bcc14e9800da3d559213f51203895c1c0c70b72c5",
         "limitations":"Synthetic exact integer transparent signed test-fixture witness; original NOR57 first run unscored reporting FAIL; m3073 outside signed NOR45 grammar; no off-host honest provider."
@@ -129,6 +130,10 @@ def main():
       f"| **All 60 inputs** | **{totals['always_fast_GMP_signed_v2']:.3f}** | **{totals['frozen_public_selector_signed_v2']:.3f}** |",
       "",
       "Native-selected cases saved about **38.9 ms**, while remaining GMP-routed cases incurred about **14.5 ms** in aggregate. The net **24.4 ms** saved across the 60-source matched workload explains the 0.989961× total ratio. The *always-native* whole-panel sum was much larger, making unrestricted native recomputation expensive on this source distribution. All totals are sums of original per-source five-repeat medians. Ten matched replicate/profile-block descriptive bootstrap intervals remain in the first raw CPU JSON.",
+      "",
+      "## Original first CPU metadata caveat",
+      "",
+      "The unchanged original first CPU JSON inherited a descriptive \\`previous_original_source_exclusions: 348\\` field from NOR57. The independently SHA-frozen NOR57B source fixture records **408** prior IDs, and NOR57B source generation/benchmark admission checked the **408-ID historical set** before timing. This archival metadata mismatch is recorded explicitly without altering either original raw JSON or any original five Boolean gates.",
       "",
       "## Original fixed source profiles",
       "",
