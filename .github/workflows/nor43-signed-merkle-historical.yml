@@ -81,3 +81,42 @@ jobs:
           path: /tmp/nor43_archived_64_merkle.json
           if-no-files-found: error
           retention-days: 90
+
+
+  historical_reference_verify_timing:
+    needs: historical_nor42_64_pair_sparse_proof_smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned cryptography dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Time signed-manifest verification and exact challenged k16 Merkle openings
+        run: |
+          python -u research/nor43_authenticated_witness/benchmark_reference.py \
+            --out /tmp/nor43_historical_verify_timing.json
+          python - <<'PY'
+          from pathlib import Path
+          import json,math
+          x=json.loads(Path('/tmp/nor43_historical_verify_timing.json').read_bytes())
+          assert x['schema']=='nor43.historical_reference_verify_timing_exploratory.v1'
+          assert x['historical_source_pairs']==16
+          assert x['new_nor43_source_identifiers']==0
+          assert x['repetitions_per_pair']==24
+          assert x['original_first_smoke_sha256']==(
+             'f7ff23b0ba47eca3607233fe32b61114247bce02561f15ff1b67360950007145')
+          assert all(r['median_signature_and_manifest_verify_microseconds']>0
+                     and r['median_16_openings_verify_microseconds']>0
+                     and r['p95_16_openings_verify_microseconds']>0
+                     for r in x['per_source'])
+          print('NOR43 HOSTED TIMING RECEIPT',x['summary'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor43_historical_verifier_cpu_timing
+          path: /tmp/nor43_historical_verify_timing.json
+          retention-days: 90
+          if-no-files-found: error
