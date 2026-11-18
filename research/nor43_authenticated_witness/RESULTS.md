@@ -31,6 +31,16 @@ The per-source **exact** hit probability comes from `1−C(m−s,16)/C(m,16)` fo
 
 The signed root's JSON manifest-plus-signature envelope was **569 bytes** for every source (including 64 signature bytes and one 32-byte binary Merkle root represented as 64 hex characters). Each source used 16 independently serialized Merkle paths, with mean depth **10.5** (future output lengths 769 and 1537, yielding path lengths 10 and 11). The signed envelope and the opening array together average **13,625.4 JSON bytes per 16-query audit**, excluding request transport and independent authorized key provisioning. Shared tree siblings are duplicated because the prototype uses separate per-leaf proofs. Batch multiproofs and actual verification-time distribution remain future engineering work.
 
+## Post-evidence challenge-binding repair
+
+The original historical smoke's trusted test harness returned exactly the sixteen requested openings. A subsequent independent review found that the first verifier API accepted *any* set of sixteen distinct valid openings under the authorized root without comparing their indices to the verifier's own independent challenge. A malicious prover could therefore substitute easy-index openings and evade a challenge that included a true discrepancy. The [security audit](SECURITY_REVIEW.md) documents this defect and its chronology.
+
+The corrected [independent verifier](verifier_reference.py) requires keyword-only `challenged_indices` supplied from trusted verifier state and checks complete returned-set equality before accepting any opening. Adversarial regression tests pass a valid root with sixteen individually valid Merkle paths at the wrong coordinates and confirm that the verifier rejects the substitution. The original 110,749-byte first receipt and its 57/64 detection count remain byte-identical. The full historical smoke was rerun under the hardened API, and its original SHA is reproducible.
+
+A separate negative control constructs an authorized signature over an *incorrect* target vector. Both signature and Merkle inclusion verify, while the inferred clean proposal remains wrong under a different hidden true world. This confirms the distinction between an authenticated reference **commitment** and externally established reference **truth**.
+
+The [formal companion MathCan PR #143](https://github.com/patrickdugan/MathCan/pull/143) was merged at [`0d3fe32`](https://github.com/patrickdugan/MathCan/commit/0d3fe3208c3f3263a2d23de11dd623c5f1baa946). Lean proves exact sparse-hit equivalence under explicit root honesty, hash binding and opening soundness premises, and supplies the self-committed wrong-root counterexample. All theorems are kernel checked with no additional axioms. No cryptographic SHA-256 or Ed25519 security proof is claimed.
+
 ## Verified authorization boundary
 
 The original [signed_witness.py](signed_witness.py) producer commits each exact signed integer coefficient with index and output length, using explicit domain-separated hashes for leaves, internal nodes and index-specific padded leaves. The [independent verifier_reference.py](verifier_reference.py) independently checks:
