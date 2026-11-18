@@ -96,7 +96,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check cryptography==46.0.4
       - name: Time signed-manifest verification and exact challenged k16 Merkle openings
         run: |
-          python -u research/nor43_authenticated_witness/benchmark_reference.py \
+          python -u -m research.nor43_authenticated_witness.benchmark_reference \
             --out /tmp/nor43_historical_verify_timing.json
           python - <<'PY'
           from pathlib import Path
