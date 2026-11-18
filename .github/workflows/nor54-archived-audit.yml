@@ -1,0 +1,29 @@
+name: NOR-54 permanent original first 4-of-5 engineering FAIL SHA audit
+
+on:
+  push:
+    paths:
+      - 'research/nor54_matched_frontier/results/**'
+      - 'research/nor54_matched_frontier/original_archive_audit.py'
+      - '.github/workflows/nor54-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor54_matched_frontier/results/**'
+      - 'research/nor54_matched_frontier/original_archive_audit.py'
+      - '.github/workflows/nor54-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  first_original_CPU_and_source_SHA_negative_receipt:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read-only audit immutable original raw 60-source SHA and 4-of-5 FAIL
+        run: python research/nor54_matched_frontier/original_archive_audit.py

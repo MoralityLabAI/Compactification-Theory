@@ -1,0 +1,147 @@
+name: NOR-54 preregistered native compressed vs fast GMP same-run frontier
+
+on:
+  push:
+    branches:
+      - research/nor54-native-gmp-frontier-20261118
+    paths:
+      - 'research/nor54_matched_frontier/**'
+      - '.github/workflows/nor54-matched-frontier.yml'
+  pull_request:
+    paths:
+      - 'research/nor54_matched_frontier/**'
+      - '.github/workflows/nor54-matched-frontier.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  registration_and_source_free_native_witness_controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin original NOR53 GMP and prior signed runtimes
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Verify NOR54 registration predates every source and benchmark
+        run: |
+          git merge-base --is-ancestor 10e7ac3c3fdefec89d90d7a98a947099db8af86e HEAD
+          test -s research/nor54_matched_frontier/REGISTRATION.md
+      - name: Compile new exact benchmark, producer and source-only generator
+        run: python -m compileall -q research/nor54_matched_frontier
+      - name: Source-free exact full vector/root and malicious witness codec tests
+        run: python -m unittest research.nor54_matched_frontier.test_frontier -v
+      - name: Continue original NOR53 full/short kernel and old source SHA controls
+        run: |
+          python research/nor53_native_pack/original_archive_audit.py
+          python -m unittest research.nor53_native_pack.test_fast_kernel -v
+      - name: Continue unchanged NOR50 signed program and malicious authority controls
+        run: python -m unittest research.nor50_memoized_exact.test_cached -v
+      - name: Check original source-only grid contract without generating any fresh cases
+        run: |
+          python - <<'PY'
+          from research.nor54_matched_frontier import cohort
+          assert cohort.REGISTERED=='10e7ac3c3fdefec89d90d7a98a947099db8af86e'
+          assert len(cohort.REPS)*len(cohort.LENGTHS)*len(cohort.PROFILES)*len(cohort.FAMILIES)==60
+          assert len(cohort.first_previous_ids())==168
+          print('NOR54 original prospective predata and registration PASS')
+          PY
+
+  first_original_public_only_60_source_SHA_freeze:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR54-FIRST-CPU')
+    needs: registration_and_source_free_native_witness_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze first 60 NOR54 public-only source identities before any inverse/timing
+        run: |
+          python -u research/nor54_matched_frontier/cohort.py \
+            --public-only-out /tmp/nor54_first_original_60_public_only.json
+      - name: Independent source-only SHA, 168 historical exclusions and factorial grid
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from collections import Counter
+          from research.nor54_matched_frontier import cohort
+          p=Path('/tmp/nor54_first_original_60_public_only.json')
+          fixture,source_sha=cohort.read_fixture(p)
+          cases=fixture['cases']
+          assert len(cases)==len({r['source_sha256'] for r in cases})==60
+          assert Counter(r['length'] for r in cases)=={769:20,1537:20,3073:20}
+          assert Counter(r['stride'] for r in cases)=={1:12,4:36,8:12}
+          assert all(not set(r).intersection(('inverse','witness','root','merkle',
+                       'private_target','future','timing','trace','provider')) for r in cases)
+          assert fixture['no_inverse_witness_root_or_timing']
+          assert fixture['original_excluded_source_count']==168
+          print('NOR54 FIRST ORIGINAL SOURCE-ONLY RAW BYTES SHA256',p.stat().st_size,source_sha)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor54_first_original_60_public_only_source_roster
+          path: /tmp/nor54_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_60_source_five_arm_CPU:
+    needs: first_original_public_only_60_source_SHA_freeze
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin previously verified exact GMP and cryptography dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor54_first_original_60_public_only_source_roster
+          path: /tmp/nor54
+      - name: First five-repeat 60-source complete native/GMP/local E2E CPU comparison
+        run: |
+          python -u research/nor54_matched_frontier/benchmark_cpu.py \
+            --public-file /tmp/nor54/nor54_first_original_60_public_only.json \
+            --repeats 5 --out /tmp/nor54/nor54_first_original_cpu.json
+      - name: Preserve first five original gates, exact source SHA and raw original CPU hash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          p=Path('/tmp/nor54/nor54_first_original_cpu.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor54.first_60_matched_native_fast_gmp_e2e_cpu.v1'
+          assert x['first_registration_sha']=='10e7ac3c3fdefec89d90d7a98a947099db8af86e'
+          assert x['source_count']==60 and len(x['source_records'])==60
+          assert x['repeats']==5 and len(x['five_original_timed_arms'])==5
+          assert len(x['first_original_five_registered_gates'])==5
+          assert all(type(v) is bool for v in x['first_original_five_registered_gates'].values())
+          assert x['first_original_engineering_pass']==all(x['first_original_five_registered_gates'].values())
+          print('NOR54 FIRST ORIGINAL CPU RAW BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR54 ORIGINAL FIRST ENGINEERING GATES',x['first_original_five_registered_gates'])
+          print('NOR54 ORIGINAL FIRST ENGINEERING PASS',x['first_original_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor54_first_original_60_matched_native_gmp_e2e_CPU
+          path: |
+            /tmp/nor54/nor54_first_original_cpu.json
+            /tmp/nor54/nor54_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: warn
