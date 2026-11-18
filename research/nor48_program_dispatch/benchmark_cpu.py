@@ -88,7 +88,7 @@ def run(repeats=REPEATS):
     original_roots={
         x["source_sha256"]:x["signed_program_root_sha256"]
         for x in json.loads(
-        (ROOT/"research/nor46_exact_integer_trace/results/nor46_first_receipt.json"
+        (ROOT/"research/nor46_exact_integer_trace/results/nor46_first_historical_16.json"
          ).read_bytes())["source_records"]}
     assert len(original_roots)==16
     baseline_global=nor46.exact_convolution_prefix
