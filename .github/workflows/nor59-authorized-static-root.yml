@@ -1,0 +1,158 @@
+name: NOR-59 first authentic NOR45 authorized program static indexed Merkle roots
+
+on:
+  push:
+    branches:
+      - research/nor59-nor45-authorized-static-merkle-20261118
+    paths:
+      - 'research/nor59_authorized_merkle/**'
+      - 'research/nor45_authorized_program/independent_execution_verifier.py'
+      - '.github/workflows/nor59-authorized-static-root.yml'
+  pull_request:
+    paths:
+      - 'research/nor59_authorized_merkle/**'
+      - 'research/nor45_authorized_program/independent_execution_verifier.py'
+      - '.github/workflows/nor59-authorized-static-root.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preregistration_and_source_free_original_NOR45_authority_security:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin original NOR44/NOR45 fixture Ed25519 and exact GMP runtime
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Verify original prospective registration commit predates public source and CPU
+        run: |
+          git merge-base --is-ancestor 8f6eb3dccc4d4c4d9d58955387ea6f154ad05d84 HEAD
+          test -s research/nor59_authorized_merkle/REGISTRATION.md
+      - name: Compile exact authority and new support-closure Merkle code
+        run: |
+          python -m compileall -q research/nor59_authorized_merkle
+          python -m compileall -q research/nor45_authorized_program/independent_execution_verifier.py
+      - name: Test actual NOR45 signed authority, provider, verifier precommit, support and root parity
+        run: python -m unittest research.nor59_authorized_merkle.test_authorized_root -v
+      - name: Preserve every original NOR45 and NOR44 signed authority/session negative check
+        run: |
+          python -m unittest research.nor45_authorized_program.test_program_authority -v
+          python -m unittest research.nor44_session_protocol.test_session_protocol -v
+      - name: Preserve original NOR58 exact static-root 5-of-5 PASS and first SHA archive
+        run: |
+          python research/nor58_static_merkle/original_archive_audit.py
+          python -m unittest research.nor58_static_merkle.test_template -v
+      - name: Source roster shape only; exclude 528 earlier sources without generating a NOR59 source
+        run: |
+          python - <<'PY'
+          from research.nor59_authorized_merkle import cohort,authorized_root
+          assert cohort.REGISTERED=='8f6eb3dccc4d4c4d9d58955387ea6f154ad05d84'
+          assert len(cohort.DEGREES)*len(cohort.STRIDES)*len(cohort.PROFILES)*len(cohort.REPLICATES)==60
+          assert len(cohort.historical_ids())==528
+          assert authorized_root.source_free_closure_explanation()[
+             'all_allowed_delay_and_spacing_sums_divisible_by_8']
+          print('NOR59 original source-free program authority/security and closure PASS')
+          PY
+
+  first_original_public_only_60_authorized_source_program_SHA_freeze:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR59-FIRST-CPU')
+    needs: preregistration_and_source_free_original_NOR45_authority_security
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze 60 NEW normalized public sources plus executable program descriptions only
+        run: |
+          python -u research/nor59_authorized_merkle/cohort.py \
+            --public-only-out /tmp/nor59_first_original_60_public_only.json
+      - name: Independently verify upstream original public-only SHA and signed grammar roster
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from collections import Counter
+          from research.nor59_authorized_merkle import cohort
+          path=Path('/tmp/nor59_first_original_60_public_only.json')
+          fixture,source_sha=cohort.read_fixture(path)
+          rows=fixture['cases']
+          assert len(rows)==len({r['source_sha256'] for r in rows})==60
+          assert Counter(r['observed_degree'] for r in rows)=={512:30,1024:30}
+          assert Counter(r['source_stride'] for r in rows)=={1:20,4:20,8:20}
+          assert fixture['excluded_first_source_IDs']==528
+          assert fixture['public_only'] and fixture['no_output_root_witness_session_signatures_templates_or_timings']
+          assert set(r['source_sha256'] for r in rows).isdisjoint(cohort.historical_ids())
+          forbidden={'output','witness','root','precommit','nonce','signature',
+                     'session','template','timing','provider','model_hidden'}
+          assert all(not set(r).intersection(forbidden) for r in rows)
+          print('NOR59 FIRST ORIGINAL 60 PUBLIC AUTHORIZED SOURCE/PROGRAM SHA256',
+                path.stat().st_size,source_sha)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor59_first_original_60_public_only_signed_program_sources
+          path: /tmp/nor59_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_three_arm_five_repeat_authenticated_NOR45_CPU:
+    needs: first_original_public_only_60_authorized_source_program_SHA_freeze
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact original research Ed25519 and signed integer dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor59_first_original_60_public_only_signed_program_sources
+          path: /tmp/nor59
+      - name: First complete NOR45 program-authority/verifier/provider signed original/warm/cold Merkle CPU
+        run: |
+          python -u research/nor59_authorized_merkle/benchmark_cpu.py \
+            --public-file /tmp/nor59/nor59_first_original_60_public_only.json \
+            --repeats 5 --out /tmp/nor59/nor59_first_original_cpu.json
+      - name: Freeze original first CPU SHA and five preregistered PASS or FAIL gates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          path=Path('/tmp/nor59/nor59_first_original_cpu.json')
+          raw=path.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor59.first_60_full_NOR45_signed_authorized_static_root_CPU.v1'
+          assert x['first_registration_sha']=='8f6eb3dccc4d4c4d9d58955387ea6f154ad05d84'
+          assert x['source_count']==60 and len(x['source_records'])==60
+          assert x['repeats']==5 and len(x['arms'])==3
+          assert len(x['first_original_five_registered_gates'])==5
+          assert all(type(v) is bool for v in x['first_original_five_registered_gates'].values())
+          assert x['first_original_engineering_pass']==all(x['first_original_five_registered_gates'].values())
+          print('NOR59 FIRST ORIGINAL CPU RAW BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR59 FIRST ORIGINAL FIVE GATES',x['first_original_five_registered_gates'])
+          print('NOR59 FIRST ORIGINAL ENGINEERING PASS',x['first_original_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor59_first_original_60_full_NOR45_signed_static_root_CPU
+          path: |
+            /tmp/nor59/nor59_first_original_cpu.json
+            /tmp/nor59/nor59_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: warn
