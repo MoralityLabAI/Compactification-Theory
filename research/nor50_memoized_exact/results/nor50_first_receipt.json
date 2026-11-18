@@ -1,0 +1,59 @@
+{
+  "archive_zip_bytes": 2989300,
+  "archive_zip_sha256": "a6cb35c57cc7bd742cdb40d1a87066c6276b45a48a8107e7b870c2563adc424c",
+  "first_artifact_id": 14409649467,
+  "first_public_roster_artifact_id": 14409798029,
+  "first_registration_sha": "a3b7a211e312235f8e9363612aff4173f50a3a4e",
+  "first_run": 44265466762,
+  "original_engineering_pass": false,
+  "original_gates": {
+    "all_full_exact_outputs_roots_and_training_controls": true,
+    "low_R_cached_over_original_under_1p10_at_least_8": true,
+    "multi_R_cached_over_original_under_0p70_at_least_8": true,
+    "multi_R_gmp_over_cached_under_0p90_at_least_8": false,
+    "source_first_64_reentrant_five_interleaved_repeats": true
+  },
+  "original_low_R_cached_over_direct": 1.0020723074206739,
+  "original_multi_R_cached_over_direct": 0.5116361341527716,
+  "original_multi_R_count": 19,
+  "original_multi_R_gmp_over_cached": 1.183263144025194,
+  "original_secondary_workload": {
+    "resamples": 8192,
+    "secondary_ratios": {
+      "nor47_gmp_full_trace": {
+        "descriptive_95pct_16block_bootstrap": [
+          1.1740753076971788,
+          1.5447058615157387
+        ],
+        "observed_total_ratio": 1.34955608815306
+      },
+      "nor49_count_R_dispatch": {
+        "descriptive_95pct_16block_bootstrap": [
+          0.8130707073671812,
+          0.9531879102058726
+        ],
+        "observed_total_ratio": 0.8853976560435939
+      },
+      "nor50_memoized_direct": {
+        "descriptive_95pct_16block_bootstrap": [
+          0.658043596441819,
+          0.8260539260166533
+        ],
+        "observed_total_ratio": 0.7333710138719598
+      }
+    },
+    "seed": 202611500092,
+    "sum_source_medians_ms": {
+      "nor45_original_direct": 5548.319485,
+      "nor47_gmp_full_trace": 7487.76834,
+      "nor49_count_R_dispatch": 4912.469067,
+      "nor50_memoized_direct": 4068.976686
+    }
+  },
+  "raw_cpu_bytes": 118129,
+  "raw_cpu_sha256": "69344bc6be09246296a5d6c0ac2e22b58031da2ed303f67be69d49bd78cb7f2e",
+  "raw_source_bytes": 9428144,
+  "raw_source_sha256": "5a64a6d0ff9d9a4d74535443bc02b1d069cb6bc76b441da35acdb016dd1d9a93",
+  "schema": "nor50.first_original_cpu_archive.v1",
+  "scope": "Historical grammar, new synthetic public sources, nonsuccinct exact CPU. Trusted reference provider and honest authority external."
+}
