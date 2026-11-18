@@ -54,7 +54,13 @@ def matched_source_pairs(seed: int, n: int):
     direction = torch.where(torch.rand(n, generator=g) < .5, -1., 1.)
     offset = direction * (.30 + .35*torch.rand(n, generator=g))
     row = torch.arange(n)
-    donor[row, chosen] = (donor[row, chosen] + offset).clamp(-.8, .8)
+    old_value = donor[row, chosen]
+    new_value = (old_value+offset).clamp(-.8, .8)
+    # Exact boundary samples can turn an outward clipped write into a no-op.
+    # Reverse direction in that case so every registered source pair differs.
+    no_op = (new_value-old_value).abs() <= 1e-7
+    new_value = torch.where(no_op, (old_value-offset).clamp(-.8, .8), new_value)
+    donor[row, chosen] = new_value
     a, b, role = donor[:, 0], donor[:, 1], donor[:, 2]
     donor_label = torch.stack(
         (torch.where(role > 0, a, b), .5*(a+b)+.2*a*b), dim=1)
