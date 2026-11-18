@@ -30,7 +30,7 @@ jobs:
           run-id: 44305694146
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: /tmp/nor57b_first
-      - name: Preserve raw first NOR57B CPU and source bytes, five original gates and 4/5 FAIL
+      - name: Preserve unchanged first CPU/source including disclosed stale historical-count metadata
         run: python -m research.nor57b_independent.archive_first
       - name: Audit raw first SHA, 60 signed exact vector/root sources and all original gates
         run: python research/nor57b_independent/original_archive_audit.py
