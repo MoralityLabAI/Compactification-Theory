@@ -110,7 +110,7 @@ def historical_source_smoke():
         # Synthetic honest external reference provider signs TRUE hidden
         # target. This is a test oracle; its private key is public knowledge.
         hidden_tree=producer.OutputTree(true_hidden)
-        signed=producer.signed_reference_manifest(hidden_tree,src,row["degree"])
+        signed=producer.signed_reference_manifest(hidden_tree,src,row["degree"],signing_key=producer.test_private_key())
         authority=verifier.verify_signed_manifest(
             signed,pinned,src,row["degree"],m,PROVIDER_ID)
         openings=[hidden_tree.opening(i) for i in checked]
@@ -122,7 +122,7 @@ def historical_source_smoke():
         # proposed clean output is accepted when that is authenticated truth.
         clean_tree=producer.OutputTree(true_clean)
         clean_signed=producer.signed_reference_manifest(
-            clean_tree,src,row["degree"])
+            clean_tree,src,row["degree"],signing_key=producer.test_private_key())
         clean_authority=verifier.verify_signed_manifest(
             clean_signed,pinned,src,row["degree"],m,PROVIDER_ID)
         clean_openings=[clean_tree.opening(i) for i in checked]
