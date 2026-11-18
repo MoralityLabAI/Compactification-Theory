@@ -99,3 +99,15 @@ jobs:
           path: /tmp/nor47_original_first_cpu.json
           retention-days: 90
           if-no-files-found: warn
+
+  immutable_first_cpu_sha_and_source_ratio_check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recheck exact original first CPU bytes, signed source roster and two positive engineering targets
+        run: |
+          python research/nor47_gmp_exact_convolution/original_archive_audit.py
