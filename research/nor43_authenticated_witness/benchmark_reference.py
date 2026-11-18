@@ -52,7 +52,7 @@ def bench():
             "private_hidden_truth_sha256_after_freeze"]
         tree=producer.OutputTree(hidden)
         assert tree.root.hex()==frozen_row["true_hidden_root_sha256"]
-        signed=producer.signed_reference_manifest(tree,src,row["degree"])
+        signed=producer.signed_reference_manifest(tree,src,row["degree"],signing_key=producer.test_private_key())
         checked=tuple(frozen_row["historical_k16_checked_indices"])
         opening=[tree.opening(i) for i in checked]
         verified=verifier.verify_signed_manifest(
