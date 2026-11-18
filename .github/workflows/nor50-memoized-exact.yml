@@ -1,0 +1,150 @@
+name: NOR-50 preregistered fresh-source memoized direct vs GMP CPU
+
+on:
+  push:
+    branches:
+      - research/nor50-memoized-exact-cpu-20261118
+    paths:
+      - 'research/nor50_memoized_exact/**'
+      - '.github/workflows/nor50-memoized-exact.yml'
+  pull_request:
+    paths:
+      - 'research/nor50_memoized_exact/**'
+      - '.github/workflows/nor50-memoized-exact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source_free_registration_and_training_only_controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin historical exact and signed runtimes
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Verify preregistration predated first sources
+        run: |
+          git merge-base --is-ancestor a3b7a211e312235f8e9363612aff4173f50a3a4e HEAD
+          test -s research/nor50_memoized_exact/REGISTRATION.md
+      - name: Compile new exact source, memoized executor, and benchmark
+        run: python -m compileall -q research/nor50_memoized_exact
+      - name: Run only previously timed training-source memoization controls
+        run: python -m unittest research.nor50_memoized_exact.test_cached -v
+      - name: Preserve prior original NOR49 FAIL and pinned signed trace controls
+        run: |
+          python research/nor49_reciprocal_count_dispatch/original_archive_audit.py
+          python -m unittest research.nor49_reciprocal_count_dispatch.test_selector -v
+      - name: Source-only new cohort has not yet been generated or timed
+        run: |
+          python - <<'PY'
+          from research.nor50_memoized_exact import cohort
+          assert cohort.REPS==tuple(range(200,216))
+          assert cohort.OFFSET==140050000
+          assert cohort.SUFFIX_SALT==202611500091
+          assert cohort.REGISTRATION=='a3b7a211e312235f8e9363612aff4173f50a3a4e'
+          print('NOR50 predata registration guard PASS')
+          PY
+
+  first_source_only_new_64_roster:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR50-FIRST-CPU')
+    needs: source_free_registration_and_training_only_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact dependencies for historical-source SHA exclusions
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Freeze first 64 source-only public programs before any holdout timing
+        run: |
+          python -u research/nor50_memoized_exact/cohort.py \
+            --source-only-out /tmp/nor50_first_public_only_fixture.json
+      - name: Independently inspect public-only source roster schema and exclusion
+        run: |
+          python - <<'PY'
+          import json
+          from hashlib import sha256
+          from collections import Counter
+          from pathlib import Path
+          from research.nor50_memoized_exact import cohort
+          p=Path('/tmp/nor50_first_public_only_fixture.json')
+          raw=p.read_bytes()
+          fixture,source_sha=cohort.read_fixture(p)
+          rows=fixture['cases']
+          assert len(rows)==len({r['full_public_input_sha256'] for r in rows})==64
+          assert Counter(r['pair_replicate'] for r in rows)=={rep:4 for rep in range(200,216)}
+          assert set(r['full_public_input_sha256'] for r in rows).isdisjoint(cohort.original_ids())
+          assert all('hidden_beta' not in r and 'hidden_transform' not in r for r in rows)
+          assert all('timing' not in r and 'future' not in r and 'program' not in r for r in rows)
+          print('NOR50 FIRST PUBLIC-ONLY FIXTURE ORIGINAL SHA',len(raw),source_sha)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor50_first_64_public_source_roster
+          path: /tmp/nor50_first_public_only_fixture.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_five_repeat_CPU:
+    needs: first_source_only_new_64_roster
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact GMP and cryptography dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor50_first_64_public_source_roster
+          path: /tmp/nor50
+      - name: First registered 64 fresh sources and four exact CPU arms
+        run: |
+          python -u research/nor50_memoized_exact/benchmark_cpu.py \
+            --public-fixture /tmp/nor50/nor50_first_public_only_fixture.json \
+            --repeats 5 \
+            --out /tmp/nor50/nor50_first_original_cpu.json
+      - name: Preserve initial result and all five frozen engineering booleans
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          p=Path('/tmp/nor50/nor50_first_original_cpu.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor50.first_64_new_source_memoization_cpu.v1'
+          assert x['registration_first_commit']=='a3b7a211e312235f8e9363612aff4173f50a3a4e'
+          assert x['source_count']==64 and x['repeat_count']==5
+          assert len(x['source_records'])==64
+          assert len(x['five_first_registered_gates'])==5
+          assert all(type(v) is bool for v in x['five_first_registered_gates'].values())
+          assert x['first_engineering_pass']==all(x['five_first_registered_gates'].values())
+          assert x['source_only_precedes_first_timing']
+          print('NOR50 FIRST ORIGINAL CPU BYTES SHA',len(raw),sha256(raw).hexdigest())
+          print('NOR50 FIRST GATES',x['five_first_registered_gates'])
+          print('NOR50 FIRST PASS',x['first_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor50_first_64_fresh_memoized_exact_cpu
+          path: |
+            /tmp/nor50/nor50_first_original_cpu.json
+            /tmp/nor50/nor50_first_public_only_fixture.json
+          retention-days: 90
+          if-no-files-found: warn
