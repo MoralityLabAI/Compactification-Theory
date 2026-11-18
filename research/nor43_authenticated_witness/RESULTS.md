@@ -43,6 +43,18 @@ A separate negative control constructs an authorized signature over an *incorrec
 
 The [formal companion MathCan PR #143](https://github.com/patrickdugan/MathCan/pull/143) was merged at [`0d3fe32`](https://github.com/patrickdugan/MathCan/commit/0d3fe3208c3f3263a2d23de11dd623c5f1baa946). Lean proves exact sparse-hit equivalence under explicit root honesty, hash binding and opening soundness premises, and supplies the self-committed wrong-root counterexample. All theorems are kernel checked with no additional axioms. No cryptographic SHA-256 or Ed25519 security proof is claimed.
 
+## Exploratory hosted verification cost
+
+A separate read-only [CPU timing run #44223202241](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44223202241), with [raw timing artifact #14390679253](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44223202241/artifacts/14390679253), benchmarked **16 fixed already graded NOR42 source identities**. Each case used 24 measured repeats after three warmups, checking exactly the verifier-owned historical k16 challenged indices. The runner reported an **Intel Xeon Platinum 8573C**, Python **3.12.16**, and `cryptography 46.0.4`.
+
+| Operation | Median across the 16 source-level medians |
+| --- | ---: |
+| Ed25519 signature and signed manifest verification | **117.84 µs** |
+| Sixteen full Merkle openings, challenge-index binding and comparison | **205.33 µs** |
+| Combined verification | **322.84 µs (0.323 ms)** |
+
+These are exploratory hosted CPU latencies with preconstructed output trees and Merkle paths. Full target computation, root generation, proposal commitment, key provisioning, source reconstruction, network and transport processing are **excluded**. Wall-clock timing depends on runner hardware and load and is not a preregistered science gate. The benchmark is separate from the original 110,749-byte receipt and its source/grade SHA.
+
 ## Verified authorization boundary
 
 The original [signed_witness.py](signed_witness.py) producer commits each exact signed integer coefficient with index and output length, using explicit domain-separated hashes for leaves, internal nodes and index-specific padded leaves. The [independent verifier_reference.py](verifier_reference.py) independently checks:
