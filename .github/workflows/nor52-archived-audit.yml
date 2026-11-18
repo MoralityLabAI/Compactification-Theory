@@ -1,0 +1,29 @@
+name: NOR-52 permanent first original 5-of-5 exact sparse CPU archive audit
+
+on:
+  push:
+    paths:
+      - 'research/nor52_sparse_inverse/results/**'
+      - 'research/nor52_sparse_inverse/original_archive_audit.py'
+      - '.github/workflows/nor52-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor52_sparse_inverse/results/**'
+      - 'research/nor52_sparse_inverse/original_archive_audit.py'
+      - '.github/workflows/nor52-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_first_source_locked_CPU_SHA_and_five_gate_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read-only first CPU/source byte SHA, 60 exact full roots and original PASS audit
+        run: python research/nor52_sparse_inverse/original_archive_audit.py
