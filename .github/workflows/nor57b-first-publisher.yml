@@ -1,0 +1,53 @@
+name: NOR-57B one-shot immutable original first 4-of-5 FAIL source CPU publisher
+
+on:
+  push:
+    branches:
+      - research/nor57b-independent-followup-20261118
+    paths:
+      - '.github/workflows/nor57b-first-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  original_FIRST_independent_60_source_signed_selector_evidence:
+    if: github.ref == 'refs/heads/research/nor57b-independent-followup-20261118' && contains(github.event.head_commit.message, 'NOR57B-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor57b-independent-followup-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor57b_first_original_60_signed_source_selector_CPU
+          run-id: 44305694146
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor57b_first
+      - name: Preserve raw first NOR57B CPU and source bytes, five original gates and 4/5 FAIL
+        run: python -m research.nor57b_independent.archive_first
+      - name: Audit raw first SHA, 60 signed exact vector/root sources and all original gates
+        run: python research/nor57b_independent/original_archive_audit.py
+      - name: Commit original first source/CPU evidence and negative report
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor57b_independent/results/nor57b_first_original_hosted.zip \
+                  research/nor57b_independent/results/nor57b_first_receipt.json \
+                  research/nor57b_independent/RESULTS.md
+          git commit -m 'NOR-57B: preserve first 60-source 4-of-5 authenticated selector FAIL'
+          for i in $(seq 1 12); do
+            git fetch origin research/nor57b-independent-followup-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor57b-independent-followup-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
