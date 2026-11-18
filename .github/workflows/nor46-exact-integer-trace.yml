@@ -89,3 +89,44 @@ jobs:
           path: /tmp/nor46_first_16_historical.json
           if-no-files-found: error
           retention-days: 90
+
+  exploratory_historical_cpu_cost:
+    needs: historical_only_authorized_trace_smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test-only signing dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Measure prover and both full-root verifier implementations on original 16-source roster
+        run: |
+          python -u research/nor46_exact_integer_trace/benchmark_cpu.py \
+            --repeats 3 --out /tmp/nor46_exploratory_cpu_benchmark.json
+      - name: Confirm honest verifier parity and explicit benchmark limits
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          data=json.loads(Path('/tmp/nor46_exploratory_cpu_benchmark.json').read_bytes())
+          assert data['schema']=='nor46.exploratory_16_archive_cpu_trace_cost.v1'
+          assert data['historical_source_pairs']==16
+          assert data['source_selection']==[100,104,108,112]
+          assert data['new_nor46_prospective_source_pairs']==0
+          assert data['archived_first_receipt_sha256']==(
+            'd24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052')
+          assert len(data['source_records'])==16
+          assert all(x['full_exact_integer_and_root_parity'] for x in data['source_records'])
+          assert data['repetitions_per_timed_arm']==3
+          assert data['root_recomputation_included_in_both_verification_arms']
+          assert data['signature_session_transport_excluded_from_verification_timing']
+          print('NOR46 BENCHMARK HONEST PARITY PASS',data['summary'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor46_exploratory_historical_16_cpu_cost
+          path: /tmp/nor46_exploratory_cpu_benchmark.json
+          retention-days: 90
+          if-no-files-found: error
