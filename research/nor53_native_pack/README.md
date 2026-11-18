@@ -13,3 +13,5 @@ Frozen first engineering thresholds: pooled full GMP speed ratio <0.70 on all 60
 This is an algebraic transparent exact full witness test on synthetic public input series. It does not expand the NOR45 authorized signed native grammar at length 3073 or imply a zero-knowledge or succinct proof.
 
 The source-free CI suite runs on all ordinary PR pushes. The first source-only/CPU benchmark is activated by a distinct `NOR53-FIRST-CPU` commit after those tests are green.
+
+**First original source and timing trigger:** the preregistered source-free controls passed on the frozen code, including native pack/unpack digit order, signed exact 4,097-bit convolution, full-root parity, forged sparse hints, and original NOR52 archive SHA. This commit freezes the first 60 new public-only input identities before a separate dependent first CPU job. Preserve the first original PASS or FAIL without adjusting any gate.
