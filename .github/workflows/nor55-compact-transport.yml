@@ -1,0 +1,196 @@
+name: NOR-55 source-bound compact Ed25519 signed exact witness transport
+
+on:
+  push:
+    branches:
+      - research/nor55-signed-compact-witness-20261118
+    paths:
+      - 'research/nor55_compact_witness/**'
+      - '.github/workflows/nor55-compact-transport.yml'
+  pull_request:
+    paths:
+      - 'research/nor55_compact_witness/**'
+      - '.github/workflows/nor55-compact-transport.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source_free_signed_codec_and_registration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact previous GMP and research signature dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Original prospective protocol registration precedes any NOR55 source
+        run: |
+          git merge-base --is-ancestor 9f7fb42a2e0a8648db63301bed381cb7f3aa0dc2 HEAD
+          test -s research/nor55_compact_witness/REGISTRATION.md
+      - name: Compile newly registered codec, envelope, source, benchmark and localhost component
+        run: python -m compileall -q research/nor55_compact_witness
+      - name: Source-free small exact signed codec, Ed25519 replay and cross-process TCP controls
+        run: |
+          python -m unittest research.nor55_compact_witness.test_codec_envelope -v
+          python -m unittest research.nor55_compact_witness.test_loopback -v
+      - name: Keep original NOR54 first-run FAIL and unchanged previous signed verifier controls
+        run: |
+          python research/nor54_matched_frontier/original_archive_audit.py
+          python -m unittest research.nor53_native_pack.test_fast_kernel -v
+          python -m unittest research.nor50_memoized_exact.test_cached -v
+      - name: Read 228 prior original source IDs without generating any new NOR55 sources
+        run: |
+          python - <<'PY'
+          from research.nor55_compact_witness import cohort,envelope
+          assert cohort.REGISTERED=='9f7fb42a2e0a8648db63301bed381cb7f3aa0dc2'
+          assert len(cohort.REPS)*len(cohort.LENGTHS)*len(cohort.PROFILES)*len(cohort.FAMILIES)==60
+          assert len(cohort.earlier_source_ids())==228
+          assert envelope.PROVIDER_ID=='nor55-only-research-fixture-v1'
+          print('NOR55 source-free registration and research-key controls PASS')
+          PY
+
+  first_original_public_only_60_source_SHA_freeze:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR55-FIRST-CPU')
+    needs: source_free_signed_codec_and_registration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate fresh public-only NOR55 source panel before inverse/timing/signing
+        run: |
+          python -u research/nor55_compact_witness/cohort.py \
+            --source-only-out /tmp/nor55_first_original_60_public_only.json
+      - name: Independently verify immutable source-only SHA, exact 60-grid and exclusions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from collections import Counter
+          from research.nor55_compact_witness import cohort
+          p=Path('/tmp/nor55_first_original_60_public_only.json')
+          fixture,source_sha=cohort.read_fixture(p)
+          cases=fixture['cases']
+          assert len(cases)==len({c['source_sha256'] for c in cases})==60
+          assert Counter(c['length'] for c in cases)=={769:20,1537:20,3073:20}
+          assert Counter(c['stride'] for c in cases)=={1:12,4:36,8:12}
+          assert set(c['source_sha256'] for c in cases).isdisjoint(cohort.earlier_source_ids())
+          assert all(not set(c).intersection(('inverse','witness','root',
+                     'session','signature','provider','nonce','timing','trace')) for c in cases)
+          assert fixture['no_inverse_root_witness_session_payload_or_timing']
+          print('NOR55 FIRST ORIGINAL PUBLIC-ONLY SOURCE RAW BYTES SHA256',p.stat().st_size,source_sha)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor55_first_original_60_public_only_source_roster
+          path: /tmp/nor55_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_four_arm_five_repeat_authenticated_CPU:
+    needs: first_original_public_only_60_source_SHA_freeze
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin first exact signed GMP and Ed25519 research fixture dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor55_first_original_60_public_only_source_roster
+          path: /tmp/nor55
+      - name: First original 60 fresh source authenticated exact compact/JSON CPU comparison
+        run: |
+          python -u research/nor55_compact_witness/benchmark_cpu.py \
+            --public-file /tmp/nor55/nor55_first_original_60_public_only.json \
+            --repeats 5 --out /tmp/nor55/nor55_first_original_cpu.json
+      - name: Score original first five gates and preserve raw bytes even on engineering FAIL
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          p=Path('/tmp/nor55/nor55_first_original_cpu.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor55.first_60_signed_compact_witness_cpu.v1'
+          assert x['first_registration_sha']=='9f7fb42a2e0a8648db63301bed381cb7f3aa0dc2'
+          assert x['source_count']==60 and len(x['source_records'])==60
+          assert x['repeats']==5 and len(x['four_timed_arms'])==4
+          assert len(x['first_original_five_registered_gates'])==5
+          assert all(type(v) is bool for v in x['first_original_five_registered_gates'].values())
+          assert x['first_original_engineering_pass']==all(x['first_original_five_registered_gates'].values())
+          print('NOR55 FIRST ORIGINAL CPU RAW BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR55 FIRST ORIGINAL FIVE GATES',x['first_original_five_registered_gates'])
+          print('NOR55 ORIGINAL FIRST ENGINEERING PASS',x['first_original_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor55_first_original_60_authenticated_compact_CPU
+          path: |
+            /tmp/nor55/nor55_first_original_cpu.json
+            /tmp/nor55/nor55_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  first_secondary_separate_process_TCP_loopback:
+    needs: first_original_four_arm_five_repeat_authenticated_CPU
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin the exact first primary dependency versions
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor55_first_original_60_authenticated_compact_CPU
+          path: /tmp/nor55
+      - name: After primary original CPU, measure actual 127.0.0.1 two-process signed witness round trips
+        run: |
+          python -u research/nor55_compact_witness/loopback_secondary.py \
+            --public-file /tmp/nor55/nor55_first_original_60_public_only.json \
+            --first-cpu /tmp/nor55/nor55_first_original_cpu.json \
+            --out /tmp/nor55/nor55_first_local_loopback_secondary.json
+      - name: Record separate raw secondary scope, not original primary engineering gates
+        run: |
+          python - <<'PY'
+          import json
+          from hashlib import sha256
+          from pathlib import Path
+          p=Path('/tmp/nor55/nor55_first_local_loopback_secondary.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor55.first_source_matched_local_loopback_secondary.v1'
+          assert x['source_count']==16 and x['repeats']==3
+          assert x['producer_and_verifier_in_distinct_processes'] is True
+          assert all(r['all_three_independent_verifier_responses_matched'] for r in x['source_records'])
+          print('NOR55 SEPARATE SECONDARY TCP LOOPBACK RAW BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor55_first_original_secondary_two_process_TCP_loopback
+          path: /tmp/nor55/nor55_first_local_loopback_secondary.json
+          retention-days: 90
+          if-no-files-found: warn
