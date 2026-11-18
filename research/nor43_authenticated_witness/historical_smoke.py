@@ -115,7 +115,7 @@ def historical_source_smoke():
             signed,pinned,src,row["degree"],m,PROVIDER_ID)
         openings=[hidden_tree.opening(i) for i in checked]
         actual=verifier.verified_sample_rejection(
-            clean,authority,openings)
+            clean,authority,openings,challenged_indices=checked)
         assert actual==bool(set(checked)&S)
 
         # The clean world is also a valid potential true target, and the same
@@ -127,7 +127,8 @@ def historical_source_smoke():
             clean_signed,pinned,src,row["degree"],m,PROVIDER_ID)
         clean_openings=[clean_tree.opening(i) for i in checked]
         assert verifier.verified_sample_rejection(
-            clean,clean_authority,clean_openings) is False
+            clean,clean_authority,clean_openings,
+            challenged_indices=checked) is False
 
         # Adversarial self root may be perfectly consistent and signed under
         # an untrusted model-owned key, but fails pinned provider verification.
@@ -146,7 +147,8 @@ def historical_source_smoke():
         insecure_model_claim=verifier.verify_signed_manifest(
             attacker_signed,attacker_pub,src,row["degree"],m,PROVIDER_ID)
         assert verifier.verified_sample_rejection(
-            clean,insecure_model_claim,clean_openings) is False
+            clean,insecure_model_claim,clean_openings,
+            challenged_indices=checked) is False
 
         source_exact=nor42.uniform_exact(m,len(S))
         assert [source_exact.numerator,source_exact.denominator]==receipt[
