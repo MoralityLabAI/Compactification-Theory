@@ -1,0 +1,147 @@
+{
+  "archive_zip_bytes": 84100,
+  "archive_zip_sha256": "1905b3835ed6dea870994a154d8a56942fce0b0fcf83d4058417abc543e206a6",
+  "first_cpu_artifact_id": 14413918829,
+  "first_original_engineering_pass": true,
+  "first_original_five_gates": {
+    "all_exact_output_roots_and_source_free_adversarial_controls": true,
+    "dense_s1_both_compressed_over_full_under_1p10": true,
+    "frozen_60_source_five_interleaved_reentrant_caps_and_phase_parity": true,
+    "sparse_m3073_gmp_compressed_over_full_under_0p50": true,
+    "sparse_m3073_native_compressed_over_full_under_0p50": true
+  },
+  "first_registration_sha": "9526627e21b429e7fea1928b3ddfb0e1dadc5e74",
+  "first_run": 44275345207,
+  "first_source_only_artifact_id": 14414901378,
+  "original_phase_share": {
+    "correction_ns": 0.027255240015232482,
+    "extraction_ns": 0.39972806663389404,
+    "multiplication_ns": 0.08318633782805564,
+    "packing_ns": 0.4895154559328987,
+    "parameters_ns": 0.00031489958991916234
+  },
+  "original_phase_total_ns": {
+    "correction_ns": 967616116,
+    "extraction_ns": 14191154401,
+    "multiplication_ns": 2953283151,
+    "packing_ns": 17378788223,
+    "parameters_ns": 11179572
+  },
+  "original_primary_results": {
+    "dense_gmp": 1.003117652709324,
+    "dense_native": 1.0011657433543402,
+    "sparse_gmp": 0.07866323063716676,
+    "sparse_native": 0.16342142553791797
+  },
+  "original_profile_breakdowns": {
+    "s1-b2": {
+      "count": 12,
+      "median_full_merkle_bytes": 427682.0,
+      "median_gmp_compressed_over_full": 1.003117652709324,
+      "median_gmp_compressed_over_native_compressed": 1.2677112969431945,
+      "median_gmp_full_over_native_full": 1.2691187189917685,
+      "median_native_compressed_over_full": 1.0011657433543402,
+      "median_source_arm_ms": {
+        "gmp_compressed_verify_root": 164.48232000000002,
+        "gmp_full_verify_root": 163.1762425,
+        "native_compressed_R_root": 111.0755075,
+        "native_full_R_root": 110.658315
+      }
+    },
+    "s4-b16": {
+      "count": 12,
+      "median_full_merkle_bytes": 355146.0,
+      "median_gmp_compressed_over_full": 0.09369559402894839,
+      "median_gmp_compressed_over_native_compressed": 2.7356480035976447,
+      "median_gmp_full_over_native_full": 6.889705729531077,
+      "median_native_compressed_over_full": 0.24755454930706794,
+      "median_source_arm_ms": {
+        "gmp_compressed_verify_root": 49.907838,
+        "gmp_full_verify_root": 515.8025145,
+        "native_compressed_R_root": 18.09111,
+        "native_full_R_root": 76.4518695
+      }
+    },
+    "s4-b2": {
+      "count": 12,
+      "median_full_merkle_bytes": 29888.0,
+      "median_gmp_compressed_over_full": 0.17616031096829587,
+      "median_gmp_compressed_over_native_compressed": 0.9441877607766168,
+      "median_gmp_full_over_native_full": 0.9135599172760197,
+      "median_native_compressed_over_full": 0.14809717710160392,
+      "median_source_arm_ms": {
+        "gmp_compressed_verify_root": 6.1377714999999995,
+        "gmp_full_verify_root": 37.4699055,
+        "native_compressed_R_root": 7.0068909999999995,
+        "native_full_R_root": 47.2853185
+      }
+    },
+    "s4-b8": {
+      "count": 12,
+      "median_full_merkle_bytes": 182202.0,
+      "median_gmp_compressed_over_full": 0.10064785786877196,
+      "median_gmp_compressed_over_native_compressed": 2.09421328135316,
+      "median_gmp_full_over_native_full": 4.346799423220664,
+      "median_native_compressed_over_full": 0.22360250344145727,
+      "median_source_arm_ms": {
+        "gmp_compressed_verify_root": 26.730876000000002,
+        "gmp_full_verify_root": 264.955472,
+        "native_compressed_R_root": 12.6495725,
+        "native_full_R_root": 60.957893999999996
+      }
+    },
+    "s8-b2": {
+      "count": 12,
+      "median_full_merkle_bytes": 11719.0,
+      "median_gmp_compressed_over_full": 0.2475255997203558,
+      "median_gmp_compressed_over_native_compressed": 0.9811423864225927,
+      "median_gmp_full_over_native_full": 0.44032326613424316,
+      "median_native_compressed_over_full": 0.09013880604342245,
+      "median_source_arm_ms": {
+        "gmp_compressed_verify_root": 3.635292,
+        "gmp_full_verify_root": 19.4804015,
+        "native_compressed_R_root": 3.778573,
+        "native_full_R_root": 41.930925
+      }
+    }
+  },
+  "original_secondary_workload": {
+    "block_count": 10,
+    "resamples": 4096,
+    "secondary_ratios": {
+      "gmp_compressed_verify_root": {
+        "descriptive_ten_block_95pct_interval": [
+          0.35291898285254586,
+          1.3629332951117292
+        ],
+        "observed_secondary_matched_workload_ratio": 0.9244089915469205
+      },
+      "gmp_full_verify_root": {
+        "descriptive_ten_block_95pct_interval": [
+          1.9261780125026102,
+          6.27697543784752
+        ],
+        "observed_secondary_matched_workload_ratio": 4.052929215204628
+      },
+      "native_compressed_R_root": {
+        "descriptive_ten_block_95pct_interval": [
+          0.17323169793093876,
+          0.7354330073953892
+        ],
+        "observed_secondary_matched_workload_ratio": 0.4817139935812817
+      }
+    },
+    "source_median_total_ms": {
+      "gmp_compressed_verify_root": 8004.903279,
+      "gmp_full_verify_root": 35096.268708999996,
+      "native_compressed_R_root": 4171.39379,
+      "native_full_R_root": 8659.482277
+    }
+  },
+  "raw_cpu_bytes": 166277,
+  "raw_cpu_sha256": "83090c4d9647b543b8950025808f087676ffd8a6dee03709b729bd663304a99d",
+  "raw_source_bytes": 1474292,
+  "raw_source_sha256": "d18b795053d81c16fc5316b490316e90fe6b373156a8ee8b295008a13df150f4",
+  "schema": "nor52.first_original_60_source_cpu_archive.v1",
+  "scope": "Source-first 60-case algebra-only exact integer inverse, transparent full witness, original full Merkle roots; no m3073 signed native authorization."
+}
