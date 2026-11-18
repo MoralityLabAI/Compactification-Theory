@@ -89,3 +89,33 @@ jobs:
           path: /tmp/nor45_first_archived_64_programs.json
           if-no-files-found: error
           retention-days: 90
+
+  permanent_original_historical_evidence_integrity:
+    needs: program_authority_integrity_and_negative_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned reference Ed25519 verifier
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Verify exact first original SHA and each of 64 signed/executed reference controls
+        run: |
+          python research/nor45_authorized_program/original_archive_audit.py
+      - name: Reproduce original first historical SHA without generating any new NOR45 source
+        run: |
+          python -u research/nor45_authorized_program/historical_smoke.py \
+            --out /tmp/nor45_historical_replay.json > /tmp/nor45_historical_stdout.txt
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          raw=Path('/tmp/nor45_historical_replay.json').read_bytes()
+          first=Path('research/nor45_authorized_program/results/nor45_first_archived_64_programs.json').read_bytes()
+          assert len(raw)==len(first)==112573
+          assert raw==first
+          assert sha256(raw).hexdigest()==(
+            'c4b1197b87b43c4cb4e32e0c2708c4a070742244d7cc05639e22353af78d5536')
+          print('NOR45 INDEPENDENT FIRST HISTORICAL SHA REPLAY PASS',len(raw),sha256(raw).hexdigest())
+          PY
