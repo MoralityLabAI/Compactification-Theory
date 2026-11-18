@@ -129,9 +129,9 @@ class OutputTree:
 
 
 def signed_reference_manifest(tree:OutputTree,source_sha256:str,
-                              observed_degree:int,
-                              publisher_id:str=PROVIDER_ID,
-                              signing_key:Ed25519PrivateKey|None=None)->dict:
+                              observed_degree:int, *,
+                              signing_key:Ed25519PrivateKey,
+                              publisher_id:str=PROVIDER_ID)->dict:
     """Reference-provider role: authority is NOT inferred from this bundle."""
     if (len(source_sha256)!=64 or
         any(ch not in "0123456789abcdef" for ch in source_sha256)):
@@ -140,7 +140,7 @@ def signed_reference_manifest(tree:OutputTree,source_sha256:str,
         raise ValueError("invalid observation degree")
     if not publisher_id or len(publisher_id)>256:
         raise ValueError("publisher ID must be pinned externally")
-    key=test_private_key() if signing_key is None else signing_key
+    key=signing_key  # Explicit: no default PUBLIC test credential.
     manifest={
         "protocol":PROTOCOL,
         "publisher_id":publisher_id,
