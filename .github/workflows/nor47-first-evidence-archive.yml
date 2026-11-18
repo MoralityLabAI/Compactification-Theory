@@ -1,0 +1,55 @@
+name: NOR-47 one-shot original historical GMP CPU evidence archive
+
+on:
+  push:
+    branches:
+      - research/nor47-gmp-exact-convolution-20261118
+    paths:
+      - '.github/workflows/nor47-first-evidence-archive.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_first_source_locked_gmp_cpu:
+    if: github.ref == 'refs/heads/research/nor47-gmp-exact-convolution-20261118' && contains(github.event.head_commit.message, 'NOR47-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor47-gmp-exact-convolution-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor47_first_original_16_source_gmp_cpu_cost
+          run-id: 44240888113
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor47_first_original_cpu
+      - name: Preserve original wall-time first CPU receipt and SHA unchanged
+        run: |
+          test ! -e research/nor47_gmp_exact_convolution/results/nor47_first_original_cpu.json
+          python research/nor47_gmp_exact_convolution/first_evidence_archive.py \
+            --original /tmp/nor47_first_original_cpu/nor47_original_first_cpu.json \
+            --output-dir research/nor47_gmp_exact_convolution/results
+      - name: Commit byte-identical first CPU data and receipt with concurrent update retries
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor47_gmp_exact_convolution/results/nor47_first_original_cpu.json \
+                  research/nor47_gmp_exact_convolution/results/nor47_first_receipt.json
+          git commit -m "NOR-47: permanently retain first original interleaved GMP benchmark and PASS or FAIL"
+          for attempt in $(seq 1 15); do
+            git fetch origin research/nor47-gmp-exact-convolution-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor47-gmp-exact-convolution-20261118; then
+              echo "NOR47 original first CPU evidence archived"
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
