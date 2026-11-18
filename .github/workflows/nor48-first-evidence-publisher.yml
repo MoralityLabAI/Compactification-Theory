@@ -1,0 +1,54 @@
+name: NOR-48 one-shot immutable original first signed dispatch CPU evidence publisher
+
+on:
+  push:
+    branches:
+      - research/nor48-signed-program-r-dispatch-20261118
+    paths:
+      - '.github/workflows/nor48-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive_first_original_engineering_fail:
+    if: github.ref == 'refs/heads/research/nor48-signed-program-r-dispatch-20261118' && contains(github.event.head_commit.message, 'NOR48-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor48-signed-program-r-dispatch-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor48_first_original_16_signed_dispatch_cpu
+          run-id: 44253553267
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor48_first
+      - name: Preserve original first source-locked CPU FAIL exactly as scored
+        run: |
+          test ! -e research/nor48_program_dispatch/results/nor48_first_original_cpu.json
+          python research/nor48_program_dispatch/first_evidence_archive.py \
+            --original /tmp/nor48_first/nor48_first_original_cpu.json \
+            --output-dir research/nor48_program_dispatch/results
+      - name: Commit first raw CPU bytes unchanged and original failure receipt
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor48_program_dispatch/results/nor48_first_original_cpu.json \
+                  research/nor48_program_dispatch/results/nor48_first_receipt.json
+          git commit -m "NOR-48: preserve original fixed 16-source performance FAIL"
+          for i in $(seq 1 16); do
+            git fetch origin research/nor48-signed-program-r-dispatch-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor48-signed-program-r-dispatch-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1

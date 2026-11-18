@@ -1,0 +1,96 @@
+name: NOR-48 R-aware signed-program exact verifier and archived CPU benchmark
+
+on:
+  push:
+    branches:
+      - research/nor48-signed-program-r-dispatch-20261118
+    paths:
+      - 'research/nor48_program_dispatch/**'
+      - '.github/workflows/nor48-r-aware-exact.yml'
+  pull_request:
+    paths:
+      - 'research/nor48_program_dispatch/**'
+      - '.github/workflows/nor48-r-aware-exact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  historical_source_signed_root_and_gmp_parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 65
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact GMP runtime
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Syntax check and historical signed R/no-R dispatch and full trace tests
+        run: |
+          python -m compileall -q research/nor48_program_dispatch
+          python -m unittest research.nor48_program_dispatch.test_dispatch -v
+      - name: Original source SHA audit and original immutable NOR47 benchmark provenance
+        run: |
+          python research/nor47_gmp_exact_convolution/original_archive_audit.py
+          python - <<'PY'
+          from research.nor48_program_dispatch import benchmark_cpu as x
+          prior=x.source_provenance()
+          assert len(prior)==16
+          assert sum(row['has_reciprocal_R'] for row in prior.values())==12
+          assert all(row['all_signed_exact_integer_and_root_parity']
+                     for row in prior.values())
+          print('NOR48 PRE-CPU SHA-LOCK AND SOURCE ROSTER PASS')
+          PY
+
+  first_original_interleaved_cpu:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR48-FIRST-CPU')
+    needs: historical_source_signed_root_and_gmp_parity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact GMP backend for original first-run reproducibility
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Run original five-repeat interleaved four-arm 16-source NOR48 benchmark
+        run: |
+          python -u research/nor48_program_dispatch/benchmark_cpu.py \
+            --repeats 5 --out /tmp/nor48_first_original_cpu.json
+      - name: Freeze exact first original CPU data SHA and engineering PASS/FAIL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor48_first_original_cpu.json').read_bytes()
+          g=json.loads(raw)
+          assert g['schema']=='nor48.first_source_locked_signed_program_r_dispatch_cpu.v1'
+          assert g['source_pairs']==16 and g['new_nor48_source_identities']==0
+          assert g['repeat_count']==5 and g['registered_replicate_blocks']==[100,104,108,112]
+          assert Counter(r['has_R_in_authorized_program']
+                         for r in g['source_records'])=={True:12,False:4}
+          assert g['strict_authorized_program_only_routing']
+          assert g['explicit_reentrant_GMP_convolution_injection']
+          assert g['global_verifier_monkeypatch_used'] is False
+          assert g['full_exact_root_included_all_arms']
+          assert len(g['original_engineering_gates'])==5
+          assert g['first_original_engineering_pass']==all(g['original_engineering_gates'].values())
+          print('NOR48 FIRST CPU BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR48 ORIGINAL ENGINEERING PASS',g['first_original_engineering_pass'])
+          print('NOR48 ORIGINAL FIVE GATES',g['original_engineering_gates'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor48_first_original_16_signed_dispatch_cpu
+          path: /tmp/nor48_first_original_cpu.json
+          retention-days: 90
+          if-no-files-found: warn

@@ -1,0 +1,908 @@
+{
+  "armed_auditors": [
+    "nor45_direct",
+    "nor46_python_full_trace",
+    "nor47_gmp_full_trace",
+    "nor48_r_aware_dispatch"
+  ],
+  "by_R": {
+    "R": {
+      "direct_median_ms": 92.8269085,
+      "dispatch_median_ms": 55.779511,
+      "median_of_sourcewise_dispatch_over_direct": 0.5035417502386468,
+      "median_of_sourcewise_dispatch_over_gmp": 1.0000324201774071,
+      "median_of_sourcewise_gmp_over_direct": 0.5029524702991637,
+      "source_count": 12
+    },
+    "no_R": {
+      "direct_median_ms": 2.894289,
+      "dispatch_median_ms": 2.9044135,
+      "median_of_sourcewise_dispatch_over_direct": 1.0049564322356046,
+      "median_of_sourcewise_dispatch_over_gmp": 0.5532069544664102,
+      "median_of_sourcewise_gmp_over_direct": 1.8106004727404676,
+      "source_count": 4
+    }
+  },
+  "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+  "design_issue": 251,
+  "explicit_reentrant_GMP_convolution_injection": true,
+  "first_original_engineering_pass": false,
+  "full_exact_root_included_all_arms": true,
+  "global_verifier_monkeypatch_used": false,
+  "gmp_dependency": {
+    "algorithm": "exact carry-free Kronecker, original NOR46 no-carry bound",
+    "claimed_cryptographic_soundness": false,
+    "claimed_proof_succinctness": false,
+    "gmp_version": "GMP 6.3.0",
+    "gmpy2_version": "2.3.2",
+    "max_coefficient_bits": 32768,
+    "max_packed_bits": 120000000
+  },
+  "logical_cpu_count": 4,
+  "new_nor48_source_identities": 0,
+  "nor47_first_cpu_bytes": 34928,
+  "nor47_first_cpu_sha256": "809fd5d18cfb61e4e6d771c4e402b31e3fec99889774f4305ddfa3d6c793f530",
+  "original_engineering_gates": {
+    "all_R_use_injected_GMP": true,
+    "all_four_no_R_use_direct": true,
+    "all_signed_exact_source_roots_identical": true,
+    "dispatcher_median_ratio_under_0p75": false,
+    "global_NOR46_convolution_function_unchanged": true
+  },
+  "overall": {
+    "direct_median_ms": 49.782880000000006,
+    "dispatch_median_ms": 28.4282575,
+    "median_of_sourcewise_dispatch_over_direct": 0.8182870781348079,
+    "median_of_sourcewise_dispatch_over_gmp": 0.9997173155024475,
+    "median_of_sourcewise_gmp_over_direct": 0.8176883367709142,
+    "source_count": 16
+  },
+  "python_version": "3.12.16",
+  "registered_replicate_blocks": [
+    100,
+    104,
+    108,
+    112
+  ],
+  "repeat_count": 5,
+  "same_run_five_repeats_per_source": true,
+  "schema": "nor48.first_source_locked_signed_program_r_dispatch_cpu.v1",
+  "scope": "Historical CPU engineering, no fresh prospective model evaluation. GMP trace is nonsuccinct. Pinned authority and honest program and reference provider remain external trust premises.",
+  "shared_signatures_session_transport_excluded_all_arms": true,
+  "source_pairs": 16,
+  "source_records": [
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 1.986689,
+        "nor46_python_full_trace": 3.576711,
+        "nor47_gmp_full_trace": 3.611994,
+        "nor48_r_aware_dispatch": 1.98178
+      },
+      "authorized_program_routing": "nor45_direct",
+      "degree": 512,
+      "direct_selected_for_no_R": true,
+      "dispatcher_over_direct": 0.9975290546230438,
+      "dispatcher_over_gmp": 0.5486664706530521,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          1.995341,
+          1.983042,
+          1.986689,
+          1.966788,
+          2.046427
+        ],
+        "nor46_python_full_trace": [
+          3.576711,
+          3.58862,
+          3.541248,
+          3.54236,
+          3.581418
+        ],
+        "nor47_gmp_full_trace": [
+          3.634458,
+          3.614037,
+          3.611994,
+          3.554318,
+          3.566155
+        ],
+        "nor48_r_aware_dispatch": [
+          2.00113,
+          1.98178,
+          2.035161,
+          1.96118,
+          1.975972
+        ]
+      },
+      "gmp_over_direct": 1.8180973468922415,
+      "has_R_in_authorized_program": false,
+      "nor47_original_has_R": false,
+      "original_full_trace_bytes": 13794,
+      "replicate": 100,
+      "signed_program_root_sha256": "aec1ca171394327d1b732b7529f1e879a08f465d8071822aa34d3db62887d608",
+      "source_sha256": "6fbfafa01310e65b28722a1994f6fb8af236b64ddddf83dd210fff99f638a345"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 26.381457,
+        "nor46_python_full_trace": 230.515771,
+        "nor47_gmp_full_trace": 28.992611,
+        "nor48_r_aware_dispatch": 28.911609
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 512,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 1.095906454294772,
+      "dispatcher_over_gmp": 0.9972061157237614,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          26.347596,
+          26.405753,
+          26.245002,
+          26.48336,
+          26.381457
+        ],
+        "nor46_python_full_trace": [
+          243.058512,
+          230.505805,
+          230.52864,
+          230.445384,
+          230.515771
+        ],
+        "nor47_gmp_full_trace": [
+          29.295095,
+          28.904649,
+          29.016647,
+          28.992611,
+          28.897509
+        ],
+        "nor48_r_aware_dispatch": [
+          28.942556,
+          28.886712,
+          28.964509,
+          28.852441,
+          28.911609
+        ]
+      },
+      "gmp_over_direct": 1.0989768684875896,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 234664,
+      "replicate": 100,
+      "signed_program_root_sha256": "ac978024bf11c518450386bd92352b68598d84edea5b75916d2c3943bf164137",
+      "source_sha256": "fd9e272cade649e2f42ab3d180bda00d68c85b4f5ee59a12a89e4339bf53f906"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 3.801889,
+        "nor46_python_full_trace": 6.67076,
+        "nor47_gmp_full_trace": 6.704941,
+        "nor48_r_aware_dispatch": 3.827047
+      },
+      "authorized_program_routing": "nor45_direct",
+      "degree": 1024,
+      "direct_selected_for_no_R": true,
+      "dispatcher_over_direct": 1.0066172368525224,
+      "dispatcher_over_gmp": 0.5707801157385277,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          3.801889,
+          3.799726,
+          3.793166,
+          3.812926,
+          3.810843
+        ],
+        "nor46_python_full_trace": [
+          6.739122,
+          6.67076,
+          6.700154,
+          6.652503,
+          6.65781
+        ],
+        "nor47_gmp_full_trace": [
+          6.729748,
+          6.674666,
+          6.726814,
+          6.704941,
+          6.678761
+        ],
+        "nor48_r_aware_dispatch": [
+          3.94866,
+          3.825195,
+          3.827047,
+          3.808078,
+          3.837993
+        ]
+      },
+      "gmp_over_direct": 1.763581472262867,
+      "has_R_in_authorized_program": false,
+      "nor47_original_has_R": false,
+      "original_full_trace_bytes": 21080,
+      "replicate": 100,
+      "signed_program_root_sha256": "3d26efe9b8adf241c10e006a4672d308d0fd8beb6b0493e05aa4b64dc3752cf8",
+      "source_sha256": "9175e7ded85de08f513d862bcfb44764faeec4a30ae86ae1af685deb18d78449"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 207.578009,
+        "nor46_python_full_trace": 751.007281,
+        "nor47_gmp_full_trace": 82.67264,
+        "nor48_r_aware_dispatch": 82.647413
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 1024,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.3981511018346842,
+      "dispatcher_over_gmp": 0.9996948567264817,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          208.452512,
+          207.578009,
+          206.497706,
+          208.769458,
+          206.465998
+        ],
+        "nor46_python_full_trace": [
+          751.969195,
+          753.530871,
+          751.007281,
+          747.475276,
+          750.83381
+        ],
+        "nor47_gmp_full_trace": [
+          83.193776,
+          82.406491,
+          82.67264,
+          82.466341,
+          82.863598
+        ],
+        "nor48_r_aware_dispatch": [
+          82.556485,
+          82.647413,
+          83.072452,
+          82.514834,
+          82.693152
+        ]
+      },
+      "gmp_over_direct": 0.3982726320493805,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 503260,
+      "replicate": 100,
+      "signed_program_root_sha256": "2e4c3ab5c728a2c9a3169f19b355ae7189454728b6573ace9c40f4ef3a0b79f1",
+      "source_sha256": "68f0412a4639176067d814ab32f0e0bb1bb6faae2c75036e69c85fa094b2d359"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 82.830799,
+        "nor46_python_full_trace": 101.601719,
+        "nor47_gmp_full_trace": 15.945007,
+        "nor48_r_aware_dispatch": 15.949905
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 512,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.19256007659662921,
+      "dispatcher_over_gmp": 1.000307180799607,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          81.471667,
+          82.830799,
+          82.030457,
+          83.514625,
+          93.606762
+        ],
+        "nor46_python_full_trace": [
+          101.601719,
+          101.638664,
+          101.436571,
+          101.346616,
+          101.891104
+        ],
+        "nor47_gmp_full_trace": [
+          15.877376,
+          15.919468,
+          15.952338,
+          15.945007,
+          16.024036
+        ],
+        "nor48_r_aware_dispatch": [
+          15.978768,
+          15.949905,
+          16.082283,
+          15.948221,
+          15.912268
+        ]
+      },
+      "gmp_over_direct": 0.19250094400272538,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 134366,
+      "replicate": 104,
+      "signed_program_root_sha256": "6166937f8de7d73a5a8922100c3f5a8dc3630d815f74e48919b43e13e09d5a6d",
+      "source_sha256": "9e640c360cea79ca332eebf8788f11bdb80987289163ab1a33a6d1cc2d709115"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 45.414788,
+        "nor46_python_full_trace": 88.84436,
+        "nor47_gmp_full_trace": 15.120616,
+        "nor48_r_aware_dispatch": 15.173866
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 512,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.3341172923674112,
+      "dispatcher_over_gmp": 1.0035216819208952,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          45.223902,
+          45.494277,
+          45.414788,
+          45.277713,
+          45.427317
+        ],
+        "nor46_python_full_trace": [
+          88.968036,
+          88.766904,
+          88.84436,
+          88.621747,
+          88.859333
+        ],
+        "nor47_gmp_full_trace": [
+          15.097532,
+          15.10285,
+          15.18308,
+          15.120616,
+          15.219915
+        ],
+        "nor48_r_aware_dispatch": [
+          15.201698,
+          15.087617,
+          15.368177,
+          15.171973,
+          15.173866
+        ]
+      },
+      "gmp_over_direct": 0.33294476680150964,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 110545,
+      "replicate": 104,
+      "signed_program_root_sha256": "8e3fc8e0154d2164e345b902c968f027f287972a8f9e4629a11257260420e41f",
+      "source_sha256": "0774441c0e1ed987fb4e46ca25abb1804fca8a616daa432818ec05e43c73dfc1"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 132.564559,
+        "nor46_python_full_trace": 916.051583,
+        "nor47_gmp_full_trace": 104.06022,
+        "nor48_r_aware_dispatch": 104.035002
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 1024,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.7847874483556349,
+      "dispatcher_over_gmp": 0.9997576595552076,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          132.893635,
+          134.84715,
+          132.564559,
+          131.850689,
+          131.616328
+        ],
+        "nor46_python_full_trace": [
+          917.118916,
+          916.051583,
+          915.853826,
+          915.931263,
+          918.21745
+        ],
+        "nor47_gmp_full_trace": [
+          104.063652,
+          103.718608,
+          103.975112,
+          104.06022,
+          104.090315
+        ],
+        "nor48_r_aware_dispatch": [
+          103.963219,
+          103.341022,
+          104.243985,
+          104.035002,
+          104.045027
+        ]
+      },
+      "gmp_over_direct": 0.7849776801958056,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 337314,
+      "replicate": 104,
+      "signed_program_root_sha256": "0c8d5e86bd907b3d05b0a5d5408fcdef50371421b360cbeafc06bfdeb239b173",
+      "source_sha256": "bc0fc1f39e99439d9f5e9fc1f1ca94fad6d87c4f03d8161a7ccbed3c32056fff"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 3.950382,
+        "nor46_python_full_trace": 7.116297,
+        "nor47_gmp_full_trace": 7.122948,
+        "nor48_r_aware_dispatch": 3.972806
+      },
+      "authorized_program_routing": "nor45_direct",
+      "degree": 1024,
+      "direct_selected_for_no_R": true,
+      "dispatcher_over_direct": 1.0056764130658757,
+      "dispatcher_over_gmp": 0.5577474382797684,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          3.950382,
+          3.951013,
+          3.950212,
+          3.948168,
+          3.95456
+        ],
+        "nor46_python_full_trace": [
+          7.037951,
+          7.116297,
+          7.182156,
+          7.141835,
+          7.064445
+        ],
+        "nor47_gmp_full_trace": [
+          7.19773,
+          7.109998,
+          7.143538,
+          7.109327,
+          7.122948
+        ],
+        "nor48_r_aware_dispatch": [
+          4.006215,
+          3.9491,
+          3.972806,
+          3.942891,
+          3.977164
+        ]
+      },
+      "gmp_over_direct": 1.8031035985886936,
+      "has_R_in_authorized_program": false,
+      "nor47_original_has_R": false,
+      "original_full_trace_bytes": 25979,
+      "replicate": 104,
+      "signed_program_root_sha256": "3608a0ccbd7a9186ff6966a4237966517b56fc6ca4f7ac636f5fbf5a47426a8e",
+      "source_sha256": "fefc64807ea4070905b54effcb55457b4e439268ae4971d1218d1915e7002645"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 31.983444,
+        "nor46_python_full_trace": 233.623479,
+        "nor47_gmp_full_trace": 28.480966,
+        "nor48_r_aware_dispatch": 28.535489
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 512,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.8921956309645703,
+      "dispatcher_over_gmp": 1.0019143662472685,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          31.983444,
+          32.146149,
+          31.807779,
+          32.045237,
+          31.831655
+        ],
+        "nor46_python_full_trace": [
+          234.922561,
+          233.021721,
+          233.623479,
+          232.591992,
+          233.84955
+        ],
+        "nor47_gmp_full_trace": [
+          28.520686,
+          28.480966,
+          29.297729,
+          28.199531,
+          28.189657
+        ],
+        "nor48_r_aware_dispatch": [
+          28.740778,
+          28.535489,
+          28.455227,
+          28.315506,
+          28.552565
+        ]
+      },
+      "gmp_over_direct": 0.8904909052320944,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 230697,
+      "replicate": 108,
+      "signed_program_root_sha256": "f9a6563e0da68d22c2bdac63dcf743558655df6f9d7629b41a34c75bfd6133c3",
+      "source_sha256": "600b2f213a06d43e4e457664c5079bde70313b9137c8a84917fe5b475376bdb4"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 26.269327,
+        "nor46_python_full_trace": 224.209161,
+        "nor47_gmp_full_trace": 28.456178,
+        "nor48_r_aware_dispatch": 28.321026
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 512,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 1.0781024576685958,
+      "dispatcher_over_gmp": 0.9952505216969053,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          26.269327,
+          25.996696,
+          26.349929,
+          26.264092,
+          28.047626
+        ],
+        "nor46_python_full_trace": [
+          224.274956,
+          223.989856,
+          223.764246,
+          224.304414,
+          224.209161
+        ],
+        "nor47_gmp_full_trace": [
+          30.224418,
+          28.164949,
+          28.456178,
+          28.510691,
+          28.344942
+        ],
+        "nor48_r_aware_dispatch": [
+          28.123326,
+          28.010216,
+          28.431111,
+          28.648197,
+          28.321026
+        ]
+      },
+      "gmp_over_direct": 1.083247317298993,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 256936,
+      "replicate": 108,
+      "signed_program_root_sha256": "800272315dc8eadd38c36e39db36cb52b71fc30a3f2df1790e505e6e0a89252c",
+      "source_sha256": "6be6fe21fab4d50651a8c5aca0573c84b6d951db82d53a399c56db9cb1d189b9"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 277.098963,
+        "nor46_python_full_trace": 1174.095213,
+        "nor47_gmp_full_trace": 126.008997,
+        "nor48_r_aware_dispatch": 126.462449
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 1024,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.45638008757181814,
+      "dispatcher_over_gmp": 1.0035985684419026,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          277.705244,
+          277.098963,
+          275.776655,
+          307.837591,
+          275.905118
+        ],
+        "nor46_python_full_trace": [
+          1177.658246,
+          1174.095213,
+          1170.809696,
+          1197.571989,
+          1172.76573
+        ],
+        "nor47_gmp_full_trace": [
+          127.391385,
+          125.963418,
+          126.002238,
+          131.774992,
+          126.008997
+        ],
+        "nor48_r_aware_dispatch": [
+          127.052495,
+          126.321557,
+          126.462449,
+          125.696167,
+          128.009438
+        ]
+      },
+      "gmp_over_direct": 0.4547436613828107,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 700796,
+      "replicate": 108,
+      "signed_program_root_sha256": "432b9931b3aacb7d7b1dc4c12879e186b75584b9ed6cc8620ad8672a7ee937eb",
+      "source_sha256": "48746519f0eba668c18b1ee3e3c749c2000b7397865e8525f71f91f9240f0daa"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 222.735322,
+        "nor46_python_full_trace": 1091.376397,
+        "nor47_gmp_full_trace": 122.763085,
+        "nor48_r_aware_dispatch": 122.661102
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 1024,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.5507034129054753,
+      "dispatcher_over_gmp": 0.9991692698175514,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          222.863018,
+          221.344922,
+          222.463412,
+          222.937965,
+          222.735322
+        ],
+        "nor46_python_full_trace": [
+          1109.433334,
+          1091.376397,
+          1086.683082,
+          1091.539176,
+          1090.066764
+        ],
+        "nor47_gmp_full_trace": [
+          122.341552,
+          123.23626,
+          122.606914,
+          123.115758,
+          122.763085
+        ],
+        "nor48_r_aware_dispatch": [
+          122.659701,
+          122.814885,
+          122.568826,
+          124.473589,
+          122.661102
+        ]
+      },
+      "gmp_over_direct": 0.5511612792155166,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 683729,
+      "replicate": 108,
+      "signed_program_root_sha256": "dbb12c7361a92b0e8c00afb7c44487101a46f3ba64eca3913f89b83069d273e5",
+      "source_sha256": "f51b07ced80cf9b2123d61240793264096d80c1ea3c613cea1747c72ad99bff1"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 54.150972,
+        "nor46_python_full_trace": 67.992111,
+        "nor47_gmp_full_trace": 12.932053,
+        "nor48_r_aware_dispatch": 12.987245
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 512,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.2398340144291408,
+      "dispatcher_over_gmp": 1.0042678451750855,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          54.150972,
+          54.535931,
+          53.910691,
+          54.955341,
+          53.695317
+        ],
+        "nor46_python_full_trace": [
+          68.085882,
+          67.992111,
+          67.979632,
+          67.908025,
+          68.040534
+        ],
+        "nor47_gmp_full_trace": [
+          12.932053,
+          12.959604,
+          13.039765,
+          12.87013,
+          12.872193
+        ],
+        "nor48_r_aware_dispatch": [
+          13.053615,
+          12.983991,
+          13.119164,
+          12.987245,
+          12.971142
+        ]
+      },
+      "gmp_over_direct": 0.23881478988041063,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 102695,
+      "replicate": 112,
+      "signed_program_root_sha256": "16d2d44116238074fd94667ca3d9dbc5396cadb09c22016792cb9c5f2762491d",
+      "source_sha256": "764ef4cdf503a7a180abb7fa397b35fd7275c820b4a87e6c1fc56147d26d0168"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 1.919295,
+        "nor46_python_full_trace": 3.532087,
+        "nor47_gmp_full_trace": 3.559329,
+        "nor48_r_aware_dispatch": 1.927426
+      },
+      "authorized_program_routing": "nor45_direct",
+      "degree": 512,
+      "direct_selected_for_no_R": true,
+      "dispatcher_over_direct": 1.0042364514053337,
+      "dispatcher_over_gmp": 0.5415138639895329,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          1.919295,
+          1.924572,
+          1.953516,
+          1.9166,
+          1.906896
+        ],
+        "nor46_python_full_trace": [
+          3.560321,
+          3.526008,
+          3.532087,
+          3.522123,
+          3.539599
+        ],
+        "nor47_gmp_full_trace": [
+          3.574281,
+          3.547411,
+          3.559329,
+          3.566589,
+          3.548272
+        ],
+        "nor48_r_aware_dispatch": [
+          1.928488,
+          1.937271,
+          1.927426,
+          1.920225,
+          1.922659
+        ]
+      },
+      "gmp_over_direct": 1.8544981360343251,
+      "has_R_in_authorized_program": false,
+      "nor47_original_has_R": false,
+      "original_full_trace_bytes": 13102,
+      "replicate": 112,
+      "signed_program_root_sha256": "48f5a7933cd1e5ab51067d968e221099f1910b96bc844a87a281b345dc5d7ae7",
+      "source_sha256": "ef2a5553936c3eb31773c68a9b3051e3efae9cf03d191ccc8964a889f0fc425c"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 265.453048,
+        "nor46_python_full_trace": 1023.866763,
+        "nor47_gmp_full_trace": 112.375517,
+        "nor48_r_aware_dispatch": 112.346274
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 1024,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.42322465251934116,
+      "dispatcher_over_gmp": 0.9997397742784132,
+      "family": "wide_dense_small",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          267.497787,
+          267.048757,
+          265.286929,
+          264.74844,
+          265.453048
+        ],
+        "nor46_python_full_trace": [
+          1023.27661,
+          1023.866763,
+          1022.893272,
+          1024.425184,
+          1024.227807
+        ],
+        "nor47_gmp_full_trace": [
+          112.308094,
+          112.46399,
+          112.375517,
+          112.114245,
+          112.812875
+        ],
+        "nor48_r_aware_dispatch": [
+          112.272631,
+          113.052114,
+          113.480127,
+          112.187144,
+          112.346274
+        ]
+      },
+      "gmp_over_direct": 0.4233348151270804,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 613914,
+      "replicate": 112,
+      "signed_program_root_sha256": "f2bbc7d9d2b2475795cdadb29fa3d284a710974df421065a5b6ab56a816679d8",
+      "source_sha256": "9b7213fd10da068664acaff2b350edfda07c216da9866c34c23d187da8f9517e"
+    },
+    {
+      "all_four_full_exact_outputs_and_roots_equal": true,
+      "arm_medians_ms": {
+        "nor45_direct": 102.823018,
+        "nor46_python_full_trace": 707.713236,
+        "nor47_gmp_full_trace": 87.440591,
+        "nor48_r_aware_dispatch": 87.58328
+      },
+      "authorized_program_routing": "gmp_full_trace",
+      "degree": 1024,
+      "direct_selected_for_no_R": false,
+      "dispatcher_over_direct": 0.8517867079139809,
+      "dispatcher_over_gmp": 1.0016318393822385,
+      "family": "wide_regime_blocks",
+      "five_interleaved_arm_ms": {
+        "nor45_direct": [
+          102.786645,
+          103.145103,
+          102.823018,
+          114.900786,
+          102.296707
+        ],
+        "nor46_python_full_trace": [
+          707.035446,
+          707.063889,
+          707.713236,
+          708.44858,
+          712.797464
+        ],
+        "nor47_gmp_full_trace": [
+          87.45366,
+          87.440591,
+          87.387085,
+          92.523342,
+          87.318251
+        ],
+        "nor48_r_aware_dispatch": [
+          87.711088,
+          87.387335,
+          88.502761,
+          87.58328,
+          87.52351
+        ]
+      },
+      "gmp_over_direct": 0.8503989933460229,
+      "has_R_in_authorized_program": true,
+      "nor47_original_has_R": true,
+      "original_full_trace_bytes": 281315,
+      "replicate": 112,
+      "signed_program_root_sha256": "ff90ca069f491babc0d83d9a00147b4fedb3e9e72ff67f18b46015c89dea85c6",
+      "source_sha256": "8e5d73f73c6e96e1261dbab6bf835f20f760c40e671ac51565b3c068933bda58"
+    }
+  ],
+  "strict_authorized_program_only_routing": true
+}
