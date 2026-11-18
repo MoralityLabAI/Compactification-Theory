@@ -31,6 +31,9 @@ jobs:
         run: |
           python -m compileall -q research/nor44_session_protocol
           python -m unittest research.nor44_session_protocol.test_session_protocol -v
+      - name: Read-only first historical-source session artifact SHA audit
+        run: |
+          python research/nor44_session_protocol/original_archive_audit.py
 
   original_nor42_64_source_session_trace:
     needs: session_protocol_security_unit_tests
