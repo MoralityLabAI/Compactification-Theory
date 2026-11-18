@@ -24,7 +24,7 @@ class WitnessTest(unittest.TestCase):
         cls.tree=producer.OutputTree(cls.values)
         cls.key=producer.test_reference_public_key()
         cls.bundle=producer.signed_reference_manifest(
-            cls.tree,cls.src,512)
+            cls.tree,cls.src,512,signing_key=producer.test_private_key())
         cls.claim=verifier.verify_signed_manifest(
             cls.bundle,cls.key,cls.src,512,len(cls.values),
             producer.PROVIDER_ID)
@@ -121,7 +121,7 @@ class WitnessTest(unittest.TestCase):
             hidden[j]+=7
         self.assertEqual(hidden[:513],list(self.values[:513]))
         actual=producer.OutputTree(hidden)
-        reference=producer.signed_reference_manifest(actual,self.src,512)
+        reference=producer.signed_reference_manifest(actual,self.src,512,signing_key=producer.test_private_key())
         authority=verifier.verify_signed_manifest(
             reference,self.key,self.src,512,769,producer.PROVIDER_ID)
         checked=(544,)+tuple(range(15))
@@ -182,7 +182,7 @@ class WitnessTest(unittest.TestCase):
             values=values[:m]
             tree=producer.OutputTree(values)
             bundle=producer.signed_reference_manifest(
-                tree,self.src,0)
+                tree,self.src,0,signing_key=producer.test_private_key())
             claim=verifier.verify_signed_manifest(bundle,self.key,
                 self.src,0,m,producer.PROVIDER_ID)
             for j in sorted(set((0,m//2,m-1))):
@@ -202,7 +202,7 @@ class WitnessTest(unittest.TestCase):
         for i in range(onset,len(true_hidden)):
             true_hidden[i]+=5
         tree=producer.OutputTree(true_hidden)
-        bundle=producer.signed_reference_manifest(tree,self.src,512)
+        bundle=producer.signed_reference_manifest(tree,self.src,512,signing_key=producer.test_private_key())
         authorized=verifier.verify_signed_manifest(
             bundle,self.key,self.src,512,769,producer.PROVIDER_ID)
         challenge=(onset,)+tuple(range(15))
