@@ -1,0 +1,38 @@
+name: NOR-48 signed native-program reciprocal-aware GMP verifier dispatch
+
+on:
+  push:
+    branches:
+      - research/nor48-authorized-r-dispatch-20261118
+    paths:
+      - 'research/nor48_r_aware_dispatch/**'
+      - '.github/workflows/nor48-signed-r-dispatch.yml'
+  pull_request:
+    paths:
+      - 'research/nor48_r_aware_dispatch/**'
+      - '.github/workflows/nor48-signed-r-dispatch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pinned_signed_program_dispatch_and_historical_16_source_parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact GMP bigint and public test signature dependency
+        run: |
+          python -m pip install --disable-pip-version-check --only-binary=:all: \
+            cryptography==46.0.4 gmpy2==2.3.2
+      - name: Validate signed source/program-driven backend dispatch and tamper controls
+        run: |
+          python -m compileall -q research/nor48_r_aware_dispatch
+          python -m unittest research.nor48_r_aware_dispatch.test_dispatch -v
