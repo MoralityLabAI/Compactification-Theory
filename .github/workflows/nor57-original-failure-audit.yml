@@ -1,0 +1,29 @@
+name: NOR-57 permanent read-only original first source/failed CPU log SHA audit
+
+on:
+  push:
+    paths:
+      - 'research/nor57_authenticated_router/results/**'
+      - 'research/nor57_authenticated_router/original_failure_audit.py'
+      - '.github/workflows/nor57-original-failure-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor57_authenticated_router/results/**'
+      - 'research/nor57_authenticated_router/original_failure_audit.py'
+      - '.github/workflows/nor57-original-failure-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  immutable_original_first_unscored_engineering_FAIL_evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit original first 60-source SHA, complete job log and unscored KeyError FAIL
+        run: python research/nor57_authenticated_router/original_failure_audit.py
