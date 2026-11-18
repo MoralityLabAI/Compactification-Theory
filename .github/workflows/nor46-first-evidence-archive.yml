@@ -1,0 +1,69 @@
+name: NOR-46 one-shot original historical-only full-trace evidence archive
+
+on:
+  push:
+    branches:
+      - research/nor46-exact-integer-transparent-trace-20261118
+    paths:
+      - '.github/workflows/nor46-first-evidence-archive.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_first_exact_integer_trace:
+    if: github.ref == 'refs/heads/research/nor46-exact-integer-transparent-trace-20261118' && contains(github.event.head_commit.message, 'NOR46-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor46-exact-integer-transparent-trace-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor46_first_historical_16_exact_integer_trace
+          run-id: 44236764485
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor46_original
+      - name: Pin original full trace archive SHA before any copy
+        run: |
+          test ! -e research/nor46_exact_integer_trace/results/nor46_first_historical_16.json
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          src=Path('/tmp/nor46_original/nor46_first_16_historical.json').read_bytes()
+          assert len(src)==19583
+          assert sha256(src).hexdigest()==(
+            'd24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052')
+          obj=json.loads(src)
+          assert obj['new_prospective_nor46_pairs']==0
+          assert obj['selected_existing_replicates']==[100,104,108,112]
+          assert obj['historical_pair_count']==16
+          assert obj['reciprocal_R_trace_count']==12
+          print('NOR46 ORIGINAL FIRST HISTORICAL SHA',len(src),sha256(src).hexdigest())
+          PY
+      - name: Commit exact immutable first archived JSON
+        run: |
+          mkdir -p research/nor46_exact_integer_trace/results
+          cp /tmp/nor46_original/nor46_first_16_historical.json \
+             research/nor46_exact_integer_trace/results/nor46_first_historical_16.json
+          python research/nor46_exact_integer_trace/original_archive_audit.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor46_exact_integer_trace/results/nor46_first_historical_16.json
+          git commit -m "NOR-46: archive original historical 16-source exact BigInt trace receipt SHA"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor46-exact-integer-transparent-trace-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor46-exact-integer-transparent-trace-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
