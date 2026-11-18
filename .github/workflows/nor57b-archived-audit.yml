@@ -1,0 +1,29 @@
+name: NOR-57B permanent original first 4-of-5 signed selector negative SHA audit
+
+on:
+  push:
+    paths:
+      - 'research/nor57b_independent/results/**'
+      - 'research/nor57b_independent/original_archive_audit.py'
+      - '.github/workflows/nor57b-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor57b_independent/results/**'
+      - 'research/nor57b_independent/original_archive_audit.py'
+      - '.github/workflows/nor57b-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_independent_source_SHA_and_full_CPU_five_gate_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify original source/CPU raw SHAs, 60 signed full roots, 8/52 route and 4-of-5 FAIL
+        run: python research/nor57b_independent/original_archive_audit.py
