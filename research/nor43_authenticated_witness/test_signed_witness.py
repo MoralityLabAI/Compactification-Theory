@@ -50,7 +50,7 @@ class WitnessTest(unittest.TestCase):
         checked=tuple(random.Random(123).sample(range(769),16))
         opens=[self.tree.opening(i) for i in checked]
         self.assertFalse(verifier.verified_sample_rejection(self.values,
-            self.claim,opens))
+            self.claim,opens,challenged_indices=checked))
         altered=list(self.values)
         altered[checked[0]]+=1
         self.assertTrue(verifier.verified_sample_rejection(altered,
@@ -126,7 +126,8 @@ class WitnessTest(unittest.TestCase):
             reference,self.key,self.src,512,769,producer.PROVIDER_ID)
         checked=(544,)+tuple(range(15))
         self.assertTrue(verifier.verified_sample_rejection(
-            self.values,authority,[actual.opening(i) for i in checked]))
+            self.values,authority,[actual.opening(i) for i in checked],
+            challenged_indices=checked))
         model_key=Ed25519PrivateKey.from_private_bytes(
             sha256(b"PUBLIC-MODEL-SELF-KEY").digest())
         model_bundle=producer.signed_reference_manifest(
@@ -141,7 +142,8 @@ class WitnessTest(unittest.TestCase):
         insecure=verifier.verify_signed_manifest(
             model_bundle,attacker_pub,self.src,512,769,producer.PROVIDER_ID)
         self.assertFalse(verifier.verified_sample_rejection(
-            self.values,insecure,[self.tree.opening(i) for i in checked]))
+            self.values,insecure,[self.tree.opening(i) for i in checked],
+            challenged_indices=checked))
 
     def test_proposal_precommitment_before_reference_root(self):
         clean=self.values
@@ -172,11 +174,50 @@ class WitnessTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             producer.OutputTree([0]).opening(1)
 
+
+    def test_valid_but_unchallenged_openings_cannot_substitute(self):
+        """A model must not choose its own easy indices for a signed root."""
+        true_hidden=list(self.values)
+        onset=544
+        for i in range(onset,len(true_hidden)):
+            true_hidden[i]+=5
+        tree=producer.OutputTree(true_hidden)
+        bundle=producer.signed_reference_manifest(tree,self.src,512)
+        authorized=verifier.verify_signed_manifest(
+            bundle,self.key,self.src,512,769,producer.PROVIDER_ID)
+        challenge=(onset,)+tuple(range(15))
+        requested=[tree.opening(i) for i in challenge]
+        self.assertTrue(verifier.verified_sample_rejection(
+            self.values,authorized,requested,challenged_indices=challenge))
+        # These substitute proofs are cryptographically VALID under
+        # the SAME authorized signed root, but visit easy prefix indices.
+        substituted=[tree.opening(i) for i in range(16)]
+        for proof in substituted:
+            self.assertTrue(verifier.verify_index_opening(authorized,proof))
+        with self.assertRaises(verifier.VerificationError):
+            verifier.verified_sample_rejection(
+                self.values,authorized,substituted,
+                challenged_indices=challenge)
+        with self.assertRaises(verifier.VerificationError):
+            verifier.verified_sample_rejection(
+                self.values,authorized,substituted,
+                challenged_indices=tuple(range(15))+(0,))
+
+    def test_correct_proofs_are_order_independent_but_challenge_bound(self):
+        challenge=tuple(range(16))
+        openings=[self.tree.opening(i) for i in reversed(challenge)]
+        self.assertFalse(verifier.verified_sample_rejection(
+            self.values,self.claim,openings,challenged_indices=challenge))
+        with self.assertRaises(TypeError):
+            verifier.verified_sample_rejection(
+                self.values,self.claim,openings)
+
     def test_repeated_audit_indices_rejected(self):
         opening=self.tree.opening(0)
         with self.assertRaises(verifier.VerificationError):
             verifier.verified_sample_rejection(
-                self.values,self.claim,[opening]*16)
+                self.values,self.claim,[opening]*16,
+                challenged_indices=tuple(range(16)))
 
 
 if __name__=="__main__":
