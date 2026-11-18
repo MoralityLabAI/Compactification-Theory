@@ -1,0 +1,38 @@
+# NOR-53 first prospective registration: native GMP digit packing for exact signed reciprocal witnesses
+
+**Frozen November 18, 2026 before generating any NOR53 source or observing its CPU timings.** NOR52 first original [60-source 5/5 engineering PASS](../nor52_sparse_inverse/RESULTS.md) has immutable raw CPU SHA `83090c4d9647b543b8950025808f087676ffd8a6dee03709b729bd663304a99d`. Its separately instrumented NOR47 replay attributed approximately 48.95% of measured phase time to per-coefficient GMP shift packing and 39.97% to low-digit extraction/shifting. This motivates a distinct experiment to test native gmpy2 pack/unpack without changing NOR52's original result.
+
+## New exact backend and threat boundary
+
+Implement `gmpy2.pack(nonnegative_low_first_digits,width)` and `gmpy2.unpack(nonnegative_integer,width)` under pinned `gmpy2==2.3.2`. Before any benchmark, compare digit order against NOR47's known exact shift representation using 2-, 4-, and 4097-bit signed controls; reject a native API order mismatch rather than silently changing semantics. Use NOR47's **unchanged** `_parameters` bound, requiring original Python builtin signed integer inputs and `MAX_COEFFICIENT_BITS=32768`, `MAX_PACKED_BITS=120000000`, offset K=2^maxbits, base B=2^width>4*m*K^2. Convert signed inputs into nonnegative digits `a_i+K` and `b_i+K` and pack them through the C extension, multiply once with GMP, unpack low n base-B digits (zero padding when the high coefficients vanish), and subtract the exact original signed cross terms. The returned low n signed integer coefficients must be byte-identical to NOR47 `gmp.full_gmp`. The high digits after the requested prefix are irrelevant to the truncated convolution; the verifier compares the entire *low-n* product against (1,0,...,0). The fast exact kernel has no global monkeypatch and never trusts model-selected backend hints.
+
+The full-witness fast verifier separately checks source and claimed inverse integer type, length, normalization, coefficient caps and exact identity and constructs the original full NOR45-format output Merkle root. The fast-compressed verifier uses NOR52's full-source/full-witness support validation and **original full-sized resource cap**, then validates the shortened signed identity with the fast kernel. It returns the unchanged original full witness and recomputes the same full Merkle root. A public stride is checked against every original source and untrusted witness coefficient, including off-support zeros. Reject malformed source, length, coefficient sign, overflow, claimed stride and truncated witness attacks in predata tests. This is an exact algebra-only, nonsuccinct verifier: neither a new NOR45 signed native grammar at m3073, a trusted provider, nor a cryptographic proof system.
+
+## First source-only 60-source cohort
+
+Generate **exactly 60 new** source IDs, from 2 independent replicate blocks (0,1) × three lengths m=(769,1537,3073) × five profiles `s1-b2,s4-b2,s8-b2,s4-b8,s4-b16` × two sign families (seeded independent signed_random, deterministic alternating). Each source F has F[0]=1. Positive multiples of stride draw magnitude uniformly in `[2^(bits-1),2^bits-1]` and sign independently from a seeded fair coin for random or (-1)^(i/stride) for alternating. All other coefficients are zero. Seed `random.Random(int.from_bytes(sha256("NOR53/SOURCE/v1|rep|m|profile|family"),"big"))`. Encode full source coefficients as canonical decimal strings; source ID is SHA256 of canonical JSON of public grid coordinates and source coefficient strings only. Exclude all **108** NOR51 and NOR52 first original public source IDs from their immutable archived ZIPs; verify those source ZIP SHAs from NOR51 and NOR52 first receipts. Source-only records have no inverse, witness, private target, root, phase or timing.
+
+A separate upstream source-only CI job must freeze its **first SHA and all 60 source IDs BEFORE** any NOR53 timed arithmetic job. Use the identical predeclared source grammar and test historical exclusions, no roster selection after first timing. All first source identities remain, even if one fails.
+
+## Four registered five-repeat timed arms
+
+On one Ubuntu-24.04 / CPython3.12 / `gmpy2==2.3.2` / `cryptography==46.0.4` runner, set OMP_NUM_THREADS=1 and run five deterministic source/repetition-seeded interleaved measurements of the **complete exact output + full NOR45 Merkle root** for each of these four arms:
+
+1. **original_full_gmp_root**: NOR51 full reference inverse witness validated via original NOR47 `gmp.full_gmp` and complete full root.
+2. **fast_full_gmp_root**: identical full witness validated by new native pack/unpack signed convolution and same full root.
+3. **original_compressed_gmp_root**: NOR52's unchanged support-validated compressed GMP, with original full-size source/witness checks and root.
+4. **fast_compressed_gmp_root**: same original support validation, compressed signed fast kernel, original full root.
+
+Generate the independent reference inverse **once before** timing each source using NOR51 quadratic native R and record its production time and canonical full witness JSON byte count/serialization time separately. All four arms must agree with the native reference vector/root before and during measurements. Include exact original and reduced GMP resource bit bounds. Shared signing, session and transport excluded equally. Original NOR50/51/52 signed/negative and archive tests remain in source-free CI.
+
+## Exactly five original engineering gates
+
+1. **All-source full-kernel speed:** the median across **60 sourcewise ratios** `fast_full_gmp_root/original_full_gmp_root` is strictly **<0.70×**.
+2. **Longest high-width improvement:** among **exactly eight** m=3073 inputs belonging to s4-b8 and s4-b16 profiles, median sourcewise fast_full/original_full GMP is **<0.50×**.
+3. **Compressed-backend gain:** on **all 48 sparse sources**, median sourcewise fast_compressed/original_compressed GMP is **<0.85×**.
+4. **All exactness and security controls:** 60/60 complete output integer vectors/full independent Merkle roots agree across all four arms; predata positive, signed 4097-bit, packed-digit-order, all malformed witness/source/stride/cap controls pass, including zero-extension on unpack.
+5. **Source-first and immutable engineering evidence:** source-only original 60-source SHA precedes the first timed job, IDs are historical-disjoint, five interleaved repetitions per arm, original caps enforced, nor46 process-global convolution unchanged, and first original CPU/roster raw bytes, five gates and PASS/FAIL preserved in a source-controlled byte-identical ZIP with receipt and independent read-only SHA audit.
+
+All five gates must PASS for the original engineering PASS. On any failed gate, a **first-run FAIL is an equally valid finding** and remains byte-identical. Record by-length, bitwidth, sparsity and sign-family sourcewise medians, grouped (replicate,profile) ten-block descriptive uncertainty, and matched-workload summed source medians as **secondary** diagnostics. A separate phase ledger for the new backend may be recorded outside timed arms but cannot replace registered ratios. Do not retune first thresholds or rerun a failing source under the same first-run label.
+
+**Scope:** synthetic public integer formal series, transparent full signed witness, no new signed program authorization for m=3073, no trusted provider guarantee, no cryptographic succinctness/zero knowledge, and no deployment network/transport timing. The rigorous no-carry arithmetic and sparse substitution lemmas remain separately formalizable in Lean; benchmark parity is not a machine-checked theorem.

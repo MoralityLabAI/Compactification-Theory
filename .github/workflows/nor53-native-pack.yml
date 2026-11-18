@@ -1,0 +1,146 @@
+name: NOR-53 prospectively registered GMP native pack/unpack exact CPU
+
+on:
+  push:
+    branches:
+      - research/nor53-native-gmp-pack-20261118
+    paths:
+      - 'research/nor53_native_pack/**'
+      - '.github/workflows/nor53-native-pack.yml'
+  pull_request:
+    paths:
+      - 'research/nor53_native_pack/**'
+      - '.github/workflows/nor53-native-pack.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source_free_registration_and_exact_signed_controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin identical NOR47 GNU MP and signed runtimes
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Original preregistration commit must predate any source or timing
+        run: |
+          git merge-base --is-ancestor ae56f414251a8485d127fc8f9899a24237870adf HEAD
+          test -s research/nor53_native_pack/REGISTRATION.md
+      - name: Compile only source-free new kernel and benchmarking code
+        run: python -m compileall -q research/nor53_native_pack
+      - name: Unit test GMP pack/unpack order, 4097-bit exactness and malicious witnesses
+        run: python -m unittest research.nor53_native_pack.test_fast_kernel -v
+      - name: Verify unchanged NOR52 immutable 5 of 5 PASS and earlier signed controls
+        run: |
+          python research/nor52_sparse_inverse/original_archive_audit.py
+          python -m unittest research.nor52_sparse_inverse.test_algebra -v
+          python -m unittest research.nor50_memoized_exact.test_cached -v
+      - name: Verify cohort contract only without generating NOR53 sources
+        run: |
+          python - <<'PY'
+          from research.nor53_native_pack import cohort,fast_kernel
+          assert cohort.REGISTERED=='ae56f414251a8485d127fc8f9899a24237870adf'
+          assert len(cohort.REPS)*len(cohort.LENGTHS)*len(cohort.PROFILES)*len(cohort.FAMILIES)==60
+          assert len(cohort.original_source_ids())==108
+          assert fast_kernel.unpack_is_little_endian()
+          print('NOR53 source-free prospective signed exact gate PASS')
+          PY
+
+  first_original_60_public_only_source_freeze:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR53-FIRST-CPU')
+    needs: source_free_registration_and_exact_signed_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: First public-only 60 source identity SHA generation before timing
+        run: |
+          python -u research/nor53_native_pack/cohort.py \
+            --public-only-out /tmp/nor53_first_original_60_public_sources.json
+      - name: Independent source-only grid admission and first NOR51/52 exclusions
+        run: |
+          python - <<'PY'
+          from collections import Counter
+          from pathlib import Path
+          from research.nor53_native_pack import cohort
+          path=Path('/tmp/nor53_first_original_60_public_sources.json')
+          fixture,sha=cohort.read_fixture(path)
+          cases=fixture['cases']
+          assert len(cases)==len({x['source_sha256'] for x in cases})==60
+          assert Counter(x['length'] for x in cases)=={769:20,1537:20,3073:20}
+          assert Counter(x['stride'] for x in cases)=={1:12,4:36,8:12}
+          assert all(not set(x).intersection(('inverse','root','witness',
+                        'target','timing','merkle','private')) for x in cases)
+          assert fixture['inverse_witness_root_and_cpu_absent']
+          print('NOR53 FIRST PUBLIC-ONLY 60 SOURCE RAW BYTES SHA256',path.stat().st_size,sha)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor53_first_original_60_public_only_sources
+          path: /tmp/nor53_first_original_60_public_sources.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_four_arm_five_repeat_CPU:
+    needs: first_original_60_public_only_source_freeze
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact original GMP and cryptography versions
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor53_first_original_60_public_only_sources
+          path: /tmp/nor53
+      - name: First registered 60-source whole root native GMP pack/unpack CPU
+        run: |
+          python -u research/nor53_native_pack/benchmark_cpu.py \
+            --public-file /tmp/nor53/nor53_first_original_60_public_sources.json \
+            --repeats 5 --out /tmp/nor53/nor53_first_original_cpu.json
+      - name: Preserve original first PASS or FAIL and raw SHA without optimization retune
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          p=Path('/tmp/nor53/nor53_first_original_cpu.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor53.first_60_source_native_gmp_packed_cpu.v1'
+          assert x['first_registration_sha']=='ae56f414251a8485d127fc8f9899a24237870adf'
+          assert x['source_count']==60 and len(x['source_records'])==60
+          assert x['repeats']==5 and len(x['four_original_timed_arms'])==4
+          assert len(x['first_original_five_registered_gates'])==5
+          assert all(type(v) is bool for v in x['first_original_five_registered_gates'].values())
+          assert x['first_original_engineering_pass']==all(x['first_original_five_registered_gates'].values())
+          print('NOR53 FIRST ORIGINAL CPU RAW BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR53 FIRST ORIGINAL GATES',x['first_original_five_registered_gates'])
+          print('NOR53 FIRST ORIGINAL ENGINEERING PASS',x['first_original_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor53_first_original_60_native_pack_CPU
+          path: |
+            /tmp/nor53/nor53_first_original_cpu.json
+            /tmp/nor53/nor53_first_original_60_public_sources.json
+          retention-days: 90
+          if-no-files-found: warn
