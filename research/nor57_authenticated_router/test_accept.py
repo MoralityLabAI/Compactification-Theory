@@ -129,6 +129,23 @@ class RegisteredSourceFreeNOR57Tests(unittest.TestCase):
         with self.assertRaises((TypeError,ValueError)):
             sparse.checked_full_witness((1,0),(1,True),1)
 
+    def test_post_first_run_reporting_field_regression(self):
+        # The first NOR57 CPU job had an unscored KeyError at this boundary.
+        # Future labels stay explicitly follow-up; first failure remains archived.
+        from research.nor57_authenticated_router import benchmark_cpu
+        arms=benchmark_cpu.ARMS
+        row={
+            "frozen_public_selector_decision":accept.NATIVE,
+            "arm_medians_ms":{arms[0]:2.0,arms[1]:1.0,arms[2]:1.1},
+            "always_native_over_always_GMP":0.5,
+            "frozen_selector_over_always_GMP":0.55,
+            "frozen_selector_over_always_native":1.1
+        }
+        score=benchmark_cpu.summarize([row])
+        self.assertEqual(score["selector_native_case_count"],1)
+        self.assertEqual(score["selector_gmp_case_count"],0)
+        self.assertEqual(score["sum_source_median_ms_by_arm"][arms[2]],1.1)
+
     def test_preserved_historical_negative_first_and_stated_60_case_grid(self):
         from research.nor56_batch_codec import original_archive_audit
         assert original_archive_audit.audit()["first_verdict"]=="FAIL (3/5)"
