@@ -1,0 +1,2930 @@
+{
+  "backend_rule": "active authorized signed program R count >= 2 chooses GMP trace",
+  "by_R_count": {
+    "0": {
+      "count": 19,
+      "median_nor48_over_direct": 1.0017269645765288,
+      "median_nor49_over_direct": 1.0019121347234665,
+      "median_nor49_over_nor48": 1.0000289831549904,
+      "median_source_direct_ms": 1.479184,
+      "median_source_nor49_ms": 1.486505
+    },
+    "1": {
+      "count": 15,
+      "median_nor48_over_direct": 1.0651847369153415,
+      "median_nor49_over_direct": 1.0002300752765894,
+      "median_nor49_over_nor48": 0.9445598353466881,
+      "median_source_direct_ms": 76.000563,
+      "median_source_nor49_ms": 76.321289
+    },
+    "2": {
+      "count": 12,
+      "median_nor48_over_direct": 0.47277916999394487,
+      "median_nor49_over_direct": 0.4712518489123739,
+      "median_nor49_over_nor48": 0.9997825886543614,
+      "median_source_direct_ms": 40.0075485,
+      "median_source_nor49_ms": 19.416565499999997
+    },
+    "3": {
+      "count": 2,
+      "median_nor48_over_direct": 0.4054192092721345,
+      "median_nor49_over_direct": 0.3989381882167097,
+      "median_nor49_over_nor48": 0.9815398203278656,
+      "median_source_direct_ms": 165.279013,
+      "median_source_nor49_ms": 59.894904499999996
+    },
+    "4": {
+      "count": 0
+    }
+  },
+  "by_degree": {
+    "1024": {
+      "count": 24,
+      "median_nor48_over_direct": 1.0014238458695315,
+      "median_nor49_over_direct": 1.0010641353021286,
+      "median_nor49_over_nor48": 0.9993232517476474,
+      "median_source_direct_ms": 80.675964,
+      "median_source_nor49_ms": 76.56108599999999
+    },
+    "512": {
+      "count": 24,
+      "median_nor48_over_direct": 0.9645937397961253,
+      "median_nor49_over_direct": 0.9980878954792798,
+      "median_nor49_over_nor48": 1.0001212865420734,
+      "median_source_direct_ms": 16.6637075,
+      "median_source_nor49_ms": 15.233189
+    }
+  },
+  "by_family": {
+    "wide_dense_small": {
+      "count": 24,
+      "median_nor48_over_direct": 0.9703584169843613,
+      "median_nor49_over_direct": 0.9946799091249886,
+      "median_nor49_over_nor48": 1.0000999456443993,
+      "median_source_direct_ms": 40.045719000000005,
+      "median_source_nor49_ms": 20.667032
+    },
+    "wide_regime_blocks": {
+      "count": 24,
+      "median_nor48_over_direct": 1.0004913439698484,
+      "median_nor49_over_direct": 1.001278764549805,
+      "median_nor49_over_nor48": 0.9997900718248525,
+      "median_source_direct_ms": 2.8589960000000003,
+      "median_source_nor49_ms": 2.858841
+    }
+  },
+  "cpu_model": "AMD EPYC 9V45 96-Core Processor",
+  "design_issue": 253,
+  "first_engineering_gates": {
+    "all_exact_source_program_and_roots": true,
+    "first_source_freeze_reentrant_and_five_repeats": true,
+    "median_nor49_over_direct_less_than_0p75": false,
+    "median_nor49_over_nor48_less_than_0p95": false,
+    "signed_program_r_count_only_routing": true
+  },
+  "first_engineering_pass": false,
+  "first_holdout_timing_not_used_to_choose_rule": true,
+  "five_repeat_interleaved_arms": [
+    "nor45_direct",
+    "nor47_gmp_full_trace",
+    "nor48_any_R_dispatch",
+    "nor49_multiple_R_dispatch"
+  ],
+  "full_exact_output_and_merkle_root_included_in_all_arm_timings": true,
+  "gmp_backend": {
+    "algorithm": "exact carry-free Kronecker, original NOR46 no-carry bound",
+    "claimed_cryptographic_soundness": false,
+    "claimed_proof_succinctness": false,
+    "gmp_version": "GMP 6.3.0",
+    "gmpy2_version": "2.3.2",
+    "max_coefficient_bits": 32768,
+    "max_packed_bits": 120000000
+  },
+  "heldout_replicates": [
+    101,
+    102,
+    103,
+    105,
+    106,
+    107,
+    109,
+    110,
+    111,
+    113,
+    114,
+    115
+  ],
+  "limitations": "Historical source identities with timing-clean holdout only, no new scientific model evaluation or cryptographic proof claim. Provider honesty and correct signed program remain external.",
+  "logical_cpus": 4,
+  "new_source_identities": 0,
+  "no_global_convolution_override": true,
+  "old_first_NOR48_training_sha256": "d5cf4b0e3860907eb58c2a37b84ff631f023caf2b69e6e0d0e5a322e2f0b2b99",
+  "overall": {
+    "count": 48,
+    "median_nor48_over_direct": 0.9994613078033732,
+    "median_nor49_over_direct": 0.9995949312073448,
+    "median_nor49_over_nor48": 0.9999505379197369,
+    "median_source_direct_ms": 25.588347,
+    "median_source_nor49_ms": 16.725510999999997
+  },
+  "process_max_rss_kib": 67988,
+  "python_version": "3.12.16",
+  "registration_first_commit": "26b70716ec3d3830031919e593d3092cc31ae162",
+  "repeat_count": 5,
+  "schema": "nor49.first_timing_clean_48_source_r_count_dispatch_cpu.v1",
+  "shared_crypto_session_transport_excluded_all_arm_timings": true,
+  "source_pairs": 48,
+  "source_records": [
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.391138,
+        "nor47_gmp_full_trace": 2.391808,
+        "nor48_any_R_dispatch": 1.398238,
+        "nor49_multiple_R_dispatch": 1.398038
+      },
+      "complete_true_future_root_sha256": "9281570f7938351f326eb7bc39980b8b4ef8bff889a40156f9d59b2e8fc80356",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.7193175659064739,
+      "full_trace_bytes": 10631,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.419611,
+          1.404959,
+          1.389666,
+          1.391138,
+          1.389696
+        ],
+        "nor47_gmp_full_trace": [
+          2.394151,
+          2.379309,
+          2.385899,
+          2.410355,
+          2.391808
+        ],
+        "nor48_any_R_dispatch": [
+          1.400792,
+          1.395304,
+          1.395936,
+          1.398238,
+          1.406461
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.398038,
+          1.404708,
+          1.402595,
+          1.393191,
+          1.391799
+        ]
+      },
+      "nor48_over_direct": 1.0051037352153418,
+      "nor49_over_direct": 1.0049599680261772,
+      "nor49_over_nor48": 0.9998569628346532,
+      "program_backend": "nor45_direct",
+      "replicate": 101,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "N",
+        "v": "I"
+      },
+      "source_sha256": "6a86ddc0a8d922b07e64828292e9828b62b200528caa243560b2db8f89900197"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 16.698075,
+        "nor47_gmp_full_trace": 15.536453,
+        "nor48_any_R_dispatch": 15.586078,
+        "nor49_multiple_R_dispatch": 16.817856
+      },
+      "complete_true_future_root_sha256": "f4a46377a82ec42db87daef323154f905b2302040ff7b981c7a9722d781f428f",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 0.9304337775462141,
+      "full_trace_bytes": 113809,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          17.534466,
+          16.660558,
+          16.433005,
+          16.735241,
+          16.698075
+        ],
+        "nor47_gmp_full_trace": [
+          15.661661,
+          15.781372,
+          15.323682,
+          15.536453,
+          15.370322
+        ],
+        "nor48_any_R_dispatch": [
+          16.265492,
+          15.586078,
+          15.261778,
+          15.700019,
+          15.429231
+        ],
+        "nor49_multiple_R_dispatch": [
+          16.980831,
+          17.122825,
+          16.322278,
+          16.817856,
+          16.713328
+        ]
+      },
+      "nor48_over_direct": 0.9334056770016904,
+      "nor49_over_direct": 1.0071733418373077,
+      "nor49_over_nor48": 1.0790306580013265,
+      "program_backend": "nor45_direct",
+      "replicate": 101,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "N",
+        "v": "R"
+      },
+      "source_sha256": "33c14c3c2bae29a3c0aa6f53b0e40f7f0910105dd1ac9036fd82f297a2ed8cb7"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 92.239415,
+        "nor47_gmp_full_trace": 95.96998,
+        "nor48_any_R_dispatch": 98.252017,
+        "nor49_multiple_R_dispatch": 92.804909
+      },
+      "complete_true_future_root_sha256": "06640c8282fb7bcb1ed8a8797ccc112bc79d8024984275365b8ec7d68f511c03",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.0404443696872971,
+      "full_trace_bytes": 309692,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          91.378785,
+          91.251861,
+          93.22275,
+          93.960836,
+          92.239415
+        ],
+        "nor47_gmp_full_trace": [
+          99.381084,
+          95.813135,
+          95.592179,
+          95.96998,
+          97.563116
+        ],
+        "nor48_any_R_dispatch": [
+          98.594005,
+          95.783521,
+          99.780205,
+          96.741425,
+          98.252017
+        ],
+        "nor49_multiple_R_dispatch": [
+          92.400404,
+          92.738774,
+          94.200497,
+          99.630158,
+          92.804909
+        ]
+      },
+      "nor48_over_direct": 1.0651847369153415,
+      "nor49_over_direct": 1.0061307197145601,
+      "nor49_over_nor48": 0.9445598353466881,
+      "program_backend": "nor45_direct",
+      "replicate": 101,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "S",
+        "v": "S"
+      },
+      "source_sha256": "7a954587ffe1a3783aa664b8c1afd054eb97bdd51154ce339139be3f9b8df1fd"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.877596,
+        "nor47_gmp_full_trace": 5.141336,
+        "nor48_any_R_dispatch": 2.880821,
+        "nor49_multiple_R_dispatch": 2.873781
+      },
+      "complete_true_future_root_sha256": "09716e2700fb06909f61df7bc9f3454dd040dc0b8e48999ac0a8a8e05ec39534",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.7866774905163894,
+      "full_trace_bytes": 25907,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.935655,
+          2.892148,
+          2.877596,
+          2.849173,
+          2.80714
+        ],
+        "nor47_gmp_full_trace": [
+          5.232003,
+          5.173755,
+          5.141336,
+          5.065351,
+          5.061065
+        ],
+        "nor48_any_R_dispatch": [
+          2.908704,
+          2.912539,
+          2.865348,
+          2.845578,
+          2.880821
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.933891,
+          2.898979,
+          2.873781,
+          2.868793,
+          2.826128
+        ]
+      },
+      "nor48_over_direct": 1.0011207271625342,
+      "nor49_over_direct": 0.9986742405813742,
+      "nor49_over_nor48": 0.9975562521933852,
+      "program_backend": "nor45_direct",
+      "replicate": 101,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "N",
+        "v": "S"
+      },
+      "source_sha256": "754618013227f5382560b8eeaae44986bf182a66b5f7f7900628fffcf42c5bae"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.479184,
+        "nor47_gmp_full_trace": 2.684155,
+        "nor48_any_R_dispatch": 1.486114,
+        "nor49_multiple_R_dispatch": 1.486505
+      },
+      "complete_true_future_root_sha256": "e4f837a63730b13e5785b59e1e0f26d89ca53b5f4e0ebc21ac3f240e93216c96",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.8146187357353785,
+      "full_trace_bytes": 13860,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.49608,
+          1.492604,
+          1.479184,
+          1.462038,
+          1.474757
+        ],
+        "nor47_gmp_full_trace": [
+          2.706368,
+          2.690634,
+          2.684155,
+          2.670524,
+          2.646398
+        ],
+        "nor48_any_R_dispatch": [
+          1.50288,
+          1.486114,
+          1.486044,
+          1.474557,
+          1.486525
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.510882,
+          1.497892,
+          1.485063,
+          1.4696,
+          1.486505
+        ]
+      },
+      "nor48_over_direct": 1.0046850155220715,
+      "nor49_over_direct": 1.0049493504526819,
+      "nor49_over_nor48": 1.0002631022922872,
+      "program_backend": "nor45_direct",
+      "replicate": 102,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "N",
+        "v": "S"
+      },
+      "source_sha256": "1b81c6d9b2f9e9dfc33bc6fe28f83d4fcab4c0527523722358cb9c63f698b455"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.422368,
+        "nor47_gmp_full_trace": 2.393505,
+        "nor48_any_R_dispatch": 1.425073,
+        "nor49_multiple_R_dispatch": 1.43702
+      },
+      "complete_true_future_root_sha256": "52e888d7720ae6724259d3f76959be37181bec3abeaa1d860c3f06d24237c661",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.6827607201511845,
+      "full_trace_bytes": 9848,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.434497,
+          1.428307,
+          1.422368,
+          1.414837,
+          1.406335
+        ],
+        "nor47_gmp_full_trace": [
+          2.415518,
+          2.393505,
+          2.394336,
+          2.369589,
+          2.371612
+        ],
+        "nor48_any_R_dispatch": [
+          1.439314,
+          1.443561,
+          1.425073,
+          1.418793,
+          1.413716
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.437111,
+          1.437801,
+          1.43702,
+          1.421687,
+          1.420496
+        ]
+      },
+      "nor48_over_direct": 1.001901758194785,
+      "nor49_over_direct": 1.0103011316340074,
+      "nor49_over_nor48": 1.008383430182173,
+      "program_backend": "nor45_direct",
+      "replicate": 102,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "S",
+        "v": "I"
+      },
+      "source_sha256": "aa58f299b80fbf38483dda536ccdd90cd72961529ef5d9440485fb9f4887269f"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 95.490486,
+        "nor47_gmp_full_trace": 107.697104,
+        "nor48_any_R_dispatch": 108.260865,
+        "nor49_multiple_R_dispatch": 94.741294
+      },
+      "complete_true_future_root_sha256": "cd982248c3244adda38e9b78d2cead85a6d6b297e5259f3c29b479188d18e33f",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.1278307244137389,
+      "full_trace_bytes": 329547,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          93.370013,
+          95.551437,
+          97.089431,
+          95.490486,
+          94.020746
+        ],
+        "nor47_gmp_full_trace": [
+          107.903435,
+          107.697104,
+          108.973231,
+          104.089945,
+          107.220163
+        ],
+        "nor48_any_R_dispatch": [
+          107.394386,
+          107.917887,
+          113.050951,
+          108.260865,
+          108.574739
+        ],
+        "nor49_multiple_R_dispatch": [
+          94.858491,
+          94.721925,
+          93.988046,
+          95.769798,
+          94.741294
+        ]
+      },
+      "nor48_over_direct": 1.1337345691171787,
+      "nor49_over_direct": 0.9921542759767711,
+      "nor49_over_nor48": 0.87512042324805,
+      "program_backend": "nor45_direct",
+      "replicate": 102,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "S",
+        "v": "S"
+      },
+      "source_sha256": "f4f5cd5e94d5274f65ef34a13403f0e45ee8e683424b70a6889ea700bd4ba7bb"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 74.589639,
+        "nor47_gmp_full_trace": 102.231448,
+        "nor48_any_R_dispatch": 102.595422,
+        "nor49_multiple_R_dispatch": 75.825543
+      },
+      "complete_true_future_root_sha256": "2dfe073bc04c4202506985719c3c8c04ebd230b417e0190b7645060de842d481",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.3705851023089144,
+      "full_trace_bytes": 514911,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          73.469844,
+          74.232116,
+          79.295604,
+          75.353188,
+          74.589639
+        ],
+        "nor47_gmp_full_trace": [
+          102.179159,
+          102.231448,
+          102.562468,
+          101.826148,
+          106.576401
+        ],
+        "nor48_any_R_dispatch": [
+          101.972537,
+          106.40409,
+          103.475858,
+          102.595422,
+          102.257742
+        ],
+        "nor49_multiple_R_dispatch": [
+          76.817661,
+          74.368772,
+          76.063452,
+          75.825543,
+          74.624792
+        ]
+      },
+      "nor48_over_direct": 1.3754647880786766,
+      "nor49_over_direct": 1.016569379025953,
+      "nor49_over_nor48": 0.7390733574837286,
+      "program_backend": "nor45_direct",
+      "replicate": 102,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "S",
+        "v": "R"
+      },
+      "source_sha256": "4c38472f2145227344e8f6e23ba8340b1c445c61897b11377984b926541b487f"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 20.848052,
+        "nor47_gmp_full_trace": 22.188724,
+        "nor48_any_R_dispatch": 22.300364,
+        "nor49_multiple_R_dispatch": 20.789793
+      },
+      "complete_true_future_root_sha256": "002081d8da8d3c563343f07d16e2446c5a8ac49c85135a8ab4688750ea279095",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.0643068234864341,
+      "full_trace_bytes": 121152,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          20.86002,
+          20.637763,
+          20.789102,
+          20.848052,
+          20.905599
+        ],
+        "nor47_gmp_full_trace": [
+          22.335207,
+          22.322237,
+          22.188724,
+          22.169065,
+          22.113851
+        ],
+        "nor48_any_R_dispatch": [
+          22.327445,
+          22.348987,
+          22.300364,
+          22.159239,
+          22.069754
+        ],
+        "nor49_multiple_R_dispatch": [
+          20.816433,
+          20.62886,
+          20.678385,
+          21.009186,
+          20.789793
+        ]
+      },
+      "nor48_over_direct": 1.0696617602450338,
+      "nor49_over_direct": 0.9972055422732061,
+      "nor49_over_nor48": 0.9322624958050013,
+      "program_backend": "nor45_direct",
+      "replicate": 103,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "S",
+        "v": "I"
+      },
+      "source_sha256": "70f82cd76591176d725f72112485c21e46d3d029650ca96523c254f18f58e362"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 30.893253,
+        "nor47_gmp_full_trace": 14.648332,
+        "nor48_any_R_dispatch": 14.694411,
+        "nor49_multiple_R_dispatch": 14.67374
+      },
+      "complete_true_future_root_sha256": "7f5405da561c86f543a6e19404a7ae4f48c891ccdb395ff0b43061e2f873e9a2",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 0.4741595842949915,
+      "full_trace_bytes": 118366,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          30.822867,
+          30.729705,
+          30.893253,
+          33.24553,
+          33.704776
+        ],
+        "nor47_gmp_full_trace": [
+          14.648332,
+          14.624155,
+          14.60829,
+          14.745789,
+          14.744287
+        ],
+        "nor48_any_R_dispatch": [
+          14.694411,
+          14.625627,
+          14.638896,
+          14.74639,
+          15.487503
+        ],
+        "nor49_multiple_R_dispatch": [
+          14.573368,
+          14.654801,
+          14.67374,
+          15.263364,
+          15.249752
+        ]
+      },
+      "nor48_over_direct": 0.4756511397488636,
+      "nor49_over_direct": 0.47498202924761596,
+      "nor49_over_nor48": 0.9985932746811015,
+      "program_backend": "gmp_full_trace",
+      "replicate": 103,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "R",
+        "v": "R"
+      },
+      "source_sha256": "177e7b01929ab3c4ab2a8ac44fbb9268967570b534966cdcf554cfcbd62269ae"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 103.558499,
+        "nor47_gmp_full_trace": 138.233518,
+        "nor48_any_R_dispatch": 138.212246,
+        "nor49_multiple_R_dispatch": 102.601702
+      },
+      "complete_true_future_root_sha256": "bf7e31c5c987bb14a97df00ed9aa75abd415ac33bd6bd4f74d9d4d3fa33e6724",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.334835086785103,
+      "full_trace_bytes": 747597,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          109.272689,
+          102.744328,
+          102.340597,
+          103.558499,
+          104.45841
+        ],
+        "nor47_gmp_full_trace": [
+          138.238551,
+          138.060265,
+          138.233518,
+          137.938852,
+          138.252967
+        ],
+        "nor48_any_R_dispatch": [
+          147.222012,
+          138.354971,
+          137.941155,
+          138.005282,
+          138.212246
+        ],
+        "nor49_multiple_R_dispatch": [
+          106.777135,
+          102.409101,
+          102.601702,
+          102.561131,
+          104.292679
+        ]
+      },
+      "nor48_over_direct": 1.3346296763146404,
+      "nor49_over_direct": 0.990760806604584,
+      "nor49_over_nor48": 0.7423488509115177,
+      "program_backend": "nor45_direct",
+      "replicate": 103,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "I",
+        "v": "N"
+      },
+      "source_sha256": "6f506f8340732b82bf10c9a48151f639a768ea1fec19a148687b27354a9c934c"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.695016,
+        "nor47_gmp_full_trace": 4.692366,
+        "nor48_any_R_dispatch": 2.709377,
+        "nor49_multiple_R_dispatch": 2.708586
+      },
+      "complete_true_future_root_sha256": "705bc3d03658c8faf9f0125ae9d8b205555b1aa34f0459dc191b285f5d7b0f1f",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.741127325403634,
+      "full_trace_bytes": 19599,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.71128,
+          2.690199,
+          2.695016,
+          2.689707,
+          2.703388
+        ],
+        "nor47_gmp_full_trace": [
+          4.798877,
+          4.692366,
+          4.680608,
+          4.676252,
+          4.693207
+        ],
+        "nor48_any_R_dispatch": [
+          2.695806,
+          2.701124,
+          2.725462,
+          2.709377,
+          2.714435
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.717811,
+          2.712622,
+          2.701185,
+          2.708206,
+          2.708586
+        ]
+      },
+      "nor48_over_direct": 1.0053287253211114,
+      "nor49_over_direct": 1.0050352205701192,
+      "nor49_over_nor48": 0.9997080509652219,
+      "program_backend": "nor45_direct",
+      "replicate": 103,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "I",
+        "v": "I"
+      },
+      "source_sha256": "cd6220baac42dff8eafb0b50fab773a35596394abc234468f2cdb3f3a1dc9394"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 20.307441,
+        "nor47_gmp_full_trace": 17.114221,
+        "nor48_any_R_dispatch": 17.161873,
+        "nor49_multiple_R_dispatch": 20.311186
+      },
+      "complete_true_future_root_sha256": "9d5f898a1774069babefabc1e7a7853dcc78a156294904287f7623ab309f6cb8",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.8427561601680882,
+      "full_trace_bytes": 96301,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          20.307441,
+          20.308552,
+          20.226638,
+          20.659743,
+          20.253139
+        ],
+        "nor47_gmp_full_trace": [
+          17.223867,
+          17.114221,
+          17.099068,
+          17.065748,
+          17.124056
+        ],
+        "nor48_any_R_dispatch": [
+          17.259561,
+          17.211298,
+          17.08642,
+          17.065348,
+          17.161873
+        ],
+        "nor49_multiple_R_dispatch": [
+          20.311186,
+          20.334912,
+          19.983311,
+          20.370706,
+          19.818992
+        ]
+      },
+      "nor48_over_direct": 0.845102689206385,
+      "nor49_over_direct": 1.0001844151609254,
+      "nor49_over_nor48": 1.1835063690309326,
+      "program_backend": "nor45_direct",
+      "replicate": 105,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "N",
+        "v": "I"
+      },
+      "source_sha256": "09583bbc055a11c67b1744fed87b136a37ecc6a0df66d862a3a3354d1ebdb0cd"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.455361,
+        "nor47_gmp_full_trace": 2.437356,
+        "nor48_any_R_dispatch": 1.449222,
+        "nor49_multiple_R_dispatch": 1.458876
+      },
+      "complete_true_future_root_sha256": "9a0727dda9a2fd788f54c0756b24c7c88c89044f76ea93edd7ee6a1da4b88e8a",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.6747432423982778,
+      "full_trace_bytes": 9967,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.466308,
+          1.455361,
+          1.454399,
+          1.445626,
+          1.466818
+        ],
+        "nor47_gmp_full_trace": [
+          2.465078,
+          2.441222,
+          2.437356,
+          2.420671,
+          2.423234
+        ],
+        "nor48_any_R_dispatch": [
+          1.473429,
+          1.460609,
+          1.449222,
+          1.439006,
+          1.430233
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.459136,
+          1.451205,
+          1.4478,
+          1.458876,
+          1.615783
+        ]
+      },
+      "nor48_over_direct": 0.99578180259056,
+      "nor49_over_direct": 1.0024152083228837,
+      "nor49_over_nor48": 1.0066615052766243,
+      "program_backend": "nor45_direct",
+      "replicate": 105,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "I",
+        "v": "N"
+      },
+      "source_sha256": "a347e6d6ae49288c28124a34994fad76526881f99ecc9764efcb4c051d568420"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 89.536082,
+        "nor47_gmp_full_trace": 87.667737,
+        "nor48_any_R_dispatch": 88.37623,
+        "nor49_multiple_R_dispatch": 89.408079
+      },
+      "complete_true_future_root_sha256": "f58e19f482ff341fe53a955d993070e9ba4395a232fccda8b704a57abd641c72",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.9791330494001291,
+      "full_trace_bytes": 433625,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          87.770223,
+          87.899728,
+          94.232014,
+          89.536082,
+          91.811012
+        ],
+        "nor47_gmp_full_trace": [
+          86.950613,
+          87.508223,
+          89.325925,
+          88.643012,
+          87.667737
+        ],
+        "nor48_any_R_dispatch": [
+          88.37623,
+          87.116073,
+          91.622958,
+          88.061072,
+          90.702296
+        ],
+        "nor49_multiple_R_dispatch": [
+          87.835091,
+          88.944998,
+          91.195972,
+          89.408079,
+          89.609012
+        ]
+      },
+      "nor48_over_direct": 0.987045982199668,
+      "nor49_over_direct": 0.9985703752371028,
+      "nor49_over_nor48": 1.0116756394790771,
+      "program_backend": "nor45_direct",
+      "replicate": 105,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "I",
+        "v": "R"
+      },
+      "source_sha256": "5112d6d251f28afc52909a9191ad677f1f053e1afbfb17baa198394bd4a7ea56"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 153.41688,
+        "nor47_gmp_full_trace": 113.92363,
+        "nor48_any_R_dispatch": 113.44765,
+        "nor49_multiple_R_dispatch": 113.311975
+      },
+      "complete_true_future_root_sha256": "9cb028cba4f3658c16476f8cabb958bde8117aaeb7cf4e98c225edf78abaa3ea",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 0.7425755888139559,
+      "full_trace_bytes": 568946,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          152.858406,
+          153.41688,
+          156.580454,
+          154.548762,
+          153.127863
+        ],
+        "nor47_gmp_full_trace": [
+          113.074196,
+          116.649873,
+          113.92363,
+          113.27549,
+          116.490362
+        ],
+        "nor48_any_R_dispatch": [
+          113.44765,
+          115.462077,
+          112.754592,
+          117.979754,
+          112.756315
+        ],
+        "nor49_multiple_R_dispatch": [
+          113.311975,
+          112.887503,
+          117.78546,
+          112.894274,
+          116.407065
+        ]
+      },
+      "nor48_over_direct": 0.7394730618951448,
+      "nor49_over_direct": 0.738588706796801,
+      "nor49_over_nor48": 0.9988040739495265,
+      "program_backend": "gmp_full_trace",
+      "replicate": 105,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "S",
+        "v": "R"
+      },
+      "source_sha256": "1beac70f1fedb45687532397fdbce7a245a8f0a944ba56499bf7a18bba96d92e"
+    },
+    {
+      "active_R_count_from_authorized_program": 3,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 65.545865,
+        "nor47_gmp_full_trace": 30.231985,
+        "nor48_any_R_dispatch": 30.11611,
+        "nor49_multiple_R_dispatch": 30.119104
+      },
+      "complete_true_future_root_sha256": "0d1817de433afa36d3625dc5c652f67b6058cf43810739a4a1f46fd0dea2d7b9",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.46123405343723817,
+      "full_trace_bytes": 246829,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          64.912067,
+          67.213848,
+          65.545865,
+          65.587328,
+          64.892457
+        ],
+        "nor47_gmp_full_trace": [
+          30.410034,
+          30.138394,
+          30.052153,
+          30.238585,
+          30.231985
+        ],
+        "nor48_any_R_dispatch": [
+          30.421913,
+          30.11611,
+          30.077942,
+          30.103471,
+          30.121518
+        ],
+        "nor49_multiple_R_dispatch": [
+          30.165665,
+          30.119104,
+          30.105445,
+          30.236682,
+          30.111092
+        ]
+      },
+      "nor48_over_direct": 0.45946620736487337,
+      "nor49_over_direct": 0.4595118853035199,
+      "nor49_over_nor48": 1.0000994152299219,
+      "program_backend": "gmp_full_trace",
+      "replicate": 106,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "R",
+        "v": "R"
+      },
+      "source_sha256": "6cd51afddd6f7b41e5ac663f65a7c7111d53d1879872ae59e0acfb2055d4dc8d"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 30.328642,
+        "nor47_gmp_full_trace": 13.958808,
+        "nor48_any_R_dispatch": 13.938277,
+        "nor49_multiple_R_dispatch": 13.963965
+      },
+      "complete_true_future_root_sha256": "ac4acc69f9ddabd740a25486bab7dba93399e7829dd093688028d35cae46be9c",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 0.4602516657356436,
+      "full_trace_bytes": 107761,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          30.139656,
+          30.328642,
+          30.320319,
+          30.64457,
+          30.4532
+        ],
+        "nor47_gmp_full_trace": [
+          13.988002,
+          13.922273,
+          14.21814,
+          13.952038,
+          13.958808
+        ],
+        "nor48_any_R_dispatch": [
+          13.964086,
+          13.952919,
+          13.886398,
+          13.938277,
+          13.916114
+        ],
+        "nor49_multiple_R_dispatch": [
+          14.000211,
+          13.963965,
+          13.91412,
+          13.936695,
+          13.982003
+        ]
+      },
+      "nor48_over_direct": 0.45957471488502516,
+      "nor49_over_direct": 0.46042170302250923,
+      "nor49_over_nor48": 1.0018429824575878,
+      "program_backend": "gmp_full_trace",
+      "replicate": 106,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "R",
+        "v": "N"
+      },
+      "source_sha256": "50f97c48617489a2b95471f41badca6ea078128158fd6ab7f1cc140d50d7ca4f"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 193.109645,
+        "nor47_gmp_full_trace": 107.166438,
+        "nor48_any_R_dispatch": 105.897549,
+        "nor49_multiple_R_dispatch": 107.265148
+      },
+      "complete_true_future_root_sha256": "fbf8af761953d3b0c4e112d13201a0b2566c09ec87f91bf154b82dc928fc3346",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.5549512454440066,
+      "full_trace_bytes": 593533,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          185.568088,
+          193.109645,
+          189.910576,
+          193.743234,
+          203.233969
+        ],
+        "nor47_gmp_full_trace": [
+          110.636377,
+          105.654773,
+          105.587631,
+          107.166438,
+          110.690248
+        ],
+        "nor48_any_R_dispatch": [
+          106.189351,
+          105.575362,
+          105.897549,
+          105.691778,
+          110.118964
+        ],
+        "nor49_multiple_R_dispatch": [
+          106.908609,
+          106.645811,
+          109.611277,
+          107.265148,
+          158.060661
+        ]
+      },
+      "nor48_over_direct": 0.5483804239814122,
+      "nor49_over_direct": 0.555462405826493,
+      "nor49_over_nor48": 1.0129143593304506,
+      "program_backend": "gmp_full_trace",
+      "replicate": 106,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "R",
+        "v": "N"
+      },
+      "source_sha256": "9603e8210acf7b090fbe0c14f75daf1dcb0bf763f3329634e882076d37fdaabc"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.823311,
+        "nor47_gmp_full_trace": 4.710785,
+        "nor48_any_R_dispatch": 2.832865,
+        "nor49_multiple_R_dispatch": 2.843061
+      },
+      "complete_true_future_root_sha256": "912dc261c4c2e6eee7675b25ec727bac29c452e6c1ed737fc183f674e418de5d",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.6685320887426145,
+      "full_trace_bytes": 19667,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.840587,
+          2.823311,
+          2.82298,
+          2.821127,
+          2.823781
+        ],
+        "nor47_gmp_full_trace": [
+          4.736074,
+          4.691807,
+          4.710785,
+          4.693419,
+          4.73372
+        ],
+        "nor48_any_R_dispatch": [
+          2.832865,
+          2.853096,
+          2.829099,
+          2.846235,
+          2.823871
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.861859,
+          2.843061,
+          2.842559,
+          2.837792,
+          2.899145
+        ]
+      },
+      "nor48_over_direct": 1.0033839700975202,
+      "nor49_over_direct": 1.006995332784805,
+      "nor49_over_nor48": 1.0035991831590987,
+      "program_backend": "nor45_direct",
+      "replicate": 106,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "N",
+        "v": "I"
+      },
+      "source_sha256": "cdd28ff0ada12bf8bc57f13dfee43424f41db77ec7eae08f96566438c28e06d2"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 39.981706,
+        "nor47_gmp_full_trace": 15.802673,
+        "nor48_any_R_dispatch": 15.872058,
+        "nor49_multiple_R_dispatch": 15.792638
+      },
+      "complete_true_future_root_sha256": "35d8ac64e8717f6994313a36688a07d6ecfcebf3a40f35e17a7c768dfd55aedb",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.3952475914859661,
+      "full_trace_bytes": 123612,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          40.097931,
+          40.022267,
+          39.981706,
+          39.844268,
+          39.933943
+        ],
+        "nor47_gmp_full_trace": [
+          15.802673,
+          15.846379,
+          15.772207,
+          15.797004,
+          16.054473
+        ],
+        "nor48_any_R_dispatch": [
+          16.247215,
+          15.918048,
+          15.816594,
+          15.821792,
+          15.872058
+        ],
+        "nor49_multiple_R_dispatch": [
+          15.784916,
+          15.836104,
+          15.77429,
+          15.792638,
+          15.80065
+        ]
+      },
+      "nor48_over_direct": 0.39698301017970566,
+      "nor49_over_direct": 0.39499660169578554,
+      "nor49_over_nor48": 0.9949962380429809,
+      "program_backend": "gmp_full_trace",
+      "replicate": 107,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "R",
+        "v": "R"
+      },
+      "source_sha256": "1276bc3595e8dd9a7361ecb442923b751eb829797a859beeabb1c4233a8cff75"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.400519,
+        "nor47_gmp_full_trace": 2.424107,
+        "nor48_any_R_dispatch": 1.407269,
+        "nor49_multiple_R_dispatch": 1.407089
+      },
+      "complete_true_future_root_sha256": "8fb0a2b37fe2e7cef3a177c8350aed1f2a813fcd59f65eaf65605cd85d1bf3db",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.7308633442316739,
+      "full_trace_bytes": 9952,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.420899,
+          1.40847,
+          1.400519,
+          1.399917,
+          1.39538
+        ],
+        "nor47_gmp_full_trace": [
+          2.456806,
+          2.434943,
+          2.424107,
+          2.405929,
+          2.412579
+        ],
+        "nor48_any_R_dispatch": [
+          1.437635,
+          1.418966,
+          1.407269,
+          1.393858,
+          1.406518
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.426939,
+          1.413077,
+          1.407089,
+          1.404935,
+          1.390954
+        ]
+      },
+      "nor48_over_direct": 1.0048196418613387,
+      "nor49_over_direct": 1.0046911180783695,
+      "nor49_over_nor48": 0.9998720926844832,
+      "program_backend": "nor45_direct",
+      "replicate": 107,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "N",
+        "v": "I"
+      },
+      "source_sha256": "6a29d9783994ee09672e96e98ffb3eedf48a8788a427e657cf7e4c9df830db97"
+    },
+    {
+      "active_R_count_from_authorized_program": 3,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 265.012161,
+        "nor47_gmp_full_trace": 92.27279,
+        "nor48_any_R_dispatch": 93.117909,
+        "nor49_multiple_R_dispatch": 89.670705
+      },
+      "complete_true_future_root_sha256": "476b595f68460c437f2696ebeddebcf5639bda00a08b7edd505a0f95751807dc",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.348183229221696,
+      "full_trace_bytes": 494620,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          262.097496,
+          282.039749,
+          289.180634,
+          265.012161,
+          258.600424
+        ],
+        "nor47_gmp_full_trace": [
+          94.435412,
+          92.27279,
+          90.20319,
+          92.785698,
+          89.365455
+        ],
+        "nor48_any_R_dispatch": [
+          95.952837,
+          93.117909,
+          115.467001,
+          90.430857,
+          88.576612
+        ],
+        "nor49_multiple_R_dispatch": [
+          89.670705,
+          98.614503,
+          90.312325,
+          89.241798,
+          88.924218
+        ]
+      },
+      "nor48_over_direct": 0.35137221117939565,
+      "nor49_over_direct": 0.3383644911298995,
+      "nor49_over_nor48": 0.9629802254258093,
+      "program_backend": "gmp_full_trace",
+      "replicate": 107,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "R",
+        "v": "I"
+      },
+      "source_sha256": "30e6721744013876947f32a2131f88a06785b30b9b9b100fabaf239505cd8092"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.747165,
+        "nor47_gmp_full_trace": 4.624794,
+        "nor48_any_R_dispatch": 2.739874,
+        "nor49_multiple_R_dispatch": 2.737269
+      },
+      "complete_true_future_root_sha256": "a16ea4c7fb72380eb71e3f9fc7480d5a740c7d559d30b5eb3906e95020419354",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.6834787863124347,
+      "full_trace_bytes": 19429,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.747165,
+          2.749568,
+          2.794587,
+          2.732563,
+          2.742958
+        ],
+        "nor47_gmp_full_trace": [
+          4.63504,
+          4.678786,
+          4.617663,
+          4.613167,
+          4.624794
+        ],
+        "nor48_any_R_dispatch": [
+          2.739874,
+          2.727925,
+          2.756389,
+          2.734546,
+          2.740605
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.737269,
+          2.741316,
+          2.755267,
+          2.735657,
+          2.735778
+        ]
+      },
+      "nor48_over_direct": 0.9973459912309599,
+      "nor49_over_direct": 0.9963977409438458,
+      "nor49_over_nor48": 0.9990492263512848,
+      "program_backend": "nor45_direct",
+      "replicate": 107,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "I",
+        "v": "I"
+      },
+      "source_sha256": "a656148bae06274138815c830ee158d6fbaadb9f0953fcbd2186547e6349537e"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 39.388811,
+        "nor47_gmp_full_trace": 20.524051,
+        "nor48_any_R_dispatch": 20.542207,
+        "nor49_multiple_R_dispatch": 20.544271
+      },
+      "complete_true_future_root_sha256": "3d7726a269a6e07f7b2136eb5e4dc701796921a1ac32353aefd70be555c54f67",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.5210629739496326,
+      "full_trace_bytes": 194211,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          39.450174,
+          39.388811,
+          39.200196,
+          39.100375,
+          39.854736
+        ],
+        "nor47_gmp_full_trace": [
+          20.564712,
+          20.516428,
+          20.502227,
+          20.524051,
+          21.573017
+        ],
+        "nor48_any_R_dispatch": [
+          20.524972,
+          20.558042,
+          20.758064,
+          20.506233,
+          20.542207
+        ],
+        "nor49_multiple_R_dispatch": [
+          20.502858,
+          20.585012,
+          20.544271,
+          20.466063,
+          20.866658
+        ]
+      },
+      "nor48_over_direct": 0.52152391703319,
+      "nor49_over_direct": 0.5215763177009837,
+      "nor49_over_nor48": 1.000100476058877,
+      "program_backend": "gmp_full_trace",
+      "replicate": 109,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "R",
+        "v": "S"
+      },
+      "source_sha256": "05a34e0721c8686046f857a2a4eaaa7b31e9c2200d7e86b8224e167b5312a56b"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.406647,
+        "nor47_gmp_full_trace": 2.562785,
+        "nor48_any_R_dispatch": 1.407489,
+        "nor49_multiple_R_dispatch": 1.407689
+      },
+      "complete_true_future_root_sha256": "d6121bb4709220166473e5c23eaf7e04486acbb528b54f2e7d20d35219f8837b",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.821910543299065,
+      "full_trace_bytes": 13000,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.40849,
+          1.41532,
+          1.406647,
+          1.404565,
+          1.389762
+        ],
+        "nor47_gmp_full_trace": [
+          2.566632,
+          2.562785,
+          2.553722,
+          2.92306,
+          2.524017
+        ],
+        "nor48_any_R_dispatch": [
+          1.423884,
+          1.407489,
+          1.399877,
+          1.413327,
+          1.390734
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.417464,
+          1.407689,
+          1.412937,
+          1.403412,
+          1.406157
+        ]
+      },
+      "nor48_over_direct": 1.0005985865679166,
+      "nor49_over_direct": 1.000740768650557,
+      "nor49_over_nor48": 1.00014209702527,
+      "program_backend": "nor45_direct",
+      "replicate": 109,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "I",
+        "v": "N"
+      },
+      "source_sha256": "465cd6d4940754e2f57676b03965582817c5e3f6c40ada684e0fb373cd0a124d"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 88.737375,
+        "nor47_gmp_full_trace": 84.487688,
+        "nor48_any_R_dispatch": 84.626248,
+        "nor49_multiple_R_dispatch": 88.649121
+      },
+      "complete_true_future_root_sha256": "9f49c81d7f8f6d015206a8ed13144d8a8301ab28f26d129034a8c3dc1b2fc507",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.9521093902090298,
+      "full_trace_bytes": 451495,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          88.270358,
+          88.737375,
+          87.583951,
+          89.510434,
+          88.81327
+        ],
+        "nor47_gmp_full_trace": [
+          84.360416,
+          84.345653,
+          84.53531,
+          84.68711,
+          84.487688
+        ],
+        "nor48_any_R_dispatch": [
+          84.408869,
+          85.380318,
+          84.626248,
+          84.486366,
+          85.906834
+        ],
+        "nor49_multiple_R_dispatch": [
+          88.613337,
+          88.649121,
+          89.991251,
+          88.423541,
+          89.677047
+        ]
+      },
+      "nor48_over_direct": 0.9536708517690545,
+      "nor49_over_direct": 0.9990054472537642,
+      "nor49_over_nor48": 1.047536941493613,
+      "program_backend": "nor45_direct",
+      "replicate": 109,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "R",
+        "v": "I"
+      },
+      "source_sha256": "89ad46f73baf7b53d9245a97fda5489963021e37976ebf4b0241d5e1b0f341de"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.840396,
+        "nor47_gmp_full_trace": 4.4165,
+        "nor48_any_R_dispatch": 2.841487,
+        "nor49_multiple_R_dispatch": 2.843901
+      },
+      "complete_true_future_root_sha256": "c143239479984ebc806482610873362207cd1f79679f14b869456b5b87d57556",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.5548888253609707,
+      "full_trace_bytes": 13302,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.859644,
+          2.840396,
+          2.837771,
+          2.840816,
+          2.827637
+        ],
+        "nor47_gmp_full_trace": [
+          4.4165,
+          4.406955,
+          4.417932,
+          4.406745,
+          4.419955
+        ],
+        "nor48_any_R_dispatch": [
+          2.850881,
+          2.838553,
+          2.831903,
+          2.841487,
+          2.907968
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.846926,
+          2.843901,
+          2.842148,
+          2.838803,
+          2.88901
+        ]
+      },
+      "nor48_over_direct": 1.0003841013717805,
+      "nor49_over_direct": 1.0012339828671775,
+      "nor49_over_nor48": 1.0008495551800871,
+      "program_backend": "nor45_direct",
+      "replicate": 109,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "N",
+        "v": "N"
+      },
+      "source_sha256": "b1da199cc1383fb601fc8d40f813a2a188ae3c7044a46d157b3fb2441b8fea07"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.447128,
+        "nor47_gmp_full_trace": 2.644119,
+        "nor48_any_R_dispatch": 1.447239,
+        "nor49_multiple_R_dispatch": 1.455691
+      },
+      "complete_true_future_root_sha256": "fb52283116293d6d3b58dbfe00480544862787d5ecbfa310717a0f01ef6dd7bf",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.8271493606647096,
+      "full_trace_bytes": 13771,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.466007,
+          1.460339,
+          1.447128,
+          1.439598,
+          1.429892
+        ],
+        "nor47_gmp_full_trace": [
+          2.663828,
+          2.661585,
+          2.644119,
+          2.62473,
+          2.614023
+        ],
+        "nor48_any_R_dispatch": [
+          1.453167,
+          1.461901,
+          1.444284,
+          1.447239,
+          1.433568
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.463213,
+          1.459948,
+          1.455691,
+          1.439678,
+          1.426737
+        ]
+      },
+      "nor48_over_direct": 1.0000767036502645,
+      "nor49_over_direct": 1.0059172374523886,
+      "nor49_over_nor48": 1.0058400858462218,
+      "program_backend": "nor45_direct",
+      "replicate": 110,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "N",
+        "v": "I"
+      },
+      "source_sha256": "694b5f5b230b516a73dd671d834935881b8a61dbaf3b151ea50e3aab1dcafbe3"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 34.342849,
+        "nor47_gmp_full_trace": 24.306411,
+        "nor48_any_R_dispatch": 24.283636,
+        "nor49_multiple_R_dispatch": 24.270637
+      },
+      "complete_true_future_root_sha256": "9db285fab12791bba4f12c65ac9691b0b60faf5f7b518f4969239692a92231e1",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 0.7077575596596544,
+      "full_trace_bytes": 228925,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          34.363631,
+          34.636123,
+          34.286785,
+          34.342849,
+          33.704084
+        ],
+        "nor47_gmp_full_trace": [
+          24.331579,
+          24.297888,
+          24.306411,
+          24.314884,
+          24.273551
+        ],
+        "nor48_any_R_dispatch": [
+          24.264216,
+          24.584371,
+          24.283636,
+          24.25966,
+          24.323366
+        ],
+        "nor49_multiple_R_dispatch": [
+          24.313812,
+          24.382095,
+          24.270637,
+          24.238128,
+          24.270596
+        ]
+      },
+      "nor48_over_direct": 0.7070943939450103,
+      "nor49_over_direct": 0.7067158871996904,
+      "nor49_over_nor48": 0.9994647012498458,
+      "program_backend": "gmp_full_trace",
+      "replicate": 110,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "R",
+        "v": "I"
+      },
+      "source_sha256": "03fa95563c19e061c3a44606a034126ba6ed4946aacf30b8ba6b082eea690211"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 89.719372,
+        "nor47_gmp_full_trace": 90.791153,
+        "nor48_any_R_dispatch": 91.752347,
+        "nor49_multiple_R_dispatch": 91.837755
+      },
+      "complete_true_future_root_sha256": "84c7311af8311df1b89c1495fd3a3077aae98a4409239b81cf908fbeb281f0df",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.0119459262376467,
+      "full_trace_bytes": 290768,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          89.211292,
+          89.719372,
+          89.17477,
+          91.676212,
+          90.308463
+        ],
+        "nor47_gmp_full_trace": [
+          88.69417,
+          90.679903,
+          91.464071,
+          90.791153,
+          91.009434
+        ],
+        "nor48_any_R_dispatch": [
+          90.591659,
+          90.521454,
+          91.752347,
+          94.099294,
+          92.966682
+        ],
+        "nor49_multiple_R_dispatch": [
+          89.488101,
+          89.345445,
+          95.066066,
+          91.837755,
+          92.889325
+        ]
+      },
+      "nor48_over_direct": 1.022659264712642,
+      "nor49_over_direct": 1.023611210742759,
+      "nor49_over_nor48": 1.0009308535726067,
+      "program_backend": "nor45_direct",
+      "replicate": 110,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "S",
+        "v": "N"
+      },
+      "source_sha256": "81f3b45cb28f4548fc94df86b1ed59f815d87c7ee022323cea21b84d9ddc2c26"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 72.455895,
+        "nor47_gmp_full_trace": 64.569863,
+        "nor48_any_R_dispatch": 64.642854,
+        "nor49_multiple_R_dispatch": 72.804873
+      },
+      "complete_true_future_root_sha256": "5ff017a9b4a219f4b1fc80bcdf1711de0e1a64718f5e3e068142ed16e63b1014",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 0.8911609331442252,
+      "full_trace_bytes": 509938,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          72.4592,
+          85.064736,
+          72.455895,
+          72.100198,
+          72.207279
+        ],
+        "nor47_gmp_full_trace": [
+          66.743249,
+          64.741873,
+          64.450053,
+          64.569863,
+          64.55483
+        ],
+        "nor48_any_R_dispatch": [
+          66.091284,
+          65.267859,
+          64.642854,
+          64.637916,
+          64.62733
+        ],
+        "nor49_multiple_R_dispatch": [
+          76.163359,
+          72.804873,
+          107.00177,
+          71.671258,
+          72.553823
+        ]
+      },
+      "nor48_over_direct": 0.8921683183956254,
+      "nor49_over_direct": 1.004816419699184,
+      "nor49_over_nor48": 1.1262632834868336,
+      "program_backend": "nor45_direct",
+      "replicate": 110,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "S",
+        "v": "N"
+      },
+      "source_sha256": "e218369cb843e3c9ba241b41b33dbde054507ebeecbd57ef836d21c59aadd7e8"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 40.058047,
+        "nor47_gmp_full_trace": 17.905508,
+        "nor48_any_R_dispatch": 17.876996,
+        "nor49_multiple_R_dispatch": 17.882584
+      },
+      "complete_true_future_root_sha256": "6960022daea262c90a61177d3c70d21db3ffd3bba5e4e5ea8b95735c4cb94134",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.44698904067889283,
+      "full_trace_bytes": 164885,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          40.008803,
+          39.717192,
+          40.058047,
+          40.499805,
+          40.67527
+        ],
+        "nor47_gmp_full_trace": [
+          17.905508,
+          17.895584,
+          18.44279,
+          17.91955,
+          17.795813
+        ],
+        "nor48_any_R_dispatch": [
+          17.814671,
+          17.876585,
+          17.876996,
+          18.040593,
+          18.217621
+        ],
+        "nor49_multiple_R_dispatch": [
+          17.87977,
+          17.882584,
+          17.983497,
+          18.341648,
+          17.810105
+        ]
+      },
+      "nor48_over_direct": 0.44627727357751606,
+      "nor49_over_direct": 0.44641677114213785,
+      "nor49_over_nor48": 1.000312580480524,
+      "program_backend": "gmp_full_trace",
+      "replicate": 111,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "S",
+        "v": "R"
+      },
+      "source_sha256": "95c24b40b6634341bbfed38905410d069be6e3f766c137c204cfb54a443aca98"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.421159,
+        "nor47_gmp_full_trace": 2.358576,
+        "nor48_any_R_dispatch": 1.417303,
+        "nor49_multiple_R_dispatch": 1.418554
+      },
+      "complete_true_future_root_sha256": "9334416c93e7c7bfbda395bd1accd8d212cac763c9657be353d5c5a0fbeb0444",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.6596144414523637,
+      "full_trace_bytes": 9900,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.421159,
+          1.416101,
+          1.411043,
+          1.422851,
+          1.44895
+        ],
+        "nor47_gmp_full_trace": [
+          2.358576,
+          2.364535,
+          2.371555,
+          2.357604,
+          2.347539
+        ],
+        "nor48_any_R_dispatch": [
+          1.417303,
+          1.413547,
+          1.533028,
+          1.414448,
+          1.424093
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.418554,
+          1.414388,
+          1.419436,
+          1.417353,
+          1.431413
+        ]
+      },
+      "nor48_over_direct": 0.9972867216124304,
+      "nor49_over_direct": 0.9981669890561155,
+      "nor49_over_nor48": 1.0008826623523692,
+      "program_backend": "nor45_direct",
+      "replicate": 111,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "N",
+        "v": "S"
+      },
+      "source_sha256": "c5972b9b1b657032725402d2d42a44669da69eeba1ddefec5458b56c296ef1d6"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.819672,
+        "nor47_gmp_full_trace": 4.737802,
+        "nor48_any_R_dispatch": 2.821756,
+        "nor49_multiple_R_dispatch": 2.825101
+      },
+      "complete_true_future_root_sha256": "2245b62068e6a77681cfb09017f612b89b9c7563eb310540bdebcfc72a487f2e",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.6802670665240496,
+      "full_trace_bytes": 20963,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.9571,
+          2.819672,
+          2.818471,
+          2.812912,
+          2.825161
+        ],
+        "nor47_gmp_full_trace": [
+          4.737211,
+          4.741568,
+          4.722189,
+          4.740146,
+          4.737802
+        ],
+        "nor48_any_R_dispatch": [
+          2.832952,
+          2.821756,
+          2.817599,
+          2.821395,
+          2.8311
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.85133,
+          2.816938,
+          2.825101,
+          2.827895,
+          2.820784
+        ]
+      },
+      "nor48_over_direct": 1.0007390930576323,
+      "nor49_over_direct": 1.0019254012523442,
+      "nor49_over_nor48": 1.0011854320501135,
+      "program_backend": "nor45_direct",
+      "replicate": 111,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "N",
+        "v": "I"
+      },
+      "source_sha256": "742eb9a4bcdfb4119944ea43543187044a08854a5d028d2a1ba916e7e5461594"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 76.000563,
+        "nor47_gmp_full_trace": 112.312599,
+        "nor48_any_R_dispatch": 112.478559,
+        "nor49_multiple_R_dispatch": 76.321289
+      },
+      "complete_true_future_root_sha256": "8b4222aee6edf2c876df97356b2ff74c96aa6ef16f85d060052ec4f90ce5b4a5",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.4777864079770042,
+      "full_trace_bytes": 617351,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          75.8593,
+          76.529142,
+          75.59421,
+          76.000563,
+          76.168338
+        ],
+        "nor47_gmp_full_trace": [
+          112.283684,
+          112.303815,
+          112.665071,
+          112.645912,
+          112.312599
+        ],
+        "nor48_any_R_dispatch": [
+          112.31432,
+          112.478559,
+          112.721856,
+          112.383385,
+          112.632542
+        ],
+        "nor49_multiple_R_dispatch": [
+          76.630907,
+          75.525395,
+          77.428723,
+          75.877357,
+          76.321289
+        ]
+      },
+      "nor48_over_direct": 1.4799700760111476,
+      "nor49_over_direct": 1.0042200476856993,
+      "nor49_over_nor48": 0.678540778602969,
+      "program_backend": "nor45_direct",
+      "replicate": 111,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "N",
+        "v": "N"
+      },
+      "source_sha256": "2636b1ed6f68c3c99e02e31c50a93ce33a062f4d6162d0b21f3b4e3018fa98da"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 39.118743,
+        "nor47_gmp_full_trace": 18.28471,
+        "nor48_any_R_dispatch": 18.382179,
+        "nor49_multiple_R_dispatch": 18.28886
+      },
+      "complete_true_future_root_sha256": "cba48db9367e7e1f99ab7ab08795d732850ce37d08b82894351e7ec3a9a12fd1",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.4674155813237659,
+      "full_trace_bytes": 153002,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          38.68336,
+          39.124726,
+          39.118743,
+          38.229488,
+          39.429964
+        ],
+        "nor47_gmp_full_trace": [
+          18.253134,
+          18.279724,
+          18.28471,
+          18.36183,
+          18.423323
+        ],
+        "nor48_any_R_dispatch": [
+          18.344582,
+          18.382179,
+          18.310541,
+          18.444586,
+          18.57333
+        ],
+        "nor49_multiple_R_dispatch": [
+          18.290251,
+          18.286084,
+          18.232234,
+          18.28886,
+          18.325996
+        ]
+      },
+      "nor48_over_direct": 0.4699072002390261,
+      "nor49_over_direct": 0.4675216685771319,
+      "nor49_over_nor48": 0.9949233983631646,
+      "program_backend": "gmp_full_trace",
+      "replicate": 113,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "R",
+        "v": "R"
+      },
+      "source_sha256": "fb17c4c8050b6c5a086d9a22e7b2505cbf48acdd8e8a4a78939de8a18f477f9c"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.388109,
+        "nor47_gmp_full_trace": 2.513621,
+        "nor48_any_R_dispatch": 1.386507,
+        "nor49_multiple_R_dispatch": 1.385345
+      },
+      "complete_true_future_root_sha256": "06c13f20b2e459710fd098c26737b7a59b944764e402673bda1125727079a044",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.8108239338553385,
+      "full_trace_bytes": 13008,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.388259,
+          1.384865,
+          1.386617,
+          1.469463,
+          1.388109
+        ],
+        "nor47_gmp_full_trace": [
+          2.518439,
+          2.503065,
+          2.513621,
+          2.527883,
+          2.500252
+        ],
+        "nor48_any_R_dispatch": [
+          1.392536,
+          1.386106,
+          1.386507,
+          1.406327,
+          1.382752
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.384574,
+          1.386487,
+          1.383783,
+          1.388831,
+          1.385345
+        ]
+      },
+      "nor48_over_direct": 0.9988459119564818,
+      "nor49_over_direct": 0.9980088019024442,
+      "nor49_over_nor48": 0.9991619227310069,
+      "program_backend": "nor45_direct",
+      "replicate": 113,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "S",
+        "v": "S"
+      },
+      "source_sha256": "f44720fca6abcda4dc9c8617eea3e2bfd19f3bc11b12a6272be57cdedc03d84b"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 172.265123,
+        "nor47_gmp_full_trace": 77.980047,
+        "nor48_any_R_dispatch": 77.405859,
+        "nor49_multiple_R_dispatch": 76.800883
+      },
+      "complete_true_future_root_sha256": "b81efd7eae1ec0d3bb7550a01a155a4127a73472677dbdecd017f1305c58975b",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.45267460784850805,
+      "full_trace_bytes": 408945,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          168.358284,
+          178.144845,
+          172.265123,
+          183.248244,
+          171.619226
+        ],
+        "nor47_gmp_full_trace": [
+          77.092865,
+          77.980047,
+          81.402863,
+          80.013422,
+          76.662053
+        ],
+        "nor48_any_R_dispatch": [
+          77.405859,
+          76.56729,
+          82.22043,
+          82.442736,
+          77.171834
+        ],
+        "nor49_multiple_R_dispatch": [
+          77.469134,
+          78.349155,
+          76.769937,
+          76.800883,
+          76.381289
+        ]
+      },
+      "nor48_over_direct": 0.44934144330538695,
+      "nor49_over_direct": 0.44582955425051424,
+      "nor49_over_nor48": 0.9921843642352706,
+      "program_backend": "gmp_full_trace",
+      "replicate": 113,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "R",
+        "v": "S"
+      },
+      "source_sha256": "3a66ae3b8127e484a101908dea1febff13516b8396fc266178c0920baec66ed0"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 85.351365,
+        "nor47_gmp_full_trace": 154.651714,
+        "nor48_any_R_dispatch": 154.312532,
+        "nor49_multiple_R_dispatch": 85.507892
+      },
+      "complete_true_future_root_sha256": "349c767b3bbf387149805d4d5228ff567050d970c4cc54d4acc14e479f13b8b4",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.8119418945438073,
+      "full_trace_bytes": 842166,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          88.456392,
+          84.837007,
+          84.397572,
+          85.508984,
+          85.351365
+        ],
+        "nor47_gmp_full_trace": [
+          154.651714,
+          154.37059,
+          153.913869,
+          154.676883,
+          154.968875
+        ],
+        "nor48_any_R_dispatch": [
+          154.312532,
+          153.799045,
+          153.627826,
+          154.970527,
+          154.479274
+        ],
+        "nor49_multiple_R_dispatch": [
+          87.284479,
+          85.13623,
+          84.108425,
+          85.901497,
+          85.507892
+        ]
+      },
+      "nor48_over_direct": 1.8079679452109525,
+      "nor49_over_direct": 1.0018339132596181,
+      "nor49_over_nor48": 0.554121501939972,
+      "program_backend": "nor45_direct",
+      "replicate": 113,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "S",
+        "v": "N"
+      },
+      "source_sha256": "5ac7993df06565e1fb87c897c659f8294fbd4e4279f999ebb459e39461f61743"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 1.437875,
+        "nor47_gmp_full_trace": 2.464277,
+        "nor48_any_R_dispatch": 1.445606,
+        "nor49_multiple_R_dispatch": 1.439237
+      },
+      "complete_true_future_root_sha256": "08292301138bff42882c396ed99161d29d2c3e80f91009806e8001349678f85b",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.7138325654177171,
+      "full_trace_bytes": 10340,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          1.449863,
+          1.451074,
+          1.437875,
+          1.428851,
+          1.416142
+        ],
+        "nor47_gmp_full_trace": [
+          2.499931,
+          2.488193,
+          2.464277,
+          2.451738,
+          2.443205
+        ],
+        "nor48_any_R_dispatch": [
+          1.467139,
+          1.448741,
+          1.445606,
+          1.430493,
+          1.424615
+        ],
+        "nor49_multiple_R_dispatch": [
+          1.499077,
+          1.439237,
+          1.429182,
+          1.440628,
+          1.416242
+        ]
+      },
+      "nor48_over_direct": 1.0053766843432148,
+      "nor49_over_direct": 1.0009472311570895,
+      "nor49_over_nor48": 0.9955942352203851,
+      "program_backend": "nor45_direct",
+      "replicate": 114,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "S",
+        "v": "I"
+      },
+      "source_sha256": "40d226a462c8cc86e2d1e4a0ca91323b073b94681f6b0fbb06ce8b822ad5fd99"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 16.62934,
+        "nor47_gmp_full_trace": 18.134967,
+        "nor48_any_R_dispatch": 18.170841,
+        "nor49_multiple_R_dispatch": 16.633166
+      },
+      "complete_true_future_root_sha256": "c7218d89d21ce0176fd5fe7d182eaddc3b518e87eae974943ee073567e91e684",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.0905403942670004,
+      "full_trace_bytes": 99307,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          16.578633,
+          16.62934,
+          16.659626,
+          16.626626,
+          16.72838
+        ],
+        "nor47_gmp_full_trace": [
+          18.134967,
+          18.113014,
+          18.240908,
+          18.178754,
+          18.114627
+        ],
+        "nor48_any_R_dispatch": [
+          18.12361,
+          18.301839,
+          18.357243,
+          18.170841,
+          18.168078
+        ],
+        "nor49_multiple_R_dispatch": [
+          16.592955,
+          16.731835,
+          16.804786,
+          16.603912,
+          16.633166
+        ]
+      },
+      "nor48_over_direct": 1.092697665692084,
+      "nor49_over_direct": 1.0002300752765894,
+      "nor49_over_nor48": 0.9153767841565505,
+      "program_backend": "nor45_direct",
+      "replicate": 114,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "S",
+        "v": "N"
+      },
+      "source_sha256": "baeb5952381418fff66bf755ee24f92acc5fb6af1d4c652c4244f9ebf684ac27"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.844722,
+        "nor47_gmp_full_trace": 5.127404,
+        "nor48_any_R_dispatch": 2.855688,
+        "nor49_multiple_R_dispatch": 2.847266
+      },
+      "complete_true_future_root_sha256": "dc0597e531fc6654434204ba35049a0df36c455f30503d0bfda747c86c3350aa",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 1.8024270912939824,
+      "full_trace_bytes": 27475,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.854296,
+          2.852403,
+          2.844722,
+          2.839314,
+          2.833375
+        ],
+        "nor47_gmp_full_trace": [
+          5.143979,
+          5.117429,
+          5.127404,
+          5.114234,
+          5.181777
+        ],
+        "nor48_any_R_dispatch": [
+          2.859895,
+          2.855688,
+          2.858562,
+          2.843731,
+          2.843991
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.847266,
+          2.857501,
+          2.851552,
+          2.837892,
+          2.837481
+        ]
+      },
+      "nor48_over_direct": 1.003854858225162,
+      "nor49_over_direct": 1.0008942877370794,
+      "nor49_over_nor48": 0.9970507982664774,
+      "program_backend": "nor45_direct",
+      "replicate": 114,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "N",
+        "v": "S"
+      },
+      "source_sha256": "f777336dd8740a8abf9829c03a0904c3a0da7f20f65f4778ad5cf11c11732ad4"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.755036,
+        "nor47_gmp_full_trace": 4.72126,
+        "nor48_any_R_dispatch": 2.760224,
+        "nor49_multiple_R_dispatch": 2.760304
+      },
+      "complete_true_future_root_sha256": "d640bdf23b809ac07c343a1d3107286631ea669aa2a8b1b5c2621d52b9578d40",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.7136835961490158,
+      "full_trace_bytes": 19647,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.755036,
+          2.749658,
+          2.748296,
+          2.760334,
+          2.756729
+        ],
+        "nor47_gmp_full_trace": [
+          4.727299,
+          4.709652,
+          4.72126,
+          4.712186,
+          4.726488
+        ],
+        "nor48_any_R_dispatch": [
+          2.751852,
+          2.760224,
+          2.763399,
+          2.786444,
+          2.752743
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.758241,
+          2.758211,
+          2.765673,
+          2.760304,
+          2.836319
+        ]
+      },
+      "nor48_over_direct": 1.0018830969903842,
+      "nor49_over_direct": 1.0019121347234665,
+      "nor49_over_nor48": 1.0000289831549904,
+      "program_backend": "nor45_direct",
+      "replicate": 114,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "I",
+        "v": "N"
+      },
+      "source_sha256": "16e11a24faa7cc40ee4c180376afe60d3321374bfbed2db2dca23980db9f8031"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 40.033391,
+        "nor47_gmp_full_trace": 18.242858,
+        "nor48_any_R_dispatch": 18.214946,
+        "nor49_multiple_R_dispatch": 18.237089
+      },
+      "complete_true_future_root_sha256": "81a7cf9e8689ca00b49c1f1ac8da58e99e3a5f34a87326a105e8c93d97423171",
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.45569105050331604,
+      "full_trace_bytes": 149823,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          40.23798,
+          39.99355,
+          40.033391,
+          40.139661,
+          39.916024
+        ],
+        "nor47_gmp_full_trace": [
+          18.242858,
+          18.298451,
+          18.210939,
+          18.186142,
+          18.247845
+        ],
+        "nor48_any_R_dispatch": [
+          18.311943,
+          18.199342,
+          18.163438,
+          18.253595,
+          18.214946
+        ],
+        "nor49_multiple_R_dispatch": [
+          18.247635,
+          18.237089,
+          18.197509,
+          18.245231,
+          18.223629
+        ]
+      },
+      "nor48_over_direct": 0.45499383252345527,
+      "nor49_over_direct": 0.4555469457983212,
+      "nor49_over_nor48": 1.001215650049141,
+      "program_backend": "gmp_full_trace",
+      "replicate": 115,
+      "signed_program_ops": {
+        "base": "N",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "N",
+        "u": "R",
+        "v": "R"
+      },
+      "source_sha256": "2338ad3349dee77d892afdb48a6ef9a3553c6694d1ffeff496853a1bc607cdd6"
+    },
+    {
+      "active_R_count_from_authorized_program": 1,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 16.266919,
+        "nor47_gmp_full_trace": 13.023815,
+        "nor48_any_R_dispatch": 13.017296,
+        "nor49_multiple_R_dispatch": 16.212077
+      },
+      "complete_true_future_root_sha256": "dfe8da2e88fb32fc515e24ec33a15217b5fd5bf4a10e8b4c00c16229935574f3",
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 0.8006319451151137,
+      "full_trace_bytes": 115945,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          16.294161,
+          16.285598,
+          16.266919,
+          16.083392,
+          16.143393
+        ],
+        "nor47_gmp_full_trace": [
+          13.016313,
+          13.023815,
+          13.038959,
+          13.024576,
+          13.010575
+        ],
+        "nor48_any_R_dispatch": [
+          12.979198,
+          13.050326,
+          13.054041,
+          12.996034,
+          13.017296
+        ],
+        "nor49_multiple_R_dispatch": [
+          16.241141,
+          16.323345,
+          16.212077,
+          16.09538,
+          16.158876
+        ]
+      },
+      "nor48_over_direct": 0.8002311931349753,
+      "nor49_over_direct": 0.9966286178716448,
+      "nor49_over_nor48": 1.2454258549548232,
+      "program_backend": "nor45_direct",
+      "replicate": 115,
+      "signed_program_ops": {
+        "base": "R",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "I",
+        "u": "N",
+        "v": "I"
+      },
+      "source_sha256": "fbae6e847d6b505c4cfbea870ac5db99b59f855a6427acfc70e64c20db3cfc82"
+    },
+    {
+      "active_R_count_from_authorized_program": 2,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 204.10615,
+        "nor47_gmp_full_trace": 149.724742,
+        "nor48_any_R_dispatch": 150.182554,
+        "nor49_multiple_R_dispatch": 151.000531
+      },
+      "complete_true_future_root_sha256": "d62a851c2d18590bce0be19853efcb0315f499a7e9c46a284dc3e21b508397b2",
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_GMP_over_direct": 0.7335631091958766,
+      "full_trace_bytes": 742322,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          204.574919,
+          204.10615,
+          203.661958,
+          205.403181,
+          201.318976
+        ],
+        "nor47_gmp_full_trace": [
+          149.324186,
+          149.724742,
+          149.186257,
+          149.924383,
+          149.826666
+        ],
+        "nor48_any_R_dispatch": [
+          150.747608,
+          149.230505,
+          150.201072,
+          149.06247,
+          150.182554
+        ],
+        "nor49_multiple_R_dispatch": [
+          149.984875,
+          154.910514,
+          151.000531,
+          149.984885,
+          152.922367
+        ]
+      },
+      "nor48_over_direct": 0.7358061185319502,
+      "nor49_over_direct": 0.7398137243782218,
+      "nor49_over_nor48": 1.0054465514017026,
+      "program_backend": "gmp_full_trace",
+      "replicate": 115,
+      "signed_program_ops": {
+        "base": "I",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "R",
+        "u": "R",
+        "v": "I"
+      },
+      "source_sha256": "32383449b6448c8660bd3dde3bc5544c8bad4e7782bfa9d3feabbd0e895b50f0"
+    },
+    {
+      "active_R_count_from_authorized_program": 0,
+      "all_exact_outputs_roots_identical": true,
+      "arm_median_ms": {
+        "nor45_direct": 2.753965,
+        "nor47_gmp_full_trace": 4.685946,
+        "nor48_any_R_dispatch": 2.758721,
+        "nor49_multiple_R_dispatch": 2.75761
+      },
+      "complete_true_future_root_sha256": "5d3df45ac397006495965cf008279ecfe8f9ed2fa03a02a57f1199707970d1ef",
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_GMP_over_direct": 1.7015270709685855,
+      "full_trace_bytes": 19453,
+      "interleaved_five_sample_ms": {
+        "nor45_direct": [
+          2.754846,
+          2.746803,
+          2.753965,
+          2.748196,
+          2.754265
+        ],
+        "nor47_gmp_full_trace": [
+          4.685946,
+          4.775412,
+          4.701199,
+          4.678736,
+          4.682561
+        ],
+        "nor48_any_R_dispatch": [
+          2.755187,
+          2.768126,
+          2.754786,
+          2.758721,
+          2.765842
+        ],
+        "nor49_multiple_R_dispatch": [
+          2.75761,
+          2.753805,
+          2.778562,
+          2.759353,
+          2.751982
+        ]
+      },
+      "nor48_over_direct": 1.0017269645765288,
+      "nor49_over_direct": 1.0013235462324321,
+      "nor49_over_nor48": 0.9995972771440099,
+      "program_backend": "nor45_direct",
+      "replicate": 115,
+      "signed_program_ops": {
+        "base": "S",
+        "hidden_beta_nonzero": true,
+        "hidden_transform": "S",
+        "u": "I",
+        "v": "I"
+      },
+      "source_sha256": "31f1a8eef7f8755422f731e5ce483153053e30651216da1420e81d0d51e2a141"
+    }
+  ],
+  "timing_clean_first_roster_sha256": "40929d52abddc5a15e82ec8e8101fba265d39e28239172c7e9fcaca4f6f0d2ae",
+  "timing_training_replicates": [
+    100,
+    104,
+    108,
+    112
+  ]
+}
