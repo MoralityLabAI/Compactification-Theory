@@ -71,8 +71,9 @@ def read_original():
     assert x["first_public_only_source_sha256"]==SOURCE_SHA
     assert x["source_count"]==x["source_success_count"]==60
     assert x["source_failure_count"]==0
-    assert x["previous_original_source_exclusions"]==408
+    assert x["previous_original_source_exclusions"]==348  # frozen stale descriptive field
     assert fixture["source_count"]==60 and fixture["excluded_original_source_IDs"]==408
+    assert receipt["source_exclusions_metadata_discrepancy"]=={"original_CPU_metadata_reports":348,"upstream_public_roster_and_source_check_excluded":408}
     assert fixture["public_only"] and fixture["no_inverse_root_payload_signature_session_or_timing"]
     assert x["repeat_count"]==5 and x["arms"]==list(ARMS)
     assert x["source_first_SHA_frozen_before_witness_and_timing"]
