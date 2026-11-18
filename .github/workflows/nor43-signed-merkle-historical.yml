@@ -1,0 +1,122 @@
+name: NOR-43 signed coefficient Merkle reference and independent verifier
+
+on:
+  push:
+    branches:
+      - research/nor43-authenticated-merkle-historical-20261118
+    paths:
+      - 'research/nor43_authenticated_witness/**'
+      - '.github/workflows/nor43-signed-merkle-historical.yml'
+  pull_request:
+    paths:
+      - 'research/nor43_authenticated_witness/**'
+      - '.github/workflows/nor43-signed-merkle-historical.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  signed_root_and_attestation_negative_controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install reference Ed25519 dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Syntax check and independent pinned-key Merkle proof/tamper tests
+        run: |
+          python -m compileall -q research/nor43_authenticated_witness
+          python -m unittest research.nor43_authenticated_witness.test_signed_witness -v
+
+  historical_nor42_64_pair_sparse_proof_smoke:
+    needs: signed_root_and_attestation_negative_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install reference Ed25519 dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Rebuild already graded NOR42 source truth and k16 signed commitments without new sources
+        run: |
+          python -u research/nor43_authenticated_witness/historical_smoke.py \
+            --out /tmp/nor43_archived_64_merkle.json
+      - name: Audit trusted-provider boundary, 64 original ids and exact support law
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor43_archived_64_merkle.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor43.historical_nor42_signed_merkle_reference_smoke.v1'
+          assert x['historical_source_pairs']==64 and x['new_prospective_nor43_source_units']==0
+          assert x['original_nor42_public_fixture_sha256']==(
+             'f8bc6ef3db4fda78709f2b7cd1a6a09989dbc087bcfb963d00961cc23ce4f033')
+          assert x['original_nor42_first_grade_sha256']==(
+             'bd57751d94ea49755888000675b0df8fce6490873683268b8f8625518701adae')
+          assert len(x['source_records'])==64
+          assert len({r['original_nor42_public_sha256'] for r in x['source_records']})==64
+          assert x['all_pinned_key_self_signed_attacks_rejected']
+          assert x['all_witnessfree_hidden_selfconsistency_controls_accept']
+          assert x['provider_private_key_public_test_only']
+          assert x['all_proposals_committed_before_true_reference_manifest']
+          assert all(r['self_signed_model_root_rejected_by_pinned_key']
+                     and r['self_signed_model_root_passes_insecure_arbitrary_key_verifier']
+                     and r['hidden_world_equal_public_prefix']
+                     and len(r['historical_k16_checked_indices'])==16
+                     for r in x['source_records'])
+          print('NOR43 ARCHIVED-ONLY SHA BYTES',len(raw),sha256(raw).hexdigest())
+          print('NOR43 FAMILY SUMMARY',x['family_means'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor43_historical_64_signed_source_merkle_smoke
+          path: /tmp/nor43_archived_64_merkle.json
+          if-no-files-found: error
+          retention-days: 90
+
+
+  historical_reference_verify_timing:
+    needs: historical_nor42_64_pair_sparse_proof_smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned cryptography dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Time signed-manifest verification and exact challenged k16 Merkle openings
+        run: |
+          python -u -m research.nor43_authenticated_witness.benchmark_reference \
+            --out /tmp/nor43_historical_verify_timing.json
+          python - <<'PY'
+          from pathlib import Path
+          import json,math
+          x=json.loads(Path('/tmp/nor43_historical_verify_timing.json').read_bytes())
+          assert x['schema']=='nor43.historical_reference_verify_timing_exploratory.v1'
+          assert x['historical_source_pairs']==16
+          assert x['new_nor43_source_identifiers']==0
+          assert x['repetitions_per_pair']==24
+          assert x['original_first_smoke_sha256']==(
+             'f7ff23b0ba47eca3607233fe32b61114247bce02561f15ff1b67360950007145')
+          assert all(r['median_signature_and_manifest_verify_microseconds']>0
+                     and r['median_16_openings_verify_microseconds']>0
+                     and r['p95_16_openings_verify_microseconds']>0
+                     for r in x['per_source'])
+          print('NOR43 HOSTED TIMING RECEIPT',x['summary'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor43_historical_verifier_cpu_timing
+          path: /tmp/nor43_historical_verify_timing.json
+          retention-days: 90
+          if-no-files-found: error
