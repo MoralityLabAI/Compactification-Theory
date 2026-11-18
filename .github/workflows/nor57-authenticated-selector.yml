@@ -1,0 +1,152 @@
+name: NOR-57 prospectively frozen same-wire source-conditional signed exact verifier
+
+on:
+  push:
+    branches:
+      - research/nor57-authenticated-source-selector-20261118
+    paths:
+      - 'research/nor57_authenticated_router/**'
+      - '.github/workflows/nor57-authenticated-selector.yml'
+  pull_request:
+    paths:
+      - 'research/nor57_authenticated_router/**'
+      - '.github/workflows/nor57-authenticated-selector.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  first_registration_and_source_free_signed_exact_controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin original Ed25519 research and exact GMP runtime
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Verify first preregistration commit predates source generator and timing
+        run: |
+          git merge-base --is-ancestor f0a6091f918217138d466456c34fcc12ac8f3907 HEAD
+          test -s research/nor57_authenticated_router/REGISTRATION.md
+      - name: Compile frozen signed source-based backend selection
+        run: python -m compileall -q research/nor57_authenticated_router
+      - name: Toy/historical source-only exact signed same-wire identity and forged witness tests
+        run: python -m unittest research.nor57_authenticated_router.test_accept -v
+      - name: Continue original immutable NOR56 3-of-5 FAIL and signed version downgrade controls
+        run: |
+          python research/nor56_batch_codec/original_archive_audit.py
+          python -m unittest research.nor56_batch_codec.test_codec_v2 -v
+      - name: Keep original NOR50 signed-native session and exact runtime controls
+        run: |
+          python -m unittest research.nor50_memoized_exact.test_cached -v
+          python -m unittest research.nor53_native_pack.test_fast_kernel -v
+      - name: Check exact frozen source selector and previous source exclusions without generating a case
+        run: |
+          python - <<'PY'
+          from research.nor57_authenticated_router import accept,cohort
+          assert cohort.REGISTERED=='f0a6091f918217138d466456c34fcc12ac8f3907'
+          assert len(cohort.REPS)*len(cohort.LENGTHS)*len(cohort.PROFILES)*len(cohort.FAMILIES)==60
+          assert len(cohort.historical_ids())==348
+          assert accept.RULE_ID=='NOR57-FROZEN-PUBLIC-SELECTOR-v1'
+          assert accept.MODES==('always_gmp','always_native','frozen_selector')
+          print('NOR57 signed source-free first controls PASS; no new sources generated')
+          PY
+
+  first_original_public_only_sixty_source_SHA_freeze:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR57-FIRST-CPU')
+    needs: first_registration_and_source_free_signed_exact_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze new first 60 public-only exact source SHA before any inverse/signature/timing
+        run: |
+          python -u research/nor57_authenticated_router/cohort.py \
+            --public-only-out /tmp/nor57_first_original_60_public_only.json
+      - name: Independently validate all 60 unique SHA cases and exclude prior 348 first source IDs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from collections import Counter
+          from research.nor57_authenticated_router import cohort
+          path=Path('/tmp/nor57_first_original_60_public_only.json')
+          fixture,raw_sha=cohort.read_fixture(path)
+          rows=fixture['cases']
+          assert len(rows)==len({r['source_sha256'] for r in rows})==60
+          assert Counter(r['length'] for r in rows)=={769:20,1537:20,3073:20}
+          assert Counter(r['stride'] for r in rows)=={1:12,4:36,8:12}
+          assert fixture['no_inverse_root_payload_signature_session_or_timing']
+          assert set(r['source_sha256'] for r in rows).isdisjoint(cohort.historical_ids())
+          assert all(not set(r).intersection(('inverse','witness','root','nonce','signature',
+                      'session','payload','timing','target','provider','selector_decision'))
+                     for r in rows)
+          print('NOR57 FIRST ORIGINAL SOURCE-ONLY 60 RAW BYTES SHA256',path.stat().st_size,raw_sha)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor57_first_original_60_public_only_source_roster
+          path: /tmp/nor57_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_three_arm_signed_CPU:
+    needs: first_original_public_only_sixty_source_SHA_freeze
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact source first GMP and research signature versions
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor57_first_original_60_public_only_source_roster
+          path: /tmp/nor57
+      - name: Run first 60-source five-repeat same-wire authenticated GMP/native/router CPU
+        run: |
+          python -u research/nor57_authenticated_router/benchmark_cpu.py \
+            --public-file /tmp/nor57/nor57_first_original_60_public_only.json \
+            --repeats 5 --out /tmp/nor57/nor57_first_original_cpu.json
+      - name: Record all five first original Boolean gates and raw CPU SHA on PASS or FAIL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          p=Path('/tmp/nor57/nor57_first_original_cpu.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor57.first_signed_v2_public_source_selector_cpu.v1'
+          assert x['first_registration_sha']=='f0a6091f918217138d466456c34fcc12ac8f3907'
+          assert x['source_count']==60 and len(x['source_records'])==60
+          assert x['repeat_count']==5 and len(x['arms'])==3
+          assert len(x['original_five_registered_gates'])==5
+          assert all(type(v) is bool for v in x['original_five_registered_gates'].values())
+          assert x['first_original_engineering_pass']==all(x['original_five_registered_gates'].values())
+          print('NOR57 FIRST ORIGINAL CPU RAW BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR57 FIRST ORIGINAL FIVE REGISTERED GATES',x['original_five_registered_gates'])
+          print('NOR57 FIRST ORIGINAL ENGINEERING PASS',x['first_original_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor57_first_original_60_same_signed_wire_router_CPU
+          path: |
+            /tmp/nor57/nor57_first_original_cpu.json
+            /tmp/nor57/nor57_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: warn
