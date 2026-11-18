@@ -50,7 +50,7 @@ class ExactTraceChecks(unittest.TestCase):
                 verifier._integer(value)
         self.assertEqual(verifier._integer(str(-(2**2048))),-(2**2048))
         with self.assertRaises(verifier.TraceError):
-            verifier._integer(str(2**32769))
+            verifier._integer("9"*9867)
 
     def test_historical_full_signed_hidden_program_and_adversarial_controls(self):
         fixture,grade=history.load_original()
