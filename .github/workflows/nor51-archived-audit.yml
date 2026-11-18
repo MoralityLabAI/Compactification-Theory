@@ -1,0 +1,29 @@
+name: NOR-51 permanent read-only first exact reciprocal 2-of-5 FAIL audit
+
+on:
+  push:
+    paths:
+      - 'research/nor51_exact_r_crossover/results/**'
+      - 'research/nor51_exact_r_crossover/original_archive_audit.py'
+      - '.github/workflows/nor51-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor51_exact_r_crossover/results/**'
+      - 'research/nor51_exact_r_crossover/original_archive_audit.py'
+      - '.github/workflows/nor51-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_immutable_negative_first_CPU_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit first raw CPU/source SHAs, all 48 complete roots and original 2-of-5 FAIL
+        run: python research/nor51_exact_r_crossover/original_archive_audit.py

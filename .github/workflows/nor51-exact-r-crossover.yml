@@ -1,0 +1,144 @@
+name: NOR-51 preregistered exact reciprocal length-precision crossover
+
+on:
+  push:
+    branches:
+      - research/nor51-exact-r-crossover-20261118
+    paths:
+      - 'research/nor51_exact_r_crossover/**'
+      - '.github/workflows/nor51-exact-r-crossover.yml'
+  pull_request:
+    paths:
+      - 'research/nor51_exact_r_crossover/**'
+      - '.github/workflows/nor51-exact-r-crossover.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_registration_and_predata_controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 80
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact signed and GNU multi-precision runtimes
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Verify first registration SHA predated the CPU implementation
+        run: |
+          git merge-base --is-ancestor 83fabe1c34c2bedbba35faa928349f41b964115a HEAD
+          test -s research/nor51_exact_r_crossover/REGISTRATION.md
+      - name: Compile new source and algebra modules before any new source generation
+        run: python -m compileall -q research/nor51_exact_r_crossover
+      - name: Run only toy/historical training predata exactness and malicious witness tests
+        run: python -m unittest research.nor51_exact_r_crossover.test_algebra -v
+      - name: Continue original NOR50 signed-native immutable FAIL controls
+        run: |
+          python research/nor50_memoized_exact/original_archive_audit.py
+          python -m unittest research.nor50_memoized_exact.test_cached -v
+      - name: Show frozen grid contract without generating any new source
+        run: |
+          python - <<'PY'
+          from research.nor51_exact_r_crossover import cohort
+          assert len(cohort.REPS)*len(cohort.LENGTHS)*len(cohort.PROFILES)*len(cohort.FAMILIES)==48
+          assert cohort.REGISTERED=='83fabe1c34c2bedbba35faa928349f41b964115a'
+          print('NOR51 source-free predata admission PASS')
+          PY
+
+  first_original_public_only_48_source_roster:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR51-FIRST-CPU')
+    needs: original_registration_and_predata_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze all first exact public-only input source identities upstream of timing
+        run: |
+          python -u research/nor51_exact_r_crossover/cohort.py \
+            --public-only-out /tmp/nor51_first_48_source_only.json
+      - name: Independently admit complete source grid and assert all future evidence absent
+        run: |
+          python - <<'PY'
+          import json
+          from hashlib import sha256
+          from collections import Counter
+          from pathlib import Path
+          from research.nor51_exact_r_crossover import cohort
+          raw=Path('/tmp/nor51_first_48_source_only.json').read_bytes()
+          fixture,h=cohort.validate_fixture('/tmp/nor51_first_48_source_only.json')
+          rows=fixture['cases']
+          assert len(rows)==48 and len({x['source_sha256'] for x in rows})==48
+          assert Counter(x['length'] for x in rows)=={769:16,1537:16,3073:16}
+          assert all(not set(x).intersection(('inverse','target','private','witness',
+                                              'future','root','timings','trace')) for x in rows)
+          assert fixture['registration_first_commit']=='83fabe1c34c2bedbba35faa928349f41b964115a'
+          print('NOR51 FIRST SOURCE ONLY ORIGINAL BYTES SHA256',len(raw),h)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor51_first_original_48_public_only_roster
+          path: /tmp/nor51_first_48_source_only.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_three_arm_five_repeat_cpu:
+    needs: first_original_public_only_48_source_roster
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin original exact GMP and cryptography environment
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor51_first_original_48_public_only_roster
+          path: /tmp/nor51
+      - name: Run original source-first exact inverse length-precision crossover CPU
+        run: |
+          python -u research/nor51_exact_r_crossover/benchmark_cpu.py \
+            --source-file /tmp/nor51/nor51_first_48_source_only.json \
+            --repeats 5 --out /tmp/nor51/nor51_first_original_cpu.json
+      - name: Record original verdict, including any failures, without retuning or filtering
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          p=Path('/tmp/nor51/nor51_first_original_cpu.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor51.first_source_frozen_48_exact_R_crossover_cpu.v1'
+          assert x['registration_first_commit']=='83fabe1c34c2bedbba35faa928349f41b964115a'
+          assert x['source_count']==48 and len(x['source_records'])==48
+          assert x['same_run_interleaved_repetitions']==5
+          assert len(x['original_five_registered_gates'])==5
+          assert all(type(v) is bool for v in x['original_five_registered_gates'].values())
+          assert x['first_engineering_pass']==all(x['original_five_registered_gates'].values())
+          print('NOR51 FIRST ORIGINAL CPU BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR51 FIRST ORIGINAL GATES',x['original_five_registered_gates'])
+          print('NOR51 FIRST ORIGINAL ENGINEERING PASS',x['first_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor51_first_original_48_exact_R_crossover_cpu
+          path: |
+            /tmp/nor51/nor51_first_original_cpu.json
+            /tmp/nor51/nor51_first_48_source_only.json
+          retention-days: 90
+          if-no-files-found: warn
