@@ -145,6 +145,26 @@ class WitnessTest(unittest.TestCase):
             self.values,insecure,[self.tree.opening(i) for i in checked],
             challenged_indices=checked))
 
+    def test_authorized_provider_can_sign_wrong_true_world(self):
+        """A valid signature authenticates authority, not semantic truth."""
+        # Suppose the true world has a hidden suffix, while even the
+        # authorized provider mistakenly signs the public clean proposal.
+        true_hidden=list(self.values)
+        true_hidden[544]+=12345
+        clean_reference=producer.signed_reference_manifest(
+            self.tree,self.src,512,
+            signing_key=producer.test_private_key())
+        verified=verifier.verify_signed_manifest(
+            clean_reference,self.key,self.src,512,769,producer.PROVIDER_ID)
+        requested=(544,)+tuple(range(15))
+        openings=[self.tree.opening(i) for i in requested]
+        self.assertTrue(self.values[544]!=true_hidden[544])
+        self.assertFalse(verifier.verified_sample_rejection(
+            self.values,verified,openings,challenged_indices=requested))
+        # This is a correct accept under the signed (but FALSE) root.
+        # External honest-provider computation is an indispensable premise.
+        self.assertEqual(verified["merkle_root_sha256"],self.tree.root.hex())
+
     def test_proposal_precommitment_before_reference_root(self):
         clean=self.values
         altered=list(clean)
