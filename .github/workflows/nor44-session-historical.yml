@@ -57,6 +57,9 @@ jobs:
           from hashlib import sha256
           import json
           b=Path('/tmp/nor44_original_64_session.json').read_bytes()
+          assert len(b)==121592
+          assert sha256(b).hexdigest()==(
+            'b7f740b6916e651932dbd40ceee443bdd5fb40c4b7a7042830ef53f749bd1f83')
           x=json.loads(b)
           assert x['schema']=='nor44.archived_nor42_session_ordering_smoke.v1'
           assert x['historical_source_pair_count']==64
