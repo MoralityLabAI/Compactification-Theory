@@ -1,0 +1,1918 @@
+{
+  "experiment": "CGC-02 trained task-protected recurrent causal subspaces",
+  "phase": "fresh",
+  "evidence_class": "4-root source-locked exploratory",
+  "torch_version": "2.5.1+cu124",
+  "config": {
+    "teacher_steps": 650,
+    "factor_steps": 360,
+    "heldout_pairs": 512,
+    "rank": 2,
+    "calibration_examples": 256,
+    "depths": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "random_null_arms": 32,
+    "signed_jacobian_null_arms": 16
+  },
+  "roots": [
+    2601,
+    2607,
+    2617,
+    2621
+  ],
+  "rows": [
+    {
+      "seed": 2601,
+      "training_family": "independent_scalar_source",
+      "evaluation_family": "heldout_anticorrelated_scalar_source",
+      "generated_pairs": 512,
+      "eligibility": {
+        "recipient_clean_task_correct": 490,
+        "donor_clean_task_correct": 478,
+        "both_clean_task_correct": 464,
+        "clean_future_donor_change": 472,
+        "clean_current_full_softmax_gap_within_0p02": 512,
+        "eligible": 442,
+        "mean_clean_current_softmax_difference": 0.004054275341331959
+      },
+      "factor_physical_mse_by_restart": [
+        1.5856399862574359e-16,
+        1.804652795566448e-16
+      ],
+      "factor_complete_GL_gauge_max_error": 1.4901161193847656e-08,
+      "subspace_selection": {
+        "task_joint_gap": 5.3682814689107134,
+        "task_depth4_gap": 2.619744581814482,
+        "bpd_weight_svd_gap": 0.07901977765087054,
+        "teacher_weight_svd_gap": 0.07901976115244813,
+        "factor_restart_weight_svd_projector_distance": 5.03109163219051e-07,
+        "task_joint_leading_eigenvalues": [
+          8.689002209950416,
+          5.640883527349483,
+          0.27260205843876933,
+          0.16203268709633223,
+          0.004359246403908902,
+          0.0018361953521495201
+        ],
+        "calibration_examples": 256,
+        "calibration_depths": [
+          2,
+          4,
+          6
+        ]
+      },
+      "reduced_zero_fill_one_step_closure_defects": {
+        "task_joint": 0.009378531947731972,
+        "task_depth4": 0.009923386387526989,
+        "bpd_weight_svd": 0.03163976967334747,
+        "teacher_weight_svd": 0.031639765948057175,
+        "random_protected_basis": 0.07141377031803131
+      },
+      "clean_by_depth": {
+        "2": {
+          "recipient_task_mae_vs_oracle": 0.017800085246562958,
+          "donor_task_mae_vs_oracle": 0.02159746363759041
+        },
+        "4": {
+          "recipient_task_mae_vs_oracle": 0.015223950147628784,
+          "donor_task_mae_vs_oracle": 0.019642166793346405
+        },
+        "6": {
+          "recipient_task_mae_vs_oracle": 0.014644819311797619,
+          "donor_task_mae_vs_oracle": 0.018701927736401558
+        },
+        "8": {
+          "recipient_task_mae_vs_oracle": 0.019338319078087807,
+          "donor_task_mae_vs_oracle": 0.02509673684835434
+        }
+      },
+      "causal_by_depth": {
+        "2": {
+          "zero_edit": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.12596502900123596,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11372797936201096,
+            "donor_recovery_all": 0.0546875,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 4.408352106111124e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.972568083554506e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0030878738034516573
+          },
+          "physical_teacher_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 4.408351378515363e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.9725677197566256e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186402320862,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0030878745019435883
+          },
+          "exact_dark_donor": {
+            "eligible": 442,
+            "donor_mse_eligible": 4.408354652696289e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.972570630139671e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0030878742691129446
+          },
+          "task_joint": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.005643328186124563,
+            "donor_recovery_eligible": 0.6312217116355896,
+            "donor_mse_all": 0.0051398202776908875,
+            "donor_recovery_all": 0.666015625,
+            "mean_physical_dose": 0.22495180368423462,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.00439979275688529
+          },
+          "task_depth4": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.005582589190453291,
+            "donor_recovery_eligible": 0.7013574838638306,
+            "donor_mse_all": 0.005082945805042982,
+            "donor_recovery_all": 0.7265625,
+            "mean_physical_dose": 0.2242051661014557,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.004296280909329653
+          },
+          "bpd_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0009638576302677393,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0008685548091307282,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.004989766050130129
+          },
+          "teacher_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0009638585615903139,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0008685555658303201,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0049897655844688416
+          },
+          "random_protected_basis": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.1196264922618866,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.1080370768904686,
+            "donor_recovery_all": 0.05859375,
+            "mean_physical_dose": 0.06750298291444778,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0006518198060803115
+          }
+        },
+        "4": {
+          "zero_edit": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.12629283964633942,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11401991546154022,
+            "donor_recovery_all": 0.0546875,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.00010957812628475949,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 9.875638352241367e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0025458084419369698
+          },
+          "physical_teacher_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0001095781844924204,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 9.875644173007458e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186402320862,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0025458091404289007
+          },
+          "exact_dark_donor": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.000109578286355827,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 9.875652904156595e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0025458093732595444
+          },
+          "task_joint": {
+            "eligible": 442,
+            "donor_mse_eligible": 3.795461816480383e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.4425349440425634e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.22495180368423462,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.005557110533118248
+          },
+          "task_depth4": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.00010325115727027878,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 9.320144454250112e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2242051661014557,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.005403244402259588
+          },
+          "bpd_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0014581733848899603,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.001321504358202219,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.005751648917794228
+          },
+          "teacher_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0014581738505512476,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0013215047074481845,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.00575164845213294
+          },
+          "random_protected_basis": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.1141035407781601,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.10296208411455154,
+            "donor_recovery_all": 0.05859375,
+            "mean_physical_dose": 0.06750298291444778,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0011823802487924695
+          }
+        },
+        "6": {
+          "zero_edit": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.12635420262813568,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11405398696660995,
+            "donor_recovery_all": 0.0546875,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0002337248151889071,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00021063070744276047,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0028291838243603706
+          },
+          "physical_teacher_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.00023372498981188983,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00021063086751382798,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186402320862,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002829184988513589
+          },
+          "exact_dark_donor": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.00023372510622721165,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00021063095482531935,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0028291845228523016
+          },
+          "task_joint": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0037010740488767624,
+            "donor_recovery_eligible": 0.773755669593811,
+            "donor_mse_all": 0.0033655064180493355,
+            "donor_recovery_all": 0.794921875,
+            "mean_physical_dose": 0.22495180368423462,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.00684262765571475
+          },
+          "task_depth4": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.003986210096627474,
+            "donor_recovery_eligible": 0.7149321436882019,
+            "donor_mse_all": 0.0036235377192497253,
+            "donor_recovery_all": 0.7421875,
+            "mean_physical_dose": 0.2242051661014557,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0066137476824223995
+          },
+          "bpd_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0029421651270240545,
+            "donor_recovery_eligible": 0.9547511339187622,
+            "donor_mse_all": 0.0026834500022232533,
+            "donor_recovery_all": 0.951171875,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.007091661915183067
+          },
+          "teacher_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.002942165359854698,
+            "donor_recovery_eligible": 0.9547511339187622,
+            "donor_mse_all": 0.0026834500022232533,
+            "donor_recovery_all": 0.951171875,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.007091660052537918
+          },
+          "random_protected_basis": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.11008131504058838,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.0992315411567688,
+            "donor_recovery_all": 0.064453125,
+            "mean_physical_dose": 0.06750298291444778,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0018347208388149738
+          }
+        },
+        "8": {
+          "zero_edit": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.13137444853782654,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11855781823396683,
+            "donor_recovery_all": 0.0546875,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.00047601055121049285,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0004289709613658488,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.004453528672456741
+          },
+          "physical_teacher_full": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.0004760109295602888,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00042897125240415335,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186402320862,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.004453530069440603
+          },
+          "exact_dark_donor": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.00047601101687178016,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0004289713688194752,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3318186104297638,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.004453529138118029
+          },
+          "task_joint": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.013207763433456421,
+            "donor_recovery_eligible": 0.05882352963089943,
+            "donor_mse_all": 0.012008316814899445,
+            "donor_recovery_all": 0.15234375,
+            "mean_physical_dose": 0.22495180368423462,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.008879928849637508
+          },
+          "task_depth4": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.013362575322389603,
+            "donor_recovery_eligible": 0.05429864302277565,
+            "donor_mse_all": 0.012146923691034317,
+            "donor_recovery_all": 0.1484375,
+            "mean_physical_dose": 0.2242051661014557,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.008555284701287746
+          },
+          "bpd_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.005127711687237024,
+            "donor_recovery_eligible": 0.7511312365531921,
+            "donor_mse_all": 0.004680303856730461,
+            "donor_recovery_all": 0.771484375,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.009754043072462082
+          },
+          "teacher_weight_svd": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.005127711687237024,
+            "donor_recovery_eligible": 0.7511312365531921,
+            "donor_mse_all": 0.004680303856730461,
+            "donor_recovery_all": 0.771484375,
+            "mean_physical_dose": 0.31535011529922485,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.009754043072462082
+          },
+          "random_protected_basis": {
+            "eligible": 442,
+            "donor_mse_eligible": 0.1129586473107338,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.1017138883471489,
+            "donor_recovery_all": 0.064453125,
+            "mean_physical_dose": 0.06750298291444778,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0027636766899377108
+          }
+        }
+      },
+      "same_dose_random_K_controls_depth8": {
+        "task_joint": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.015271493728505448,
+          "maximum_donor_recovery_eligible": 0.031674209982156754,
+          "mean_donor_mse_eligible": 0.17251054802909493
+        },
+        "bpd_weight_svd": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.027856335596879944,
+          "maximum_donor_recovery_eligible": 0.0429864265024662,
+          "mean_donor_mse_eligible": 0.21108937496319413
+        }
+      },
+      "privileged_signed_full_task_jacobian_controls": {
+        "4": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 1.0,
+          "best_recovery_eligible": 1.0,
+          "max_signed_task_derivative_error": 5.551115123125783e-16,
+          "max_physical_norm_error": 1.1102230246251565e-16
+        },
+        "8": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 0.06080316752195358,
+          "best_recovery_eligible": 0.06108597293496132,
+          "max_signed_task_derivative_error": 8.881784197001252e-16,
+          "max_physical_norm_error": 1.1102230246251565e-16
+        }
+      }
+    },
+    {
+      "seed": 2607,
+      "training_family": "independent_scalar_source",
+      "evaluation_family": "heldout_anticorrelated_scalar_source",
+      "generated_pairs": 512,
+      "eligibility": {
+        "recipient_clean_task_correct": 501,
+        "donor_clean_task_correct": 493,
+        "both_clean_task_correct": 489,
+        "clean_future_donor_change": 463,
+        "clean_current_full_softmax_gap_within_0p02": 512,
+        "eligible": 455,
+        "mean_clean_current_softmax_difference": 0.005054567940533161
+      },
+      "factor_physical_mse_by_restart": [
+        1.9425227602042544e-16,
+        1.8008964691431712e-16
+      ],
+      "factor_complete_GL_gauge_max_error": 1.4901161193847656e-08,
+      "subspace_selection": {
+        "task_joint_gap": 6.402265267146573,
+        "task_depth4_gap": 3.0186096306218393,
+        "bpd_weight_svd_gap": 0.19638706530994277,
+        "teacher_weight_svd_gap": 0.1963870985920536,
+        "factor_restart_weight_svd_projector_distance": 3.3033819590855273e-07,
+        "task_joint_leading_eigenvalues": [
+          11.527916768774745,
+          6.728297087058098,
+          0.3260318199115251,
+          0.18341122811244892,
+          0.00704984606160491,
+          0.0013679588222613082
+        ],
+        "calibration_examples": 256,
+        "calibration_depths": [
+          2,
+          4,
+          6
+        ]
+      },
+      "reduced_zero_fill_one_step_closure_defects": {
+        "task_joint": 0.00948612205684185,
+        "task_depth4": 0.009856624528765678,
+        "bpd_weight_svd": 0.010824456810951233,
+        "teacher_weight_svd": 0.010824453085660934,
+        "random_protected_basis": 0.10284113883972168
+      },
+      "clean_by_depth": {
+        "2": {
+          "recipient_task_mae_vs_oracle": 0.01787727139890194,
+          "donor_task_mae_vs_oracle": 0.02180042490363121
+        },
+        "4": {
+          "recipient_task_mae_vs_oracle": 0.016738424077630043,
+          "donor_task_mae_vs_oracle": 0.019683614373207092
+        },
+        "6": {
+          "recipient_task_mae_vs_oracle": 0.017139123752713203,
+          "donor_task_mae_vs_oracle": 0.02010565996170044
+        },
+        "8": {
+          "recipient_task_mae_vs_oracle": 0.04205607622861862,
+          "donor_task_mae_vs_oracle": 0.04905116185545921
+        }
+      },
+      "causal_by_depth": {
+        "2": {
+          "zero_edit": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.11720702797174454,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.10585109144449234,
+            "donor_recovery_all": 0.05859375,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.0002921714913100004,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00026190775679424405,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0016483684303238988
+          },
+          "physical_teacher_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.0002921712293755263,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00026190755306743085,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001648368895985186
+          },
+          "exact_dark_donor": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00029217114206403494,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0002619074657559395,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0016483687795698643
+          },
+          "task_joint": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.005674792919307947,
+            "donor_recovery_eligible": 0.8615384697914124,
+            "donor_mse_all": 0.005136118736118078,
+            "donor_recovery_all": 0.875,
+            "mean_physical_dose": 0.19585010409355164,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0013622803380712867
+          },
+          "task_depth4": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.0052091809920966625,
+            "donor_recovery_eligible": 0.8659340739250183,
+            "donor_mse_all": 0.004712587688118219,
+            "donor_recovery_all": 0.87890625,
+            "mean_physical_dose": 0.19787931442260742,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0013734312960878015
+          },
+          "bpd_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.007591771427541971,
+            "donor_recovery_eligible": 0.34065935015678406,
+            "donor_mse_all": 0.006901258137077093,
+            "donor_recovery_all": 0.41015625,
+            "mean_physical_dose": 0.2775641083717346,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0028505660593509674
+          },
+          "teacher_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.007591768633574247,
+            "donor_recovery_eligible": 0.34065935015678406,
+            "donor_mse_all": 0.006901254411786795,
+            "donor_recovery_all": 0.41015625,
+            "mean_physical_dose": 0.277564138174057,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002850566292181611
+          },
+          "random_protected_basis": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.04185787960886955,
+            "donor_recovery_eligible": 0.032967034727334976,
+            "donor_mse_all": 0.03775103762745857,
+            "donor_recovery_all": 0.12890625,
+            "mean_physical_dose": 0.18663720786571503,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.003637148067355156
+          }
+        },
+        "4": {
+          "zero_edit": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.12195729464292526,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11014804244041443,
+            "donor_recovery_all": 0.05859375,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00014061311958357692,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0001260553253814578,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001460061059333384
+          },
+          "physical_teacher_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00014061303227208555,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0001260552671737969,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0014600612921640277
+          },
+          "exact_dark_donor": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00014061297406442463,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00012605520896613598,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0014600612921640277
+          },
+          "task_joint": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00014123099390417337,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00012694770703092217,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.19585010409355164,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001814151182770729
+          },
+          "task_depth4": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.0001514997420599684,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00013592097093351185,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.19787931442260742,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001884867437183857
+          },
+          "bpd_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.008749053813517094,
+            "donor_recovery_eligible": 0.28131869435310364,
+            "donor_mse_all": 0.007955546490848064,
+            "donor_recovery_all": 0.357421875,
+            "mean_physical_dose": 0.2775641083717346,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002603798406198621
+          },
+          "teacher_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.008749050088226795,
+            "donor_recovery_eligible": 0.28131869435310364,
+            "donor_mse_all": 0.00795554369688034,
+            "donor_recovery_all": 0.357421875,
+            "mean_physical_dose": 0.277564138174057,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002603798173367977
+          },
+          "random_protected_basis": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.02478773146867752,
+            "donor_recovery_eligible": 0.08351648598909378,
+            "donor_mse_all": 0.022342480719089508,
+            "donor_recovery_all": 0.1796875,
+            "mean_physical_dose": 0.18663720786571503,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.005837394390255213
+          }
+        },
+        "6": {
+          "zero_edit": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.1253865659236908,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11322024464607239,
+            "donor_recovery_all": 0.056640625,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00011242889740969986,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00010075912723550573,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012994768330827355
+          },
+          "physical_teacher_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00011242892651353031,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0001007591636152938,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012994777644053102
+          },
+          "exact_dark_donor": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00011242882465012372,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00010075907630380243,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012994777644053102
+          },
+          "task_joint": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.0033887913450598717,
+            "donor_recovery_eligible": 0.9384615421295166,
+            "donor_mse_all": 0.0030749875586479902,
+            "donor_recovery_all": 0.943359375,
+            "mean_physical_dose": 0.19585010409355164,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0038837287575006485
+          },
+          "task_depth4": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.003917261492460966,
+            "donor_recovery_eligible": 0.8549450635910034,
+            "donor_mse_all": 0.0035545022692531347,
+            "donor_recovery_all": 0.869140625,
+            "mean_physical_dose": 0.19787931442260742,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0038966352585703135
+          },
+          "bpd_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.009868990629911423,
+            "donor_recovery_eligible": 0.24175824224948883,
+            "donor_mse_all": 0.008974473923444748,
+            "donor_recovery_all": 0.322265625,
+            "mean_physical_dose": 0.2775641083717346,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002250277204439044
+          },
+          "teacher_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.009868986904621124,
+            "donor_recovery_eligible": 0.24175824224948883,
+            "donor_mse_all": 0.00897447019815445,
+            "donor_recovery_all": 0.322265625,
+            "mean_physical_dose": 0.277564138174057,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002250277204439044
+          },
+          "random_protected_basis": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.010458867996931076,
+            "donor_recovery_eligible": 0.40439561009407043,
+            "donor_mse_all": 0.009416770190000534,
+            "donor_recovery_all": 0.46875,
+            "mean_physical_dose": 0.18663720786571503,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.007784734945744276
+          }
+        },
+        "8": {
+          "zero_edit": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.1504843533039093,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.1358032375574112,
+            "donor_recovery_all": 0.0546875,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00017436387133784592,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00015623451326973736,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0007084138342179358
+          },
+          "physical_teacher_full": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.00017436398775316775,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00015623461513314396,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0007084151729941368
+          },
+          "exact_dark_donor": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.0001743638567859307,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00015623451326973736,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2985551357269287,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0007084148819558322
+          },
+          "task_joint": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.016758913174271584,
+            "donor_recovery_eligible": 0.0923076942563057,
+            "donor_mse_all": 0.015209132805466652,
+            "donor_recovery_all": 0.18359375,
+            "mean_physical_dose": 0.19585010409355164,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.007061998825520277
+          },
+          "task_depth4": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.017474014312028885,
+            "donor_recovery_eligible": 0.07912088185548782,
+            "donor_mse_all": 0.015859082341194153,
+            "donor_recovery_all": 0.171875,
+            "mean_physical_dose": 0.19787931442260742,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0069915782660245895
+          },
+          "bpd_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.010875756852328777,
+            "donor_recovery_eligible": 0.224175825715065,
+            "donor_mse_all": 0.00988697074353695,
+            "donor_recovery_all": 0.306640625,
+            "mean_physical_dose": 0.2775641083717346,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001261492958292365
+          },
+          "teacher_weight_svd": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.010875752195715904,
+            "donor_recovery_eligible": 0.224175825715065,
+            "donor_mse_all": 0.009886966086924076,
+            "donor_recovery_all": 0.306640625,
+            "mean_physical_dose": 0.277564138174057,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012614934239536524
+          },
+          "random_protected_basis": {
+            "eligible": 455,
+            "donor_mse_eligible": 0.0033066803589463234,
+            "donor_recovery_eligible": 0.8483516573905945,
+            "donor_mse_all": 0.0029870010912418365,
+            "donor_recovery_all": 0.86328125,
+            "mean_physical_dose": 0.18663720786571503,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.01051380205899477
+          }
+        }
+      },
+      "same_dose_random_K_controls_depth8": {
+        "task_joint": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.019848901545628905,
+          "maximum_donor_recovery_eligible": 0.03956044092774391,
+          "mean_donor_mse_eligible": 0.19825343415141106
+        },
+        "bpd_weight_svd": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.030151099781505764,
+          "maximum_donor_recovery_eligible": 0.04615384712815285,
+          "mean_donor_mse_eligible": 0.24010036699473858
+        }
+      },
+      "privileged_signed_full_task_jacobian_controls": {
+        "4": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 1.0,
+          "best_recovery_eligible": 1.0,
+          "max_signed_task_derivative_error": 7.771561172376096e-16,
+          "max_physical_norm_error": 5.551115123125783e-17
+        },
+        "8": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 0.0923076942563057,
+          "best_recovery_eligible": 0.0923076942563057,
+          "max_signed_task_derivative_error": 9.992007221626409e-16,
+          "max_physical_norm_error": 1.1102230246251565e-16
+        }
+      }
+    },
+    {
+      "seed": 2617,
+      "training_family": "independent_scalar_source",
+      "evaluation_family": "heldout_anticorrelated_scalar_source",
+      "generated_pairs": 512,
+      "eligibility": {
+        "recipient_clean_task_correct": 493,
+        "donor_clean_task_correct": 470,
+        "both_clean_task_correct": 456,
+        "clean_future_donor_change": 474,
+        "clean_current_full_softmax_gap_within_0p02": 512,
+        "eligible": 432,
+        "mean_clean_current_softmax_difference": 0.0028685557190328836
+      },
+      "factor_physical_mse_by_restart": [
+        1.6015466032623816e-16,
+        1.6310995827920841e-16
+      ],
+      "factor_complete_GL_gauge_max_error": 1.4901161193847656e-08,
+      "subspace_selection": {
+        "task_joint_gap": 8.682567396811287,
+        "task_depth4_gap": 4.348819520010828,
+        "bpd_weight_svd_gap": 0.29774940000355865,
+        "teacher_weight_svd_gap": 0.2977494268610771,
+        "factor_restart_weight_svd_projector_distance": 4.79435300348996e-07,
+        "task_joint_leading_eigenvalues": [
+          10.27872827498085,
+          8.977913156732448,
+          0.295345759921162,
+          0.17545392786925976,
+          0.0037014283024332743,
+          0.0005864322359156308
+        ],
+        "calibration_examples": 256,
+        "calibration_depths": [
+          2,
+          4,
+          6
+        ]
+      },
+      "reduced_zero_fill_one_step_closure_defects": {
+        "task_joint": 0.01151358149945736,
+        "task_depth4": 0.01144482847303152,
+        "bpd_weight_svd": 0.021023765206336975,
+        "teacher_weight_svd": 0.021023757755756378,
+        "random_protected_basis": 0.0354921892285347
+      },
+      "clean_by_depth": {
+        "2": {
+          "recipient_task_mae_vs_oracle": 0.01592673733830452,
+          "donor_task_mae_vs_oracle": 0.019964788109064102
+        },
+        "4": {
+          "recipient_task_mae_vs_oracle": 0.01707863248884678,
+          "donor_task_mae_vs_oracle": 0.02062157355248928
+        },
+        "6": {
+          "recipient_task_mae_vs_oracle": 0.022433286532759666,
+          "donor_task_mae_vs_oracle": 0.025989020243287086
+        },
+        "8": {
+          "recipient_task_mae_vs_oracle": 0.03275882825255394,
+          "donor_task_mae_vs_oracle": 0.03916743025183678
+        }
+      },
+      "causal_by_depth": {
+        "2": {
+          "zero_edit": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.1291247010231018,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11566932499408722,
+            "donor_recovery_all": 0.04296875,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 7.458502659574151e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.605123053304851e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973581314087,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0015271968441084027
+          },
+          "physical_teacher_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 7.458500476786867e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.605121598113328e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001527196727693081
+          },
+          "exact_dark_donor": {
+            "eligible": 432,
+            "donor_mse_eligible": 7.458495383616537e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.60511723253876e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0015271970769390464
+          },
+          "task_joint": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.005850624293088913,
+            "donor_recovery_eligible": 0.5925925970077515,
+            "donor_mse_all": 0.0052975621074438095,
+            "donor_recovery_all": 0.638671875,
+            "mean_physical_dose": 0.20687593519687653,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002328082686290145
+          },
+          "task_depth4": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.006170005537569523,
+            "donor_recovery_eligible": 0.5972222089767456,
+            "donor_mse_all": 0.005583131220191717,
+            "donor_recovery_all": 0.642578125,
+            "mean_physical_dose": 0.20425006747245789,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002293309196829796
+          },
+          "bpd_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.003896677168086171,
+            "donor_recovery_eligible": 0.7430555820465088,
+            "donor_mse_all": 0.003693176433444023,
+            "donor_recovery_all": 0.751953125,
+            "mean_physical_dose": 0.35451439023017883,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012218642514199018
+          },
+          "teacher_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.003896668553352356,
+            "donor_recovery_eligible": 0.7430555820465088,
+            "donor_mse_all": 0.003693168517202139,
+            "donor_recovery_all": 0.751953125,
+            "mean_physical_dose": 0.3545145094394684,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012218633200973272
+          },
+          "random_protected_basis": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.11376815289258957,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.10227339714765549,
+            "donor_recovery_all": 0.052734375,
+            "mean_physical_dose": 0.09051553905010223,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0016395983984693885
+          }
+        },
+        "4": {
+          "zero_edit": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.1264323890209198,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11344647407531738,
+            "donor_recovery_all": 0.048828125,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.00010169710731133819,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 9.012035297928378e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973581314087,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0011971680214628577
+          },
+          "physical_teacher_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.00010169723100261763,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 9.012046211864799e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0011971680214628577
+          },
+          "exact_dark_donor": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.00010169715096708387,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 9.012040391098708e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0011971682542935014
+          },
+          "task_joint": {
+            "eligible": 432,
+            "donor_mse_eligible": 7.760257722111419e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.945533823454753e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.20687593519687653,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0017444022232666612
+          },
+          "task_depth4": {
+            "eligible": 432,
+            "donor_mse_eligible": 8.235326822614297e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 7.324859325308353e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.20425006747245789,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0017309269169345498
+          },
+          "bpd_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.003834336530417204,
+            "donor_recovery_eligible": 0.7523148059844971,
+            "donor_mse_all": 0.003693892154842615,
+            "donor_recovery_all": 0.755859375,
+            "mean_physical_dose": 0.35451439023017883,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0007791381794959307
+          },
+          "teacher_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.003834327682852745,
+            "donor_recovery_eligible": 0.7523148059844971,
+            "donor_mse_all": 0.0036938840057700872,
+            "donor_recovery_all": 0.755859375,
+            "mean_physical_dose": 0.3545145094394684,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0007791381794959307
+          },
+          "random_protected_basis": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.12812000513076782,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11517161875963211,
+            "donor_recovery_all": 0.044921875,
+            "mean_physical_dose": 0.09051553905010223,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0016015275614336133
+          }
+        },
+        "6": {
+          "zero_edit": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.12184729427099228,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.10944142937660217,
+            "donor_recovery_all": 0.048828125,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 7.307613122975454e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.480023148469627e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973581314087,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001034854562021792
+          },
+          "physical_teacher_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 7.307632768061012e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.480040610767901e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0010348543291911483
+          },
+          "exact_dark_donor": {
+            "eligible": 432,
+            "donor_mse_eligible": 7.307626219699159e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.480036245193332e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0010348546784371138
+          },
+          "task_joint": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.002342198509722948,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0021335266064852476,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.20687593519687653,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0023546686861664057
+          },
+          "task_depth4": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.002170766470953822,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.0019775601103901863,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.20425006747245789,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002339014085009694
+          },
+          "bpd_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.003068545600399375,
+            "donor_recovery_eligible": 0.8055555820465088,
+            "donor_mse_all": 0.0030119665898382664,
+            "donor_recovery_all": 0.802734375,
+            "mean_physical_dose": 0.35451439023017883,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0005936269299127162
+          },
+          "teacher_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.003068538149818778,
+            "donor_recovery_eligible": 0.8055555820465088,
+            "donor_mse_all": 0.0030119596049189568,
+            "donor_recovery_all": 0.802734375,
+            "mean_physical_dose": 0.3545145094394684,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0005936272209510207
+          },
+          "random_protected_basis": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.12955957651138306,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11650709807872772,
+            "donor_recovery_all": 0.04296875,
+            "mean_physical_dose": 0.09051553905010223,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0015228482661768794
+          }
+        },
+        "8": {
+          "zero_edit": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.11276417970657349,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.101201131939888,
+            "donor_recovery_all": 0.05078125,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 2.849058546416927e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 2.527839387767017e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973581314087,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0008568415069021285
+          },
+          "physical_teacher_full": {
+            "eligible": 432,
+            "donor_mse_eligible": 2.8490752811194398e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 2.5278546672780067e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0008568420889787376
+          },
+          "exact_dark_donor": {
+            "eligible": 432,
+            "donor_mse_eligible": 2.8490721888374537e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 2.5278521206928417e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3676973879337311,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0008568419143557549
+          },
+          "task_joint": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.009239275008440018,
+            "donor_recovery_eligible": 0.25231480598449707,
+            "donor_mse_all": 0.008387885987758636,
+            "donor_recovery_all": 0.328125,
+            "mean_physical_dose": 0.20687593519687653,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002752115251496434
+          },
+          "task_depth4": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.008753499947488308,
+            "donor_recovery_eligible": 0.25462964177131653,
+            "donor_mse_all": 0.007944256998598576,
+            "donor_recovery_all": 0.330078125,
+            "mean_physical_dose": 0.20425006747245789,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002715500071644783
+          },
+          "bpd_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.0019782588351517916,
+            "donor_recovery_eligible": 0.9166666865348816,
+            "donor_mse_all": 0.001987767405807972,
+            "donor_recovery_all": 0.90625,
+            "mean_physical_dose": 0.35451439023017883,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0005461362889036536
+          },
+          "teacher_weight_svd": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.001978253945708275,
+            "donor_recovery_eligible": 0.9166666865348816,
+            "donor_mse_all": 0.0019877625163644552,
+            "donor_recovery_all": 0.90625,
+            "mean_physical_dose": 0.3545145094394684,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0005461364053189754
+          },
+          "random_protected_basis": {
+            "eligible": 432,
+            "donor_mse_eligible": 0.112955242395401,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.10156838595867157,
+            "donor_recovery_all": 0.04296875,
+            "mean_physical_dose": 0.09051553905010223,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001456093043088913
+          }
+        }
+      },
+      "same_dose_random_K_controls_depth8": {
+        "task_joint": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.02010995364980772,
+          "maximum_donor_recovery_eligible": 0.032407406717538834,
+          "mean_donor_mse_eligible": 0.1537802265956998
+        },
+        "bpd_weight_svd": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.030671296641230583,
+          "maximum_donor_recovery_eligible": 0.04398148134350777,
+          "mean_donor_mse_eligible": 0.229799113702029
+        }
+      },
+      "privileged_signed_full_task_jacobian_controls": {
+        "4": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 1.0,
+          "best_recovery_eligible": 1.0,
+          "max_signed_task_derivative_error": 6.661338147750939e-16,
+          "max_physical_norm_error": 1.1102230246251565e-16
+        },
+        "8": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 0.24898726493120193,
+          "best_recovery_eligible": 0.25231480598449707,
+          "max_signed_task_derivative_error": 6.661338147750939e-16,
+          "max_physical_norm_error": 1.1102230246251565e-16
+        }
+      }
+    },
+    {
+      "seed": 2621,
+      "training_family": "independent_scalar_source",
+      "evaluation_family": "heldout_anticorrelated_scalar_source",
+      "generated_pairs": 512,
+      "eligibility": {
+        "recipient_clean_task_correct": 476,
+        "donor_clean_task_correct": 433,
+        "both_clean_task_correct": 415,
+        "clean_future_donor_change": 458,
+        "clean_current_full_softmax_gap_within_0p02": 512,
+        "eligible": 389,
+        "mean_clean_current_softmax_difference": 0.0016465787775814533
+      },
+      "factor_physical_mse_by_restart": [
+        7.138083527036265e-12,
+        3.458880470930126e-08
+      ],
+      "factor_complete_GL_gauge_max_error": 2.9802322387695312e-08,
+      "subspace_selection": {
+        "task_joint_gap": 6.030189096473148,
+        "task_depth4_gap": 2.9986560205295265,
+        "bpd_weight_svd_gap": 0.223625783177273,
+        "teacher_weight_svd_gap": 0.2236231606005803,
+        "factor_restart_weight_svd_projector_distance": 0.004668907728046179,
+        "task_joint_leading_eigenvalues": [
+          12.532384557090408,
+          6.457056791983855,
+          0.4268676955107072,
+          0.19605475552165383,
+          0.008440949655009697,
+          0.0033470078442002196
+        ],
+        "calibration_examples": 256,
+        "calibration_depths": [
+          2,
+          4,
+          6
+        ]
+      },
+      "reduced_zero_fill_one_step_closure_defects": {
+        "task_joint": 0.013779671862721443,
+        "task_depth4": 0.013807360082864761,
+        "bpd_weight_svd": 0.06190003454685211,
+        "teacher_weight_svd": 0.06189780682325363,
+        "random_protected_basis": 0.12944841384887695
+      },
+      "clean_by_depth": {
+        "2": {
+          "recipient_task_mae_vs_oracle": 0.018383478745818138,
+          "donor_task_mae_vs_oracle": 0.02376178652048111
+        },
+        "4": {
+          "recipient_task_mae_vs_oracle": 0.020642561838030815,
+          "donor_task_mae_vs_oracle": 0.026911897584795952
+        },
+        "6": {
+          "recipient_task_mae_vs_oracle": 0.0287831649184227,
+          "donor_task_mae_vs_oracle": 0.03523161634802818
+        },
+        "8": {
+          "recipient_task_mae_vs_oracle": 0.033737052232027054,
+          "donor_task_mae_vs_oracle": 0.04266871139407158
+        }
+      },
+      "causal_by_depth": {
+        "2": {
+          "zero_edit": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.13656120002269745,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11600793153047562,
+            "donor_recovery_all": 0.06640625,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 1.3202800630551792e-07,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 1.289868976073194e-07,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124968707561493,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0011733636492863297
+          },
+          "physical_teacher_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 1.3251855079943198e-07,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 1.295414051583066e-07,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0011732842540368438
+          },
+          "exact_dark_donor": {
+            "eligible": 389,
+            "donor_mse_eligible": 1.3252000030661293e-07,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 1.295431957260007e-07,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0011732842540368438
+          },
+          "task_joint": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.006326079834252596,
+            "donor_recovery_eligible": 0.740359902381897,
+            "donor_mse_all": 0.005432771053165197,
+            "donor_recovery_all": 0.78515625,
+            "mean_physical_dose": 0.2139120101928711,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002271784469485283
+          },
+          "task_depth4": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.006825076881796122,
+            "donor_recovery_eligible": 0.7814909815788269,
+            "donor_mse_all": 0.005846383050084114,
+            "donor_recovery_all": 0.8203125,
+            "mean_physical_dose": 0.21234263479709625,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0023119745310395956
+          },
+          "bpd_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.02916516736149788,
+            "donor_recovery_eligible": 0.01799485832452774,
+            "donor_mse_all": 0.0259978249669075,
+            "donor_recovery_all": 0.119140625,
+            "mean_physical_dose": 0.2370646595954895,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001735740341246128
+          },
+          "teacher_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.029165348038077354,
+            "donor_recovery_eligible": 0.01799485832452774,
+            "donor_mse_all": 0.025997977703809738,
+            "donor_recovery_all": 0.119140625,
+            "mean_physical_dose": 0.2370632141828537,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0017357239266857505
+          },
+          "random_protected_basis": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.10469012707471848,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.08912001550197601,
+            "donor_recovery_all": 0.068359375,
+            "mean_physical_dose": 0.10810044407844543,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0010351809905841947
+          }
+        },
+        "4": {
+          "zero_edit": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.1319427341222763,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11245950311422348,
+            "donor_recovery_all": 0.06640625,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 8.065956649261352e-07,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 7.902721108621336e-07,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124968707561493,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.000931372691411525
+          },
+          "physical_teacher_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 8.053054330048326e-07,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 7.88632291914837e-07,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.000931272457819432
+          },
+          "exact_dark_donor": {
+            "eligible": 389,
+            "donor_mse_eligible": 8.053015108089312e-07,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 7.886299613346637e-07,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.000931272457819432
+          },
+          "task_joint": {
+            "eligible": 389,
+            "donor_mse_eligible": 4.22187295043841e-05,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.6414479836821556e-05,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2139120101928711,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002933395328000188
+          },
+          "task_depth4": {
+            "eligible": 389,
+            "donor_mse_eligible": 7.02349041148409e-07,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 7.521209113292571e-07,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.21234263479709625,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0031097724568098783
+          },
+          "bpd_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.028129523620009422,
+            "donor_recovery_eligible": 0.02570694126188755,
+            "donor_mse_all": 0.025285158306360245,
+            "donor_recovery_all": 0.125,
+            "mean_physical_dose": 0.2370646595954895,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0013436796143651009
+          },
+          "teacher_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.028129538521170616,
+            "donor_recovery_eligible": 0.02570694126188755,
+            "donor_mse_all": 0.02528516948223114,
+            "donor_recovery_all": 0.125,
+            "mean_physical_dose": 0.2370632141828537,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001343662035651505
+          },
+          "random_protected_basis": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.10165641456842422,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.08676724880933762,
+            "donor_recovery_all": 0.06640625,
+            "mean_physical_dose": 0.10810044407844543,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001666948781348765
+          }
+        },
+        "6": {
+          "zero_edit": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.12741044163703918,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.10882061719894409,
+            "donor_recovery_all": 0.068359375,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 3.3324063224426936e-06,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.2654954793542856e-06,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124968707561493,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0009550924878567457
+          },
+          "physical_teacher_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 3.329153742015478e-06,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.2611769711365923e-06,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0009550272952765226
+          },
+          "exact_dark_donor": {
+            "eligible": 389,
+            "donor_mse_eligible": 3.329140326968627e-06,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 3.2611651477054693e-06,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0009550263057462871
+          },
+          "task_joint": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.004671952687203884,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 0.00399828003719449,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.2139120101928711,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.003756370162591338
+          },
+          "task_depth4": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.004322064109146595,
+            "donor_recovery_eligible": 0.9871465563774109,
+            "donor_mse_all": 0.0037053092382848263,
+            "donor_recovery_all": 0.990234375,
+            "mean_physical_dose": 0.21234263479709625,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0040223910473287106
+          },
+          "bpd_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.02596586011350155,
+            "donor_recovery_eligible": 0.03341902419924736,
+            "donor_mse_all": 0.023547422140836716,
+            "donor_recovery_all": 0.13671875,
+            "mean_physical_dose": 0.2370646595954895,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012845966266468167
+          },
+          "teacher_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.02596566453576088,
+            "donor_recovery_eligible": 0.03341902419924736,
+            "donor_mse_all": 0.02354724518954754,
+            "donor_recovery_all": 0.13671875,
+            "mean_physical_dose": 0.2370632141828537,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012845805613324046
+          },
+          "random_protected_basis": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.09946546703577042,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.08491753786802292,
+            "donor_recovery_all": 0.06640625,
+            "mean_physical_dose": 0.10810044407844543,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0023202875163406134
+          }
+        },
+        "8": {
+          "zero_edit": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.13442067801952362,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.11467653512954712,
+            "donor_recovery_all": 0.068359375,
+            "mean_physical_dose": 0.0,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0
+          },
+          "physical_BPD_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 7.00378268447821e-06,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.861163001303794e-06,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124968707561493,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001247409381903708
+          },
+          "physical_teacher_full": {
+            "eligible": 389,
+            "donor_mse_eligible": 6.997348464210518e-06,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.8527574512700085e-06,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012473998358473182
+          },
+          "exact_dark_donor": {
+            "eligible": 389,
+            "donor_mse_eligible": 6.997314812906552e-06,
+            "donor_recovery_eligible": 1.0,
+            "donor_mse_all": 6.852730621176306e-06,
+            "donor_recovery_all": 1.0,
+            "mean_physical_dose": 0.3124934136867523,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0012473991373553872
+          },
+          "task_joint": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.014920494519174099,
+            "donor_recovery_eligible": 0.1928020566701889,
+            "donor_mse_all": 0.012829447165131569,
+            "donor_recovery_all": 0.30859375,
+            "mean_physical_dose": 0.2139120101928711,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0043396600522100925
+          },
+          "task_depth4": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.014022508636116982,
+            "donor_recovery_eligible": 0.1928020566701889,
+            "donor_mse_all": 0.012068061158061028,
+            "donor_recovery_all": 0.30859375,
+            "mean_physical_dose": 0.21234263479709625,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.004632119555026293
+          },
+          "bpd_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.025520605966448784,
+            "donor_recovery_eligible": 0.0514138825237751,
+            "donor_mse_all": 0.02330697327852249,
+            "donor_recovery_all": 0.15625,
+            "mean_physical_dose": 0.2370646595954895,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.0018967418000102043
+          },
+          "teacher_weight_svd": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.025520244613289833,
+            "donor_recovery_eligible": 0.0514138825237751,
+            "donor_mse_all": 0.023306649178266525,
+            "donor_recovery_all": 0.15625,
+            "mean_physical_dose": 0.2370632141828537,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.001896772999316454
+          },
+          "random_protected_basis": {
+            "eligible": 389,
+            "donor_mse_eligible": 0.11241254210472107,
+            "donor_recovery_eligible": 0.0,
+            "donor_mse_all": 0.09568127989768982,
+            "donor_recovery_all": 0.064453125,
+            "mean_physical_dose": 0.10810044407844543,
+            "immediate_normalized_readout_max_error": 0.0,
+            "future_normalized_readout_mean_abs_change": 0.002997859613969922
+          }
+        }
+      },
+      "same_dose_random_K_controls_depth8": {
+        "task_joint": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.019521208363585174,
+          "maximum_donor_recovery_eligible": 0.03084832988679409,
+          "mean_donor_mse_eligible": 0.18624736228957772
+        },
+        "bpd_weight_svd": {
+          "arms": 32,
+          "matched_at_depth": 8,
+          "mean_donor_recovery_eligible": 0.02554627286735922,
+          "maximum_donor_recovery_eligible": 0.04627249389886856,
+          "mean_donor_mse_eligible": 0.20041375514119864
+        }
+      },
+      "privileged_signed_full_task_jacobian_controls": {
+        "4": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 1.0,
+          "best_recovery_eligible": 1.0,
+          "max_signed_task_derivative_error": 6.661338147750939e-16,
+          "max_physical_norm_error": 1.1102230246251565e-16
+        },
+        "8": {
+          "arms": 16,
+          "match": "same full 2-output signed Jacobian and physical L2 norm",
+          "mean_recovery_eligible": 0.1928020566701889,
+          "best_recovery_eligible": 0.1928020566701889,
+          "max_signed_task_derivative_error": 8.881784197001252e-16,
+          "max_physical_norm_error": 1.1102230246251565e-16
+        }
+      }
+    }
+  ],
+  "registered_gates": {
+    "engineering_roots_passed": 4,
+    "engineering_all_pass": true,
+    "exploratory_unseen_depth_portability_roots": 1,
+    "exploratory_unseen_depth_portability_gate_pass": false,
+    "strong_incremental_vs_privileged_tangent_roots": 0,
+    "strong_incremental_gate_pass": false,
+    "independent_scientific_inference": "none; 4 same-source-family roots, uncalibrated"
+  }
+}
