@@ -201,7 +201,7 @@ def audit():
     assert x["overall"]["sum_source_median_ms_by_arm"]==totals
     assert x["primary_all_sixty_ratio_of_sum_of_source_medians"]==observed[
         "all_60_ratio_of_source_median_sums_warm_over_original"]
-    assert receipt["first_original_five_registered_gates"]==GATES
+    assert receipt["original_first_five_registered_gates"]==GATES
     assert x["secondary_ten_block_descriptive_bootstrap"]["block_count"]==10
     return {"first_run":FIRST_RUN,"CPU_SHA":CPU_SHA,
             "original_verdict":"PASS (5/5)","source_count":60,
