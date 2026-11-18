@@ -1,0 +1,94 @@
+name: NOR-44 signed proposal-session chronology and challenge authenticity
+
+on:
+  push:
+    branches:
+      - research/nor44-session-precommit-historical-20261118
+    paths:
+      - 'research/nor44_session_protocol/**'
+      - '.github/workflows/nor44-session-historical.yml'
+  pull_request:
+    paths:
+      - 'research/nor44_session_protocol/**'
+      - '.github/workflows/nor44-session-historical.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  session_protocol_security_unit_tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned Ed25519 reference dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Check syntax, test real CSPRNG path and adversarial signed-session controls
+        run: |
+          python -m compileall -q research/nor44_session_protocol
+          python -m unittest research.nor44_session_protocol.test_session_protocol -v
+      - name: Read-only first historical-source session artifact SHA audit
+        run: |
+          python research/nor44_session_protocol/original_archive_audit.py
+
+  original_nor42_64_source_session_trace:
+    needs: session_protocol_security_unit_tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install independent Ed25519 reference dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Rebuild three test-only signed sessions for each archived NOR42 source
+        run: |
+          python -u -m research.nor44_session_protocol.historical_smoke \
+            --out /tmp/nor44_original_64_session.json
+      - name: Attest no new source identities, original hashes and challenge substitution controls
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          b=Path('/tmp/nor44_original_64_session.json').read_bytes()
+          assert len(b)==121592
+          assert sha256(b).hexdigest()==(
+            'b7f740b6916e651932dbd40ceee443bdd5fb40c4b7a7042830ef53f749bd1f83')
+          x=json.loads(b)
+          assert x['schema']=='nor44.archived_nor42_session_ordering_smoke.v1'
+          assert x['historical_source_pair_count']==64
+          assert x['new_nor44_prospective_source_count']==0
+          assert x['possible_source_truth_worlds']==128
+          assert x['signed_sessions_per_source']==3
+          assert x['challenge_queries_per_session']==16
+          assert x['original_nor42_source_sha256']==(
+            'f8bc6ef3db4fda78709f2b7cd1a6a09989dbc087bcfb963d00961cc23ce4f033')
+          assert x['original_nor42_grade_sha256']==(
+            'bd57751d94ea49755888000675b0df8fce6490873683268b8f8625518701adae')
+          assert x['prior_nor43_original_smoke_sha256']==(
+            'f7ff23b0ba47eca3607233fe32b61114247bce02561f15ff1b67360950007145')
+          assert x['all_valid_proof_substitution_attacks_rejected']
+          assert x['all_dishonest_authorized_provider_cases_crypto_accept_false_truth']
+          assert x['test_signing_keys_are_public']
+          assert x['test_nonces_and_challenges_are_public_deterministic']
+          assert len(x['source_records'])==64
+          assert len({a['nor42_public_source_sha256'] for a in x['source_records']})==64
+          assert all(a['valid_proof_substitution_rejected']
+                     and a['dishonest_authorized_provider_reference_is_true'] is False
+                     and a['challenge_rejected_wrong_clean_proposal']==a['challenge_intersects_true_difference']
+                     for a in x['source_records'])
+          print('NOR44 FIRST HISTORICAL SOURCE BYTES SHA',len(b),sha256(b).hexdigest())
+          print('NOR44 HISTORICAL SOURCE FAMILY MEANS',x['families'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor44_first_historical_64_signed_sessions
+          path: /tmp/nor44_original_64_session.json
+          if-no-files-found: error
+          retention-days: 90
