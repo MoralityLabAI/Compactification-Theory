@@ -1,0 +1,39 @@
+{
+  "first_original_artifact_id": 14400450017,
+  "first_original_run": 44240888113,
+  "five_repeats_per_verifier_arm": 5,
+  "gmp_version": {
+    "algorithm": "exact carry-free Kronecker, original NOR46 no-carry bound",
+    "claimed_cryptographic_soundness": false,
+    "claimed_proof_succinctness": false,
+    "gmp_version": "GMP 6.3.0",
+    "gmpy2_version": "2.3.2",
+    "max_coefficient_bits": 32768,
+    "max_packed_bits": 120000000
+  },
+  "limitation": "Exact signed integer historical-only benchmarking; no cryptographic proof-system soundness or true program authority.",
+  "original_engineering_pass": true,
+  "original_engineering_targets": {
+    "gmp_at_least_twofold_faster_than_python_trace": true,
+    "gmp_faster_than_nor45": true
+  },
+  "original_first_hardware": "AMD EPYC 9V74 80-Core Processor",
+  "original_first_raw_cpu_bytes": 34928,
+  "original_first_raw_cpu_sha256": "809fd5d18cfb61e4e6d771c4e402b31e3fec99889774f4305ddfa3d6c793f530",
+  "original_nor46_cpu_sha256": "4e9695f89aaa8acf42c09c6fe7aea9ee47ca0f86f74f6131d3e108e587454a64",
+  "original_nor46_trace_sha256": "d24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052",
+  "original_source_units": 16,
+  "original_summary": {
+    "median_full_trace_bytes": 232680.5,
+    "median_nor45_direct_ms": 49.769636000000006,
+    "median_nor46_python_ms": 225.85344099999998,
+    "median_nor47_gmp_ms": 28.506024,
+    "median_nor47_hybrid_ms": 64.909366,
+    "median_per_source_gmp_over_nor45": 0.8104069120627158,
+    "median_per_source_gmp_over_nor46": 0.12669814677924263,
+    "median_per_source_hybrid_over_nor45": 1.7710665191667667,
+    "n": 16
+  },
+  "prospective_new_source_units": 0,
+  "schema": "nor47.original_first_source_locked_cpu_archive.v1"
+}

@@ -1,0 +1,113 @@
+name: NOR-47 exact GMP signed convolution and original archived CPU comparison
+
+on:
+  push:
+    branches:
+      - research/nor47-gmp-exact-convolution-20261118
+    paths:
+      - 'research/nor47_gmp_exact_convolution/**'
+      - '.github/workflows/nor47-gmp-exact-convolution.yml'
+  pull_request:
+    paths:
+      - 'research/nor47_gmp_exact_convolution/**'
+      - '.github/workflows/nor47-gmp-exact-convolution.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gmp_exact_integer_and_original_authority_parity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned GMP bigint and original Ed25519 dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --only-binary=:all: \
+            gmpy2==2.3.2 cryptography==46.0.4
+      - name: Exact signed convolution against independent oracle, caps and NOR46 full signed source controls
+        run: |
+          python -m compileall -q research/nor47_gmp_exact_convolution
+          python -m unittest research.nor47_gmp_exact_convolution.test_kernel -v
+
+  first_original_16_historical_cpu_arms:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR47-FIRST-CPU')
+    needs: gmp_exact_integer_and_original_authority_parity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned GMP and Ed25519 dependencies
+        run: |
+          python -m pip install --disable-pip-version-check --only-binary=:all: \
+            gmpy2==2.3.2 cryptography==46.0.4
+      - name: First five-repeat CPU benchmark on immutable NOR46 selected 16-source roster
+        run: |
+          python -u research/nor47_gmp_exact_convolution/benchmark_cpu.py \
+            --repeats 5 --out /tmp/nor47_original_first_cpu.json
+      - name: Preserve scientific engineering success or negative performance unchanged
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          from collections import Counter
+          import json,math
+          raw=Path('/tmp/nor47_original_first_cpu.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor47.first_archived_gmp_exact_convolution_cpu.v1'
+          assert x['nor46_original_first_trace_sha256']==(
+            'd24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052')
+          assert x['nor46_original_first_cpu_sha256']==(
+            '4e9695f89aaa8acf42c09c6fe7aea9ee47ca0f86f74f6131d3e108e587454a64')
+          assert x['source_selection']==[100,104,108,112]
+          assert x['historical_source_pairs']==16 and x['new_prospective_nor47_source_ids']==0
+          assert x['fixed_repeat_count_per_arm']==5
+          assert x['gmp_backend']['gmpy2_version']=='2.3.2'
+          assert len(x['source_records'])==len({
+            r['source_sha256'] for r in x['source_records']})==16
+          assert Counter(r['degree'] for r in x['source_records'])=={512:8,1024:8}
+          assert Counter(r['has_reciprocal_R'] for r in x['source_records'])=={
+            True:12,False:4}
+          assert all(r['all_signed_exact_integer_and_root_parity']
+                    and len(r['randomized_interleaved_arm_samples_ms'])==4
+                    and all(len(v)==5 for v in r['randomized_interleaved_arm_samples_ms'].values())
+                    for r in x['source_records'])
+          assert x['exact_integer_arithmetic_without_modular_reduction']
+          assert x['all_signature_program_source_and_root_semantics_unchanged']
+          assert x['first_engineering_pass']==all(x['first_engineering_targets'].values())
+          print('NOR47 FIRST ORIGINAL CPU BYTES/SHA',len(raw),sha256(raw).hexdigest())
+          print('NOR47 GMP FIRST MEDIAN RATIOS',x['summary'])
+          print('NOR47 FIRST ENGINEERING PASS',x['first_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor47_first_original_16_source_gmp_cpu_cost
+          path: /tmp/nor47_original_first_cpu.json
+          retention-days: 90
+          if-no-files-found: warn
+
+  immutable_first_cpu_sha_and_source_ratio_check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Recheck exact original first CPU bytes, signed source roster and two positive engineering targets
+        run: |
+          python research/nor47_gmp_exact_convolution/original_archive_audit.py
