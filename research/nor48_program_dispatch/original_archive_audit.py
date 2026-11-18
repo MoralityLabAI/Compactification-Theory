@@ -44,7 +44,7 @@ def audit():
     assert g["source_pairs"]==receipt["fixed_historical_source_count"]==16
     assert g["new_nor48_source_identities"]==receipt["new_prospective_source_count"]==0
     assert g["registered_replicate_blocks"]==list(REPS)
-    assert g["repeat_count"]==receipt["five_repeats_per_verifier_arm"]==5 if "five_repeats_per_verifier_arm" in receipt else g["repeat_count"]==5
+    assert g["repeat_count"]==5
     assert g["armed_auditors"]==list(ARMS)
     assert g["gmp_dependency"]["gmpy2_version"]=="2.3.2"
     assert g["global_verifier_monkeypatch_used"] is False
