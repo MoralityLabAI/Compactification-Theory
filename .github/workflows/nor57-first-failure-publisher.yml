@@ -50,7 +50,7 @@ jobs:
           print('NOR57 original failed job log retrieved, bytes',len(x.encode()))
           PY
       - name: Archive raw original first source and failed log, never fabricate first CPU JSON
-        run: python research/nor57_authenticated_router/archive_failed_first.py
+        run: python -m research.nor57_authenticated_router.archive_failed_first
       - name: Independently audit original source SHA, all 60 printed routes, missing CPU JSON and first FAIL
         run: python research/nor57_authenticated_router/original_failure_audit.py
       - name: Commit immutable first source/log/FAIL receipt, with rebase and bounded retry
