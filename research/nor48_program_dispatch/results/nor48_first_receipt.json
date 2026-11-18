@@ -1,0 +1,55 @@
+{
+  "first_original_engineering_pass": false,
+  "five_original_registered_gates": {
+    "all_R_use_injected_GMP": true,
+    "all_four_no_R_use_direct": true,
+    "all_signed_exact_source_roots_identical": true,
+    "dispatcher_median_ratio_under_0p75": false,
+    "global_NOR46_convolution_function_unchanged": true
+  },
+  "fixed_historical_source_count": 16,
+  "limitation": "Source-locked historical engineering speed benchmark; signed authority is separately checked, signing costs excluded. Exact nonsuccinct verification, trusted provider external.",
+  "new_prospective_source_count": 0,
+  "original_artifact_id": 14404902340,
+  "original_by_R": {
+    "R": {
+      "direct_median_ms": 92.8269085,
+      "dispatch_median_ms": 55.779511,
+      "median_of_sourcewise_dispatch_over_direct": 0.5035417502386468,
+      "median_of_sourcewise_dispatch_over_gmp": 1.0000324201774071,
+      "median_of_sourcewise_gmp_over_direct": 0.5029524702991637,
+      "source_count": 12
+    },
+    "no_R": {
+      "direct_median_ms": 2.894289,
+      "dispatch_median_ms": 2.9044135,
+      "median_of_sourcewise_dispatch_over_direct": 1.0049564322356046,
+      "median_of_sourcewise_dispatch_over_gmp": 0.5532069544664102,
+      "median_of_sourcewise_gmp_over_direct": 1.8106004727404676,
+      "source_count": 4
+    }
+  },
+  "original_cpu": "AMD EPYC 9V74 80-Core Processor",
+  "original_gmp": {
+    "algorithm": "exact carry-free Kronecker, original NOR46 no-carry bound",
+    "claimed_cryptographic_soundness": false,
+    "claimed_proof_succinctness": false,
+    "gmp_version": "GMP 6.3.0",
+    "gmpy2_version": "2.3.2",
+    "max_coefficient_bits": 32768,
+    "max_packed_bits": 120000000
+  },
+  "original_raw_bytes": 27609,
+  "original_raw_sha256": "d5cf4b0e3860907eb58c2a37b84ff631f023caf2b69e6e0d0e5a322e2f0b2b99",
+  "original_run": 44253553267,
+  "original_summary": {
+    "direct_median_ms": 49.782880000000006,
+    "dispatch_median_ms": 28.4282575,
+    "median_of_sourcewise_dispatch_over_direct": 0.8182870781348079,
+    "median_of_sourcewise_dispatch_over_gmp": 0.9997173155024475,
+    "median_of_sourcewise_gmp_over_direct": 0.8176883367709142,
+    "source_count": 16
+  },
+  "prior_NOR47_original_cpu_sha256": "809fd5d18cfb61e4e6d771c4e402b31e3fec99889774f4305ddfa3d6c793f530",
+  "schema": "nor48.first_original_source_locked_cpu_archive.v1"
+}
