@@ -1,0 +1,29 @@
+name: NOR-59 permanent original first signed NOR45 5-of-5 static-root SHA audit
+
+on:
+  push:
+    paths:
+      - 'research/nor59_authorized_merkle/results/**'
+      - 'research/nor59_authorized_merkle/original_archive_audit.py'
+      - '.github/workflows/nor59-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor59_authorized_merkle/results/**'
+      - 'research/nor59_authorized_merkle/original_archive_audit.py'
+      - '.github/workflows/nor59-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_first_60_signed_NOR45_authorized_program_SHA_and_five_gate_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently audit first 60 signed-program source/CPU SHAs, original roots and 5-of-5 PASS
+        run: python research/nor59_authorized_merkle/original_archive_audit.py
