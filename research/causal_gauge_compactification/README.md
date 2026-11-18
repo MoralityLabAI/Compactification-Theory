@@ -1,3 +1,5 @@
+**CGC-02 first trained recurrent test (2026-11-18):** [Registered 4-root result](cgc02/RESULTS.md), [byte-verified raw source-locked JSON](cgc02/results/fresh_4root.json), and [trained teacher/native BPD experiment](cgc02/README.md). Full three-class normalized current readout and BPD physical factors pass engineering 4/4 roots. Task-selected protected rank-two blocks achieve 100% heldout donor retrieval at trained depth 4 but only 14.9% root-mean at unseen depth 8; a physical BPD weight-SVD rank-two baseline achieves 48.6%. Registered portability FAIL 1/4 and incremental-vs-signed-full-task-Jacobian FAIL 0/4. This is exploratory same-family toy-model evidence, leaving CGC-01 mathematical claims intact.
+
 # CGC-01: protected causal compactification
 
 [Mathematical theory](THEORY.md) · [Source-only audit and future protocol](PROTOCOL.md) · [Executable finite reference](finite_audit.py)
