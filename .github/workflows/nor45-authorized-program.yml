@@ -32,3 +32,60 @@ jobs:
         run: |
           python -m compileall -q research/nor45_authorized_program
           python -m unittest research.nor45_authorized_program.test_program_authority -v
+
+  archived_first_64_pair_executable_reference_smoke:
+    needs: program_authority_integrity_and_negative_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test-only Ed25519 library
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Replay 64 first original NOR42 paired worlds under independently authorized programs
+        run: |
+          python -u research/nor45_authorized_program/historical_smoke.py \
+            --out /tmp/nor45_first_archived_64_programs.json
+      - name: Check every original source, reference signature and semantic-trust negative control
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor45_first_archived_64_programs.json').read_bytes()
+          receipt=json.loads(raw)
+          assert receipt['schema']=='nor45.authorized_program_historical_nor42_64_pairs.v1'
+          assert receipt['original_nor42_source_sha256']==(
+              'f8bc6ef3db4fda78709f2b7cd1a6a09989dbc087bcfb963d00961cc23ce4f033')
+          assert receipt['original_nor42_grade_sha256']==(
+              'bd57751d94ea49755888000675b0df8fce6490873683268b8f8625518701adae')
+          assert receipt['historical_original_source_pairs']==64
+          assert receipt['new_nor45_prospective_source_ids']==0
+          assert receipt['program_authority_private_key_public_test_fixture']
+          assert receipt['verifier_test_challenge_predictable']
+          assert all(receipt[k] for k in (
+              'all_authorized_program_executions_match_signed_hidden_reference',
+              'all_dishonest_signed_output_roots_rejected_by_program_recomputation',
+              'all_model_self_signed_programs_rejected',
+              'all_dishonest_authorized_programs_pass_crypto_but_miss_true_world'))
+          records=receipt['source_records']
+          assert len(records)==len({r['original_nor42_source_sha256'] for r in records})==64
+          assert all(len(r['challenge_indices'])==len(set(r['challenge_indices']))==16
+                     and r['signed_program_certificate_bytes']>300
+                     and r['independent_program_reexecution_matches_hidden_true_world']
+                     and r['independently_rebuilt_hidden_root_matches_publisher']
+                     for r in records)
+          print('NOR45 FIRST HISTORICAL PROGRAM AUDIT BYTES SHA',
+                len(raw),sha256(raw).hexdigest())
+          print('NOR45 FIRST SOURCE FAMILY SUMMARY',receipt['family_summaries'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor45_first_64_archived_program_root_evidence
+          path: /tmp/nor45_first_archived_64_programs.json
+          if-no-files-found: error
+          retention-days: 90
