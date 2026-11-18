@@ -59,7 +59,7 @@ def _digest(*parts):
     return sha256("|".join(map(str,parts)).encode("ascii")).digest()
 
 
-def spec_from_public_proposal(proposal,hidden_beta=0,hidden_op=None):
+def spec_from_public_proposal(proposal,observed_degree,hidden_beta=0,hidden_op=None):
     h=proposal["header"]
     cls=proposal["class"]
     native=tuple(nor42.corpus.OPS)
@@ -70,7 +70,7 @@ def spec_from_public_proposal(proposal,hidden_beta=0,hidden_op=None):
         "u":native[cls//4],"v":native[cls%4],
         "hidden_beta":hidden_beta,"hidden_transform":hidden_op
     }
-    authority.validate_program_spec(result,512 if h.delay<=112 else 1024)
+    authority.validate_program_spec(result,observed_degree)
     return result
 
 
@@ -99,7 +99,7 @@ def smoke():
         clean=proposal["pred"]
         query=tuple(row["public_query_input"])
         assert proposal["sha"]==original["clean_model_prediction_sha256"]
-        spec_clean=spec_from_public_proposal(proposal)
+        spec_clean=spec_from_public_proposal(proposal,row["degree"])
         sess=session.VerifierSession(
             source_sha256=src,observed_degree=row["degree"],
             coefficient_count=len(clean),
