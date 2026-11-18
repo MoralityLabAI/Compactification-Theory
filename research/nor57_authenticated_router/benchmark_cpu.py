@@ -57,9 +57,9 @@ def summarize(rows):
         "sum_source_median_ms_by_arm":{
             arm:sum(r["arm_medians_ms"][arm] for r in rows) for arm in ARMS
         },
-        "selector_native_case_count":sum(r["frozen_selector_decision"]==accept.NATIVE
+        "selector_native_case_count":sum(r["frozen_public_selector_decision"]==accept.NATIVE
                                          for r in rows),
-        "selector_gmp_case_count":sum(r["frozen_selector_decision"]==accept.GMP
+        "selector_gmp_case_count":sum(r["frozen_public_selector_decision"]==accept.GMP
                                       for r in rows)
     }
 
