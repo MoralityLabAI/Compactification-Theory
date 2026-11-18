@@ -101,7 +101,6 @@ def run(public_fixture:Path,repeats=REPEATS):
         witness=producer.transcript(program,query,d)
         transcript_ms=(time.perf_counter_ns()-start)/1e6
         transcript_bytes=producer.trace_json_bytes(witness)
-        assert tuple(witness["output_coefficients"]) != hidden if False else True
         # Independently verify all modes before timed repetitions.
         for name in ARMS:
             values,root=arm(name,program,query,d,witness)
