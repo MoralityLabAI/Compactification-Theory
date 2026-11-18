@@ -69,7 +69,7 @@ class SignedProgramDispatchTests(unittest.TestCase):
                 **args,"query":bad_query})
         bad_reference=copy.deepcopy(args["provider_reference"])
         # Provider root substitution must fail even if trace itself is valid.
-        bad_reference["signed_reference"]["manifest"]["merkle_root_sha256"]="00"*32
+        bad_reference["payload"]["merkle_root_sha256"]="00"*32
         with self.assertRaises((ValueError,KeyError,TypeError)):
             dispatch.verified_historical_dispatch(**{
                 **args,"provider_reference":bad_reference})
