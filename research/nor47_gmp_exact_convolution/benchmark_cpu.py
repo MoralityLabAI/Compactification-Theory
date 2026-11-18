@@ -87,7 +87,11 @@ def run(repeats=REPEAT):
     prior_benchmark=json.loads(first_cpu)
     assert prior_benchmark["historical_source_pairs"]==16
     archived={r["source_sha256"]:r for r in prior_benchmark["source_records"]}
-    assert len(archived)==16
+    from research.nor46_exact_integer_trace import original_archive_audit
+    original_receipt=json.loads(original_archive_audit.RESULT.read_bytes())
+    signed_roots={row["source_sha256"]:row["signed_program_root_sha256"]
+                  for row in original_receipt["source_records"]}
+    assert len(archived)==len(signed_roots)==16
     fixture,graded=nor45.load_original()
     source_pairs=[
         (row,result) for row,result in zip(
@@ -112,7 +116,7 @@ def run(repeats=REPEAT):
         assert nor46.verified_trace_values(
             transcript,query,program,row["degree"])==hidden
         expected_root=native.independently_computed_root(hidden)
-        assert expected_root==archived[sha]["source_sha256"] or True  # source SHA is NOT output root
+        assert expected_root==signed_roots[sha]
         # R polynomial traces are exact signed integers under the same
         # independently checked original NOR46 source and program.
         R=tuple(int(s) for s in transcript["unary_transforms"]["R"]) if (
