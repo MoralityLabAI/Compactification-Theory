@@ -165,6 +165,15 @@ class WitnessTest(unittest.TestCase):
         # External honest-provider computation is an indispensable premise.
         self.assertEqual(verified["merkle_root_sha256"],self.tree.root.hex())
 
+    def test_signer_is_explicit_and_no_public_default_private_key(self):
+        with self.assertRaises(TypeError):
+            producer.signed_reference_manifest(self.tree,self.src,512)
+        # Explicitly choosing the well-known test fixture remains possible,
+        # but a production caller cannot omit the signing credential.
+        sign=producer.signed_reference_manifest(
+            self.tree,self.src,512,signing_key=producer.test_private_key())
+        self.assertEqual(sign,self.bundle)
+
     def test_proposal_precommitment_before_reference_root(self):
         clean=self.values
         altered=list(clean)
