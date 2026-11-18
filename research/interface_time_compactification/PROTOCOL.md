@@ -1,6 +1,6 @@
 # IRTC-REV-01: interface-timed predictive compactification
 
-**Registered source-only addendum, 18 November 2026.** Mathematical source [Beyond Bayes BB-CQ-05](https://github.com/patrickdugan/beyond-bayes/pull/24), merged SHA `abc89f73d223f00305eb0416a34fe5aee602494d`. Connects to [IRC-02 interface-relative compactification](../../../experiments/interface-relative-compactification/README.md) and [CGC-01 protected causal compactification](../causal_gauge_compactification/THEORY.md).
+**Registered source-only addendum, 18 November 2026.** Mathematical source [Beyond Bayes BB-CQ-05](https://github.com/patrickdugan/beyond-bayes/pull/24), merged SHA `abc89f73d223f00305eb0416a34fe5aee602494d`. Connects to [IRC-02 interface-relative compactification](../../experiments/interface-relative-compactification/README.md) and [CGC-01 protected causal compactification](../causal_gauge_compactification/THEORY.md).
 
 ## New resource axis: interface disclosure time
 
