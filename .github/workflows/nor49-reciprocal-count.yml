@@ -59,6 +59,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Pin historical SHA-archive import dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
       - name: Freeze 48 unseen-timing SOURCE IDs before any CPU benchmark
         run: |
           python research/nor49_reciprocal_count_dispatch/cohort.py \
