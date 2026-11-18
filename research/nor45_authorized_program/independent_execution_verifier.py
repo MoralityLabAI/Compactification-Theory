@@ -161,7 +161,7 @@ def verify_authorized_execution(*,certificate:dict,query:Sequence[int],
     session_context:dict,precommit_receipt:dict,provider_reference:dict,
     pinned_program_authority_key:bytes,expected_program_authority_id:str,
     pinned_verifier_public_key:bytes,pinned_provider_public_key:bytes,
-    now_epoch:int=2)->dict:
+    now_epoch:int=2, _root_policy:str="original")->dict:
     """Authenticate an executable statement and fully verify provider root.
 
     Returns the independently computed vector only to the trusted verifier
@@ -216,7 +216,21 @@ def verify_authorized_execution(*,certificate:dict,query:Sequence[int],
     program=statement["program"]
     values=execute_authorized_program(
         program,query,session_context["observed_degree"])
-    independent_root=independently_computed_root(values)
+    if _root_policy=="original":
+        independent_root=independently_computed_root(values)
+    elif _root_policy in ("warm","cold"):
+        # The ONLY optional policies are NOR59's exact source/program-certified
+        # static NOR45 Merkle implementations. There is no root callback,
+        # arbitrary template, untrusted stride or bypass of signed checks.
+        # Every original authority, precommit, provider, source and executable
+        # program check above remains identical and runs before this branch.
+        from research.nor59_authorized_merkle import authorized_root
+        independent_root=authorized_root.authorized_root(
+            program=program,query=query,
+            observed_degree=session_context["observed_degree"],
+            output=values,mode=_root_policy)
+    else:
+        raise ProgramAttestationError("unregistered internal NOR45 root policy")
     if (statement["expected_merkle_root_sha256"]!=independent_root or
         root_reference["merkle_root_sha256"]!=independent_root):
         raise ProgramAttestationError(
