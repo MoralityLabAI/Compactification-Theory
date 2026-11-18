@@ -10,6 +10,9 @@ from hashlib import sha256
 from pathlib import Path
 
 FIRST_RUN=44240888113
+FIRST_ARTIFACT_ID=14400450017
+FIRST_RAW_BYTES=34928
+FIRST_RAW_SHA="809fd5d18cfb61e4e6d771c4e402b31e3fec99889774f4305ddfa3d6c793f530"
 SOURCE_SHA="d24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052"
 CPU_SHA="4e9695f89aaa8acf42c09c6fe7aea9ee47ca0f86f74f6131d3e108e587454a64"
 EXPECTED_REPS=(100,104,108,112)
@@ -17,6 +20,8 @@ EXPECTED_REPS=(100,104,108,112)
 
 def archive(input_path:Path,output_dir:Path):
     first=input_path.read_bytes()
+    assert len(first)==FIRST_RAW_BYTES
+    assert sha256(first).hexdigest()==FIRST_RAW_SHA
     grade=json.loads(first)
     assert grade["schema"]=="nor47.first_archived_gmp_exact_convolution_cpu.v1"
     assert grade["design_issue"]==248
@@ -79,6 +84,7 @@ def archive(input_path:Path,output_dir:Path):
     receipt={
         "schema":"nor47.original_first_source_locked_cpu_archive.v1",
         "first_original_run":FIRST_RUN,
+        "first_original_artifact_id":FIRST_ARTIFACT_ID,
         "original_source_units":16,
         "prospective_new_source_units":0,
         "original_nor46_trace_sha256":SOURCE_SHA,
