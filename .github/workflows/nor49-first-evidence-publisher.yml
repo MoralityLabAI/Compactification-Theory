@@ -1,0 +1,126 @@
+name: NOR-49 one-shot immutable first CPU FAIL publisher
+
+on:
+  push:
+    branches:
+      - research/nor49-reciprocal-count-holdout-20261118
+    paths:
+      - '.github/workflows/nor49-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  archive_immutable_first_failure:
+    if: github.ref == 'refs/heads/research/nor49-reciprocal-count-holdout-20261118' && contains(github.event.head_commit.message, 'NOR49-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor49-reciprocal-count-holdout-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor49_first_original_48_timing_clean_cpu
+          run-id: 44256305944
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor49_first
+      - name: Copy original first CPU and roster bytes with independent SHA check
+        run: |
+          set -eu
+          test ! -e research/nor49_reciprocal_count_dispatch/results/nor49_first_original_cpu.json
+          mkdir -p research/nor49_reciprocal_count_dispatch/results
+          cp /tmp/nor49_first/nor49_first_original_cpu.json research/nor49_reciprocal_count_dispatch/results/nor49_first_original_cpu.json
+          cp /tmp/nor49_first/nor49_first_timing_clean_roster.json research/nor49_reciprocal_count_dispatch/results/nor49_first_original_source_roster.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          p=Path('research/nor49_reciprocal_count_dispatch/results')
+          original=p/'nor49_first_original_cpu.json'
+          roster=p/'nor49_first_original_source_roster.json'
+          assert len(original.read_bytes())==84469
+          assert sha256(original.read_bytes()).hexdigest()=='c3f4a67b20df4504461c65168f6006041f2cc839aabdda054032a6f89bd24e4b'
+          assert len(roster.read_bytes())==13081
+          assert sha256(roster.read_bytes()).hexdigest()=='40929d52abddc5a15e82ec8e8101fba265d39e28239172c7e9fcaca4f6f0d2ae'
+          data=json.loads(original.read_bytes())
+          receipt={'schema':'nor49.original_cpu_first_archive.v1',
+             'first_run':44256305944,'first_artifact_id':14405524398,
+             'first_roster_artifact_id':14405483325,
+             'first_registration_sha':'26b70716ec3d3830031919e593d3092cc31ae162',
+             'original_raw_bytes':84469,
+             'original_raw_sha256':'c3f4a67b20df4504461c65168f6006041f2cc839aabdda054032a6f89bd24e4b',
+             'original_roster_bytes':13081,
+             'original_roster_sha256':'40929d52abddc5a15e82ec8e8101fba265d39e28239172c7e9fcaca4f6f0d2ae',
+             'original_gates':data['first_engineering_gates'],
+             'first_engineering_pass':data['first_engineering_pass'],
+             'original_primary_median':data['overall']['median_nor49_over_direct'],
+             'original_secondary_median':data['overall']['median_nor49_over_nor48'],
+             'original_by_R_count':data['by_R_count'],
+             'cpu_model':data['cpu_model'],
+             'gmp_backend':data['gmp_backend'],
+             'scope':'Historical-source timing-prospective CPU engineering; no new scientific model evaluation. Exact nonsuccinct execution; provider honesty external.'}
+          assert receipt['first_engineering_pass'] is False
+          assert len(receipt['original_gates'])==5
+          (p/'nor49_first_receipt.json').write_text(json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          PY
+      - name: Independent read-only gate and SHA audit
+        run: python research/nor49_reciprocal_count_dispatch/original_archive_audit.py
+      - name: Source-controlled report preserving frozen FAIL and separating diagnostics
+        run: |
+          cat > research/nor49_reciprocal_count_dispatch/RESULTS.md <<'EOF'
+          # NOR-49: first timing-clean 48-source CPU benchmark
+
+          **Original engineering verdict: FAIL, 3/5 frozen gates passed.** The first prospectively registered CPU run [#44256305944](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44256305944) compared NOR45, NOR47, NOR48, and the frozen count-R>=2 NOR49 selector across 48 previously untimed historical source identities, with five interleaved repetitions and exact output/Merkle-root parity.
+
+          ## Immutable evidence
+          - First original CPU JSON: [results/nor49_first_original_cpu.json](results/nor49_first_original_cpu.json), **84,469 bytes**, SHA-256 `c3f4a67b20df4504461c65168f6006041f2cc839aabdda054032a6f89bd24e4b`.
+          - First public-only source roster: [results/nor49_first_original_source_roster.json](results/nor49_first_original_source_roster.json), **13,081 bytes**, SHA-256 `40929d52abddc5a15e82ec8e8101fba265d39e28239172c7e9fcaca4f6f0d2ae`.
+          - Original [frozen receipt](results/nor49_first_receipt.json) and permanent [read-only SHA/gate auditor](original_archive_audit.py).
+          - First timing preregistration commit: [`26b70716`](https://github.com/MoralityLabAI/Compactification-Theory/commit/26b70716ec3d3830031919e593d3092cc31ae162), preceding all heldout timings. All 16 original NOR48 training IDs excluded.
+          - Original fixed median sourcewise NOR49/direct **0.9995949312×** versus target <0.75×: **FAIL**.
+          - Original fixed median sourcewise NOR49/NOR48 **0.9999505379×** versus target <0.95×: **FAIL**.
+          - Signed-program routing, full exact output/Merkle roots and source-first reentrant reproducibility gates: **PASS**.
+
+          ## Original source group evidence
+
+          | Active signed R count | Sources | Median NOR49/direct |
+          | --- | ---: | ---: |
+          | 0 | 19 | 1.001912× |
+          | 1 | 15 | 1.000230× |
+          | 2 | 12 | 0.471252× |
+          | 3 | 2 | 0.398938× |
+
+          Each source's exact program operations, root, five arm samples and median are included in the unmodified original CPU JSON. Full session, authority and provider signing checks are exercised in separate tests; equally excluded common cryptographic/network costs are outside these arithmetic+root timings.
+
+          ## Post-hoc workload-sum diagnostics (exploratory)
+
+          Source-median times summed over the 48 cases give NOR45 **2345.436 ms**, NOR48 **1883.189 ms**, and NOR49 **1712.580 ms**. NOR49/NOR45 is **0.730175×** and NOR49/NOR48 **0.909404×** on this workload-sum metric. A seeded 10,000-resample twelve-block bootstrap gave descriptive 95% intervals **[0.603, 0.874]** and **[0.832, 0.987]**, respectively. These are post-hoc analyses of the first heldout run. They preserve, and never replace, the **original 3/5 FAIL**.
+
+          ## Next registered mechanism experiment
+
+          NOR-50 should compare NOR45 direct with a memoized-exact NOR45 executor that computes each distinct unary transform once, keeping all signed integers and independently computed Merkle roots identical. The NOR46/47 trace path already deduplicates transforms; NOR45 direct recomputes R once per occurrence. Register a completely new CPU timing panel and compare the original/direct-cached/GMP/dispatch arms before timing, with separate R=0, R=1 and R>=2 strata. This separates redundant inverse computation from the GMP acceleration claim. Program authenticity, trusted provider and full trace/transport assumptions remain outside the pure arithmetic comparator.
+          EOF
+      - name: Commit original CPU, roster, receipt, results unchanged by rerun
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor49_reciprocal_count_dispatch/results/nor49_first_original_cpu.json \
+                  research/nor49_reciprocal_count_dispatch/results/nor49_first_original_source_roster.json \
+                  research/nor49_reciprocal_count_dispatch/results/nor49_first_receipt.json \
+                  research/nor49_reciprocal_count_dispatch/RESULTS.md
+          git commit -m 'NOR-49: preserve original first 48-source 3-of-5 engineering FAIL'
+          for i in $(seq 1 12); do
+            git fetch origin research/nor49-reciprocal-count-holdout-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor49-reciprocal-count-holdout-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
