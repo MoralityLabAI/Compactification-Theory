@@ -1,0 +1,331 @@
+{
+  "archive_zip_bytes": 95197,
+  "archive_zip_sha256": "5b0c2b18004cb6f04e29283a8b4dd4342e43705f4c65c09df80df767950d218d",
+  "first_registration_sha": "ddbabc02cf8702fe2da2c9962174ddcfcbed39a4",
+  "first_run": 44316658346,
+  "original_CPU_artifact_id": 14433176882,
+  "original_first_engineering_pass": true,
+  "original_first_five_registered_gates": {
+    "all_60_full_signed_vectors_roots_and_hostile_protocol_controls": true,
+    "all_60_sum_source_medians_warm_over_original_under_0p95": true,
+    "first_60_source_468_excluded_repeats_static_template_caps_archive": true,
+    "sparse_m3073_warm_over_original_under_0p93": true,
+    "twelve_dense_cold_over_original_under_1p20": true
+  },
+  "original_primary": {
+    "all_60_ratio_of_source_median_sums_warm_over_original": 0.911459019843162,
+    "dense_s1_median_sourcewise_cold_over_original": 1.0326935475393229,
+    "sparse_m3073_median_sourcewise_warm_over_original": 0.8024283640879615
+  },
+  "original_secondary_ten_block_descriptive_bootstrap": {
+    "block_count": 10,
+    "bootstrap_repeats": 4096,
+    "secondary_descriptive_vs_original": {
+      "cold_static_template_signed_GMP_full_Merkle": {
+        "descriptive_ten_block_95pct_interval": [
+          1.0153530000906605,
+          1.0336998298816065
+        ],
+        "ratio_of_sum_of_sixty_source_median_wall_ms": 1.022840777712971
+      },
+      "warm_static_template_signed_GMP_full_Merkle": {
+        "descriptive_ten_block_95pct_interval": [
+          0.8209825157171028,
+          0.9519628513823909
+        ],
+        "ratio_of_sum_of_sixty_source_median_wall_ms": 0.911459019843162
+      }
+    },
+    "source_median_total_ms": {
+      "cold_static_template_signed_GMP_full_Merkle": 2148.014033,
+      "original_signed_GMP_full_Merkle": 2100.047319,
+      "warm_static_template_signed_GMP_full_Merkle": 1914.107071
+    }
+  },
+  "original_source_artifact_id": 14431354312,
+  "original_source_median_total_ms": {
+    "cold_static_template_signed_GMP_full_Merkle": 2148.014033,
+    "original_signed_GMP_full_Merkle": 2100.047319,
+    "warm_static_template_signed_GMP_full_Merkle": 1914.107071
+  },
+  "original_sourcewise_by_length": {
+    "1537": {
+      "count": 20,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 19.969429499999997,
+        "original_signed_GMP_full_Merkle": 19.4888555,
+        "warm_static_template_signed_GMP_full_Merkle": 16.355717499999997
+      },
+      "median_original_root_only_ns": 5029743.0,
+      "median_sourcewise_cold_over_original": 1.0337516623011815,
+      "median_sourcewise_cold_over_warm": 1.2209739368246462,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.8787948634945102,
+      "median_sourcewise_warm_over_original": 0.8429062940132666,
+      "median_template_build_ms": 3.52191,
+      "median_template_root_only_ns": 1925827.5,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 486.02714,
+        "original_signed_GMP_full_Merkle": 470.273419,
+        "warm_static_template_signed_GMP_full_Merkle": 419.182904
+      }
+    },
+    "3073": {
+      "count": 20,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 77.082864,
+        "original_signed_GMP_full_Merkle": 76.02096399999999,
+        "warm_static_template_signed_GMP_full_Merkle": 69.88245950000001
+      },
+      "median_original_root_only_ns": 10289781.0,
+      "median_sourcewise_cold_over_original": 1.0294355151789998,
+      "median_sourcewise_cold_over_warm": 1.1030592896413882,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.938487375858377,
+      "median_sourcewise_warm_over_original": 0.9192525926784159,
+      "median_template_build_ms": 7.311233,
+      "median_template_root_only_ns": 4000649.5,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 1515.804114,
+        "original_signed_GMP_full_Merkle": 1489.605572,
+        "warm_static_template_signed_GMP_full_Merkle": 1382.1426
+      }
+    },
+    "769": {
+      "count": 20,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 6.655733,
+        "original_signed_GMP_full_Merkle": 6.4206705,
+        "warm_static_template_signed_GMP_full_Merkle": 4.8822545
+      },
+      "median_original_root_only_ns": 2505236.0,
+      "median_sourcewise_cold_over_original": 1.0500019764655,
+      "median_sourcewise_cold_over_warm": 1.3633748310778593,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.8149869575352922,
+      "median_sourcewise_warm_over_original": 0.7601866182647234,
+      "median_template_build_ms": 1.759061,
+      "median_template_root_only_ns": 929976.0,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 146.182779,
+        "original_signed_GMP_full_Merkle": 140.168328,
+        "warm_static_template_signed_GMP_full_Merkle": 112.781567
+      }
+    }
+  },
+  "original_sourcewise_by_profile": {
+    "s1-b2": {
+      "count": 12,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 42.450838000000005,
+        "original_signed_GMP_full_Merkle": 41.264827499999996,
+        "warm_static_template_signed_GMP_full_Merkle": 40.504467500000004
+      },
+      "median_original_root_only_ns": 5233309.5,
+      "median_sourcewise_cold_over_original": 1.0326935475393229,
+      "median_sourcewise_cold_over_warm": 1.0505174191741453,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.989007749776051,
+      "median_sourcewise_warm_over_original": 0.9803655701229602,
+      "median_template_build_ms": 1.833852,
+      "median_template_root_only_ns": 4486667.5,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 694.721131,
+        "original_signed_GMP_full_Merkle": 674.650278,
+        "warm_static_template_signed_GMP_full_Merkle": 667.82684
+      }
+    },
+    "s4-b16": {
+      "count": 12,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 38.1019395,
+        "original_signed_GMP_full_Merkle": 37.541872,
+        "warm_static_template_signed_GMP_full_Merkle": 34.5327465
+      },
+      "median_original_root_only_ns": 5117621.0,
+      "median_sourcewise_cold_over_original": 1.0174821342515563,
+      "median_sourcewise_cold_over_warm": 1.1065239905145086,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.9385366751629749,
+      "median_sourcewise_warm_over_original": 0.9188486830568439,
+      "median_template_build_ms": 3.52191,
+      "median_template_root_only_ns": 2014489.0,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 813.26375,
+        "original_signed_GMP_full_Merkle": 805.531297,
+        "warm_static_template_signed_GMP_full_Merkle": 764.573165
+      }
+    },
+    "s4-b2": {
+      "count": 12,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 7.9294975,
+        "original_signed_GMP_full_Merkle": 7.4303255,
+        "warm_static_template_signed_GMP_full_Merkle": 4.325611
+      },
+      "median_original_root_only_ns": 4929709.0,
+      "median_sourcewise_cold_over_original": 1.0589388833374898,
+      "median_sourcewise_cold_over_warm": 1.7553215270603206,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.6946541040550309,
+      "median_sourcewise_warm_over_original": 0.6026991106271408,
+      "median_template_build_ms": 3.52191,
+      "median_template_root_only_ns": 1803208.0,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 126.592708,
+        "original_signed_GMP_full_Merkle": 120.055598,
+        "warm_static_template_signed_GMP_full_Merkle": 76.85220699999999
+      }
+    },
+    "s4-b8": {
+      "count": 12,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 19.969429499999997,
+        "original_signed_GMP_full_Merkle": 19.4888555,
+        "warm_static_template_signed_GMP_full_Merkle": 16.355717499999997
+      },
+      "median_original_root_only_ns": 5027687.5,
+      "median_sourcewise_cold_over_original": 1.0282497208847463,
+      "median_sourcewise_cold_over_warm": 1.2209739368246462,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.8787948634945102,
+      "median_sourcewise_warm_over_original": 0.8429062940132666,
+      "median_template_build_ms": 3.52191,
+      "median_template_root_only_ns": 1925827.5,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 412.122377,
+        "original_signed_GMP_full_Merkle": 404.494616,
+        "warm_static_template_signed_GMP_full_Merkle": 361.73418200000003
+      }
+    },
+    "s8-b2": {
+      "count": 12,
+      "median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 7.194707,
+        "original_signed_GMP_full_Merkle": 6.725391500000001,
+        "warm_static_template_signed_GMP_full_Merkle": 2.9944075
+      },
+      "median_original_root_only_ns": 4894096.5,
+      "median_sourcewise_cold_over_original": 1.0610397564258698,
+      "median_sourcewise_cold_over_warm": 2.384002484122216,
+      "median_sourcewise_template_cost_amortized_over_five_warm_over_original": 0.5670634190529564,
+      "median_sourcewise_warm_over_original": 0.44598707119883685,
+      "median_template_build_ms": 4.058269,
+      "median_template_root_only_ns": 1151064.5,
+      "sum_source_median_ms_by_arm": {
+        "cold_static_template_signed_GMP_full_Merkle": 101.314067,
+        "original_signed_GMP_full_Merkle": 95.31553,
+        "warm_static_template_signed_GMP_full_Merkle": 43.120677
+      }
+    }
+  },
+  "original_static_geometry_template_ledger": {
+    "m1537-s1": {
+      "build_ns_outside_all_arm_timings": 1833852,
+      "canonical_template_bytes": 36520,
+      "m": 1537,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 1013,
+      "static_padding_leaf_count": 511,
+      "static_zero_leaf_count": 0,
+      "stride": 1,
+      "supported_dynamic_leaf_count": 1537,
+      "template_SHA256": "d131722be3915801b7b8a21719d826c225edf200857d64332ec15f7de05feb27"
+    },
+    "m1537-s4": {
+      "build_ns_outside_all_arm_timings": 3521910,
+      "canonical_template_bytes": 91816,
+      "m": 1537,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 2549,
+      "static_padding_leaf_count": 511,
+      "static_zero_leaf_count": 1152,
+      "stride": 4,
+      "supported_dynamic_leaf_count": 385,
+      "template_SHA256": "8d26e620a2ed161cc8ecedc31f6b6f08f868082c775bf864c47246215eb41267"
+    },
+    "m1537-s8": {
+      "build_ns_outside_all_arm_timings": 4058269,
+      "canonical_template_bytes": 112552,
+      "m": 1537,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 3125,
+      "static_padding_leaf_count": 511,
+      "static_zero_leaf_count": 1344,
+      "stride": 8,
+      "supported_dynamic_leaf_count": 193,
+      "template_SHA256": "7bf5e97ac71a0bd5af0b757693f7eccb1db23b4248ac0162175bdb18af439ede"
+    },
+    "m3073-s1": {
+      "build_ns_outside_all_arm_timings": 3513864,
+      "canonical_template_bytes": 73348,
+      "m": 3073,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 2036,
+      "static_padding_leaf_count": 1023,
+      "static_zero_leaf_count": 0,
+      "stride": 1,
+      "supported_dynamic_leaf_count": 3073,
+      "template_SHA256": "e7ddbbd2a371a9877cec9daec335d9c5ae9605f0d24684676ef7d528543ec1c2"
+    },
+    "m3073-s4": {
+      "build_ns_outside_all_arm_timings": 7311233,
+      "canonical_template_bytes": 183940,
+      "m": 3073,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 5108,
+      "static_padding_leaf_count": 1023,
+      "static_zero_leaf_count": 2304,
+      "stride": 4,
+      "supported_dynamic_leaf_count": 769,
+      "template_SHA256": "e018246ed89f36b887bb69e0cafb7fa77e6087b76584dbb38126c9dac47e60e6"
+    },
+    "m3073-s8": {
+      "build_ns_outside_all_arm_timings": 8496403,
+      "canonical_template_bytes": 225412,
+      "m": 3073,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 6260,
+      "static_padding_leaf_count": 1023,
+      "static_zero_leaf_count": 2688,
+      "stride": 8,
+      "supported_dynamic_leaf_count": 385,
+      "template_SHA256": "fed9c432c0a97798171463f448cbc8fda7dd5b694e2953afdfba7a0dd31c95bb"
+    },
+    "m769-s1": {
+      "build_ns_outside_all_arm_timings": 915954,
+      "canonical_template_bytes": 18124,
+      "m": 769,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 502,
+      "static_padding_leaf_count": 255,
+      "static_zero_leaf_count": 0,
+      "stride": 1,
+      "supported_dynamic_leaf_count": 769,
+      "template_SHA256": "1ea8a93d1e36c56fb36b3f64c8d33ff34f8b7a1bdd1b7cec752a1e21fb973628"
+    },
+    "m769-s4": {
+      "build_ns_outside_all_arm_timings": 1759061,
+      "canonical_template_bytes": 45772,
+      "m": 769,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 1270,
+      "static_padding_leaf_count": 255,
+      "static_zero_leaf_count": 576,
+      "stride": 4,
+      "supported_dynamic_leaf_count": 193,
+      "template_SHA256": "eec26381d7f0221f08dd760075a82e8208299d417441f9ae9e7fdcec3ce91cf8"
+    },
+    "m769-s8": {
+      "build_ns_outside_all_arm_timings": 2048396,
+      "canonical_template_bytes": 56140,
+      "m": 769,
+      "prebuilt_source_geometry_only": true,
+      "static_node_count": 1558,
+      "static_padding_leaf_count": 255,
+      "static_zero_leaf_count": 672,
+      "stride": 8,
+      "supported_dynamic_leaf_count": 97,
+      "template_SHA256": "de1640e06913d6067f1969c210ce3b6610d34b1b0d7eea3c7304000c1aa052a4"
+    }
+  },
+  "raw_CPU_bytes": 204565,
+  "raw_CPU_sha256": "244d84accfd2821af25a3d1d98c114964a217925fa457451d2c83c1d6793342b",
+  "raw_source_bytes": 1473865,
+  "raw_source_sha256": "6b34e964bc170f3e8efcdfae23403fead030992cf1fc08640ed13c2e34c6b5b3",
+  "schema": "nor58.original_first_60_static_merkle_CPU_archive.v1",
+  "scope": "Same authenticated signed-v2 exact GMP witness and complete original Merkle root; immutable trusted geometry static leaves only; publicly known test Ed25519 private key, no real provider authority."
+}

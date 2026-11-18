@@ -1,0 +1,29 @@
+name: NOR-58 permanent original first 5-of-5 exact indexed Merkle SHA audit
+
+on:
+  push:
+    paths:
+      - 'research/nor58_static_merkle/results/**'
+      - 'research/nor58_static_merkle/original_archive_audit.py'
+      - '.github/workflows/nor58-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor58_static_merkle/results/**'
+      - 'research/nor58_static_merkle/original_archive_audit.py'
+      - '.github/workflows/nor58-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_first_60_signed_static_root_SHA_and_five_gate_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently audit first exact raw CPU/source SHA, templates, roots and registered 5-of-5 PASS
+        run: python research/nor58_static_merkle/original_archive_audit.py
