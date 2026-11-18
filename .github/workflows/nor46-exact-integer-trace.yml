@@ -1,0 +1,33 @@
+name: NOR-46 transparent exact-integer full-trace arithmetic and authorization
+
+on:
+  push:
+    branches:
+      - research/nor46-exact-integer-transparent-trace-20261118
+    paths:
+      - 'research/nor46_exact_integer_trace/**'
+      - '.github/workflows/nor46-exact-integer-trace.yml'
+  pull_request:
+    paths:
+      - 'research/nor46_exact_integer_trace/**'
+      - '.github/workflows/nor46-exact-integer-trace.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact_bigint_trace_and_pinned_authorities:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact signed root verification dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Verify independent exact convolution and signed session/trace negative cases
+        run: |
+          python -m compileall -q research/nor46_exact_integer_trace
+          python -m unittest research.nor46_exact_integer_trace.test_trace -v
