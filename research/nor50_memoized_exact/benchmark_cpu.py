@@ -9,6 +9,8 @@ import argparse,json,os,random,statistics,sys,time
 from collections import Counter,defaultdict
 from hashlib import sha256
 from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 from research.nor42_paired_program_ood.prospective import experiment as nor42
 from research.nor45_authorized_program import independent_execution_verifier as native
 from research.nor45_authorized_program import historical_smoke as older
