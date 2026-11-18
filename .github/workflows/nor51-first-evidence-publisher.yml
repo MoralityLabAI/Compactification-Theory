@@ -1,0 +1,181 @@
+name: NOR-51 one-shot original first 2-of-5 FAIL archive publisher
+
+on:
+  push:
+    branches:
+      - research/nor51-exact-r-crossover-20261118
+    paths:
+      - '.github/workflows/nor51-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_original_negative_exact_R_result:
+    if: github.ref == 'refs/heads/research/nor51-exact-r-crossover-20261118' && contains(github.event.head_commit.message, 'NOR51-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor51-exact-r-crossover-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor51_first_original_48_exact_R_crossover_cpu
+          run-id: 44269058977
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor51_first
+      - name: Preserve exact first CPU and source bytes and five original negative gates
+        run: |
+          set -eu
+          test ! -e research/nor51_exact_r_crossover/results/nor51_first_original_hosted.zip
+          mkdir -p research/nor51_exact_r_crossover/results
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          from zipfile import ZipFile,ZipInfo,ZIP_DEFLATED
+          src=Path('/tmp/nor51_first')
+          cpu=(src/'nor51_first_original_cpu.json').read_bytes()
+          public=(src/'nor51_first_48_source_only.json').read_bytes()
+          assert len(cpu)==86314
+          assert sha256(cpu).hexdigest()=='a0591f604ff0b2dfc1fa550ff87d22f62f9527b4ee96579674dee83618d7c9ea'
+          assert len(public)==1188767
+          assert sha256(public).hexdigest()=='0b0de5549de1e1815a40d56302cb01ca104e7ac8141f161bc8cab0b6501d2c93'
+          x=json.loads(cpu)
+          fixture=json.loads(public)
+          assert x['schema']=='nor51.first_source_frozen_48_exact_R_crossover_cpu.v1'
+          assert fixture['schema']=='nor51.first_public_only_48_exact_reciprocal_sources.v1'
+          assert x['registration_first_commit']==fixture['registration_first_commit']=='83fabe1c34c2bedbba35faa928349f41b964115a'
+          assert x['first_frozen_public_only_source_sha256']==sha256(public).hexdigest()
+          assert x['source_count']==x['source_success_count']==48
+          assert x['source_fail_count']==0 and x['same_run_interleaved_repetitions']==5
+          assert x['original_five_registered_gates']=={
+            'all_48_exact_inverse_merkle_and_negative_controls':True,
+            'longest_m3073_gmp_verify_over_direct_under_0p75':False,
+            'longest_m3073_newton_e2e_over_direct_under_0p95':False,
+            'matched_long_over_short_gmp_ratio_slope_under_0p80':False,
+            'public_only_source_first_reentrant_48_five_repeat_caps':True}
+          assert x['first_engineering_pass'] is False
+          path=Path('research/nor51_exact_r_crossover/results')
+          archive=path/'nor51_first_original_hosted.zip'
+          with ZipFile(archive,'w',compression=ZIP_DEFLATED,compresslevel=9) as z:
+              for name,raw in (
+                  ('nor51_first_original_cpu.json',cpu),
+                  ('nor51_first_48_source_only.json',public)):
+                  info=ZipInfo(name,date_time=(1980,1,1,0,0,0))
+                  info.compress_type=ZIP_DEFLATED
+                  z.writestr(info,raw,compress_type=ZIP_DEFLATED,compresslevel=9)
+          receipt={
+            'schema':'nor51.first_original_48_source_cpu_archive.v1',
+            'original_run':44269058977,
+            'original_cpu_artifact_id':14411604927,
+            'original_source_artifact_id':14411647008,
+            'first_registration_sha':'83fabe1c34c2bedbba35faa928349f41b964115a',
+            'raw_cpu_bytes':86314,
+            'raw_cpu_sha256':'a0591f604ff0b2dfc1fa550ff87d22f62f9527b4ee96579674dee83618d7c9ea',
+            'raw_public_source_bytes':1188767,
+            'raw_public_source_sha256':'0b0de5549de1e1815a40d56302cb01ca104e7ac8141f161bc8cab0b6501d2c93',
+            'original_archive_bytes':archive.stat().st_size,
+            'original_archive_sha256':sha256(archive.read_bytes()).hexdigest(),
+            'first_original_gates':x['original_five_registered_gates'],
+            'first_engineering_pass':False,
+            'first_original_longest_gmp_over_direct':x['primary_longest_length']['median_gmp_verify_over_direct'],
+            'first_original_longest_newton_e2e_over_direct':x['primary_longest_length']['median_newton_end_to_end_over_direct'],
+            'first_original_long_short_slope':x['primary_matched_length_ratio_slope'],
+            'first_original_by_length':x['by_length'],
+            'first_original_by_profile':x['by_profile'],
+            'first_original_secondary_workload':x['secondary_workload_totals_and_block_uncertainty'],
+            'scope':'Exact transparent single-R algebra-only CPU; m3073 outside NOR45 signed grammar, all source identities synthetic.'
+          }
+          (path/'nor51_first_receipt.json').write_text(
+              json.dumps(receipt,sort_keys=True,indent=2)+'\n')
+          print('NOR51 first original CPU raw SHA',receipt['raw_cpu_sha256'])
+          print('NOR51 first source-only raw SHA',receipt['raw_public_source_sha256'])
+          print('NOR51 frozen first engineering verdict: FAIL 2/5')
+          PY
+      - name: Independently audit original raw SHA, full 48-source ratios, failed original gates
+        run: python research/nor51_exact_r_crossover/original_archive_audit.py
+      - name: Publish first original negative result with provenance and limits
+        run: |
+          cat > research/nor51_exact_r_crossover/RESULTS.md <<'EOF'
+          # NOR-51: first exact reciprocal CPU crossover, source-first prospective result
+
+          **Original engineering result: FAIL, 2/5 registered gates passed.** The first prospectively registered hosted [run #44269058977](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44269058977) completed 48 SHA-frozen, previously unused public-only normalized signed integer series from a 2×3×4×2 source grid. All three arithmetic arms produced exactly matching inverses and independently recomputed complete Merkle roots.
+
+          ## Immutable original first evidence
+          - [First original CPU JSON inside ZIP](results/nor51_first_original_hosted.zip), **86,314 raw bytes**, SHA256 `a0591f604ff0b2dfc1fa550ff87d22f62f9527b4ee96579674dee83618d7c9ea`.
+          - First public-only 48-source JSON inside same ZIP, **1,188,767 raw bytes**, SHA256 `0b0de5549de1e1815a40d56302cb01ca104e7ac8141f161bc8cab0b6501d2c93`. Its independent [source-only CI artifact #14411647008](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44269058977/artifacts/14411647008) was SHA-frozen **before first CPU timing**.
+          - First complete CPU [artifact #14411604927](https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44269058977/artifacts/14411604927); first timing registration commit [`83fabe1c`](https://github.com/MoralityLabAI/Compactification-Theory/commit/83fabe1c34c2bedbba35faa928349f41b964115a), preceding source generation.
+          - Permanent [first source/CPU receipt](results/nor51_first_receipt.json), [read-only original archive audit](original_archive_audit.py) and CI. All five original PASS/FAIL flags retained.
+          - Exact runtime: ubuntu-24.04, CPython 3.12, pinned `gmpy2==2.3.2`, five interleaved repeats per source. Model and GNU MP version appear in first JSON.
+
+          ## Five original registered engineering gates
+
+          | Registered gate | Original observation | Verdict |
+          | --- | ---: | --- |
+          | All 48 full signed exact inverses, roots, tampering controls | **48/48** | PASS |
+          | Longest m3073 median GMP witness verification/native <0.75× | **2.797903×** | **FAIL** |
+          | Longest m3073 median Newton generation+verification/native <0.95× | **7.439232×** | **FAIL** |
+          | 16-cell matched long/short GMP/native ratio slope <0.80× | **2.151121×** | **FAIL** |
+          | Upstream public-only 48-source SHA, reentrant caps and five repeats | **48/48** | PASS |
+
+          The arithmetic reference for each source is **one exact native reciprocal inversion**: already memoized by construction, so it avoids NOR45's repeated-R confound diagnosed in NOR50. The GMP verifier consumes a precomputed *untrusted* inverse and independently checks all coefficients of the signed identity `F(x)R(x)=1 mod x^m`. The Newton arm generates the entire inverse using exact doubled-degree products, then verifies it again with GMP. The full Merkle root is generated in **every timed arm**. Reference inverse production and witness JSON serialization costs are logged separately; common network/session/signing costs are outside this kernel.
+
+          ## First source-median ratio by length
+
+          | Coefficient count m | Sources | GMP verification/native median | Newton generation+verification/native median |
+          | --- | ---: | ---: | ---: |
+          | 769 | 16 | **1.497853×** | 3.852123× |
+          | 1537 | 16 | **2.020282×** | 5.413167× |
+          | 3073 | 16 | **2.797903×** | 7.439232× |
+
+          These are medians of **sourcewise time ratios**, not ratios of group aggregate median milliseconds.
+
+          ## Profile dependence and negative scaling
+
+          | Input source profile | Sources | Median GMP verification/native |
+          | --- | ---: | ---: |
+          | Stride 4, 2-bit coefficients | 12 | 0.614799× |
+          | Stride 1, 2-bit coefficients | 12 | 1.049914× |
+          | Stride 4, 8-bit coefficients | 12 | 2.899287× |
+          | Stride 4, 16-bit coefficients | 12 | **4.932078×** |
+
+          Rising coefficient width in the stride-four profiles strongly degrades this exact packed GMP implementation at tested lengths; the pooled longest-length result grows worse as m increases. The registered hypothesized crossover failed. Sourcewise raw medians, all five samples, exact witness text size, root and packed width are preserved in the first JSON. The timing pattern is consistent with packing/decoding and large-integer costs; it does not attribute those costs causally without phase-level profiling.
+
+          ## Predeclared secondary matched-workload totals
+
+          | Arm | Sum of the 48 source-median CPU times | Ratio against native |
+          | --- | ---: | ---: |
+          | NOR45 single native R+root | **10,122.414 ms** | 1.000× |
+          | NOR47 GMP verifier+root | **33,689.510 ms** | **3.328209×** |
+          | Exact Newton producer + GMP verify + root | **86,021.070 ms** | **8.498079×** |
+
+          Eight matched (replicate,profile) block bootstrap descriptive 95% intervals are **[1.657,5.405]** for GMP/native and **[4.400,13.292]** for Newton+verify/native. These exploratory workload totals do not change the original 2/5 FAIL.
+
+          ## Next exact arithmetic mechanism
+
+          The source profiles are exactly known, allowing stronger baselines. For the stride-4 subset, if `F(x)=H(x^4)`, then the exact inverse has form `F(x)^{-1}=H^{-1}(x^4)`. Thus the m3073 stride-4 inverse can be computed from a length-769 series before zero expansion, while the Merkle root remains full-length. A fresh registered sparse-aware native and GMP comparison would test this exact structure. Phase-level breakdown of GMP repeated large integer packing/unpacking versus multiplication should precede claims that multiplication itself caused the measured regression. The current single-R kernel has **no signed NOR45 program grammar at m3073**, is not a STARK/SNARK or zero-knowledge proof, and does not establish an honest external target provider.
+          EOF
+      - name: Commit byte-exact original first negative result and source ZIP
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add research/nor51_exact_r_crossover/results/nor51_first_original_hosted.zip \
+                  research/nor51_exact_r_crossover/results/nor51_first_receipt.json \
+                  research/nor51_exact_r_crossover/RESULTS.md
+          git commit -m 'NOR-51: archive first exact R crossover 2-of-5 engineering FAIL'
+          for i in $(seq 1 12); do
+            git fetch origin research/nor51-exact-r-crossover-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor51-exact-r-crossover-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
