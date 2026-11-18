@@ -1,0 +1,29 @@
+name: NOR-55 permanent original 4-of-5 signed compact CPU and TCP SHA audit
+
+on:
+  push:
+    paths:
+      - 'research/nor55_compact_witness/results/**'
+      - 'research/nor55_compact_witness/original_archive_audit.py'
+      - '.github/workflows/nor55-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor55_compact_witness/results/**'
+      - 'research/nor55_compact_witness/original_archive_audit.py'
+      - '.github/workflows/nor55-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_first_source_locked_signed_CPU_and_secondary_TCP_SHA:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read-only audit original raw source/CPU/TCP SHAs and 4-of-5 FAIL
+        run: python research/nor55_compact_witness/original_archive_audit.py
