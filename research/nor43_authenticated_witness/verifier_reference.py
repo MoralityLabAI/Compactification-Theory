@@ -132,15 +132,38 @@ def verify_index_opening(verified_manifest:dict,opening:dict)->bool:
 
 def verified_sample_rejection(proposal:list[int]|tuple[int,...],
                               verified_manifest:dict,
-                              openings:list[dict],expected_query_count:int=16)->bool:
-    """Reject public-model proposal iff a valid authenticated checked value differs."""
-    if len(proposal)!=verified_manifest["coefficient_count"]:
+                              openings:list[dict], *,
+                              challenged_indices:list[int]|tuple[int,...],
+                              expected_query_count:int=16)->bool:
+    """Check EXACTLY the verifier-selected indices before comparing values.
+
+    The prover controls the returned opening payload, not the challenge.
+    Independently selected challenge indices must be passed from the
+    verifier's own trusted state. A set of valid proofs at easier indices
+    is insufficient, even if the count and signature match.
+    """
+    m=verified_manifest["coefficient_count"]
+    if len(proposal)!=m:
         raise VerificationError("proposal length mismatch")
-    if len(openings)!=expected_query_count:
-        raise VerificationError("unexpected audit query budget")
-    indices=[entry.get("index") for entry in openings]
-    if len(indices)!=len(set(indices)):
-        raise VerificationError("repeated checked indices")
+    if type(expected_query_count) is not int or not 1<=expected_query_count<=m:
+        raise VerificationError("invalid audit query budget")
+    if not isinstance(challenged_indices,(tuple,list)):
+        raise VerificationError("challenge must be verifier-owned coordinate list")
+    if len(challenged_indices)!=expected_query_count or any(
+            type(i) is not int or not 0<=i<m for i in challenged_indices):
+        raise VerificationError("invalid challenge index or budget")
+    if len(set(challenged_indices))!=expected_query_count:
+        raise VerificationError("duplicate verifier challenge indices")
+    if not isinstance(openings,list) or len(openings)!=expected_query_count:
+        raise VerificationError("wrong number of returned openings")
+    if any(not isinstance(entry,dict) or
+           type(entry.get("index")) is not int for entry in openings):
+        raise VerificationError("invalid returned opening index")
+    returned=[entry["index"] for entry in openings]
+    if len(set(returned))!=expected_query_count:
+        raise VerificationError("repeated returned opening indices")
+    if set(returned)!=set(challenged_indices):
+        raise VerificationError("returned openings do not match verifier challenge")
     rejected=False
     for entry in openings:
         verify_index_opening(verified_manifest,entry)
