@@ -96,7 +96,7 @@ class ExactBatchCodecTests(unittest.TestCase):
                 codec_v2.encode_full_supported(ref,stride)
         with self.assertRaises((ValueError,TypeError)):
             codec_v2.decode_full_supported(
-                codec_v2.encode_full_supported(ref,4),len(f)+1,4)
+                codec_v2.encode_full_supported(ref,4),len(f)+4,4)
         with self.assertRaises((ValueError,TypeError)):
             codec_v2.decode_full_supported(
                 codec_v2.encode_full_supported(ref,4),True,4)
