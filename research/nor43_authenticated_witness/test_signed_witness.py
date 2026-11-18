@@ -54,7 +54,7 @@ class WitnessTest(unittest.TestCase):
         altered=list(self.values)
         altered[checked[0]]+=1
         self.assertTrue(verifier.verified_sample_rejection(altered,
-            self.claim,opens))
+            self.claim,opens,challenged_indices=checked))
 
 
     def test_all_signed_manifest_context_replays_fail(self):
