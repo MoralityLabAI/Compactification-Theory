@@ -1,0 +1,72 @@
+name: NOR-46 one-shot original exploratory CPU benchmark preservation
+
+on:
+  push:
+    branches:
+      - research/nor46-exact-integer-transparent-trace-20261118
+    paths:
+      - '.github/workflows/nor46-first-cpu-evidence.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  pin_first_historical_cpu_receipt:
+    if: github.ref == 'refs/heads/research/nor46-exact-integer-transparent-trace-20261118' && contains(github.event.head_commit.message, 'NOR46-ARCHIVE-CPU')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor46-exact-integer-transparent-trace-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor46_exploratory_historical_16_cpu_cost
+          run-id: 44237967510
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor46_first_cpu
+      - name: Verify first hosted CPU raw receipt SHA without rerunning performance
+        run: |
+          test ! -e research/nor46_exact_integer_trace/results/nor46_first_historical_cpu_cost.json
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          raw=Path('/tmp/nor46_first_cpu/nor46_exploratory_cpu_benchmark.json').read_bytes()
+          assert len(raw)==11884
+          assert sha256(raw).hexdigest()==(
+             '4e9695f89aaa8acf42c09c6fe7aea9ee47ca0f86f74f6131d3e108e587454a64')
+          x=json.loads(raw)
+          assert x['schema']=='nor46.exploratory_16_archive_cpu_trace_cost.v1'
+          assert x['archived_first_receipt_sha256']==(
+             'd24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052')
+          assert x['historical_source_pairs']==16
+          assert x['source_selection']==[100,104,108,112]
+          assert x['new_nor46_prospective_source_pairs']==0
+          assert x['summary']['median_new_over_old_verification_ratio']>3
+          assert len(x['source_records'])==16
+          assert all(a['full_exact_integer_and_root_parity'] for a in x['source_records'])
+          print('NOR46 FIRST CPU BENCHMARK SHA',len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Preserve raw original CPU receipt
+        run: |
+          cp /tmp/nor46_first_cpu/nor46_exploratory_cpu_benchmark.json \
+             research/nor46_exact_integer_trace/results/nor46_first_historical_cpu_cost.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor46_exact_integer_trace/results/nor46_first_historical_cpu_cost.json
+          git commit -m "NOR-46: archive original 16-source exploratory CPU verification slowdown"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor46-exact-integer-transparent-trace-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor46-exact-integer-transparent-trace-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1

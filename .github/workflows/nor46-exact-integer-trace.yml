@@ -1,0 +1,132 @@
+name: NOR-46 transparent exact-integer full-trace arithmetic and authorization
+
+on:
+  push:
+    branches:
+      - research/nor46-exact-integer-transparent-trace-20261118
+    paths:
+      - 'research/nor46_exact_integer_trace/**'
+      - '.github/workflows/nor46-exact-integer-trace.yml'
+  pull_request:
+    paths:
+      - 'research/nor46_exact_integer_trace/**'
+      - '.github/workflows/nor46-exact-integer-trace.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact_bigint_trace_and_pinned_authorities:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact signed root verification dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Verify independent exact convolution and signed session/trace negative cases
+        run: |
+          python -m compileall -q research/nor46_exact_integer_trace
+          python -m unittest research.nor46_exact_integer_trace.test_trace -v
+
+  historical_only_authorized_trace_smoke:
+    needs: exact_bigint_trace_and_pinned_authorities
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test-only signature dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Verify 16 fixed archived NOR42 programs, full exact traces and signed session roots
+        run: |
+          python -u research/nor46_exact_integer_trace/historical_smoke.py \
+            --out /tmp/nor46_first_16_historical.json
+      - name: Reject unexpected future source identities, unsigned roots, or altered prior evidence
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          from collections import Counter
+          import json
+          raw=Path('/tmp/nor46_first_16_historical.json').read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor46.historical_full_exact_bigint_trace_16pairs.v1'
+          assert x['original_nor45_first_sha256']==(
+            'c4b1197b87b43c4cb4e32e0c2708c4a070742244d7cc05639e22353af78d5536')
+          assert x['historical_pair_count']==16
+          assert x['selected_existing_replicates']==[100,104,108,112]
+          assert x['new_prospective_nor46_pairs']==0
+          assert x['proof_is_succinct'] is False
+          assert x['proof_is_zero_knowledge'] is False
+          assert x['proof_is_cryptographic_zkvm_or_stark'] is False
+          assert x['all_bigint_arithmetic_checked_without_modular_wrap']
+          assert x['signed_source_session_query_and_root_checked']
+          assert x['original_nor45_sparse_challenges_replayed']==16
+          assert len(x['source_records'])==16
+          assert Counter(z['degree'] for z in x['source_records'])=={512:8,1024:8}
+          assert Counter(z['family'] for z in x['source_records'])=={
+            'wide_dense_small':8,'wide_regime_blocks':8}
+          assert len({z['source_sha256'] for z in x['source_records']})==16
+          assert all(z['mutated_trace_rejected'] and
+                     z['dishonest_signed_output_provider_rejected'] and
+                     z['dishonest_authorized_clean_program_passes_crypto'] and
+                     z['dishonest_authorized_program_differs_from_hidden_truth']
+                     for z in x['source_records'])
+          print('NOR46 FIRST ARCHIVED TRACE ORIGINAL BYTES/SHA256',
+                len(raw),sha256(raw).hexdigest())
+          print('NOR46 TRANSFORM R COUNT',x['reciprocal_R_trace_count'])
+          print('NOR46 MEAN PROOF BYTES',x['mean_full_trace_bytes'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor46_first_historical_16_exact_integer_trace
+          path: /tmp/nor46_first_16_historical.json
+          if-no-files-found: error
+          retention-days: 90
+
+  exploratory_historical_cpu_cost:
+    needs: historical_only_authorized_trace_smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test-only signing dependency
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4
+      - name: Measure prover and both full-root verifier implementations on original 16-source roster
+        run: |
+          python -u research/nor46_exact_integer_trace/benchmark_cpu.py \
+            --repeats 3 --out /tmp/nor46_exploratory_cpu_benchmark.json
+      - name: Confirm honest verifier parity and explicit benchmark limits
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          data=json.loads(Path('/tmp/nor46_exploratory_cpu_benchmark.json').read_bytes())
+          assert data['schema']=='nor46.exploratory_16_archive_cpu_trace_cost.v1'
+          assert data['historical_source_pairs']==16
+          assert data['source_selection']==[100,104,108,112]
+          assert data['new_nor46_prospective_source_pairs']==0
+          assert data['archived_first_receipt_sha256']==(
+            'd24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052')
+          assert len(data['source_records'])==16
+          assert all(x['full_exact_integer_and_root_parity'] for x in data['source_records'])
+          assert data['repetitions_per_timed_arm']==3
+          assert data['root_recomputation_included_in_both_verification_arms']
+          assert data['signature_session_transport_excluded_from_verification_timing']
+          print('NOR46 BENCHMARK HONEST PARITY PASS',data['summary'])
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor46_exploratory_historical_16_cpu_cost
+          path: /tmp/nor46_exploratory_cpu_benchmark.json
+          retention-days: 90
+          if-no-files-found: error
