@@ -1,0 +1,107 @@
+name: CGC-02 registered four fresh recurrent-root depth-8 causal audit
+
+on:
+  push:
+    branches:
+      - "research/cgc02-*"
+    paths:
+      - ".github/workflows/cgc02-fresh.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  registered-four-roots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pinned CPU Torch
+        run: python -m pip install "torch==2.5.1" "numpy>=1.26,<3"
+      - name: Verify frozen pre-data protocol and pre-fresh engineering repair
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          root=Path("research/causal_gauge_compactification/cgc02")
+          lock=json.loads((root/"LOCK.json").read_text())
+          assert lock["status"]=="FROZEN_BEFORE_FRESH_FOUR_ROOT_TEACHER_TRAINING"
+          assert lock["fresh_exploratory_roots"]==[2601,2607,2617,2621]
+          assert lock["excluded_design_roots"]==[901,902]
+          assert lock["pre_fresh_engineering_amendments"][0]["fresh_roots_examined"]==0
+          assert lock["native_bpd_pin"]=="f22a883144ee7d2caa2bd5d9936dd9e083c7f139"
+          for path,expected in lock["source_blobs"].items():
+              actual=subprocess.check_output(["git","hash-object",str(root/path)],text=True).strip()
+              assert actual==expected,(path,actual,expected)
+          for path,expected in lock["cgc01_source_blobs"].items():
+              actual=subprocess.check_output(["git","hash-object",path],text=True).strip()
+              assert actual==expected,(path,actual,expected)
+          print("CGC-02 FRESH source SHA LOCK VERIFIED; 901/902 excluded")
+          PY
+      - name: Recheck the registered task Jacobian and protected softmax geometry
+        run: |
+          python -m unittest discover \
+            -s research/causal_gauge_compactification/cgc02 -p 'test_*.py' -v
+      - name: Train four new teachers and perform first registered depth-eight replay
+        shell: bash
+        run: |
+          python -m research.causal_gauge_compactification.cgc02.experiment \
+            --phase fresh --teacher-steps 650 --factor-steps 360 \
+            --pairs 512 --random-nulls 32 --tangent-nulls 16 \
+            --out /tmp/cgc02_fresh_4root.json > /tmp/cgc02_stdout.json
+      - name: Independently print registered engineering and science gate ledger
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,math
+          from pathlib import Path
+          x=json.loads(Path("/tmp/cgc02_fresh_4root.json").read_text())
+          assert x["roots"]==[2601,2607,2617,2621], x["roots"]
+          assert x["phase"]=="fresh" and len(x["rows"])==4
+          assert x["config"]["depths"]==[2,4,6,8] and x["config"]["rank"]==2
+          gates=x["registered_gates"]
+          for row in x["rows"]:
+              assert row["generated_pairs"]==512
+              n=row["eligibility"]["eligible"]
+              assert 0<=n<=512
+              assert len(row["factor_physical_mse_by_restart"])==2
+              for depth in ("2","4","6","8"):
+                  for name,score in row["causal_by_depth"][depth].items():
+                      assert score["immediate_normalized_readout_max_error"]<=1e-6,(row["seed"],name,depth)
+                      assert math.isfinite(score["donor_mse_all"])
+              for depth in ("4","8"):
+                  matched=row["privileged_signed_full_task_jacobian_controls"][depth]
+                  assert matched["arms"]==16
+                  assert matched["max_signed_task_derivative_error"]<=1e-4
+                  assert matched["max_physical_norm_error"]<=1e-4
+              task=row["causal_by_depth"]["8"]["task_joint"]
+              weight=row["causal_by_depth"]["8"]["bpd_weight_svd"]
+              random=row["same_dose_random_K_controls_depth8"]["task_joint"]
+              tangent=row["privileged_signed_full_task_jacobian_controls"]["8"]
+              print("CGC02_ROOT="+json.dumps({
+                 "seed":row["seed"],"eligible":n,
+                 "clean_k4_mae":row["clean_by_depth"]["4"]["recipient_task_mae_vs_oracle"],
+                 "clean_k8_mae":row["clean_by_depth"]["8"]["recipient_task_mae_vs_oracle"],
+                 "task_joint_k8_mse":task["donor_mse_eligible"],
+                 "weight_svd_k8_mse":weight["donor_mse_eligible"],
+                 "task_joint_k8_recovery":task["donor_recovery_eligible"],
+                 "weight_svd_k8_recovery":weight["donor_recovery_eligible"],
+                 "random_sham_k8_recovery":random["mean_donor_recovery_eligible"],
+                 "signed_jacobian_sham_k8_recovery":tangent["mean_recovery_eligible"],
+                 "one_step_task_quotient_defect":row["reduced_zero_fill_one_step_closure_defects"]["task_joint"],
+              }))
+          print("CGC02_GATES="+json.dumps(gates,sort_keys=True))
+          print("CGC-02 source-registered 4-root replay finished; science failure does not suppress receipt")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cgc02-fresh-four-root-protected-depth-eight-receipt
+          path: |
+            /tmp/cgc02_fresh_4root.json
+            /tmp/cgc02_stdout.json

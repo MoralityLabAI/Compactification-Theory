@@ -28,7 +28,7 @@ jobs:
       - name: Install source-only numerical dependency
         run: python -m pip install "numpy>=1.26,<3"
       - name: Eighteen independent analytic and exact-rational checks
-        run: python -m unittest discover -s research/causal_gauge_compactification -p 'test_*.py' -v
+        run: python -m unittest discover -s research/causal_gauge_compactification -p 'test_finite_audit.py' -v
       - name: Reproduce pinned toy quotient and protected causal spectrum
         run: python research/causal_gauge_compactification/finite_audit.py
       - name: Verify source-only receipt by recomputation

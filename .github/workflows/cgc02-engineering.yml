@@ -1,0 +1,113 @@
+name: CGC-02 source-locked trained recurrent engineering and native BPD parity
+
+on:
+  push:
+    branches:
+      - "research/cgc02-*"
+    paths:
+      - "research/causal_gauge_compactification/cgc02/**"
+      - ".github/workflows/cgc02-engineering.yml"
+  pull_request:
+    paths:
+      - "research/causal_gauge_compactification/cgc02/**"
+      - ".github/workflows/cgc02-engineering.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  excluded-engineering:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout immutable native BPD physical implementation
+        uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/BPD
+          ref: f22a883144ee7d2caa2bd5d9936dd9e083c7f139
+          path: _vendor/bpd
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install CPU scientific dependencies
+        run: python -m pip install "torch==2.5.1" "numpy>=1.26"
+      - name: Verify frozen prospective source and BPD pin
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,subprocess
+          from pathlib import Path
+          root=Path("research/causal_gauge_compactification/cgc02")
+          lock=json.loads((root/"LOCK.json").read_text())
+          assert lock["status"]=="FROZEN_BEFORE_FRESH_FOUR_ROOT_TEACHER_TRAINING"
+          assert lock["fresh_exploratory_roots"]==[2601,2607,2617,2621]
+          assert lock["excluded_design_roots"]==[901,902]
+          for p,sha in lock["source_blobs"].items():
+              got=subprocess.check_output(["git","hash-object",str(root/p)],text=True).strip()
+              assert got==sha,(p,got,sha)
+          for p,sha in lock["cgc01_source_blobs"].items():
+              got=subprocess.check_output(["git","hash-object",p],text=True).strip()
+              assert got==sha,(p,got,sha)
+          native=subprocess.check_output(["git","-C","_vendor/bpd","rev-parse","HEAD"],text=True).strip()
+          assert native==lock["native_bpd_pin"],(native,lock["native_bpd_pin"])
+          print("CGC-02 native BPD and new-root source registration SHA LOCK PASS")
+          PY
+      - name: Twelve CGC-02 source and geometric engineering unit tests
+        run: python -m unittest discover -s research/causal_gauge_compactification/cgc02 -p 'test_*.py' -v
+      - name: Real pinned BPDModel TiedComponentLinear native nine-pass parity
+        shell: bash
+        run: |
+          export PYTHONPATH="$GITHUB_WORKSPACE/_vendor/bpd:$GITHUB_WORKSPACE"
+          python -m research.causal_gauge_compactification.cgc02.native_bpd_parity \
+            --seed 901 --out /tmp/cgc02_native.json
+      - name: Run ONLY previously used engineering roots 901 and 902
+        run: |
+          python -m research.causal_gauge_compactification.cgc02.experiment \
+            --phase excluded --teacher-steps 650 --factor-steps 360 \
+            --pairs 512 --random-nulls 32 --tangent-nulls 16 \
+            --out /tmp/cgc02_excluded.json > /tmp/cgc02_excluded_stdout.json
+      - name: Check excluded receipts, record every failure and null denominator
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,math
+          r=json.load(open("/tmp/cgc02_excluded.json"))
+          assert r["phase"]=="excluded" and r["roots"]==[901,902]
+          assert len(r["rows"])==2
+          for row in r["rows"]:
+              assert row["generated_pairs"]==512
+              assert 0<=row["eligibility"]["eligible"]<=512
+              assert len(row["factor_physical_mse_by_restart"])==2
+              for depth in ("2","4","6","8"):
+                  assert set(row["causal_by_depth"][depth])=={
+                      "zero_edit","physical_BPD_full","physical_teacher_full",
+                      "exact_dark_donor","task_joint","task_depth4",
+                      "bpd_weight_svd","teacher_weight_svd","random_protected_basis"
+                  }
+                  for score in row["causal_by_depth"][depth].values():
+                      assert score["immediate_normalized_readout_max_error"]<=1e-6
+              for k in ("4","8"):
+                  null=row["privileged_signed_full_task_jacobian_controls"][k]
+                  assert null["arms"]==16
+                  assert null["max_signed_task_derivative_error"]<=1e-4
+                  assert null["max_physical_norm_error"]<=1e-4
+              print(json.dumps({
+                  "seed":row["seed"],"eligible":row["eligibility"]["eligible"],
+                  "clean_k4_mae":row["clean_by_depth"]["4"]["recipient_task_mae_vs_oracle"],
+                  "clean_k8_mae":row["clean_by_depth"]["8"]["recipient_task_mae_vs_oracle"],
+                  "task_joint_k8_recovery":row["causal_by_depth"]["8"]["task_joint"]["donor_recovery_eligible"],
+                  "physical_svd_k8_recovery":row["causal_by_depth"]["8"]["bpd_weight_svd"]["donor_recovery_eligible"],
+                  "signed_tangent_k8_mean":row["privileged_signed_full_task_jacobian_controls"]["8"]["mean_recovery_eligible"],
+              }))
+          print("CGC-02 engineering complete on excluded seeds ONLY")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cgc02-excluded-root-native-and-geometry
+          path: |
+            /tmp/cgc02_native.json
+            /tmp/cgc02_excluded.json
