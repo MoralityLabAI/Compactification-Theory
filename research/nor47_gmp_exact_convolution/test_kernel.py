@@ -79,17 +79,17 @@ class GMPExactCertificateTests(unittest.TestCase):
     def test_original_16_signed_authority_negative_cases_unchanged(self):
         # Complete NOR46 source-locked first receipt, including valid signed
         # execution and dishonest authorized program controls, is deterministic.
+        saved=previous.exact_convolution_prefix
         archived=old_smoke.run()
         self.assertEqual(archived["historical_pair_count"],16)
         from research.nor46_exact_integer_trace import original_archive_audit as lock
         original_result=lock.audit()
-        self.assertEqual(original_result["historical_source_pairs"],16)
+        self.assertEqual(original_result["old_source_pairs"],16)
         for kernel in (gmp.full_gmp,gmp.hybrid_gmp):
             with benchmark_only_override(kernel):
                 reproduced=old_smoke.run()
             self.assertEqual(reproduced,archived)
-        self.assertIs(previous.exact_convolution_prefix,
-                      benchmark_only_override.__globals__["previous"].exact_convolution_prefix)
+        self.assertIs(previous.exact_convolution_prefix,saved)
 
     def test_override_releases_global_even_on_failure(self):
         initial=previous.exact_convolution_prefix
