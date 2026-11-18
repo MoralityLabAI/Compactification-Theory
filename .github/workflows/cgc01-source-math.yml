@@ -1,0 +1,37 @@
+name: CGC-01 protected causal compactification source mathematics
+
+on:
+  pull_request:
+    paths:
+      - "research/causal_gauge_compactification/**"
+      - ".github/workflows/cgc01-source-math.yml"
+  push:
+    branches:
+      - "research/cgc01-*"
+    paths:
+      - "research/causal_gauge_compactification/**"
+      - ".github/workflows/cgc01-source-math.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source-only-causal-compactification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install source-only numerical dependency
+        run: python -m pip install "numpy>=1.26,<3"
+      - name: Eighteen independent analytic and exact-rational checks
+        run: python -m unittest discover -s research/causal_gauge_compactification -p 'test_*.py' -v
+      - name: Reproduce pinned toy quotient and protected causal spectrum
+        run: python research/causal_gauge_compactification/finite_audit.py
+      - name: Verify source-only receipt by recomputation
+        run: python research/causal_gauge_compactification/source_only_receipt_audit.py
+      - name: Check source syntax
+        run: python -m compileall -q research/causal_gauge_compactification
