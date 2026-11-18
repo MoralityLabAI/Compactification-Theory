@@ -1,0 +1,42 @@
+{
+  "schema": "nor.capstone.method-transfer.v1",
+  "evidence_scope": "finite deterministic fixtures and adversarial software tests",
+  "integrations": [
+    {
+      "repository": "MoralityLabAI/EvalMath",
+      "pr": 54,
+      "source_commit": "9fc4f39e3bc4e614a54f674e7ea2281ee0a45725",
+      "module": "src/spiral_ln/evaluation_frozen_evidence.py",
+      "module_sha256": "87e8388cb9185448c57c4f314cf96ba8e1646fb51c388a7b4abdbf3831f9cda7",
+      "adversarial_tests_passed": 32,
+      "receipt_checks_passed": 8,
+      "receipt_checks_total": 8,
+      "pr_url": "https://github.com/MoralityLabAI/EvalMath/pull/54",
+      "status": "merged",
+      "merge_commit": "bed334f032d31d777bad0e5152e732f57252092b",
+      "fast_receipts_passed": 27,
+      "fast_receipts_total": 27
+    },
+    {
+      "repository": "MoralityLabAI/Control-Harness",
+      "pr": 70,
+      "source_commit": "07d4b3a0a1a9749830a4473edc6c34fa4b383437",
+      "cli": "scripts/audit_frozen_evidence.py",
+      "vendor_module_sha256": "87e8388cb9185448c57c4f314cf96ba8e1646fb51c388a7b4abdbf3831f9cda7",
+      "adapter_tests_passed": 9,
+      "workflow_python_versions": [
+        "3.11",
+        "3.13"
+      ],
+      "pr_url": "https://github.com/MoralityLabAI/Control-Harness/pull/70",
+      "status": "merged",
+      "merge_commit": "43d01c2c8f084ea0086a24a3056139cdad2d3d3b"
+    }
+  ],
+  "limits": [
+    "Synthetic fixture clocks and trusted anchors exercise finite code paths.",
+    "The caller supplies independently retained anchors and evidence of registration chronology.",
+    "The generic auditor preserves a first declared gate outcome; benchmark-specific graders remain responsible for its correctness.",
+    "Exact content hashes do not establish semantic isomorphism, source independence, or real authority honesty."
+  ]
+}

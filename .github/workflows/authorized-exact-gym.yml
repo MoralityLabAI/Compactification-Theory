@@ -1,0 +1,30 @@
+name: AEG-01 exact authorized development gym
+on:
+  push:
+    paths:
+      - 'research/authorized_exact_gym/**'
+      - 'research/nor60_authorized_interpreter/optimized_execution.py'
+      - 'research/nor45_authorized_program/independent_execution_verifier.py'
+      - '.github/workflows/authorized-exact-gym.yml'
+  pull_request:
+    paths:
+      - 'research/authorized_exact_gym/**'
+      - 'research/nor60_authorized_interpreter/optimized_execution.py'
+      - 'research/nor45_authorized_program/independent_execution_verifier.py'
+      - '.github/workflows/authorized-exact-gym.yml'
+permissions:
+  contents: read
+jobs:
+  development-boundaries:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Check exact answers, authentication, referee isolation and retained evidence
+        run: |
+          python -m unittest research.authorized_exact_gym.test_gym -v
+          python -O -m unittest research.authorized_exact_gym.test_gym -v

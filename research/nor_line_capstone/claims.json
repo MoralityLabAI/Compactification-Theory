@@ -1,0 +1,235 @@
+{
+  "schema": "nor.capstone.claims.v1",
+  "claims": [
+    {
+      "id": "C01",
+      "claim": "Common public observation with different targets limits exact prediction on the constructed paired worlds.",
+      "status": "mathematical argument; prior Lean companion",
+      "evidence": [
+        "paper.md section 3.1",
+        "research/nor42_paired_program_ood/prospective/README.md"
+      ],
+      "premises": [
+        "declared observation map",
+        "target inequality",
+        "equal pair prior only for the randomized average bound"
+      ]
+    },
+    {
+      "id": "C02",
+      "claim": "Signed verification and exact recomputation certify the output of the authorized program.",
+      "status": "conditional implementation evidence and existing Lean composition",
+      "evidence": [
+        "NOR45",
+        "LEAN45"
+      ],
+      "premises": [
+        "key provisioning",
+        "signature authorization",
+        "root/opening binding",
+        "correct execution semantics",
+        "source and chronology binding"
+      ]
+    },
+    {
+      "id": "C03",
+      "claim": "An authorized program may disagree with external target truth.",
+      "status": "executable counterexample; existing conditional Lean statement",
+      "evidence": [
+        "NOR45 dishonest authority controls",
+        "LEAN45"
+      ],
+      "premises": [
+        "authority can sign a semantically false program"
+      ]
+    },
+    {
+      "id": "C04",
+      "claim": "Support-compressed inverse with exact expansion preserves all coefficients.",
+      "status": "written finite proof; executable parity tests",
+      "evidence": [
+        "paper.md section 3.2",
+        "NOR52"
+      ],
+      "premises": [
+        "full source unit and stride check",
+        "exact integer arithmetic",
+        "correct truncation length"
+      ],
+      "concrete_Lean_correspondence_proved": false
+    },
+    {
+      "id": "C05",
+      "claim": "Original NOR45 grammar preserves verified strides 1,4,8.",
+      "status": "written closure proof; executable source/output checks",
+      "evidence": [
+        "paper.md section 3.3",
+        "NOR59 authorized_root.py"
+      ],
+      "premises": [
+        "closed original program grammar",
+        "all shifts divisible by source stride"
+      ],
+      "concrete_Lean_correspondence_proved": false
+    },
+    {
+      "id": "C06",
+      "claim": "Pure unary results may be reused within one invocation without changing program output.",
+      "status": "written extensional proof; executable parity tests",
+      "evidence": [
+        "paper.md section 3.4",
+        "NOR50"
+      ],
+      "premises": [
+        "fixed immutable source",
+        "pure operator implementation",
+        "local cache lifecycle"
+      ]
+    },
+    {
+      "id": "C07",
+      "claim": "Geometry-only static subtrees reproduce the full indexed Merkle root.",
+      "status": "written induction; executable parity tests",
+      "evidence": [
+        "paper.md section 3.5",
+        "NOR58",
+        "NOR59"
+      ],
+      "premises": [
+        "exact original domain tags and indexed encodings",
+        "verified source/output support",
+        "every output-dependent node recomputed"
+      ],
+      "concrete_Lean_correspondence_proved": false
+    },
+    {
+      "id": "C08",
+      "claim": "NOR57B timing-only two-backend oracle has workload ratio 0.964067 on the archived panel.",
+      "status": "post hoc finite-panel arithmetic bound",
+      "evidence": [
+        "NOR57B"
+      ],
+      "premises": [
+        "fixed measured source medians",
+        "zero overhead",
+        "choice only between two unchanged measured arms"
+      ]
+    },
+    {
+      "id": "C09",
+      "claim": "NOR59 root-only median ratio 0.309528 coexists with complete-workload ratio 0.991555.",
+      "status": "first registered engineering evidence plus descriptive aggregate interval",
+      "evidence": [
+        "NOR59"
+      ],
+      "premises": [
+        "fixed 60-case panel",
+        "five same-host interleaved repetitions",
+        "timing boundaries recorded"
+      ],
+      "interval95_workload": [
+        0.9840724142617785,
+        1.0003030285950016
+      ]
+    },
+    {
+      "id": "C10",
+      "claim": "Durable nonce consumption, real key custody, and semantically justified authority are additional deployment obligations.",
+      "status": "scope boundary",
+      "evidence": [
+        "NOR44",
+        "NOR45",
+        "NOR59"
+      ],
+      "premises": []
+    },
+    {
+      "id": "C11",
+      "claim": "Existing NOR46 Lean theorem proves uniqueness of a supplied causal recurrence and conditional trace/root composition.",
+      "status": "source inspected; historical report records successful kernel check",
+      "evidence": [
+        "https://github.com/patrickdugan/MathCan/blob/9b2e9f5a258b2a0bfa31489333e1e5b9b86b7566/MathCan/NOR46ExactIntegerTrace.lean"
+      ],
+      "premises": [
+        "causal update",
+        "same initial coefficient",
+        "traceExact for composition",
+        "abstract cryptographic binding"
+      ],
+      "concrete_packed_integer_checker_proved": false
+    },
+    {
+      "id": "C12",
+      "claim": "AEG-01 fixed symbolic verifier policies solve every case in the 14-case public development panel.",
+      "status": "finite deterministic implementation smoke",
+      "evidence": [
+        "research/authorized_exact_gym/README.md",
+        "research/authorized_exact_gym/results/aeg01_development_smoke.json"
+      ],
+      "premises": [
+        "public deterministic fixture keys and source generator",
+        "original full NOR45 interpreter as grading reference",
+        "four built-in fixed symbolic policies"
+      ],
+      "learned_model_evaluation": false,
+      "sealed_test_generated": false,
+      "boundary_tests_passed": 10
+    },
+    {
+      "id": "C13",
+      "claim": "EvalMath FRE-01 detects altered original bytes and exact operative-input reuse through renamed wrappers, preserving the original declared outcome through diagnostic lineage.",
+      "status": "finite adversarial tests and eight-check deterministic receipt",
+      "evidence": [
+        "https://github.com/MoralityLabAI/EvalMath/blob/9fc4f39e3bc4e614a54f674e7ea2281ee0a45725/paper/frozen_evidence_audit.md",
+        "https://github.com/MoralityLabAI/EvalMath/blob/9fc4f39e3bc4e614a54f674e7ea2281ee0a45725/output/evaluation_frozen_evidence/fre01_v1.json"
+      ],
+      "premises": [
+        "independently retained trusted anchor",
+        "domain adapter selects all operative fields",
+        "truthful timing boundaries"
+      ],
+      "benchmark_specific_gate_formula_recomputed": false
+    },
+    {
+      "id": "C14",
+      "claim": "Control-Harness loads the EvalMath auditor only after checking its pinned byte digest and publishes an audit without replacing existing output.",
+      "status": "offline adapter, nine regression tests",
+      "evidence": [
+        "https://github.com/MoralityLabAI/Control-Harness/blob/07d4b3a0a1a9749830a4473edc6c34fa4b383437/docs/frozen_evidence_FRE01.md"
+      ],
+      "premises": [
+        "supplied evidence and external anchor",
+        "trusted vendor-lock provisioning"
+      ],
+      "model_performance_evidence": false
+    },
+    {
+      "id": "C15",
+      "claim": "NOR60 first complete signed workload ratio is 0.5639610500187702 with exact full-vector and indexed-root parity for all 60 sources.",
+      "status": "First prospectively registered finite CPU engineering result; all five gates passed; original artifact independently replayed.",
+      "evidence": [
+        "NOR60 registration 363ef19abeba68e2897c593697ad56e2aaf4fefc",
+        "First run 44327994013",
+        "research/nor60_authorized_interpreter/results/nor60_first_receipt.json"
+      ],
+      "premises": [
+        "Declared synthetic program grammar",
+        "Exact content-disjoint fixed 60-case panel",
+        "Five interleaved repetitions and identical signed bundles within paired arms",
+        "Public test keys; semantic authority and cryptographic assumptions"
+      ],
+      "interval95_descriptive_ten_block": [
+        0.3696560495538314,
+        0.7976679828112877
+      ],
+      "cpu_sha256": "fba38d6346d35b371464c1d811360879918aeccc0a8932538b6f3206cc4bc52d",
+      "program_and_query_content_disjointness": {
+        "prior_query_vectors": 588,
+        "prior_program_inputs": 60
+      },
+      "standalone_compression_effect_identified_by_four_arms": false,
+      "standalone_memoization_effect_identified_by_four_arms": false,
+      "secondary_dense_P4_interpreter_ratio": 0.3779104278756591
+    }
+  ]
+}

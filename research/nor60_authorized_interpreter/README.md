@@ -1,5 +1,9 @@
 # NOR60 authorized exact interpreter
 
+The [first registered results](RESULTS.md) passed all five engineering gates.
+The original 60-source combined workload ratio was 0.5639610500187702;
+the read-only archive audit replays all exact outputs and signed bindings.
+
 NOR60 adds a fixed optional interpreter to the original signed NOR45 verifier.
 It infers supported positions from the exact query and computes each needed
 unary token once per invocation. The default NOR45 route remains available.
