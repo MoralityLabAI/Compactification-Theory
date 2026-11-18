@@ -1,0 +1,1247 @@
+{
+  "all_first_source_parity": true,
+  "all_signature_program_source_and_root_semantics_unchanged": true,
+  "by_degree": {
+    "1024": {
+      "median_full_trace_bytes": 420287.0,
+      "median_nor45_direct_ms": 169.2663475,
+      "median_nor46_python_ms": 831.5863285,
+      "median_nor47_gmp_ms": 95.07188550000001,
+      "median_nor47_hybrid_ms": 249.880401,
+      "median_per_source_gmp_over_nor45": 0.6628694856327992,
+      "median_per_source_gmp_over_nor46": 0.11260514347870167,
+      "median_per_source_hybrid_over_nor45": 1.5825624118573693,
+      "n": 8
+    },
+    "512": {
+      "median_full_trace_bytes": 122455.5,
+      "median_nor45_direct_ms": 29.321672,
+      "median_nor46_python_ms": 94.64468049999999,
+      "median_nor47_gmp_ms": 15.3921275,
+      "median_nor47_hybrid_ms": 33.4272175,
+      "median_per_source_gmp_over_nor45": 0.9814879179598629,
+      "median_per_source_gmp_over_nor46": 0.1630388442158635,
+      "median_per_source_hybrid_over_nor45": 1.8205809075131119,
+      "n": 8
+    }
+  },
+  "by_reciprocal_R": {
+    "False": {
+      "median_full_trace_bytes": 17437.0,
+      "median_nor45_direct_ms": 2.907626,
+      "median_nor46_python_ms": 5.1726995,
+      "median_nor47_gmp_ms": 5.1546525,
+      "median_nor47_hybrid_ms": 5.1323715,
+      "median_per_source_gmp_over_nor45": 1.813711094842557,
+      "median_per_source_gmp_over_nor46": 1.0002834803070344,
+      "median_per_source_hybrid_over_nor45": 1.8042165343306271,
+      "n": 4
+    },
+    "True": {
+      "median_full_trace_bytes": 269125.5,
+      "median_nor45_direct_ms": 93.14991,
+      "median_nor46_python_ms": 470.24903600000005,
+      "median_nor47_gmp_ms": 55.477100500000006,
+      "median_nor47_hybrid_ms": 146.355105,
+      "median_per_source_gmp_over_nor45": 0.4965770411885797,
+      "median_per_source_gmp_over_nor46": 0.12273746872798086,
+      "median_per_source_hybrid_over_nor45": 1.30199871886825,
+      "n": 12
+    }
+  },
+  "claimed_succinctness": false,
+  "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+  "design_issue": 248,
+  "exact_integer_arithmetic_without_modular_reduction": true,
+  "first_engineering_pass": true,
+  "first_engineering_targets": {
+    "gmp_at_least_twofold_faster_than_python_trace": true,
+    "gmp_faster_than_nor45": true
+  },
+  "fixed_repeat_count_per_arm": 5,
+  "full_merkle_root_computation_included_in_all_verifier_arms": true,
+  "gmp_backend": {
+    "algorithm": "exact carry-free Kronecker, original NOR46 no-carry bound",
+    "claimed_cryptographic_soundness": false,
+    "claimed_proof_succinctness": false,
+    "gmp_version": "GMP 6.3.0",
+    "gmpy2_version": "2.3.2",
+    "max_coefficient_bits": 32768,
+    "max_packed_bits": 120000000
+  },
+  "historical_source_pairs": 16,
+  "limits": "Historical engineering benchmark, no new study sources. GMP exact integer arithmetic not a succinct cryptographic proof. Process-level RSS is cumulative; only test keys supplied.",
+  "logical_cpu_count": 4,
+  "new_prospective_nor47_source_ids": 0,
+  "nor46_original_first_cpu_sha256": "4e9695f89aaa8acf42c09c6fe7aea9ee47ca0f86f74f6131d3e108e587454a64",
+  "nor46_original_first_trace_sha256": "d24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052",
+  "process_wide_maxrss_kib": 65864,
+  "python_version": "3.12.16",
+  "randomized_proof_soundness_claim": false,
+  "schema": "nor47.first_archived_gmp_exact_convolution_cpu.v1",
+  "shared_signature_session_transport_excluded_in_all_timings": true,
+  "source_records": [
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 13794,
+      "future_coefficients": 769,
+      "has_reciprocal_R": false,
+      "kernel_R_only_median_ms": {},
+      "nor45_original_median_ms": 1.974836,
+      "nor46_python_median_ms": 3.597331,
+      "nor47_gmp_median_ms": 3.59653,
+      "nor47_hybrid_median_ms": 3.571542,
+      "randomized_interleaved_R_kernel_samples_ms": {},
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          2.003629,
+          1.974836,
+          1.970599,
+          1.95755,
+          1.993715
+        ],
+        "nor46_python_packed": [
+          3.617321,
+          3.597331,
+          3.548907,
+          3.630481,
+          3.573625
+        ],
+        "nor47_gmp_packed": [
+          3.649119,
+          3.59653,
+          3.574567,
+          3.552153,
+          3.739886
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          3.618273,
+          3.607416,
+          3.561507,
+          3.560936,
+          3.571542
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 1.8211790751232,
+        "gmp_over_nor46": 0.9997773349185827,
+        "hybrid_over_nor45": 1.8085258725281492,
+        "hybrid_over_nor46": 0.9928310739267528
+      },
+      "replicate": 100,
+      "source_sha256": "6fbfafa01310e65b28722a1994f6fb8af236b64ddddf83dd210fff99f638a345"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 234664,
+      "future_coefficients": 769,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 224.880326,
+        "nor47_gmp_packed": 23.469336,
+        "nor47_python_pack_gmp_multiply": 60.674549
+      },
+      "nor45_original_median_ms": 26.295084,
+      "nor46_python_median_ms": 227.978234,
+      "nor47_gmp_median_ms": 28.774881,
+      "nor47_hybrid_median_ms": 66.064158,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          240.533066,
+          224.151461,
+          230.821417,
+          222.441571,
+          224.880326
+        ],
+        "nor47_gmp_packed": [
+          23.469336,
+          23.514213,
+          23.347831,
+          23.49966,
+          23.428272
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          61.005168,
+          60.484614,
+          60.674549,
+          61.196152,
+          60.563689
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          26.856911,
+          26.274873,
+          26.295084,
+          26.260104,
+          26.470687
+        ],
+        "nor46_python_packed": [
+          227.899158,
+          228.08602,
+          228.090817,
+          227.656389,
+          227.978234
+        ],
+        "nor47_gmp_packed": [
+          30.57931,
+          28.94682,
+          28.774881,
+          28.666947,
+          28.533756
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          66.518456,
+          66.024061,
+          66.4085,
+          66.064158,
+          65.990917
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 1.094306487098501,
+        "gmp_over_nor46": 0.1262176677796355,
+        "hybrid_over_nor45": 2.51241479205771,
+        "hybrid_over_nor46": 0.2897827430315124
+      },
+      "replicate": 100,
+      "source_sha256": "fd9e272cade649e2f42ab3d180bda00d68c85b4f5ee59a12a89e4339bf53f906"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 21080,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": false,
+      "kernel_R_only_median_ms": {},
+      "nor45_original_median_ms": 3.840416,
+      "nor46_python_median_ms": 6.748068,
+      "nor47_gmp_median_ms": 6.712775,
+      "nor47_hybrid_median_ms": 6.690872,
+      "randomized_interleaved_R_kernel_samples_ms": {},
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          3.860577,
+          3.830142,
+          3.833326,
+          3.840416,
+          3.8756
+        ],
+        "nor46_python_packed": [
+          6.713036,
+          6.781098,
+          6.70318,
+          6.750362,
+          6.748068
+        ],
+        "nor47_gmp_packed": [
+          6.72914,
+          6.712775,
+          6.705033,
+          6.683101,
+          6.724192
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          6.695038,
+          6.677582,
+          6.697683,
+          6.690872,
+          6.657202
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 1.7479291305941855,
+        "gmp_over_nor46": 0.994769910439551,
+        "hybrid_over_nor45": 1.7422258422004282,
+        "hybrid_over_nor46": 0.9915240925254457
+      },
+      "replicate": 100,
+      "source_sha256": "9175e7ded85de08f513d862bcfb44764faeec4a30ae86ae1af685deb18d78449"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 503260,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 737.983331,
+        "nor47_gmp_packed": 71.698317,
+        "nor47_python_pack_gmp_multiply": 221.444854
+      },
+      "nor45_original_median_ms": 206.392178,
+      "nor46_python_median_ms": 747.830348,
+      "nor47_gmp_median_ms": 82.17932,
+      "nor47_hybrid_median_ms": 231.399452,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          737.050979,
+          764.110382,
+          738.056581,
+          737.983331,
+          736.464622
+        ],
+        "nor47_gmp_packed": [
+          71.615432,
+          71.698317,
+          71.752543,
+          71.689599,
+          74.046319
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          221.265929,
+          227.971273,
+          221.898596,
+          221.444854,
+          221.358513
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          206.392178,
+          202.850901,
+          207.056243,
+          206.701859,
+          206.360996
+        ],
+        "nor46_python_packed": [
+          745.863308,
+          781.32284,
+          765.226569,
+          747.830348,
+          746.914798
+        ],
+        "nor47_gmp_packed": [
+          82.17932,
+          81.419395,
+          81.492509,
+          82.274748,
+          82.254898
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          230.933157,
+          233.347735,
+          234.382327,
+          231.399452,
+          231.123677
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.39817070974463,
+        "gmp_over_nor46": 0.10989032501794112,
+        "hybrid_over_nor45": 1.1211638650375597,
+        "hybrid_over_nor46": 0.30942773667698226
+      },
+      "replicate": 100,
+      "source_sha256": "68f0412a4639176067d814ab32f0e0bb1bb6faae2c75036e69c85fa094b2d359"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 134366,
+      "future_coefficients": 769,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 97.071338,
+        "nor47_gmp_packed": 11.564557,
+        "nor47_python_pack_gmp_multiply": 30.493679
+      },
+      "nor45_original_median_ms": 82.844204,
+      "nor46_python_median_ms": 100.98337,
+      "nor47_gmp_median_ms": 15.848758,
+      "nor47_hybrid_median_ms": 34.647043,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          97.033001,
+          96.893762,
+          97.277378,
+          98.887244,
+          97.071338
+        ],
+        "nor47_gmp_packed": [
+          11.611097,
+          11.561423,
+          11.698809,
+          11.564557,
+          11.517747
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          30.356413,
+          30.500579,
+          30.937005,
+          30.472478,
+          30.493679
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          84.116808,
+          84.208191,
+          82.844204,
+          82.697584,
+          82.808841
+        ],
+        "nor46_python_packed": [
+          100.98337,
+          100.874266,
+          101.62322,
+          101.373906,
+          100.917301
+        ],
+        "nor47_gmp_packed": [
+          15.851705,
+          15.848758,
+          15.801938,
+          15.788708,
+          16.032794
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          34.446653,
+          34.647043,
+          34.781776,
+          34.644199,
+          34.703578
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.19130798818466527,
+        "gmp_over_nor46": 0.15694423745216665,
+        "hybrid_over_nor45": 0.4182192757866319,
+        "hybrid_over_nor46": 0.34309652173422217
+      },
+      "replicate": 104,
+      "source_sha256": "9e640c360cea79ca332eebf8788f11bdb80987289163ab1a33a6d1cc2d709115"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 110545,
+      "future_coefficients": 769,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 84.188211,
+        "nor47_gmp_packed": 10.777507,
+        "nor47_python_pack_gmp_multiply": 28.065074
+      },
+      "nor45_original_median_ms": 44.981655,
+      "nor46_python_median_ms": 88.305991,
+      "nor47_gmp_median_ms": 14.935497,
+      "nor47_hybrid_median_ms": 32.207392,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          86.204217,
+          84.188211,
+          84.203264,
+          83.922773,
+          84.122282
+        ],
+        "nor47_gmp_packed": [
+          10.696936,
+          10.777507,
+          10.771286,
+          10.800631,
+          10.80615
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          28.755911,
+          27.991954,
+          28.013297,
+          28.178074,
+          28.065074
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          44.981655,
+          44.575134,
+          45.527354,
+          44.91229,
+          45.793884
+        ],
+        "nor46_python_packed": [
+          88.305991,
+          88.476858,
+          88.25771,
+          88.281966,
+          88.690279
+        ],
+        "nor47_gmp_packed": [
+          14.848737,
+          15.002568,
+          14.935497,
+          14.982478,
+          14.904361
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          32.281653,
+          32.187131,
+          32.23971,
+          32.207392,
+          32.148843
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.3320352930544685,
+        "gmp_over_nor46": 0.16913345097956037,
+        "hybrid_over_nor45": 0.7160117163319134,
+        "hybrid_over_nor46": 0.36472488033116574
+      },
+      "replicate": 104,
+      "source_sha256": "0774441c0e1ed987fb4e46ca25abb1804fca8a616daa432818ec05e43c73dfc1"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 337314,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 903.562932,
+        "nor47_gmp_packed": 93.386422,
+        "nor47_python_pack_gmp_multiply": 258.818168
+      },
+      "nor45_original_median_ms": 132.140517,
+      "nor46_python_median_ms": 915.342309,
+      "nor47_gmp_median_ms": 103.471557,
+      "nor47_hybrid_median_ms": 268.36135,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          906.92273,
+          903.562932,
+          903.336242,
+          904.61263,
+          902.671727
+        ],
+        "nor47_gmp_packed": [
+          93.004129,
+          93.814484,
+          95.309324,
+          93.215015,
+          93.386422
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          258.897897,
+          258.751941,
+          258.785772,
+          258.818168,
+          259.896887
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          131.238764,
+          132.504415,
+          133.714896,
+          130.275035,
+          132.140517
+        ],
+        "nor46_python_packed": [
+          915.862169,
+          913.138676,
+          917.405087,
+          915.342309,
+          915.030119
+        ],
+        "nor47_gmp_packed": [
+          105.077987,
+          102.719456,
+          103.471557,
+          102.874227,
+          103.519153
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          268.279819,
+          270.398358,
+          268.57086,
+          268.147141,
+          268.36135
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.7830418659554663,
+        "gmp_over_nor46": 0.11304137914595185,
+        "hybrid_over_nor45": 2.0308786138622423,
+        "hybrid_over_nor46": 0.2931814113270711
+      },
+      "replicate": 104,
+      "source_sha256": "bc0fc1f39e99439d9f5e9fc1f1ca94fad6d87c4f03d8161a7ccbed3c32056fff"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 25979,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": false,
+      "kernel_R_only_median_ms": {},
+      "nor45_original_median_ms": 3.991213,
+      "nor46_python_median_ms": 7.203413,
+      "nor47_gmp_median_ms": 7.209101,
+      "nor47_hybrid_median_ms": 7.183813,
+      "randomized_interleaved_R_kernel_samples_ms": {},
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          4.010761,
+          4.017592,
+          3.991213,
+          3.980917,
+          3.987827
+        ],
+        "nor46_python_packed": [
+          7.203413,
+          7.226577,
+          7.361769,
+          7.199457,
+          7.171696
+        ],
+        "nor47_gmp_packed": [
+          7.209532,
+          7.225876,
+          7.209101,
+          7.17469,
+          7.163874
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          7.242661,
+          7.19431,
+          7.179998,
+          7.183813,
+          7.147499
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 1.806243114561914,
+        "gmp_over_nor46": 1.0007896256954862,
+        "hybrid_over_nor45": 1.7999071961331052,
+        "hybrid_over_nor46": 0.9972790675753285
+      },
+      "replicate": 104,
+      "source_sha256": "fefc64807ea4070905b54effcb55457b4e439268ae4971d1218d1915e7002645"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 230697,
+      "future_coefficients": 769,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 226.53361,
+        "nor47_gmp_packed": 23.281404,
+        "nor47_python_pack_gmp_multiply": 59.748259
+      },
+      "nor45_original_median_ms": 32.203567,
+      "nor46_python_median_ms": 231.873175,
+      "nor47_gmp_median_ms": 28.558546,
+      "nor47_hybrid_median_ms": 65.007814,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          226.428372,
+          226.743967,
+          228.399958,
+          226.53361,
+          226.423394
+        ],
+        "nor47_gmp_packed": [
+          23.056806,
+          23.3786,
+          23.287092,
+          23.21194,
+          23.281404
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          59.748259,
+          59.839237,
+          59.849382,
+          59.630072,
+          59.736087
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          32.203567,
+          34.689081,
+          31.979803,
+          32.262279,
+          32.069088
+        ],
+        "nor46_python_packed": [
+          231.628555,
+          231.829109,
+          232.156521,
+          231.873175,
+          236.409681
+        ],
+        "nor47_gmp_packed": [
+          28.412415,
+          28.609162,
+          28.540658,
+          28.582131,
+          28.558546
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          64.828251,
+          64.870627,
+          65.007814,
+          65.15114,
+          65.060043
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.886813128495983,
+        "gmp_over_nor46": 0.12316451008185832,
+        "hybrid_over_nor45": 2.018652592118134,
+        "hybrid_over_nor46": 0.28035935592808436
+      },
+      "replicate": 108,
+      "source_sha256": "600b2f213a06d43e4e457664c5079bde70313b9137c8a84917fe5b475376bdb4"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 256936,
+      "future_coefficients": 769,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 218.295343,
+        "nor47_gmp_packed": 23.177743,
+        "nor47_python_pack_gmp_multiply": 59.486387
+      },
+      "nor45_original_median_ms": 26.439777,
+      "nor46_python_median_ms": 223.728648,
+      "nor47_gmp_median_ms": 28.453502,
+      "nor47_hybrid_median_ms": 64.810918,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          218.849687,
+          218.853809,
+          218.285168,
+          218.249435,
+          218.295343
+        ],
+        "nor47_gmp_packed": [
+          23.337138,
+          23.14869,
+          23.177743,
+          23.026336,
+          23.180507
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          59.585505,
+          59.297182,
+          59.515219,
+          59.451363,
+          59.486387
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          26.29593,
+          26.439777,
+          26.426427,
+          26.478655,
+          26.511064
+        ],
+        "nor46_python_packed": [
+          223.820717,
+          223.659996,
+          223.692143,
+          223.905283,
+          223.728648
+        ],
+        "nor47_gmp_packed": [
+          28.58818,
+          28.458569,
+          28.3452,
+          28.453502,
+          28.420031
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          65.135417,
+          64.707434,
+          64.810918,
+          64.903116,
+          64.557428
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 1.0761627074237428,
+        "gmp_over_nor46": 0.12717862577884975,
+        "hybrid_over_nor45": 2.4512656820063197,
+        "hybrid_over_nor46": 0.2896853781550586
+      },
+      "replicate": 108,
+      "source_sha256": "6be6fe21fab4d50651a8c5aca0573c84b6d951db82d53a399c56db9cb1d189b9"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 700796,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 1158.317385,
+        "nor47_gmp_packed": 112.332615,
+        "nor47_python_pack_gmp_multiply": 314.24488
+      },
+      "nor45_original_median_ms": 276.696489,
+      "nor46_python_median_ms": 1172.53052,
+      "nor47_gmp_median_ms": 124.639864,
+      "nor47_hybrid_median_ms": 326.805796,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          1158.317385,
+          1157.484845,
+          1161.094939,
+          1156.229166,
+          1162.269392
+        ],
+        "nor47_gmp_packed": [
+          112.332615,
+          112.783119,
+          112.717799,
+          112.10593,
+          112.236296
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          317.136922,
+          314.09569,
+          314.24488,
+          314.212189,
+          314.887565
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          275.795523,
+          276.696489,
+          275.927912,
+          277.04991,
+          277.802162
+        ],
+        "nor46_python_packed": [
+          1188.213709,
+          1168.351474,
+          1172.53052,
+          1173.153804,
+          1170.266221
+        ],
+        "nor47_gmp_packed": [
+          124.952461,
+          124.381445,
+          124.726665,
+          124.514996,
+          124.639864
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          328.046099,
+          326.805796,
+          326.651033,
+          326.80337,
+          326.921647
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.4504569770670274,
+        "gmp_over_nor46": 0.10629988889329721,
+        "hybrid_over_nor45": 1.1810984562221893,
+        "hybrid_over_nor46": 0.27871837058876725
+      },
+      "replicate": 108,
+      "source_sha256": "48746519f0eba668c18b1ee3e3c749c2000b7397865e8525f71f91f9240f0daa"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 683729,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 1072.199774,
+        "nor47_gmp_packed": 109.299648,
+        "nor47_python_pack_gmp_multiply": 306.545289
+      },
+      "nor45_original_median_ms": 224.137759,
+      "nor46_python_median_ms": 1084.426294,
+      "nor47_gmp_median_ms": 121.638913,
+      "nor47_hybrid_median_ms": 318.925389,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          1070.205281,
+          1090.516333,
+          1071.789587,
+          1072.199774,
+          1072.729785
+        ],
+        "nor47_gmp_packed": [
+          109.567851,
+          109.204203,
+          109.41349,
+          109.299648,
+          109.273852
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          307.030336,
+          306.554407,
+          306.530156,
+          306.545289,
+          306.419682
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          224.137759,
+          224.850605,
+          224.287231,
+          223.491274,
+          223.575601
+        ],
+        "nor46_python_packed": [
+          1084.797125,
+          1081.711003,
+          1081.998833,
+          1085.93959,
+          1084.426294
+        ],
+        "nor47_gmp_packed": [
+          121.728096,
+          121.638913,
+          124.832219,
+          121.451355,
+          121.273557
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          318.489083,
+          319.579937,
+          318.422737,
+          319.341525,
+          318.925389
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.542697105310132,
+        "gmp_over_nor46": 0.11216890781145149,
+        "hybrid_over_nor45": 1.4228989815143107,
+        "hybrid_over_nor46": 0.2940959572490779
+      },
+      "replicate": 108,
+      "source_sha256": "f51b07ced80cf9b2123d61240793264096d80c1ea3c613cea1747c72ad99bff1"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 102695,
+      "future_coefficients": 769,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 63.61296,
+        "nor47_gmp_packed": 8.603633,
+        "nor47_python_pack_gmp_multiply": 22.256773
+      },
+      "nor45_original_median_ms": 54.557617,
+      "nor46_python_median_ms": 67.888997,
+      "nor47_gmp_median_ms": 12.791557,
+      "nor47_hybrid_median_ms": 26.397261,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          63.556454,
+          63.518358,
+          63.74549,
+          63.617967,
+          63.61296
+        ],
+        "nor47_gmp_packed": [
+          8.657073,
+          8.603633,
+          8.613237,
+          8.597033,
+          8.546066
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          22.256773,
+          22.201514,
+          22.329647,
+          22.276667,
+          22.244199
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          54.313259,
+          54.525579,
+          55.199884,
+          54.923548,
+          54.557617
+        ],
+        "nor46_python_packed": [
+          68.008337,
+          67.874455,
+          68.108678,
+          67.823118,
+          67.888997
+        ],
+        "nor47_gmp_packed": [
+          12.791557,
+          12.731778,
+          12.867732,
+          12.856615,
+          12.714001
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          26.397261,
+          26.33645,
+          26.364271,
+          26.453536,
+          26.515379
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.23445959892273152,
+        "gmp_over_nor46": 0.18841870649525133,
+        "hybrid_over_nor45": 0.48384189873982214,
+        "hybrid_over_nor46": 0.3888297392285822
+      },
+      "replicate": 112,
+      "source_sha256": "764ef4cdf503a7a180abb7fa397b35fd7275c820b4a87e6c1fc56147d26d0168"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 512,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 13102,
+      "future_coefficients": 769,
+      "has_reciprocal_R": false,
+      "kernel_R_only_median_ms": {},
+      "nor45_original_median_ms": 1.950126,
+      "nor46_python_median_ms": 3.564317,
+      "nor47_gmp_median_ms": 3.568933,
+      "nor47_hybrid_median_ms": 3.573871,
+      "randomized_interleaved_R_kernel_samples_ms": {},
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          1.957247,
+          1.950887,
+          1.942294,
+          1.950126,
+          1.931778
+        ],
+        "nor46_python_packed": [
+          3.582183,
+          3.564317,
+          3.556044,
+          3.610846,
+          3.543585
+        ],
+        "nor47_gmp_packed": [
+          3.612429,
+          3.551677,
+          3.577816,
+          3.568933,
+          3.553139
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          3.676325,
+          3.573871,
+          3.571527,
+          3.581522,
+          3.565247
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 1.83010379842123,
+        "gmp_over_nor46": 1.0012950587728309,
+        "hybrid_over_nor45": 1.8326359424980745,
+        "hybrid_over_nor46": 1.002680457434061
+      },
+      "replicate": 112,
+      "source_sha256": "ef2a5553936c3eb31773c68a9b3051e3efae9cf03d191ccc8964a889f0fc425c"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_dense_small",
+      "full_trace_bytes": 613914,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 1010.260076,
+        "nor47_gmp_packed": 100.237725,
+        "nor47_python_pack_gmp_multiply": 278.149892
+      },
+      "nor45_original_median_ms": 264.159414,
+      "nor46_python_median_ms": 1020.264751,
+      "nor47_gmp_median_ms": 111.391763,
+      "nor47_hybrid_median_ms": 288.968546,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          1009.904467,
+          1012.140037,
+          1010.260076,
+          1011.722897,
+          1010.151619
+        ],
+        "nor47_gmp_packed": [
+          100.588235,
+          100.136027,
+          100.386464,
+          100.237725,
+          99.951544
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          278.065045,
+          278.149892,
+          282.223163,
+          278.035198,
+          278.243853
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          263.416396,
+          264.159414,
+          266.074088,
+          268.492691,
+          263.814112
+        ],
+        "nor46_python_packed": [
+          1020.934547,
+          1020.264751,
+          1039.179069,
+          1020.0384,
+          1018.804226
+        ],
+        "nor47_gmp_packed": [
+          111.5173,
+          111.391763,
+          111.119247,
+          111.144789,
+          111.510731
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          288.813041,
+          288.968546,
+          289.082726,
+          288.799437,
+          289.597219
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.42168386624298004,
+        "gmp_over_nor46": 0.1091792722338204,
+        "hybrid_over_nor45": 1.0939172737565204,
+        "hybrid_over_nor46": 0.2832289812196011
+      },
+      "replicate": 112,
+      "source_sha256": "9b7213fd10da068664acaff2b350edfda07c216da9866c34c23d187da8f9517e"
+    },
+    {
+      "all_signed_exact_integer_and_root_parity": true,
+      "degree": 1024,
+      "family": "wide_regime_blocks",
+      "full_trace_bytes": 281315,
+      "future_coefficients": 1537,
+      "has_reciprocal_R": true,
+      "kernel_R_only_median_ms": {
+        "nor46_python_packed": 700.586425,
+        "nor47_gmp_packed": 77.977048,
+        "nor47_python_pack_gmp_multiply": 218.17926
+      },
+      "nor45_original_median_ms": 103.455616,
+      "nor46_python_median_ms": 708.624897,
+      "nor47_gmp_median_ms": 86.672214,
+      "nor47_hybrid_median_ms": 226.646052,
+      "randomized_interleaved_R_kernel_samples_ms": {
+        "nor46_python_packed": [
+          699.780171,
+          700.586425,
+          701.174155,
+          701.591074,
+          699.575859
+        ],
+        "nor47_gmp_packed": [
+          77.721779,
+          78.154925,
+          77.85902,
+          77.977048,
+          78.364971
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          217.851711,
+          218.19905,
+          218.272761,
+          218.17926,
+          217.977823
+        ]
+      },
+      "randomized_interleaved_arm_samples_ms": {
+        "nor45_direct": [
+          106.212838,
+          103.724259,
+          102.616007,
+          102.517979,
+          103.455616
+        ],
+        "nor46_python_packed": [
+          708.624897,
+          708.073839,
+          709.46344,
+          708.674171,
+          708.029328
+        ],
+        "nor47_gmp_packed": [
+          86.381499,
+          86.725413,
+          86.672214,
+          86.480996,
+          86.86162
+        ],
+        "nor47_python_pack_gmp_multiply": [
+          226.630729,
+          226.914715,
+          226.646052,
+          226.602586,
+          226.721352
+        ]
+      },
+      "ratios": {
+        "gmp_over_nor45": 0.8377719581699653,
+        "gmp_over_nor46": 0.12231042737410339,
+        "hybrid_over_nor45": 2.1907563916104853,
+        "hybrid_over_nor46": 0.3198392449369444
+      },
+      "replicate": 112,
+      "source_sha256": "8e5d73f73c6e96e1261dbab6bf835f20f760c40e671ac51565b3c068933bda58"
+    }
+  ],
+  "source_selection": [
+    100,
+    104,
+    108,
+    112
+  ],
+  "summary": {
+    "median_full_trace_bytes": 232680.5,
+    "median_nor45_direct_ms": 49.769636000000006,
+    "median_nor46_python_ms": 225.85344099999998,
+    "median_nor47_gmp_ms": 28.506024,
+    "median_nor47_hybrid_ms": 64.909366,
+    "median_per_source_gmp_over_nor45": 0.8104069120627158,
+    "median_per_source_gmp_over_nor46": 0.12669814677924263,
+    "median_per_source_hybrid_over_nor45": 1.7710665191667667,
+    "n": 16
+  },
+  "timing_method": "interleaved seeded arm permutation per source/repetition; median per arm"
+}
