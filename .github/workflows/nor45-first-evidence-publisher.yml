@@ -1,0 +1,79 @@
+name: NOR-45 one-shot immutable first archived 64-pair authorized-program receipts
+
+on:
+  push:
+    branches:
+      - research/nor45-authorized-program-witness-20261118
+    paths:
+      - '.github/workflows/nor45-first-evidence-publisher.yml'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  preserve_original_first_historical_receipt:
+    if: github.ref == 'refs/heads/research/nor45-authorized-program-witness-20261118' && contains(github.event.head_commit.message, 'NOR45-ARCHIVE-FIRST')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: research/nor45-authorized-program-witness-20261118
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor45_first_64_archived_program_root_evidence
+          run-id: 44232121765
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: /tmp/nor45-original
+      - name: SHA-lock exact first 64 archival program-root test receipts
+        run: |
+          test ! -e research/nor45_authorized_program/results/nor45_first_archived_64_programs.json
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          import json
+          p=Path('/tmp/nor45-original/nor45_first_archived_64_programs.json')
+          raw=p.read_bytes()
+          assert len(raw)==112573
+          assert sha256(raw).hexdigest()==(
+            'c4b1197b87b43c4cb4e32e0c2708c4a070742244d7cc05639e22353af78d5536')
+          a=json.loads(raw)
+          assert a['schema']=='nor45.authorized_program_historical_nor42_64_pairs.v1'
+          assert a['historical_original_source_pairs']==64
+          assert a['new_nor45_prospective_source_ids']==0
+          assert a['original_nor42_source_sha256']==(
+            'f8bc6ef3db4fda78709f2b7cd1a6a09989dbc087bcfb963d00961cc23ce4f033')
+          assert a['original_nor42_grade_sha256']==(
+            'bd57751d94ea49755888000675b0df8fce6490873683268b8f8625518701adae')
+          assert len(a['source_records'])==64
+          assert len({r['original_nor42_source_sha256'] for r in a['source_records']})==64
+          assert a['all_authorized_program_executions_match_signed_hidden_reference']
+          assert a['all_dishonest_signed_output_roots_rejected_by_program_recomputation']
+          assert a['all_model_self_signed_programs_rejected']
+          assert a['all_dishonest_authorized_programs_pass_crypto_but_miss_true_world']
+          assert a['program_authority_private_key_public_test_fixture']
+          print('NOR45 ORIGINAL FIRST HISTORICAL SHA',len(raw),sha256(raw).hexdigest())
+          PY
+      - name: Commit EXACT first original bytes without resampling or rescoring
+        run: |
+          mkdir -p research/nor45_authorized_program/results
+          cp /tmp/nor45-original/nor45_first_archived_64_programs.json \
+             research/nor45_authorized_program/results/nor45_first_archived_64_programs.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/nor45_authorized_program/results/nor45_first_archived_64_programs.json
+          git commit -m "NOR-45: archive first historical 64-pair program-authority SHA evidence"
+          for attempt in $(seq 1 20); do
+            git fetch origin research/nor45-authorized-program-witness-20261118
+            git rebase FETCH_HEAD
+            if git push origin HEAD:research/nor45-authorized-program-witness-20261118; then
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
