@@ -1,0 +1,29 @@
+name: NOR-49 original archived CPU SHA and FAIL audit
+
+on:
+  push:
+    paths:
+      - 'research/nor49_reciprocal_count_dispatch/results/**'
+      - 'research/nor49_reciprocal_count_dispatch/original_archive_audit.py'
+      - '.github/workflows/nor49-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor49_reciprocal_count_dispatch/results/**'
+      - 'research/nor49_reciprocal_count_dispatch/original_archive_audit.py'
+      - '.github/workflows/nor49-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_immutable_first_fail_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit unchanged original raw bytes, source exclusions and 3-of-5 FAIL
+        run: python research/nor49_reciprocal_count_dispatch/original_archive_audit.py
