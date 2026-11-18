@@ -1,0 +1,41 @@
+name: NOR-60 permanent original evidence and capstone audit
+
+on:
+  push:
+    paths:
+      - 'research/nor*/**'
+      - 'research/rrc_compactification/**'
+      - 'papers/authorized-exact-computation/**'
+      - '.github/workflows/nor60-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor*/**'
+      - 'research/rrc_compactification/**'
+      - 'papers/authorized-exact-computation/**'
+      - '.github/workflows/nor60-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original-evidence-and-capstone:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned audit dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Exercise eight source-free archive integrity controls
+        run: |
+          python -m unittest research.nor60_authorized_interpreter.test_archive_audit -v
+          python -O -m unittest research.nor60_authorized_interpreter.test_archive_audit -v
+      - name: Replay the original archive without timing or evidence writes
+        run: python research/nor60_authorized_interpreter/original_archive_audit.py
+      - name: Verify the capstone evidence ledger
+        run: python research/nor_line_capstone/audit_evidence.py

@@ -1,0 +1,667 @@
+{
+  "schema": "nor.capstone.evidence-ledger.v1",
+  "historical_repository": "MoralityLabAI/Compactification-Theory",
+  "historical_commit": "714a7f5e1203289ef053dfa5becaa3537d1b946b",
+  "created_date": "2026-11-18",
+  "interpretation": [
+    "Study ratios have different comparators, cohorts, hardware and timing boundaries; they cannot be multiplied into cumulative speedups.",
+    "Reported gate counts are engineering decisions, not independent significance tests.",
+    "NOR57 has no original complete first CPU JSON; stdout cannot reconstruct the first final gates.",
+    "Cross-study record-hash exclusion does not alone establish query-vector or isomorphism disjointness.",
+    "A signature authenticates a key holder; semantic correctness remains a premise about program authority.",
+    "The historical base commit covers NOR45-NOR59. NOR60 has its own registration, trigger commit, original hosted run, artifact identities and raw member hashes."
+  ],
+  "studies": [
+    {
+      "study": "NOR45",
+      "cases": 64,
+      "cohort_status": "historical",
+      "first_verdict": "PASS",
+      "registered_gates_passed": null,
+      "registered_gates_total": null,
+      "selected_endpoint": "authorized full output/root parity",
+      "aggregation": "exact_count",
+      "reported_ratio": null,
+      "strict_threshold_below": null,
+      "count_result": "64/64",
+      "timed_scope": "full signed authorized execution",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor45_authorized_program/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor45_authorized_program/RESULTS.md",
+          "sha256": "85f34b44b7839b22c0648b830fdb0f2df6131dffd8866750c07575689f50616c",
+          "bytes": 8578
+        },
+        {
+          "path": "research/nor45_authorized_program/results/nor45_first_archived_64_programs.json",
+          "sha256": "c4b1197b87b43c4cb4e32e0c2708c4a070742244d7cc05639e22353af78d5536",
+          "bytes": 112573
+        }
+      ]
+    },
+    {
+      "study": "NOR46",
+      "cases": 16,
+      "cohort_status": "historical",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": null,
+      "registered_gates_total": null,
+      "selected_endpoint": "Python full trace / original direct",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 3.28,
+      "strict_threshold_below": null,
+      "count_result": null,
+      "timed_scope": "arithmetic plus full root; signatures excluded",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor46_exact_integer_trace/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor46_exact_integer_trace/RESULTS.md",
+          "sha256": "6122d028ac258902eb9cf6efb8bd3a876ecd76e17ff6f9e54b6166d338b166b0",
+          "bytes": 9005
+        },
+        {
+          "path": "research/nor46_exact_integer_trace/results/nor46_first_historical_16.json",
+          "sha256": "d24bb2fec989a5cbe7422d3aae6e2e2779a9d780268f25f0f23ccf28f56db052",
+          "bytes": 19583
+        },
+        {
+          "path": "research/nor46_exact_integer_trace/results/nor46_first_historical_cpu_cost.json",
+          "sha256": "4e9695f89aaa8acf42c09c6fe7aea9ee47ca0f86f74f6131d3e108e587454a64",
+          "bytes": 11884
+        }
+      ]
+    },
+    {
+      "study": "NOR47",
+      "cases": 16,
+      "cohort_status": "historical",
+      "first_verdict": "PASS",
+      "registered_gates_passed": 2,
+      "registered_gates_total": 2,
+      "selected_endpoint": "GMP full trace / original direct on 12 reciprocal cases",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.4966,
+      "strict_threshold_below": null,
+      "count_result": null,
+      "timed_scope": "arithmetic plus full root; signatures excluded",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor47_gmp_exact_convolution/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor47_gmp_exact_convolution/RESULTS.md",
+          "sha256": "70097e3ac68e720fe8ee4700505970dcc9234119443c617ebebbb313c04843cb",
+          "bytes": 8070
+        },
+        {
+          "path": "research/nor47_gmp_exact_convolution/results/nor47_first_receipt.json",
+          "sha256": "b6b57e12fb10017f2cb5ff172898235cb239db857af5593436759995ce2eeb27",
+          "bytes": 1736
+        },
+        {
+          "path": "research/nor47_gmp_exact_convolution/results/nor47_first_original_cpu.json",
+          "sha256": "809fd5d18cfb61e4e6d771c4e402b31e3fec99889774f4305ddfa3d6c793f530",
+          "bytes": 34928
+        }
+      ]
+    },
+    {
+      "study": "NOR48",
+      "cases": 16,
+      "cohort_status": "historical",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 4,
+      "registered_gates_total": 5,
+      "selected_endpoint": "R-aware dispatcher / original direct",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.818287,
+      "strict_threshold_below": 0.75,
+      "count_result": null,
+      "timed_scope": "arithmetic plus full root; signatures excluded",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor48_program_dispatch/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor48_program_dispatch/RESULTS.md",
+          "sha256": "a9f95d3024db9edbce464826431306a6aa5bd14d42a1d334223e44a151d2728a",
+          "bytes": 8677
+        },
+        {
+          "path": "research/nor48_program_dispatch/results/nor48_first_receipt.json",
+          "sha256": "551d8c4b99b4cf384e73ce3651a4baf0a00c7d7b189f30c0258b5ad2ff4a7d5c",
+          "bytes": 2339
+        },
+        {
+          "path": "research/nor48_program_dispatch/results/nor48_first_original_cpu.json",
+          "sha256": "d5cf4b0e3860907eb58c2a37b84ff631f023caf2b69e6e0d0e5a322e2f0b2b99",
+          "bytes": 27609
+        }
+      ]
+    },
+    {
+      "study": "NOR49",
+      "cases": 48,
+      "cohort_status": "previously untimed historical",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 3,
+      "registered_gates_total": 5,
+      "selected_endpoint": "count-R selector / original direct",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.9995949312,
+      "strict_threshold_below": 0.75,
+      "count_result": null,
+      "timed_scope": "arithmetic plus full root; signatures excluded",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor49_reciprocal_count_dispatch/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor49_reciprocal_count_dispatch/RESULTS.md",
+          "sha256": "c071945fbeb906d93b1a10305e98f081c5a476ef9d05344869c27aef9d83f6e0",
+          "bytes": 3334
+        },
+        {
+          "path": "research/nor49_reciprocal_count_dispatch/results/nor49_first_receipt.json",
+          "sha256": "5ef2170a51cc775a17b2e5a9e1d288ce83966dcdd1eaa1c77a60a325b7fc22d4",
+          "bytes": 2661
+        },
+        {
+          "path": "research/nor49_reciprocal_count_dispatch/results/nor49_first_original_cpu.json",
+          "sha256": "c3f4a67b20df4504461c65168f6006041f2cc839aabdda054032a6f89bd24e4b",
+          "bytes": 84469
+        },
+        {
+          "path": "research/nor49_reciprocal_count_dispatch/results/nor49_first_original_source_roster.json",
+          "sha256": "40929d52abddc5a15e82ec8e8101fba265d39e28239172c7e9fcaca4f6f0d2ae",
+          "bytes": 13081
+        }
+      ]
+    },
+    {
+      "study": "NOR50",
+      "cases": 64,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 4,
+      "registered_gates_total": 5,
+      "selected_endpoint": "GMP / memoized native on 19 repeated-R sources",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 1.183263,
+      "strict_threshold_below": 0.9,
+      "count_result": null,
+      "timed_scope": "arithmetic plus full root; signatures excluded",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor50_memoized_exact/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor50_memoized_exact/RESULTS.md",
+          "sha256": "68d20c114c8b331328023504952854364889cb5af54eddefaf383c7f02ef4718",
+          "bytes": 4111
+        },
+        {
+          "path": "research/nor50_memoized_exact/results/nor50_first_receipt.json",
+          "sha256": "2356ad8340e63db33cbad20e3b7de081da242b44d93f384d85193e42f44af5cc",
+          "bytes": 2298
+        },
+        {
+          "path": "research/nor50_memoized_exact/results/nor50_first_original_hosted.zip",
+          "sha256": "a6cb35c57cc7bd742cdb40d1a87066c6276b45a48a8107e7b870c2563adc424c",
+          "bytes": 2989300
+        }
+      ]
+    },
+    {
+      "study": "NOR51",
+      "cases": 48,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 2,
+      "registered_gates_total": 5,
+      "selected_endpoint": "GMP witness verification / direct native on m3073",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 2.797903,
+      "strict_threshold_below": 0.75,
+      "count_result": null,
+      "timed_scope": "single inverse plus full root; witness generation separate",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor51_exact_r_crossover/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor51_exact_r_crossover/RESULTS.md",
+          "sha256": "6a8fc8f9335dfea421f206f30bc10bcde74ec5fc0e15d60abba58896974d48dd",
+          "bytes": 5651
+        },
+        {
+          "path": "research/nor51_exact_r_crossover/results/nor51_first_receipt.json",
+          "sha256": "ce76ac15b6c3aa8a96c241b14023341dadf2ef3122d0b76392d7c1f4cb43b3ef",
+          "bytes": 5395
+        },
+        {
+          "path": "research/nor51_exact_r_crossover/results/nor51_first_original_hosted.zip",
+          "sha256": "b8771c20b24b7868ff467f9559cba6c551021042943db8d308c204d0d75e39d9",
+          "bytes": 69120
+        }
+      ]
+    },
+    {
+      "study": "NOR52",
+      "cases": 60,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "PASS",
+      "registered_gates_passed": 5,
+      "registered_gates_total": 5,
+      "selected_endpoint": "compressed native / full native on 16 sparse m3073",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.163421,
+      "strict_threshold_below": 0.5,
+      "count_result": null,
+      "timed_scope": "single inverse plus full root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor52_sparse_inverse/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor52_sparse_inverse/RESULTS.md",
+          "sha256": "aea9a649ab392eed2db5284e5987bd96eb947b9b81484b5544462fbae5355ed6",
+          "bytes": 6032
+        },
+        {
+          "path": "research/nor52_sparse_inverse/results/nor52_first_receipt.json",
+          "sha256": "aed7169a387d7d3388e83641558f6a958f153ed8f4c8888e4fa2e793682da64c",
+          "bytes": 5801
+        },
+        {
+          "path": "research/nor52_sparse_inverse/results/nor52_first_original_hosted.zip",
+          "sha256": "1905b3835ed6dea870994a154d8a56942fce0b0fcf83d4058417abc543e206a6",
+          "bytes": 84100
+        }
+      ]
+    },
+    {
+      "study": "NOR53",
+      "cases": 60,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "PASS",
+      "registered_gates_passed": 5,
+      "registered_gates_total": 5,
+      "selected_endpoint": "fast full GMP / original full GMP on 60 sources",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.143451,
+      "strict_threshold_below": 0.7,
+      "count_result": null,
+      "timed_scope": "single-inverse witness verification plus full root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor53_native_pack/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor53_native_pack/RESULTS.md",
+          "sha256": "4586a459edf2d53543c4b1782c26082334284bbae785f3a3c08d77469d2f7dd5",
+          "bytes": 5480
+        },
+        {
+          "path": "research/nor53_native_pack/results/nor53_first_receipt.json",
+          "sha256": "9faf73088991ee5c97c17b914f39821a334b97a43e0c60440c38e2860524dd4a",
+          "bytes": 7904
+        },
+        {
+          "path": "research/nor53_native_pack/results/nor53_first_original_hosted.zip",
+          "sha256": "a44856da93943c82a5265bceadad06374f2ccb6050626f10477b6470d6bcd0ff",
+          "bytes": 80827
+        }
+      ]
+    },
+    {
+      "study": "NOR54",
+      "cases": 60,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 4,
+      "registered_gates_total": 5,
+      "selected_endpoint": "produce + JSON roundtrip + fast verify / compressed native on 16 sparse m3073",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 1.711785,
+      "strict_threshold_below": 1.5,
+      "count_result": null,
+      "timed_scope": "local production and transport serialization plus verification/root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor54_matched_frontier/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor54_matched_frontier/RESULTS.md",
+          "sha256": "6831c68691244aaf4564225af340814db9a100bda9a18b19e79fb710999de53c",
+          "bytes": 6115
+        },
+        {
+          "path": "research/nor54_matched_frontier/results/nor54_first_receipt.json",
+          "sha256": "d30ada2c48e4bda0d906e5ac35fcf89a0c0b29bcba843ce7f591f7ced456fc62",
+          "bytes": 8618
+        },
+        {
+          "path": "research/nor54_matched_frontier/results/nor54_first_original_hosted.zip",
+          "sha256": "8d5b5745127a5086910f2d4c73b69eb039a6b81e3417060868894366a3129656",
+          "bytes": 85438
+        }
+      ]
+    },
+    {
+      "study": "NOR55",
+      "cases": 60,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 4,
+      "registered_gates_total": 5,
+      "selected_endpoint": "signed compact / signed JSON on 16 sparse m3073",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.851483,
+      "strict_threshold_below": 0.85,
+      "count_result": null,
+      "timed_scope": "signed envelope validation and supplied inverse verification/full root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor55_compact_witness/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor55_compact_witness/RESULTS.md",
+          "sha256": "ed6288be98c03000f3fdf6eddb9db5b5ea2f27a189e4789c459bb212339475f4",
+          "bytes": 7357
+        },
+        {
+          "path": "research/nor55_compact_witness/results/nor55_first_receipt.json",
+          "sha256": "c1847c57932834212e14d872c64d0f6e7f3bc8406ffe2732d05b523fea271aed",
+          "bytes": 9934
+        },
+        {
+          "path": "research/nor55_compact_witness/results/nor55_first_original_hosted.zip",
+          "sha256": "f16ed7e1397b863c0dd00175f64a31a15ba61fbfc0667cf002990f732f7d946a",
+          "bytes": 114163
+        }
+      ]
+    },
+    {
+      "study": "NOR56",
+      "cases": 60,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 3,
+      "registered_gates_total": 5,
+      "selected_endpoint": "signed batch-table v2 / signed compact v1 on 16 sparse m3073",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.978214,
+      "strict_threshold_below": 0.92,
+      "count_result": null,
+      "timed_scope": "signed envelope validation and supplied inverse verification/full root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor56_batch_codec/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor56_batch_codec/RESULTS.md",
+          "sha256": "b7ea883c32f09981af503dec201db8353df2d53b466049f88c3cced959669065",
+          "bytes": 5952
+        },
+        {
+          "path": "research/nor56_batch_codec/results/nor56_first_receipt.json",
+          "sha256": "75cae1f95474eac38f0794995a23d4279a2ee01f96b7acef840b479faafa206e",
+          "bytes": 12205
+        },
+        {
+          "path": "research/nor56_batch_codec/results/nor56_first_original_hosted.zip",
+          "sha256": "73a0822822594e1229b4fababee1400b22bddb4e5a06ae87d57e1385788833c3",
+          "bytes": 133874
+        }
+      ]
+    },
+    {
+      "study": "NOR57",
+      "cases": 60,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "UNSCORED_ENGINEERING_FAIL",
+      "registered_gates_passed": null,
+      "registered_gates_total": 5,
+      "selected_endpoint": "fixed selector / always GMP",
+      "aggregation": "ratio_of_sums_source_medians",
+      "reported_ratio": null,
+      "strict_threshold_below": 0.95,
+      "count_result": null,
+      "timed_scope": "final first CPU JSON absent; five first gates unscored",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor57_authenticated_router/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor57_authenticated_router/RESULTS.md",
+          "sha256": "e47b7e51d4495b708ec2e15dfe06ccb9186a1617557c01f6c74736921a3284ea",
+          "bytes": 3903
+        },
+        {
+          "path": "research/nor57_authenticated_router/results/nor57_first_failure_receipt.json",
+          "sha256": "2cdcead79eb6b692ffdcc737010cd311ceb78aeaa4e67f3d6d1ddefc543d7d49",
+          "bytes": 1409
+        },
+        {
+          "path": "research/nor57_authenticated_router/results/nor57_first_original_failure_hosted.zip",
+          "sha256": "d6feae134d340a4f15535b4bcc14e9800da3d559213f51203895c1c0c70b72c5",
+          "bytes": 64842
+        }
+      ]
+    },
+    {
+      "study": "NOR57B",
+      "cases": 60,
+      "cohort_status": "fresh prospective successor cohort",
+      "first_verdict": "FAIL",
+      "registered_gates_passed": 4,
+      "registered_gates_total": 5,
+      "selected_endpoint": "fixed selector / always GMP on 60 sources",
+      "aggregation": "ratio_of_sums_source_medians",
+      "reported_ratio": 0.989961,
+      "strict_threshold_below": 0.95,
+      "count_result": null,
+      "timed_scope": "identical signed v2 envelope acceptance and complete root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor57b_independent/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor57b_independent/RESULTS.md",
+          "sha256": "60655a94e7fdff71220e29647e37054d5881061228a20548acf7b01222c5c7e4",
+          "bytes": 8672
+        },
+        {
+          "path": "research/nor57b_independent/results/nor57b_first_receipt.json",
+          "sha256": "7cc7c66b2143b308200069f4c8a0fe2cb787ec02e19636d4a17f470f2a75054c",
+          "bytes": 6692
+        },
+        {
+          "path": "research/nor57b_independent/results/nor57b_first_original_hosted.zip",
+          "sha256": "ec8476d8fae5831a2338e779b4d1e0c1fd2175dc341cb5478975c4f6d3a79e1a",
+          "bytes": 91545
+        }
+      ]
+    },
+    {
+      "study": "NOR58",
+      "cases": 60,
+      "cohort_status": "new prospective source identities",
+      "first_verdict": "PASS",
+      "registered_gates_passed": 5,
+      "registered_gates_total": 5,
+      "selected_endpoint": "warm static / original Merkle on 60 sources",
+      "aggregation": "ratio_of_sums_source_medians",
+      "reported_ratio": 0.911459,
+      "strict_threshold_below": 0.95,
+      "count_result": null,
+      "timed_scope": "signed inverse-witness verifier and complete root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor58_static_merkle/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor58_static_merkle/RESULTS.md",
+          "sha256": "ee07e784c7355d96a3d9392752e11e5bc117a0a1ee6054a72f092360c4d3a5f6",
+          "bytes": 6739
+        },
+        {
+          "path": "research/nor58_static_merkle/results/nor58_first_receipt.json",
+          "sha256": "ed2e5da92b07d941ef0d5af23135dfccc2f04bdc691c4698fec4a82f22c58d61",
+          "bytes": 14319
+        },
+        {
+          "path": "research/nor58_static_merkle/results/nor58_first_original_hosted.zip",
+          "sha256": "5b0c2b18004cb6f04e29283a8b4dd4342e43705f4c65c09df80df767950d218d",
+          "bytes": 95197
+        }
+      ]
+    },
+    {
+      "study": "NOR59",
+      "cases": 60,
+      "cohort_status": "new prospective source/program identities",
+      "first_verdict": "PASS",
+      "registered_gates_passed": 5,
+      "registered_gates_total": 5,
+      "selected_endpoint": "warm static / original Merkle on 40 sparse authorized programs",
+      "aggregation": "median_sourcewise",
+      "reported_ratio": 0.9591404063964948,
+      "strict_threshold_below": 1.02,
+      "count_result": null,
+      "timed_scope": "complete NOR45 signatures, program execution, full root",
+      "ratio_precision": "as printed in RESULTS.md, except NOR59 full archived precision",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/blob/714a7f5e1203289ef053dfa5becaa3537d1b946b/research/nor59_authorized_merkle/RESULTS.md",
+      "files": [
+        {
+          "path": "research/nor59_authorized_merkle/RESULTS.md",
+          "sha256": "4b454b3727eca48bdf05d7eedbbb8899e049e7d8cbc0e2cb8a6e2d3a1da90d0e",
+          "bytes": 6722
+        },
+        {
+          "path": "research/nor59_authorized_merkle/results/nor59_first_receipt.json",
+          "sha256": "e46e272c4cc1a9859071c1a9d6fe6a88aeca5193b89ac9c50f7c7c2dac430734",
+          "bytes": 12680
+        },
+        {
+          "path": "research/nor59_authorized_merkle/results/nor59_first_original_hosted.zip",
+          "sha256": "3249ffb69ebd0eba11669609a79e3e52f3d43b176c6320254a469cdb057e3e0b",
+          "bytes": 109861
+        }
+      ]
+    },
+    {
+      "study": "NOR60",
+      "cases": 60,
+      "cohort_status": "new prospective full-query and program-input content-disjoint source/program identities",
+      "first_verdict": "PASS",
+      "registered_gates_passed": 5,
+      "registered_gates_total": 5,
+      "selected_endpoint": "combined optimized interpreter and warm static root / original complete signed verifier on 60 sources",
+      "aggregation": "ratio_of_sums_source_medians",
+      "reported_ratio": 0.5639610500187702,
+      "strict_threshold_below": 0.8,
+      "count_result": "60/60 exact vectors and roots; 300 signed session bundles; 1200 primary samples",
+      "timed_scope": "complete NOR45 authority, precommit, provider and query/session checks; full exact program execution and complete indexed root",
+      "ratio_precision": "full archived floating-point summary recomputed from original five-repeat samples",
+      "report_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44327994013",
+      "registration_commit": "363ef19abeba68e2897c593697ad56e2aaf4fefc",
+      "source_commit": "a7edfa6850206fc01a9a67650e09ddd31d198766",
+      "first_run_id": 44327994013,
+      "first_source_artifact_id": 14438371253,
+      "first_cpu_artifact_id": 14436529899,
+      "original_raw_members": [
+        {
+          "member_name": "nor60_first_original_cpu.json",
+          "sha256": "fba38d6346d35b371464c1d811360879918aeccc0a8932538b6f3206cc4bc52d",
+          "bytes": 27720732
+        },
+        {
+          "member_name": "nor60_first_original_60_public_only.json",
+          "sha256": "b44655796bdc4c9ed47fade2cd9cd563985d0b40ca1177856bb45f36d17185fd",
+          "bytes": 1021038
+        },
+        {
+          "member_name": "nor60_first_original_progress.jsonl",
+          "sha256": "48828148a4dbce8d53e86002f5029902f4e80857ec6f53eddd25c09b3fe21dea",
+          "bytes": 898921
+        }
+      ],
+      "primary_gates": {
+        "all60_combined_ratio_of_sums_under_0p80": true,
+        "all60_exact_signed_output_root_and_security": true,
+        "first_source_and_evidence_integrity": true,
+        "profile4_12_interpreter_ratio_median_under_0p65": true,
+        "sparse40_interpreter_ratio_median_under_0p70": true
+      },
+      "original_full_workload_ms": {
+        "optimized_interpreter_full_root": 4751.423296,
+        "optimized_interpreter_warm_root": 4673.229136,
+        "original_interpreter_full_root": 8286.439526,
+        "original_interpreter_warm_root": 8166.188945
+      },
+      "original_workload_ratios": {
+        "optimized_interpreter_full_root": 0.5733974502669894,
+        "optimized_interpreter_warm_root": 0.5639610500187702,
+        "original_interpreter_full_root": 1.0,
+        "original_interpreter_warm_root": 0.9854882690421266
+      },
+      "sparse_40_interpreter_median": 0.20419599493475604,
+      "profile4_12_interpreter_median": 0.11972620591979487,
+      "secondary_dense_profile4_4_interpreter_median": 0.3779104278756591,
+      "secondary_descriptive_bootstrap": {
+        "block_count": 10,
+        "bootstrap_repeats": 4096,
+        "descriptive_intervals": {
+          "optimized_interpreter_full_root": {
+            "descriptive_95pct_ten_block_interval": [
+              0.3749902143445089,
+              0.8158813800839209
+            ]
+          },
+          "optimized_interpreter_warm_root": {
+            "descriptive_95pct_ten_block_interval": [
+              0.3696560495538314,
+              0.7976679828112877
+            ]
+          },
+          "original_interpreter_warm_root": {
+            "descriptive_95pct_ten_block_interval": [
+              0.9658067791747034,
+              0.9988467409726622
+            ]
+          }
+        }
+      },
+      "files": [
+        {
+          "path": "research/nor60_authorized_interpreter/REGISTRATION.md",
+          "sha256": "6c943d776bea442783d30028def1fbe4a824270bf8fdda541169448f548df5aa",
+          "bytes": 12002
+        },
+        {
+          "path": "research/nor60_authorized_interpreter/REGISTRATION_SHA.txt",
+          "sha256": "e9f3043b46a88e873fb6bb8e767fd6b65d41ac1aec6aaa17942f4b4fdba9fbb9",
+          "bytes": 41
+        },
+        {
+          "path": "research/nor60_authorized_interpreter/optimized_execution.py",
+          "sha256": "e5e854f7dec5afd74772bb332c08bd97a4cf7932a669cc0fb7d0ee8b52789ead",
+          "bytes": 4388
+        },
+        {
+          "path": "research/nor60_authorized_interpreter/cohort.py",
+          "sha256": "771ac196943c1bfa2b0bbaaa24872908bd6ae527df138fff9e3930a9081219f1",
+          "bytes": 9380
+        },
+        {
+          "path": "research/nor60_authorized_interpreter/benchmark_cpu.py",
+          "sha256": "497d37f8b7b9f19ba0df0662577f48dd65552cca261facab98a76feafd925011",
+          "bytes": 24589
+        },
+        {
+          "path": "research/nor60_authorized_interpreter/results/nor60_first_original_hosted.zip",
+          "sha256": "c92e2c4e3bfcfd8e1371d1504c89d6812ac263ef270fc9d62e89d335f23da53c",
+          "bytes": 12310423
+        },
+        {
+          "path": "research/nor60_authorized_interpreter/results/nor60_first_receipt.json",
+          "sha256": "0bc8cdbe1c50737a12863186620d7ef40faa96509e4347392a66bad58ae471cb",
+          "bytes": 2571
+        }
+      ]
+    }
+  ],
+  "final_experiment_registration_commit": "363ef19abeba68e2897c593697ad56e2aaf4fefc",
+  "final_experiment_trigger_commit": "a7edfa6850206fc01a9a67650e09ddd31d198766"
+}

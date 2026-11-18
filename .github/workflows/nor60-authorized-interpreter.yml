@@ -1,0 +1,102 @@
+name: NOR-60 first frozen signed exact interpreter experiment
+
+on:
+  push:
+    branches:
+      - research/nor60-capstone-20261118
+    paths:
+      - 'research/nor60_authorized_interpreter/**'
+      - 'research/nor45_authorized_program/independent_execution_verifier.py'
+      - '.github/workflows/nor60-authorized-interpreter.yml'
+  pull_request:
+    paths:
+      - 'research/nor60_authorized_interpreter/**'
+      - 'research/nor45_authorized_program/independent_execution_verifier.py'
+      - '.github/workflows/nor60-authorized-interpreter.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nor60-first-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  source_free_security:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Check frozen registration when first-run marker is present
+        run: |
+          if test -f research/nor60_authorized_interpreter/REGISTRATION_SHA.txt; then
+            git merge-base --is-ancestor "$(cat research/nor60_authorized_interpreter/REGISTRATION_SHA.txt)" HEAD
+          fi
+          test -s research/nor60_authorized_interpreter/REGISTRATION.md
+      - name: Source-free exact and signed regression checks
+        run: |
+          python -m unittest research.nor60_authorized_interpreter.test_optimized_execution research.nor60_authorized_interpreter.test_cohort_integrity research.nor60_authorized_interpreter.test_reporting research.nor59_authorized_merkle.test_authorized_root research.nor45_authorized_program.test_program_authority research.nor44_session_protocol.test_session_protocol research.nor58_static_merkle.test_template -v
+          python -O -m unittest research.nor60_authorized_interpreter.test_optimized_execution research.nor60_authorized_interpreter.test_cohort_integrity research.nor60_authorized_interpreter.test_reporting -v
+          python research/nor59_authorized_merkle/original_archive_audit.py
+
+  freeze_first_public_sources:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR60-FIRST-CPU') && github.run_attempt == '1'
+    needs: source_free_security
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify prospective registration and freeze the first public inputs
+        run: |
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          git merge-base --is-ancestor "$(cat research/nor60_authorized_interpreter/REGISTRATION_SHA.txt)" HEAD
+          test ! -e research/nor60_authorized_interpreter/results/nor60_first_original_hosted.zip
+          python -u research/nor60_authorized_interpreter/cohort.py --public-only-out /tmp/nor60_first_original_60_public_only.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor60_first_original_60_public_only
+          path: /tmp/nor60_first_original_60_public_only.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_four_arm_cpu:
+    needs: freeze_first_public_sources
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor60_first_original_60_public_only
+          path: /tmp/nor60
+      - name: Record the first five-repeat complete signed experiment
+        run: |
+          test "$GITHUB_RUN_ATTEMPT" = 1
+          python -u research/nor60_authorized_interpreter/benchmark_cpu.py --public-file /tmp/nor60/nor60_first_original_60_public_only.json --repeats 5 --out /tmp/nor60/nor60_first_original_cpu.json --journal /tmp/nor60/nor60_first_original_progress.jsonl
+      - name: Retain first result or interruption evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nor60_first_original_cpu_and_evidence
+          path: /tmp/nor60/*
+          retention-days: 90
+          if-no-files-found: error

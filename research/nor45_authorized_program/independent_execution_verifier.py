@@ -161,7 +161,8 @@ def verify_authorized_execution(*,certificate:dict,query:Sequence[int],
     session_context:dict,precommit_receipt:dict,provider_reference:dict,
     pinned_program_authority_key:bytes,expected_program_authority_id:str,
     pinned_verifier_public_key:bytes,pinned_provider_public_key:bytes,
-    now_epoch:int=2, _root_policy:str="original")->dict:
+    now_epoch:int=2, _root_policy:str="original",
+    _interpreter_policy:str="original")->dict:
     """Authenticate an executable statement and fully verify provider root.
 
     Returns the independently computed vector only to the trusted verifier
@@ -214,8 +215,18 @@ def verify_authorized_execution(*,certificate:dict,query:Sequence[int],
         if statement[field]!=want:
             raise ProgramAttestationError(f"cross-session or source replay: {field}")
     program=statement["program"]
-    values=execute_authorized_program(
-        program,query,session_context["observed_degree"])
+    if _interpreter_policy=="original":
+        values=execute_authorized_program(
+            program,query,session_context["observed_degree"])
+    elif _interpreter_policy=="support_memoized":
+        # Fixed NOR60 implementation after the same original signature and
+        # independent source/session checks. Dynamic unary values live only
+        # within this invocation; no callback, result cache or supplied stride.
+        from research.nor60_authorized_interpreter import optimized_execution
+        values=optimized_execution.execute_authorized_program(
+            program,query,session_context["observed_degree"])
+    else:
+        raise ProgramAttestationError("unregistered internal NOR45 interpreter policy")
     if _root_policy=="original":
         independent_root=independently_computed_root(values)
     elif _root_policy in ("warm","cold"):
