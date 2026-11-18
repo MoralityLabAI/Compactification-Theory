@@ -1,0 +1,29 @@
+name: NOR-50 permanent original first CPU SHA and 4-of-5 FAIL audit
+
+on:
+  push:
+    paths:
+      - 'research/nor50_memoized_exact/results/**'
+      - 'research/nor50_memoized_exact/original_archive_audit.py'
+      - '.github/workflows/nor50-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor50_memoized_exact/results/**'
+      - 'research/nor50_memoized_exact/original_archive_audit.py'
+      - '.github/workflows/nor50-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_immutable_engineering_fail_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: SHA-verify original first CPU, new sources, routes, and 4-of-5 FAIL
+        run: python research/nor50_memoized_exact/original_archive_audit.py
