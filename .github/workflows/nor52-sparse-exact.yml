@@ -1,0 +1,145 @@
+name: NOR-52 preregistered source-first exact sparse-support CPU
+
+on:
+  push:
+    branches:
+      - research/nor52-sparse-exact-cpu-20261118
+    paths:
+      - 'research/nor52_sparse_inverse/**'
+      - '.github/workflows/nor52-sparse-exact.yml'
+  pull_request:
+    paths:
+      - 'research/nor52_sparse_inverse/**'
+      - '.github/workflows/nor52-sparse-exact.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  source_free_registration_and_predata_controls:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 85
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact GMP and signed native runtimes
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Confirm first original NOR52 protocol registration precedes any source
+        run: |
+          git merge-base --is-ancestor 9526627e21b429e7fea1928b3ddfb0e1dadc5e74 HEAD
+          test -s research/nor52_sparse_inverse/REGISTRATION.md
+      - name: Compile the new source, exact algebra, diagnostic and CPU modules
+        run: python -m compileall -q research/nor52_sparse_inverse
+      - name: Strict toy/historical-only exhaustive algebra and forged witness tests
+        run: python -m unittest research.nor52_sparse_inverse.test_algebra -v
+      - name: Keep original NOR51 first FAIL and independently tested signed model controls
+        run: |
+          python research/nor51_exact_r_crossover/original_archive_audit.py
+          python -m unittest research.nor51_exact_r_crossover.test_algebra -v
+          python -m unittest research.nor50_memoized_exact.test_cached -v
+      - name: Check 60-case source contract only, do not generate new sources
+        run: |
+          python - <<'PY'
+          from research.nor52_sparse_inverse import cohort
+          assert len(cohort.REPS)*len(cohort.LENGTHS)*len(cohort.PROFILES)*len(cohort.FAMILIES)==60
+          assert cohort.REGISTERED=='9526627e21b429e7fea1928b3ddfb0e1dadc5e74'
+          assert len(cohort.first_prior_source_ids())==48
+          print('NOR52 source-free prospective gates PASS')
+          PY
+
+  first_original_public_only_60_source_roster:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR52-FIRST-CPU')
+    needs: source_free_registration_and_predata_controls
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Freeze 60 previously unused public-only source identities before timing
+        run: |
+          python -u research/nor52_sparse_inverse/cohort.py \
+            --public-only-out /tmp/nor52_first_public_only_60_sources.json
+      - name: Independently audit source SHA, 10 blocks and forbidden private witness fields
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from collections import Counter
+          from research.nor52_sparse_inverse import cohort
+          path=Path('/tmp/nor52_first_public_only_60_sources.json')
+          fixture,sha=cohort.read_fixture(path)
+          cases=fixture['cases']
+          assert len(cases)==len({x['source_sha256'] for x in cases})==60
+          assert Counter(x['length'] for x in cases)=={769:20,1537:20,3073:20}
+          assert Counter(x['stride'] for x in cases)=={1:12,4:36,8:12}
+          assert all(not set(c).intersection(('inverse','root','witness',
+                       'trace','private_target','timing','merkle')) for c in cases)
+          assert fixture['no_inverse_trace_root_or_timing']
+          print('NOR52 FIRST IMMUTABLE SOURCE ONLY BYTES SHA',path.stat().st_size,sha)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor52_first_original_60_public_only_sources
+          path: /tmp/nor52_first_public_only_60_sources.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_original_four_arm_five_repeat_cpu:
+    needs: first_original_public_only_60_source_roster
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin original NOR47 signed GMP and cryptography dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor52_first_original_60_public_only_sources
+          path: /tmp/nor52
+      - name: Run first frozen exact 60-source support compression CPU and untimed phases
+        run: |
+          python -u research/nor52_sparse_inverse/benchmark_cpu.py \
+            --public-file /tmp/nor52/nor52_first_public_only_60_sources.json \
+            --repeats 5 --out /tmp/nor52/nor52_first_original_cpu.json
+      - name: Preserve first PASS or FAIL flags, source IDs and raw first CPU digest
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from hashlib import sha256
+          import json
+          p=Path('/tmp/nor52/nor52_first_original_cpu.json')
+          raw=p.read_bytes()
+          x=json.loads(raw)
+          assert x['schema']=='nor52.first_60_exact_sparse_support_compression_cpu.v1'
+          assert x['registration_first_sha']=='9526627e21b429e7fea1928b3ddfb0e1dadc5e74'
+          assert x['source_count']==60 and len(x['source_records'])==60
+          assert x['repeats']==5 and len(x['arms'])==4
+          assert len(x['first_original_five_registered_gates'])==5
+          assert all(type(v) is bool for v in x['first_original_five_registered_gates'].values())
+          assert x['first_original_engineering_pass']==all(x['first_original_five_registered_gates'].values())
+          print('NOR52 FIRST ORIGINAL CPU RAW BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR52 FIRST ORIGINAL FIVE GATES',x['first_original_five_registered_gates'])
+          print('NOR52 FIRST ENGINEERING PASS',x['first_original_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor52_first_original_60_exact_sparse_cpu
+          path: |
+            /tmp/nor52/nor52_first_original_cpu.json
+            /tmp/nor52/nor52_first_public_only_60_sources.json
+          retention-days: 90
+          if-no-files-found: warn
