@@ -1,0 +1,29 @@
+name: NOR-53 permanent original first source SHA and 5-of-5 exact PASS audit
+
+on:
+  push:
+    paths:
+      - 'research/nor53_native_pack/results/**'
+      - 'research/nor53_native_pack/original_archive_audit.py'
+      - '.github/workflows/nor53-archived-audit.yml'
+  pull_request:
+    paths:
+      - 'research/nor53_native_pack/results/**'
+      - 'research/nor53_native_pack/original_archive_audit.py'
+      - '.github/workflows/nor53-archived-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_first_source_locked_gmp_CPU_evidence_audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Audit raw first CPU/source SHA, 60 sourcewise exact roots and five PASS gates
+        run: python research/nor53_native_pack/original_archive_audit.py
