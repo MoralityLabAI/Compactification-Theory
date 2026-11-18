@@ -1,0 +1,69 @@
+{
+  "cpu_model": "AMD EPYC 9V45 96-Core Processor",
+  "first_artifact_id": 14405524398,
+  "first_engineering_pass": false,
+  "first_registration_sha": "26b70716ec3d3830031919e593d3092cc31ae162",
+  "first_roster_artifact_id": 14405483325,
+  "first_run": 44256305944,
+  "gmp_backend": {
+    "algorithm": "exact carry-free Kronecker, original NOR46 no-carry bound",
+    "claimed_cryptographic_soundness": false,
+    "claimed_proof_succinctness": false,
+    "gmp_version": "GMP 6.3.0",
+    "gmpy2_version": "2.3.2",
+    "max_coefficient_bits": 32768,
+    "max_packed_bits": 120000000
+  },
+  "original_by_R_count": {
+    "0": {
+      "count": 19,
+      "median_nor48_over_direct": 1.0017269645765288,
+      "median_nor49_over_direct": 1.0019121347234665,
+      "median_nor49_over_nor48": 1.0000289831549904,
+      "median_source_direct_ms": 1.479184,
+      "median_source_nor49_ms": 1.486505
+    },
+    "1": {
+      "count": 15,
+      "median_nor48_over_direct": 1.0651847369153415,
+      "median_nor49_over_direct": 1.0002300752765894,
+      "median_nor49_over_nor48": 0.9445598353466881,
+      "median_source_direct_ms": 76.000563,
+      "median_source_nor49_ms": 76.321289
+    },
+    "2": {
+      "count": 12,
+      "median_nor48_over_direct": 0.47277916999394487,
+      "median_nor49_over_direct": 0.4712518489123739,
+      "median_nor49_over_nor48": 0.9997825886543614,
+      "median_source_direct_ms": 40.0075485,
+      "median_source_nor49_ms": 19.416565499999997
+    },
+    "3": {
+      "count": 2,
+      "median_nor48_over_direct": 0.4054192092721345,
+      "median_nor49_over_direct": 0.3989381882167097,
+      "median_nor49_over_nor48": 0.9815398203278656,
+      "median_source_direct_ms": 165.279013,
+      "median_source_nor49_ms": 59.894904499999996
+    },
+    "4": {
+      "count": 0
+    }
+  },
+  "original_gates": {
+    "all_exact_source_program_and_roots": true,
+    "first_source_freeze_reentrant_and_five_repeats": true,
+    "median_nor49_over_direct_less_than_0p75": false,
+    "median_nor49_over_nor48_less_than_0p95": false,
+    "signed_program_r_count_only_routing": true
+  },
+  "original_primary_median": 0.9995949312073448,
+  "original_raw_bytes": 84469,
+  "original_raw_sha256": "c3f4a67b20df4504461c65168f6006041f2cc839aabdda054032a6f89bd24e4b",
+  "original_roster_bytes": 13081,
+  "original_roster_sha256": "40929d52abddc5a15e82ec8e8101fba265d39e28239172c7e9fcaca4f6f0d2ae",
+  "original_secondary_median": 0.9999505379197369,
+  "schema": "nor49.original_cpu_first_archive.v1",
+  "scope": "Historical-source timing-prospective CPU engineering; no new scientific model evaluation. Exact nonsuccinct execution; provider honesty external."
+}

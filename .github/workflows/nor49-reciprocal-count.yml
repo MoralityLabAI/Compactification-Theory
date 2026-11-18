@@ -1,0 +1,151 @@
+name: NOR-49 preregistered 48 timing-clean source exact backend dispatch
+
+on:
+  push:
+    branches:
+      - research/nor49-reciprocal-count-holdout-20261118
+    paths:
+      - 'research/nor49_reciprocal_count_dispatch/**'
+      - '.github/workflows/nor49-reciprocal-count.yml'
+  pull_request:
+    paths:
+      - 'research/nor49_reciprocal_count_dispatch/**'
+      - '.github/workflows/nor49-reciprocal-count.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  original_registration_and_training_only_gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact cryptographic and GMP runtimes
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Verify original timing-preregistration commit predated benchmark generation
+        run: |
+          git merge-base --is-ancestor 26b70716ec3d3830031919e593d3092cc31ae162 HEAD
+          test -s research/nor49_reciprocal_count_dispatch/REGISTRATION.md
+      - name: Training-only 16-source selector tests, zero prospective 48-source timings
+        run: |
+          python -m compileall -q research/nor49_reciprocal_count_dispatch
+          python -m unittest research.nor49_reciprocal_count_dispatch.test_selector -v
+      - name: Validate exact original NOR48 first raw SHA and frozen training roster
+        run: |
+          python research/nor48_program_dispatch/original_archive_audit.py
+          python - <<'PY'
+          from research.nor49_reciprocal_count_dispatch import cohort,selector
+          assert len(cohort.nor48.source_provenance())==16
+          assert selector.THRESHOLD==2
+          assert cohort.TEST_REPS==(
+            101,102,103,105,106,107,109,110,111,113,114,115)
+          print('NOR49 training-only original SHA guard passed')
+          PY
+
+  first_original_public_only_timing_clean_roster:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, 'NOR49-FIRST-CPU')
+    needs: original_registration_and_training_only_gates
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin historical SHA-archive import dependencies
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - name: Freeze 48 unseen-timing SOURCE IDs before any CPU benchmark
+        run: |
+          python research/nor49_reciprocal_count_dispatch/cohort.py \
+            --out /tmp/nor49_first_timing_clean_roster.json
+      - name: Independent first roster-only admission, 16 timing-trained exclusions
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+          from hashlib import sha256
+          raw=Path('/tmp/nor49_first_timing_clean_roster.json').read_bytes()
+          f=json.loads(raw)
+          assert f['schema']=='nor49.first_fixed_timing_clean_nor42_source_roster.v1'
+          assert f['first_registration_sha']=='26b70716ec3d3830031919e593d3092cc31ae162'
+          assert f['timing_clean_source_count']==48 and f['training_source_count']==16
+          assert f['no_new_source_identity_created'] and f['no_holdout_timing_observed']
+          assert f['selection_contains_no_program_or_private_truth']
+          assert len({r['source_sha256'] for r in f['cases']})==48
+          assert Counter(r['replicate'] for r in f['cases'])=={
+            r:4 for r in (101,102,103,105,106,107,109,110,111,113,114,115)}
+          assert all(r['public_mask_cardinality']==1 for r in f['cases'])
+          print('NOR49 FIRST TIMING-CLEAN SOURCE ROSTER BYTES SHA256',
+                len(raw),sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nor49_first_original_48_timing_clean_source_roster
+          path: /tmp/nor49_first_timing_clean_roster.json
+          retention-days: 90
+          if-no-files-found: error
+
+  first_registered_five_repeat_CPU:
+    needs: first_original_public_only_timing_clean_roster
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    env:
+      PYTHONHASHSEED: '0'
+      OMP_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pin exact GMP and cryptography runtime
+        run: python -m pip install --disable-pip-version-check cryptography==46.0.4 gmpy2==2.3.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: nor49_first_original_48_timing_clean_source_roster
+          path: /tmp/nor49
+      - name: First precommitted 48 source 5-repetition interleaved 4-arm exact verifier benchmark
+        run: |
+          python -u research/nor49_reciprocal_count_dispatch/benchmark_cpu.py \
+            --roster /tmp/nor49/nor49_first_timing_clean_roster.json \
+            --repeats 5 --out /tmp/nor49/nor49_first_original_cpu.json
+      - name: Preserve original science PASS or FAIL and original raw sha
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from hashlib import sha256
+          from collections import Counter
+          raw=Path('/tmp/nor49/nor49_first_original_cpu.json').read_bytes()
+          g=json.loads(raw)
+          assert g['schema']=='nor49.first_timing_clean_48_source_r_count_dispatch_cpu.v1'
+          assert g['registration_first_commit']=='26b70716ec3d3830031919e593d3092cc31ae162'
+          assert g['source_pairs']==48 and g['new_source_identities']==0
+          assert g['repeat_count']==5
+          assert len(g['source_records'])==48
+          assert len({r['source_sha256'] for r in g['source_records']})==48
+          assert len(g['first_engineering_gates'])==5
+          assert all(type(x) is bool for x in g['first_engineering_gates'].values())
+          assert g['first_engineering_pass']==all(g['first_engineering_gates'].values())
+          assert g['first_holdout_timing_not_used_to_choose_rule']
+          assert g['no_global_convolution_override']
+          print('NOR49 FIRST ORIGINAL CPU BYTES SHA256',len(raw),sha256(raw).hexdigest())
+          print('NOR49 FIRST ORIGINAL GATES',g['first_engineering_gates'])
+          print('NOR49 FIRST ENGINEERING PASS',g['first_engineering_pass'])
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: nor49_first_original_48_timing_clean_cpu
+          path: |
+            /tmp/nor49/nor49_first_original_cpu.json
+            /tmp/nor49/nor49_first_timing_clean_roster.json
+          retention-days: 90
+          if-no-files-found: warn
