@@ -9,6 +9,8 @@ import argparse,json,random,sys
 from collections import Counter
 from hashlib import sha256
 from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:sys.path.insert(0,str(ROOT))
 from research.rrc_compactification import compound25 as corpus
 from research.nor21_degree_scaling import experiment as nor21
 from research.nor41_scale_ood import experiment as nor41
