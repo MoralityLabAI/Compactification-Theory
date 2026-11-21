@@ -1,0 +1,530 @@
+{
+  "allocator_fraction_cap": 0.08,
+  "claims": {
+    "all_inactive_sessions_host_resident_in_host_dram": true,
+    "capacity_gain_measured_as_oom_threshold": false,
+    "output_equivalence_is_bitwise_per_active_batch_shape": true,
+    "transfer_compute_overlap": false
+  },
+  "clean_oversized_resident_baseline": {
+    "allocator_cap_bytes": 1367558062,
+    "batch_size_reduced": false,
+    "outcome": {
+      "allocated_after_failure_bytes": 11147776,
+      "error": "CUDA out of memory. Tried to allocate 1.28 GiB. GPU 0 has a total capacity of 15.92 GiB of which 14.54 GiB is free. 1.27 GiB allowed; Of the allocated memory 10.63 MiB is allocated by PyTorch, and 13.37 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)",
+      "outcome": "out_of_memory"
+    },
+    "requested_state_bytes": 1369440256,
+    "session_count": 653
+  },
+  "configuration": {
+    "active": "1,4,8",
+    "batch": 8,
+    "heads": 4,
+    "loops": 32,
+    "max_seconds": 180.0,
+    "max_vram_fraction": 0.08,
+    "out": "research\\recurrent_circuits_v1\\results\\multitenant_dram_bf16.json",
+    "pointer_steps": 128,
+    "pointer_table_size": 1048576,
+    "residence": "1,8,32",
+    "sessions": 16,
+    "tokens": 512,
+    "width": 256
+  },
+  "cuda_runtime": "12.8",
+  "device": "NVIDIA GeForce RTX 5080 Laptop GPU",
+  "dtype": "bfloat16",
+  "evidence": "measured_cuda_multitenant_transport_prototype",
+  "global_nvidia_smi_after": {
+    "gpu_memory_line": "| N/A   81C    P0            136W /  150W |    2275MiB /  16303MiB |     49%      Default |",
+    "gpu_name_line": "|   0  NVIDIA GeForce RTX 5080 ...  WDDM  |   00000000:C5:00.0 Off |                  N/A |",
+    "gpu_utilization_line": "|                                         |                        |                  N/A |",
+    "telemetry": "WDDM table; process owner not exposed"
+  },
+  "global_nvidia_smi_before": {
+    "gpu_memory_line": "| N/A   81C    P0            136W /  150W |    2275MiB /  16303MiB |     49%      Default |",
+    "gpu_name_line": "|   0  NVIDIA GeForce RTX 5080 ...  WDDM  |   00000000:C5:00.0 Off |                  N/A |",
+    "gpu_utilization_line": "|                                         |                        |                  N/A |",
+    "telemetry": "WDDM table; process owner not exposed"
+  },
+  "host_memory_after": {
+    "available_bytes": 1409589248,
+    "load_percent": 95,
+    "total_bytes": 33412730880
+  },
+  "host_memory_before": {
+    "available_bytes": 1434361856,
+    "load_percent": 95,
+    "total_bytes": 33412730880
+  },
+  "model_weight_sha256": "359b551e3dfbdce71946084be6857286b1638dc1f59c640f8dc92929d3516a43",
+  "random_pointer_chasing": {
+    "d2h_bytes": 512,
+    "dependent_hops_per_second": 11966.754843060173,
+    "elapsed_seconds": 0.010696300014387816,
+    "final_address": 806759,
+    "gpu_mediated_address_matches_cpu_oracle": true,
+    "h2d_bytes": 512,
+    "method": "each hop copies current GPU address to pinned CPU, gathers dependent host pointer, copies next address back; no prefetch overlap",
+    "steps": 128,
+    "table_bytes_pinned": 4194304,
+    "table_entries": 1048576
+  },
+  "records": [
+    {
+      "active_sessions": 1,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_reference": true,
+      "d2h_bytes_hot": 0,
+      "end_to_end_seconds": 0.5174124000477605,
+      "h2d_bytes_hot": 0,
+      "host_ram_after": {
+        "available_bytes": 1487220736,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1785688064,
+        "load_percent": 94,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.5036870000185445,
+      "initialization_input_bytes_h2d": 33554432,
+      "initialization_seconds": 0.00441830005729571,
+      "loops_per_residence": 32,
+      "mode": "resident",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 61479424,
+      "peak_reserved_bytes": 79691776,
+      "per_session_latency_seconds": 0.03148043750115903,
+      "pinned_host_bytes": 0,
+      "process_rss": {
+        "peak_working_set_bytes": 977567744,
+        "working_set_bytes": 977567744
+      },
+      "terminal_copy_seconds": 0.009307099971920252,
+      "terminal_output_bytes_d2h": 33554432,
+      "useful_transitions_per_second": 1016.504297274199
+    },
+    {
+      "active_sessions": 1,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 1073741824,
+      "end_to_end_seconds": 0.8243699999875389,
+      "h2d_bytes_hot": 1073741824,
+      "host_ram_after": {
+        "available_bytes": 1500332032,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1481641984,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.8124839999945834,
+      "hot_slowdown_vs_resident": 1.613073198166063,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.011885999992955476,
+      "loops_per_residence": 1,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 30022144,
+      "peak_reserved_bytes": 46137344,
+      "per_session_latency_seconds": 0.050780249999661464,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1011281920,
+        "working_set_bytes": 1011281920
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 630.1662555858495
+    },
+    {
+      "active_sessions": 1,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 134217728,
+      "end_to_end_seconds": 0.37796330003766343,
+      "h2d_bytes_hot": 134217728,
+      "host_ram_after": {
+        "available_bytes": 1491382272,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1496940544,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.37311280000722036,
+      "hot_slowdown_vs_resident": 0.7407632120612271,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.004850500030443072,
+      "loops_per_residence": 8,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 30022144,
+      "peak_reserved_bytes": 46137344,
+      "per_session_latency_seconds": 0.023319550000451272,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1044840448,
+        "working_set_bytes": 1011331072
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 1372.2391726847536
+    },
+    {
+      "active_sessions": 1,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 33554432,
+      "end_to_end_seconds": 0.3020028999890201,
+      "h2d_bytes_hot": 33554432,
+      "host_ram_after": {
+        "available_bytes": 1358114816,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1473888256,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.2978517999872565,
+      "hot_slowdown_vs_resident": 0.5913430364021512,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.004151100001763552,
+      "loops_per_residence": 32,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 30022144,
+      "peak_reserved_bytes": 46137344,
+      "per_session_latency_seconds": 0.018615737499203533,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1044889600,
+        "working_set_bytes": 1011335168
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 1718.9756785821194
+    },
+    {
+      "active_sessions": 4,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_reference": true,
+      "d2h_bytes_hot": 0,
+      "end_to_end_seconds": 0.2245081000146456,
+      "h2d_bytes_hot": 0,
+      "host_ram_after": {
+        "available_bytes": 1527402496,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1358659584,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.21556619997136295,
+      "initialization_input_bytes_h2d": 33554432,
+      "initialization_seconds": 0.004227199999149889,
+      "loops_per_residence": 32,
+      "mode": "resident",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 111811072,
+      "peak_reserved_bytes": 171966464,
+      "per_session_latency_seconds": 0.013472887498210184,
+      "pinned_host_bytes": 0,
+      "process_rss": {
+        "peak_working_set_bytes": 1044893696,
+        "working_set_bytes": 1011511296
+      },
+      "terminal_copy_seconds": 0.004714700044132769,
+      "terminal_output_bytes_d2h": 33554432,
+      "useful_transitions_per_second": 2375.140444411123
+    },
+    {
+      "active_sessions": 4,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 1073741824,
+      "end_to_end_seconds": 0.45110560004832223,
+      "h2d_bytes_hot": 1073741824,
+      "host_ram_after": {
+        "available_bytes": 1420800000,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1522728960,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.4467144000227563,
+      "hot_slowdown_vs_resident": 2.0722840597556593,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.004391200025565922,
+      "loops_per_residence": 1,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 86645248,
+      "peak_reserved_bytes": 125829120,
+      "per_session_latency_seconds": 0.02791965000142227,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1045073920,
+        "working_set_bytes": 1011556352
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 1146.1461729774503
+    },
+    {
+      "active_sessions": 4,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 134217728,
+      "end_to_end_seconds": 0.24634760001208633,
+      "h2d_bytes_hot": 134217728,
+      "host_ram_after": {
+        "available_bytes": 1332113408,
+        "load_percent": 96,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1396039680,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.2422148000332527,
+      "hot_slowdown_vs_resident": 1.1236214214725215,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.004132799978833646,
+      "loops_per_residence": 8,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 86645248,
+      "peak_reserved_bytes": 125829120,
+      "per_session_latency_seconds": 0.015138425002078293,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1045114880,
+        "working_set_bytes": 1011568640
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 2113.826239890005
+    },
+    {
+      "active_sessions": 4,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 33554432,
+      "end_to_end_seconds": 0.21966929995687678,
+      "h2d_bytes_hot": 33554432,
+      "host_ram_after": {
+        "available_bytes": 1414574080,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1327079424,
+        "load_percent": 96,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.21531519998097792,
+      "hot_slowdown_vs_resident": 0.9988356245533002,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.004354099975898862,
+      "loops_per_residence": 32,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 86645248,
+      "peak_reserved_bytes": 125829120,
+      "per_session_latency_seconds": 0.01345719999881112,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1045127168,
+        "working_set_bytes": 1011568640
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 2377.909223525477
+    },
+    {
+      "active_sessions": 8,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_reference": true,
+      "d2h_bytes_hot": 0,
+      "end_to_end_seconds": 0.2163048999500461,
+      "h2d_bytes_hot": 0,
+      "host_ram_after": {
+        "available_bytes": 1411571712,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1412677632,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.20773869997356087,
+      "initialization_input_bytes_h2d": 33554432,
+      "initialization_seconds": 0.0037666999851353467,
+      "loops_per_residence": 32,
+      "mode": "resident",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 178919936,
+      "peak_reserved_bytes": 293601280,
+      "per_session_latency_seconds": 0.012983668748347554,
+      "pinned_host_bytes": 0,
+      "process_rss": {
+        "peak_working_set_bytes": 1045127168,
+        "working_set_bytes": 1011568640
+      },
+      "terminal_copy_seconds": 0.004799499991349876,
+      "terminal_output_bytes_d2h": 33554432,
+      "useful_transitions_per_second": 2464.6346591422916
+    },
+    {
+      "active_sessions": 8,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 1073741824,
+      "end_to_end_seconds": 0.3650810999679379,
+      "h2d_bytes_hot": 1073741824,
+      "host_ram_after": {
+        "available_bytes": 1373519872,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1395556352,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.3614469000021927,
+      "hot_slowdown_vs_resident": 1.7399112445018403,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.0036341999657452106,
+      "loops_per_residence": 1,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 162142720,
+      "peak_reserved_bytes": 276824064,
+      "per_session_latency_seconds": 0.022590431250137044,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1045127168,
+        "working_set_bytes": 1011597312
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 1416.528956250265
+    },
+    {
+      "active_sessions": 8,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 134217728,
+      "end_to_end_seconds": 0.21266670007025823,
+      "h2d_bytes_hot": 134217728,
+      "host_ram_after": {
+        "available_bytes": 1279115264,
+        "load_percent": 96,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1342562304,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.20849580003414303,
+      "hot_slowdown_vs_resident": 1.003644482519042,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.004170900036115199,
+      "loops_per_residence": 8,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 162142720,
+      "peak_reserved_bytes": 276824064,
+      "per_session_latency_seconds": 0.01303098750213394,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1045155840,
+        "working_set_bytes": 1011646464
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 2455.6849582397126
+    },
+    {
+      "active_sessions": 8,
+      "all_sessions_completed": 16,
+      "bitwise_equal_to_resident": true,
+      "d2h_bytes_hot": 33554432,
+      "end_to_end_seconds": 0.19575499999336898,
+      "h2d_bytes_hot": 33554432,
+      "host_ram_after": {
+        "available_bytes": 1440882688,
+        "load_percent": 95,
+        "total_bytes": 33412730880
+      },
+      "host_ram_before": {
+        "available_bytes": 1269362688,
+        "load_percent": 96,
+        "total_bytes": 33412730880
+      },
+      "hot_seconds": 0.19137339998269454,
+      "hot_slowdown_vs_resident": 0.9212217078813473,
+      "initialization_input_bytes_h2d": 0,
+      "initialization_seconds": 0.004381600010674447,
+      "loops_per_residence": 32,
+      "mode": "host_dram",
+      "output_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "peak_allocated_bytes": 162142720,
+      "peak_reserved_bytes": 276824064,
+      "per_session_latency_seconds": 0.011960837498918409,
+      "pinned_host_bytes": 33554432,
+      "process_rss": {
+        "peak_working_set_bytes": 1045204992,
+        "working_set_bytes": 1011662848
+      },
+      "reference_resident_sha256": "8ae3ee85ffa7337a4834494f79ed51b4a75deee7f25e964bfa145de0e2811ec5",
+      "terminal_copy_seconds": 0.0,
+      "terminal_output_bytes_d2h": 0,
+      "useful_transitions_per_second": 2675.3979395584706
+    }
+  ],
+  "resident_attention_estimate_bytes": 1073741824,
+  "schema_version": 1,
+  "source_sha256": {
+    "EXPERIMENTS.md": "e0833b91650b13c2b40ceec6f06c48f37fc55cbc2d602895ab4b8454366ad6e2",
+    "THEORY.md": "b785f9e46ed8688730220e6e81ab27ab6bb0d580e317ff7a729ffa23d344f9ea",
+    "gpu_dram_bench.py": "5644f859a086ce6d8279c0094e53924149dd48a0542b0b61c735ba5d5dead7f9",
+    "multitenant_dram.py": "962e0e4db5212a550dad86a647980e670e902d2b285a9dbacd34cae2fced2be4",
+    "reference.py": "a7e38fe592e27a36b895f0dbb0a9f5ec47bc42a5be7e0a2793e93fe22ad03f78"
+  },
+  "state_bytes_per_session": 2097152,
+  "torch": "2.11.0+cu128",
+  "torch_cuda_free_total_before_bytes": [
+    15685648384,
+    17094475776
+  ],
+  "total_inactive_state_bytes": 33554432
+}
