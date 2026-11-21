@@ -1,0 +1,30 @@
+name: Inkling gated recurrence source checks
+on:
+  push:
+    branches:
+      - research/inkling-depth-precision-20261121
+    paths:
+      - "research/inkling_depth_precision/**"
+      - ".github/workflows/inkling-depth-precision-source.yml"
+  pull_request:
+    paths:
+      - "research/inkling_depth_precision/**"
+      - ".github/workflows/inkling-depth-precision-source.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run source-only unittest fixtures
+        run: python -m unittest discover -s research/inkling_depth_precision -p 'test_bounds.py' -v
