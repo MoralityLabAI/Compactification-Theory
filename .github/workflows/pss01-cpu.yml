@@ -1,0 +1,33 @@
+name: PSS-01 protected surgery CPU
+on:
+  pull_request:
+    paths:
+      - 'research/weight_surgery_pss01/**'
+      - '.github/workflows/pss01-cpu.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research/weight_surgery_pss01/**'
+      - '.github/workflows/pss01-cpu.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  algebra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          python -m pip install --only-binary=:all: numpy==2.3.5
+      - run: python -m unittest discover -s research/weight_surgery_pss01 -p 'test_*.py' -v
+      - run: python research/weight_surgery_pss01/demo.py > pss01_cpu_receipt.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pss01-cpu-receipt
+          path: pss01_cpu_receipt.json
