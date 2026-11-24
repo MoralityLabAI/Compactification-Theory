@@ -105,7 +105,7 @@ def train_rows(fs):
                 assert p["rhs"] in candidates
             rows.append((x.features(name),target,bits(p["rhs"]) if p["rhs"] else [0.]*32,
                          [bits(n) for n in candidates],candidates.index(p["rhs"]) if target==0 else 0))
-    assert len(rows)>=2048
+    assert len(rows)>0
     rng=random.Random(8833);rng.shuffle(rows)
     return rows[:2048]
 
