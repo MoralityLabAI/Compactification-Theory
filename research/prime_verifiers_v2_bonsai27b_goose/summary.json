@@ -1,0 +1,275 @@
+{
+  "suite": "Prime Intellect Hub v2 Verifiers (verifiers 0.4.1 Tasksets + verifiers 0.1.11 vf-eval)",
+  "model": "Ternary-Bonsai-2-27B-PTQ1_0.gguf",
+  "model_sha256": "53107f530aa52eb00912263ab1ee29bd199261c87cd7b4ad4ca1318c1fe33ee3",
+  "runtime": "llama-prism-b10743 (0.2.0-dev commit adfffbe41), 100% pure GPU on RTX 5080 Laptop 16 GB (0 CPU offload, 16K ctx)",
+  "goose_version": "1.53.0",
+  "excluded_upstream_broken": [
+    {
+      "slug": "fa1zvn/redline-v2",
+      "reason": "Upstream verifiers 0.1.11 MultiTurnEnv.has_error(state=None) AttributeError in Hub package."
+    }
+  ],
+  "benchmarks": [
+    {
+      "id": "backtest_qa_v1",
+      "slug": "dave-quant/backtest-qa-v1",
+      "runner": "verifiers 0.4.1 (verifiers.v1 Taskset)",
+      "goose_mode": "goose+python_calc",
+      "arms": {
+        "baseline": {
+          "n": 12,
+          "avg_reward": 1.0,
+          "solved": 12,
+          "solved_rate": 1.0,
+          "wilson95_solved": [
+            0.7575,
+            1.0
+          ],
+          "telemetry": {
+            "harness_turns": 12,
+            "llm_calls": 12,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 1376,
+            "completion_tokens_total": 953,
+            "mean_prefill_tps": 272.47,
+            "peak_prefill_tps": 356.61,
+            "mean_decode_tps": 21.02,
+            "peak_decode_tps": 27.26,
+            "wall_s_sum": 50.0
+          }
+        },
+        "goose": {
+          "n": 12,
+          "avg_reward": 1.0,
+          "solved": 12,
+          "solved_rate": 1.0,
+          "wilson95_solved": [
+            0.7575,
+            1.0
+          ],
+          "telemetry": {
+            "harness_turns": 12,
+            "llm_calls": 29,
+            "goose_mcp_calls": 5,
+            "prompt_tokens_total": 20045,
+            "completion_tokens_total": 380,
+            "mean_prefill_tps": 359.51,
+            "peak_prefill_tps": 595.01,
+            "mean_decode_tps": 34.34,
+            "peak_decode_tps": 47.83,
+            "wall_s_sum": 42.09
+          }
+        }
+      }
+    },
+    {
+      "id": "aime25",
+      "slug": "primeintellect/aime25",
+      "runner": "verifiers 0.4.1 (verifiers.v1 Taskset)",
+      "goose_mode": "goose+python_calc",
+      "arms": {
+        "baseline": {
+          "n": 4,
+          "avg_reward": 0.0,
+          "solved": 0,
+          "solved_rate": 0.0,
+          "wilson95_solved": [
+            0.0,
+            0.4899
+          ],
+          "telemetry": {
+            "harness_turns": 6,
+            "llm_calls": 6,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 701,
+            "completion_tokens_total": 4096,
+            "mean_prefill_tps": 167.06,
+            "peak_prefill_tps": 322.02,
+            "mean_decode_tps": 10.27,
+            "peak_decode_tps": 17.09,
+            "wall_s_sum": 813.77
+          }
+        },
+        "goose": {
+          "n": 4,
+          "avg_reward": 0.25,
+          "solved": 1,
+          "solved_rate": 0.25,
+          "wilson95_solved": [
+            0.0456,
+            0.6994
+          ],
+          "telemetry": {
+            "harness_turns": 10,
+            "llm_calls": 20,
+            "goose_mcp_calls": 6,
+            "prompt_tokens_total": 15736,
+            "completion_tokens_total": 4057,
+            "mean_prefill_tps": 313.19,
+            "peak_prefill_tps": 547.01,
+            "mean_decode_tps": 26.51,
+            "peak_decode_tps": 48.98,
+            "wall_s_sum": 373.27
+          }
+        }
+      }
+    },
+    {
+      "id": "bitagent_dag_ops_v2",
+      "slug": "moralitylab/bitagent-dag-ops-v2",
+      "runner": "verifiers 0.1.11 (vf-eval)",
+      "goose_mode": "goose 1.53.0",
+      "arms": {
+        "baseline": {
+          "n": 12,
+          "avg_reward": 0.02,
+          "solved": 0,
+          "solved_rate": 0.0,
+          "wilson95_solved": [
+            0.0,
+            0.2425
+          ],
+          "telemetry": {
+            "harness_turns": 12,
+            "llm_calls": 12,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 11797,
+            "completion_tokens_total": 1827,
+            "mean_prefill_tps": 619.21,
+            "peak_prefill_tps": 681.2,
+            "mean_decode_tps": 50.41,
+            "peak_decode_tps": 51.9,
+            "wall_s_sum": 55.98
+          }
+        },
+        "goose": {
+          "n": 12,
+          "avg_reward": 0.4825,
+          "solved": 0,
+          "solved_rate": 0.0,
+          "wilson95_solved": [
+            0.0,
+            0.2425
+          ],
+          "telemetry": {
+            "harness_turns": 12,
+            "llm_calls": 24,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 32412,
+            "completion_tokens_total": 954,
+            "mean_prefill_tps": 574.01,
+            "peak_prefill_tps": 697.9,
+            "mean_decode_tps": 19.44,
+            "peak_decode_tps": 23.37,
+            "wall_s_sum": 118.69
+          }
+        }
+      }
+    },
+    {
+      "id": "head_qa_v2",
+      "slug": "medarc/head-qa-v2",
+      "runner": "verifiers 0.1.11 (vf-eval)",
+      "goose_mode": "goose 1.53.0",
+      "arms": {
+        "baseline": {
+          "n": 12,
+          "avg_reward": 0.75,
+          "solved": 9,
+          "solved_rate": 0.75,
+          "wilson95_solved": [
+            0.4677,
+            0.9111
+          ],
+          "telemetry": {
+            "harness_turns": 12,
+            "llm_calls": 12,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 1464,
+            "completion_tokens_total": 84,
+            "mean_prefill_tps": 375.28,
+            "peak_prefill_tps": 424.85,
+            "mean_decode_tps": 42.7,
+            "peak_decode_tps": 47.34,
+            "wall_s_sum": 7.31
+          }
+        },
+        "goose": {
+          "n": 12,
+          "avg_reward": 0.6667,
+          "solved": 8,
+          "solved_rate": 0.6667,
+          "wilson95_solved": [
+            0.3906,
+            0.8619
+          ],
+          "telemetry": {
+            "harness_turns": 12,
+            "llm_calls": 24,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 11844,
+            "completion_tokens_total": 163,
+            "mean_prefill_tps": 292.03,
+            "peak_prefill_tps": 515.62,
+            "mean_decode_tps": 19.5,
+            "peak_decode_tps": 24.9,
+            "wall_s_sum": 54.3
+          }
+        }
+      }
+    },
+    {
+      "id": "fluxem_tools_env_v2",
+      "slug": "hunterbown/fluxem-tools-env-v2",
+      "runner": "verifiers 0.1.11 (vf-eval)",
+      "goose_mode": "goose 1.53.0",
+      "arms": {
+        "baseline": {
+          "n": 8,
+          "avg_reward": 0.6156,
+          "solved": 0,
+          "solved_rate": 0.0,
+          "wilson95_solved": [
+            0.0,
+            0.3244
+          ],
+          "telemetry": {
+            "harness_turns": 22,
+            "llm_calls": 22,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 22034,
+            "completion_tokens_total": 1483,
+            "mean_prefill_tps": 195.21,
+            "peak_prefill_tps": 602.88,
+            "mean_decode_tps": 49.85,
+            "peak_decode_tps": 51.7,
+            "wall_s_sum": 42.43
+          }
+        },
+        "goose": {
+          "n": 8,
+          "avg_reward": 0.5472,
+          "solved": 0,
+          "solved_rate": 0.0,
+          "wilson95_solved": [
+            0.0,
+            0.3244
+          ],
+          "telemetry": {
+            "harness_turns": 25,
+            "llm_calls": 50,
+            "goose_mcp_calls": 0,
+            "prompt_tokens_total": 68634,
+            "completion_tokens_total": 1075,
+            "mean_prefill_tps": 492.1,
+            "peak_prefill_tps": 689.47,
+            "mean_decode_tps": 20.5,
+            "peak_decode_tps": 28.51,
+            "wall_s_sum": 159.49
+          }
+        }
+      }
+    }
+  ]
+}
