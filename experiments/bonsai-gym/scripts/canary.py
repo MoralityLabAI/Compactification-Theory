@@ -83,11 +83,15 @@ def masked_loss(model, ids, labels, chunk=256):
     return total, None, tgt
 
 
+PAUSE = [lambda: 0.0]   # set in main: idles while the card is power-capped, returns seconds paused
+
+
 @torch.no_grad()
 def evaluate(model, examples, pad_id, bs):
     nll, n_tok, n_correct, n_em = 0.0, 0, 0, 0
     per = []
     for i in range(0, len(examples), bs):
+        PAUSE[0]()
         batch = examples[i:i + bs]
         ids, lab = collate(batch, pad_id, "cuda")
         h, _ = model.hidden(ids)
@@ -121,6 +125,30 @@ def main():
         log_f.flush()
         print(json.dumps(rec), flush=True)
 
+    paused_total = [0.0]
+
+    def pause_if_capped() -> float:
+        """The laptop card drops to a 15 W cap minutes into a load and recovers after a few idle minutes. Work
+        done under the cap is ~10x slower, so idle in place (state stays on the GPU) until the cap clears.
+        Run under vramorama with a --guard-power window longer than these pauses."""
+        thr = cfg.get("cap_watch_w")
+        if not thr:
+            return 0.0
+        w = enforced_power_w()
+        if w is None or w >= thr:
+            return 0.0
+        torch.cuda.synchronize()
+        t0 = time.time()
+        log({"event": "power_capped", "enforced_w": w})
+        while w is not None and w < thr:
+            time.sleep(10)
+            w = enforced_power_w()
+        dt = time.time() - t0
+        paused_total[0] += dt
+        log({"event": "power_cap_cleared", "enforced_w": w, "paused_s": dt, "paused_total_s": paused_total[0]})
+        return dt
+
+    PAUSE[0] = pause_if_capped
     torch.manual_seed(cfg["seed"])
     if cfg.get("cuda_memory_fraction"):
         # Shared card: past the fraction torch raises OOM instead of WDDM spilling into system RAM.
@@ -167,6 +195,10 @@ def main():
          "train_items": len(train), "val_items": len(val), "skipped_over_max_len": [sk_tr, sk_va],
          "allocated_after_lora_mib": torch.cuda.memory_allocated() / 2**20})
 
+    base_file = out / "eval_base.json"
+    if "base_eval" not in history and base_file.exists():   # a restart before the first checkpoint: keep the base eval
+        history["base_eval"] = json.loads(base_file.read_text(encoding="utf-8"))
+        log({"event": "eval", "step": 0, "frozen_base": True, "reused": True, **history["base_eval"]})
     if "base_eval" not in history:
         torch.cuda.reset_peak_memory_stats()
         t1 = time.time()
@@ -174,6 +206,7 @@ def main():
         ev["s"] = time.time() - t1
         ev["peak_allocated_mib"] = torch.cuda.max_memory_allocated() / 2**20
         history["base_eval"] = ev
+        base_file.write_text(json.dumps(ev), encoding="utf-8")
         (out / "eval_base_per_item.json").write_text(json.dumps(per), encoding="utf-8")
         log({"event": "eval", "step": 0, "frozen_base": True, **ev})
         if confirm:
@@ -201,6 +234,7 @@ def main():
             batch = [train[i] for i in batch_idx[a * mb:(a + 1) * mb]]
             ids, lab = collate(batch, pad_id, "cuda")
             seq_tokens += int(ids.numel())
+            pause_if_capped()
             lsum, _, _ = masked_loss(model, ids, lab, cfg.get("loss_chunk", 256))
             (lsum / n_tgt).backward()
             loss_sum += float(lsum)
@@ -216,37 +250,18 @@ def main():
         rec = {"event": "step", "step": step + 1, "loss": loss_sum / n_tgt, "lr": lr_at(step), "grad_norm": gnorm,
                "target_tokens": n_tgt, "step_s": dt, "seq_tok_s": seq_tokens / (time.time() - train_t0),
                "peak_allocated_mib": torch.cuda.max_memory_allocated() / 2**20,
-               "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20}
+               "peak_reserved_mib": torch.cuda.max_memory_reserved() / 2**20, "paused_total_s": paused_total[0]}
         log(rec)
         history.setdefault("steps", []).append(rec)
         if (step + 1) % cfg.get("eval_every", 10) == 0 or step + 1 == total:
             ev, _ = evaluate(model, val, pad_id, cfg.get("eval_batch", 4))
             history.setdefault("evals", []).append({"step": step + 1, **ev})
             log({"event": "eval", "step": step + 1, **ev})
-        def save_ckpt():
+        if (step + 1) % cfg.get("ckpt_every", 10) == 0 and step + 1 < total:
             tmp = out / "checkpoint.tmp"
             torch.save({"params": [p_.detach() for p_ in params], "opt": opt.state_dict(),
                         "sampler": sampler.state(), "step": step + 1, "history": history}, tmp)
             tmp.replace(ckpt)
-
-        saved_now = False
-        if (step + 1) % cfg.get("ckpt_every", 10) == 0 and step + 1 < total:
-            save_ckpt()
-            saved_now = True
-        # The laptop card drops to a 15 W cap after minutes of load; vramorama's power guard then stops the job.
-        # Checkpoint as soon as the cap shows, so the restart resumes from this step, then idle until it clears.
-        if cfg.get("cap_watch_w") and step + 1 < total:
-            w = enforced_power_w()
-            if w is not None and w < cfg["cap_watch_w"]:
-                if not saved_now:
-                    save_ckpt()
-                log({"event": "power_capped", "step": step + 1, "enforced_w": w})
-                while True:
-                    time.sleep(15)
-                    w = enforced_power_w()
-                    if w is None or w >= cfg["cap_watch_w"]:
-                        break
-                log({"event": "power_cap_cleared", "step": step + 1, "enforced_w": w})
     train_s = time.time() - train_t0
     train_gpu = gpu.summary(since=train_t0)
 

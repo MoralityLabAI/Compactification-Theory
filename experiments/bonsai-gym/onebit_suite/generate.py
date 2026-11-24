@@ -24,6 +24,38 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 
+_cap_lock = threading.Lock()
+_cap_state = {"t": 0.0, "capped": False}
+
+
+def enforced_power_w() -> float | None:
+    import subprocess
+    try:
+        out = subprocess.run(["nvidia-smi", "--query-gpu=enforced.power.limit", "--format=csv,noheader,nounits"],
+                             capture_output=True, text=True, timeout=20).stdout.strip().splitlines()
+        return float(out[0])
+    except Exception:
+        return None
+
+
+def wait_while_capped(threshold: float) -> None:
+    """Hold new requests while the laptop card sits at its 15 W cap: in-flight requests finish, the card idles,
+    and the cap clears after a few idle minutes (work under the cap runs ~5x slower)."""
+    if threshold <= 0:
+        return
+    with _cap_lock:   # one thread polls; the others wait on the lock
+        while True:
+            if time.time() - _cap_state["t"] > 10:
+                w = enforced_power_w()
+                was = _cap_state["capped"]
+                _cap_state.update(t=time.time(), capped=w is not None and w < threshold)
+                if _cap_state["capped"] != was:
+                    print(f"power cap {'on' if _cap_state['capped'] else 'off'} ({w} W) {time.strftime('%H:%M:%S')}", flush=True)
+            if not _cap_state["capped"]:
+                return
+            time.sleep(10)
+
+
 def post(url: str, body: dict, timeout: float) -> dict:
     req = urllib.request.Request(url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
@@ -46,6 +78,7 @@ def main() -> int:
     ap.add_argument("--concurrency", type=int, default=4)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--timeout", type=float, default=1800)
+    ap.add_argument("--cap-watch-w", type=float, default=60, help="hold new requests while the enforced GPU limit is below this (0 = off)")
     a = ap.parse_args()
 
     names = [n for n in a.adapters.split(",") if n]
@@ -77,6 +110,7 @@ def main() -> int:
         if names:
             body["lora"] = lora
         for attempt in range(1, 1000):
+            wait_while_capped(a.cap_watch_w)
             try:
                 res = post(a.base_url.rstrip("/") + "/chat/completions", body, a.timeout)
                 break
