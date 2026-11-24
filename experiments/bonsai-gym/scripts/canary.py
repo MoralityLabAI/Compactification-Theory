@@ -19,6 +19,7 @@ import time
 from pathlib import Path
 
 import torch
+import torch.utils.checkpoint
 from torch.nn import functional as F
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -55,13 +56,21 @@ class GpuSampler(threading.Thread):
                 "power_mean_w": sum(x[3] for x in s) / len(s), "power_limit_min_w": min(x[4] for x in s), "n": len(s)}
 
 
-def masked_loss(model, ids, labels):
-    """Mean NLL over target positions; logits only at those positions."""
+def masked_loss(model, ids, labels, chunk=256):
+    """Summed NLL over target positions; logits only at those positions, `chunk` rows at a time
+    under activation checkpointing, so a long target never holds a full [n, vocab] logit tensor."""
     h, _ = model.hidden(ids)
     sel = labels != -100
-    logits = model.logits(h[sel])
-    tgt = labels[sel]
-    return F.cross_entropy(logits, tgt, reduction="sum"), logits, tgt
+    hs, tgt = h[sel], labels[sel]
+
+    def part(x, t):
+        return F.cross_entropy(model.logits(x).float(), t, reduction="sum")
+
+    total = None
+    for i in range(0, hs.shape[0], chunk):
+        piece = torch.utils.checkpoint.checkpoint(part, hs[i:i + chunk], tgt[i:i + chunk], use_reentrant=False)
+        total = piece if total is None else total + piece
+    return total, None, tgt
 
 
 @torch.no_grad()
@@ -103,6 +112,9 @@ def main():
         print(json.dumps(rec), flush=True)
 
     torch.manual_seed(cfg["seed"])
+    if cfg.get("cuda_memory_fraction"):
+        # Shared card: past the fraction torch raises OOM instead of WDDM spilling into system RAM.
+        torch.cuda.set_per_process_memory_fraction(float(cfg["cuda_memory_fraction"]))
     from tokenizers import Tokenizer
     tok = Tokenizer.from_file(cfg["tokenizer"])
     pad_id = tok.token_to_id("<|endoftext|>")
