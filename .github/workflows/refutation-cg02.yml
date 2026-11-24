@@ -1,0 +1,36 @@
+name: RB-CG-02 compositional critique execution
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/critique_generation_cg02/**'
+      - '.github/workflows/refutation-cg02.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/critique_generation_cg02/**'
+      - '.github/workflows/refutation-cg02.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-and-local-cell:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CPU Torch and pinned Lean
+        run: |
+          python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          curl --fail --location --retry 3 https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst -o /tmp/lean.tar.zst
+          tar --zstd -xf /tmp/lean.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Certify fresh source and train local execution primitives
+        run: python -u research/refutation_bench/critique_generation_cg02/execute.py --out /tmp/cg02
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cg02-native-local-results
+          path: /tmp/cg02
+          retention-days: 14
