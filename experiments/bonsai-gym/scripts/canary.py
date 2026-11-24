@@ -191,7 +191,7 @@ def main():
             batch = [train[i] for i in batch_idx[a * mb:(a + 1) * mb]]
             ids, lab = collate(batch, pad_id, "cuda")
             seq_tokens += int(ids.numel())
-            lsum, _, _ = masked_loss(model, ids, lab)
+            lsum, _, _ = masked_loss(model, ids, lab, cfg.get("loss_chunk", 256))
             (lsum / n_tgt).backward()
             loss_sum += float(lsum)
         grads_finite = all(bool(torch.isfinite(p_.grad).all()) for p_ in params if p_.grad is not None)
