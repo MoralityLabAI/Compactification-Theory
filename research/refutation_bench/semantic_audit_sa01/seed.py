@@ -75,7 +75,7 @@ theorem submitted : ∃ n : Nat, eligible n := ⟨0, Or.inl rfl⟩
 def records():
     for family, src, arms in FAMILIES:
         for i, (decl, target, label, proof, extras) in enumerate(arms):
-            yield ({"id": f"SA01-{family}-{i}", "family": family, "source": "import Lean\n\n" + src,
+            yield ({"id": "SA01-" + digest(src + "\\n" + decl + "\\n" + target)[:16], "family": family, "source": "import Lean\n\n" + src,
                     "declaration": decl, "advertised": target, "allowed_axioms": sorted(ALLOWED)},
                    {"verdict": label, "certificate": proof, "extra_axioms": extras})
 
@@ -158,7 +158,7 @@ def main():
     args.out.mkdir(parents=True, exist_ok=True)
     rs = list(records())
     verify_schema(rs)
-    (args.out / "inputs.jsonl").write_text("".join(json.dumps(x, ensure_ascii=False) + "\n" for x, _ in rs), encoding="utf-8")
+    (args.out / "inputs.jsonl").write_text("".join(json.dumps({k: v for k, v in x.items() if k != "family"}, ensure_ascii=False) + "\n" for x, _ in sorted(rs, key=lambda pair: pair[0]["id"])), encoding="utf-8")
     if not args.export_only and not replay(rs, args.out, args.lean):
         raise SystemExit(1)
 
