@@ -12,7 +12,7 @@ private def names (xs : Array Name) : String :=
     native reference used only after graph extraction. -/
 elab "#cg11_deps " root:ident " within " scope:ident : command => do
   let rn := root.getId
-  let prefix := scope.getId.toString ++ "."
+  let scopePrefix := scope.getId.toString ++ "."
   let env ← getEnv
   let rootAxioms ← Lean.collectAxioms rn
   logInfo (toMessageData (s!"CG11_ROOT|{rn.toString}|{names rootAxioms}"))
@@ -24,7 +24,7 @@ elab "#cg11_deps " root:ident " within " scope:ident : command => do
     if seen.contains n then
       continue
     seen := seen.insert n
-    if !(n.toString.startsWith prefix) then
+    if !(n.toString.startsWith scopePrefix) then
       let axs ← Lean.collectAxioms n
       logInfo (toMessageData (s!"CG11_NODE|{rn.toString}|{n.toString}|boundary|||{names axs}"))
     else
