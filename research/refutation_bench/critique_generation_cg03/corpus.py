@@ -132,7 +132,13 @@ def proof_source(f,name,kept):
 def concrete(cs,values,goal=None):
     props=["("+clause_prop(c,values)+")" for c in cs]
     if goal is not None:props.append("¬ "+("True" if values[goal-1] else "False"))
-    return " ∧ ".join(props) or "True"
+    # Preserve all concrete clauses, but keep instance-search depth logarithmic.
+    def balanced(xs):
+        if not xs: return "True"
+        if len(xs)==1: return xs[0]
+        j=len(xs)//2
+        return "(" + balanced(xs[:j]) + " ∧ " + balanced(xs[j:]) + ")"
+    return balanced(props)
 
 def native_source(f):
     lines=["namespace "+f["id"]]
