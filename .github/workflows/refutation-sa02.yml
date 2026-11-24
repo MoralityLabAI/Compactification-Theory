@@ -1,0 +1,39 @@
+name: SA-02 finite semantic audit acquisition
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/semantic_audit_sa02/**'
+      - '.github/workflows/refutation-sa02.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/semantic_audit_sa02/**'
+      - '.github/workflows/refutation-sa02.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  baseline-native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned Lean
+        run: |
+          curl --fail --location --retry 3 https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst -o /tmp/lean.tar.zst
+          tar --zstd -xf /tmp/lean.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Replay registered acquisition policies and native Lean checks
+        run: |
+          lean --version
+          python research/refutation_bench/semantic_audit_sa02/gym.py --out /tmp/sa02
+      - name: Replay omniscient minimum-read diagnostic
+        run: python research/refutation_bench/semantic_audit_sa02/oracle.py --out /tmp/sa02/oracle
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sa02-baseline-native
+          path: /tmp/sa02
+          retention-days: 14
