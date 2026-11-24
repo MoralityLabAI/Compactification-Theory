@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -11,7 +12,7 @@ from bonsai_gym.adapter_io import write_gguf_lora  # noqa: E402
 from bonsai_gym.data import Example, Sampler, collate, lcs_reward, render_prompt  # noqa: E402
 from bonsai_gym.gguf_reader import GGUFFile  # noqa: E402
 
-GGUF = Path(r"C:\Users\patri\models\ternary-bonsai-2-27b\Ternary-Bonsai-2-27B-PTQ1_0.gguf")
+GGUF = Path(os.environ.get("BONSAI_GGUF", r"C:\Users\patri\models\ternary-bonsai-2-27b\Ternary-Bonsai-2-27B-PTQ1_0.gguf"))
 
 
 def test_gguf_lora_round_trip(tmp_path):

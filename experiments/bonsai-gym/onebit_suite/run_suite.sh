@@ -1,25 +1,26 @@
 #!/usr/bin/env bash
 # The 1-bit adapter suite end to end, one GPU lease at a time; every step skips itself when its output exists,
-# so the script can be rerun after any stop. Bitcoin DeFi Bench first:
-#   1  train the BDB adapters (1-bit onebit_bdb, full-precision bdb_sft_r8) and the SRB adapter
-#   2  BDB harness arms for both BDB adapters (development seeds, same server settings as the bare dry run)
+# so the script can be rerun after any stop. Model and paths come from suite_env.sh (default Bonsai 2.5 27B).
+# Bitcoin DeFi Bench first:
+#   1  BDB bare-model arm (the dry run this model's adapters are compared with)
+#   2  train the BDB adapters (1-bit, full precision) and run each through the bench; train the SRB adapter
 #   3  base generation (gen_phase.sh base): bare-model scores on every family's eval split + RFT samples
 #   4  score the base arm; build RFT training rows for math and logic; train those two adapters
 #   5  cross generation (gen_phase.sh cross): every 1-bit adapter on every family's eval split
 #   6  score every arm; train and score the TRM router
+#   7  BDB hill-climb round 1: the 1-bit adapter on 4x the training seeds, through the bench
 # Training and generation pause in place while the GPU is power-capped (canary.py / generate.py cap watch),
 # so the vramorama power guard is only a long backstop here.
 set -u
 HERE=$(cd "$(dirname "$0")" && pwd)
 GYM=$(cd "$HERE/.." && pwd)
-W=/c/Users/patri/Documents/Codex/onebit-suite
-WW='C:/Users/patri/Documents/Codex/onebit-suite'
-BDB=/c/Users/patri/Documents/Codex/bdb-27b-adapter
+. "$HERE/suite_env.sh"
 BENCH=/c/Users/patri/OneDrive/Documents/GitHub/bitcoin-defi-bench
 PY=/c/Users/patri/.venvs/onebit-suite/Scripts/python.exe
 TPY=/c/Users/patri/.venvs/bluebeam/Scripts/python.exe
 FAMS="srb bdb math logic"
 log() { echo "=== $* $(date '+%F %T')"; }
+log "suite model $SUITE_MODEL ($MODEL_NAME), work dir $W"
 
 out_dir() { "$TPY" -c "import json,sys; print(json.load(open(sys.argv[1]))['out_dir'])" "$GYM/configs/$1.json"; }
 train() {  # train <config name>
@@ -28,20 +29,21 @@ train() {  # train <config name>
   if [ -s "$od/result.json" ]; then log "train $cfg already done"; return 0; fi
   for try in 1 2 3; do
     log "train $cfg (attempt $try)"
-    (cd "$GYM" && PYTHONIOENCODING=utf-8 vramorama run --vram 13G --owner "suite-train-$cfg" --guard-power 1800 --restart 20 -- \
+    (cd "$GYM" && PYTHONIOENCODING=utf-8 vramorama run --vram 15G --owner "suite-train-$cfg" --guard-power 1800 --restart 20 -- \
        "$TPY" -u scripts/canary.py --config "configs/$cfg.json")
     log "train $cfg rc=$?"
     [ -s "$od/result.json" ] && return 0
   done
   log "train $cfg failed"; return 1
 }
-bdb_arm() {  # bdb_arm <arm tag> <adapter.gguf>: the three BDB families on development seeds with the adapter applied
-  local arm=$1 gguf=$2
-  [ -s "$BENCH/results/v0-netting-bonsai-2-27b-nothink-t0-$arm-development.md" ] && { log "bdb arm $arm already done"; return 0; }
+bdb_arm() {  # bdb_arm <arm tag> [adapter.gguf]
+  local arm=$1 gguf=${2:-}
+  local last="$BENCH/results/v0-netting-$MODEL_NAME-nothink-t0-$arm-development.md"
+  [ -s "$last" ] && { log "bdb arm $arm already done"; return 0; }
   for try in 1 2 3; do
     log "bdb arm $arm (attempt $try)"
-    vramorama run --vram 7600M --owner "suite-bdb-$arm" --guard-power 1800 --restart 20 -- bash "$BDB/serve_and_eval.sh" "$arm" 18298 "$gguf"
-    [ -s "$BENCH/results/v0-netting-bonsai-2-27b-nothink-t0-$arm-development.md" ] && return 0
+    vramorama run --vram 8G --owner "suite-bdb-$arm" --guard-power 1800 --restart 20 -- bash "$HERE/bdb_arm.sh" "$arm" 18298 $gguf
+    [ -s "$last" ] && return 0
   done
   log "bdb arm $arm incomplete"; return 1
 }
@@ -57,19 +59,18 @@ gen_phase() {  # gen_phase <base|cross> <done-check>
   for try in 1 2 3 4 5; do
     $check && return 0
     log "gen $phase (attempt $try)"
-    vramorama run --vram 8600M --owner "suite-gen-$phase" --guard-power 1800 --restart 20 -- bash "$HERE/gen_phase.sh" "$phase"
+    vramorama run --vram 9G --owner "suite-gen-$phase" --guard-power 1800 --restart 20 -- bash "$HERE/gen_phase.sh" "$phase"
     log "gen $phase rc=$?"
   done
   $check || { log "gen $phase incomplete"; return 1; }
 }
 
 # 1
-train onebit_bdb || exit 6
-train bdb_sft_r8 || exit 6
+bdb_arm base
 # 2
-bdb_arm onebit-r8 "$WW/runs/onebit_bdb/adapter.gguf"
-bdb_arm sftr8 "$BDB/runs/bdb_sft_r8/adapter.gguf"
-train onebit_srb || exit 6
+train "${CFG_PFX}onebit_bdb" && bdb_arm onebit-r8 "$WW/runs/${CFG_PFX}onebit_bdb/adapter.gguf"
+train "${CFG_PFX}bdb_fp_r8" && bdb_arm fp-r8 "$WW/runs/${CFG_PFX}bdb_fp_r8/adapter.gguf"
+train "${CFG_PFX}onebit_srb" || exit 6
 
 # 3
 base_done() { done_gen base && [ "$(wc -l < "$W/gen/rft/logic.jsonl" 2>/dev/null || echo 0)" -ge "$(wc -l < "$W/data/logic/rft_pool.jsonl")" ]; }
@@ -84,8 +85,8 @@ cat "$W/data/math/gold_train.jsonl" "$W/data/math/rft_train.jsonl" > "$W/data/ma
 cp "$W/data/logic/rft_train.jsonl" "$W/data/logic/train.jsonl"
 cp "$W/data/logic/rft_val.jsonl" "$W/data/logic/val.jsonl"
 wc -l "$W"/data/*/train.jsonl "$W"/data/*/val.jsonl
-train onebit_math || exit 6
-train onebit_logic || exit 6
+train "${CFG_PFX}onebit_math" || exit 6
+train "${CFG_PFX}onebit_logic" || exit 6
 
 # 5
 cross_done() { done_gen math && done_gen logic && done_gen srb && done_gen bdb; }
@@ -95,4 +96,7 @@ gen_phase cross cross_done || exit 4
 log "score arms, router"
 for arm in math logic srb bdb; do "$PY" "$HERE/score_all.py" score --work "$WW" --arm "$arm" || exit 7; done
 "$TPY" "$HERE/router.py" --data "$WW/data" --scores "$WW/scores" --out "$WW/results/router" || exit 8
+
+# 7
+[ "$SUITE_MODEL" = b25 ] && train b25_onebit_bdb_x4 && bdb_arm onebit-r8-x4 "$WW/runs/b25_onebit_bdb_x4/adapter.gguf"
 log "SUITE COMPLETE"
