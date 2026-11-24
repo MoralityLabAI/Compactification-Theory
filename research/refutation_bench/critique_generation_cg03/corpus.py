@@ -140,6 +140,29 @@ def concrete(cs,values,goal=None):
         return "(" + balanced(xs[:j]) + " ∧ " + balanced(xs[j:]) + ")"
     return balanced(props)
 
+def concrete_proof(cs, values, goal=None):
+    """Construct every true clause explicitly, then mirror concrete's balanced tree."""
+    def literal(l):
+        assert values[abs(l)-1] == (l>0)
+        return "True.intro" if l>0 else "(fun h : False => h)"
+    def disjunction(c):
+        assert satisfied(c,values)
+        if len(c)==1:
+            return literal(c[0])
+        if values[abs(c[0])-1] == (c[0]>0):
+            return "(Or.inl " + literal(c[0]) + ")"
+        return "(Or.inr " + disjunction(c[1:]) + ")"
+    proofs=[disjunction(c) for c in cs]
+    if goal is not None:
+        assert not values[goal-1]
+        proofs.append("(fun h : False => h)")
+    def balanced(xs):
+        if not xs: return "True.intro"
+        if len(xs)==1: return xs[0]
+        j=len(xs)//2
+        return "⟨" + balanced(xs[:j]) + ", " + balanced(xs[j:]) + "⟩"
+    return balanced(proofs)
+
 def native_source(f):
     lines=["namespace "+f["id"]]
     expected=[]
@@ -148,12 +171,12 @@ def native_source(f):
         expected.append(f["id"]+"."+name)
     all_ids=list(range(len(f["clauses"])))
     add("submitted",proof_source(f,"submitted",all_ids))
-    add("nonvacuous",f"theorem nonvacuous : {concrete(f['clauses'],f['source_witness'])} := by decide")
+    add("nonvacuous",f"theorem nonvacuous : {concrete(f['clauses'],f['source_witness'])} := {concrete_proof(f['clauses'],f['source_witness'])}")
     for j,a in enumerate(f["arms"]):
         name=f"claim{j}"
         if a["bad"]:
             cs=[f["clauses"][i] for i in a["kept"]]
-            add(name,f"theorem {name} : {concrete(cs,a['ref_witness'],f['goal'])} := by decide")
+            add(name,f"theorem {name} : {concrete(cs,a['ref_witness'],f['goal'])} := {concrete_proof(cs,a['ref_witness'],f['goal'])}")
             name=f"repair{j}"
             add(name,proof_source(f,name,sorted(a["kept"]+[a["ref_repair"]])))
         else:add(name,proof_source(f,name,a["kept"]))
