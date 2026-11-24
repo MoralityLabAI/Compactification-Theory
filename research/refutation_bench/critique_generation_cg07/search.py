@@ -45,7 +45,7 @@ def generate():
         quota={False:count//2,True:count//2};seen=set()
         for _ in range(250000):
             if not any(quota.values()):break
-            lo=[rng.randint(0,8) if root["typ"]=="Nat" else rng.randint(-5,5) for _ in range(root["n"])]
+            lo=[rng.randint(0,24 if root["decl"]=="epsilon_sixth_clearance" and j==0 else 8) if root["typ"]=="Nat" else rng.randint(-5,5) for j in range(root["n"])]
             widths=[rng.randint(2,4) for _ in lo]
             base={**root,"lo":lo,"widths":widths}
             k=key(base)
