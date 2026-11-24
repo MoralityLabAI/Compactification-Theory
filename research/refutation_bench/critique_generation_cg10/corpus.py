@@ -206,7 +206,7 @@ def raw_source(row):
             ds=x["deps"]
             body=f"d{ds[0]}" if len(ds)==1 else f"d{ds[1]} d{ds[0]}"
             ls.append(f"theorem d{j} : {atom(x['head'])} := {body}")
-    ls.extend([f"theorem selected : {atom(c['goal'])} := d{c['root']}","#print axioms selected","end "+ns])
+    ls.extend([f"theorem selected : {atom(c['goal'])} := d{c['root']}","end "+ns,"#print axioms "+ns+".selected"])
     return "\n".join(ls)
 def allowed_indices(c):
     return [j for j,e in enumerate(c["env"]) if e["allowed"]]
