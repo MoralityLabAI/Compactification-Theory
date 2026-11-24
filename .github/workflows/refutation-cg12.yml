@@ -1,0 +1,45 @@
+name: RB-CG-12 original source provenance pilot
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/critique_generation_cg12/**'
+      - 'research/refutation_bench/critique_generation_cg11/Extract.lean'
+      - '.github/workflows/refutation-cg12.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/critique_generation_cg12/**'
+      - 'research/refutation_bench/critique_generation_cg11/Extract.lean'
+      - '.github/workflows/refutation-cg12.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  original-provenance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: patrickdugan/MathCan
+          ref: 6d02b611c7358216379cb36952512a104e0bdb8e
+          path: _mathcan
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned Lean
+        run: |
+          curl --fail --location --retry 3 https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst -o /tmp/lean435.tar.zst
+          tar --zstd -xf /tmp/lean435.tar.zst -C /tmp
+          echo "/tmp/lean-4.35.0-linux/bin" >> "$GITHUB_PATH"
+      - name: Independently compare original and instrumented axiom closures
+        run: |
+          lean --version
+          python -u research/refutation_bench/critique_generation_cg12/original.py --source _mathcan --out /tmp/cg12
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cg12-original-source-receipts
+          path: /tmp/cg12
+          retention-days: 30
