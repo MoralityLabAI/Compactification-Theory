@@ -1,0 +1,127 @@
+{
+ "seed": 20261125,
+ "max_prompt_tokens": 2000,
+ "dropped": {
+  "logic_long": 180,
+  "logic_dup": 17
+ },
+ "files": {
+  "math/eval.jsonl": {
+   "sha256": "796d5fa657eb241e8ffff8e8e1cd183d80bacd0f4f904a09fefec954a56faac1",
+   "n": 120,
+   "by_source": {
+    "i3-math": 60,
+    "gsm8k": 60
+   },
+   "by_task_name": {},
+   "prompt_tokens_max": 254,
+   "prompt_tokens_mean": 98.5
+  },
+  "math/rft_pool.jsonl": {
+   "sha256": "8fb42c7b8abfbb2bce3f6e400008e92dcf843b2bf2de64df66e8267302b6589b",
+   "n": 400,
+   "by_source": {
+    "i3-math": 400
+   },
+   "by_task_name": {},
+   "prompt_tokens_max": 531,
+   "prompt_tokens_mean": 113.2
+  },
+  "math/gold_train.jsonl": {
+   "sha256": "3be2598cde08b6691e7117b4e70c070d7dd24e877933026805675cad6b00eab7",
+   "n": 400,
+   "by_source": {
+    "gsm8k": 400
+   },
+   "by_task_name": {},
+   "prompt_tokens_max": 170,
+   "prompt_tokens_mean": 79.9
+  },
+  "math/val.jsonl": {
+   "sha256": "6fe10124c9d60392fce60c685dce7d11158d2d020d39d593ede3467e6e97d94c",
+   "n": 24,
+   "by_source": {
+    "gsm8k": 24
+   },
+   "by_task_name": {},
+   "prompt_tokens_max": 118,
+   "prompt_tokens_mean": 79.5
+  },
+  "logic/eval.jsonl": {
+   "sha256": "4d78754674e65d5c3a2d648285459796eb30112414309b81d3e8392126c4b8c2",
+   "n": 100,
+   "by_source": {
+    "i3-logic": 100
+   },
+   "by_task_name": {
+    "arrow_maze": 4,
+    "boolean_expressions": 4,
+    "calcudoko": 4,
+    "campsite": 4,
+    "cipher": 4,
+    "dyck_language": 4,
+    "dyck_language_errors": 4,
+    "futoshiki": 4,
+    "goods_exchange": 4,
+    "kukurasu": 4,
+    "math_path": 4,
+    "mathador": 4,
+    "minesweeper": 4,
+    "norinori": 4,
+    "number_wall": 4,
+    "numbrix": 4,
+    "object_counting": 4,
+    "object_properties": 4,
+    "space_reasoning_tree": 4,
+    "sudoku": 3,
+    "survo": 3,
+    "time_sequence": 3,
+    "web_of_lies": 3,
+    "word_sorting": 3,
+    "word_sorting_mistake": 3,
+    "wordscapes": 3,
+    "zebra_puzzle": 3
+   },
+   "prompt_tokens_max": 1745,
+   "prompt_tokens_mean": 447.0
+  },
+  "logic/rft_pool.jsonl": {
+   "sha256": "e388bd621c7e42533336d48b952c15b102c63a895f30c1a7d95c81603ddaf73b",
+   "n": 600,
+   "by_source": {
+    "i3-logic": 600
+   },
+   "by_task_name": {
+    "arrow_maze": 23,
+    "boolean_expressions": 23,
+    "calcudoko": 23,
+    "campsite": 23,
+    "cipher": 23,
+    "dyck_language": 23,
+    "dyck_language_errors": 23,
+    "futoshiki": 23,
+    "goods_exchange": 23,
+    "kukurasu": 23,
+    "math_path": 23,
+    "mathador": 23,
+    "minesweeper": 23,
+    "norinori": 22,
+    "number_wall": 22,
+    "numbrix": 22,
+    "object_counting": 22,
+    "object_properties": 15,
+    "space_reasoning_tree": 22,
+    "sudoku": 22,
+    "survo": 22,
+    "time_sequence": 22,
+    "web_of_lies": 22,
+    "word_sorting": 22,
+    "word_sorting_mistake": 22,
+    "wordscapes": 22,
+    "zebra_puzzle": 22
+   },
+   "prompt_tokens_max": 1967,
+   "prompt_tokens_mean": 474.5
+  }
+ }
+}
