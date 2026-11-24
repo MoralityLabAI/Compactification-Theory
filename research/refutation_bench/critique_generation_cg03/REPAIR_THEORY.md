@@ -9,7 +9,7 @@ Let Γ be the original satisfiable finite clause set, Γ' the retained subset, �
 
 Proof: A valuation contradicts the repaired implication iff it belongs to W and satisfies every member of R. Such a valuation lies outside all E(h). Its absence is equivalent to the union covering W. Because Γ is satisfiable, every subset Γ' union R remains satisfiable. This rules out repairs that succeed merely by introducing inconsistency in this particular corpus.
 
-The minimum-cardinality repair problem is finite set cover. Dually, each v gives a nonempty subset D(v) of omitted hypotheses it violates; a repair must hit every D(v). The full source entailment guarantees nonemptiness. A single countermodel can rule out every candidate repair that it satisfies. It cannot establish that a surviving candidate suffices. A validated UNSAT proof of Γ' union R union {not T} certifies sufficiency. A single valuation falsifying every omitted h in R except one is an irredundancy witness for that member (if it satisfies Γ' and negates T). Irredundancy is distinct from minimum cardinality.
+The minimum-cardinality repair problem is finite set cover. Dually, each v gives a nonempty subset D(v) of omitted hypotheses it violates; a repair must hit every D(v). The full source entailment guarantees nonemptiness. A single countermodel can rule out every candidate repair that it satisfies. It cannot establish that a surviving candidate suffices. A validated UNSAT proof of Γ' union R union {not T} certifies sufficiency. For a sufficient repair R, a valuation satisfying every member of R except h, falsifying h, satisfying Γ' and negating T is an irredundancy witness for h. Irredundancy is distinct from minimum cardinality.
 
 ## Counterexample-guided repair
 
