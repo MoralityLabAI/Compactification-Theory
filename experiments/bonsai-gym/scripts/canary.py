@@ -238,6 +238,10 @@ def main():
             lsum, _, _ = masked_loss(model, ids, lab, cfg.get("loss_chunk", 256))
             (lsum / n_tgt).backward()
             loss_sum += float(lsum)
+            del lsum
+            # sequences vary 0.5-3.4K tokens: return fragmented cache blocks before the next one
+            if torch.cuda.memory_reserved() - torch.cuda.memory_allocated() > 1 << 30:
+                torch.cuda.empty_cache()
         grads_finite = all(bool(torch.isfinite(p_.grad).all()) for p_ in params if p_.grad is not None)
         gnorm = float(torch.nn.utils.clip_grad_norm_(params, cfg.get("clip", 1.0)))
         if not grads_finite or not math.isfinite(loss_sum):
