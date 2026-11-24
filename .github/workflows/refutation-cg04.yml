@@ -1,0 +1,36 @@
+name: RB-CG-04 minimum premise repair
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/critique_generation_cg04/**'
+      - '.github/workflows/refutation-cg04.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/critique_generation_cg04/**'
+      - '.github/workflows/refutation-cg04.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-minimum-repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned Lean and CPU Torch
+        run: |
+          python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          curl --fail --location --retry 3 https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst -o /tmp/lean.tar.zst
+          tar --zstd -xf /tmp/lean.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Native reference proofs, minimum hitting-set proposals, and actor replay
+        run: python -u research/refutation_bench/critique_generation_cg04/repair.py --out /tmp/cg04
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cg04-minimum-repair-receipts
+          path: /tmp/cg04
+          retention-days: 14
