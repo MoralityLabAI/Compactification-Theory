@@ -31,11 +31,11 @@
  "clip": 1.0,
  "microbatch": 1,
  "grad_accum": 8,
- "steps": 110,
- "eval_every": 25,
+ "steps": 60,
+ "eval_every": 20,
  "eval_batch": 1,
  "ckpt_every": 5,
- "cuda_memory_fraction": 0.8,
+ "cuda_memory_fraction": 0.92,
  "loss_chunk": 64,
  "cap_watch_w": 60
 }
