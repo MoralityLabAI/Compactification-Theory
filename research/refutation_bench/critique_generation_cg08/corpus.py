@@ -171,9 +171,9 @@ def verify(case,cert):
     return False
 
 ADAPTER="""theorem cg08Bridge (R C V E H : Prop) (hr : R) (hc : C)
-    (win : R → V) (hev : R → C → V → E) (last : E → H) : H :=
+    (win : R → V) (hev : R → C → V → E) (hend : E → H) : H :=
   MathCan.RHMainLogic.final_rh_route_from_supplied_mathematical_bridges
-    hr hc win (fun lit hv => hev lit.caraianiLocalGlobalDual lit.localLanglandsExists hv) last
+    hr hc win (fun lit hv => hev lit.caraianiLocalGlobalDual lit.localLanglandsExists hv) hend
 """
 def p(a):return f"p{a}"
 def arrow(xs,goal):return " → ".join([p(x) for x in xs]+[p(goal)])
@@ -219,12 +219,12 @@ def render(case,cert,name):
     ts=cert["traces"]
     lines,ns=derive(case,0,ts[0],"  ")
     out=[f"theorem {name} {binders(case)} : {p(H)} := by",*lines]
-    for ctx,target,local in [(1,V,"window"),(2,E,"every"),(3,H,"last")]:
+    for ctx,target,local in [(1,V,"hWindow"),(2,E,"hEvery"),(3,H,"hEnd")]:
         out.append(f"  have {local} : {arrow(assumptions(case)[ctx],target)} := by")
         out.append("    intro "+" ".join(f"a{ctx}_{j}" for j in range(len(assumptions(case)[ctx]))))
         ls,mp=derive(case,ctx,ts[ctx],"    ");out.extend(ls)
         out.append("    exact "+mp[target])
-    out.append("  exact cg08Bridge "+" ".join(p(x) for x in (R,C,V,E,H))+" "+ns[R]+" "+ns[C]+" window every last")
+    out.append("  exact cg08Bridge "+" ".join(p(x) for x in (R,C,V,E,H))+" "+ns[R]+" "+ns[C]+" hWindow hEvery hEnd")
     return [(name,"\n".join(out))]
 
 def run_lean(lean,path,cwd,env,log,opts=()):
