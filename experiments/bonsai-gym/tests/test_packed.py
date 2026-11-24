@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from bonsai_gym import ptq1_codec  # noqa: E402
 from bonsai_gym.gdn import chunk_gated_delta_rule, recurrent_gated_delta_rule  # noqa: E402
-from bonsai_gym.packed import (PackedLinear, decode, hadamard_matrix, inverse_rotate, rotate,  # noqa: E402
+from bonsai_gym.packed import (PackedLinear, binarize_ste, decode, hadamard_matrix, inverse_rotate, rotate,  # noqa: E402
                                split_blocks, ternarize_ste)
 
 GGUF = os.environ.get("BONSAI_GGUF", r"C:\Users\patri\models\ternary-bonsai-2-27b\Ternary-Bonsai-2-27B-PTQ1_0.gguf")
@@ -123,3 +123,30 @@ def test_chunked_delta_rule_matches_recurrent():
     ref = recurrent_gated_delta_rule(q, k, v, g, beta)
     out = chunk_gated_delta_rule(q, k, v, g, beta, chunk_size=32)
     assert torch.allclose(out, ref, atol=1e-4)
+
+
+def test_binary_ste_is_one_bit_and_passes_gradient():
+    w = torch.randn(4, 4, requires_grad=True)
+    q = binarize_ste(w)
+    s = w.detach().abs().mean()
+    assert torch.allclose(q.detach().abs(), torch.full_like(w, float(s)))
+    assert torch.equal(torch.sign(q.detach()), torch.sign(w.detach()))
+    q.sum().backward()
+    assert torch.equal(w.grad, torch.ones_like(w))
+
+
+def test_binary_adapter_forward_uses_quantized_weights():
+    lin = _linear()
+    lin.add_lora(4, 8.0, torch.Generator().manual_seed(0), quant="binary_ste")
+    torch.nn.init.normal_(lin.lora_B, std=0.1)
+    x = torch.randn(5, 256)
+    a, b = lin.lora_weights()
+    assert a.detach().unique().numel() == 2 and b.detach().unique().numel() == 2
+    lin_fp = _linear()
+    lin_fp.add_lora(4, 8.0, torch.Generator().manual_seed(0))
+    with torch.no_grad():
+        lin_fp.lora_A.copy_(a)
+        lin_fp.lora_B.copy_(b)
+    assert torch.allclose(lin(x), lin_fp(x), atol=1e-5)   # a float LoRA holding the 1-bit values = the export
+    lin(x).sum().backward()
+    assert lin.lora_A.grad is not None and lin.lora_B.grad is not None

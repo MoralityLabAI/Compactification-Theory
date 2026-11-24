@@ -12,8 +12,19 @@
  "rank": 8,
  "alpha": 16,
  "adapter_quant": "none",
- "targets": ["attn_qkv", "attn_gate", "ssm_out", "attn_q", "attn_k", "attn_v", "attn_output", "ffn_gate", "ffn_up", "ffn_down"],
- "lr": 2e-4,
+ "targets": [
+  "attn_qkv",
+  "attn_gate",
+  "ssm_out",
+  "attn_q",
+  "attn_k",
+  "attn_v",
+  "attn_output",
+  "ffn_gate",
+  "ffn_up",
+  "ffn_down"
+ ],
+ "lr": 0.0002,
  "warmup_steps": 5,
  "min_lr_frac": 0.1,
  "weight_decay": 0.0,
@@ -24,6 +35,7 @@
  "eval_every": 25,
  "eval_batch": 1,
  "ckpt_every": 5,
- "cuda_memory_fraction": 0.80,
- "loss_chunk": 64
+ "cuda_memory_fraction": 0.8,
+ "loss_chunk": 64,
+ "cap_watch_w": 60
 }

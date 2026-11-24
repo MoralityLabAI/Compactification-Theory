@@ -142,6 +142,18 @@ def ternarize_ste(w: torch.Tensor) -> torch.Tensor:
     return w + (q - w).detach()
 
 
+def binarize_ste(w: torch.Tensor) -> torch.Tensor:
+    """1-bit {-s, +s} quantization, s = per-tensor absmean, straight-through gradient (BinaryConnect/XNOR rule).
+    Exact zeros (the zero-initialized B before its first update) stay zero."""
+    scale = w.abs().mean().clamp_min(1e-8)
+    q = torch.sign(w) * scale
+    # q + (w - w.detach()): values exactly +-s (w + (q - w).detach() is off by rounding), gradient 1 into w
+    return q.detach() + (w - w.detach())
+
+
+ADAPTER_QUANT = {"ternary_ste": ternarize_ste, "binary_ste": binarize_ste}
+
+
 class PackedLinear(nn.Module):
     """Frozen packed PTQ1_0 projection with an optional LoRA on the primal input.
 
@@ -176,10 +188,18 @@ class PackedLinear(nn.Module):
         self.lora_A = nn.Parameter(a.to(dev))
         self.lora_B = nn.Parameter(torch.zeros(self.out_features, rank, dtype=torch.float32, device=dev))
         self.lora_scale = alpha / rank
-        if quant not in ("none", "ternary_ste"):
+        if quant != "none" and quant not in ADAPTER_QUANT:
             raise ValueError(f"unknown adapter quantization {quant}")
         self.lora_quant = quant
         return a.numel() + self.out_features * rank
+
+    def lora_weights(self) -> tuple[torch.Tensor, torch.Tensor]:
+        """The A, B the forward applies: the latent parameters, quantized when an adapter quantizer is set."""
+        a, b = self.lora_A, self.lora_B
+        if self.lora_quant != "none":
+            q = ADAPTER_QUANT[self.lora_quant]
+            a, b = q(a), q(b)
+        return a, b
 
     def rotated_input(self, x: torch.Tensor) -> torch.Tensor:
         if self.perm is not None:
@@ -196,9 +216,7 @@ class PackedLinear(nn.Module):
         y = _PackedMatmul.apply(z.reshape(-1, self.in_features), self.codes, self.scales, self.chunk)
         y = y.reshape(*lead, self.out_features)
         if self.lora_A is not None:
-            a, b = self.lora_A, self.lora_B
-            if self.lora_quant == "ternary_ste":
-                a, b = ternarize_ste(a), ternarize_ste(b)
+            a, b = self.lora_weights()
             y = y + F.linear(F.linear(x, a.to(x.dtype)), b.to(x.dtype)) * self.lora_scale
         return y
 

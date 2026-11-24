@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 from bonsai_gym.adapter_io import load_adapter, save_adapter, write_gguf_lora  # noqa: E402
 from bonsai_gym.data import Sampler, collate, load_examples  # noqa: E402
-from bonsai_gym.model import attach_lora, load_packed_qwen35, lora_state  # noqa: E402
+from bonsai_gym.model import attach_lora, load_packed_qwen35, lora_export_state, lora_state  # noqa: E402
 from bonsai_gym.runinfo import run_info  # noqa: E402
 
 
@@ -54,6 +54,16 @@ class GpuSampler(threading.Thread):
             return {}
         return {"util_mean": sum(x[1] for x in s) / len(s), "mem_used_max_mib": max(x[2] for x in s),
                 "power_mean_w": sum(x[3] for x in s) / len(s), "power_limit_min_w": min(x[4] for x in s), "n": len(s)}
+
+
+def enforced_power_w():
+    """Enforced GPU power limit in W from NVML via nvidia-smi (None if unreadable)."""
+    try:
+        out = subprocess.run(["nvidia-smi", "--query-gpu=enforced.power.limit", "--format=csv,noheader,nounits"],
+                             capture_output=True, text=True, timeout=20).stdout.strip().splitlines()
+        return float(out[0])
+    except Exception:
+        return None
 
 
 def masked_loss(model, ids, labels, chunk=256):
@@ -213,11 +223,30 @@ def main():
             ev, _ = evaluate(model, val, pad_id, cfg.get("eval_batch", 4))
             history.setdefault("evals", []).append({"step": step + 1, **ev})
             log({"event": "eval", "step": step + 1, **ev})
-        if (step + 1) % cfg.get("ckpt_every", 10) == 0 and step + 1 < total:
+        def save_ckpt():
             tmp = out / "checkpoint.tmp"
             torch.save({"params": [p_.detach() for p_ in params], "opt": opt.state_dict(),
                         "sampler": sampler.state(), "step": step + 1, "history": history}, tmp)
             tmp.replace(ckpt)
+
+        saved_now = False
+        if (step + 1) % cfg.get("ckpt_every", 10) == 0 and step + 1 < total:
+            save_ckpt()
+            saved_now = True
+        # The laptop card drops to a 15 W cap after minutes of load; vramorama's power guard then stops the job.
+        # Checkpoint as soon as the cap shows, so the restart resumes from this step, then idle until it clears.
+        if cfg.get("cap_watch_w") and step + 1 < total:
+            w = enforced_power_w()
+            if w is not None and w < cfg["cap_watch_w"]:
+                if not saved_now:
+                    save_ckpt()
+                log({"event": "power_capped", "step": step + 1, "enforced_w": w})
+                while True:
+                    time.sleep(15)
+                    w = enforced_power_w()
+                    if w is None or w >= cfg["cap_watch_w"]:
+                        break
+                log({"event": "power_cap_cleared", "step": step + 1, "enforced_w": w})
     train_s = time.time() - train_t0
     train_gpu = gpu.summary(since=train_t0)
 
@@ -231,7 +260,14 @@ def main():
     n_loaded = load_adapter(model, out / "adapter.safetensors")
     reloaded, per = evaluate(model, val, pad_id, cfg.get("eval_batch", 4))
     (out / "eval_final_per_item.json").write_text(json.dumps(per), encoding="utf-8")
-    gg = write_gguf_lora(lora_state(model), out / "adapter.gguf", cfg["alpha"])
+    # the GGUF carries the adapter as the forward applies it (quantized A, B for a 1-bit/ternary adapter)
+    export = lora_export_state(model)
+    gg = write_gguf_lora(export, out / "adapter.gguf", cfg["alpha"])
+    quant = cfg.get("adapter_quant", "none")
+    gg["adapter_quant"] = quant
+    gg["distinct_values_per_tensor_max"] = max(int(t.unique().numel()) for t in export.values())
+    if quant == "binary_ste":   # 1 bit per weight + one fp32 scale per tensor
+        gg["packed_bits"] = int(sum(t.numel() for t in export.values()) + 32 * len(export))
     confirm_res = None
     if confirm:
         from bonsai_gym.gym import paired_gain

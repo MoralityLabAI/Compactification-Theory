@@ -303,6 +303,19 @@ def lora_state(model: PackedQwen35) -> dict[str, torch.Tensor]:
     return out
 
 
+def lora_export_state(model: PackedQwen35) -> dict[str, torch.Tensor]:
+    """The adapter as the forward applies it (quantized A, B for a quantized adapter): what a GGUF export must carry.
+    `lora_state` keeps the float latents, which training resumes from."""
+    out = {}
+    with torch.no_grad():
+        for m in model.packed_linears():
+            if m.lora_A is not None:
+                a, b = m.lora_weights()
+                out[m.name + ".lora_a"] = a.detach().float().cpu().contiguous()
+                out[m.name + ".lora_b"] = b.detach().float().cpu().contiguous()
+    return out
+
+
 def load_lora_state(model: PackedQwen35, state: dict[str, torch.Tensor]) -> int:
     n = 0
     for m in model.packed_linears():
