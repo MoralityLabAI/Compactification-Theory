@@ -57,6 +57,7 @@ def lean_expr(e,values,typ):
     if op=="v":return values[e[1]]
     if op=="k":return f"({e[1]} : {typ})"
     if op=="not":return "(¬ "+lean_expr(e[1],values,typ)+")"
+    if op=="-" and typ=="Int" and e[1]==ZERO:return "(-"+lean_expr(e[2],values,typ)+")"
     x,y=(lean_expr(t,values,typ) for t in e[1:])
     return f"({x} {dict(le='≤',lt='<').get(op,op)} {y})"
 def grid(widths):return list(itertools.product(*(range(w) for w in widths)))
