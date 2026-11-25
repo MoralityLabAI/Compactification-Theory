@@ -72,6 +72,8 @@ def main() -> int:
     ap.add_argument("--save-every", type=int, default=5)
     ap.add_argument("--effort", type=float, default=0.0)
     ap.add_argument("--max-tokens", type=int, default=1536)
+    ap.add_argument("--base-max-tokens", type=int, default=0, help="token budget for the base arm (default --max-tokens)")
+    ap.add_argument("--val-every", type=int, default=0, help="held-out loss every N steps (default: at each save)")
     ap.add_argument("--max-length", type=int, default=8192)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--name", default="inky-bdb")
@@ -133,6 +135,9 @@ def main() -> int:
         op.result()
         nll, n = weighted_nll(res, batch)
         log({"event": "step", "step": step, "loss": nll / n, "target_tokens": n, "step_s": time.time() - t0})
+        if step < a.steps and step % (a.val_every or a.save_every) == 0:
+            run["val_loss"][str(step)] = val_loss()
+            log({"event": "val", "step": step, "loss": run["val_loss"][str(step)]})
         if step % a.save_every == 0 or step == a.steps:
             p = tc.save_state(name=f"{a.name}-step{step}").result().path
             run["saves"].append({"step": step, "state": p})
@@ -155,9 +160,9 @@ def main() -> int:
     if a.eval:
         rows = read(a.eval)
         stop = renderer.get_stop_sequences()
-        params = types.SamplingParams(max_tokens=a.max_tokens, temperature=0.0, stop=stop)
-        for arm, client in (("adapter", sc.create_sampling_client(model_path=sampler_path)),
-                            ("base", sc.create_sampling_client(base_model=a.model))):
+        for arm, client, mt in (("adapter", sc.create_sampling_client(model_path=sampler_path), a.max_tokens),
+                                ("base", sc.create_sampling_client(base_model=a.model), a.base_max_tokens or a.max_tokens)):
+            params = types.SamplingParams(max_tokens=mt, temperature=0.0, stop=stop)
             futs = [(r, client.sample(prompt=renderer.build_generation_prompt(to_messages(r, False), effort=a.effort),
                                       num_samples=1, sampling_params=params)) for r in rows]
             with (out / f"samples_{arm}.jsonl").open("w", encoding="utf-8") as f:
@@ -167,7 +172,7 @@ def main() -> int:
                     content = msg["content"] if isinstance(msg["content"], str) else renderers.format_content_as_string(msg["content"]) if hasattr(renderers, "format_content_as_string") else str(msg["content"])
                     f.write(json.dumps({"id": r["id"], "reply": content, "tokens": len(seq.tokens),
                                         "raw": tok.decode(seq.tokens)}) + "\n")
-            log({"event": "sampled", "arm": arm, "rows": len(rows)})
+            log({"event": "sampled", "arm": arm, "rows": len(rows), "max_tokens": mt})
     (out / "run.json").write_text(json.dumps(run, indent=1), encoding="utf-8")
     log({"event": "done"})
     return 0
