@@ -15,38 +15,7 @@ set -u
 HERE=$(cd "$(dirname "$0")" && pwd)
 GYM=$(cd "$HERE/.." && pwd)
 . "$HERE/suite_env.sh"
-BENCH=/c/Users/patri/OneDrive/Documents/GitHub/bitcoin-defi-bench
-PY=/c/Users/patri/.venvs/onebit-suite/Scripts/python.exe
-TPY=/c/Users/patri/.venvs/bluebeam/Scripts/python.exe
-FAMS="srb bdb math logic"
-log() { echo "=== $* $(date '+%F %T')"; }
-log "suite model $SUITE_MODEL ($MODEL_NAME), work dir $W"
-
-out_dir() { "$TPY" -c "import json,sys; print(json.load(open(sys.argv[1]))['out_dir'])" "$GYM/configs/$1.json"; }
-train() {  # train <config name>
-  local cfg=$1 od
-  od=$(out_dir "$cfg")
-  if [ -s "$od/result.json" ]; then log "train $cfg already done"; return 0; fi
-  for try in 1 2 3; do
-    log "train $cfg (attempt $try)"
-    (cd "$GYM" && PYTHONIOENCODING=utf-8 vramorama run --vram 15G --owner "suite-train-$cfg" --guard-power 1800 --restart 20 -- \
-       "$TPY" -u scripts/canary.py --config "configs/$cfg.json")
-    log "train $cfg rc=$?"
-    [ -s "$od/result.json" ] && return 0
-  done
-  log "train $cfg failed"; return 1
-}
-bdb_arm() {  # bdb_arm <arm tag> [adapter.gguf]
-  local arm=$1 gguf=${2:-}
-  local last="$BENCH/results/v0-netting-$MODEL_NAME-nothink-t0-$arm-development.md"
-  [ -s "$last" ] && { log "bdb arm $arm already done"; return 0; }
-  for try in 1 2 3; do
-    log "bdb arm $arm (attempt $try)"
-    vramorama run --vram 8G --owner "suite-bdb-$arm" --guard-power 1800 --restart 20 -- bash "$HERE/bdb_arm.sh" "$arm" 18298 $gguf
-    [ -s "$last" ] && return 0
-  done
-  log "bdb arm $arm incomplete"; return 1
-}
+. "$HERE/suite_lib.sh"
 done_gen() {  # done_gen <arm>: every eval split fully generated for that arm
   local arm=$1
   for fam in $FAMS; do
