@@ -1,0 +1,159 @@
+{
+ "schema": "dcf16.decision_trace.v1",
+ "protocol": {
+  "experiment": "DCF-16 verifier-grounded curriculum of computational decisions",
+  "splits": {
+   "train": {
+    "families": [
+     "chain",
+     "tree",
+     "grid",
+     "sparse"
+    ],
+    "sizes": [
+     8,
+     12,
+     16,
+     24,
+     32
+    ],
+    "seeds": 30,
+    "seed_base": 160000
+   },
+   "val": {
+    "families": [
+     "chain",
+     "tree",
+     "grid",
+     "sparse"
+    ],
+    "sizes": [
+     8,
+     12,
+     16,
+     24,
+     32
+    ],
+    "seeds": 6,
+    "seed_base": 170000
+   },
+   "heldout": [
+    {
+     "families": [
+      "star",
+      "dense",
+      "hyper",
+      "ktree",
+      "xor_noiseless",
+      "weak_dense"
+     ],
+     "sizes": [
+      12,
+      24,
+      48,
+      64
+     ],
+     "seeds": 8,
+     "seed_base": 180000
+    },
+    {
+     "families": [
+      "chain",
+      "grid",
+      "sparse"
+     ],
+     "sizes": [
+      48,
+      64
+     ],
+     "seeds": 8,
+     "seed_base": 190000
+    }
+   ]
+  },
+  "heldout_rule": "star, dense, hyper, ktree, xor_noiseless and weak_dense never appear in train or val; chain, grid and sparse appear in heldout only at sizes 48 and 64 (train/val stop at 32), with fresh seeds",
+  "budgets": [
+   10,
+   14,
+   18
+  ],
+  "penalties": [
+   4,
+   9
+  ],
+  "lambda": 0.05,
+  "workers": 4,
+  "selection_label": "option maximising expected utility under the verified reference posterior minus lambda * ops / budget among operators within budget (ties -> abstain); exact option resolved to the cheapest exact operator",
+  "verification": "each example's reference posterior was accepted only when an independent exact path agreed within 1e-8 (DCF-14 run_instance); verify re-derives the posterior from the serialised problem",
+  "contamination": "sha256 of the canonical problem (scopes, kinds, observations, noise, query) must not repeat across splits"
+ },
+ "files": {
+  "train.jsonl.gz": {
+   "examples": 600,
+   "sha256_uncompressed": "8d9d50866bd9f8c39c99bdf235c17ae31dc38f850bdc36417f8871a72ebe142c",
+   "families": [
+    "chain",
+    "grid",
+    "sparse",
+    "tree"
+   ],
+   "labels": {
+    "exact": 283,
+    "bp": 3,
+    "mbe": 18,
+    "particle": 0,
+    "particle_ci": 0,
+    "abstain": 296
+   },
+   "hard_negatives": 324
+  },
+  "val.jsonl.gz": {
+   "examples": 120,
+   "sha256_uncompressed": "245ec7f91ef1ee8c3e368f661996a1a451ac437919e385a2c2acd22b6a1ac75b",
+   "families": [
+    "chain",
+    "grid",
+    "sparse",
+    "tree"
+   ],
+   "labels": {
+    "exact": 56,
+    "bp": 0,
+    "mbe": 5,
+    "particle": 0,
+    "particle_ci": 0,
+    "abstain": 59
+   },
+   "hard_negatives": 62
+  },
+  "heldout.jsonl.gz": {
+   "examples": 200,
+   "sha256_uncompressed": "ff709266e6402aa3f7ae8acd9e34e99c9902b30e052fcb49738f7ec5bf838cd8",
+   "families": [
+    "chain",
+    "dense",
+    "grid",
+    "hyper",
+    "ktree",
+    "sparse",
+    "star",
+    "weak_dense",
+    "xor_noiseless"
+   ],
+   "labels": {
+    "exact": 78,
+    "bp": 3,
+    "mbe": 16,
+    "particle": 1,
+    "particle_ci": 0,
+    "abstain": 102
+   },
+   "hard_negatives": 117
+  }
+ },
+ "overlap": {
+  "train&val": 0,
+  "heldout&train": 0,
+  "heldout&val": 0
+ }
+}
