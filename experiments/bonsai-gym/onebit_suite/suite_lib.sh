@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Shared helpers for run_suite.sh and bdb_compare.sh (source after suite_env.sh; needs HERE and GYM).
 BENCH=/c/Users/patri/OneDrive/Documents/GitHub/bitcoin-defi-bench
-PY=/c/Users/patri/.venvs/onebit-suite/Scripts/python.exe
+PY=/c/Users/patri/.venvs/onebit-suite-sys/Scripts/python.exe
 TPY=/c/Users/patri/.venvs/bluebeam/Scripts/python.exe
 FAMS="srb bdb math logic"
 log() { echo "=== $* $(date '+%F %T')"; }

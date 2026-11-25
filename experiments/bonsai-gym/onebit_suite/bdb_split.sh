@@ -8,7 +8,7 @@ set -u
 HERE=$(cd "$(dirname "$0")" && pwd)
 . "$HERE/suite_env.sh"
 ARM=$1; PORT=$2; LORA=${3:-}
-PY=/c/Users/patri/.venvs/onebit-suite/Scripts/python.exe
+PY=/c/Users/patri/.venvs/onebit-suite-sys/Scripts/python.exe
 EXTRA=()
 [ -n "$LORA" ] && EXTRA=(--lora "$(cygpath -w "$LORA")")
 mkdir -p "$W/logs" "$W/gen/$ARM"

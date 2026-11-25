@@ -9,7 +9,7 @@ PHASE=$1
 PORT=${PORT:-18299}
 HERE=$(cd "$(dirname "$0")" && pwd)
 . "$HERE/suite_env.sh"
-PY=/c/Users/patri/.venvs/onebit-suite/Scripts/python.exe
+PY=/c/Users/patri/.venvs/onebit-suite-sys/Scripts/python.exe
 ADAPTERS=math,logic,srb,bdb
 EXTRA=()
 if [ "$PHASE" = cross ]; then
