@@ -1,0 +1,20 @@
+name: COL quotient frontier
+on:
+  pull_request:
+    paths:
+      - 'research/collatz_quotient_frontier/**'
+      - '.github/workflows/col-quotient-frontier.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m unittest research.collatz_quotient_frontier.test_frontier -v
+      - run: python research/collatz_quotient_frontier/frontier.py --check research/collatz_quotient_frontier/results/exact_receipt.json.gz
