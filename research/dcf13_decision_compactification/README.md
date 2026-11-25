@@ -70,6 +70,19 @@ Use relevant component enumeration when all queried components have <=4 variable
 
 All 3,072 hybrid decisions identical to full, no skips, max scope5, max hybrid posterior discrepancy1.4655e-14. Mean time lowest across regimes, but strict per-condition latency gate FAIL (6/24 vs required18/24): graph routing overhead loses to pure enumeration in many easy conditions. Speedups conditional on this mix of task structures. No guarantee on unseen higher-treewidth graph families or unobserved factor scopes. No neural training or accelerator measurement, and no general matrix exponent conclusion.
 
+## Recovery, reproduction and DCF-13D (2026-11-25, repository run)
+
+The 13A/B/C receipts were missing from the branch. They were regenerated from the hash-locked sources: decision-level results reproduce exactly, and timings move with the host (13C latency gate 7/24 here vs 6/24 preliminary). DCF-13D completes the Phase-1 checklist on fresh seeds: a cost-estimated hybrid (exact, but its latency gate fails at 4/36); min-fill and weighted min-fill orderings with budgeted pre-execution abstention; exact Bayesian model averaging over a shared unknown sensor law in Bernstein form; and shared-parameter credal certificates. The certificates raise safe coverage from 1.65% (13B pointwise bounds) to 39.8% with zero negative-utility actions. See [RESULTS.md](RESULTS.md), [THEORY.md](THEORY.md) and [PROTOCOL.json](PROTOCOL.json); the integer core is kernel-checked in [MathCan `DCFDecision.lean`](https://github.com/patrickdugan/MathCan/blob/main/MathCan/DCFDecision.lean).
+
+Reproduce 13D (after the 13A/B/C commands below; NumPy 2.3.5, Numba 0.65.1, pytest):
+
+    sha256sum -c PRE_RUN_13D_SHA256   # fg.py line fails after later DCF-14 changes; the 13D run used the fg.py blob of the commit that added PRE_RUN_13D_SHA256
+    python audit13d.py calibrate      # dev seeds only; the committed calibration13d.json is what the run used
+    python audit13d.py run
+    python summarize13d.py
+    python -m pytest tests
+
+
 ## Reproduce
 
 Python3.13.5, NumPy2.3.5, Numba0.65.1. From this directory:

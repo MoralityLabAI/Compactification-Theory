@@ -1,0 +1,19 @@
+# DCF-13 theory
+
+Binary latents `x ∈ {0,1}^K` with an independent uniform prior; observations are conditionally independent likelihood factors `f_j(x_{S_j})`; the query is the parity `π_Q(x) = ⊕_{i∈Q} x_i`; reward +1 correct, −c wrong, 0 abstain.
+
+**T1 (decision threshold).** With posterior `p = P(π_Q=1 | y)`, answering 1 has expected utility `p − c(1−p)`, answering 0 has `(1−p) − cp`, abstaining 0. The Bayes action answers 1 iff `p ≥ c/(1+c)`, answers 0 iff `p ≤ 1/(1+c)`, otherwise abstains. For c = 4 the thresholds are 0.8 and 0.2. Kernel-checked in integer form as `MathCan.DCF.act_optimal`.
+
+**T2 (exact component restriction).** Let `C_1, …, C_r` be the connected components of the evidence hypergraph `{S_j}`. The unnormalised posterior is `∏_c w_c(x_{C_c})`. Write `Z_c = Σ w_c` and `S_c = Σ w_c (−1)^{π_{Q∩C_c}}`. Then `S = ∏_c S_c` and `Z = ∏_c Z_c`, so `P(π_Q = 1) = (1 − ∏_{c: Q∩C_c≠∅} S_c/Z_c)/2`. Components that contain no query variable cancel. Kernel-checked as `MathCan.DCF.signedMass_product`. Inference cost therefore depends on the query's components, not on K.
+
+**T3 (elimination cost is decidable before execution).** For a fixed elimination order, the scopes of every intermediate table, and hence the exact work count `Σ_steps 2^{|union|}·|bucket|`, are functions of the factor scopes alone. DCF-13D's `ve_symbolic` replays the greedy order on bitmasks and returns the exact work counter of `eliminate()` (audited on 4,608/4,608 episodes). A budget can therefore abstain before any table is built. Minimum union scope (DCF-13B) is the min-degree heuristic on the elimination graph.
+
+**T4 (shared model parameters reconnect components).** Let the ambiguous sensors share one unknown mixture weight `w` (probability that the sensor computes majority rather than XOR) with prior `π(w)`. Each factor is affine in `w`: `f_j = (1−w)·a_j + w·b_j`. Conditional on `w`, T2 still holds. Marginally, `P(π_Q=1 | y) = ∫ N_1(w) π(w) dw / ∫ (N_0+N_1)(w) π(w) dw`, where `N_k(w) = ∏_c N_{k,c}(w)` runs over the query components and every component containing an ambiguous factor. Evidence about `w` in a disconnected component changes the query posterior. In DCF-13D this enlarges the relevant set from 4.1–4.6 to 8.0, 11.3 and 12.0 variables at K = 8, 12, 16.
+
+**T5 (exact BMA in Bernstein form).** Represent each per-assignment weight in the basis `w^i(1−w)^{m−i}` (m = number of ambiguous factors). An affine factor contributes `[a_j, b_j]`, and a product of factors is a convolution of coefficient vectors. Every coefficient of a likelihood product is nonnegative. Under `w ~ U[0,1]`, `∫ w^i(1−w)^{m−i} dw = i!(m−i)!/(m+1)!`, so the BMA posterior is a ratio of two finite sums; no quadrature is needed. Components combine under parity by `(A_0,A_1)⊗(B_0,B_1) = (A_0B_0 + A_1B_1, A_0B_1 + A_1B_0)`.
+
+**T6 (credal certificate).** Answer 1 is optimal for every `w ∈ [0,1]` iff `G(w) = N_1(w) − c·N_0(w) ≥ 0` on `[0,1]`. If every Bernstein coefficient of G is nonnegative on each dyadic subinterval of a de Casteljau subdivision, then `G ≥ 0`: this is a sufficient condition, not a necessary one. A negative endpoint coefficient is a point value of G, so it refutes the certificate. A certified action has nonnegative expected utility under the true `w`, whatever it is. The rational-point version is kernel-checked as `MathCan.DCF.bernstein_certificate_sound`. The DCF-13B pointwise bound allows each factor its own `w_j ∈ [0,1]`. That uncertainty set is strictly larger, so its certificate is weaker (T7).
+
+**T7 (interval soundness).** If every admissible model satisfies `L_1 ≤ N_1` and `N_0 ≤ U_0`, then `c·U_0 ≤ L_1` implies `c·N_0 ≤ N_1` for each of them (`MathCan.DCF.interval_certificate_sound`).
+
+Limits: floating-point arithmetic throughout the Python code, with no interval-certified rounding. T6 is certified for the stated prior support `[0,1]`, not for misspecified sensor families. Calibration figures (ECE, Brier) are empirical.
