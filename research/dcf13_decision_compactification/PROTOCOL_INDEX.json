@@ -1,0 +1,9 @@
+{"experiment":"DCF-13 decision-directed compactification",
+"stages":{
+ "13A":{"protocol":"protocol.json","source":"gym.py","hash_lock":"PRE_RUN_SHA256","receipt":"receipt.json"},
+ "13B":{"protocol":"protocol.json","source":"eliminate.py","hash_lock":"FOLLOWUP_PRE_RUN_SHA256","receipt":"followup_receipt.json"},
+ "13C":{"protocol":"hybrid_protocol.json","source":"hybrid.py","hash_lock":"HYBRID_PRE_RUN_SHA256","receipt":"hybrid_receipt.json"},
+ "13D":{"protocol":"protocol13d.json","source":"audit13d.py (+ ../dcf14_width_routing/fg.py)","hash_lock":"PRE_RUN_13D_SHA256","calibration":"calibration13d.json","receipts":["receipt13d_a.json","receipt13d_b.json","receipt13d_c.json"],"summary":"results13d.json (summarize13d.py)"}},
+"reward":{"correct":1,"wrong":-4,"abstain":0},
+"registration":"local hash locks committed to git before each run; no external preregistration",
+"reproduction_note":"13A/B/C receipts were regenerated from the hash-locked sources on 2026-11-25 because the original receipts were not on the branch"}

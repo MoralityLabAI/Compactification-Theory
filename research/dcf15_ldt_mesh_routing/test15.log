@@ -1,0 +1,69 @@
+﻿test 0.2 low fixed_local 0.1342
+test 0.2 low fixed_local_nomerge 0.1188
+test 0.2 low fixed_bp 0.1638
+test 0.2 low fixed_exact 0.1658
+test 0.2 low random 0.1564
+test 0.2 low symbolic 0.1638
+test 0.2 low symbolic_j 0.1397
+test 0.2 low learned 0.1592
+test 0.2 low oracle 0.1658
+test 0.2 high fixed_local 0.0495
+test 0.2 high fixed_local_nomerge 0.042
+test 0.2 high fixed_bp 0.0647
+test 0.2 high fixed_exact 0.0649
+test 0.2 high random 0.0603
+test 0.2 high symbolic 0.0647
+test 0.2 high symbolic_j 0.0545
+test 0.2 high learned 0.0607
+test 0.2 high oracle 0.0648
+test 0.4 low fixed_local 0.1194
+test 0.4 low fixed_local_nomerge 0.0857
+test 0.4 low fixed_bp 0.1944
+test 0.4 low fixed_exact 0.199
+test 0.4 low random 0.1734
+test 0.4 low symbolic 0.1944
+test 0.4 low symbolic_j 0.13
+test 0.4 low learned 0.1908
+test 0.4 low oracle 0.199
+test 0.4 high fixed_local 0.031
+test 0.4 high fixed_local_nomerge 0.0233
+test 0.4 high fixed_bp 0.0533
+test 0.4 high fixed_exact 0.0542
+test 0.4 high random 0.0486
+test 0.4 high symbolic 0.0533
+test 0.4 high symbolic_j 0.0364
+test 0.4 high learned 0.0495
+test 0.4 high oracle 0.0542
+test 0.6 low fixed_local 0.0826
+test 0.6 low fixed_local_nomerge 0.0342
+test 0.6 low fixed_bp 0.1859
+test 0.6 low fixed_exact 0.1943
+test 0.6 low random 0.1599
+test 0.6 low symbolic 0.1859
+test 0.6 low symbolic_j 0.1005
+test 0.6 low learned 0.1833
+test 0.6 low oracle 0.1943
+test 0.6 high fixed_local 0.0195
+test 0.6 high fixed_local_nomerge 0.0063
+test 0.6 high fixed_bp 0.0371
+test 0.6 high fixed_exact 0.0391
+test 0.6 high random 0.0325
+test 0.6 high symbolic 0.0371
+test 0.6 high symbolic_j 0.0235
+test 0.6 high learned 0.0347
+test 0.6 high oracle 0.0391
+sweep symbolic 1
+sweep symbolic 8
+sweep symbolic 32
+sweep symbolic 128
+sweep symbolic 256
+sweep learned 1
+sweep learned 8
+sweep learned 32
+sweep learned 128
+sweep learned 256
+sweep fixed_exact 1
+sweep fixed_exact 8
+sweep fixed_exact 32
+sweep fixed_exact 128
+sweep fixed_exact 256

@@ -626,7 +626,7 @@ def stage_test():
 
 def stage_report():
     model = json.loads((ROOT / 'model15_summary.json').read_text())
-    rec = json.loads((ROOT / 'receipt15_test.json').read_text())
+    rec = json.loads((ROOT / "receipt15_test.json").read_text()) if (ROOT / "receipt15_test.json").exists() else json.loads(__import__("gzip").open(ROOT / "receipt15_test.json.gz", "rt").read())
     n_dec = sum(len(c['rows']) for c in rec['conditions'] if c['router'] == 'learned')
     amort = model['train_seconds'] / max(1, n_dec)
     table = {}
