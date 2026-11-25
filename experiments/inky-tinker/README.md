@@ -20,3 +20,28 @@ to a llama.cpp GGUF LoRA for unsloth's mainline-layout `Inkling-2-Mini-UD-Q4_K_M
   19.5 GB checkpoint.
 - Local serving needs upstream llama.cpp b12611 or later (inkling2_loop, per-expert NVFP4 scales in looped
   layers); the PrismML fork b12178 has no inkling2 architecture.
+
+## BDB results (Bitcoin DeFi Bench SFT rows, 2026-11-25)
+
+Data: bonsai-gym suite `data/bdb/{train,val,eval}.jsonl` (450 / 36 / 36 rows; eval = seeds 7000-7003, 12 rows each
+for bonding, dlc, netting). Scored with bitcoin-defi-bench `scripts/score_sft_replies.ts` (1 = accepted and within
+1% of the teacher's value, 0.25 = accepted but worse, 0 = rejected or malformed). Greedy, thinking effort 0.
+
+| arm | steps | held-out loss | BDB all | bonding | dlc | netting |
+|---|---|---|---|---|---|---|
+| base, 1,536-token budget | – | 0.400 | 0.000 | 0.000 | 0.000 | 0.000 |
+| base, 6,144-token budget | – | 0.400 | 0.201 | 0.604 | 0.000 | 0.000 |
+| pre-flight adapter (r16, batch 8, lr 2e-4) | 15 | 0.238 | 0.417 | 0.875 | 0.375 | 0.000 |
+| full adapter (r16, batch 8, lr 2e-4, 3 epochs) | 168 | 0.218 | 0.646 | 1.000 | 0.938 | 0.000 |
+
+- Held-out loss is flat after the first epoch (0.241 at step 14, 0.216-0.229 from step 28 on); the eval gain from
+  15 to 168 steps is in dlc (0.375 to 0.938).
+- The base model thinks through the budget: 21 of 36 replies hit 6,144 tokens; the adapter answers in a median
+  144 tokens.
+- Netting is 0 for every arm. The adapter emits a well-formed `settle` plan but fills every transfer with the
+  same placeholder amount (e.g. 11111 sats), which the episode rejects as unbalanced: the format is learned, the
+  net-balance arithmetic is not.
+- The pre-flight GGUF LoRA on the local UD-Q4_K_M (llama.cpp b12686) scored the same as the Tinker-served
+  adapter on the 13 eval rows run locally (0.827 vs 0.827, 7 of 13 replies byte-identical). The full adapter's
+  GGUF (`inky-bdb-full-lora-f16.gguf`, 384 tensors, 1.27 GB) comes from the same converter.
+- Tinker paths (states every 28 steps, sampler and external weights) are in `results/bdb-full/run.json`.

@@ -1,0 +1,65 @@
+{
+ "settings": {
+  "train": "/mnt/c/Users/patri/Documents/Codex/onebit-suite-25/data/bdb/train.jsonl",
+  "val": "/mnt/c/Users/patri/Documents/Codex/onebit-suite-25/data/bdb/val.jsonl",
+  "eval": "/mnt/c/Users/patri/Documents/Codex/onebit-suite-25/data/bdb/eval.jsonl",
+  "out": "/mnt/c/Users/patri/Documents/Codex/inky-tinker/full",
+  "model": "thinkingmachines/Inkling-2-Mini:peft:65536:free",
+  "rank": 16,
+  "lr": 0.0002,
+  "batch": 8,
+  "steps": 168,
+  "save_every": 28,
+  "effort": 0.0,
+  "max_tokens": 1536,
+  "base_max_tokens": 6144,
+  "val_every": 14,
+  "max_length": 8192,
+  "seed": 0,
+  "name": "inky-bdb-full"
+ },
+ "saves": [
+  {
+   "step": 28,
+   "state": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/weights/inky-bdb-full-step28"
+  },
+  {
+   "step": 56,
+   "state": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/weights/inky-bdb-full-step56"
+  },
+  {
+   "step": 84,
+   "state": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/weights/inky-bdb-full-step84"
+  },
+  {
+   "step": 112,
+   "state": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/weights/inky-bdb-full-step112"
+  },
+  {
+   "step": 140,
+   "state": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/weights/inky-bdb-full-step140"
+  },
+  {
+   "step": 168,
+   "state": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/weights/inky-bdb-full-step168"
+  }
+ ],
+ "val_loss": {
+  "0": 0.4000511302605556,
+  "14": 0.24067499414065108,
+  "28": 0.22935467305613275,
+  "42": 0.2283163854026541,
+  "56": 0.2240932294986544,
+  "70": 0.22361727018828315,
+  "84": 0.2228841541204582,
+  "98": 0.22060791191647533,
+  "112": 0.21601784811056587,
+  "126": 0.22037331559633816,
+  "140": 0.21902511646868306,
+  "154": 0.2208783643769099,
+  "168": 0.21765494058419124
+ },
+ "sampler_weights": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/sampler_weights/inky-bdb-full-final",
+ "external_weights": "tinker://2e1f168e-c2a1-58c1-834d-8223501b58f2:train:0/external_weights/inky-bdb-full-export",
+ "adapter_dir": "/mnt/c/Users/patri/Documents/Codex/inky-tinker/full/adapter"
+}
