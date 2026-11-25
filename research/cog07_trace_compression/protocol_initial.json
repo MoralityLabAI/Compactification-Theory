@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "experiment_id": "COG-07",
+  "scope": "exact compression within a declared finite class of public Horn-step classifiers",
+  "source": "COG-02 synthetic proof DAG corpus",
+  "selection_split": "train",
+  "development_split": "calibration",
+  "report_splits": ["ordinary_test", "ood_test"],
+  "feature_count": 8,
+  "hypothesis_class": "all conjunctions of positive, negative or absent literals on eight public bits, plus constant false",
+  "target": "a checked candidate adds a fresh syntactic ancestor of the goal",
+  "selector": "greedy cover of every hypothesis excluded by the full training sample",
+  "decoder": "fewest literals among consistent hypotheses, then enumeration index",
+  "controls": ["full sample", "random equal-count samples", "positive-only cover"],
+  "random_control_seeds": [17, 29, 41, 53, 67, 79, 97, 109],
+  "primary_exact_check": "decoded selected samples preserve the full training version space",
+  "primary_empirical_metric": "root fraction with any candidate-classification error",
+  "heldout_sealed": false,
+  "evidence_class": "finite verified example and public synthetic pilot",
+  "neural_parameter_bound_claim": false
+}
