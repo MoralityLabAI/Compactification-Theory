@@ -16,7 +16,8 @@ for arm, rows in arms.items():
     out[arm] = {"n": len(rows), "tokens": toks, "tok_s_pooled": toks / secs if secs else None,
                 "tok_s_median": statistics.median(r["tok_s"] for r in rows if r["tok_s"]) if rows else None,
                 "draft_n": dn, "draft_accepted": da, "acceptance": da / dn if dn else None, "identical_to_plain": same}
-if "plain" in out and "mtp25graft" in out and out["plain"]["tok_s_pooled"]:
-    out["speedup"] = out["mtp25graft"]["tok_s_pooled"] / out["plain"]["tok_s_pooled"]
+if "plain" in out and "mtp25graft" in out and out["plain"]["tok_s_median"]:
+    # median, not pooled: one stalled reply (GPU power cap) drags a pooled rate down
+    out["speedup_median"] = out["mtp25graft"]["tok_s_median"] / out["plain"]["tok_s_median"]
 (d / "summary.json").write_text(json.dumps(out, indent=1))
 print(json.dumps(out, indent=1))
