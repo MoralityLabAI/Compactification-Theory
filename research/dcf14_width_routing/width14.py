@@ -303,7 +303,7 @@ def stage_report():
             y = [math.log2(c) for _, c in rows]
             h1[target] = {k: dict(r2=r2(y, np.polyval(model['cost'][target][k], [r['features'][k] for r, _ in rows])),
                                   spearman=spearman([r['features'][k] for r, _ in rows], y)) for k in P['h1_features']}
-            h1[target]['n'] = len(rows)
+            h1[target]['n_instances'] = len(rows)
             fams = sorted({r['spec']['family'] for r, _ in rows})
             h1[target]['by_family_spearman'] = {f: {k: spearman([r['features'][k] for r, _ in rows if r['spec']['family'] == f],
                                                                 [math.log2(c) for r, c in rows if r['spec']['family'] == f])
@@ -317,18 +317,20 @@ def stage_report():
                     key = (r['spec']['family'], r['spec']['n'], B, pen)
                     for pol in POLICIES:
                         u, ops, ch, rs = policy_value(r, B, pen, pol, model, rng)
-                        cond.setdefault(key, {}).setdefault(pol, []).append((u, ops, ch, rs))
+                        cond.setdefault(key, {}).setdefault(pol, []).append((u, ops, ch, rs, u - P['lambda'] * ops / 2 ** B))
         summary = {}
         for pol in POLICIES:
             allv = [x for c in cond.values() for x in c[pol]]
             summary[pol] = dict(mean_eu=float(np.mean([x[0] for x in allv])), mean_ops=float(np.mean([x[1] for x in allv])),
+                                mean_objective=float(np.mean([x[4] for x in allv])),
                                 coverage_proxy=float(np.mean([x[2] != 'abstain' for x in allv])),
                                 mean_route_seconds=float(np.mean([x[3] for x in allv])),
                                 choices={c: sum(x[2] == c for x in allv) for c in OPTION_NAMES})
         # paired: each learned policy vs the strongest hand-designed policy (chosen on dev)
         res[split] = dict(h1=h1, policies=summary, n_instances=len(recs), n_verified=len(ver), conditions=len(cond),
                           cond=[dict(family=k[0], n=k[1], B=k[2], penalty=k[3], **{p: float(np.mean([x[0] for x in v[p]])) for p in POLICIES},
-                                     **{p + '_ops': float(np.mean([x[1] for x in v[p]])) for p in POLICIES}) for k, v in cond.items()])
+                                     **{p + '_ops': float(np.mean([x[1] for x in v[p]])) for p in POLICIES},
+                                     **{p + '_obj': float(np.mean([x[4] for x in v[p]])) for p in POLICIES}) for k, v in cond.items()])
         # unverifiable instances: realized utility only
         unv = [r for r in recs if not r['verified']]
         res[split]['unverified'] = dict(n=len(unv), realized={pol: float(np.mean([policy_value(r, B, pen, pol, model, rng, use_truth=True)[0]
@@ -351,6 +353,9 @@ def stage_report():
             losses = sum(c[pol] < c[dev_best] - 1e-9 for c in cs)
             cheaper_eq = sum(abs(c[pol] - c[dev_best]) <= 1e-9 and c[pol + '_ops'] < c[dev_best + '_ops'] for c in cs)
             res[split][f'{pol}_vs_{dev_best}'] = dict(wins=wins, losses=losses, ties=len(cs) - wins - losses, cheaper_at_equal_utility=cheaper_eq)
+            ow = sum(c[pol + '_obj'] > c[dev_best + '_obj'] + 1e-12 for c in cs)
+            ol = sum(c[pol + '_obj'] < c[dev_best + '_obj'] - 1e-12 for c in cs)
+            res[split][f'{pol}_vs_{dev_best}_objective_descriptive'] = dict(wins=ow, losses=ol, ties=len(cs) - ow - ol)
     res['train_seconds'] = model['train_seconds']
     res['mlp_params'] = model['mlp_params']
     (ROOT / 'results14.json').write_text(json.dumps(res, indent=1, default=float) + '\n')
