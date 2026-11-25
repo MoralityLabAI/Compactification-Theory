@@ -1,0 +1,597 @@
+{
+  "core_sha256": "24ff52171aedf890c33439896ab5e71de65d9b05d557ba61d162f3623aa5dbca",
+  "encoder_access": "oracle basin label; computational cost of encoding excluded",
+  "evidence_class": "exact finite domain",
+  "known_anchor": {
+    "result": {
+      "cells": [
+        {
+          "basins": [
+            {
+              "basin_minimum": 2021,
+              "states": 1
+            }
+          ],
+          "quotient": 0,
+          "states": 1
+        },
+        {
+          "basins": [
+            {
+              "basin_minimum": 37,
+              "states": 26
+            },
+            {
+              "basin_minimum": 53,
+              "states": 36
+            },
+            {
+              "basin_minimum": 65,
+              "states": 24
+            },
+            {
+              "basin_minimum": 97,
+              "states": 38
+            },
+            {
+              "basin_minimum": 101,
+              "states": 25
+            },
+            {
+              "basin_minimum": 121,
+              "states": 11
+            },
+            {
+              "basin_minimum": 157,
+              "states": 12
+            },
+            {
+              "basin_minimum": 165,
+              "states": 11
+            },
+            {
+              "basin_minimum": 175,
+              "states": 45
+            },
+            {
+              "basin_minimum": 197,
+              "states": 30
+            },
+            {
+              "basin_minimum": 239,
+              "states": 20
+            },
+            {
+              "basin_minimum": 269,
+              "states": 74
+            },
+            {
+              "basin_minimum": 309,
+              "states": 30
+            },
+            {
+              "basin_minimum": 353,
+              "states": 8
+            },
+            {
+              "basin_minimum": 357,
+              "states": 9
+            },
+            {
+              "basin_minimum": 413,
+              "states": 13
+            },
+            {
+              "basin_minimum": 431,
+              "states": 15
+            },
+            {
+              "basin_minimum": 541,
+              "states": 51
+            }
+          ],
+          "quotient": 1,
+          "states": 478
+        },
+        {
+          "basins": [
+            {
+              "basin_minimum": 85,
+              "states": 43
+            },
+            {
+              "basin_minimum": 133,
+              "states": 13
+            },
+            {
+              "basin_minimum": 161,
+              "states": 15
+            },
+            {
+              "basin_minimum": 181,
+              "states": 21
+            },
+            {
+              "basin_minimum": 193,
+              "states": 43
+            },
+            {
+              "basin_minimum": 221,
+              "states": 29
+            },
+            {
+              "basin_minimum": 245,
+              "states": 31
+            },
+            {
+              "basin_minimum": 257,
+              "states": 28
+            },
+            {
+              "basin_minimum": 287,
+              "states": 71
+            },
+            {
+              "basin_minimum": 293,
+              "states": 44
+            },
+            {
+              "basin_minimum": 305,
+              "states": 11
+            },
+            {
+              "basin_minimum": 321,
+              "states": 29
+            },
+            {
+              "basin_minimum": 389,
+              "states": 11
+            },
+            {
+              "basin_minimum": 415,
+              "states": 7
+            },
+            {
+              "basin_minimum": 637,
+              "states": 35
+            },
+            {
+              "basin_minimum": 655,
+              "states": 19
+            },
+            {
+              "basin_minimum": 677,
+              "states": 38
+            }
+          ],
+          "quotient": 5,
+          "states": 488
+        },
+        {
+          "basins": [
+            {
+              "basin_minimum": 43,
+              "states": 9
+            }
+          ],
+          "quotient": 43,
+          "states": 9
+        },
+        {
+          "basins": [
+            {
+              "basin_minimum": 517,
+              "states": 21
+            }
+          ],
+          "quotient": 47,
+          "states": 21
+        },
+        {
+          "basins": [
+            {
+              "basin_minimum": 559,
+              "states": 14
+            }
+          ],
+          "quotient": 215,
+          "states": 14
+        }
+      ],
+      "conditional_basin_entropy_bits_float": 3.715100272743,
+      "cycles": 39,
+      "frontier": [
+        {
+          "extra_fixed_bits": 0,
+          "hash_side_messages": [
+            {
+              "correct": 190,
+              "occupied_cells": 6,
+              "seed": 11
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 6,
+              "seed": 29
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 6,
+              "seed": 47
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 6,
+              "seed": 71
+            }
+          ],
+          "messages_per_quotient": 1,
+          "uniform_core_correct": 190,
+          "uniform_core_fraction": "190/1011",
+          "uniform_core_total": 1011,
+          "uniform_cycles_correct": 6,
+          "uniform_cycles_total": 39
+        },
+        {
+          "extra_fixed_bits": 1,
+          "hash_side_messages": [
+            {
+              "correct": 190,
+              "occupied_cells": 11,
+              "seed": 11
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 11,
+              "seed": 29
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 11,
+              "seed": 47
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 11,
+              "seed": 71
+            }
+          ],
+          "messages_per_quotient": 2,
+          "uniform_core_correct": 285,
+          "uniform_core_fraction": "95/337",
+          "uniform_core_total": 1011,
+          "uniform_cycles_correct": 8,
+          "uniform_cycles_total": 39
+        },
+        {
+          "extra_fixed_bits": 2,
+          "hash_side_messages": [
+            {
+              "correct": 191,
+              "occupied_cells": 21,
+              "seed": 11
+            },
+            {
+              "correct": 191,
+              "occupied_cells": 21,
+              "seed": 29
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 21,
+              "seed": 47
+            },
+            {
+              "correct": 190,
+              "occupied_cells": 21,
+              "seed": 71
+            }
+          ],
+          "messages_per_quotient": 4,
+          "uniform_core_correct": 454,
+          "uniform_core_fraction": "454/1011",
+          "uniform_core_total": 1011,
+          "uniform_cycles_correct": 12,
+          "uniform_cycles_total": 39
+        },
+        {
+          "extra_fixed_bits": 3,
+          "hash_side_messages": [
+            {
+              "correct": 196,
+              "occupied_cells": 35,
+              "seed": 11
+            },
+            {
+              "correct": 203,
+              "occupied_cells": 36,
+              "seed": 29
+            },
+            {
+              "correct": 201,
+              "occupied_cells": 36,
+              "seed": 47
+            },
+            {
+              "correct": 203,
+              "occupied_cells": 37,
+              "seed": 71
+            }
+          ],
+          "messages_per_quotient": 8,
+          "uniform_core_correct": 709,
+          "uniform_core_fraction": "709/1011",
+          "uniform_core_total": 1011,
+          "uniform_cycles_correct": 20,
+          "uniform_cycles_total": 39
+        },
+        {
+          "extra_fixed_bits": 4,
+          "hash_side_messages": [
+            {
+              "correct": 217,
+              "occupied_cells": 60,
+              "seed": 11
+            },
+            {
+              "correct": 227,
+              "occupied_cells": 57,
+              "seed": 29
+            },
+            {
+              "correct": 217,
+              "occupied_cells": 57,
+              "seed": 47
+            },
+            {
+              "correct": 222,
+              "occupied_cells": 63,
+              "seed": 71
+            }
+          ],
+          "messages_per_quotient": 16,
+          "uniform_core_correct": 987,
+          "uniform_core_fraction": "329/337",
+          "uniform_core_total": 1011,
+          "uniform_cycles_correct": 36,
+          "uniform_cycles_total": 39
+        },
+        {
+          "extra_fixed_bits": 5,
+          "hash_side_messages": [
+            {
+              "correct": 258,
+              "occupied_cells": 99,
+              "seed": 11
+            },
+            {
+              "correct": 268,
+              "occupied_cells": 97,
+              "seed": 29
+            },
+            {
+              "correct": 256,
+              "occupied_cells": 97,
+              "seed": 47
+            },
+            {
+              "correct": 253,
+              "occupied_cells": 100,
+              "seed": 71
+            }
+          ],
+          "messages_per_quotient": 32,
+          "uniform_core_correct": 1011,
+          "uniform_core_fraction": "1",
+          "uniform_core_total": 1011,
+          "uniform_cycles_correct": 39,
+          "uniform_cycles_total": 39
+        }
+      ],
+      "gcd_only_correct": 110,
+      "max_basins_in_one_quotient": 18,
+      "minimum_extra_fixed_bits_for_zero_error": 5,
+      "optimal_prefix_mean_bits_fraction": "1263/337",
+      "optimal_prefix_weighted_bit_sum": 3789,
+      "parameter": 2021,
+      "quotient_classes_on_core": 6,
+      "quotient_only_correct": 190,
+      "quotient_only_uniform_cycles_fraction": "2/13",
+      "states": 1011
+    },
+    "selection": "previously inspected stress case, outside sweep"
+  },
+  "n_cases": 44204,
+  "n_units": 172,
+  "parameters": [
+    1,
+    5,
+    13,
+    17,
+    25,
+    29,
+    37,
+    41,
+    49,
+    53,
+    61,
+    65,
+    73,
+    77,
+    85,
+    89,
+    97,
+    101,
+    109,
+    113,
+    121,
+    125,
+    133,
+    137,
+    145,
+    149,
+    157,
+    161,
+    169,
+    173,
+    181,
+    185,
+    193,
+    197,
+    205,
+    209,
+    217,
+    221,
+    229,
+    233,
+    241,
+    245,
+    253,
+    257,
+    265,
+    269,
+    277,
+    281,
+    289,
+    293,
+    301,
+    305,
+    313,
+    317,
+    325,
+    329,
+    337,
+    341,
+    349,
+    353,
+    361,
+    365,
+    373,
+    377,
+    385,
+    389,
+    397,
+    401,
+    409,
+    413,
+    421,
+    425,
+    433,
+    437,
+    445,
+    449,
+    457,
+    461,
+    469,
+    473,
+    481,
+    485,
+    493,
+    497,
+    505,
+    509,
+    517,
+    521,
+    529,
+    533,
+    541,
+    545,
+    553,
+    557,
+    565,
+    569,
+    577,
+    581,
+    589,
+    593,
+    601,
+    605,
+    613,
+    617,
+    625,
+    629,
+    637,
+    641,
+    649,
+    653,
+    661,
+    665,
+    673,
+    677,
+    685,
+    689,
+    697,
+    701,
+    709,
+    713,
+    721,
+    725,
+    733,
+    737,
+    745,
+    749,
+    757,
+    761,
+    769,
+    773,
+    781,
+    785,
+    793,
+    797,
+    805,
+    809,
+    817,
+    821,
+    829,
+    833,
+    841,
+    845,
+    853,
+    857,
+    865,
+    869,
+    877,
+    881,
+    889,
+    893,
+    901,
+    905,
+    913,
+    917,
+    925,
+    929,
+    937,
+    941,
+    949,
+    953,
+    961,
+    965,
+    973,
+    977,
+    985,
+    989,
+    997,
+    1001,
+    1009,
+    1013,
+    1021,
+    1025
+  ],
+  "schema": "col-quotient-frontier-v1",
+  "selection_exposure": "exploratory complete finite sweep; all labels exposed",
+  "summary": {
+    "fixed_side_bits_histogram": {
+      "0": 87,
+      "1": 44,
+      "2": 28,
+      "3": 10,
+      "4": 2,
+      "5": 1
+    },
+    "macro_fraction": "8202194729803150729148899553151451136787136652561400862859186790218164218068400468022533095951253061/9642297386039679020463326642816128906961634502133348697325674476344472407595591157072350782687245180",
+    "micro_fraction": "37317/44204",
+    "parameters_with_quotient_collision": 85,
+    "quotient_only_correct": 37317,
+    "total": 44204
+  }
+}
