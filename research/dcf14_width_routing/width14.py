@@ -228,9 +228,9 @@ def stage_fit():
 def cost_target(r, target):
     m = r['methods']
     if target == 've_ops':
-        return m['ve_min_fill']['ops'] if 've_min_fill' in m else None
+        return max(1, m['ve_min_fill']['ops']) if 've_min_fill' in m else None
     c = [m[k]['ops'] for k in EXACT_METHODS if k in m]
-    return min(c) if c else None
+    return max(1, min(c)) if c else None
 
 
 def policy_value(rec, B, penalty, policy, model, rng=None, use_truth=False):
