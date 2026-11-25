@@ -83,7 +83,7 @@ def coords(groups):return sum(2**len(g)-1 for g in groups)
 def bitmat(g):return (np.arange(1<<len(g))[None,:]>>np.arange(len(g))[:,None])&1
 def repartition(ps,old,new):
  """Preserve within-intersection marginals; approximate across old factors."""
- out=[];n=len(ps[0])
+ out=[];n=len(ps[0]);
  for g in new:
   bits=bitmat(g);q=np.ones((n,1<<len(g)))
   for h,p in zip(old,ps):
@@ -118,7 +118,7 @@ def predict(data,graphs,rates,parts):
    gi,i=owner[a];p=ps[gi][idx];e=rates['err'][a];lik=e+(1-2*e)*bits[gi][i];out[idx,t]=p@lik;q=p*np.where(y[idx,t,None],lik,1-lik);ps[gi][idx]=q/q.sum(1,keepdims=True)
  return out
 def score(p,data,q=None):
- y=data[-1];p=np.clip(p,1e-7,1-1e-7);loss=-(y*np.log(p)+(1-y)*np.log1p(-p));ret=dict(nll=float(loss.mean()),brier=float(((p-y)**2).mean()),acc=float(((p>=.5)==y).mean()),n=len(y),tokens=y.size,word_nll=loss.mean(1).tolist());
+ y=data[-1];p=np.clip(p,1e-7,1-1e-7);loss=-(y*np.log(p)+(1-y)*np.log1p(-p));ret=dict(nll=float(loss.mean()),brier=float(((p-y)**2).mean()),acc=float(((p>=.5)==y).mean()),n=len(y),tokens=y.size,word_nll=loss.mean(1).tolist())
  if q is not None:
   q=np.clip(q,1e-7,1-1e-7);kl=q*np.log(q/p)+(1-q)*np.log((1-q)/(1-p));ret.update(kl=float(kl.mean()),word_kl=kl.mean(1).tolist())
  return ret
