@@ -1,0 +1,176 @@
+{
+  "scope": "5D stationary charged probe + gauge-invariant 4D EFT; 5D gauge-invariant charged metric/radion spectrum remains unsolved",
+  "timestamp": "2026-10-29",
+  "units": "k=1, L=1, M5^3=1; dimensionless, no observed dark energy fit",
+  "parameter_5d": {
+    "k": 1.0,
+    "L": 1.0,
+    "mass2": 0.5,
+    "lam": 0.3,
+    "kap_uv": 1.0,
+    "kap_ir": 1.0,
+    "charge_norm": 0.32
+  },
+  "5d_stationary_probe": {
+    "omega": 1.092548024250531,
+    "omega_squared": 1.1936611852937389,
+    "linear_omega_squared": 1.1625933720313903,
+    "nonlinear_weak_residual": 1.3376485965564885e-13,
+    "phase_null_relative": 4.293109840017568e-12,
+    "min_phase_eigen_m2": 6.928071255962072e-12,
+    "min_radial_eigen_m2": 0.062122020844691504,
+    "goldstone_sound_speed_squared": 0.012843740511295238,
+    "modes": [
+      {
+        "p3": 0.002,
+        "lowest_omega": 0.0002266676694573258,
+        "max_abs_growth_rate": 5.410255576876466e-14
+      },
+      {
+        "p3": 0.005,
+        "lowest_omega": 0.0005667622968948256,
+        "max_abs_growth_rate": 1.6023440170195862e-13
+      },
+      {
+        "p3": 0.01,
+        "lowest_omega": 0.0011341908016644462,
+        "max_abs_growth_rate": 2.678771860189855e-13
+      },
+      {
+        "p3": 0.02,
+        "lowest_omega": 0.00227370330933,
+        "max_abs_growth_rate": 5.30337671077599e-14
+      },
+      {
+        "p3": 0.05,
+        "lowest_omega": 0.005776441528127274,
+        "max_abs_growth_rate": 1.4590457262829812e-13
+      },
+      {
+        "p3": 0.1,
+        "lowest_omega": 0.012186177530081069,
+        "max_abs_growth_rate": 1.0595494479622582e-13
+      },
+      {
+        "p3": 0.15,
+        "lowest_omega": 0.01974978298127559,
+        "max_abs_growth_rate": 1.3152298413370402e-13
+      },
+      {
+        "p3": 0.25,
+        "lowest_omega": 0.03962675212185406,
+        "max_abs_growth_rate": 1.8373352553162074e-13
+      },
+      {
+        "p3": 0.5,
+        "lowest_omega": 0.12108516045233994,
+        "max_abs_growth_rate": 8.957012581178696e-14
+      },
+      {
+        "p3": 1.0,
+        "lowest_omega": 0.3988169778289783,
+        "max_abs_growth_rate": 1.4704485202712173e-13
+      }
+    ],
+    "resolutions": [
+      {
+        "nodes": 33,
+        "omega2": 1.1937773861401069,
+        "phase_null_rel": 4.47232344395525e-12,
+        "min_phase_eigen_m2": 5.592489159245391e-12,
+        "min_radial_eigen_m2": 0.062126244359717836
+      },
+      {
+        "nodes": 65,
+        "omega2": 1.1936611852937389,
+        "phase_null_rel": 4.293109840017568e-12,
+        "min_phase_eigen_m2": 6.928071255962072e-12,
+        "min_radial_eigen_m2": 0.062122020844691504
+      },
+      {
+        "nodes": 129,
+        "omega2": 1.1936320846372215,
+        "phase_null_rel": 5.065444176241603e-12,
+        "min_phase_eigen_m2": 1.8901677323356937e-11,
+        "min_radial_eigen_m2": 0.06212096385062557
+      },
+      {
+        "nodes": 257,
+        "omega2": 1.1936248063188442,
+        "phase_null_rel": 1.2696374183488001e-11,
+        "min_phase_eigen_m2": 1.2012439066487115e-11,
+        "min_radial_eigen_m2": 0.06212069950513556
+      }
+    ],
+    "fixed_metric_stress_4d_anisotropy": "T^t_t-T^i_i= -exp(2ky)*omega^2*F(y)^2; fully backreacting solution requires evolving metric"
+  },
+  "reduced_4d_EFT": {
+    "origin": "leading charged mode KK m2/lambda overlap + WS04 uncharged GI radion mass; radion-charge cross coupling chosen phenomenologically",
+    "parameters": {
+      "Mpl2": 0.8646647167633873,
+      "mass_rad2": 0.0011806541053916162,
+      "mass_bulk2": 1.1625933720313903,
+      "lam": 0.30346371045643283,
+      "g": 0.001,
+      "gamma": 0.002,
+      "beta": 0.001,
+      "V0": 0.4
+    },
+    "charged_frequency_difference_4D_vs_5D": 3.144337068494707e-06,
+    "background_H_start_end": [
+      0.44834824823105235,
+      0.42496682137258956
+    ],
+    "max_Friedmann_constraint_error": 3.3306690738754696e-16,
+    "max_charge_drift": 9.992007221626409e-16,
+    "momentum_runs": [
+      {
+        "p3": 0.05,
+        "max_symplectic_error": 5.550675836937116e-16,
+        "phase_to_radion_transfer_final": -2.2734387979432755e-06,
+        "min_instantaneous_M_eigen": 0.001272875398641731
+      },
+      {
+        "p3": 0.2,
+        "max_symplectic_error": 6.897928285206413e-16,
+        "phase_to_radion_transfer_final": -2.270669292559543e-06,
+        "min_instantaneous_M_eigen": 0.0012728753986417313
+      },
+      {
+        "p3": 1.0,
+        "max_symplectic_error": 7.110779291800115e-16,
+        "phase_to_radion_transfer_final": -2.200580447022827e-06,
+        "min_instantaneous_M_eigen": 0.001272875398641731
+      },
+      {
+        "p3": 3.0,
+        "max_symplectic_error": 7.649627133087966e-16,
+        "phase_to_radion_transfer_final": -1.6740200945761982e-06,
+        "min_instantaneous_M_eigen": 0.0012728753986417313
+      }
+    ],
+    "phase_to_radion_response_final_at_p_0p2": -2.270669292559543e-06,
+    "all_instantaneous_M_eigenvalues_positive": true,
+    "kinetic_eigenvalues": [
+      1,
+      1,
+      1
+    ],
+    "gradient_eigenvalues": [
+      1,
+      1,
+      1
+    ]
+  },
+  "tests": {
+    "count": 26,
+    "status": "all passed locally on Python 3.12, NumPy 2.3.5, SciPy 1.17.0"
+  },
+  "critical_limitations": [
+    "The RS charged stationary profile is a fixed-geometry probe and sources anisotropic 5D Einstein stress.",
+    "The 4D EFT radion-charge interaction has not been derived by a full 5D reduction.",
+    "The four-dimensional gauge-invariant scalar solutions do not impose perturbed 5D Israel boundary conditions.",
+    "The time-dependent 4D background has no global stationary frequency spectrum; finite-time transfer is measured.",
+    "No physical helium-3 order parameter/experiment or cosmological observations are fitted."
+  ]
+}
