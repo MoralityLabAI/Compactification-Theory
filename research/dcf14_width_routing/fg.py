@@ -242,6 +242,14 @@ def features(prob, budget_ops=None):
                 _order=order, _cut=cut)
 
 
+def _einsum(pairs, out):
+    """einsum over (scope, table) pairs with variable ids remapped below 52."""
+    lab, args = {}, []
+    for s, t in pairs:
+        args += [t, [lab.setdefault(v, len(lab)) for v in s]]
+    return np.einsum(*args, [lab.setdefault(v, len(lab)) for v in out])
+
+
 # ---------------------------------------------------------------- exact: VE
 
 def parity_prob(joint, query_order, query):
@@ -271,23 +279,65 @@ def variable_elimination(prob, order=None, heuristic='min_fill', budget_entries=
         factors = [f for f in factors if v not in f[0]]
         union = sorted(set().union(*[set(s) for s, _ in bucket]))
         out = [u for u in union if u != v]
-        args = []
-        for s, t in bucket:
-            args += [t, s]
-        new = np.einsum(*args, out)
+        new = _einsum(bucket, out)
         m = new.max()
         if m > 0:
             new = new / m
         ops += 2 ** len(union) * len(bucket)
         factors.append((out, new))
     q = list(comp.query)
-    args = []
-    for s, t in factors:
-        args += [t, s]
-    joint = np.einsum(*args, q) if args else np.ones((2,) * len(q))
+    joint = _einsum(factors, q) if factors else np.ones((2,) * len(q))
     joint = np.broadcast_to(joint, (2,) * len(q)) if joint.ndim < len(q) else joint
     ops += 2 ** len(q) * max(1, len(factors))
     return dict(p=parity_prob(np.asarray(joint, float), q, comp.query), ops=ops, declined=False, sym_ops=sym['ops'], max_union=sym['max_union'], peak_entries=sym['peak_entries'])
+
+
+def ve_broadcast(prob, heuristic='min_degree', max_union=24):
+    """Second exact elimination path: explicit axis alignment and broadcasting
+    (no einsum), reverse tie-breaking order, log-scaled. Used only as a verifier."""
+    comp, variables = query_component(prob)
+    adj = adjacency(variables, comp.scopes)
+    keep = set(comp.query)
+    order = []
+    todo = set(variables) - keep
+    while todo:
+        v = max(sorted(todo), key=lambda a: (-len(adj[a]), a))
+        nb = adj.pop(v)
+        for a in nb:
+            adj[a].update(b for b in nb if b != a)
+            adj[a].discard(v)
+        todo.discard(v)
+        order.append(v)
+    facs = []
+    for s, t in zip(comp.scopes, comp.tables):
+        vs = sorted(set(s))
+        tt = np.transpose(t, [s.index(v) for v in vs])
+        facs.append((tuple(vs), tt))
+    facs += [((q,), np.ones(2)) for q in comp.query]
+
+    def align(vs, t, union):
+        shape = [2 if u in vs else 1 for u in union]
+        return t.reshape(shape)
+
+    for v in order:
+        bucket = [f for f in facs if v in f[0]]
+        if not bucket:
+            continue
+        facs = [f for f in facs if v not in f[0]]
+        union = tuple(sorted(set().union(*[set(f[0]) for f in bucket])))
+        if len(union) > max_union:
+            return dict(p=None, declined=True)
+        prod = np.ones([1] * len(union))
+        for vs, t in bucket:
+            prod = prod * align(vs, t, union)
+        new = prod.sum(axis=union.index(v))
+        m = new.max()
+        facs.append((tuple(u for u in union if u != v), new / m if m > 0 else new))
+    q = tuple(sorted(comp.query))
+    joint = np.ones([2] * len(q))
+    for vs, t in facs:
+        joint = joint * align(vs, t, q)
+    return dict(p=parity_prob(joint, list(q), comp.query), declined=False)
 
 
 # --------------------------------------------------------- exact: enumeration
@@ -537,20 +587,14 @@ def mini_bucket(prob, ibound, order=None):
         for mb in minis:
             union = sorted(mb['scope'])
             out = [u for u in union if u != v]
-            args = []
-            for s, t in mb['fs']:
-                args += [t, s]
-            new = np.einsum(*args, out)
+            new = _einsum(mb['fs'], out)
             m = new.max()
             if m > 0:
                 new = new / m
             ops += 2 ** len(union) * len(mb['fs'])
             factors.append((out, new))
     q = list(comp.query)
-    args = []
-    for s, t in factors:
-        args += [t, s]
-    joint = np.einsum(*args, q) if args else np.ones((2,) * len(q))
+    joint = _einsum(factors, q) if factors else np.ones((2,) * len(q))
     ops += 2 ** len(q) * max(1, len(factors))
     return dict(p=parity_prob(np.asarray(joint, float), q, comp.query), ops=ops, declined=False)
 

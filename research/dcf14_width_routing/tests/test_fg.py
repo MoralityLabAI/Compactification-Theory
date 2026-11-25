@@ -38,6 +38,7 @@ def test_exact_paths_agree_with_naive(family, n, seed, q):
         assert abs(r['p'] - ref) < 1e-9, (h, r['p'], ref)
         assert r['ops'] == fg.symbolic_ve(*_sym_args(prob, h))['ops']
     assert abs(fg.enumerate_exact(prob)['p'] - ref) < 1e-9
+    assert abs(fg.ve_broadcast(prob)['p'] - ref) < 1e-9
     assert abs(fg.cutset_exact(prob)['p'] - ref) < 1e-9
     if fg.gf2_applicable(prob):
         assert abs(fg.gf2_exact(prob)['p'] - ref) < 1e-9
