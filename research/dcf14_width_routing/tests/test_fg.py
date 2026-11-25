@@ -93,3 +93,13 @@ def test_decision_threshold():
     for p in np.linspace(0, 1, 101):
         a = fg.decide(p)
         assert fg.expected_utility(a, p) >= max(fg.expected_utility(b, p) for b in (-1, 0, 1)) - 1e-12
+
+
+def test_many_operand_buckets():
+    prob = make_problem('star', 80, 11, query_size=2)
+    r = fg.variable_elimination(prob)
+    assert abs(r['p'] - fg.cutset_exact(prob)['p']) < 1e-9
+    assert abs(r['p'] - fg.ve_broadcast(prob)['p']) < 1e-9
+    small = make_problem('star', 12, 11, query_size=2)
+    assert abs(fg._ein_labels([(t, list(s)) for s, t in zip(small.scopes, small.tables)], [0], max_ops=3).sum()
+               - fg._ein_labels([(t, list(s)) for s, t in zip(small.scopes, small.tables)], [0]).sum()) < 1e-12

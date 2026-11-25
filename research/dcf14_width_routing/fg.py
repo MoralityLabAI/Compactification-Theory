@@ -242,12 +242,28 @@ def features(prob, budget_ops=None):
                 _order=order, _cut=cut)
 
 
+def _ein_labels(ops, out, max_ops=30):
+    """np.einsum over (table, labels) operands; more than max_ops operands are first
+    multiplied pairwise onto their running label union (NumPy caps operands at 32)."""
+    ops = list(ops)
+    if len(ops) > max_ops:
+        acc_t, acc_l = ops[0]
+        for t, l in ops[1:]:
+            u = list(dict.fromkeys(list(acc_l) + list(l)))
+            acc_t = np.einsum(acc_t, list(acc_l), t, list(l), u)
+            acc_l = u
+        ops = [(acc_t, acc_l)]
+    args = []
+    for t, l in ops:
+        args += [t, list(l)]
+    return np.einsum(*args, list(out))
+
+
 def _einsum(pairs, out):
     """einsum over (scope, table) pairs with variable ids remapped below 52."""
-    lab, args = {}, []
-    for s, t in pairs:
-        args += [t, [lab.setdefault(v, len(lab)) for v in s]]
-    return np.einsum(*args, [lab.setdefault(v, len(lab)) for v in out])
+    lab = {}
+    ops = [(t, [lab.setdefault(v, len(lab)) for v in s]) for s, t in pairs]
+    return _ein_labels(ops, [lab.setdefault(v, len(lab)) for v in out])
 
 
 # ---------------------------------------------------------------- exact: VE
@@ -424,10 +440,7 @@ def cutset_exact(prob, max_cutset=16, chunk=4096):
             union = sorted(set().union(*[set(f) for f, _ in bucket]))
             out = [u for u in union if u != pick]
             lab = {v: i + 1 for i, v in enumerate(union)}
-            args = []
-            for f, tb in bucket:
-                args += [tb, [0] + [lab[v] for v in f]]
-            new = np.einsum(*args, [0] + [lab[v] for v in out])
+            new = _ein_labels([(tb, [0] + [lab[v] for v in f]) for f, tb in bucket], [0] + [lab[v] for v in out])
             m = new.reshape(B, -1).max(1)
             m = np.where(m > 0, m, 1.0)
             new = new / m.reshape((B,) + (1,) * len(out))
