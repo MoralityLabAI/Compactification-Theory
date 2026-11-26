@@ -44,5 +44,5 @@ For venvs it reads `pyvenv.cfg`. It flags a base interpreter inside the Claude a
 `AppData\Local\Packages\Claude_*\LocalCache` and reports it as unusable outside the app. That is what stopped
 the 2026-11-25 overnight run: the suite venv sat on uv's Python installed from inside the app.
 
-Events: `<work>/logs/gym-events.jsonl`. Detached run log: `<work>/logs/gym-run.log`. Server logs:
+Events: `<work>/logs/gym-events.jsonl`. Detached run log: `<work>/logs/gym-run-<time>.log` (one per launch). Server logs:
 `<work>/logs/gym-<step>.log`.

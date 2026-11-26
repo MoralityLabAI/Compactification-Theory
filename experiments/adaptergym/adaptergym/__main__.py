@@ -3,12 +3,14 @@
   python -m adaptergym preflight <plan.json>                 check every path, venv and backend the plan names
   python -m adaptergym status    <plan.json> [--tags a,b]    done / pending per step
   python -m adaptergym run       <plan.json> [--tags a,b]    run pending steps in order (GPU steps inside leases)
-  python -m adaptergym launch    <plan.json> [--tags a,b]    preflight, then `run` detached (survives the session)
+  python -m adaptergym launch    <plan.json> [--tags a,b] [--after-pid N]
+                                                            preflight, then `run` detached (survives the session);
+                                                            --after-pid waits for that process (e.g. an earlier run) to exit
   python -m adaptergym step      <plan.json> <step id>       one step in this process (what a lease runs)
 
 Run with a stdlib-only interpreter that exists outside the Claude app container (plan paths.gym_python).
 Steps are idempotent: a step whose outputs exist is skipped, and every generator resumes from its output file.
-Events go to <work>/logs/gym-events.jsonl.
+Events go to <work>/logs/gym-events.jsonl; each launch writes <work>/logs/gym-run-<time>.log.
 """
 from __future__ import annotations
 
@@ -46,7 +48,20 @@ def event(plan: dict, **rec):
     print("===", json.dumps(rec), flush=True)
 
 
-def cmd_run(plan: dict, tags: str) -> int:
+def wait_pid(pid: int) -> None:
+    """Block until process `pid` exits (Windows), so a queued run never overlaps an earlier one."""
+    import ctypes
+    k32 = ctypes.windll.kernel32
+    h = k32.OpenProcess(0x00100000, False, pid)  # SYNCHRONIZE
+    if h:
+        k32.WaitForSingleObject(h, 0xFFFFFFFF)
+        k32.CloseHandle(h)
+
+
+def cmd_run(plan: dict, tags: str, after_pid: int = 0) -> int:
+    if after_pid:
+        event(plan, state="waiting-for-pid", pid=after_pid)
+        wait_pid(after_pid)
     bad = 0
     for s in selected(plan, tags):
         if steps.done(plan, s):
@@ -75,12 +90,13 @@ def cmd_run(plan: dict, tags: str) -> int:
     return 1 if bad else 0
 
 
-def cmd_launch(plan: dict, tags: str) -> int:
+def cmd_launch(plan: dict, tags: str, after_pid: int = 0) -> int:
     if pf.check(plan):
         print("preflight failed; not launching")
         return 2
-    log = Path(plan["work"]) / "logs" / "gym-run.log"
-    inner = f'"{plan["paths"]["gym_python"]}" -u -m adaptergym run "{plan["_path"]}"' + (f" --tags {tags}" if tags else "")
+    # one log per launch: a running launch's cmd holds its log open, so a second `>>` to it would fail silently
+    log = Path(plan["work"]) / "logs" / f"gym-run-{time.strftime('%Y%m%d-%H%M%S')}.log"
+    inner = f'"{plan["paths"]["gym_python"]}" -u -m adaptergym run "{plan["_path"]}"' + (f" --tags {tags}" if tags else "") + (f" --after-pid {after_pid}" if after_pid else "")
     ps = ("$s = New-CimInstance -ClassName Win32_ProcessStartup -ClientOnly -Property @{ EnvironmentVariables = "
           "[string[]](Get-ChildItem env: | ForEach-Object { \"$($_.Name)=$($_.Value)\" }) }; "
           f"$r = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{{ CommandLine = 'cmd /c \"{inner} >> \"{log}\" 2>&1\"'; "
@@ -96,6 +112,7 @@ def main() -> int:
     ap.add_argument("plan")
     ap.add_argument("step_id", nargs="?")
     ap.add_argument("--tags", default="")
+    ap.add_argument("--after-pid", type=int, default=0)
     a = ap.parse_args()
     plan = load(a.plan)
     if a.cmd == "preflight":
@@ -105,9 +122,9 @@ def main() -> int:
             print(f"{'done   ' if steps.done(plan, s) else 'pending'}  {s['id']:<28} {s['kind']:<13} {','.join(s.get('tags', []))}")
         return 0
     if a.cmd == "run":
-        return cmd_run(plan, a.tags)
+        return cmd_run(plan, a.tags, a.after_pid)
     if a.cmd == "launch":
-        return cmd_launch(plan, a.tags)
+        return cmd_launch(plan, a.tags, a.after_pid)
     s = next(x for x in plan["steps"] if x["id"] == a.step_id)
     steps.run(plan, s)
     return 0
