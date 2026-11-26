@@ -1,0 +1,3350 @@
+{
+  "affine_family": {
+    "case_digest_sha256": "b5a85c0122e0c22fadced0ffbb303d08f5479ecdee73cff415a1e10d4f5b5ffb",
+    "counts": {
+      "matrix_power_support_entries": 111372,
+      "paired_context_bit_responses": 443916,
+      "support_entries": 111372,
+      "system_lag_profiles": 12492,
+      "systems": 4164,
+      "systems_width_1": 4,
+      "systems_width_2": 64,
+      "systems_width_3": 4096,
+      "trajectory_output_bits": 296472
+    },
+    "horizon": 3
+  },
+  "assumptions": {
+    "claim_scope": "The tests establish finite response identities and limitations of specified probes. Geometry-emergence claims require new models and independent tests.",
+    "primitive_class": "finite deterministic Boolean register systems",
+    "recovered": {
+      "average_response": "signed and absolute response under the supplied uniform context measure",
+      "context_response": "exact paired effect of each basic intervention on each observed bit",
+      "finite_probe_identifiability": "which declared candidate systems survive the observed finite probe transcript",
+      "maximum_response": "existence of a responding context within the declared intervention class",
+      "order_diagnostics": "acyclicity and transitivity of register relations after collapsing update times"
+    },
+    "supplied": {
+      "basic_interventions": "set one initial register to zero or one while holding all other initial registers equal",
+      "clock": "a global integer tick with a supplied forward update direction",
+      "context_measure": "uniform measure used only for average-response diagnostics",
+      "contexts": "all finite initial contexts are available in the exhaustive checks",
+      "dynamics": "a specified simultaneous Boolean update map",
+      "observation": "chosen register values after a declared number of updates",
+      "register_factorization": "individually addressable Boolean registers",
+      "representation_cost": "the primitive number of registers and Boolean rules is recorded; a universal coding prior remains unspecified",
+      "state_alphabet": "one bit per register"
+    },
+    "underdetermined": {
+      "Einstein_variables": "selection of a metric, tetrad or connection remains open",
+      "Lorentzian_signature": "metric signature remains an open target",
+      "Newton_coupling": "an independently defined gravitational response observable is required",
+      "manifold": "a continuum limit and smooth atlas require additional arguments",
+      "null_cones": "a universal relativistic characteristic cone requires a further dynamical result",
+      "spacetime_dimension": "an emergent dimension requires a scale-sensitive observable beyond register counts"
+    }
+  },
+  "experiment": "PGC-01",
+  "finite_horizon_ambiguity": {
+    "cases": [
+      {
+        "candidate_count_after_next_tick": 1,
+        "candidate_count_after_observed_horizon": 2,
+        "connected_traces_do_0_then_1": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "intervened_register": 0,
+        "observed_horizon": 1,
+        "observed_register": 2,
+        "other_initial_registers": "all zero",
+        "registers": 3,
+        "severed_traces_do_0_then_1": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "candidate_count_after_next_tick": 1,
+        "candidate_count_after_observed_horizon": 2,
+        "connected_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "intervened_register": 0,
+        "observed_horizon": 2,
+        "observed_register": 3,
+        "other_initial_registers": "all zero",
+        "registers": 4,
+        "severed_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "candidate_count_after_next_tick": 1,
+        "candidate_count_after_observed_horizon": 2,
+        "connected_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "intervened_register": 0,
+        "observed_horizon": 3,
+        "observed_register": 4,
+        "other_initial_registers": "all zero",
+        "registers": 5,
+        "severed_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "candidate_count_after_next_tick": 1,
+        "candidate_count_after_observed_horizon": 2,
+        "connected_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "intervened_register": 0,
+        "observed_horizon": 4,
+        "observed_register": 5,
+        "other_initial_registers": "all zero",
+        "registers": 6,
+        "severed_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "candidate_count_after_next_tick": 1,
+        "candidate_count_after_observed_horizon": 2,
+        "connected_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "intervened_register": 0,
+        "observed_horizon": 6,
+        "observed_register": 7,
+        "other_initial_registers": "all zero",
+        "registers": 8,
+        "severed_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "candidate_count_after_next_tick": 1,
+        "candidate_count_after_observed_horizon": 2,
+        "connected_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "intervened_register": 0,
+        "observed_horizon": 8,
+        "observed_register": 9,
+        "other_initial_registers": "all zero",
+        "registers": 10,
+        "severed_traces_do_0_then_1": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ]
+      }
+    ],
+    "protocol": "set register 0 at tick 0; initialize others to zero; observe only last register"
+  },
+  "named_fixtures": {
+    "case_digest_sha256": "8828d64bda97a8ac6014122062c297d6bbefe34130af61d926dcd1fa9f34ce01",
+    "counts": {
+      "paired_context_bit_responses": 1552,
+      "relabeling_cases": 68,
+      "relabeling_response_entries": 3080,
+      "relabeling_trajectory_states": 2912,
+      "support_entries": 332,
+      "system_lag_profiles": 36,
+      "systems": 9,
+      "trajectory_output_bits": 960
+    },
+    "fixtures": [
+      {
+        "accumulated_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "first_lag_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [
+            [
+              0,
+              2
+            ]
+          ],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              1,
+              2
+            ]
+          ]
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                0,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                0,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "chain",
+          "updates": [
+            [
+              "const",
+              0
+            ],
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              1
+            ]
+          ],
+          "width": 3
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [
+            [
+              0,
+              3
+            ]
+          ],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              1,
+              3
+            ],
+            [
+              0,
+              2,
+              3
+            ]
+          ]
+        },
+        "first_lag_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [
+            [
+              0,
+              3
+            ]
+          ],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              1,
+              3
+            ],
+            [
+              0,
+              2,
+              3
+            ]
+          ]
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                0,
+                8,
+                8,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                8
+              ],
+              [
+                0,
+                0,
+                0,
+                8
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 8,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                1,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                8,
+                8,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 8,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 8,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 8,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "xor_diamond",
+          "updates": [
+            [
+              "const",
+              0
+            ],
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              0
+            ],
+            [
+              "xor",
+              [
+                "var",
+                1
+              ],
+              [
+                "var",
+                2
+              ]
+            ]
+          ],
+          "width": 4
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1
+          ],
+          "strict_edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "first_lag_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1
+          ],
+          "strict_edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "and_context",
+          "updates": [
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              1
+            ],
+            [
+              "and",
+              [
+                "var",
+                0
+              ],
+              [
+                "var",
+                1
+              ]
+            ]
+          ],
+          "width": 3
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1
+          ],
+          "strict_edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "first_lag_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1
+          ],
+          "strict_edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "or_context",
+          "updates": [
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              1
+            ],
+            [
+              "or",
+              [
+                "var",
+                0
+              ],
+              [
+                "var",
+                1
+              ]
+            ]
+          ],
+          "width": 3
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1
+          ],
+          "strict_edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "first_lag_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1
+          ],
+          "strict_edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                4
+              ],
+              [
+                0,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                0
+              ],
+              [
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                4
+              ],
+              [
+                0,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                0
+              ],
+              [
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                4
+              ],
+              [
+                0,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                0
+              ],
+              [
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                0,
+                4
+              ],
+              [
+                0,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                0,
+                0
+              ],
+              [
+                0,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "xor_mask",
+          "updates": [
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              1
+            ],
+            [
+              "xor",
+              [
+                "var",
+                0
+              ],
+              [
+                "var",
+                1
+              ]
+            ]
+          ],
+          "width": 3
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": false,
+          "closure_adds_pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "cycle_registers": [
+            0,
+            1
+          ],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1
+          ],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        },
+        "first_lag_order": {
+          "acyclic": false,
+          "closure_adds_pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "cycle_registers": [
+            0,
+            1
+          ],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              0
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ]
+          ]
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                0,
+                2
+              ],
+              [
+                2,
+                0
+              ]
+            ],
+            "contexts_per_source": 2,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                2
+              ],
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                2,
+                0
+              ],
+              [
+                0,
+                2
+              ]
+            ],
+            "contexts_per_source": 2,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                1
+              ]
+            ],
+            "signed_counts": [
+              [
+                2,
+                0
+              ],
+              [
+                0,
+                2
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                2
+              ],
+              [
+                2,
+                0
+              ]
+            ],
+            "contexts_per_source": 2,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                2
+              ],
+              [
+                2,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                2,
+                0
+              ],
+              [
+                0,
+                2
+              ]
+            ],
+            "contexts_per_source": 2,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                0
+              ],
+              [
+                0,
+                1
+              ]
+            ],
+            "signed_counts": [
+              [
+                2,
+                0
+              ],
+              [
+                0,
+                2
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "feedback_swap",
+          "updates": [
+            [
+              "var",
+              1
+            ],
+            [
+              "var",
+              0
+            ]
+          ],
+          "width": 2
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": false,
+          "closure_adds_pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "cycle_registers": [
+            0,
+            1,
+            2
+          ],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0,
+            1,
+            2
+          ],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              2,
+              0
+            ],
+            [
+              1,
+              0,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              0,
+              2
+            ],
+            [
+              2,
+              1,
+              2
+            ]
+          ]
+        },
+        "first_lag_order": {
+          "acyclic": false,
+          "closure_adds_pairs": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              0
+            ],
+            [
+              2,
+              2
+            ]
+          ],
+          "cycle_registers": [
+            0,
+            1,
+            2
+          ],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            2
+          ],
+          "strict_edges": [
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              1
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              2,
+              1,
+              0
+            ],
+            [
+              2,
+              1,
+              2
+            ]
+          ]
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                0,
+                0,
+                4
+              ],
+              [
+                4,
+                0,
+                2
+              ],
+              [
+                0,
+                4,
+                2
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                1,
+                0,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                0,
+                2
+              ],
+              [
+                4,
+                0,
+                0
+              ],
+              [
+                0,
+                4,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                0,
+                4,
+                2
+              ],
+              [
+                0,
+                2,
+                2
+              ],
+              [
+                4,
+                2,
+                2
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                0,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ]
+            ],
+            "signed_counts": [
+              [
+                0,
+                2,
+                2
+              ],
+              [
+                0,
+                0,
+                2
+              ],
+              [
+                4,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                2,
+                2
+              ],
+              [
+                2,
+                2,
+                2
+              ],
+              [
+                2,
+                2,
+                2
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ]
+            ],
+            "signed_counts": [
+              [
+                2,
+                2,
+                0
+              ],
+              [
+                0,
+                2,
+                2
+              ],
+              [
+                0,
+                0,
+                2
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                2,
+                2,
+                2
+              ],
+              [
+                2,
+                2,
+                2
+              ],
+              [
+                2,
+                2,
+                2
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ]
+            ],
+            "signed_counts": [
+              [
+                2,
+                0,
+                2
+              ],
+              [
+                2,
+                2,
+                0
+              ],
+              [
+                0,
+                2,
+                2
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "nonlinear_feedback",
+          "updates": [
+            [
+              "var",
+              1
+            ],
+            [
+              "var",
+              2
+            ],
+            [
+              "xor",
+              [
+                "var",
+                0
+              ],
+              [
+                "and",
+                [
+                  "var",
+                  1
+                ],
+                [
+                  "var",
+                  2
+                ]
+              ]
+            ]
+          ],
+          "width": 3
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0
+          ],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "first_lag_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [
+            [
+              0,
+              2
+            ]
+          ],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0
+          ],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "strict_partial_order": false,
+          "transitive": false,
+          "transitivity_witnesses": [
+            [
+              0,
+              1,
+              2
+            ]
+          ]
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                0
+              ],
+              [
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                0
+              ],
+              [
+                0,
+                0,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "causal_observation_model",
+          "updates": [
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              1
+            ]
+          ],
+          "width": 3
+        }
+      },
+      {
+        "accumulated_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0
+          ],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "first_lag_order": {
+          "acyclic": true,
+          "closure_adds_pairs": [],
+          "cycle_registers": [],
+          "scope": "register relation with update times collapsed",
+          "self_responses": [
+            0
+          ],
+          "strict_edges": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ]
+          ],
+          "strict_partial_order": true,
+          "transitive": true,
+          "transitivity_witnesses": []
+        },
+        "profiles": [
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 1,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 2,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 3,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          },
+          {
+            "absolute_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "contexts_per_source": 4,
+            "lag": 4,
+            "matrix_orientation": "row source, column target",
+            "maximum": [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            "signed_counts": [
+              [
+                4,
+                4,
+                4
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ]
+          }
+        ],
+        "system": {
+          "name": "common_cause_observation_model",
+          "updates": [
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              0
+            ],
+            [
+              "var",
+              0
+            ]
+          ],
+          "width": 3
+        }
+      }
+    ]
+  },
+  "obstructions": {
+    "context_effects_for_other_register_0_then_1": {
+      "and_context": [
+        0,
+        1
+      ],
+      "or_context": [
+        1,
+        0
+      ]
+    },
+    "feedback_swap": {
+      "event_time_order": "tick labels are supplied and every update advances one tick",
+      "register_cycle": [
+        0,
+        1,
+        0
+      ]
+    },
+    "observational_alias": {
+      "P_B_one_after_do_A_zero": {
+        "causal_observation_model": "0",
+        "common_cause_observation_model": "1/2"
+      },
+      "equal_support_probabilities": [
+        "1/2",
+        "1/2"
+      ],
+      "observed_support_A_B": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "total_variation_after_intervention": "1/2"
+    },
+    "one_step_chain": {
+      "accumulated_strict_partial_order": true,
+      "transitive": false
+    },
+    "xor_diamond": {
+      "event_transitivity_witness": {
+        "absent_composite_pair": [
+          [
+            0,
+            0
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "event_format": "[register, tick]",
+        "responding_pairs": [
+          [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          [
+            [
+              1,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ]
+        ]
+      },
+      "same_outputs_with_middle_register_2_clamped": [
+        0,
+        1
+      ],
+      "second_path": [
+        0,
+        2,
+        3
+      ],
+      "source_zero_one_outputs_at_lag_2": [
+        0,
+        0
+      ],
+      "structural_path": [
+        0,
+        1,
+        3
+      ],
+      "time_collapsed_relation_transitive": false
+    },
+    "xor_mask": {
+      "maximum_response": 1,
+      "mean_absolute_response": "1",
+      "mean_signed_response": "0",
+      "target_one_probability_under_do_0_then_1": [
+        "1/2",
+        "1/2"
+      ]
+    }
+  },
+  "schema_version": 1,
+  "scope": "exact finite operational response and identifiability with supplied registers and ticks",
+  "source_sha256": {
+    "ASSUMPTIONS.json": "9bf3c183bb5679698cac0959b9ad1bed6164388bca218fbda031f4b644fa83f5",
+    "FIXTURES.json": "d9fa0e2a0235588c1d3d8a2a5c08c0e1459066f3b9dd3bdcf028d521bc1d79a1",
+    "pgc01.py": "72484d92e3c613c42922c3a636c320edb5d3245538d8624355514ddddff63d6e",
+    "verify_pgc01.py": "f60f7419deed57fc7199f13924d37b54829939c035f5eafd13714640c7602d10"
+  },
+  "status": "PASS"
+}

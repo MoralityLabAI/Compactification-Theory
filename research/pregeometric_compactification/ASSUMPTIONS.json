@@ -1,0 +1,30 @@
+{
+  "primitive_class": "finite deterministic Boolean register systems",
+  "supplied": {
+    "register_factorization": "individually addressable Boolean registers",
+    "state_alphabet": "one bit per register",
+    "clock": "a global integer tick with a supplied forward update direction",
+    "dynamics": "a specified simultaneous Boolean update map",
+    "basic_interventions": "set one initial register to zero or one while holding all other initial registers equal",
+    "contexts": "all finite initial contexts are available in the exhaustive checks",
+    "observation": "chosen register values after a declared number of updates",
+    "context_measure": "uniform measure used only for average-response diagnostics",
+    "representation_cost": "the primitive number of registers and Boolean rules is recorded; a universal coding prior remains unspecified"
+  },
+  "recovered": {
+    "context_response": "exact paired effect of each basic intervention on each observed bit",
+    "maximum_response": "existence of a responding context within the declared intervention class",
+    "average_response": "signed and absolute response under the supplied uniform context measure",
+    "finite_probe_identifiability": "which declared candidate systems survive the observed finite probe transcript",
+    "order_diagnostics": "acyclicity and transitivity of register relations after collapsing update times"
+  },
+  "underdetermined": {
+    "manifold": "a continuum limit and smooth atlas require additional arguments",
+    "Lorentzian_signature": "metric signature remains an open target",
+    "null_cones": "a universal relativistic characteristic cone requires a further dynamical result",
+    "spacetime_dimension": "an emergent dimension requires a scale-sensitive observable beyond register counts",
+    "Einstein_variables": "selection of a metric, tetrad or connection remains open",
+    "Newton_coupling": "an independently defined gravitational response observable is required"
+  },
+  "claim_scope": "The tests establish finite response identities and limitations of specified probes. Geometry-emergence claims require new models and independent tests."
+}

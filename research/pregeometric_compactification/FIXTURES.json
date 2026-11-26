@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "expression_format": "prefix arrays; var uses zero-based register indices; all updates are simultaneous",
+  "systems": [
+    {
+      "name": "chain",
+      "purpose": "Acyclic positive control; the lag union recovers the three-register order.",
+      "updates": [["const", 0], ["var", 0], ["var", 1]]
+    },
+    {
+      "name": "xor_diamond",
+      "purpose": "Two paths cancel; intermediate control changes the response relation.",
+      "updates": [["const", 0], ["var", 0], ["var", 0], ["xor", ["var", 1], ["var", 2]]]
+    },
+    {
+      "name": "and_context",
+      "purpose": "The context can mask an essential source variable.",
+      "updates": [["var", 0], ["var", 1], ["and", ["var", 0], ["var", 1]]]
+    },
+    {
+      "name": "or_context",
+      "purpose": "Boolean saturation masks the source when the other input equals one.",
+      "updates": [["var", 0], ["var", 1], ["or", ["var", 0], ["var", 1]]]
+    },
+    {
+      "name": "xor_mask",
+      "purpose": "Every context responds; uniform target marginals coincide under the two source settings.",
+      "updates": [["var", 0], ["var", 1], ["xor", ["var", 0], ["var", 1]]]
+    },
+    {
+      "name": "feedback_swap",
+      "purpose": "A two-cycle appears when event times are collapsed to register addresses.",
+      "updates": [["var", 1], ["var", 0]]
+    },
+    {
+      "name": "nonlinear_feedback",
+      "purpose": "Exercises Boolean polynomial composition in a nonlinear recurrent system.",
+      "updates": [["var", 1], ["var", 2], ["xor", ["var", 0], ["and", ["var", 1], ["var", 2]]]]
+    },
+    {
+      "name": "causal_observation_model",
+      "purpose": "Registers U,A,B with A_next=U and B_next=A; paired with the common-source model.",
+      "updates": [["var", 0], ["var", 0], ["var", 1]]
+    },
+    {
+      "name": "common_cause_observation_model",
+      "purpose": "Registers U,A,B with A_next=U and B_next=U; unperturbed observations match the paired model.",
+      "updates": [["var", 0], ["var", 0], ["var", 0]]
+    }
+  ]
+}
