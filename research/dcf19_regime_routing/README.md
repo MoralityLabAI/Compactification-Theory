@@ -14,6 +14,16 @@ Results are in [RESULTS.md](RESULTS.md) and theory in [THEORY.md](THEORY.md):
 - Regime routing has the best mean objective of any non-oracle policy on this mesh, but its gain is concentrated in one condition.
 - It also corrects DCF-15's tuning objective, which charged batched launch overhead per query.
 
+## DCF-19B
+
+`regime19b.py`, `PROTOCOL19B.json`, `selection19b.json`, traces `trace19b_{dev,test}.json.gz`, `results19b.json`, `exploratory19b.json` (post-gate analysis) and `tests/test_regime19b.py`. Decision-margin signals did not beat the DCF-19 rule on development data. On fresh seeds the rule replicates: best on the mean, R1 fails 1/5. Exact changes only 1.6% of BP decisions on this mesh, which bounds what any router can win here. See the DCF-19B section of [RESULTS.md](RESULTS.md).
+
+    sha256sum -c PRE_RUN_19B_SHA256
+    python regime19b.py dev
+    sha256sum -c PRE_TEST_19B_SHA256
+    python regime19b.py test
+    python regime19b.py report
+
 ## Reproduce
 
 Python 3.12, NumPy 2.3.5; needs `../dcf15_ldt_mesh_routing` unchanged (hash-locked in `PRE_RUN_SHA256`).

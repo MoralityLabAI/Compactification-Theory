@@ -54,3 +54,27 @@ At B = 1 the exact kernel's launch overhead dominates (1.8 ms per query), and fi
 ## Verdict
 
 Making the routing decision coarse fixes the cost problem DCF-10 to DCF-15 kept hitting, and keeps batches homogeneous. The structural statistic S is too blunt to pick the right epochs reliably, so the gate fails. The next step is a better per-epoch signal, such as the fraction of queries whose local answer sits near a decision threshold, or the pending correlation restricted to the query distribution. Evaluate it against this same epoch oracle.
+
+# DCF-19B: decision-margin signals (fresh seeds 650000+)
+
+DCF-19's held-out results motivated this follow-up, so its held-out conditions are new seeds. Three candidates were scored on the DCF-15 development conditions: DCF-19's rule (τ = 2), a BP probe at each epoch start, and a lagged signal from the previous epoch's answers. The probe and lagged signals trigger exact when the fraction of queries within δ of 0.8 or 0.2 is at least φ, scanned over 5 δ × 6 φ. Development selected **DCF-19's own rule**: .10677, against .10668 for the best probe and lagged settings and .10668 for fixed BP. The selection was frozen in `selection19b.json` before the held-out traces were generated.
+
+| Gate (fresh held-out, 6 conditions) | Result |
+|---|---|
+| R1: beats fixed BP in more conditions than it loses | **FAIL: 1 win, 5 losses** |
+| R2: within .001 of the better fixed operator in ≥ 4/6 | PASS, 4/6 |
+| R3: beats the DCF-19 rule | not applicable: the selected policy is that rule, so all 6 conditions tie |
+
+| Mean objective_total (fresh held-out) | fixed BP | fixed exact | DCF-19 rule (selected) | epoch oracle |
+|---|---:|---:|---:|---:|
+| | .11233 | .11230 | **.11303** | .11431 |
+
+Per condition, the rule matches fixed BP's choices at ρ = .2 and in the high-noise conditions, where it loses only its routing cost. It loses at ρ = .4 low (.1790 vs .1803) and wins at ρ = .6 low (.1981 vs .1922). On fresh seeds this replicates DCF-19 exactly in shape: best on the mean, failing the per-condition gate.
+
+**Why no cheap signal works on this mesh** (`exploratory19b.json`, computed after the gates):
+- Exact inference changes the BP decision on 198 of 12,288 held-out queries (1.6%).
+- 2,297 queries have a BP posterior within .1 of a threshold; only 143 of them (6%) change under exact. A margin fraction is therefore mostly false alarms.
+- The best probe or lagged setting chosen with hindsight on the held-out traces scores .11224, below both fixed BP and the DCF-19 rule.
+- The whole per-epoch routing headroom (epoch oracle minus fixed BP) is .002 utility.
+
+**Verdict.** On the DCF-15 mesh, BP is nearly decision-equivalent to exact inference, so per-epoch routing has about .002 utility to win and no tested signal reliably captures it. Further routing work needs a world where the approximation's decision error is larger: tighter coupling, loops BP handles badly, or higher penalties. Otherwise effort is better spent on the DCF-16 curriculum.
