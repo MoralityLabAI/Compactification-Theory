@@ -49,6 +49,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
   - Escalating exactly BP's abstentions passes a pre-registered fresh-seed gate 6/6 against the better fixed operator at both declared compute prices (λ = 0.1 and 0.3 utility/ms). It needs no learned component and at most two homogeneous launches per step.
   - It loses at the DCF-15 price (λ = 0.01), and the world and policy idea came from exploratory traces, so this is a confirmed hypothesis in one synthetic world, not a general result.
   - The gated DCF-20 pipeline itself failed (W1, R1, R2): selecting the world by epoch headroom picked an easy world.
+- **That escalation rule does not generalise (DCF-21).** On fresh instances of the ten DCF-14 graph families all three gates fail. BP's abstentions catch 73% of BP/exact decision changes at 17% precision, and escalation loses to exact-else-mini-bucket in 365 of 438 conditions. In counted operations exact elimination is usually cheaper than loopy BP here, so probing with BP first doubles the work. Escalation needs the approximate operator to be much cheaper than exact *and* to fail by under-confidence. Pricing operators symbolically before running them (DCF-13 T3, DCF-14) remains the strongest routing principle in the series.
 - **Router cost is binding for symbolic and oracle routers; learned routers also lose on accuracy.** The router's own execution decides the outcome for the DCF-13D hybrid (bookkeeping), for DCF-15's symbolic router against fixed BP (equal utility, 0.5 ms routing), and for the privileged DCF-15 oracle (.1190 before routing, .0460 after). The learned routers in DCF-14 and DCF-15 lose on expected utility with no cost charged, so compiling them alone would not pass their gates.
 
 ## 6. Data and evaluation
@@ -65,7 +66,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | Constructive exactness guarantee with materially reduced cost | Yes: component restriction, symbolic elimination cost, credal certificate (zero negative-utility actions with 24× the coverage of pointwise bounds) | DCF-13, MathCan `DCFDecision.lean` |
 | Learned router beats strongest symbolic after charging costs | No | DCF-14, DCF-15 |
 | Coarse (regime) router beats strongest fixed policy per condition | No (best on the mean only) | DCF-19, DCF-19B |
-| Self-flagged escalation beats the better fixed operator per condition | Yes, 6/6 at λ = 0.1 and 0.3 on fresh seeds; loses at λ = 0.01 | DCF-20B |
+| Self-flagged escalation beats the better fixed operator per condition | Yes in the DCF-20 mesh (6/6 at λ = 0.1 and 0.3; loses at λ = 0.01); no on the DCF-14 families (0 wins against the best alternative) | DCF-20B, DCF-21 |
 
 ## What is not established
 
@@ -86,6 +87,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | DCF-16 curriculum data | `research/dcf16_decision_curriculum` |
 | DCF-19 regime routing | `research/dcf19_regime_routing` |
 | DCF-20 harder mesh world and escalation | `research/dcf20_hard_mesh_routing` |
+| DCF-21 escalation generalisation | `research/dcf21_escalation_generalization` |
 | Kernel-checked lemmas | [MathCan `MathCan/DCFDecision.lean`](https://github.com/patrickdugan/MathCan/blob/main/MathCan/DCFDecision.lean) |
 | LDT mesh units and J router | [HybridTRMLDT `research_gym/ldt_mesh`](https://github.com/MoralityLabAI/HybridTRMLDT/tree/master/research_gym/ldt_mesh) |
 | Dataset schema, loader, supervision views | [DataGoblin `schemas/dcf16_decision_trace.schema.json`, `src/datagoblin/datasets/dcf16.py`](https://github.com/MoralityLabAI/DataGoblin/blob/master/src/datagoblin/datasets/dcf16.py) |
