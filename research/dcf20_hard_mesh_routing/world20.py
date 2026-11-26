@@ -192,6 +192,18 @@ def worlds():
     return out
 
 
+def save_trace(name, obj):
+    """Traces live in this directory (DCF-20 first used regime19's helper, which writes to dcf19_regime_routing)."""
+    import gzip
+    with gzip.GzipFile(ROOT / name, 'wb', mtime=0) as f:
+        f.write(json.dumps(obj, separators=(',', ':')).encode())
+
+
+def load_trace(name):
+    import gzip
+    return json.loads(gzip.open(ROOT / name, 'rt').read())
+
+
 def seeds(base, ci, n):
     return [base + 10000 * ci + i for i in range(n)]
 
@@ -230,7 +242,7 @@ def stage_dev():
     for ci, rho in enumerate(conditions('dev')):
         traces.append(dict(rho=rho, trace=trace(seeds(P['seed_base']['dev'], ci, P['episodes']), rho, w, P['batch'])))
         print('dev', rho, flush=True)
-    R19.save_trace('trace20_dev.json.gz', traces)
+    save_trace('trace20_dev.json.gz', traces)
     scores = [dict(policy=k, params=p, mean_objective_total=float(np.mean([obj(c['trace'], k, p) for c in traces])))
               for k, p in candidates()]
     fixed = {k: float(np.mean([obj(c['trace'], k) for c in traces])) for k in ('fixed_bp', 'fixed_exact', 'epoch_oracle', 'query_oracle')}
@@ -247,12 +259,12 @@ def stage_test():
     for ci, rho in enumerate(conditions('test')):
         traces.append(dict(rho=rho, trace=trace(seeds(P['seed_base']['test'], ci, P['episodes']), rho, w, P['batch'])))
         print('test', rho, flush=True)
-    R19.save_trace('trace20_test.json.gz', traces)
+    save_trace('trace20_test.json.gz', traces)
 
 
 def stage_report():
     sel = json.loads((ROOT / 'selection20.json').read_text())
-    test = R19.load_trace('trace20_test.json.gz')
+    test = load_trace('trace20_test.json.gz')
     names = ['fixed_bp', 'fixed_exact', 'selected', 'epoch_oracle', 'query_oracle']
     table, dcr = {}, {}
     for c in test:

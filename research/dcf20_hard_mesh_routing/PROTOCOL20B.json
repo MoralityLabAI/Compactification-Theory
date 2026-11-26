@@ -1,0 +1,8 @@
+{"experiment":"DCF-20B escalate-on-abstention, gated test of a hypothesis formed in explore20.json",
+"world":{"noise":"low","xor_frac":1.0,"triangle":false,"aligned":true},
+"policy":"BP for every query (one launch); exact only for queries whose BP posterior lies strictly inside (0.2, 0.8) (second launch when any); no tunable parameters",
+"lambdas":[0.1,0.3],"lambda_meaning":"utility per millisecond of modelled kernel time; declared in advance as the compute prices where the exploratory traces suggested a crossover",
+"rho":[0.2,0.3,0.4,0.5,0.6,0.7],"episodes":64,"batch":32,"seed_base":990000,
+"seed_note":"fresh: no overlap with world-selection (750000+), DCF-20 dev/test (760000+, 770000+) or exploratory (880000+) seeds",
+"gates":{"G1":"at each declared lambda separately, escalate-on-abstention objective exceeds the better of fixed_bp and fixed_exact (chosen per condition with hindsight) in more than half of the 6 conditions"},
+"reward":{"correct":1,"wrong":-4,"abstain":0}}
