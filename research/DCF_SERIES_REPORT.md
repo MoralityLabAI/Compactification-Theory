@@ -42,6 +42,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 
 - **Batching rewards homogeneity.** In DCF-15 the exact kernel's per-query cost falls 3.7× from batch 1 to 256 under a fixed policy (1.80 to 0.48 ms). The learned router launches three distinct kernels per step at B ≥ 32, so its cost falls only 2.3×. DCF-11/12 found the same thing for collective scheduling. Adaptive specialisation and accelerator batching conflict unless routing decisions are coarse (per batch or per slow epoch) rather than per query.
 - **Slow, structural adaptivity coexists with batching.** DCF-15's slow-timescale unit merges are made by a fixed structural rule every 8 steps and keep a single execution path per step. They cut discarded correlation 36% and raise local-answer utility 41% in every held-out condition. Per-query learned routing lost 0/6. The privileged regret oracle also lost on total cost, because knowing regret costs 7.3 ms per query.
+- **Coarse routing removes the cost problem but not the signal problem (DCF-19).** Choosing one operator per batch per slow epoch costs 0.005 ms per query, 100–140× less than DCF-15's per-query routers, and keeps one kernel launch per step. On the mean it is the best non-oracle policy on the DCF-15 mesh (.1080 vs fixed BP .1073; the epoch oracle reaches .1089). It still fails its per-condition gate (1 win, 5 losses), because its structural statistic does not separate the epochs where exact inference pays. DCF-19 also found that DCF-15's offline tuning charged batched launch overhead per query, which biased the symbolic router against exact.
 - **Cost of the router is the binding constraint**, not its accuracy. In DCF-12 (full compilation), DCF-13D (bookkeeping), DCF-14 (9.9 ms of Python features) and DCF-15 (0.5–0.7 ms per query), the router's own execution decides the outcome.
 
 ## 6. Data and evaluation
@@ -57,6 +58,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | Lower cost at matched verified utility | Yes for exact component/elimination vs enumeration; no for adaptive vs strong fixed routing at the condition level | DCF-13A–D; DCF-10–14 |
 | Constructive exactness guarantee with materially reduced cost | Yes: component restriction, symbolic elimination cost, credal certificate (zero negative-utility actions with 24× the coverage of pointwise bounds) | DCF-13, MathCan `DCFDecision.lean` |
 | Learned router beats strongest symbolic after charging costs | No | DCF-14, DCF-15 |
+| Coarse (regime) router beats strongest fixed policy per condition | No (best on the mean only) | DCF-19 |
 
 ## What is not established
 
@@ -74,6 +76,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | DCF-14 width routing and shared inference library (`fg.py`) | `research/dcf14_width_routing` (pilots 14A–C: `research/dcf14_structural_width`) |
 | DCF-15 mesh routing | `research/dcf15_ldt_mesh_routing` |
 | DCF-16 curriculum data | `research/dcf16_decision_curriculum` |
+| DCF-19 regime routing | `research/dcf19_regime_routing` |
 | Kernel-checked lemmas | [MathCan `MathCan/DCFDecision.lean`](https://github.com/patrickdugan/MathCan/blob/main/MathCan/DCFDecision.lean) |
 | LDT mesh units and J router | [HybridTRMLDT `research_gym/ldt_mesh`](https://github.com/MoralityLabAI/HybridTRMLDT/tree/master/research_gym/ldt_mesh) |
 | Dataset schema, loader, supervision views | [DataGoblin `schemas/dcf16_decision_trace.schema.json`, `src/datagoblin/datasets/dcf16.py`](https://github.com/MoralityLabAI/DataGoblin/blob/master/src/datagoblin/datasets/dcf16.py) |
