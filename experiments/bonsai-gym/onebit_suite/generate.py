@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import threading
 import time
@@ -77,7 +78,8 @@ def main() -> int:
     ap.add_argument("--max-tokens", type=int, default=768)
     ap.add_argument("--concurrency", type=int, default=4)
     ap.add_argument("--limit", type=int, default=0)
-    ap.add_argument("--timeout", type=float, default=1800)
+    ap.add_argument("--timeout", type=float, default=900)
+    ap.add_argument("--max-attempts", type=int, default=6, help="exit 3 when one request fails this many times, so the caller restarts the server")
     ap.add_argument("--cap-watch-w", type=float, default=60, help="hold new requests while the enforced GPU limit is below this (0 = off)")
     a = ap.parse_args()
 
@@ -109,7 +111,7 @@ def main() -> int:
                 "max_tokens": a.max_tokens, "seed": a.seed + s, "chat_template_kwargs": {"enable_thinking": False}}
         if names:
             body["lora"] = lora
-        for attempt in range(1, 1000):
+        for attempt in range(1, a.max_attempts + 1):
             wait_while_capped(a.cap_watch_w)
             try:
                 res = post(a.base_url.rstrip("/") + "/chat/completions", body, a.timeout)
@@ -117,6 +119,10 @@ def main() -> int:
             except Exception as e:  # server restarting under the power guard: wait and retry the same request
                 print(f"retry {attempt} {row['id']}#{s}: {e}", flush=True)
                 time.sleep(min(60, 5 * attempt))
+        else:  # server dead or wedged: finished rows are on disk, so exit and let the caller restart it
+            print(f"giving up on {row['id']}#{s} after {a.max_attempts} attempts", flush=True)
+            f.flush()
+            os._exit(3)
         ch = res["choices"][0]
         rec = {"id": row["id"], "sample": s, "adapter": a.adapter, "reply": ch["message"].get("content") or "",
                "finish_reason": ch.get("finish_reason"), "completion_tokens": res.get("usage", {}).get("completion_tokens"),
