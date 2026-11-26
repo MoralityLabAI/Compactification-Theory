@@ -46,3 +46,20 @@ the 2026-11-25 overnight run: the suite venv sat on uv's Python installed from i
 
 Events: `<work>/logs/gym-events.jsonl`. Detached run log: `<work>/logs/gym-run-<time>.log` (one per launch). Server logs:
 `<work>/logs/gym-<step>.log`.
+
+## bdb_compare results (2026-11-27)
+
+Same BDB data for every adapter (bonsai-gym `data/bdb`, 450 train rows). Greedy, thinking off (Inkling: `tml_v0`
+effort 0). Eval split: 36 rows scored by `score_sft_replies.ts`. Bench: normalized gain over development seeds,
+results in bitcoin-defi-bench (82799a2, fdcd86b).
+
+| arm | split all | bonding | dlc | netting | bench bonding | bench dlc | bench netting |
+|---|---|---|---|---|---|---|---|
+| Bonsai 2.5 27B base | 0.229 | 0.688 | 0.000 | 0.000 | 0.652 | 0.475 | -0.628 |
+| Bonsai 2.5 + 1-bit LoRA r8 (60 steps) | 0.667 | 1.000 | 1.000 | 0.000 | 0.959 | 0.996 | -0.628 |
+| Bonsai 2.5 + fp LoRA r8 (60 steps) | 0.667 | 1.000 | 1.000 | 0.000 | 0.960 | 0.996 | -0.628 |
+| Inkling 2 Mini base (squid) | 0.000 | 0.000 | 0.000 | 0.000 | -0.746 | -0.213 | -0.628 |
+| Inkling 2 Mini + Tinker LoRA r16 folded (squid) | 0.646 | 1.000 | 0.938 | 0.000 | 0.879 | 0.989 | -0.628 |
+
+- The 1-bit and fp rank-8 adapters on Bonsai score the same on both measures.
+- Netting is -0.628 for every arm, including both bases: no plan was accepted.
