@@ -1,0 +1,13 @@
+{"experiment":"DCF-19B decision-margin signals for regime-level routing",
+"world":"DCF-15 mesh, cost model and lambda unchanged; DCF-19 accounting (one kernel launch per step)",
+"candidates":"regime19 (DCF-19 rule, tau fixed at 2); probe (BP on the epoch-start queries; exact for the epoch if the fraction of queries within delta of 0.8 or 0.2 is >= phi; probe BP kernel charged when exact is chosen); lagged (same fraction over the previous epoch's returned posteriors; epoch 0 uses BP)",
+"regime19_tau":2,"delta_grid":[0.05,0.1,0.15,0.2,0.3],"phi_grid":[0.02,0.05,0.1,0.2,0.3,0.5],
+"selection":"single policy with the highest mean objective_total over the four DCF-15 development conditions (DCF-15 dev seeds), frozen in selection19b.json before the held-out traces exist",
+"rho":{"dev":[0.2,0.4],"test":[0.2,0.4,0.6]},
+"seed_base":{"dev":150000,"test":650000},
+"episodes":64,"batch":32,"lambda":0.01,"r2_tolerance":0.001,
+"why_fresh_seeds":"DCF-19's held-out results (seed base 450000) motivated this experiment, so they are development evidence now; 19B's held-out conditions use unseen seeds",
+"gates":{
+"R1":"selected policy objective_total exceeds fixed_bp in more held-out conditions than it falls below",
+"R2":"selected policy within 0.001 of the better of fixed_bp and fixed_exact in at least 4 of 6 held-out conditions",
+"R3":"selected policy objective_total exceeds the DCF-19 regime rule in more held-out conditions than it falls below"}}
