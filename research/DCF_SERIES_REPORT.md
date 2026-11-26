@@ -36,14 +36,14 @@ Across DCF-10/11/12, 13C, 13D-A, 14 and 15, adaptive routing selects the right o
 - DCF-13D: the cost-estimated hybrid is exact but passes the latency gate in only 4/36; routing bookkeeping exceeds the saving.
 - DCF-14: the learned selectors lose to exact-else-mini-bucket in held-out expected utility (MLP 17 wins vs 86 losses). Structural feature extraction costs 9.9 ms per decision in Python.
 
-What does survive is symbolic adaptivity with exactness: exact when the symbolic cost fits the budget, a principled approximation otherwise, and certified abstention. Learned routing has not yet earned promotion anywhere in the series once its costs are charged.
+What does survive is symbolic adaptivity with exactness: exact when the symbolic cost fits the budget, a principled approximation otherwise, and certified abstention. Learned routing has not earned promotion anywhere in the series, and not only because of its cost: the DCF-14 and DCF-15 learned routers lose on expected utility before any routing cost is charged.
 
 ## 5. Batching economics
 
 - **Batching rewards homogeneity.** In DCF-15 the exact kernel's per-query cost falls 3.7× from batch 1 to 256 under a fixed policy (1.80 to 0.48 ms). The learned router launches three distinct kernels per step at B ≥ 32, so its cost falls only 2.3×. DCF-11/12 found the same thing for collective scheduling. Adaptive specialisation and accelerator batching conflict unless routing decisions are coarse (per batch or per slow epoch) rather than per query.
 - **Slow, structural adaptivity coexists with batching.** DCF-15's slow-timescale unit merges are made by a fixed structural rule every 8 steps and keep a single execution path per step. They cut discarded correlation 36% and raise local-answer utility 41% in every held-out condition. Per-query learned routing lost 0/6. The privileged regret oracle also lost on total cost, because knowing regret costs 7.3 ms per query.
 - **Coarse routing removes the cost problem but not the signal problem (DCF-19).** Choosing one operator per batch per slow epoch costs 0.005 ms per query, 100–140× less than DCF-15's per-query routers, and keeps one kernel launch per step. On the mean it is the best non-oracle policy on the DCF-15 mesh (.1080 vs fixed BP .1073; the epoch oracle reaches .1089). It still fails its per-condition gate (1 win, 5 losses), because its structural statistic does not separate the epochs where exact inference pays. DCF-19 also found that DCF-15's offline tuning charged batched launch overhead per query, which biased the symbolic router against exact.
-- **Cost of the router is the binding constraint**, not its accuracy. In DCF-12 (full compilation), DCF-13D (bookkeeping), DCF-14 (9.9 ms of Python features) and DCF-15 (0.5–0.7 ms per query), the router's own execution decides the outcome.
+- **Router cost is binding for symbolic and oracle routers; learned routers also lose on accuracy.** The router's own execution decides the outcome for the DCF-13D hybrid (bookkeeping), for DCF-15's symbolic router against fixed BP (equal utility, 0.5 ms routing), and for the privileged DCF-15 oracle (.1190 before routing, .0460 after). The learned routers in DCF-14 and DCF-15 lose on expected utility with no cost charged, so compiling them alone would not pass their gates.
 
 ## 6. Data and evaluation
 
@@ -67,6 +67,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 - No real-language-model result.
 - No claim that these synthetic factor-graph families represent intelligence-relevant workloads.
 - Python timings are unequal-optimisation comparisons wherever an implementation differs (Numba vs NumPy).
+- Result JSON files written on Windows contain CRLF line endings. Re-running a `report` stage on a non-Windows host rewrites them with LF, so `SHA256SUMS` fails although the values are identical; check hashes before running report stages.
 
 ## Where the work lives
 
