@@ -57,6 +57,8 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 - DCF-16 turns the verified machinery into 920 training and evaluation records, with family- and size-disjoint held-out splits enforced by hash and by the Data Goblin loader. Each record carries candidate representations marked sufficient or not, operators with exact costs, receipts, verified posteriors and regret. Hard negatives (117/200 held-out) isolate cases where local evidence looks adequate but is not: a unary-evidence shortcut scores −.053 on them, the symbolic router +.54.
 - The EvalMath held-out baseline that any compact recurrent model must beat is symbolic, with verified EU .352 at selective risk .047 (oracle .446). The label space shifts on held-out (GF(2) and particle labels are unseen in training). This is a deliberate test of whether a model learns *when* a representation suffices rather than which label is common.
 
+- **A compact model trained on the curriculum does not beat symbolic routing (DCF-22).** Setup: a 3,175-parameter GRU over elimination-ordered factors and a 2,707-parameter pooled MLP, trained on 3,600 records. Their selectors use a quarter of the symbolic rule's operator ops, but none is non-inferior in held-out utility (best .353 vs .352, worst .301). Their posteriors remove only 10–19% of a constant predictor's error in-distribution and are worse than the constant on held-out families. Recurrence gives no advantage over pooling. What the model learns cheaply is already computable exactly by symbolic analysis, and what symbolic analysis cannot provide (posteriors without inference) it does not learn at this scale.
+
 ## Promotion criteria, series-wide
 
 | Criterion | Met? | Where |
@@ -64,7 +66,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | Better verified utility at matched cost | Yes, for exact BMA over plug-in at the same polynomial representation; yes, for exact-else-MBE over always-BP at lower cost | DCF-13D C; DCF-14 |
 | Lower cost at matched verified utility | Yes for exact component/elimination vs enumeration; no for adaptive vs strong fixed routing at the condition level | DCF-13A–D; DCF-10–14 |
 | Constructive exactness guarantee with materially reduced cost | Yes: component restriction, symbolic elimination cost, credal certificate (zero negative-utility actions with 24× the coverage of pointwise bounds) | DCF-13, MathCan `DCFDecision.lean` |
-| Learned router beats strongest symbolic after charging costs | No | DCF-14, DCF-15 |
+| Learned router beats strongest symbolic after charging costs | No | DCF-14, DCF-15, DCF-22 |
 | Coarse (regime) router beats strongest fixed policy per condition | No (best on the mean only) | DCF-19, DCF-19B |
 | Self-flagged escalation beats the better fixed operator per condition | Yes in the DCF-20 mesh (6/6 at λ = 0.1 and 0.3; loses at λ = 0.01); no on the DCF-14 families (0 wins against the best alternative) | DCF-20B, DCF-21 |
 
@@ -88,6 +90,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | DCF-19 regime routing | `research/dcf19_regime_routing` |
 | DCF-20 harder mesh world and escalation | `research/dcf20_hard_mesh_routing` |
 | DCF-21 escalation generalisation | `research/dcf21_escalation_generalization` |
+| DCF-22 compact curriculum model | `research/dcf22_curriculum_model` |
 | Kernel-checked lemmas | [MathCan `MathCan/DCFDecision.lean`](https://github.com/patrickdugan/MathCan/blob/main/MathCan/DCFDecision.lean) |
 | LDT mesh units and J router | [HybridTRMLDT `research_gym/ldt_mesh`](https://github.com/MoralityLabAI/HybridTRMLDT/tree/master/research_gym/ldt_mesh) |
 | Dataset schema, loader, supervision views | [DataGoblin `schemas/dcf16_decision_trace.schema.json`, `src/datagoblin/datasets/dcf16.py`](https://github.com/MoralityLabAI/DataGoblin/blob/master/src/datagoblin/datasets/dcf16.py) |

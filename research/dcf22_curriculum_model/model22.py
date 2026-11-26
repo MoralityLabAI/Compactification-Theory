@@ -256,7 +256,7 @@ def stage_predict():
                 lp, lc, cc = net(b[0], b[1], b[2])
                 lc = lc.masked_fill(~b[3], -1e9)
             preds = []
-            for e, it, p, c, k in zip(rows, enc, torch.sigmoid(lp).tolist(), lc.argmax(1).tolist(), cc.tolist()):
+            for e, it, p, k, c in zip(rows, enc, torch.sigmoid(lp).tolist(), lc.argmax(1).tolist(), cc.tolist()):
                 cls = CLASSES[k]
                 ops = {o['name']: o for o in e['operators']}
                 if cls == 'exact':
