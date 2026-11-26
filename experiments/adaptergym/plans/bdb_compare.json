@@ -1,0 +1,58 @@
+{
+  "name": "bdb-compare",
+  "about": "Bonsai 2.5 27B BDB adapters (1-bit and fp rank 8) vs the Inkling 2 Mini Tinker BDB adapter folded into squid5090: the 36-row BDB eval split (score_sft_replies) and the bench episodes (development seeds), plus the suite's base-model generation. Tags: eval-bonsai (inference on Bonsai only), train-bonsai, eval-bonsai-adapter, eval-inky.",
+  "work": "C:/Users/patri/Documents/Codex/onebit-suite-25",
+  "port": 18290,
+  "paths": {
+    "gym_python": "C:/Users/patri/AppData/Local/Programs/Python/Python312/python.exe",
+    "suite_python": "C:/Users/patri/.venvs/onebit-suite-sys/Scripts/python.exe",
+    "train_python": "C:/Users/patri/.venvs/bluebeam/Scripts/python.exe",
+    "node": "C:/Users/patri/AppData/Local/Programs/nodejs/node.exe",
+    "bench": "C:/Users/patri/OneDrive/Documents/GitHub/bitcoin-defi-bench",
+    "suite": "C:/Users/patri/OneDrive/Documents/GitHub/adapter-bits/experiments/bonsai-gym/onebit_suite",
+    "bonsai_gym": "C:/Users/patri/OneDrive/Documents/GitHub/adapter-bits/experiments/bonsai-gym"
+  },
+  "backends": {
+    "b25": {
+      "kind": "llama",
+      "name": "bonsai-2.5-27b",
+      "bin": "C:/Users/patri/tools/llama-prism-b12178/bin",
+      "model": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0-mtp.gguf",
+      "sha256": "e0fc5f3d47b9c926d52677d303b19df356a2376614b3e1cb9973865fc04ca431",
+      "runtime": "llama-prism-b12178 (0.7.0-dev commit 03ec60072) PTQ1_0-mtp pure-GPU q8 KV, MTP draft n-max 3 p-min 0.1",
+      "spec_args": ["--spec-type", "draft-mtp", "--spec-draft-n-max", "3", "--spec-draft-p-min", "0.1"]
+    },
+    "inky": {
+      "kind": "squid",
+      "name": "inkling-2-mini",
+      "bin": "/root/squid5080-overlay/bin/squid5090",
+      "model_dir": "/root/models/inkling-2-mini",
+      "up_script": "/mnt/c/Users/patri/OneDrive/Documents/GitHub/adapter-bits/experiments/adaptergym/adaptergym/squid_up.sh",
+      "proxy": "/mnt/c/Users/patri/OneDrive/Documents/GitHub/adapter-bits/experiments/inky-tinker/inky_proxy.py",
+      "proxy_python": "/root/inky-tinker/venv/bin/python",
+      "effort": 0.0,
+      "sha256": "65e60f51aa1284d4fb022584908c315270334d991828bb774af60584523539d1",
+      "runtime": "squid5090 local 149a746 (port 450e607 + SQUID_OVERLAY), nvfp4, MTP off, ctx 16384, tml_v0 proxy effort 0"
+    }
+  },
+  "steps": [
+    {"id": "b25-bench-base", "kind": "bench", "backend": "b25", "name": "bonsai-2.5-27b-nothink-t0-base", "vram": "8G", "tags": ["eval-bonsai"]},
+    {"id": "b25-base-eval", "kind": "generate", "backend": "b25", "arm": "base", "families": ["bdb", "srb", "math", "logic"], "max_tokens": 1024, "vram": "9G", "tags": ["eval-bonsai"]},
+    {"id": "b25-base-score", "kind": "score", "arm": "base", "after": ["b25-base-eval"], "tags": ["eval-bonsai"]},
+    {"id": "b25-rft-math", "kind": "generate", "backend": "b25", "rows": "C:/Users/patri/Documents/Codex/onebit-suite-25/data/math/rft_pool.jsonl", "out": "C:/Users/patri/Documents/Codex/onebit-suite-25/gen/rft/math.jsonl", "temperature": 0.7, "top_p": 0.95, "max_tokens": 1024, "vram": "9G", "tags": ["eval-bonsai", "rft"]},
+    {"id": "b25-rft-logic", "kind": "generate", "backend": "b25", "rows": "C:/Users/patri/Documents/Codex/onebit-suite-25/data/logic/rft_pool.jsonl", "out": "C:/Users/patri/Documents/Codex/onebit-suite-25/gen/rft/logic.jsonl", "temperature": 0.7, "top_p": 0.95, "max_tokens": 1024, "vram": "9G", "tags": ["eval-bonsai", "rft"]},
+
+    {"id": "b25-train-onebit-bdb", "kind": "train_bonsai", "config": "b25_onebit_bdb", "vram": "15G", "tags": ["train-bonsai"]},
+    {"id": "b25-bench-onebit-bdb", "kind": "bench", "backend": "b25", "name": "bonsai-2.5-27b-nothink-t0-onebit-r8", "adapter": "C:/Users/patri/Documents/Codex/onebit-suite-25/runs/b25_onebit_bdb/adapter.gguf", "adapter_label": "1-bit BDB LoRA b25_onebit_bdb", "after": ["b25-train-onebit-bdb"], "vram": "8G", "tags": ["eval-bonsai-adapter"]},
+    {"id": "b25-split-onebit-bdb", "kind": "generate", "backend": "b25", "arm": "solo-onebit-bdb", "families": ["bdb"], "adapter": "C:/Users/patri/Documents/Codex/onebit-suite-25/runs/b25_onebit_bdb/adapter.gguf", "max_tokens": 1024, "after": ["b25-train-onebit-bdb"], "vram": "9G", "tags": ["eval-bonsai-adapter"]},
+    {"id": "b25-score-onebit-bdb", "kind": "score", "arm": "solo-onebit-bdb", "after": ["b25-split-onebit-bdb"], "tags": ["eval-bonsai-adapter"]},
+
+    {"id": "b25-train-fp-bdb", "kind": "train_bonsai", "config": "b25_bdb_fp_r8", "vram": "15G", "tags": ["train-bonsai"]},
+    {"id": "b25-bench-fp-bdb", "kind": "bench", "backend": "b25", "name": "bonsai-2.5-27b-nothink-t0-fp-r8", "adapter": "C:/Users/patri/Documents/Codex/onebit-suite-25/runs/b25_bdb_fp_r8/adapter.gguf", "adapter_label": "fp rank-8 BDB LoRA b25_bdb_fp_r8", "after": ["b25-train-fp-bdb"], "vram": "8G", "tags": ["eval-bonsai-adapter"]},
+    {"id": "b25-split-fp-bdb", "kind": "generate", "backend": "b25", "arm": "solo-fp-bdb", "families": ["bdb"], "adapter": "C:/Users/patri/Documents/Codex/onebit-suite-25/runs/b25_bdb_fp_r8/adapter.gguf", "max_tokens": 1024, "after": ["b25-train-fp-bdb"], "vram": "9G", "tags": ["eval-bonsai-adapter"]},
+    {"id": "b25-score-fp-bdb", "kind": "score", "arm": "solo-fp-bdb", "after": ["b25-split-fp-bdb"], "tags": ["eval-bonsai-adapter"]},
+
+    {"id": "inky-bench-base", "kind": "bench", "backend": "inky", "name": "inkling-2-mini-squid-t0-base", "vram": "15000M", "tags": ["eval-inky"]},
+    {"id": "inky-bench-fold", "kind": "bench", "backend": "inky", "name": "inkling-2-mini-squid-t0-lora-fold", "overlays": ["/mnt/c/Users/patri/Documents/Codex/inky-tinker/squid-overlay/attn.safetensors", "/mnt/c/Users/patri/Documents/Codex/inky-tinker/squid-overlay/experts.safetensors"], "adapter_label": "Tinker LoRA inky-bdb-full folded (squid_overlay.py seed 0)", "vram": "15000M", "tags": ["eval-inky"]}
+  ]
+}
