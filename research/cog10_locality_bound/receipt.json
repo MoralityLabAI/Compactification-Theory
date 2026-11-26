@@ -1,0 +1,360 @@
+{
+  "runner_commit": "49a443538a70c6ac671c1e518b51a3e65056e202",
+  "workflow_run": 45741392764,
+  "workflow_job": 139646995740,
+  "workflow_url": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/45741392764",
+  "artifact_id": 15081890327,
+  "artifact_digest": "sha256:453be78b8b0e263ee88d28c11e9e7d1abad65723dff25eaee1e1974d1bf2f50a",
+  "artifact_expires_at": "2026-12-26T02:17:25Z",
+  "report": {
+    "candidate_checks": 66893,
+    "roots": 256,
+    "selected_depths": [
+      {
+        "depth": 0,
+        "splits": {
+          "calibration": {
+            "ambiguous_examples": 336,
+            "bounded_ancestry_false_negatives": 940,
+            "candidates": 10945,
+            "exact_minimum_errors_for_signature_only_decoder": 127,
+            "mixed_signatures": 97,
+            "positives": 1004,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 5694,
+            "train_covered_errors": 187,
+            "train_majority_errors_default_negative": 739,
+            "train_unseen_signature_examples": 4912
+          },
+          "ood_test": {
+            "ambiguous_examples": 386,
+            "bounded_ancestry_false_negatives": 2051,
+            "candidates": 33237,
+            "exact_minimum_errors_for_signature_only_decoder": 158,
+            "mixed_signatures": 142,
+            "positives": 2117,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 18312,
+            "train_covered_errors": 166,
+            "train_majority_errors_default_negative": 2003,
+            "train_unseen_signature_examples": 25857
+          },
+          "ordinary_test": {
+            "ambiguous_examples": 413,
+            "bounded_ancestry_false_negatives": 867,
+            "candidates": 10875,
+            "exact_minimum_errors_for_signature_only_decoder": 147,
+            "mixed_signatures": 115,
+            "positives": 931,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 5378,
+            "train_covered_errors": 200,
+            "train_majority_errors_default_negative": 746,
+            "train_unseen_signature_examples": 4991
+          },
+          "train": {
+            "ambiguous_examples": 423,
+            "bounded_ancestry_false_negatives": 993,
+            "candidates": 11836,
+            "exact_minimum_errors_for_signature_only_decoder": 159,
+            "mixed_signatures": 123,
+            "positives": 1058,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 6055,
+            "train_covered_errors": 159,
+            "train_majority_errors_default_negative": 159,
+            "train_unseen_signature_examples": 0
+          }
+        }
+      },
+      {
+        "depth": 1,
+        "splits": {
+          "calibration": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 655,
+            "candidates": 10945,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1004,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 7577,
+            "train_covered_errors": 5,
+            "train_majority_errors_default_negative": 918,
+            "train_unseen_signature_examples": 7575
+          },
+          "ood_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 1792,
+            "candidates": 33237,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 2117,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 25205,
+            "train_covered_errors": 2,
+            "train_majority_errors_default_negative": 2073,
+            "train_unseen_signature_examples": 28592
+          },
+          "ordinary_test": {
+            "ambiguous_examples": 13,
+            "bounded_ancestry_false_negatives": 628,
+            "candidates": 10875,
+            "exact_minimum_errors_for_signature_only_decoder": 6,
+            "mixed_signatures": 6,
+            "positives": 931,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 7342,
+            "train_covered_errors": 13,
+            "train_majority_errors_default_negative": 863,
+            "train_unseen_signature_examples": 7296
+          },
+          "train": {
+            "ambiguous_examples": 13,
+            "bounded_ancestry_false_negatives": 733,
+            "candidates": 11836,
+            "exact_minimum_errors_for_signature_only_decoder": 6,
+            "mixed_signatures": 6,
+            "positives": 1058,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 8028,
+            "train_covered_errors": 6,
+            "train_majority_errors_default_negative": 6,
+            "train_unseen_signature_examples": 0
+          }
+        }
+      },
+      {
+        "depth": 2,
+        "splits": {
+          "calibration": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 303,
+            "candidates": 10945,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1004,
+            "roots_with_bounded_ancestry_false_negatives": 44,
+            "signatures": 7625,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 927,
+            "train_unseen_signature_examples": 7686
+          },
+          "ood_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 1322,
+            "candidates": 33237,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 2117,
+            "roots_with_bounded_ancestry_false_negatives": 64,
+            "signatures": 25440,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 2085,
+            "train_unseen_signature_examples": 28726
+          },
+          "ordinary_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 273,
+            "candidates": 10875,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 931,
+            "roots_with_bounded_ancestry_false_negatives": 41,
+            "signatures": 7419,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 869,
+            "train_unseen_signature_examples": 7399
+          },
+          "train": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 355,
+            "candidates": 11836,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1058,
+            "roots_with_bounded_ancestry_false_negatives": 46,
+            "signatures": 8073,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 0,
+            "train_unseen_signature_examples": 0
+          }
+        }
+      },
+      {
+        "depth": 4,
+        "splits": {
+          "calibration": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 12,
+            "candidates": 10945,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1004,
+            "roots_with_bounded_ancestry_false_negatives": 5,
+            "signatures": 7641,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 930,
+            "train_unseen_signature_examples": 7698
+          },
+          "ood_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 234,
+            "candidates": 33237,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 2117,
+            "roots_with_bounded_ancestry_false_negatives": 44,
+            "signatures": 25569,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 2106,
+            "train_unseen_signature_examples": 28864
+          },
+          "ordinary_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 16,
+            "candidates": 10875,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 931,
+            "roots_with_bounded_ancestry_false_negatives": 6,
+            "signatures": 7436,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 872,
+            "train_unseen_signature_examples": 7411
+          },
+          "train": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 33,
+            "candidates": 11836,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1058,
+            "roots_with_bounded_ancestry_false_negatives": 9,
+            "signatures": 8103,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 0,
+            "train_unseen_signature_examples": 0
+          }
+        }
+      },
+      {
+        "depth": 8,
+        "splits": {
+          "calibration": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 0,
+            "candidates": 10945,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1004,
+            "roots_with_bounded_ancestry_false_negatives": 0,
+            "signatures": 7641,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 930,
+            "train_unseen_signature_examples": 7698
+          },
+          "ood_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 3,
+            "candidates": 33237,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 2117,
+            "roots_with_bounded_ancestry_false_negatives": 3,
+            "signatures": 25703,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 2116,
+            "train_unseen_signature_examples": 28924
+          },
+          "ordinary_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 0,
+            "candidates": 10875,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 931,
+            "roots_with_bounded_ancestry_false_negatives": 0,
+            "signatures": 7436,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 872,
+            "train_unseen_signature_examples": 7411
+          },
+          "train": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 0,
+            "candidates": 11836,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1058,
+            "roots_with_bounded_ancestry_false_negatives": 0,
+            "signatures": 8103,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 0,
+            "train_unseen_signature_examples": 0
+          }
+        }
+      },
+      {
+        "depth": 16,
+        "splits": {
+          "calibration": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 0,
+            "candidates": 10945,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1004,
+            "roots_with_bounded_ancestry_false_negatives": 0,
+            "signatures": 7641,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 930,
+            "train_unseen_signature_examples": 7698
+          },
+          "ood_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 0,
+            "candidates": 33237,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 2117,
+            "roots_with_bounded_ancestry_false_negatives": 0,
+            "signatures": 25703,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 2116,
+            "train_unseen_signature_examples": 28924
+          },
+          "ordinary_test": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 0,
+            "candidates": 10875,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 931,
+            "roots_with_bounded_ancestry_false_negatives": 0,
+            "signatures": 7436,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 872,
+            "train_unseen_signature_examples": 7411
+          },
+          "train": {
+            "ambiguous_examples": 0,
+            "bounded_ancestry_false_negatives": 0,
+            "candidates": 11836,
+            "exact_minimum_errors_for_signature_only_decoder": 0,
+            "mixed_signatures": 0,
+            "positives": 1058,
+            "roots_with_bounded_ancestry_false_negatives": 0,
+            "signatures": 8103,
+            "train_covered_errors": 0,
+            "train_majority_errors_default_negative": 0,
+            "train_unseen_signature_examples": 0
+          }
+        }
+      }
+    ],
+    "states": 2453,
+    "summary_sha256": "f0ba48a4456d5b3cd93a2a68bb0a6dcad13c0433b29b381d0905cee2b5521669",
+    "witness_pairs": 65
+  }
+}
