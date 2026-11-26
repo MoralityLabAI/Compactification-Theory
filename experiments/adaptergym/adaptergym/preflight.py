@@ -33,8 +33,11 @@ def _wsl_exists(path: str) -> bool:
     return subprocess.run(Squid.WSL + ["test", "-e", path], capture_output=True).returncode == 0
 
 
-def check(plan: dict) -> int:
+def check(plan: dict, chosen: list[dict] | None = None) -> int:
+    """Check the steps a run will execute (default all) and only the backends those steps use."""
     errs, P = [], plan["paths"]
+    chosen = plan["steps"] if chosen is None else chosen
+    used = {s.get("backend") for s in chosen}
     for key in ("gym_python", "suite_python", "train_python"):
         if key in P and (why := _venv_problem(P[key])):
             errs.append(f"paths.{key} {P[key]}: {why}")
@@ -42,6 +45,8 @@ def check(plan: dict) -> int:
         if key in P and not Path(P[key]).exists():
             errs.append(f"paths.{key} missing: {P[key]}")
     for name, b in plan["backends"].items():
+        if name not in used:
+            continue
         if b["kind"] == "llama":
             for f in (Path(b["bin"]) / "llama-server.exe", Path(b["model"])):
                 if not f.exists():
@@ -55,7 +60,7 @@ def check(plan: dict) -> int:
         if s["kind"] == "train_bonsai":
             cfg = json.loads((Path(P["bonsai_gym"]) / "configs" / f"{s['config']}.json").read_text())
             produced.add(str(Path(cfg["out_dir"]) / "adapter.gguf").lower())
-    for s in plan["steps"]:
+    for s in chosen:
         if s.get("backend") and s["backend"] not in plan["backends"]:
             errs.append(f"step {s['id']}: unknown backend {s['backend']}")
         for f in [s.get("adapter")] + list(s.get("loras", {}).values()):

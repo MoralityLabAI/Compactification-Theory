@@ -1,6 +1,6 @@
 """adaptergym: one plan file drives adapter training and evals across model backends, one vramorama lease per GPU step.
 
-  python -m adaptergym preflight <plan.json>                 check every path, venv and backend the plan names
+  python -m adaptergym preflight <plan.json> [--tags a,b]    check the paths, venvs and backends the selected steps use
   python -m adaptergym status    <plan.json> [--tags a,b]    done / pending per step
   python -m adaptergym run       <plan.json> [--tags a,b]    run pending steps in order (GPU steps inside leases)
   python -m adaptergym launch    <plan.json> [--tags a,b] [--after-pid N]
@@ -91,7 +91,7 @@ def cmd_run(plan: dict, tags: str, after_pid: int = 0) -> int:
 
 
 def cmd_launch(plan: dict, tags: str, after_pid: int = 0) -> int:
-    if pf.check(plan):
+    if pf.check(plan, selected(plan, tags)):
         print("preflight failed; not launching")
         return 2
     # one log per launch: a running launch's cmd holds its log open, so a second `>>` to it would fail silently
@@ -116,7 +116,7 @@ def main() -> int:
     a = ap.parse_args()
     plan = load(a.plan)
     if a.cmd == "preflight":
-        return 1 if pf.check(plan) else 0
+        return 1 if pf.check(plan, selected(plan, a.tags)) else 0
     if a.cmd == "status":
         for s in selected(plan, a.tags):
             print(f"{'done   ' if steps.done(plan, s) else 'pending'}  {s['id']:<28} {s['kind']:<13} {','.join(s.get('tags', []))}")
