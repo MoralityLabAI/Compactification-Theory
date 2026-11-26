@@ -1,0 +1,17 @@
+{"experiment":"DCF-21 generalisation of escalate-on-abstention to the DCF-14 graph families",
+"generator":"DCF-14 width14.run_instance (gen.py families, all operators, independent exact verification) with fresh seeds",
+"blocks":[
+ {"families":["star","dense","hyper","ktree","xor_noiseless","weak_dense"],"sizes":[8,12,16,24,32,48,64],"seeds":6,"seed_base":440000},
+ {"families":["chain","tree","grid","sparse"],"sizes":[8,12,16,24,32,48,64],"seeds":6,"seed_base":450000},
+ {"families":["chain","tree","star","ktree"],"sizes":[128,256],"seeds":3,"seed_base":460000}],
+"budgets":[10,14,18],"penalties":[4,9],"workers":6,
+"policy":"escalate: BP at the budget; act if BP acts; if BP abstains or cannot run, the cheapest exact operator whose ops plus BP's fit the budget, else abstain; no tunable parameter",
+"baselines":["exact_else_mbe (DCF-14 strongest hand policy, selected on DCF-14 development data)","exact_else_bp","exact_or_abstain","always_bp","abstain"],
+"objective":"verified expected utility - lambda * ops / 2^B, averaged per condition (family, n, budget, penalty); only verified instances",
+"lambdas":[0.05,0.2,0.5],"gate_lambda":0.05,"lambda_note":"0.05 is DCF-14's own label weight; 0.2 and 0.5 are declared here as higher compute prices",
+"gates":{
+ "F1":"BP abstention captures at least 80% of the decisions where BP and the verified exact posterior disagree (pooled over verified instances, budgets where BP ran, both penalties)",
+ "E1":"at lambda 0.05, escalate beats exact_else_mbe in more conditions than it loses",
+ "E2":"at some declared lambda, escalate beats the best of all other policies (abstain included), chosen per condition with hindsight, in more conditions than it loses"},
+"secondary":"DCF-16 held-out records (already used for the EvalMath baseline): escalate vs the EvalMath symbolic predictor vs always-BP, expected utility and mean ops; descriptive only",
+"reward":{"correct":1,"wrong":"-penalty","abstain":0}}
