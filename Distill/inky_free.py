@@ -194,8 +194,12 @@ class TinkerFree:
         require(self.client.get_base_model() == FREE_MODEL, "sampling client base model mismatch")
 
     def sample(self, packet):
+        return self.sample_prompt(render_prompt(packet))
+
+    def sample_prompt(self, text):
+        require(isinstance(text,str) and bool(text.strip()), "empty prompt")
         prompt = self.renderer.build_generation_prompt(
-            [{"role":"user","content":render_prompt(packet)}], effort=self.effort)
+            [{"role":"user","content":text}], effort=self.effort)
         n = prompt.length
         require(type(n) is int and 0 < n and n + self.max_generation <= CONTEXT <= HARD_CONTEXT,
                 "rendered context exceeds cap")
