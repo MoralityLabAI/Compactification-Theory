@@ -1,0 +1,422 @@
+{
+  "name": "bdb-expanded",
+  "about": "1-bit rank-8 BDB LoRA on every Ternary Bonsai 2 series model (2B, 4B, 9B, 27B, 2.5 27B) from the expanded Bitcoin DeFi Bench SFT rows (4974 train, 400 val), 150 steps each; base and adapter scored on the eval split. Tags: bdbx-<model>, bdbx-train, bdbx-eval.",
+  "work": "C:/Users/patri/Documents/Codex/bdb-expanded",
+  "port": 18290,
+  "paths": {
+    "gym_python": "C:/Users/patri/AppData/Local/Programs/Python/Python312/python.exe",
+    "suite_python": "C:/Users/patri/.venvs/onebit-suite-sys/Scripts/python.exe",
+    "train_python": "C:/Users/patri/.venvs/bluebeam/Scripts/python.exe",
+    "node": "C:/Users/patri/AppData/Local/Programs/nodejs/node.exe",
+    "bench": "C:/Users/patri/OneDrive/Documents/GitHub/bitcoin-defi-bench",
+    "suite": "C:/Users/patri/OneDrive/Documents/GitHub/adapter-bits/experiments/bonsai-gym/onebit_suite",
+    "bonsai_gym": "C:/Users/patri/OneDrive/Documents/GitHub/adapter-bits/experiments/bonsai-gym"
+  },
+  "backends": {
+    "b2-2b": {
+      "kind": "llama",
+      "name": "b2-2b",
+      "bin": "C:/Users/patri/tools/llama-prism-b12178/bin",
+      "model": "C:/Users/patri/models/ternary-bonsai-2-2b/Ternary-Bonsai-2-2B-PTQ1_0.gguf",
+      "runtime": "llama-prism-b12178 PTQ1_0 pure-GPU q8 KV"
+    },
+    "b2-4b": {
+      "kind": "llama",
+      "name": "b2-4b",
+      "bin": "C:/Users/patri/tools/llama-prism-b12178/bin",
+      "model": "C:/Users/patri/models/ternary-bonsai-2-4b/Ternary-Bonsai-2-4B-PTQ1_0.gguf",
+      "runtime": "llama-prism-b12178 PTQ1_0 pure-GPU q8 KV"
+    },
+    "b2-9b": {
+      "kind": "llama",
+      "name": "b2-9b",
+      "bin": "C:/Users/patri/tools/llama-prism-b12178/bin",
+      "model": "C:/Users/patri/models/ternary-bonsai-2-9b/Ternary-Bonsai-2-9B-PTQ1_0.gguf",
+      "runtime": "llama-prism-b12178 PTQ1_0 pure-GPU q8 KV"
+    },
+    "b2-27b": {
+      "kind": "llama",
+      "name": "b2-27b",
+      "bin": "C:/Users/patri/tools/llama-prism-b12178/bin",
+      "model": "C:/Users/patri/models/ternary-bonsai-2-27b/Ternary-Bonsai-2-27B-PTQ1_0.gguf",
+      "runtime": "llama-prism-b12178 PTQ1_0 pure-GPU q8 KV"
+    },
+    "b25-27b": {
+      "kind": "llama",
+      "name": "b25-27b",
+      "bin": "C:/Users/patri/tools/llama-prism-b12178/bin",
+      "model": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0-mtp.gguf",
+      "runtime": "llama-prism-b12178 PTQ1_0 pure-GPU q8 KV, MTP draft n-max 3",
+      "spec_args": [
+        "--spec-type",
+        "draft-mtp",
+        "--spec-draft-n-max",
+        "3",
+        "--spec-draft-p-min",
+        "0.1"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "id": "b2-2b-base-eval",
+      "kind": "generate",
+      "backend": "b2-2b",
+      "arm": "b2-2b-base",
+      "families": [
+        "bdb"
+      ],
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "vram": "5G",
+      "tags": [
+        "bdbx-b2-2b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-2b-base-score",
+      "kind": "score",
+      "arm": "b2-2b-base",
+      "after": [
+        "b2-2b-base-eval"
+      ],
+      "tags": [
+        "bdbx-b2-2b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-2b-train",
+      "kind": "train_bonsai",
+      "config": "bdbx_onebit_b2_2b",
+      "vram": "15G",
+      "tags": [
+        "bdbx-b2-2b",
+        "bdbx-train"
+      ]
+    },
+    {
+      "id": "b2-2b-adapter-eval",
+      "kind": "generate",
+      "backend": "b2-2b",
+      "arm": "b2-2b-onebit",
+      "families": [
+        "bdb"
+      ],
+      "adapter": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_2b/adapter.gguf",
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "after": [
+        "b2-2b-train"
+      ],
+      "vram": "5G",
+      "tags": [
+        "bdbx-b2-2b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-2b-adapter-score",
+      "kind": "score",
+      "arm": "b2-2b-onebit",
+      "after": [
+        "b2-2b-adapter-eval"
+      ],
+      "tags": [
+        "bdbx-b2-2b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-4b-base-eval",
+      "kind": "generate",
+      "backend": "b2-4b",
+      "arm": "b2-4b-base",
+      "families": [
+        "bdb"
+      ],
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "vram": "6G",
+      "tags": [
+        "bdbx-b2-4b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-4b-base-score",
+      "kind": "score",
+      "arm": "b2-4b-base",
+      "after": [
+        "b2-4b-base-eval"
+      ],
+      "tags": [
+        "bdbx-b2-4b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-4b-train",
+      "kind": "train_bonsai",
+      "config": "bdbx_onebit_b2_4b",
+      "vram": "15G",
+      "tags": [
+        "bdbx-b2-4b",
+        "bdbx-train"
+      ]
+    },
+    {
+      "id": "b2-4b-adapter-eval",
+      "kind": "generate",
+      "backend": "b2-4b",
+      "arm": "b2-4b-onebit",
+      "families": [
+        "bdb"
+      ],
+      "adapter": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_4b/adapter.gguf",
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "after": [
+        "b2-4b-train"
+      ],
+      "vram": "6G",
+      "tags": [
+        "bdbx-b2-4b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-4b-adapter-score",
+      "kind": "score",
+      "arm": "b2-4b-onebit",
+      "after": [
+        "b2-4b-adapter-eval"
+      ],
+      "tags": [
+        "bdbx-b2-4b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-9b-base-eval",
+      "kind": "generate",
+      "backend": "b2-9b",
+      "arm": "b2-9b-base",
+      "families": [
+        "bdb"
+      ],
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "vram": "8G",
+      "tags": [
+        "bdbx-b2-9b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-9b-base-score",
+      "kind": "score",
+      "arm": "b2-9b-base",
+      "after": [
+        "b2-9b-base-eval"
+      ],
+      "tags": [
+        "bdbx-b2-9b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-9b-train",
+      "kind": "train_bonsai",
+      "config": "bdbx_onebit_b2_9b",
+      "vram": "15G",
+      "tags": [
+        "bdbx-b2-9b",
+        "bdbx-train"
+      ]
+    },
+    {
+      "id": "b2-9b-adapter-eval",
+      "kind": "generate",
+      "backend": "b2-9b",
+      "arm": "b2-9b-onebit",
+      "families": [
+        "bdb"
+      ],
+      "adapter": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_9b/adapter.gguf",
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "after": [
+        "b2-9b-train"
+      ],
+      "vram": "8G",
+      "tags": [
+        "bdbx-b2-9b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-9b-adapter-score",
+      "kind": "score",
+      "arm": "b2-9b-onebit",
+      "after": [
+        "b2-9b-adapter-eval"
+      ],
+      "tags": [
+        "bdbx-b2-9b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-27b-base-eval",
+      "kind": "generate",
+      "backend": "b2-27b",
+      "arm": "b2-27b-base",
+      "families": [
+        "bdb"
+      ],
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "vram": "12G",
+      "tags": [
+        "bdbx-b2-27b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-27b-base-score",
+      "kind": "score",
+      "arm": "b2-27b-base",
+      "after": [
+        "b2-27b-base-eval"
+      ],
+      "tags": [
+        "bdbx-b2-27b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-27b-train",
+      "kind": "train_bonsai",
+      "config": "bdbx_onebit_b2_27b",
+      "vram": "15G",
+      "tags": [
+        "bdbx-b2-27b",
+        "bdbx-train"
+      ]
+    },
+    {
+      "id": "b2-27b-adapter-eval",
+      "kind": "generate",
+      "backend": "b2-27b",
+      "arm": "b2-27b-onebit",
+      "families": [
+        "bdb"
+      ],
+      "adapter": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_27b/adapter.gguf",
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "after": [
+        "b2-27b-train"
+      ],
+      "vram": "12G",
+      "tags": [
+        "bdbx-b2-27b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b2-27b-adapter-score",
+      "kind": "score",
+      "arm": "b2-27b-onebit",
+      "after": [
+        "b2-27b-adapter-eval"
+      ],
+      "tags": [
+        "bdbx-b2-27b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b25-27b-base-eval",
+      "kind": "generate",
+      "backend": "b25-27b",
+      "arm": "b25-27b-base",
+      "families": [
+        "bdb"
+      ],
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "vram": "12G",
+      "tags": [
+        "bdbx-b25-27b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b25-27b-base-score",
+      "kind": "score",
+      "arm": "b25-27b-base",
+      "after": [
+        "b25-27b-base-eval"
+      ],
+      "tags": [
+        "bdbx-b25-27b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b25-27b-train",
+      "kind": "train_bonsai",
+      "config": "bdbx_onebit_b25_27b",
+      "vram": "15G",
+      "tags": [
+        "bdbx-b25-27b",
+        "bdbx-train"
+      ]
+    },
+    {
+      "id": "b25-27b-adapter-eval",
+      "kind": "generate",
+      "backend": "b25-27b",
+      "arm": "b25-27b-onebit",
+      "families": [
+        "bdb"
+      ],
+      "adapter": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b25_27b/adapter.gguf",
+      "slots": 2,
+      "ctx": 36864,
+      "max_tokens": 1024,
+      "after": [
+        "b25-27b-train"
+      ],
+      "vram": "12G",
+      "tags": [
+        "bdbx-b25-27b",
+        "bdbx-eval"
+      ]
+    },
+    {
+      "id": "b25-27b-adapter-score",
+      "kind": "score",
+      "arm": "b25-27b-onebit",
+      "after": [
+        "b25-27b-adapter-eval"
+      ],
+      "tags": [
+        "bdbx-b25-27b",
+        "bdbx-eval"
+      ]
+    }
+  ]
+}

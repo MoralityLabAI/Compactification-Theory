@@ -21,10 +21,12 @@ IM_END = "<|im_end|>"
 
 
 def render_prompt(messages: list[dict]) -> str:
+    """Qwen3.5 chat format, thinking off. Earlier assistant turns (multi-turn rows) are rendered as plain
+    content, as the model's template renders assistant turns before the last user message."""
     out = []
     for m in messages:
-        if m["role"] not in ("system", "user"):
-            raise ValueError("prompt messages must be system/user")
+        if m["role"] not in ("system", "user", "assistant"):
+            raise ValueError("prompt messages must be system/user/assistant")
         out.append(f"<|im_start|>{m['role']}\n{m['content']}{IM_END}\n")
     return "".join(out) + "<|im_start|>assistant\n<think>\n\n</think>\n\n"
 
