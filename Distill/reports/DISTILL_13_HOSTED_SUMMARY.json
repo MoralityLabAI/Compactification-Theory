@@ -1,0 +1,638 @@
+{
+  "epochs": 18,
+  "inventory": {
+    "calibration": {
+      "different_mask_positives": 288,
+      "hard_negatives": 110,
+      "literal_states": 46324,
+      "quotient_classes": 3034,
+      "records": 852,
+      "roots": [
+        "f9b43174831e5806da63fe4be9b357696e7c4099c6d454ae081da4f2fec9e906",
+        "d46faeac23a921a90b292d623083c4ef855929f6a4f1ab560c01fa1b56202b7d",
+        "9e48f9b0f23eaa9b48e1cdd41efc701c0af177889aae8d9f9c0d3723aa1126a6",
+        "6e12c7f0965e67320b19ff68b0deaae929e07b0ef73549a7c49c301b41a01079",
+        "4db8e68d292fa48b3a321ef534fa31be15e0024a1622042166d8b40c25adbd46",
+        "e5abc616c4d561445a54513e495854305da744cdf7c22c47e66edbc51082f0a8"
+      ],
+      "triplets": 288
+    },
+    "ordinary": {
+      "different_mask_positives": 576,
+      "hard_negatives": 127,
+      "literal_states": 117556,
+      "quotient_classes": 7292,
+      "records": 1718,
+      "roots": [
+        "bbe88b2e3049f7e1b6aded672e358c28b990be7af36b23f3acd5d6b62bbe484e",
+        "7a0e1b0cb018cb073fdd56aaeb9b900a3b00cfda81810bcb1f18e322772286a5",
+        "6c5c1a45273280719f445ba9ca8172f4bc4b7b682fc267e90cb093d52cd8e0da",
+        "76658c00af697e8f312706e5fee2c00574f09da06157ef3461a04a63ddef2f85",
+        "d02fa8828afe929d9431bf4a5f41fcb5766a5e4b03fbf2530bb59d76f61bc762",
+        "32eac685bd7c978f999b585b26ec26e04e6611469c294b0a281e1e30281a2a91",
+        "626b79ab716bd84df68ef47411a42d0e729e7395dbfbd90c963c96e9a7e3f895",
+        "188ceccb8517409f8029e17273ee73c8cb83932e2a1bc4e2894352d3cdcf0c9e",
+        "f7c12a5dd918083685c646e983db433bf4e609002b761b9403ce2b1fe6efa6d0",
+        "5deafbeef854dc373e2c6afd69931584682394a6db37cdd9f616c44a69d117e5",
+        "7cd3274e7e3a1b7f33d85069ae1ae2e8b9435059f54f0393318b223b68b41f43",
+        "ffa5076043ad603100f29ef8f89771452cca0f7310332705036e68f6434ae835"
+      ],
+      "triplets": 576
+    },
+    "scarce": {
+      "different_mask_positives": 569,
+      "hard_negatives": 386,
+      "literal_states": 31046,
+      "quotient_classes": 4773,
+      "records": 1655,
+      "roots": [
+        "44bbf8586b47c13792889e0dcc94701ede1f41f7c8761ed9398aee97d0d8635e",
+        "b88459724243e208c0ce213b698d89ce655c7813d8c458db55f2a489fdf6a68c",
+        "6f4a1a9e1ba5454dd0f6870250ec50e6d731b7a65f64e2cb375a23774ac9036f",
+        "5769d4247d8df0162ae8f69948ba8a8fb35a2739f516c5c30274990b76c3540d",
+        "a6d19c10ff50c43ac9bcf79c2de97925f5c3f5e249e65e5dc5fab98c74fe6d6c",
+        "4a671b39f97b39ac9d7d3670da1e338b26dc403cb5bed37fc335b3b3974c8a83",
+        "4b0cdb5ce76a0539ed27b427e3ec5595afca51b678b578d58bd433630020823f",
+        "bd6575d4c3d2e52313f0671e1810daef846baf9b5dcae3ae5fc94dc86cb2e7c1",
+        "30a915f06513e365efafbd563619d1ee9acc67b2aee506054354b70022a61ec5",
+        "c480cb41a57bf49b3ff82fad07534579263b35f198812d7848a223b6947dc04d",
+        "d2625e2fe5948397f866c42733d2f0bb7ccc6360981e942f09474e50d6e6d247",
+        "f55483c4d4cd96b76466897b6b7ccf8862ae6dabae8d4848b1d121ed9f49a919"
+      ],
+      "triplets": 576
+    },
+    "shifted": {
+      "different_mask_positives": 576,
+      "hard_negatives": 153,
+      "literal_states": 111536,
+      "quotient_classes": 7583,
+      "records": 1719,
+      "roots": [
+        "50ef94891af49364f5f27a15b54fa9bf07a7571f9bdd811ad08fb56f815309df",
+        "e7af4ecb71f025382559fcc3d238e3b16d59cb4045d836d2b422ad67b1d2c3e5",
+        "c5d2a01604c0414957f066e968e9c07fcfb8e6647aa70223ef26919922549ece",
+        "dbfac7e03a59d4555d91f159b13b57559b142284bed38e4fb59a90070c4d7810",
+        "fe897080fffcf3ec45cb44554d06c55438ee52277949e81a104c4416223820dc",
+        "5a0a68c2daedf0ca85157386aece26d9121062f3bd7662f065c27b4d9b94cafa",
+        "f15ca24f2329ed5ad9edfe1141a31bdbb4ec6ef5f0edf2b4bc9a01868f8b06b5",
+        "7f8e6b608e28804e7c4c8ad64366e81d9d168ccc1343f5838aae05b3fac86de3",
+        "085a2c5147ec4e0b6d2d931be9872404b4ae448dcc7ed7dc278f5093345c1aca",
+        "f730826792606e5f27d20167f96e291e80d6221f682be57d669b3c4e0ca2fcb5",
+        "abdad54c9adf04c71881eb9c581284c5394ce8c86a6019c1f076b2fa1f16da58",
+        "449361d981210ee2bf67cc153c7a85cdce71018eaf1e4d4b884434cfdf73d638"
+      ],
+      "triplets": 576
+    },
+    "train": {
+      "different_mask_positives": 1149,
+      "hard_negatives": 457,
+      "literal_states": 164126,
+      "quotient_classes": 13050,
+      "records": 3381,
+      "roots": [
+        "e4a9d3c0adafc1fce3b6ea28fb10450e0ee2814450ee3b510d6e3877a2ea4d7d",
+        "d82a3eb7627c8e40f1f01d5a8565ea16a7d0b35b497632c392f23722d5b7583f",
+        "c28061d4714d8c68d074141246a5181cd909ba9609062e39e965c2c13cb63afd",
+        "3d1a88227ea1de9249cc6e3305908a94ff408e194aa813d7934f868905e111ec",
+        "7a33761f193b8871af1da5caf230d044c6872ae288282a9103f52d81ae287548",
+        "34c16e5c68c2a0bb6c0a2ae859304d0678e9f3a7ce5a13d7b131752326d89fce",
+        "3f678f3ddc16cf27b2462919513dddd3f0d169b661a448620c994955cbae3474",
+        "81a18483d1408b2c4b796cebfcb5c2524854d67588592248d879acf3f86d9280",
+        "997cee5a71c8779d8b2d11510c022d9b5d6fcf90c209edb96ebdbfdac0529b4d",
+        "e25e6442171bd1d8d9637fda6b2d0c7bee13a42967d633a36fc712194b03631e",
+        "1a6302270b2311d1d0e89733621cb2b8f6593a26379510ae13c1bda214592c96",
+        "337766c8887be918af332ed6fafe71b1761022f3769246f28bcc6e05fc74a816",
+        "4e6a16fa4d1751162d14d863e5027421e894ede2ca1fddc6a9449a69290e7810",
+        "ad46c508dc2a89edcad3cccc56e4b698335660956a044e97cb9a295ed4f3324d",
+        "c83b9a2361d8445abdc34d6b644d00592ef3f58f961e9f45e443de8b8a80b100",
+        "9248f79ca808e2467cb0cf4e5cd66ba0e0184c3517294e7c829e5c34698b0cb8",
+        "d3ec0c9924eb1d3f2708db9ab8ed9c8ae00f434744fa7a7c399483beabcd6268",
+        "3bb2cc0b928a95fdf7b60f801b16f8dde672ab5be04743e372a78e7410c2c1bc",
+        "bc8a61563065966d11424aad578eb916fcae6c2e3894bf3ceeccefe1e15f952c",
+        "da7ede5d802a2960424af4bb3ed4b9ef0b9a8b1a90a51b4b2a1c0e960ca2c368",
+        "1c4a973f17ce1ac14c6988b640c03a2c28a50892643a9dce129d8da3ae016838",
+        "01910efa0cda6be7680708feb6d55fb2e7232b3212dd449b4f1f29e27fd825fa",
+        "28ed7bf9a489f292702f4aa92d4398a83a9e7de110fcb973b1a493a9f93bb96a",
+        "a94a891d95056240c9e7a178076cad90bafa3d26860d75bc7ae28e200498f6cc"
+      ],
+      "triplets": 1152
+    }
+  },
+  "results": {
+    "bag_no_pair": {
+      "311": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.4369979192593341,
+              "belief_tv": 0.4246184279521306,
+              "negative_distance": 0.19586945697665215,
+              "positive_distance": 0.10880397756894429,
+              "risk_mae": 0.10248357305924098,
+              "triplet_accuracy": 0.6857638888888888,
+              "value_mae": 3.0936920642852783
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.454114983868505,
+              "belief_tv": 0.4167175740003586,
+              "negative_distance": 0.2055544505516688,
+              "positive_distance": 0.10740625237425168,
+              "risk_mae": 0.08068691442410152,
+              "triplet_accuracy": 0.7282986111111112,
+              "value_mae": 2.98886646827062
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.2929974903457438,
+              "belief_tv": 0.35508300364017487,
+              "negative_distance": 0.13997645986576876,
+              "positive_distance": 0.08068027968207996,
+              "risk_mae": 0.14858974454303583,
+              "triplet_accuracy": 0.6276041666666666,
+              "value_mae": 4.239166676998138
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.4927234264822293,
+              "belief_tv": 0.39690901587406796,
+              "negative_distance": 0.20641429722309113,
+              "positive_distance": 0.11802726487318675,
+              "risk_mae": 0.0932632473607858,
+              "triplet_accuracy": 0.6831597222222222,
+              "value_mae": 3.029542108376821
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.4760907868316621,
+              "belief_tv": 0.38908303156495094,
+              "negative_distance": 0.18930841827144226,
+              "positive_distance": 0.09763855719938874,
+              "risk_mae": 0.10150125094999869,
+              "triplet_accuracy": 0.6853298611111112,
+              "value_mae": 3.1695666511853537
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 402637505,
+        "updates": 648
+      },
+      "719": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.43473490751309524,
+              "belief_tv": 0.42032231390476227,
+              "negative_distance": 0.19705529510974884,
+              "positive_distance": 0.10880776618917783,
+              "risk_mae": 0.1028738326082627,
+              "triplet_accuracy": 0.6822916666666666,
+              "value_mae": 3.0670652389526367
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.4330833160058512,
+              "belief_tv": 0.4185124561190605,
+              "negative_distance": 0.20796755949656168,
+              "positive_distance": 0.10475066800912221,
+              "risk_mae": 0.09329890025158723,
+              "triplet_accuracy": 0.7144097222222222,
+              "value_mae": 3.0497779846191406
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.2826327709828946,
+              "belief_tv": 0.3533187930782636,
+              "negative_distance": 0.15889153939982256,
+              "positive_distance": 0.08658808283507824,
+              "risk_mae": 0.15421807703872523,
+              "triplet_accuracy": 0.6553819444444444,
+              "value_mae": 3.7473975817362466
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.4559932682731978,
+              "belief_tv": 0.3970843553543091,
+              "negative_distance": 0.1979230542977651,
+              "positive_distance": 0.10469070076942444,
+              "risk_mae": 0.09600688392917316,
+              "triplet_accuracy": 0.6935763888888888,
+              "value_mae": 3.110489467779795
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.47630227182036894,
+              "belief_tv": 0.3930073281129201,
+              "negative_distance": 0.19504629417012134,
+              "positive_distance": 0.09575110239287217,
+              "risk_mae": 0.10830919382472833,
+              "triplet_accuracy": 0.7018229166666666,
+              "value_mae": 3.1459328333536782
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 401807338,
+        "updates": 648
+      }
+    },
+    "bag_pair": {
+      "311": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.44531910076831654,
+              "belief_tv": 0.421583150823911,
+              "negative_distance": 0.11822213605046272,
+              "positive_distance": 0.05988697210947672,
+              "risk_mae": 0.09969026657442252,
+              "triplet_accuracy": 0.6649305555555555,
+              "value_mae": 3.037519892056783
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.45656496118644013,
+              "belief_tv": 0.4159471020102501,
+              "negative_distance": 0.12316277995705605,
+              "positive_distance": 0.056725976057350636,
+              "risk_mae": 0.07422994977484147,
+              "triplet_accuracy": 0.724826388888889,
+              "value_mae": 2.8992207050323486
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.29640435471961474,
+              "belief_tv": 0.3512522727251053,
+              "negative_distance": 0.09465172700583935,
+              "positive_distance": 0.04660239815711975,
+              "risk_mae": 0.15404729234675565,
+              "triplet_accuracy": 0.6484374999999999,
+              "value_mae": 4.306051890055339
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.4613231789728269,
+              "belief_tv": 0.39428259680668515,
+              "negative_distance": 0.12326998077332973,
+              "positive_distance": 0.06104423385113478,
+              "risk_mae": 0.0830012025932471,
+              "triplet_accuracy": 0.6953125,
+              "value_mae": 2.9002818862597146
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.4662262199772762,
+              "belief_tv": 0.3884938744207223,
+              "negative_distance": 0.11920853580037753,
+              "positive_distance": 0.05244541602830092,
+              "risk_mae": 0.09747216322769721,
+              "triplet_accuracy": 0.7018229166666666,
+              "value_mae": 3.063023547331492
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 429646699,
+        "updates": 648
+      },
+      "719": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.4541161937448239,
+              "belief_tv": 0.4149685750404994,
+              "negative_distance": 0.10851553330818813,
+              "positive_distance": 0.054436213026444115,
+              "risk_mae": 0.10660773888230324,
+              "triplet_accuracy": 0.6996527777777777,
+              "value_mae": 3.510132312774658
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.4313092244870414,
+              "belief_tv": 0.4147764692703883,
+              "negative_distance": 0.11508795991539955,
+              "positive_distance": 0.052849759658177696,
+              "risk_mae": 0.0886091273277998,
+              "triplet_accuracy": 0.7178819444444445,
+              "value_mae": 3.3780480225880942
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.2748309482315853,
+              "belief_tv": 0.34696973860263824,
+              "negative_distance": 0.09439661757399638,
+              "positive_distance": 0.049935961763064064,
+              "risk_mae": 0.15034494611124197,
+              "triplet_accuracy": 0.6449652777777778,
+              "value_mae": 3.8763550321261087
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.440270516194812,
+              "belief_tv": 0.3939935714006424,
+              "negative_distance": 0.11105096712708473,
+              "positive_distance": 0.054781967774033546,
+              "risk_mae": 0.09335329259435336,
+              "triplet_accuracy": 0.7144097222222222,
+              "value_mae": 3.4173343976338706
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.4502961502540417,
+              "belief_tv": 0.3927084306875865,
+              "negative_distance": 0.11185383579383294,
+              "positive_distance": 0.049774551608910166,
+              "risk_mae": 0.10713454491148393,
+              "triplet_accuracy": 0.6948784722222222,
+              "value_mae": 3.545909325281779
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 426815811,
+        "updates": 648
+      }
+    },
+    "history_no_pair": {
+      "311": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.6565594860021401,
+              "belief_tv": 0.36301644146442413,
+              "negative_distance": 0.33531763404607773,
+              "positive_distance": 0.090443121890227,
+              "risk_mae": 0.10704247653484344,
+              "triplet_accuracy": 0.8576388888888888,
+              "value_mae": 2.33549972375234
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.726493793439216,
+              "belief_tv": 0.34263069927692413,
+              "negative_distance": 0.3697599669297536,
+              "positive_distance": 0.07695726087937753,
+              "risk_mae": 0.09980658317605655,
+              "triplet_accuracy": 0.9097222222222223,
+              "value_mae": 2.232636402050654
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.431844560501003,
+              "belief_tv": 0.35021855930487317,
+              "negative_distance": 0.23896769930919012,
+              "positive_distance": 0.08779085706919432,
+              "risk_mae": 0.164114893724521,
+              "triplet_accuracy": 0.7413194444444445,
+              "value_mae": 3.093467871348063
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.7353240786339378,
+              "belief_tv": 0.3231724699338277,
+              "negative_distance": 0.373810979227225,
+              "positive_distance": 0.08397586084902287,
+              "risk_mae": 0.10314791897932689,
+              "triplet_accuracy": 0.8958333333333334,
+              "value_mae": 2.114757011334101
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.7004622474470699,
+              "belief_tv": 0.338993111004432,
+              "negative_distance": 0.32991307352979976,
+              "positive_distance": 0.07909081364050508,
+              "risk_mae": 0.1149474053333203,
+              "triplet_accuracy": 0.8550347222222222,
+              "value_mae": 2.244937310616175
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 400073615,
+        "updates": 648
+      },
+      "719": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.5855426062465199,
+              "belief_tv": 0.3406937246521314,
+              "negative_distance": 0.32760848850011826,
+              "positive_distance": 0.0864947537581126,
+              "risk_mae": 0.1152803289393584,
+              "triplet_accuracy": 0.8368055555555557,
+              "value_mae": 2.3993956645329795
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.6764607311702382,
+              "belief_tv": 0.32363829016685486,
+              "negative_distance": 0.36958932379881543,
+              "positive_distance": 0.06376082729548216,
+              "risk_mae": 0.1044928605357806,
+              "triplet_accuracy": 0.907986111111111,
+              "value_mae": 2.399442344903946
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.3502513517414527,
+              "belief_tv": 0.3448845719297727,
+              "negative_distance": 0.23950564240415892,
+              "positive_distance": 0.08654678830256064,
+              "risk_mae": 0.16790437450011572,
+              "triplet_accuracy": 0.748263888888889,
+              "value_mae": 2.610217054684957
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.6799563894634316,
+              "belief_tv": 0.3082999760905902,
+              "negative_distance": 0.3674803301692009,
+              "positive_distance": 0.06935194755593936,
+              "risk_mae": 0.1127476195494334,
+              "triplet_accuracy": 0.8940972222222223,
+              "value_mae": 2.368096133073171
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.6179140199390144,
+              "belief_tv": 0.3282349693278472,
+              "negative_distance": 0.3202847484499216,
+              "positive_distance": 0.07280444105466206,
+              "risk_mae": 0.12470352184027433,
+              "triplet_accuracy": 0.861111111111111,
+              "value_mae": 2.3409965336322784
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 404837231,
+        "updates": 648
+      }
+    },
+    "history_pair": {
+      "311": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.6449567864966218,
+              "belief_tv": 0.34989308814207715,
+              "negative_distance": 0.25626834730307263,
+              "positive_distance": 0.03815987644096216,
+              "risk_mae": 0.1009758257617553,
+              "triplet_accuracy": 0.8541666666666666,
+              "value_mae": 2.537069042523702
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.734202462899646,
+              "belief_tv": 0.3249572267134984,
+              "negative_distance": 0.29860561589399975,
+              "positive_distance": 0.030985421501100063,
+              "risk_mae": 0.08830095827579498,
+              "triplet_accuracy": 0.9201388888888888,
+              "value_mae": 2.3732052743434906
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.4274735134448302,
+              "belief_tv": 0.3364776223897934,
+              "negative_distance": 0.16714543538788953,
+              "positive_distance": 0.036829074223836265,
+              "risk_mae": 0.16257586578528085,
+              "triplet_accuracy": 0.7881944444444443,
+              "value_mae": 3.0672951141993203
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.6998686873246732,
+              "belief_tv": 0.3063087984919548,
+              "negative_distance": 0.29354606941342354,
+              "positive_distance": 0.033215324549625315,
+              "risk_mae": 0.09247711549202602,
+              "triplet_accuracy": 0.90625,
+              "value_mae": 2.4279785056908927
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.6795739713369873,
+              "belief_tv": 0.327133455624183,
+              "negative_distance": 0.25690144052108127,
+              "positive_distance": 0.03301399814275404,
+              "risk_mae": 0.10892219717303912,
+              "triplet_accuracy": 0.8914930555555555,
+              "value_mae": 2.445732906460762
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 435794085,
+        "updates": 648
+      },
+      "719": {
+        "evaluation": {
+          "calibration": {
+            "root_mean": {
+              "action_accuracy": 0.5705649189740275,
+              "belief_tv": 0.3350318719943364,
+              "negative_distance": 0.23531119028727213,
+              "positive_distance": 0.02907550645371278,
+              "risk_mae": 0.09993409737944603,
+              "triplet_accuracy": 0.8749999999999999,
+              "value_mae": 2.0662653048833213
+            }
+          },
+          "ordinary": {
+            "root_mean": {
+              "action_accuracy": 0.6299943568429484,
+              "belief_tv": 0.3129693294564883,
+              "negative_distance": 0.27570368349552155,
+              "positive_distance": 0.02100692526437342,
+              "risk_mae": 0.09170813485980034,
+              "triplet_accuracy": 0.9097222222222222,
+              "value_mae": 2.1395371357599893
+            }
+          },
+          "scarce": {
+            "root_mean": {
+              "action_accuracy": 0.3489202785573591,
+              "belief_tv": 0.3329562818010648,
+              "negative_distance": 0.16180596562723318,
+              "positive_distance": 0.03149542662625512,
+              "risk_mae": 0.15572428392867246,
+              "triplet_accuracy": 0.7760416666666666,
+              "value_mae": 2.5657372971375785
+            }
+          },
+          "shifted": {
+            "root_mean": {
+              "action_accuracy": 0.6538129238393322,
+              "belief_tv": 0.29614948729674023,
+              "negative_distance": 0.27478623762726784,
+              "positive_distance": 0.02358773723244667,
+              "risk_mae": 0.09591901364425819,
+              "triplet_accuracy": 0.9079861111111112,
+              "value_mae": 2.045025279124578
+            }
+          },
+          "train": {
+            "root_mean": {
+              "action_accuracy": 0.589185773121626,
+              "belief_tv": 0.3184719371298949,
+              "negative_distance": 0.2359151616692543,
+              "positive_distance": 0.024510913179256022,
+              "risk_mae": 0.11127482634037733,
+              "triplet_accuracy": 0.875,
+              "value_mae": 2.11948831876119
+            }
+          }
+        },
+        "params": 2612,
+        "train_cpu_ns": 438253789,
+        "updates": 648
+      }
+    }
+  },
+  "schema_version": "distill.history_memory.v1",
+  "seed_list": [
+    311,
+    719
+  ],
+  "source_kind": "synthetic_finite_model",
+  "training_admission": false,
+  "width": 24,
+  "hosted_run": 46073089166,
+  "artifact_id": 15234091040,
+  "tested_commit": "e4f5436e2283e38c84b512e21466a0c6dc777b86"
+}
