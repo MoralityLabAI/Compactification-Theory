@@ -93,7 +93,6 @@ class Frontier:
         new=list(self.total)
         new[0]+=exact[0]; new[1]+=exact[0]
         new[2]+=exact[1]; new[3]+=exact[1]
-        cancelled=0
         for s,c in edits:
             self.meter.charge(TERM_WORK)
             k=self.key(s,c)
@@ -202,6 +201,38 @@ def compare(m,s,a,b,meter,*,cancel=True,threshold=0):
             "cancelled_pairs":f.cancelled_pairs,"frontier":f.cutoffs,
             "max_frontier":f.max_frontier}
 
+def late_compare(m,s,a,b,meter):
+    """Exact one-step final-project utility/risk difference.
+
+    No affordable direct audit and no certificate; the incumbent after
+    the candidate experiment can only choose recommend or defer. Both
+    frontier arms use this same shortcut, so it cannot create a paired
+    cancellation advantage.
+    """
+    require(s.stage==3 and s.cert<0 and m.terminal(b) and
+            "direct_audit" not in m.legal(s) and a in ("screen","control","law_audit"),
+            "late shortcut outside scope")
+    av,ar,M=immediate(m,s,a,meter)
+    bv,br,_=immediate(m,s,b,meter)
+    cr,wr=m.spec["correct_reward"],m.spec["wrong_reward"]
+    count=0
+    for t in children(m,s,a,meter):
+        require(t.stage==3 and t.cert<0 and "direct_audit" not in m.legal(t),"late child scope")
+        cm=mass(m,t,meter)
+        meter.charge(64)
+        one=m.mass(t.mask&m.truth_masks[3])
+        zero=cm-one
+        meter.charge(16)
+        # Match incumbent reward and lexicographic tie rule exactly.
+        reward,action,false=max((0,"defer",0),
+            (zero*cr+one*wr,"recommend:0",one),
+            (one*cr+zero*wr,"recommend:1",zero))
+        av+=reward*PRICE-379*cm
+        ar+=false
+        count+=1
+    return {"action":a,"bounds":[av-bv,av-bv,ar-br,ar-br],
+            "expanded":count,"cancelled_pairs":0,"frontier":0,"max_frontier":0}
+
 def candidates(m,s,b,meter):
     meter.charge(16)
     legal=m.legal(s)
@@ -266,18 +297,19 @@ def certificate(m,s,b,meter,config,prior_gate_work,*,cancel=True):
                 choices=candidates(m,s,b,local)
         else:
             choices=candidates(m,s,b,local)
-        for a in choices:
+        for idx,a in enumerate(choices):
             left=local.cap-local.used
             if left<256:
                 break
             # Reserve each trial independently, keeping earlier certificates.
-            share=min(left,max(256,allowance//3))
+            share=min(left,max(256,allowance//2)) if idx+1<len(choices) else left
             sub=Meter(share)
             attempted+=1
             trial=None
             try:
                 threshold=(prior_gate_work+local.used+RECEIPT_WORK)*M
-                trial=compare(m,s,a,b,sub,cancel=cancel,threshold=threshold)
+                trial=(late_compare(m,s,a,b,sub) if s.stage==3 and m.terminal(b) else
+                       compare(m,s,a,b,sub,cancel=cancel,threshold=threshold))
             except Exhausted:
                 pass
             local.charge(sub.used)
