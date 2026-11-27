@@ -1,0 +1,36 @@
+name: WS-04 Charged Bulk and Gauge-Invariant Radion
+
+on:
+  pull_request:
+    paths:
+      - 'research/warped_superfluid_v4/**'
+      - '.github/workflows/ws04-warped-superfluid.yml'
+  push:
+    paths:
+      - 'research/warped_superfluid_v4/**'
+      - '.github/workflows/ws04-warped-superfluid.yml'
+
+jobs:
+  numerical-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install CPU dependencies
+        run: python -m pip install -r research/warped_superfluid_v4/requirements.txt
+      - name: Run 22 gauge-invariant radion and charged-bulk tests
+        working-directory: research/warped_superfluid_v4
+        run: python -m unittest discover -s tests -v
+      - name: Regenerate radion spectrum and bulk-charge diagnostics
+        working-directory: research/warped_superfluid_v4
+        run: python run_experiment.py
+      - name: Publish numerical diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: ws04-gauge-invariant-radion-and-bulk-charge
+          path: |
+            research/warped_superfluid_v4/results/summary.json
+            research/warped_superfluid_v4/results/diagnostics.png
