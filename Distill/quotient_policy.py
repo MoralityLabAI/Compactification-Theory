@@ -7,9 +7,11 @@ from .program_opportunity import incumbent, reserve
 from .program_cancellation import (CONFIGS,GATE_WORK,RECEIPT_WORK, mass, immediate,
     candidates,gate,late_compare,Auditor as RiskAuditor)
 from .program_quotient import compare,MODES
+from .program_projection import Projector,OPTIMIZATIONS,METRICS,prunable
 from .student_campaign import PRICE
 
-def certificate(m,s,b,meter,config,prior_gate_work,*,mode="marginal"):
+def certificate(m,s,b,meter,config,prior_gate_work,*,mode="marginal",optimization=None):
+    require(optimization is None or (mode=="marginal" and optimization in OPTIMIZATIONS),"invalid optimization")
     require(config in CONFIGS.values(),"unregistered config")
     room=meter.cap-meter.used-reserve(s)
     if room<=RECEIPT_WORK:
@@ -18,6 +20,8 @@ def certificate(m,s,b,meter,config,prior_gate_work,*,mode="marginal"):
     local=Meter(allowance-RECEIPT_WORK)
     trials=[]
     attempted=0
+    projector=Projector(m,optimization) if optimization is not None else None
+    pruned=[]
     try:
         M=mass(m,s,local)
         # A perfect-information ceiling for a final unauditable claim can
@@ -31,6 +35,14 @@ def certificate(m,s,b,meter,config,prior_gate_work,*,mode="marginal"):
                 choices=candidates(m,s,b,local)
         else:
             choices=candidates(m,s,b,local)
+        if optimization=="bitset_cache_prune":
+            kept=[]
+            for a in choices:
+                if prunable(m,s,a,local):
+                    pruned.append(a)
+                else:
+                    kept.append(a)
+            choices=kept
         for idx,a in enumerate(choices):
             left=local.cap-local.used
             if left<256:
@@ -43,7 +55,7 @@ def certificate(m,s,b,meter,config,prior_gate_work,*,mode="marginal"):
             try:
                 threshold=(prior_gate_work+local.used+RECEIPT_WORK)*M
                 trial=(late_compare(m,s,a,b,sub) if s.stage==3 and m.terminal(b) else
-                       compare(m,s,a,b,sub,mode,threshold=threshold))
+                       compare(m,s,a,b,sub,mode,threshold=threshold,projector=projector))
             except Exhausted:
                 pass
             local.charge(sub.used)
@@ -63,6 +75,9 @@ def certificate(m,s,b,meter,config,prior_gate_work,*,mode="marginal"):
            "trials":len(trials),"cancelled_pairs":sum(t["cancelled_pairs"] for t in trials),
            "quotient_merges":sum(t["quotient_merges"] for t in trials),
            "expanded":sum(t["expanded"] for t in trials),"frontier":sum(t["frontier"] for t in trials)}
+    if projector is not None:
+        stats.update(projector.stats)
+        stats["pruned"]=len(pruned)
     if M is None:
         return None,stats
     viable=[t for t in trials if t["bounds"][0]>M*(work+prior_gate_work) and t["bounds"][3]<=0]
@@ -74,19 +89,38 @@ def certificate(m,s,b,meter,config,prior_gate_work,*,mode="marginal"):
           "chosen":best["action"] if best else None,
           "net_lower_numerator":best["bounds"][0]-M*(work+prior_gate_work) if best else None,
           "risk_upper_numerator":best["bounds"][3] if best else None}
+    if projector is not None:
+        body.update(optimization=optimization,projection_stats=dict(projector.stats),pruned_candidates=pruned)
     return {**body,"receipt_id":digest(body)},stats
 
 
 class Auditor(RiskAuditor):
     def verify(self,s,receipt):
         require(receipt["schema_version"]=="distill.quotient_opportunity.v1" and receipt["quotient_mode"] in MODES,"quotient receipt scope")
-        return super().verify(s,receipt)
+        ok=super().verify(s,receipt)
+        if "optimization" in receipt:
+            require(receipt["optimization"] in OPTIMIZATIONS and receipt["quotient_mode"]=="marginal","optimization scope")
+            stats=receipt["projection_stats"]
+            require(set(stats)==set(METRICS) and all(type(v) is int and v>=0 for v in stats.values()),"projection stats")
+            require(stats["setup_work"]<=stats["projection_work"]<=receipt["search_work"],"projection accounting")
+            require(stats["cache_peak"]<=32,"cache capacity")
+            rejected=receipt["pruned_candidates"]
+            require(len(set(rejected))==len(rejected),"duplicate rejection")
+            base=receipt["baseline"]
+            bv,_=self.action(s,base)
+            for a in rejected:
+                require(receipt["optimization"]=="bitset_cache_prune" and a!=base and a in self.m.legal(s),"prune scope")
+                require(prunable(self.m,s,a,Meter(100000)),"invalid rejection predicate")
+                av,_=self.action(s,a)
+                require(av<=bv,"rejected profitable action")
+        return ok
 
 class Policy:
-    def __init__(self,config=None,*,mode="marginal",forced=False):
+    def __init__(self,config=None,*,mode="marginal",forced=False,optimization=None):
         self.config=config
         require(mode in MODES,"unknown mode")
         self.mode=mode
+        self.optimization=optimization
         self.forced=forced
         self.attempted=False
         self.gate_spent=0
@@ -109,7 +143,7 @@ class Policy:
             return b,info,None
         self.attempted=True
         info["attempts"]=1
-        receipt,stats=certificate(m,s,b,meter,self.config,self.gate_spent,mode=self.mode)
+        receipt,stats=certificate(m,s,b,meter,self.config,self.gate_spent,mode=self.mode,optimization=self.optimization)
         info.update(stats)
         if receipt and receipt["chosen"] is not None:
             info["accepted"]=1

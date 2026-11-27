@@ -31,7 +31,7 @@ def budget_cap(m,s):
     r=4-s.stage-int(s.cert>=0)
     return r*max(D,T)+(m.cost("law_audit")+T if s.stage<=1 and s.law<0 else 0)
 
-def signature(m,s,mode,meter):
+def signature(m,s,mode,meter,projector=None):
     """Return (class key, integer mass factor, normalized mass).
 
     For marginal keys each cell is an exact prior mass over a future-truth
@@ -55,6 +55,9 @@ def signature(m,s,mode,meter):
     if mode=="flags":
         meter.charge(64)
         return prefix+(s.mask,),1,m.mass(s.mask)
+    if projector is not None:
+        reduced,factor=projector.project(m,s,meter)
+        return prefix+(reduced,),factor,sum(reduced)
     bits=4-s.stage+int(s.stage<=1)
     meter.charge(64*(bits+2)+8*(1<<bits)+16)
     bins=[0]*(1<<bits)
@@ -92,8 +95,9 @@ class Frontier:
     class member. Its gcd factor is divided out on expansion; conditioning
     on a projected bit and summing bins preserve that divisibility.
     """
-    def __init__(self,m,meter,mode):
+    def __init__(self,m,meter,mode,projector=None):
         self.m,self.meter,self.mode=m,meter,mode
+        self.projector=projector
         self.entries={}
         self.total=[0,0,0,0]
         self.expanded=0
@@ -107,7 +111,7 @@ class Frontier:
         cancels=merges=0
         for s,c in edits:
             self.meter.charge(TERM_WORK)
-            k,g,N=signature(self.m,s,self.mode,self.meter)
+            k,g,N=signature(self.m,s,self.mode,self.meter,self.projector)
             # c scales the unnormalized state value.
             w=exact_div(c.numerator*g,c.denominator)
             old,rep,rg,bb=pending.get(k,self.entries.get(k,(0,s,g,bounds(self.m,s,N))))
@@ -175,8 +179,8 @@ class Frontier:
                 break
         return list(self.total)
 
-def compare(m,s,a,b,meter,mode,threshold=0):
-    f=Frontier(m,meter,mode)
+def compare(m,s,a,b,meter,mode,threshold=0,projector=None):
+    f=Frontier(m,meter,mode,projector)
     f.init(s,a,b)
     bounds_=f.finish(threshold)
     return {"action":a,"bounds":bounds_,"expanded":f.expanded,
