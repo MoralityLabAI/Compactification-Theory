@@ -1,0 +1,158 @@
+{
+ "n": 88,
+ "families": {
+  "dense": 32,
+  "grid": 24,
+  "sparse": 32
+ },
+ "width": {
+  "min": 5,
+  "median": 12.0,
+  "max": 19
+ },
+ "ops": {
+  "exact_median": 147744.0,
+  "bp_median": 45034.0,
+  "model_macs_median": 4994592.0
+ },
+ "exact_eu": 0.5937230631731961,
+ "bp": {
+  "eu": 0.5963909757517054,
+  "mse": 0.003629877779038731
+ },
+ "model_cheaper_than_exact": 9,
+ "seeds": {
+  "0": {
+   "eu": 0.6014554851661388,
+   "mse": 0.0039831470219672295,
+   "eu_minus_bp": 0.005064509414433293,
+   "eu_minus_bp_lower95": -0.016560669516949605,
+   "cheaper_regime_eu_minus_bp": 0.0,
+   "cheaper_regime_lower95": 0.0,
+   "per_family_eu_minus_bp": {
+    "dense": 0.0,
+    "grid": 0.028102202256637742,
+    "sparse": -0.00714925080278675
+   }
+  },
+  "1": {
+   "eu": 0.6040552127307884,
+   "mse": 0.003375068338374122,
+   "eu_minus_bp": 0.00766423697908302,
+   "eu_minus_bp_lower95": -0.01299976858179708,
+   "cheaper_regime_eu_minus_bp": 0.0,
+   "cheaper_regime_lower95": 0.0,
+   "per_family_eu_minus_bp": {
+    "dense": 0.0,
+    "grid": 0.028102202256637742,
+    "sparse": 0.0
+   }
+  },
+  "2": {
+   "eu": 0.6083884689247209,
+   "mse": 0.0039014530640803765,
+   "eu_minus_bp": 0.01199749317301538,
+   "eu_minus_bp_lower95": -0.0028766535010263964,
+   "cheaper_regime_eu_minus_bp": 0.0,
+   "cheaper_regime_lower95": 0.0,
+   "per_family_eu_minus_bp": {
+    "dense": 0.0,
+    "grid": 0.043990808301056394,
+    "sparse": 0.0
+   }
+  }
+ },
+ "policies": {
+  "cap16_s0": {
+   "exact_fraction": 0.38636363636363635,
+   "mp_policy_eu": 0.6041434582378604,
+   "bp_policy_eu": 0.599078948823427,
+   "diff": 0.005064509414433293,
+   "lower95": -0.016560669516949605,
+   "mp_policy_mean_cost": 4256047.761363637,
+   "bp_policy_mean_cost": 46535.76136363636
+  },
+  "cap20_s0": {
+   "exact_fraction": 0.7045454545454546,
+   "mp_policy_eu": 0.6023461846526214,
+   "bp_policy_eu": 0.5937230631731961,
+   "diff": 0.008623121479425152,
+   "lower95": -0.01299976858179708,
+   "mp_policy_mean_cost": 2257817.625,
+   "bp_policy_mean_cost": 128962.71590909091
+  },
+  "cap16_s1": {
+   "exact_fraction": 0.38636363636363635,
+   "mp_policy_eu": 0.6067431858025102,
+   "bp_policy_eu": 0.599078948823427,
+   "diff": 0.00766423697908302,
+   "lower95": -0.01299976858179708,
+   "mp_policy_mean_cost": 4256047.761363637,
+   "bp_policy_mean_cost": 46535.76136363636
+  },
+  "cap20_s1": {
+   "exact_fraction": 0.7045454545454546,
+   "mp_policy_eu": 0.6023461846526214,
+   "bp_policy_eu": 0.5937230631731961,
+   "diff": 0.008623121479425152,
+   "lower95": -0.01299976858179708,
+   "mp_policy_mean_cost": 2257817.625,
+   "bp_policy_mean_cost": 128962.71590909091
+  },
+  "cap16_s2": {
+   "exact_fraction": 0.38636363636363635,
+   "mp_policy_eu": 0.6110764419964425,
+   "bp_policy_eu": 0.599078948823427,
+   "diff": 0.01199749317301538,
+   "lower95": -0.0028766535010263964,
+   "mp_policy_mean_cost": 4256047.761363637,
+   "bp_policy_mean_cost": 46535.76136363636
+  },
+  "cap20_s2": {
+   "exact_fraction": 0.7045454545454546,
+   "mp_policy_eu": 0.6066794408465537,
+   "bp_policy_eu": 0.5937230631731961,
+   "diff": 0.012956377673357512,
+   "lower95": 0.0,
+   "mp_policy_mean_cost": 2257817.625,
+   "bp_policy_mean_cost": 128962.71590909091
+  }
+ },
+ "gates": {
+  "H1": {
+   "rule": "acting on the frozen mp_bp posterior beats acting on BP in expected utility (bootstrap 95% lower bound of the mean paired difference > 0) for at least 2 of 3 seeds",
+   "lower95": [
+    -0.016560669516949605,
+    -0.01299976858179708,
+    -0.0028766535010263964
+   ],
+   "passed": false
+  },
+  "H2": {
+   "rule": "on instances where exact ops exceed BP ops plus model MACs (at least 20 such instances), the same comparison passes for at least 2 of 3 seeds",
+   "instances": 9,
+   "lower95": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "passed": false
+  },
+  "H3": {
+   "rule": "at both caps, 'exact if its ops fit the cap, else mp_bp' beats 'exact if it fits, else BP' in expected utility (bootstrap lower bound > 0) for at least 2 of 3 seeds",
+   "lower95": {
+    "16": [
+     -0.016560669516949605,
+     -0.01299976858179708,
+     -0.0028766535010263964
+    ],
+    "20": [
+     -0.01299976858179708,
+     -0.01299976858179708,
+     0.0
+    ]
+   },
+   "passed": false
+  }
+ }
+}
