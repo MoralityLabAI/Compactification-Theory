@@ -48,6 +48,8 @@ def signature(m,s,mode,meter):
         M=m.mass(s.mask)
         return (s.stage,s.budget,s.mask,s.screened,s.control,s.law,s.anchor,s.cert),1,M
     b=min(s.budget,budget_cap(m,s))
+    if s.stage==3 and s.budget<m.cost("direct_audit"):
+        b=0  # all unaffordable terminal budgets are equivalent here
     law,anchor=(s.law,s.anchor) if s.stage<3 else (-1,-1)
     prefix=(s.stage,b,law,anchor,s.cert)
     if mode=="flags":
