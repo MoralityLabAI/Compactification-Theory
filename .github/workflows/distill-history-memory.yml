@@ -1,0 +1,33 @@
+name: Distill research history memory
+on:
+  pull_request:
+    paths:
+      - 'Distill/history_memory.py'
+      - 'Distill/history_memory_train.py'
+      - 'Distill/tests/test_history_memory.py'
+      - '.github/workflows/distill-history-memory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  history-memory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install numpy==2.2.6
+      - run: python -m unittest discover -s Distill/tests -p test_history_memory.py -v
+      - run: python -m Distill.history_memory_train --out /tmp/distill-history
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distill-13-history-memory
+          path: /tmp/distill-history/
+          if-no-files-found: error
+          retention-days: 30
