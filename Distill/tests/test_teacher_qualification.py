@@ -51,7 +51,7 @@ class TeacherQualificationTests(unittest.TestCase):
                 for row in record["rows"]:
                     row["scores"]={k:2 for k in row["scores"]}
                     row["evidence"]="fixture only"
-                write_json(path,record)
+                path.write_text(json.dumps(record),encoding="utf-8")
             audit=review_rows(rows,directory)
             self.assertEqual(audit["counts"]["reviewed_slots"],122)
             self.assertFalse(audit["all_planned_slots_reviewed"])
