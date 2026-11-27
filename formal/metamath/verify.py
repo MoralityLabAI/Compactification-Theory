@@ -27,6 +27,7 @@ def blob(data):
 def admit(source, manifest):
     tokens = re.sub(r"\$\([\s\S]*?\$\)", "", source).split()
     stack = [[]]
+    dv_stack = [set()]
     labels = set()
     proved = {}
     i = 0
@@ -35,10 +36,22 @@ def admit(source, manifest):
         i += 1
         if token == "$" + "{":
             stack.append([])
+            dv_stack.append(set())
             continue
         if token == "$}":
             require(len(stack) > 1, "scope underflow")
             stack.pop()
+            dv_stack.pop()
+            continue
+        if token == "$d":
+            require(len(stack) > 1, "unscoped distinct variables")
+            end = tokens.index("$.", i)
+            pair = tokens[i:end]
+            require(len(pair) == 2 and pair[0] != pair[1]
+                    and all(re.fullmatch(r"[A-Za-z][A-Za-z0-9_]*", v) for v in pair),
+                    "invalid distinct-variable pair")
+            dv_stack[-1].add(tuple(sorted(pair)))
+            i = end + 1
             continue
         require(re.fullmatch(r"ml-[A-Za-z0-9.-]+", token) and token not in labels, "invalid label")
         labels.add(token)
@@ -57,9 +70,10 @@ def admit(source, manifest):
         proof = tokens[i:end]
         require(proof and all(re.fullmatch(r"[A-Za-z0-9_.-]+", t) for t in proof), "explicit proof labels")
         i = end + 1
-        proved[token] = (" ".join(statement), sum(stack, []), len(proof))
+        proved[token] = (" ".join(statement), sum(stack, []), len(proof), sorted(set().union(*dv_stack)))
     require(len(stack) == 1, "unclosed scope")
-    expected = {p["metamath_label"]: (p["statement"], p["hypotheses"], p["proof_steps"])
+    expected = {p["metamath_label"]: (p["statement"], p["hypotheses"], p["proof_steps"],
+                    sorted(tuple(sorted(pair)) for pair in p.get("distinct", [])))
                 for p in manifest["ports"]}
     require(len(expected) == len(manifest["ports"]) and proved == expected, "manifest statement drift")
     return proved
