@@ -247,12 +247,16 @@ class Journal:
     def finish(self, packet, raw):
         rid=packet["packet_id"]
         require(self.by_id.get(rid)==packet,"unplanned packet")
-        receipt=score(packet,raw,self.mode)
-        # Store raw visible response and grade atomically with terminal state.
+        # Save visible raw response before grading; a grading failure retains it.
+        raw_text=canonical(raw).decode("ascii")
         with self.tx() as db:
-            require(db.execute("SELECT state FROM attempts WHERE packet_id=?",(rid,)).fetchone()==("pending",),"attempt not pending")
-            db.execute("UPDATE attempts SET state='finished',finished=?,raw=?,receipt=? WHERE packet_id=?",
-                       (utc(),canonical(raw).decode("ascii"),canonical(receipt).decode("ascii"),rid))
+            require(db.execute("SELECT state,raw FROM attempts WHERE packet_id=?",(rid,)).fetchone()==("pending",None),"attempt not pending or raw already saved")
+            db.execute("UPDATE attempts SET raw=? WHERE packet_id=?",(raw_text,rid))
+        receipt=score(packet,raw,self.mode)
+        with self.tx() as db:
+            require(db.execute("SELECT state,raw FROM attempts WHERE packet_id=?",(rid,)).fetchone()==("pending",raw_text),"attempt changed during grading")
+            db.execute("UPDATE attempts SET state='finished',finished=?,receipt=? WHERE packet_id=?",
+                       (utc(),canonical(receipt).decode("ascii"),rid))
         return receipt
 
     def record_error(self, packet_id, error):
@@ -260,6 +264,15 @@ class Journal:
         with self.tx() as db:
             db.execute("UPDATE attempts SET error_type=? WHERE packet_id=? AND state='pending'",
                        (type(error).__name__[:96],packet_id))
+
+    def result(self, packet_id):
+        require(packet_id in self.by_id,"unknown packet")
+        with self.tx() as db:
+            row=db.execute("SELECT state,raw,receipt FROM attempts WHERE packet_id=?",(packet_id,)).fetchone()
+        require(row is not None and row[0]=="finished","result not complete")
+        raw,receipt=json.loads(row[1]),json.loads(row[2])
+        require(receipt==score(self.by_id[packet_id],raw,self.mode),"result replay mismatch")
+        return self.by_id[packet_id],raw,receipt
 
     def summary(self, *, replay=False):
         with self.tx() as db:
@@ -335,10 +348,16 @@ def main():
     else:
         j=Journal(args.campaign)
         if args.command=="run":
+            require(type(args.limit) is int and 1<=args.limit<=100,"invalid per-launch limit")
             if j.mode=="live":
                 require(args.confirm_free_tier,"confirm account free-tier eligibility before live sampling")
                 require(not (j.root/"STOP").exists(),"STOP file present")
-                require(not j.summary()["counts"].get("pending"),"pending request; reconcile first")
+                summary=j.summary()
+                require(not summary["counts"].get("pending"),"pending request; reconcile first")
+                require(not summary["counts"].get("format_cap_overrun") and not summary["counts"].get("exact_checker_error"),"prior cap/checker error; stop")
+                if summary["counts"].get("finished",0)==len(j.packets):
+                    print(json.dumps(summary,sort_keys=True,indent=2))
+                    return
                 sampler=TinkerFree().sample
             else:
                 require(not args.confirm_free_tier,"fixture lane cannot become live")
