@@ -31,3 +31,7 @@ jobs:
           python -m Distill.inky_free prepare --out /tmp/inky-fixture --mode fixture --per-family 3 --include-design
           python -m Distill.inky_free run --campaign /tmp/inky-fixture --limit 55
           python -m Distill.inky_free replay --campaign /tmp/inky-fixture
+          python -m Distill.inky_free prepare --out /tmp/research-fixture --mode fixture --per-family 0 --research-per-family 6 --research-section-size 2 --max-generation 8192 --effort 0.6 --seed 2026112805
+          python -m Distill.inky_free run --campaign /tmp/research-fixture --limit 62
+          python -m Distill.inky_free replay --campaign /tmp/research-fixture
+          python -m Distill.research_curriculum --out /tmp/research-curriculum
