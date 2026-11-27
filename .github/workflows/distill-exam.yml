@@ -35,3 +35,7 @@ jobs:
           python -m Distill.inky_free run --campaign /tmp/research-fixture --limit 62
           python -m Distill.inky_free replay --campaign /tmp/research-fixture
           python -m Distill.research_curriculum --out /tmp/research-curriculum
+          python -m Distill.program_curriculum --out /tmp/program-curriculum
+          python -m Distill.program_runner prepare --out /tmp/program-fixture --mode fixture --world-seed 7
+          python -m Distill.program_runner run --campaign /tmp/program-fixture --limit 32
+          python -m Distill.program_runner replay --campaign /tmp/program-fixture
