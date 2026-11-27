@@ -4,12 +4,17 @@ import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 from .batch import cost, integer, load_plan
-from .core import require, string
+from .core import require, string, read_json
 
 class Ledger:
     def __init__(self, campaign_dir):
         self.root = Path(campaign_dir)
-        self.plan, self.jobs = load_plan(self.root)
+        raw = read_json(self.root/"plan.json")
+        if raw.get("schema_version") == "distill.research_paid_plan.v1":
+            from .research_paid import load_paid_plan
+            self.plan, self.jobs = load_paid_plan(self.root, raw)
+        else:
+            self.plan, self.jobs = load_plan(self.root)
         self.path = self.root/"ledger.sqlite3"
 
     @contextmanager
