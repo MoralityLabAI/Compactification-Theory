@@ -158,7 +158,7 @@ class RNN:
                         "action_accuracy":float(acc[i].mean()),"belief_tv":float(tv[i].mean()),
                         "value_mae":float(v[i].mean()),"risk_mae":float(r[i].mean()),
                         "records":len(i),"triplets":len(ti)}
-        metrics={k:float(np.mean([x[k] for x in rows.values()])) for k in next(iter(rows)) if k not in ("records","triplets")}
+        metrics={k:float(np.mean([x[k] for x in rows.values()])) for k in next(iter(rows.values())) if k not in ("records","triplets")}
         return {"root_mean":metrics,"roots":rows}
 
     def weights(self):

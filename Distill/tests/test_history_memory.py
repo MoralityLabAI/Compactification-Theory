@@ -25,3 +25,7 @@ class HistoryTests(unittest.TestCase):
             for arm in r["results"].values():
                 self.assertGreater(arm["311"]["updates"],0)
                 self.assertEqual(len(arm["311"]["evaluation"]),5)
+                for metrics in arm["311"]["evaluation"].values():
+                    self.assertEqual(set(metrics["root_mean"]),{
+                        "triplet_accuracy","positive_distance","negative_distance",
+                        "action_accuracy","belief_tv","value_mae","risk_mae"})
