@@ -264,4 +264,4 @@ def diagnostic(m):
             for mode in extra:
                 extra[mode]+=int(overlap[mode]>0 and overlap["literal"]==0)
     return {"candidate_pairs":pairs,"incumbent_states":len(base_states),
-            "overlap":counts,"quotient_only_pairs":extra,"congruence":audit_states(m,audit)}
+            "overlap":counts,"quotient_only_pairs":extra,"congruence":audit_states(m,{s for s in audit if s.stage<4})}
