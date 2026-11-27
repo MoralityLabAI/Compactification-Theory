@@ -134,6 +134,7 @@ class InkyTests(unittest.TestCase):
                 return {"role":"assistant","content":[{"type":"thinking","thinking":"private"},
                                                        {"type":"text","text":"visible answer"}]},types.SimpleNamespace(is_clean=True)
         class Sampler:
+            def get_base_model(self): return FREE_MODEL
             def sample(self,**kwargs):
                 calls.append(("sample",kwargs))
                 return Future(types.SimpleNamespace(sequences=[types.SimpleNamespace(tokens=[1,2,3],stop_reason="stop")]))

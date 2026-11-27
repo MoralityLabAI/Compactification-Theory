@@ -22,6 +22,8 @@ from .core import (MAX_BYTES, VERSION, _unique, _reject_constant, canonical,
 from .instance_oracle import grade_instance, exact_value
 from .instances import FAMILIES, generate_instances
 from .registry import load_registry
+from .research_cases import FAMILIES as RESEARCH_FAMILIES, DOCKET, compile_research, generate_research
+from .research_oracle import grade_research, reference as research_reference
 
 FREE_MODEL = "thinkingmachines/Inkling-2-Mini:peft:65536:free"
 TOKENIZER_MODEL = "thinkingmachines/Inkling-2-Mini"
@@ -38,7 +40,8 @@ def utc():
 
 def config(mode, seed, per_family, include_design, *, design_mode=None,
            design_profile="full", design_difficulties=LEVELS, section_size=5,
-           max_generation=MAX_GENERATION, effort=EFFORT):
+           max_generation=MAX_GENERATION, effort=EFFORT,
+           research_per_family=0, research_section_size=2, research_difficulties=("standard","frontier")):
     require(mode in ("fixture", "live"), "unsupported mode")
     require(type(seed) is int and 0 <= seed < 2**63, "invalid seed")
     require(type(include_design) is bool, "invalid design switch")
@@ -48,7 +51,8 @@ def config(mode, seed, per_family, include_design, *, design_mode=None,
     elif design_mode == "pilot":
         include_design = True
         design_mode = None
-    min_cases = 0 if include_design else 1
+    require(type(research_per_family) is int and 0 <= research_per_family <= 96, "invalid research count")
+    min_cases = 0 if include_design or research_per_family else 1
     require(type(per_family) is int and min_cases <= per_family <= 96, "invalid cases per family")
     require(type(max_generation) is int and 256 <= max_generation <= CONTEXT - 1024, "invalid max generation")
     require(type(effort) in (int, float) and 0.0 <= float(effort) < 1.0, "invalid effort")
@@ -68,6 +72,11 @@ def config(mode, seed, per_family, include_design, *, design_mode=None,
         cfg["design_profile"] = design_profile
         cfg["design_difficulties"] = list(design_difficulties)
         cfg["section_size"] = section_size
+    if research_per_family:
+        require(type(research_section_size) is int and 1 <= research_section_size <= 4,"invalid research section size")
+        require(isinstance(research_difficulties,(list,tuple)) and research_difficulties and len(set(research_difficulties))==len(research_difficulties) and set(research_difficulties)<=set(LEVELS),"invalid research difficulties")
+        cfg.update(research_per_family=research_per_family,research_section_size=research_section_size,
+                   research_difficulties=list(research_difficulties))
     return cfg
 
 def roster(cfg):
@@ -80,6 +89,9 @@ def roster(cfg):
         section_size=cfg.get("section_size", 5),
         max_generation=cfg.get("max_generation", MAX_GENERATION),
         effort=cfg.get("effort", EFFORT),
+        research_per_family=cfg.get("research_per_family",0),
+        research_section_size=cfg.get("research_section_size",2),
+        research_difficulties=cfg.get("research_difficulties",("standard","frontier")),
     )
     require(cfg == expected, "run configuration differs from registered free-only policy")
     adapters = load_registry()
@@ -97,6 +109,13 @@ def roster(cfg):
     elif cfg["include_design"]:
         packets += [split_quiz(compile_quiz(a, profile="quick", difficulty="standard"),
                                max_questions=5)[0] for a in adapters.values()]
+    if cfg.get("research_per_family",0):
+        queues=[generate_research(f,seed=cfg["seed"],count=cfg["research_per_family"],
+                                  difficulties=cfg["research_difficulties"],adapters=adapters) for f in RESEARCH_FAMILIES]
+        parents=[q[i] for i in range(cfg["research_per_family"]) for q in queues]
+        parents.append(compile_research(DOCKET,seed=0,ordinal=0,difficulty="frontier",adapters=adapters))
+        parts=[split_quiz(p,max_questions=cfg["research_section_size"]) for p in parents]
+        packets += [q[i] for i in range(max(map(len,parts))) for q in parts if i<len(q)]
     require(bool(packets), "empty roster")
     require(len({p["packet_id"] for p in packets}) == len(packets), "duplicate packet")
     return packets
@@ -106,7 +125,7 @@ def make_plan(root, cfg):
     plan = {"schema_version": SCHEMA, "library_version": VERSION, "config": cfg,
             "packets": [{"packet_id": p["packet_id"], "gym_id": p["gym_id"],
                          "difficulty": p["difficulty"], "question_count": len(p["questions"]),
-                         "kind": "procedural" if "instance" in p else "design"}
+                         "kind": "research" if "research" in p else "procedural" if "instance" in p else "design"}
                         for p in packets]}
     plan["plan_id"] = digest(plan)
     root = Path(root)
@@ -125,7 +144,7 @@ def load_plan(root):
     require(plan["plan_id"] == digest({k:v for k,v in plan.items() if k != "plan_id"}), "plan digest mismatch")
     packets = roster(plan["config"])
     expected = [{"packet_id":p["packet_id"],"gym_id":p["gym_id"],"difficulty":p["difficulty"],
-                 "question_count":len(p["questions"]),"kind":"procedural" if "instance" in p else "design"} for p in packets]
+                 "question_count":len(p["questions"]),"kind":"research" if "research" in p else "procedural" if "instance" in p else "design"} for p in packets]
     require(plan["packets"] == expected, "plan roster mismatch")
     for p in packets:
         require(read_json(root / "packets" / (p["packet_id"] + ".json")) == p, "packet does not match regenerated roster")
@@ -171,8 +190,8 @@ class TinkerFree:
         self.cookbook_version = importlib.metadata.version("tinker-cookbook")
         self.service = tinker.ServiceClient()
         self.client = self.service.create_sampling_client(base_model=FREE_MODEL).result(timeout=180)
-        if hasattr(self.client, "get_base_model"):
-            require(self.client.get_base_model() == FREE_MODEL, "sampling client base model mismatch")
+        require(callable(getattr(self.client,"get_base_model",None)),"sampling client cannot verify base model")
+        require(self.client.get_base_model() == FREE_MODEL, "sampling client base model mismatch")
 
     def sample(self, packet):
         prompt = self.renderer.build_generation_prompt(
@@ -203,9 +222,12 @@ def fixture_sample(packet, variant="correct"):
     for q in packet["questions"]:
         a = {key:"offline fixture placeholder; independent review required" for key in q["fields"]}
         if q["id"] == "case.solve":
-            a["answer"] = json.dumps(exact_value(packet["public_case"])) if variant != "wrong" else '{"wrong":1}'
+            if "research" in packet:
+                a["answer"] = research_reference(packet["public_case"]) if variant!="wrong" else {"wrong":1}
+            else:
+                a["answer"] = json.dumps(exact_value(packet["public_case"])) if variant != "wrong" else '{"wrong":1}'
         fields.append({"question_id":q["id"],"status":"answered","fields":a})
-    obj = {"schema_version":"distill.response.v1","packet_id":packet["packet_id"],
+    obj = {"schema_version":"distill.response.v2" if "research" in packet else "distill.response.v1","packet_id":packet["packet_id"],
            "model":{"provider":"fixture","revision":"fixture","run_id":"offline"},"answers":fields}
     return {"provider":"fixture","requested_model":"offline-fixture","model_revision":"fixture",
             "renderer":None,"sdk_version":None,"cookbook_version":None,"input_tokens":None,
@@ -243,7 +265,7 @@ def score(packet, raw, mode, *, max_generation=MAX_GENERATION):
             result["format"]="invalid"
             return result
         result["format"]="valid"
-        grade=grade_instance(packet,response) if "instance" in packet else evaluate(packet,response)
+        grade=grade_research(packet,response) if "research" in packet else grade_instance(packet,response) if "instance" in packet else evaluate(packet,response)
         result["grade"]=grade
         for row in grade["checks"]:
             if row["question_id"]=="case.solve":
@@ -333,6 +355,7 @@ class Journal:
             rows=db.execute("SELECT packet_id,state,raw,receipt FROM attempts").fetchall()
         counts=Counter()
         per_gym={}
+        research_groups={}
         total_in=total_out=total_ms=0
         for rid,state,raw,receipt in rows:
             p=self.by_id[rid]
@@ -352,10 +375,26 @@ class Journal:
                 counts["procedural_finished"]+=1
                 counts["exact_"+r["exact_check"]]+=1
                 g["exact_"+r["exact_check"]]+=1
+            if "research" in p:
+                counts["research_finished"]+=1
+                key=p["research"]["family"]+"/"+p["difficulty"]+"/"+str(p["section"]["index"])
+                rg=research_groups.setdefault(key,Counter())
+                rg["finished"]+=1
+                rg["format_"+r["format"]]+=1
+                if any(q["id"]=="case.solve" for q in p["questions"]):
+                    counts["research_decisions_finished"]+=1
+                    counts["research_exact_"+r["exact_check"]]+=1
+                    rg["exact_"+r["exact_check"]]+=1
+                    metrics=((r.get("grade") or {}).get("research_decision") or {}).get("metrics") or {}
+                    if metrics.get("feasible"):
+                        counts["research_feasible"]+=1
+                        rg["feasible"]+=1
+                    if metrics.get("certificate_consistent"):
+                        counts["research_certificate_consistent"]+=1
             total_in+=raw["input_tokens"] or 0
             total_out+=raw["output_tokens"] or 0
             total_ms+=raw["elapsed_ms"]
-        return {"schema_version":"distill.inky_summary.v1","plan_id":self.plan["plan_id"],"mode":self.mode,
+        result={"schema_version":"distill.inky_summary.v1","plan_id":self.plan["plan_id"],"mode":self.mode,
                 "requested_model":self.plan["config"]["model"],"planned_requests":len(self.packets),
                 "counts":dict(counts),"per_gym":{k:dict(v) for k,v in sorted(per_gym.items())},
                 "sample_input_tokens":total_in if self.mode=="live" else None,
@@ -363,6 +402,9 @@ class Journal:
                 "sampling_elapsed_ms":total_ms if self.mode=="live" else None,
                 "replayed":replay,"training_admission":False,
                 "scope":"fixture validation only" if self.mode=="fixture" else "public development evaluation; provider invoice unverified"}
+        if self.plan["config"].get("research_per_family"):
+            result["research_by_family_difficulty_section"]={k:dict(v) for k,v in sorted(research_groups.items())}
+        return result
 
 def run(journal, sampler, limit):
     require(type(limit) is int and 1<=limit<=100,"invalid per-launch limit")
@@ -395,6 +437,9 @@ def main():
     a.add_argument("--section-size",type=int,default=5)
     a.add_argument("--max-generation",type=int,default=MAX_GENERATION)
     a.add_argument("--effort",type=float,default=EFFORT)
+    a.add_argument("--research-per-family",type=int,default=0)
+    a.add_argument("--research-section-size",type=int,default=2)
+    a.add_argument("--research-difficulties",default="standard,frontier")
     for name in ("run","status","replay"):
         a=sub.add_parser(name)
         a.add_argument("--campaign",required=True)
@@ -408,7 +453,9 @@ def main():
             args.mode,args.seed,args.per_family,args.include_design,
             design_mode=args.design_mode,design_profile=args.design_profile,
             design_difficulties=diffs,section_size=args.section_size,
-            max_generation=args.max_generation,effort=args.effort))
+            max_generation=args.max_generation,effort=args.effort,
+            research_per_family=args.research_per_family,research_section_size=args.research_section_size,
+            research_difficulties=tuple(x.strip() for x in args.research_difficulties.split(",") if x.strip())))
         result={"plan_id":plan["plan_id"],"planned_requests":len(plan["packets"]),"mode":args.mode,"provider_calls":0}
     else:
         j=Journal(args.campaign)

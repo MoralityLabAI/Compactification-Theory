@@ -29,11 +29,29 @@ RUBRIC={
         "2":"Clear, technically grounded explanation of mechanism and purpose."},
 }
 
+RESEARCH_RUBRIC={
+    "decision_value":{"0":"No decision objective or unjustified optimization.","1":"Objective identified but opportunity cost or comparison incomplete.","2":"Decision value and feasible alternatives explicitly compared."},
+    "resource_accounting":{"0":"Ignores binding budget or mismatches work.","1":"Some costs counted; a material cost is omitted.","2":"Relevant work, information and resource costs counted or explicitly bounded."},
+    "alternative_hypotheses":{"0":"Single explanation assumed without justification.","1":"Names an alternative without discriminating evidence.","2":"Identifies meaningful competing explanations and what evidence separates them."},
+    "evidence_scope":{"0":"Treats a model calculation or proxy as empirical proof.","1":"Acknowledges uncertainty but leaves scope unclear.","2":"Separates hypotheses, conditional calculations, observed evidence and justified claims."},
+    "experimental_identification":{"0":"Confounded or unspecified experimental comparison.","1":"Useful comparison but a material control, split or independent unit is missing.","2":"Decisive intervention with matched strong baseline, controls and independent units."},
+    "falsifiability":{"0":"No outcome could change the proposed conclusion.","1":"Falsification suggested but no prospective threshold or repair rule.","2":"Concrete disconfirming outcome and prospectively specified stop, repair or advance rule."},
+    "structural_counterexample":{"0":"No counterexample or routine numerical change only.","1":"Plausible structural failure without a checkable witness.","2":"Concrete reproducible witness violating a stated premise or guarantee."},
+}
+RESEARCH_CATEGORIES={
+    "research_decision":("decision_value","resource_accounting"),
+    "scientific_interpretation":("alternative_hypotheses","evidence_scope"),
+    "research_design":("decision_value","resource_accounting","experimental_identification","falsifiability"),
+    "falsification_and_repair":("structural_counterexample","falsifiability","evidence_scope"),
+}
+
 def template(packet,response):
     answers=validate_response(packet,response)
-    return {"schema_version":"distill.semantic_review.v1","packet_id":packet["packet_id"],
-            "response_sha256":digest(response),"reviewer":None,"rubric":RUBRIC,
-            "rows":[{"question_id":q["id"],"scores":{k:None for k in RUBRIC},"evidence":None}
+    research="research" in packet
+    rubric={**RUBRIC,**RESEARCH_RUBRIC} if research else RUBRIC
+    return {"schema_version":"distill.semantic_review.v2" if research else "distill.semantic_review.v1","packet_id":packet["packet_id"],
+            "response_sha256":digest(response),"reviewer":None,"rubric":rubric,
+            "rows":[{"question_id":q["id"],"scores":{k:None for k in (*RUBRIC,*(RESEARCH_CATEGORIES[q["category"]] if research else ())) },"evidence":None}
                     for q in packet["questions"] if answers[q["id"]]["status"]=="answered"],
             "custody":"reference_only","training_admission":False}
 
@@ -44,19 +62,25 @@ def validate_review(packet,response,record):
         require(record[k]==expected[k] and (k!="training_admission" or record[k] is False),"review binding mismatch")
     require(isinstance(record["reviewer"],str) and 0<len(record["reviewer"].strip())<=256,"reviewer required")
     require(isinstance(record["rows"],list) and len(record["rows"])==len(expected["rows"]),"review row count mismatch")
-    totals={k:0 for k in RUBRIC}
+    totals={k:0 for k in expected["rubric"]}
+    maxima={k:0 for k in totals}
     for row,ref in zip(record["rows"],expected["rows"]):
         require(isinstance(row,dict) and set(row)==set(ref) and row["question_id"]==ref["question_id"],"review row binding mismatch")
-        require(isinstance(row["scores"],dict) and set(row["scores"])==set(RUBRIC),"review score fields mismatch")
+        require(isinstance(row["scores"],dict) and set(row["scores"])==set(ref["scores"]),"review score fields mismatch")
         for key,value in row["scores"].items():
             require(type(value) is int and 0<=value<=2,"invalid rubric score")
             totals[key]+=value
+            maxima[key]+=2
         require(isinstance(row["evidence"],str) and 0<len(row["evidence"].strip())<=12000,"review evidence required")
-    return {"packet_id":record["packet_id"],"response_sha256":record["response_sha256"],
+    result={"packet_id":record["packet_id"],"response_sha256":record["response_sha256"],
             "review_sha256":digest(record),"reviewer_claimed":record["reviewer"],"reviewed_questions":len(record["rows"]),
             "dimension_totals":totals,"max_per_dimension":2*len(record["rows"]),
             "scope":"reviewer-supplied judgments; not automatically verified",
             "training_admission":False}
+    if "research" in packet:
+        result.pop("max_per_dimension")
+        result["dimension_maxima"]=maxima
+    return result
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
