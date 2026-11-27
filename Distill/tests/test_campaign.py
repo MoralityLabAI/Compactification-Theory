@@ -25,8 +25,8 @@ class CampaignTests(unittest.TestCase):
         cls.adapters = load_registry()
 
     def test_cross_repo_registry_all_difficulties_and_sections(self):
-        self.assertEqual(len(self.adapters), 14)
-        self.assertEqual(len({a["source"]["repository"] for a in self.adapters.values()}), 4)
+        self.assertEqual(len(self.adapters), 25)
+        self.assertEqual(len({a["source"]["repository"] for a in self.adapters.values()}), 10)
         inv = inventory(self.adapters)
         counts = {d:sum(row["question_counts"][d] for row in inv["rows"]) for d in ("foundation","standard","frontier")}
         print("DISTILL_02_COUNTS", counts)
@@ -118,7 +118,7 @@ class CampaignTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             p=self._plan(Path(d)/"run",budget="200",reserve="10")
             self.assertEqual(p["omitted_count"],0)
-            self.assertEqual(len({(j["gym_id"],j["difficulty"]) for j in p["jobs"]}),42)
+            self.assertEqual(len({(j["gym_id"],j["difficulty"]) for j in p["jobs"]}),75)
             self.assertLessEqual(p["authorized_max_microusd"],190000000)
             print("DISTILL_02_PLAN",len(p["jobs"]),sum(j["question_count"] for j in p["jobs"]),p["authorized_max_microusd"])
 

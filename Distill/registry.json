@@ -238,6 +238,193 @@
         "path": "mechinterp/bpd/experiments/sccg01/SUPPORT_GYM_PROTOCOL.md",
         "blob": "372103f96ee9490b765b57408c528b69b242f4ea"
       }
+    },
+    {
+      "gym_id": "ARG-01-ORACLE",
+      "gym_version": "ARG-01 independent oracle",
+      "local_path": "Distill/registry_new/EvalMath/ARG-01-ORACLE.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/EvalMath/ARG-01-ORACLE.json",
+        "blob": "da2e5d4429d798e2cc934a8c3509331ff3eed8af"
+      },
+      "source": {
+        "repository": "MoralityLabAI/EvalMath",
+        "commit": "21a8cb25a9876fe79523372a721092ca4a286f3d",
+        "path": "docs/algebraic_reasoning_gym.md",
+        "blob": "0091e372ee46e802fce5f685f9a043de88ed83cb"
+      }
+    },
+    {
+      "gym_id": "RH-PROOF",
+      "gym_version": "RHProofDistillation initial proxies",
+      "local_path": "Distill/registry_new/EvalMath/RH-PROOF.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/EvalMath/RH-PROOF.json",
+        "blob": "ef5108e1fb3b261ac1aed30e1c32addc821a5f6e"
+      },
+      "source": {
+        "repository": "MoralityLabAI/EvalMath",
+        "commit": "21a8cb25a9876fe79523372a721092ca4a286f3d",
+        "path": "gyms/RHProofDistillation/README.md",
+        "blob": "d95feae047bca0b841c7a7ef1a5cd2d897cf6d29"
+      }
+    },
+    {
+      "gym_id": "BSAR-02",
+      "gym_version": "BSAR-02 static curriculum",
+      "local_path": "Distill/registry_new/MathCan/BSAR-02.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/MathCan/BSAR-02.json",
+        "blob": "37b1027677e73d0f292751a71600bb5f72b92c79"
+      },
+      "source": {
+        "repository": "patrickdugan/MathCan",
+        "commit": "8e69174f434c388196e658f00ac72d261632a276",
+        "path": "research/bsar_audit/BSAR02_CURRICULUM.md",
+        "blob": "9245baf728ff2ee16af05dd4a3f2e38cdde5364a"
+      }
+    },
+    {
+      "gym_id": "LDT-RED01",
+      "gym_version": "RED01",
+      "local_path": "Distill/registry_new/HybridTRMLDT/LDT-RED01.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/HybridTRMLDT/LDT-RED01.json",
+        "blob": "d92c088bd0a40a924a60a66bf6ff729e7c22df7a"
+      },
+      "source": {
+        "repository": "MoralityLabAI/HybridTRMLDT",
+        "commit": "433ad5e30123f5ee80ffd18fabe67357547a263d",
+        "path": "research_gym/benchmarks/ldt_adversarial_depth_gym/README.md",
+        "blob": "f5b91d62ff9c6370cbd56bb83e1787c8630582a1"
+      }
+    },
+    {
+      "gym_id": "MOLT-HYBRID-01",
+      "gym_version": "01 strict-prefix fixture",
+      "local_path": "Distill/registry_new/HybridTRMLDT/MOLT-HYBRID-01.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/HybridTRMLDT/MOLT-HYBRID-01.json",
+        "blob": "3bc01628118f85d552509de4a817afcd39ff45f8"
+      },
+      "source": {
+        "repository": "MoralityLabAI/HybridTRMLDT",
+        "commit": "433ad5e30123f5ee80ffd18fabe67357547a263d",
+        "path": "research_gym/benchmarks/molt_hybrid/prefix_memory.py",
+        "blob": "881ea18cc38f2f021722e84ddf368a7e5bc54d68"
+      }
+    },
+    {
+      "gym_id": "ASM-01",
+      "gym_version": "01",
+      "local_path": "Distill/registry_new/SelfModels/ASM-01.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/SelfModels/ASM-01.json",
+        "blob": "c984dff7880cd04a44404bd2be728733c6089570"
+      },
+      "source": {
+        "repository": "MoralityLabAI/SelfModels",
+        "commit": "e2019ea2077b9dacffa3dbc68999bf7477ad79bf",
+        "path": "research/arithmetic_self_models/asm01.py",
+        "blob": "7f61907ffb04f47798a33f5ee4c978ceb1dee22f"
+      }
+    },
+    {
+      "gym_id": "QSM-03",
+      "gym_version": "03",
+      "local_path": "Distill/registry_new/SelfModels/QSM-03.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/SelfModels/QSM-03.json",
+        "blob": "67da279ec38eb312c67739566770990f899040b8"
+      },
+      "source": {
+        "repository": "MoralityLabAI/SelfModels",
+        "commit": "e2019ea2077b9dacffa3dbc68999bf7477ad79bf",
+        "path": "research/quantum_self_models/QSM03_REPORT.md",
+        "blob": "de34a1a4a799c0162a7e429a1a22bca80680c1d7"
+      }
+    },
+    {
+      "gym_id": "BROKEN-VERIFIER",
+      "gym_version": "v0.1",
+      "local_path": "Distill/registry_new/Control-Harness/BROKEN-VERIFIER.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/Control-Harness/BROKEN-VERIFIER.json",
+        "blob": "75a96e8b4f86137c33234c5211ba980aea21acc3"
+      },
+      "source": {
+        "repository": "MoralityLabAI/Control-Harness",
+        "commit": "22c0d0d83c0863c122f6142f095f471eacef8e6d",
+        "path": "docs/broken_verifier_gym.md",
+        "blob": "9a25adc3c179f6316d9a4fe8bd6c04609f74fe1a"
+      }
+    },
+    {
+      "gym_id": "CSC-01",
+      "gym_version": "01",
+      "local_path": "Distill/registry_new/Control-Harness/CSC-01.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/Control-Harness/CSC-01.json",
+        "blob": "87fc86f82125b0c2a99c48fa327d26f2a9fd78d3"
+      },
+      "source": {
+        "repository": "MoralityLabAI/Control-Harness",
+        "commit": "22c0d0d83c0863c122f6142f095f471eacef8e6d",
+        "path": "spectral_control_gym/README.md",
+        "blob": "44ac6d9b67da0fb176b5df01c0c6f8a56fcb3e17"
+      }
+    },
+    {
+      "gym_id": "MORAL-HYSTERESIS",
+      "gym_version": "v1",
+      "local_path": "Distill/registry_new/GPTStoryworld/MORAL-HYSTERESIS.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/GPTStoryworld/MORAL-HYSTERESIS.json",
+        "blob": "a408fc2c4dfc3bc5b7cb23aa6c324861d764cbda"
+      },
+      "source": {
+        "repository": "MoralityLabAI/GPTStoryworld",
+        "commit": "1fd272bc0390f9e50a8a9a714767e715223b44be",
+        "path": "benchmarks/moral_hysteresis_v1/PROTOCOL.md",
+        "blob": "0d3f5562f108bba3637db08b78e42268f66f2d24"
+      }
+    },
+    {
+      "gym_id": "HG-07",
+      "gym_version": "07 raw-state parity",
+      "local_path": "Distill/registry_new/GPTStoryworld/HG-07.json",
+      "adapter": {
+        "repository": "MoralityLabAI/Compactification-Theory",
+        "commit": "9838f0ffee000d0b2c6260f1e4c0f9eedbd74270",
+        "path": "Distill/registry_new/GPTStoryworld/HG-07.json",
+        "blob": "b79907771f8ba6ec3d0bba199452d47b10c2f6e4"
+      },
+      "source": {
+        "repository": "MoralityLabAI/GPTStoryworld",
+        "commit": "1fd272bc0390f9e50a8a9a714767e715223b44be",
+        "path": "verifiers_envs/storyworld-hypergames-env/Hypergames/single_player/HG07_PROTOCOL.md",
+        "blob": "3e4de148741f3be4e5bbd57411db6207469c1d09"
+      }
     }
   ]
 }
