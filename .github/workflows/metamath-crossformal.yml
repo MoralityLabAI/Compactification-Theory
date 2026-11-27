@@ -1,0 +1,40 @@
+name: Metamath companion proofs
+on:
+  pull_request:
+    paths:
+      - 'formal/metamath/**'
+      - '.github/workflows/metamath-crossformal.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'formal/metamath/**'
+      - '.github/workflows/metamath-crossformal.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Obtain pinned database and verifiers
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/mm-upstream"
+          curl -fsSL https://raw.githubusercontent.com/metamath/set.mm/806509385370b29fe8b1723804777ac21b1ce194/set.mm -o "$RUNNER_TEMP/mm-upstream/set.mm"
+          curl -fsSL https://raw.githubusercontent.com/david-a-wheeler/mmverify.py/63a2aa3815cd5bf67892dbfc7f2048cbb177524c/mmverify.py -o "$RUNNER_TEMP/mm-upstream/mmverify.py"
+          git init "$RUNNER_TEMP/metamath-exe"
+          git -C "$RUNNER_TEMP/metamath-exe" fetch --depth=1 https://github.com/metamath/metamath-exe.git 580b4bd5ae6f2a0d746398b0033cddccba1b418b
+          git -C "$RUNNER_TEMP/metamath-exe" checkout --detach FETCH_HEAD
+          test "$(git -C "$RUNNER_TEMP/metamath-exe" rev-parse HEAD)" = 580b4bd5ae6f2a0d746398b0033cddccba1b418b
+          cd "$RUNNER_TEMP/metamath-exe/src"
+          gcc m*.c -o metamath
+      - name: Verify full database and companion certificates
+        run: python formal/metamath/verify.py "$RUNNER_TEMP/mm-upstream/set.mm" "$RUNNER_TEMP/mm-upstream/mmverify.py" "$RUNNER_TEMP/metamath-exe/src/metamath" "$RUNNER_TEMP/mm-ports" --negative
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: metamath-companion-receipt
+          path: ${{ runner.temp }}/mm-ports
