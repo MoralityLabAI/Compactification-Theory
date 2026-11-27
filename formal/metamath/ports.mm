@@ -30,3 +30,26 @@ ${
     ml-ct-three-cycle.h1 fveq2i fveq2i eqtri
   $.
 $}
+
+$( fc10_smoke_omega; natural arithmetic translation. $)
+${
+  ml-ct-smoke-add4.h1 $e |- A e. NN0 $.
+  ml-ct-smoke-add4.h2 $e |- B e. NN0 $.
+  ml-ct-smoke-add4.h3 $e |- A <_ B $.
+  ml-ct-smoke-add4 $p |- ( A + 4 ) <_ ( B + 4 ) $=
+    cA cB cle wbr cA c4 caddc co cB c4 caddc co cle wbr ml-ct-smoke-add4.h3 cA cB c4 cA ml-ct-smoke-add4.h1
+    nn0rei cB ml-ct-smoke-add4.h2 nn0rei 4re leadd1i mpbi
+  $.
+$}
+
+$( fc10_smoke_list; set-coded list translation. $)
+${
+  ml-ct-smoke-list.h1 $e |- S e. Word NN0 $.
+  ml-ct-smoke-list.h2 $e |- T e. Word NN0 $.
+  ml-ct-smoke-list.h3 $e |- U e. Word NN0 $.
+  ml-ct-smoke-list $p |- ( S ++ ( T ++ U ) ) = ( ( S ++ T ) ++ U ) $=
+    cS cT cconcat co cU cconcat co cS cT cU cconcat co cconcat co cS cn0 cword wcel cT cn0 cword wcel cU cn0
+    cword wcel cS cT cconcat co cU cconcat co cS cT cU cconcat co cconcat co wceq ml-ct-smoke-list.h1
+    ml-ct-smoke-list.h2 ml-ct-smoke-list.h3 cn0 cS cT cU ccatass mp3an eqcomi
+  $.
+$}

@@ -46,6 +46,36 @@
       ],
       "statement": "|- A = ( H ` ( G ` ( F ` A ) ) )",
       "proof_steps": 49
+    },
+    {
+      "metamath_label": "ml-ct-smoke-add4",
+      "source": "research/refutation_bench/fc10/smoke.lean",
+      "source_blob": "2f80801ec74326f8ab673c4badf357faf3604c88",
+      "lean_declaration": "fc10_smoke_omega",
+      "scope": "natural arithmetic translation",
+      "mapping": "A=a,B=b; Nat membership explicit.",
+      "hypotheses": [
+        "|- A e. NN0",
+        "|- B e. NN0",
+        "|- A <_ B"
+      ],
+      "statement": "|- ( A + 4 ) <_ ( B + 4 )",
+      "proof_steps": 27
+    },
+    {
+      "metamath_label": "ml-ct-smoke-list",
+      "source": "research/refutation_bench/fc10/smoke.lean",
+      "source_blob": "2f80801ec74326f8ab673c4badf357faf3604c88",
+      "lean_declaration": "fc10_smoke_list",
+      "scope": "set-coded list translation",
+      "mapping": "S,T,U finite words over NN0 represent lists of Nat; ++ is ordered concatenation of words.",
+      "hypotheses": [
+        "|- S e. Word NN0",
+        "|- T e. Word NN0",
+        "|- U e. Word NN0"
+      ],
+      "statement": "|- ( S ++ ( T ++ U ) ) = ( ( S ++ T ) ++ U )",
+      "proof_steps": 51
     }
   ]
 }
