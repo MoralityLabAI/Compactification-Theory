@@ -1,0 +1,41 @@
+{
+  "amendment": "After first public run: bind input hash and published source commit; add deduplication and analytic target diagnostics. Selection, class, decoder and scored data unchanged.",
+  "controls": [
+    "full sample",
+    "random equal-count samples",
+    "positive-only cover"
+  ],
+  "decoder": "fewest literals among consistent hypotheses, then enumeration index",
+  "development_split": "calibration",
+  "evidence_class": "finite verified example and public synthetic pilot",
+  "expected_ranking_sha256": "4df7ae5b17d7a37fae306168d95b05de687a0ee67fa7c3a2832581069efdad6c",
+  "experiment_id": "COG-07",
+  "feature_count": 8,
+  "heldout_sealed": false,
+  "hypothesis_class": "all conjunctions of positive, negative or absent literals on eight public bits, plus constant false",
+  "neural_parameter_bound_claim": false,
+  "primary_empirical_metric": "root fraction with any candidate-classification error",
+  "primary_exact_check": "decoded selected samples preserve the full training version space",
+  "random_control_seeds": [
+    17,
+    29,
+    41,
+    53,
+    67,
+    79,
+    97,
+    109
+  ],
+  "report_splits": [
+    "ordinary_test",
+    "ood_test"
+  ],
+  "schema_version": 1,
+  "scope": "exact compression within a declared finite class of public Horn-step classifiers",
+  "selection_split": "train",
+  "selector": "greedy cover of every hypothesis excluded by the full training sample",
+  "source": "COG-02 synthetic proof DAG corpus",
+  "source_commit": "ae0dbecffc1d246778ee47d8f3d8ec59b5948f2b",
+  "source_repository": "MoralityLabAI/DataGoblin",
+  "target": "a checked candidate adds a fresh syntactic ancestor of the goal"
+}

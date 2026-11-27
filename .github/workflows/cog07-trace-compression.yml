@@ -1,0 +1,113 @@
+name: COG-07 trace compression
+
+on:
+  pull_request:
+    paths:
+      - 'research/cog07_trace_compression/**'
+      - '.github/workflows/cog07-trace-compression.yml'
+  push:
+    paths:
+      - 'research/cog07_trace_compression/**'
+      - '.github/workflows/cog07-trace-compression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      LEAN_NUM_THREADS: '1'
+      COG07_SOURCE_COMMIT: ae0dbecffc1d246778ee47d8f3d8ec59b5948f2b
+      COG07_GENERATOR_SHA256: eb6bf1605a293c6b8871e0f14c7eb6fd4af99609d97516ef29d21b712eb001dc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prepare isolated evidence directory
+        run: mkdir -p "$RUNNER_TEMP/cog07-ci/evidence" "$RUNNER_TEMP/cog07-ci/source"
+      - name: Install focused test dependency
+        run: python -m pip install pytest==9.2.0
+      - name: Test compression and provenance boundaries
+        run: >-
+          python -m pytest -q
+          research/cog07_trace_compression/test_compression.py
+          research/cog07_trace_compression/test_provenance.py
+          --junitxml="$RUNNER_TEMP/cog07-ci/evidence/tests.xml"
+      - name: Install exact Lean 4.35.0 compiler
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --proto '=https' --tlsv1.2 --retry 3 -fsSL \
+            https://github.com/leanprover/lean4/releases/download/v4.35.0/lean-4.35.0-linux.tar.zst \
+            -o "$RUNNER_TEMP/cog07-ci/lean.tar.zst"
+          tar --zstd -xf "$RUNNER_TEMP/cog07-ci/lean.tar.zst" -C "$RUNNER_TEMP/cog07-ci"
+          echo "COG07_LEAN=$RUNNER_TEMP/cog07-ci/lean-4.35.0-linux/bin/lean" >> "$GITHUB_ENV"
+      - name: Replay the finite certificate and generic Lean lemmas
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          receipt = json.loads(Path('research/cog07_trace_compression/results/audit.json').read_text())
+          executable = Path(os.environ['COG07_LEAN'])
+          assert hashlib.sha256(executable.read_bytes()).hexdigest() == receipt['lean']['lean_executable_sha256']
+          PY
+          python research/cog07_trace_compression/audit.py \
+            --results research/cog07_trace_compression/results \
+            --lean "$COG07_LEAN" \
+            --output "$RUNNER_TEMP/cog07-ci/evidence/certificate-audit.json"
+      - name: Fetch the pinned public corpus generator
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --proto '=https' --tlsv1.2 --retry 3 -fsSL \
+            "https://raw.githubusercontent.com/MoralityLabAI/DataGoblin/$COG07_SOURCE_COMMIT/src/datagoblin/training_gym/rlt_gym/cogentic_ledger.py" \
+            -o "$RUNNER_TEMP/cog07-ci/source/cogentic_ledger.py"
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          source = Path(os.environ['RUNNER_TEMP']) / 'cog07-ci/source/cogentic_ledger.py'
+          assert hashlib.sha256(source.read_bytes()).hexdigest() == os.environ['COG07_GENERATOR_SHA256']
+          protocol = json.loads(Path('research/cog07_trace_compression/protocol.json').read_text())
+          assert protocol['source_commit'] == os.environ['COG07_SOURCE_COMMIT']
+          PY
+      - name: Rebuild the corpus offline and authenticate every source state
+        shell: bash
+        run: |
+          set -euo pipefail
+          python "$RUNNER_TEMP/cog07-ci/source/cogentic_ledger.py" \
+            --out "$RUNNER_TEMP/cog07-ci/corpus" --per-split 64 --seed 20261126 \
+            --lean "$COG07_LEAN"
+          python - <<'PY'
+          import hashlib, json, os
+          from pathlib import Path
+          corpus = Path(os.environ['RUNNER_TEMP']) / 'cog07-ci/corpus'
+          protocol = json.loads(Path('research/cog07_trace_compression/protocol.json').read_text())
+          assert hashlib.sha256((corpus / 'ranking.jsonl').read_bytes()).hexdigest() == protocol['expected_ranking_sha256']
+          manifest = json.loads((corpus / 'manifest.json').read_text())
+          assert manifest['native_replay']['passed']
+          assert manifest['native_replay']['compiled_proofs'] == 256
+          assert manifest['native_replay']['axioms'] == []
+          PY
+          python research/cog07_trace_compression/audit_provenance.py \
+            --tasks "$RUNNER_TEMP/cog07-ci/corpus/tasks.jsonl" \
+            --traces "$RUNNER_TEMP/cog07-ci/corpus/traces.jsonl" \
+            --ranking "$RUNNER_TEMP/cog07-ci/corpus/ranking.jsonl" \
+            --selected research/cog07_trace_compression/results/selected.json \
+            --output "$RUNNER_TEMP/cog07-ci/evidence/provenance-audit.json"
+      - name: Preserve audit receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cog07-compression-audits
+          if-no-files-found: error
+          retention-days: 21
+          path: |
+            ${{ runner.temp }}/cog07-ci/evidence/
+            ${{ runner.temp }}/cog07-ci/corpus/manifest.json
+            ${{ runner.temp }}/cog07-ci/corpus/lean_stdout.txt

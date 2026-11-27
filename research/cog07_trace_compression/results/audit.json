@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "actual_packet_byte_count": true,
+    "constraint_count": true,
+    "declared_hypothesis_count": true,
+    "metadata_matches_transmitted_values": true,
+    "nonempty_full_version_space": true,
+    "packet_hash": true,
+    "positive_multiplicities": true,
+    "root_count": true,
+    "same_complete_version_space": true,
+    "same_fixed_decoder": true,
+    "selected_values_are_source_constraints": true,
+    "source_hashes_match": true,
+    "source_sample_count": true,
+    "stored_decoder_matches": true,
+    "training_constraints_hash": true
+  },
+  "hypotheses_checked": 6562,
+  "lean": {
+    "axioms": {
+      "cover_preserves_consistency": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "cover_preserves_version_space": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "fixed_decoder_is_preserved": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ]
+    },
+    "lean_executable_sha256": "bf8d54e4714cc4b03d3f6bb34c83b7202b87e49c8bfcbff6895c085bb90ceb38",
+    "passed": true,
+    "returncode": 0,
+    "scope": "General cover-implies-consistency and fixed-decoder preservation lemmas. The concrete five-example certificate is checked by finite Python enumeration.",
+    "source_sha256": "1306f11953f78b91b7a64adb197354dfbf21a2cd21e1addd57d0cbb80b6a3b56",
+    "stdout": "'COG07.cover_preserves_consistency' depends on axioms: [propext, Classical.choice, Quot.sound]\n'COG07.cover_preserves_version_space' depends on axioms: [propext, Classical.choice, Quot.sound]\n'COG07.fixed_decoder_is_preserved' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+    "version": "Lean (version 4.35.0, x86_64-unknown-linux-gnu, commit eb6cafb7290e8bd5f2937522d8d804f58f02bafc, Release)"
+  },
+  "passed": true,
+  "schema": "COG07/compression-audit/v1",
+  "source_sha256": {
+    "FiniteCompression.lean": "1306f11953f78b91b7a64adb197354dfbf21a2cd21e1addd57d0cbb80b6a3b56",
+    "audit.py": "f616811073b6eaf1c7fe3e07cb21443176cffb885e832735d650df3945623540",
+    "compression.py": "c2aecbe6537666ae2388c439c067980898eae024f9daf88e3bcd0c1781b0b730"
+  },
+  "surviving_hypotheses": 1
+}

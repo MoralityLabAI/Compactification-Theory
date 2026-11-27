@@ -1,0 +1,62 @@
+{
+  "audit_sha256": "d3e484886e152085567fd86f96c106d2ab6479a0ba9f5ba9d6ebf56c0a5c92f2",
+  "deduplicated_feature_packet_bytes": 59,
+  "duplicate_root_or_world_aliases": 0,
+  "inputs": {
+    "ranking": {
+      "bytes": 13395031,
+      "sha256": "4df7ae5b17d7a37fae306168d95b05de687a0ee67fa7c3a2832581069efdad6c"
+    },
+    "tasks": {
+      "bytes": 397392,
+      "sha256": "aef151e3f7de099e9b5d7b51c92ad94aa3bab20a85b4f73b8f4fb5ac8ce7905a"
+    },
+    "traces": {
+      "bytes": 6046396,
+      "sha256": "b250a58f31d37709242c7da1eb1d68aa01e75b2cc190ae54d9da05822cf331af"
+    }
+  },
+  "missing_ranking_states": 0,
+  "missing_teacher_traces": 0,
+  "passed": true,
+  "ranking": {
+    "candidate_labels_and_features_checked": 66893,
+    "ranking_states_authenticated": 2453
+  },
+  "registered_root_registry_sha256": "9ec838249928a39e25a7d2c5f1498bc8c9f09f7f6d17c07d95dbd9500e317751",
+  "registered_roots": 256,
+  "roots_per_split": {
+    "calibration": 64,
+    "ood_test": 64,
+    "ordinary_test": 64,
+    "train": 64
+  },
+  "schema": "COG07/independent-provenance-audit/v1",
+  "scope": "Exact source-file binding and independent finite Horn replay. Native Lean has a separate receipt. The curriculum target equals the conjunction of the first three public symbolic features.",
+  "selected_certificate": {
+    "compressed_surviving_ids": [
+      3159
+    ],
+    "full_surviving_ids": [
+      3159
+    ],
+    "hypotheses_enumerated": 6562,
+    "packet_bytes": 13,
+    "packet_sha256": "0101a048da993760b8c2b553653984539cc6b8823ddd0b3ada386b5cd64975fb",
+    "selected_examples": 5,
+    "selected_roots": 2,
+    "selected_source_indices_verified": true,
+    "source_sha256": "6183df82dcd54e75342b8f02da4a957f6dce8a1cba0ceec8dee891f71a2652c2",
+    "version_space_equal": true
+  },
+  "source_sha256": "d3a06697135ee78beae50ea8d11aa359964e131d3cabbf5780d4cb9ef94fd583",
+  "teacher": {
+    "completed_teacher_roots": 256,
+    "duplicate_lemma": 256,
+    "missing_premise": 256,
+    "proved_lemma": 2453,
+    "verifier_calls": 2965
+  },
+  "training_examples": 11836,
+  "unique_training_feature_label_pairs": 46
+}
