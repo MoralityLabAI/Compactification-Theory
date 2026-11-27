@@ -1,0 +1,24 @@
+name: Distill research student and native certificates
+on:
+  pull_request:
+    paths:
+      - 'Distill/program_student.py'
+      - 'Distill/student_campaign.py'
+      - 'Distill/coe_certificate.py'
+      - 'Distill/tests/test_program_student.py'
+      - '.github/workflows/distill-student.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  student:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -p test_program_student.py -v
+      - run: python -m Distill.student_campaign --out /tmp/research-student
+      - run: python -m Distill.coe_certificate --out /tmp/coe-certificate
