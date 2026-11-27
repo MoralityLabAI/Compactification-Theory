@@ -1,6 +1,6 @@
-# Distill v0.1.0: first-principles research examination library
+# Distill v0.2.0: first-principles research examination library
 
-A CPU-only, standard-library Python module that turns a gym's public design into a reproducible written exam. It composes 18 common questions, five-field step-by-step questions, domain packs, gym-specific probes and optional concrete public examples. Quick mode keeps eight common questions and every step, domain and gym-specific question. Full mode is the default.
+A CPU-only, standard-library Python module that turns a gym's public design into a reproducible written exam. It composes 18 common questions, five-field step-by-step questions, domain packs, gym-specific probes and optional concrete public examples. Quick mode keeps eight common questions and every step, domain and gym-specific question. Full mode is the default. Version 0.2 adds three difficulty levels, independently answerable sections, fourteen byte-pinned public adapters, two native exact checks and a provider-neutral offline budget planner with transactional reservations. See [CAMPAIGN.md](CAMPAIGN.md).
 
 The model supplies visible, checkable derivations, explanations, examples and certificates. A valid JSON shape is not a correctness certificate. Exact answer checks and explanation review are recorded separately. No automatic model call, training, admission, provider spend or GPU initialization occurs. All receipts default to reference-only custody, including for Anthropic responses; review applicable provider terms and obtain required rights before any training use. Treat provider-reported identity in the response as claimed, not independently authenticated.
 
@@ -8,7 +8,10 @@ The model supplies visible, checkable derivations, explanations, examples and ce
 
 - core.py: adapter validation, deterministic packet IDs, prompts, strict answer contract, evaluator callback.
 - packs.py: reusable foundations, recurrence, proofs, geometry, strategy, algebra, research and authenticated-computation modules.
-- catalog.json: five source-locked initial gym adapters located beside their actual runners.
+- catalog.json: legacy five-adapter v0.1 catalog, retained for compatibility.
+- registry.json and registry_snapshots/: fourteen byte-pinned adapters across four repositories, including nine exact public sidecar snapshots.
+- native.py: reviewed source-pinned Pluto and COE native verifier wrappers.
+- batch.py, ledger.py, campaign_cli.py: section planning, integer-cost budget envelope and persistent reservations.
 - checkers.py: independent small public Pluto and COE toy-case checks; these are not the native gym scorers.
 - rust/compile_exam.rs: optional standard-library Rust subprocess bridge; Python remains the canonical validator.
 - tests/test_distill.py: offline integration and negative tests.
@@ -21,7 +24,7 @@ The model supplies visible, checkable derivations, explanations, examples and ce
     python -m Distill validate --packet /tmp/pluto-exam.json --response /tmp/pluto-answer.json
     python -m Distill grade --packet /tmp/pluto-exam.json --response /tmp/pluto-answer.json --toy-checkers --out /tmp/pluto-receipt.json
 
-All JSON output files must be new. Windows paths can replace /tmp. A model runner can submit the rendered prompt externally and store its raw response in a separate journal. No API orchestration or spend scheduler is included in v0.1.
+All JSON output files must be new. Windows paths can replace /tmp. A model runner can submit the rendered prompt externally and store its raw response in a separate journal. The v0.2 campaign CLI handles offline planning and local reservation accounting; live provider orchestration is still external.
 
     rustc Distill/rust/compile_exam.rs -o /tmp/distill-compile
     /tmp/distill-compile research/chromatic_observer_gym_v1/distill_exam.json /tmp/coe-exam.json
@@ -47,4 +50,4 @@ A checker receives (public_case, answer_fields) and returns a bool for its own c
 
 See WIRE.md. The packet ID is SHA-256 over sorted-key compact ASCII JSON excluding packet_id, including the adapter digest, source pins, questions, public case, profile and library versions. The receipt binds the response bytes in that same canonical representation; raw API bytes must be stored separately if needed. Exact fixture checks only validate the requested final answer; explanation review remains pending. A self-reported model identity and an unsigned digest are not authorization. Freeze prompts and case lineages before comparison. Keep original frozen gym source and evidence unchanged.
 
-The first five adapters are for IRC-PG-01 (Pluto), COE-01, ARG-01, AEG-01 and SCM-23. Subsequent work can attach the same contract across DataGoblin, BPD, LoopedTransformers, EvalMath and HybridTRMLDT and add native scoring wrappers. The current release does not patch model training loops, score prose automatically, export SFT datasets, or call a paid model.
+The first five adapters are for IRC-PG-01 (Pluto), COE-01, ARG-01, AEG-01 and SCM-23. Nine additional pinned adapters cover DataGoblin, BPD and LoopedTransformers. Further work can attach EvalMath, HybridTRMLDT and other gyms, and add native scoring wrappers for their public cases. The current release does not patch model training loops, score prose automatically, export SFT datasets, or call a paid model.
