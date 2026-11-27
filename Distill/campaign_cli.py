@@ -22,6 +22,8 @@ def main():
     p.add_argument("--input-cap", type=int, default=6000)
     p.add_argument("--output-cap", type=int, default=5000)
     p.add_argument("--gym", nargs="+")
+    p.add_argument("--instances-per-gym", type=int, default=0)
+    p.add_argument("--instance-seed", type=int, default=20261127)
     for name in ("status","reserve","settle"):
         c = sub.add_parser(name)
         c.add_argument("--campaign", required=True)
@@ -45,7 +47,8 @@ def main():
         plan = plan_campaign(a.out, prices=rates(dollars(a.input_usd_per_million), dollars(a.output_usd_per_million), dollars(a.fee_usd_per_request)),
                              budget_microusd=dollars(a.budget_usd), reserve_microusd=dollars(a.reserve_usd),
                              profile=a.profile, difficulties=a.difficulty, section_size=a.section_size,
-                             input_cap=a.input_cap, output_cap=a.output_cap, adapters=adapters)
+                             input_cap=a.input_cap, output_cap=a.output_cap, adapters=adapters,
+                             instances_per_gym=a.instances_per_gym, instance_seed=a.instance_seed)
         result = {k:v for k,v in plan.items() if k != "jobs"}
         result["planned_requests"] = len(plan["jobs"])
         result["planned_question_slots"] = sum(j["question_count"] for j in plan["jobs"])
