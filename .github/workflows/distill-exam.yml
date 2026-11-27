@@ -28,3 +28,6 @@ jobs:
           python -m Distill prompt --packet /tmp/hg07-instance.json > /tmp/hg07-prompt.txt
           rustc Distill/rust/compile_exam.rs -o /tmp/distill-compile
           /tmp/distill-compile research/chromatic_observer_gym_v1/distill_exam.json /tmp/coe.json
+          python -m Distill.inky_free prepare --out /tmp/inky-fixture --mode fixture --per-family 3 --include-design
+          python -m Distill.inky_free run --campaign /tmp/inky-fixture --limit 55
+          python -m Distill.inky_free replay --campaign /tmp/inky-fixture
