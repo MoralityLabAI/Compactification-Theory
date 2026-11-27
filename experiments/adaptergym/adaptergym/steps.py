@@ -10,6 +10,9 @@
                 {"backend", "name", optional "adapter"/"overlays"}
   train_bonsai  bonsai-gym scripts/canary.py --config <config> (resumes checkpoint.pt; done when result.json exists)
   tinker_sft    inky-tinker/tinker_sft.py in WSL (Tinker API; no local GPU)
+  rft_rows      score_all.py rft: keep each pool prompt's shortest correct finished sample as a training row, then
+                assemble data/<family>/train.jsonl ({"family", "val": N held out, "gold": prepend gold_train.jsonl})
+  router        onebit_suite/router.py (TRM router over the per-arm scores; CPU torch from paths.train_python)
 """
 from __future__ import annotations
 
@@ -65,6 +68,12 @@ def done(plan: dict, s: dict) -> bool:
         return (Path(cfg["out_dir"]) / "result.json").exists()
     if k == "tinker_sft":
         return (Path(s["out_win"]) / "run.json").exists()
+    if k == "rft_rows":
+        d = Path(plan["work"]) / "data" / s["family"]
+        src = Path(plan["work"]) / "gen" / "rft" / f"{s['family']}.jsonl"
+        return (d / "train.jsonl").exists() and src.exists() and (d / "train.jsonl").stat().st_mtime >= src.stat().st_mtime
+    if k == "router":
+        return (Path(plan["work"]) / "results" / "router" / "router.md").exists()
     raise ValueError(k)
 
 
@@ -109,5 +118,18 @@ def run(plan: dict, s: dict) -> None:
                        cwd=P["bonsai_gym"], check=True, env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"})
     elif k == "tinker_sft":
         subprocess.run(backends.Squid.WSL + ["bash", P["tinker_wpy"], "-u", P["tinker_sft"]] + s["args"], check=True)
+    elif k == "rft_rows":
+        d = Path(plan["work"]) / "data" / s["family"]
+        subprocess.run([P["suite_python"], str(Path(P["suite"]) / "score_all.py"), "rft", "--work", plan["work"],
+                        "--family", s["family"], "--val", str(s.get("val", 0))], check=True, cwd=P["suite"])
+        parts = ([d / "gold_train.jsonl"] if s.get("gold") else []) + [d / "rft_train.jsonl"]
+        (d / "train.jsonl").write_text("".join(x.read_text(encoding="utf-8") for x in parts), encoding="utf-8")
+        if s.get("val"):
+            (d / "val.jsonl").write_text((d / "rft_val.jsonl").read_text(encoding="utf-8"), encoding="utf-8")
+        print("rows", s["family"], {x.name: lines(x) for x in (d / "train.jsonl", d / "val.jsonl")}, flush=True)
+    elif k == "router":
+        w = Path(plan["work"])
+        subprocess.run([P["train_python"], str(Path(P["suite"]) / "router.py"), "--data", str(w / "data"),
+                        "--scores", str(w / "scores"), "--out", str(w / "results" / "router")], check=True, cwd=P["suite"])
     else:
         raise ValueError(k)
