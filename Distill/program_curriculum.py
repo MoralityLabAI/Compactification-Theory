@@ -121,7 +121,8 @@ def build(out,*,counts=(12,4,8,8),per_stage=2,benchmark=True):
         rows=[x["result"] for x in reports if x["split"]==split]
         if rows:
             def mean(values):
-                return frac(sum((Fraction(x) for x in values),Fraction(0))/len(values))
+                values=tuple(Fraction(x) for x in values)
+                return frac(sum(values,Fraction(0))/len(values))
             summary[split]={"roots":len(rows),"transport_value":mean(r["transport_value"] for r in rows),
                 "positive_transport_roots":sum(Fraction(r["transport_value"])>0 for r in rows),
                 "policies":{name:{key:mean(r["policies"][name][key] for r in rows)
