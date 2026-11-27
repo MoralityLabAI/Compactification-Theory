@@ -1,0 +1,7 @@
+# COL-COMP-02: native prefix displacement compression
+
+Consume saved BPD-COL-02 BF16 states from [the pinned laptop gym](https://github.com/MoralityLabAI/BPD/blob/f1d489a000406e2d8732f4ea7a39e5473392efe2/mechinterp/bpd/experiments/collatz_3050/README.md). The source hashes, manifest and activation files are checked before loading. Fit effect and semantic-sham bases to one mean token-displacement vector per calibration parameter; compare a fixed seeded random basis at each common feasible rank. Evaluate retained squared prefix displacement energy on separate complete development parameter roots. Example after a four-root run:
+
+`python frontier.py PATH_TO_RUN --fit 13 73 --eval 17 25 --ranks 1 2 4 8`
+
+Rank-deficient controls produce explicit infeasible rows. Within each evaluation parameter, each case receives equal weight, then each parameter receives equal weight. Zero displacement gives null, not perfect retention. The basis selection sees no patched answer score. The compact frontier uses only 2D NumPy arrays; no native weights, backward graph, or GPU needed. The reported geometry concerns unscaled clean donor differences. Projected edit responses require a later matched-dose native run; this is not evidence of causal compression, a learned encoder, or generalization to sealed roots. Verdict PILOT_ONLY. Install NumPy and run `python -m unittest -v` here; fixtures are synthetic.
