@@ -1,0 +1,41 @@
+name: Distill offline exam checks
+on:
+  pull_request:
+    paths:
+      - 'Distill/**'
+      - 'research/**/distill_exam.json'
+      - '.github/workflows/distill-exam.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -v
+      - run: python -m Distill.campaign_cli inventory
+      - run: |
+          python -m Distill.campaign_cli plan --out /tmp/distill-plan --budget-usd 200 --reserve-usd 10 --input-usd-per-million 4 --output-usd-per-million 20 --instances-per-gym 96 --instance-seed 20261127
+          python -m Distill.campaign_cli status --campaign /tmp/distill-plan
+          python -m Distill compile --adapter research/pluto_gym/distill_exam.json --out /tmp/pluto.json
+          python -m Distill prompt --packet /tmp/pluto.json > /tmp/pluto-prompt.txt
+          python -m Distill instance --gym HG-07 --seed 20261127 --ordinal 4 --out /tmp/hg07-instance.json
+          python -m Distill prompt --packet /tmp/hg07-instance.json > /tmp/hg07-prompt.txt
+          rustc Distill/rust/compile_exam.rs -o /tmp/distill-compile
+          /tmp/distill-compile research/chromatic_observer_gym_v1/distill_exam.json /tmp/coe.json
+          python -m Distill.inky_free prepare --out /tmp/inky-fixture --mode fixture --per-family 3 --include-design
+          python -m Distill.inky_free run --campaign /tmp/inky-fixture --limit 55
+          python -m Distill.inky_free replay --campaign /tmp/inky-fixture
+          python -m Distill.inky_free prepare --out /tmp/research-fixture --mode fixture --per-family 0 --research-per-family 6 --research-section-size 2 --max-generation 8192 --effort 0.6 --seed 2026112805
+          python -m Distill.inky_free run --campaign /tmp/research-fixture --limit 62
+          python -m Distill.inky_free replay --campaign /tmp/research-fixture
+          python -m Distill.research_curriculum --out /tmp/research-curriculum
+          python -m Distill.program_curriculum --out /tmp/program-curriculum
+          python -m Distill.program_runner prepare --out /tmp/program-fixture --mode fixture --world-seed 7
+          python -m Distill.program_runner run --campaign /tmp/program-fixture --limit 32
+          python -m Distill.program_runner replay --campaign /tmp/program-fixture

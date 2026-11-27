@@ -1,0 +1,67 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "QSM-03",
+  "gym_version": "03",
+  "source": {
+    "repository": "MoralityLabAI/SelfModels",
+    "commit": "e2019ea2077b9dacffa3dbc68999bf7477ad79bf",
+    "path": "research/quantum_self_models/QSM03_REPORT.md",
+    "blob": "de34a1a4a799c0162a7e429a1a22bca80680c1d7"
+  },
+  "objective": "Evaluate hidden-regime Bayesian filtering and decision-preserving compression.",
+  "context": "Classical HMM controllers on simulated quantum-channel observations; hidden regime and sign bits; switching laws; no hardware or neural training. Positive-model Hilbert distance certificates and paired decoy controls.",
+  "steps": [
+    {
+      "id": "law",
+      "name": "Define hidden dynamics",
+      "description": "Specify column-stochastic transition and regime-conditioned likelihood."
+    },
+    {
+      "id": "filter",
+      "name": "Update belief",
+      "description": "Apply prediction, observed likelihood and normalization."
+    },
+    {
+      "id": "compress",
+      "name": "Quantize belief",
+      "description": "Describe joint and product log-Walsh codes and persistent bit cost."
+    },
+    {
+      "id": "bound",
+      "name": "Propagate error radius",
+      "description": "Derive contraction and local compression-error terms under stated positivity."
+    },
+    {
+      "id": "act",
+      "name": "Choose utility-maximizing action",
+      "description": "Apply a sufficient decision margin bound."
+    },
+    {
+      "id": "audit",
+      "name": "Audit paired controls",
+      "description": "Distinguish calibration of regime inference from realized utility and shared-tape dependence."
+    }
+  ],
+  "packs": [
+    "strategy",
+    "recurrent",
+    "formal"
+  ],
+  "specific_questions": [
+    {
+      "id": "hilbert",
+      "prompt": "Show why common positive diagonal likelihood multiplication and normalization preserve Hilbert distance."
+    },
+    {
+      "id": "compression",
+      "prompt": "Derive a simple total-variation decision regret bound for bounded rewards."
+    },
+    {
+      "id": "negative",
+      "prompt": "Explain how regime Brier score can improve without a useful reward gain. Propose a decisive test."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "SelfModels QSM03 simulation and independent receipt replay; finite certificates only."
+}

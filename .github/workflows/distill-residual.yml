@@ -1,0 +1,22 @@
+name: Distill residual research policy
+on:
+  pull_request:
+    paths:
+      - 'Distill/program_residual.py'
+      - 'Distill/residual_campaign.py'
+      - 'Distill/tests/test_residual.py'
+      - '.github/workflows/distill-residual.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  residual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -p test_residual.py -v
+      - run: python -m Distill.residual_campaign --out /tmp/distill-residual

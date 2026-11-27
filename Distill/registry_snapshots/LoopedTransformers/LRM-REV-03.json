@@ -1,0 +1,71 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "LRM-REV-03",
+  "gym_version": "03",
+  "source": {
+    "repository": "MoralityLabAI/LoopedTransformers",
+    "commit": "c42044c5ea0927382dd910a173ef9142a8d49d02",
+    "path": "mechinterp/revision_memory_gym/PROTOCOL_LRM_REV03.md",
+    "blob": "0e1e1bbd04d8afe1225405a126c4598bc17fc51a"
+  },
+  "objective": "Characterize the memory needed to revise evidence and distinguish posterior sufficiency from online-update sufficiency.",
+  "context": "Exact finite twelve-bit model, six corrected named positions, latent three-regime prior, fair provisional bits in corrected positions, truthful replacement and reminder disclosures. Count-only observer cannot access undisclosed named old bits.",
+  "steps": [
+    {
+      "id": "prior",
+      "name": "Specify the generative law",
+      "description": "Define prior, conditional likelihood and edit schedule."
+    },
+    {
+      "id": "encode",
+      "name": "Compress old observations",
+      "description": "Compare full named-history and count-only representations."
+    },
+    {
+      "id": "replace",
+      "name": "Apply replacements",
+      "description": "Describe Bayesian update with named edits."
+    },
+    {
+      "id": "remind",
+      "name": "Reveal selected old bits",
+      "description": "Determine when reminders add information."
+    },
+    {
+      "id": "partition",
+      "name": "Derive continuation partition",
+      "description": "Compute signatures and memory lower bounds."
+    },
+    {
+      "id": "score",
+      "name": "Evaluate posterior quality",
+      "description": "Distinguish exact population calculation from neural results."
+    }
+  ],
+  "packs": [
+    "formal",
+    "recurrent",
+    "algebra"
+  ],
+  "specific_questions": [
+    {
+      "id": "sufficiency",
+      "prompt": "Prove or refute the sufficiency of a count when a later edit schedule identifies arbitrary positions."
+    },
+    {
+      "id": "signature",
+      "prompt": "Give a small analogue of the continuation-signature argument and derive a minimal number of memory bits."
+    },
+    {
+      "id": "reminder",
+      "prompt": "Derive a finite likelihood calculation comparing full-history and count-only observers after a truthful reminder."
+    },
+    {
+      "id": "scope",
+      "prompt": "Explain which conclusions concern the declared generative law and what additional evidence a neural-model claim would need."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "LRM-REV-03 exact rational posterior, signature enumeration and source-only checks."
+}

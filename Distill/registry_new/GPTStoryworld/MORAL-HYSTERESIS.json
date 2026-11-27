@@ -1,0 +1,67 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "MORAL-HYSTERESIS",
+  "gym_version": "v1",
+  "source": {
+    "repository": "MoralityLabAI/GPTStoryworld",
+    "commit": "1fd272bc0390f9e50a8a9a714767e715223b44be",
+    "path": "benchmarks/moral_hysteresis_v1/PROTOCOL.md",
+    "blob": "0d3f5562f108bba3637db08b78e42268f66f2d24"
+  },
+  "objective": "Measure representation changes when identical story facts arrive in different orders.",
+  "context": "Paired story paths with identical sentence multisets and final endpoint, English/Chinese semantic drafts, family-level splits, cumulative prefix activations, separate blinded human ratings and reliability gate.",
+  "steps": [
+    {
+      "id": "pair",
+      "name": "Construct reveal paths",
+      "description": "Preserve facts and endpoint while changing the reveal order."
+    },
+    {
+      "id": "split",
+      "name": "Freeze families",
+      "description": "Keep all paired paths and translations in one split."
+    },
+    {
+      "id": "capture",
+      "name": "Capture activations",
+      "description": "Specify model revision, prefix position and robustness readout."
+    },
+    {
+      "id": "annotate",
+      "name": "Obtain ratings",
+      "description": "Use blinded prefix-only annotators and reliability gate."
+    },
+    {
+      "id": "compare",
+      "name": "Estimate path effect",
+      "description": "Separate reveal jumps, endpoint hysteresis and cross-language geometry."
+    },
+    {
+      "id": "audit",
+      "name": "Qualify evidence",
+      "description": "Distinguish lexical controls from narrative-order and recency effects."
+    }
+  ],
+  "packs": [
+    "causal_geometry",
+    "research",
+    "recurrent"
+  ],
+  "specific_questions": [
+    {
+      "id": "estimand",
+      "prompt": "Define a paired endpoint hysteresis statistic and a revelation-jump statistic using a toy trajectory."
+    },
+    {
+      "id": "confounds",
+      "prompt": "Explain why matching sentence multisets does not remove order or recency effects."
+    },
+    {
+      "id": "reliability",
+      "prompt": "Describe how annotation reliability and source-family separation constrain semantic conclusions."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "GPTStoryworld moral_hysteresis_v1 validation and activation analysis; human ratings and semantics separate."
+}

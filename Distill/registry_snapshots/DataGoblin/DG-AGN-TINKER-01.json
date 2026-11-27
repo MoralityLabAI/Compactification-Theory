@@ -1,0 +1,57 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "DG-AGN-TINKER-01",
+  "gym_version": "01",
+  "source": {
+    "repository": "MoralityLabAI/DataGoblin",
+    "commit": "c06ac62fca6a4b8a6b8a69bba65a6435b463d8dc",
+    "path": "Agonist/TINKER_GYM.md",
+    "blob": "da4d37f7dbf94c66f91db828d0ecea78f2e15d88"
+  },
+  "objective": "Evaluate specialist selection for curriculum, routing, failure diagnosis and repair with independent checks.",
+  "context": "AGN-02 student utility, RLT and research-game roots; separate specialist adapters, mixed curriculum, train/calibration only.",
+  "steps": [
+    {
+      "id": "root",
+      "name": "Select root",
+      "description": "Identify source family and admissible split."
+    },
+    {
+      "id": "curriculum",
+      "name": "Choose curriculum",
+      "description": "Explain the measured student uplift and any explicit proxy."
+    },
+    {
+      "id": "route",
+      "name": "Route task",
+      "description": "Determine specialist and evidence available."
+    },
+    {
+      "id": "repair",
+      "name": "Diagnose and repair",
+      "description": "Specify independently checked correction and abstention."
+    },
+    {
+      "id": "journal",
+      "name": "Evaluate and journal",
+      "description": "Preserve provenance, costs and per-source scores."
+    }
+  ],
+  "packs": [
+    "research",
+    "recurrent"
+  ],
+  "specific_questions": [
+    {
+      "id": "uplift",
+      "prompt": "Design an equal-update marginal student-uplift measurement and explain how a cost proxy can disagree with true uplift."
+    },
+    {
+      "id": "provider",
+      "prompt": "Specify a provider-independent offline comparison with bounded requests and no hidden truth exposure."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "Agonist.tinker_gym offline fixture and original independent RLT/research-game checks."
+}

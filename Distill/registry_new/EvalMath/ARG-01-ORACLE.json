@@ -1,0 +1,62 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "ARG-01-ORACLE",
+  "gym_version": "ARG-01 independent oracle",
+  "source": {
+    "repository": "MoralityLabAI/EvalMath",
+    "commit": "21a8cb25a9876fe79523372a721092ca4a286f3d",
+    "path": "docs/algebraic_reasoning_gym.md",
+    "blob": "0091e372ee46e802fce5f685f9a043de88ed83cb"
+  },
+  "objective": "Verify finite formal-series programs independently of model predictions.",
+  "context": "Two demonstration pairs through degree 12; topology and three symbols I,N,S,R; future coefficients withheld. The exact bounded search covers 64 syntax programs, not all analytic functions.",
+  "steps": [
+    {
+      "id": "formalize",
+      "name": "Define algebra",
+      "description": "Write formal-series operations and truncation semantics."
+    },
+    {
+      "id": "enumerate",
+      "name": "Enumerate syntax",
+      "description": "Identify graph topologies and all bounded candidates."
+    },
+    {
+      "id": "check",
+      "name": "Check demonstrations",
+      "description": "Use exact integer arithmetic and record first mismatch."
+    },
+    {
+      "id": "select",
+      "name": "Select or abstain",
+      "description": "Account for candidate-query budget and observational equivalence."
+    },
+    {
+      "id": "future",
+      "name": "Grade continuation",
+      "description": "Keep future coefficients with the independent oracle."
+    }
+  ],
+  "packs": [
+    "formal",
+    "algebra",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "reciprocal",
+      "prompt": "Derive the coefficient recurrence for a formal reciprocal with constant term one."
+    },
+    {
+      "id": "collision",
+      "prompt": "Construct two different formal series that agree through degree 12 and disagree at degree 15."
+    },
+    {
+      "id": "scope",
+      "prompt": "Explain why a complete bounded syntax search does not prove unique infinite continuation."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "EvalMath spiral_ln.algebraic_reasoning_oracle exact finite interpreter and grade."
+}

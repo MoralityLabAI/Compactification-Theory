@@ -1,0 +1,61 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "RH-PROOF",
+  "gym_version": "RHProofDistillation initial proxies",
+  "source": {
+    "repository": "MoralityLabAI/EvalMath",
+    "commit": "21a8cb25a9876fe79523372a721092ca4a286f3d",
+    "path": "gyms/RHProofDistillation/README.md",
+    "blob": "d95feae047bca0b841c7a7ef1a5cd2d897cf6d29"
+  },
+  "objective": "Reconstruct small explicit Lean consequences and audit the provenance of an analytic proof source.",
+  "context": "The registered exercises are proxies with explicit hypotheses. The upstream source is linked and pinned without reproduction; module imports differ from minimal theorem dependencies.",
+  "steps": [
+    {
+      "id": "pin",
+      "name": "Pin upstream declarations",
+      "description": "Record declaration names and source identity."
+    },
+    {
+      "id": "state",
+      "name": "State the proxy theorem",
+      "description": "Specify quantifiers and premises separately from the original theorem."
+    },
+    {
+      "id": "dependencies",
+      "name": "Audit dependencies",
+      "description": "Explain the limits of a module-import traversal."
+    },
+    {
+      "id": "prove",
+      "name": "Construct proof",
+      "description": "Provide a type-correct candidate for a stated finite proxy."
+    },
+    {
+      "id": "grade",
+      "name": "Kernel grade",
+      "description": "Reject unsafe/admitted terms and distinguish compiler success from wider mathematical claims."
+    }
+  ],
+  "packs": [
+    "formal",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "scope",
+      "prompt": "Construct a self-contained elementary proxy implication and distinguish its proof from a proof of the original analytic conjecture."
+    },
+    {
+      "id": "dependencies",
+      "prompt": "Give an example in which a module import is unnecessary to a particular theorem, and describe a declaration-level dependency audit."
+    },
+    {
+      "id": "axioms",
+      "prompt": "Explain how source pins and a kernel/axiom audit address different risks."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "EvalMath spiral_ln.rh_distillation grader and independent Lean kernel."
+}

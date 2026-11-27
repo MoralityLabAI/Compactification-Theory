@@ -1,0 +1,29 @@
+name: Distill research state quotient
+on:
+  pull_request:
+    paths:
+      - 'Distill/program_quotient.py'
+      - 'Distill/quotient_policy.py'
+      - 'Distill/quotient_campaign.py'
+      - 'Distill/tests/test_quotient.py'
+      - '.github/workflows/distill-quotient.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  quotient:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -p test_quotient.py -v
+      - run: python -m Distill.quotient_campaign --out /tmp/distill-quotient
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distill-11-full-receipts
+          path: /tmp/distill-quotient/
+          if-no-files-found: error
+          retention-days: 30

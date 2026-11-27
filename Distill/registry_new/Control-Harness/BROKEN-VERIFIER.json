@@ -1,0 +1,62 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "BROKEN-VERIFIER",
+  "gym_version": "v0.1",
+  "source": {
+    "repository": "MoralityLabAI/Control-Harness",
+    "commit": "22c0d0d83c0863c122f6142f095f471eacef8e6d",
+    "path": "docs/broken_verifier_gym.md",
+    "blob": "9a25adc3c179f6316d9a4fe8bd6c04609f74fe1a"
+  },
+  "objective": "Test what independent information permits recovery from correlated verifier errors.",
+  "context": "Finite binary propositions, committee votes, parity witnesses and independently supplied anchors. Guarded controller trusts independent relations, abstains without anchored path. Heuristic loss weights are not calibrated posteriors.",
+  "steps": [
+    {
+      "id": "world",
+      "name": "Define observations",
+      "description": "Separate public votes, edges and anchors from sealed truth."
+    },
+    {
+      "id": "bias",
+      "name": "Model correlated errors",
+      "description": "Distinguish independent vote flips from shared bias."
+    },
+    {
+      "id": "solve",
+      "name": "Solve finite assignments",
+      "description": "Compute weighted disagreement and compare target labels."
+    },
+    {
+      "id": "guard",
+      "name": "Apply provenance guard",
+      "description": "Determine whether an independent anchored path supports a decision."
+    },
+    {
+      "id": "audit",
+      "name": "Evaluate corruption controls",
+      "description": "Compare independent and vote-derived evidence and anchor failures."
+    }
+  ],
+  "packs": [
+    "formal",
+    "research",
+    "authenticated"
+  ],
+  "specific_questions": [
+    {
+      "id": "symmetry",
+      "prompt": "Prove global bit-flip ambiguity for unanchored consistent parity graphs."
+    },
+    {
+      "id": "anchor",
+      "prompt": "Derive an exact label from a trusted anchor and an independent parity path; explain conditions for abstention."
+    },
+    {
+      "id": "correlation",
+      "prompt": "Construct a unanimous but systematically incorrect committee and specify what independent evidence could resolve it."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "Control-Harness src/evals/broken_verifier_gym.py finite solver and sealed scorer."
+}

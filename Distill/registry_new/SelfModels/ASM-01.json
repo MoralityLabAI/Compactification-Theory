@@ -1,0 +1,62 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "ASM-01",
+  "gym_version": "01",
+  "source": {
+    "repository": "MoralityLabAI/SelfModels",
+    "commit": "e2019ea2077b9dacffa3dbc68999bf7477ad79bf",
+    "path": "research/arithmetic_self_models/asm01.py",
+    "blob": "7f61907ffb04f47798a33f5ee4c978ceb1dee22f"
+  },
+  "objective": "Measure decision value of memory for hidden arithmetic regime inference.",
+  "context": "Two arithmetic regimes reverse which reset succeeds. Exact finite population, public phase and history summaries, Bayesian decision by regime counts, ties choose reset zero.",
+  "steps": [
+    {
+      "id": "generate",
+      "name": "Generate arithmetic histories",
+      "description": "Specify hidden regime and public observation."
+    },
+    {
+      "id": "compress",
+      "name": "Construct memory keys",
+      "description": "Compare blind, count, window and full history."
+    },
+    {
+      "id": "infer",
+      "name": "Compute posterior",
+      "description": "Count compatible regime occurrences conditional on the observable cell."
+    },
+    {
+      "id": "decide",
+      "name": "Choose reset",
+      "description": "Choose expected utility maximizing reset with fixed tie rule."
+    },
+    {
+      "id": "audit",
+      "name": "Evaluate robust certificates",
+      "description": "Compare information refinement and independent decoy controls."
+    }
+  ],
+  "packs": [
+    "strategy",
+    "algebra",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "posterior",
+      "prompt": "Derive the finite empirical posterior from a public observation cell."
+    },
+    {
+      "id": "decision",
+      "prompt": "Construct a two-regime example in which perfect regime inference has no action value, and one in which it reverses the best action."
+    },
+    {
+      "id": "memory",
+      "prompt": "Explain why a recent-bit window can match full history on a fixed finite population without establishing general sufficiency."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "SelfModels asm01.py exact finite population and decision receipts."
+}

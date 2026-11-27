@@ -1,0 +1,71 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "AUX-GYM",
+  "gym_version": "v2",
+  "source": {
+    "repository": "MoralityLabAI/LoopedTransformers",
+    "commit": "c42044c5ea0927382dd910a173ef9142a8d49d02",
+    "path": "experiments/recurrence_monitorability_v0/aux_gym_v2_20261126/PROTOCOL.md",
+    "blob": "f6dc05896e6a9eeaff704f700faadc34dae639d3"
+  },
+  "objective": "Evaluate depth-conditioned algorithmic-state supervision and distinguish final answer prediction from actual computation traces.",
+  "context": "Synthetic modular recurrence and masked pointer tasks; split structures and depth strata; abstention, token quota, majority baseline and independent answer checks. V2 is an engineering candidate.",
+  "steps": [
+    {
+      "id": "generate",
+      "name": "Construct task structures",
+      "description": "Specify generator, allowed operations and structure partitions."
+    },
+    {
+      "id": "trace",
+      "name": "Compute intermediate states",
+      "description": "Derive exact algorithmic states at each depth."
+    },
+    {
+      "id": "supervise",
+      "name": "Choose supervision",
+      "description": "Compare repeated-final-answer targets with trace targets under matched quota."
+    },
+    {
+      "id": "fit",
+      "name": "Fit controlled arms",
+      "description": "Explain loop visits, updates and matched compute."
+    },
+    {
+      "id": "score",
+      "name": "Score by depth and class",
+      "description": "Specify calibration, macro recall, node/abstention metrics and audit."
+    },
+    {
+      "id": "audit",
+      "name": "Check source and outcomes",
+      "description": "Separate byte hashes from logical equality and verified predictions."
+    }
+  ],
+  "packs": [
+    "recurrent",
+    "algebra",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "modular",
+      "prompt": "Solve a small affine modular recurrence and write every intermediate state, including zero-operation identity."
+    },
+    {
+      "id": "abstain",
+      "prompt": "Construct a masked pointer-chase instance where two public-compatible hidden completions disagree; justify abstention."
+    },
+    {
+      "id": "majority",
+      "prompt": "Derive how a constant prediction can attain high aggregate accuracy under label imbalance while failing class-sensitive metrics."
+    },
+    {
+      "id": "trace",
+      "prompt": "Design a matched control distinguishing final-answer supervision from true intermediate-state supervision."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "research_gym.interp.aux_gym_v2 audit/build/pilot/rescore; native generator and independent semantic checks."
+}

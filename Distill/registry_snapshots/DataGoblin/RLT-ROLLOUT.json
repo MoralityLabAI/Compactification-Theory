@@ -1,0 +1,81 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "RLT-ROLLOUT",
+  "gym_version": "rlt_gym.task.v1",
+  "source": {
+    "repository": "MoralityLabAI/DataGoblin",
+    "commit": "c06ac62fca6a4b8a6b8a69bba65a6435b463d8dc",
+    "path": "docs/rlt_rollout_gym.md",
+    "blob": "6f99da8762249480863679332da8d031259a992d"
+  },
+  "objective": "Collect independently checked attempts and repairs across seven procedural task families under matched recurrence budgets.",
+  "context": "Graph route, arithmetic program, constraint assignment, evidence retrieval, table transform, experiment plan, finite-state plan. Direct, RLT and matched damping modes; train/calibration and evaluation custody.",
+  "steps": [
+    {
+      "id": "generate",
+      "name": "Generate a world",
+      "description": "Define the public inputs, lineage and split."
+    },
+    {
+      "id": "propose",
+      "name": "Propose candidate",
+      "description": "Explain both pool selection and freeform proposals."
+    },
+    {
+      "id": "feedback",
+      "name": "Recurrent update",
+      "description": "Specify planned clock, readout and feedback schedule."
+    },
+    {
+      "id": "verify",
+      "name": "Verifier receipt",
+      "description": "Explain exact acceptance, rejection and repair feedback."
+    },
+    {
+      "id": "export",
+      "name": "Replay and export",
+      "description": "Bind source and task digests; preserve failed attempts and keep protected data separate."
+    }
+  ],
+  "packs": [
+    "recurrent",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "graph_route",
+      "prompt": "Construct a weighted directed graph and prove a minimum route, including why a plausible competing route loses."
+    },
+    {
+      "id": "arithmetic",
+      "prompt": "Trace a bounded conditional arithmetic program; identify a counterexample to an incorrect recurrence."
+    },
+    {
+      "id": "constraint",
+      "prompt": "Construct a small assignment problem and certify feasibility or infeasibility."
+    },
+    {
+      "id": "evidence",
+      "prompt": "Explain alias resolution and provide a checkable evidence retrieval proof on a toy corpus."
+    },
+    {
+      "id": "table",
+      "prompt": "Derive grouped filtering, aggregation and ordered output on a small table."
+    },
+    {
+      "id": "experiment",
+      "prompt": "Construct a feasible and a confounded experiment plan under a shared budget."
+    },
+    {
+      "id": "finite_plan",
+      "prompt": "Solve a small finite-state planning problem with a state trace and optimality or reachability certificate."
+    },
+    {
+      "id": "schedule",
+      "prompt": "Derive the RLT fixed-horizon coefficient and compare direct and matched damping under identical planned visits."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "datagoblin.training_gym.rlt_gym.tasks exact check and runner replay."
+}
