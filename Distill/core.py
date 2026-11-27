@@ -13,7 +13,8 @@ from typing import Any, Callable, Mapping
 
 from .packs import CASE, COMMON, EXPLAIN, PACKS, PACK_VERSION, QUICK, STEP
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
+INSTANCE_VERSION = "distill.procedural.v1"
 DIFFICULTIES = {
     "foundation": "Use a minimal finite example and explicit definitions. State every prerequisite needed for the example.",
     "standard": "Give a reproducible derivation at the registered gym scope, with a checkable witness or explicit assumptions.",
@@ -197,7 +198,7 @@ def compile_quiz(adapter: dict, *, profile: str = "full", public_case: dict | No
 def split_quiz(packet: dict, *, max_questions: int = 5) -> list[dict]:
     """Deterministic independently answerable sections; no answer carryover."""
     _packet(packet)
-    require(packet["library_version"] == VERSION and "section" not in packet, "split requires a complete v0.2 packet")
+    require(packet["library_version"] == VERSION and "section" not in packet, "split requires a complete current-version packet")
     require(type(max_questions) is int and 1 <= max_questions <= 32, "invalid section size")
     qs = packet["questions"]
     groups = [qs[i:i+max_questions] for i in range(0, len(qs), max_questions)]
@@ -212,9 +213,9 @@ def split_quiz(packet: dict, *, max_questions: int = 5) -> list[dict]:
 
 def _packet(packet: dict) -> None:
     require(isinstance(packet, dict) and packet.get("schema_version") == PACKET_SCHEMA, "invalid packet schema")
-    require(packet.get("library_version") in ("0.1.0", VERSION) and packet.get("pack_version") == PACK_VERSION, "unsupported packet version")
+    require(packet.get("library_version") in ("0.1.0", "0.2.0", VERSION) and packet.get("pack_version") == PACK_VERSION, "unsupported packet version")
     base = {"schema_version", "library_version", "pack_version", "profile", "gym_id", "gym_version", "source", "adapter_sha256", "purpose", "objective", "context", "public_case", "questions", "packet_id"}
-    if packet["library_version"] == VERSION:
+    if packet["library_version"] in ("0.2.0", VERSION):
         base |= {"difficulty", "difficulty_instruction"}
         require(packet.get("difficulty") in DIFFICULTIES and packet.get("difficulty_instruction") == DIFFICULTIES[packet["difficulty"]], "invalid difficulty")
         if "section" in packet:
@@ -223,6 +224,18 @@ def _packet(packet: dict) -> None:
             object_keys(sec, {"parent_packet_id", "index", "count"}, "section")
             require(isinstance(sec["parent_packet_id"], str) and re.fullmatch(r"[0-9a-f]{64}", sec["parent_packet_id"]) is not None, "invalid parent packet")
             require(type(sec["index"]) is int and type(sec["count"]) is int and 1 <= sec["index"] <= sec["count"] <= 128, "invalid section index")
+    if packet["library_version"] == VERSION and "instance" in packet:
+        base.add("instance")
+        ins = packet["instance"]
+        object_keys(ins, {"generator", "seed", "ordinal", "content_sha256"}, "instance")
+        require(ins["generator"] == INSTANCE_VERSION, "unsupported instance generator")
+        require(type(ins["seed"]) is int and 0 <= ins["seed"] < 2**63, "invalid instance seed")
+        require(type(ins["ordinal"]) is int and 0 <= ins["ordinal"] < 10**7, "invalid instance ordinal")
+        _case(packet.get("public_case"))
+        case = packet["public_case"]
+        require(case is not None, "instance requires public case")
+        content = digest({"kind": case["kind"], "data": case["data"]})
+        require(ins["content_sha256"] == content and case["case_id"] == "proc-v1-" + content, "instance content mismatch")
     object_keys(packet, base, "packet")
     require(packet["profile"] in ("quick", "full"), "invalid packet profile")
     slug(packet["gym_id"], "gym id")
