@@ -59,6 +59,8 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 
 - **A compact model trained on the curriculum does not beat symbolic routing (DCF-22).** Setup: a 3,175-parameter GRU over elimination-ordered factors and a 2,707-parameter pooled MLP, trained on 3,600 records. Their selectors use a quarter of the symbolic rule's operator ops, but none is non-inferior in held-out utility (best .353 vs .352, worst .301). Their posteriors remove only 10–19% of a constant predictor's error in-distribution and are worse than the constant on held-out families. Recurrence gives no advantage over pooling. What the model learns cheaply is already computable exactly by symbolic analysis, and what symbolic analysis cannot provide (posteriors without inference) it does not learn at this scale.
 
+- **Learning on the factor graph works where token summaries did not (DCF-23).** A 12.7k-parameter message-passing network that corrects loopy BP passes all three of its gates on 3/3 seeds: a lower posterior error than BP, and held-out decision utility raised from .370 to .410 (lower 95% bounds .010–.014), about half of BP's gap to exact (.446). The gain transfers to four of six unseen families (k-tree, dense, star, weakly coupled dense) but not to higher-arity parity structures. It is the first learned component in the series to pass its gates. It is an accuracy result, not a compute result: the model costs about 100× BP's counted operations, and exact inference is cheaper still on these verifiable records.
+
 ## Promotion criteria, series-wide
 
 | Criterion | Met? | Where |
@@ -67,6 +69,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | Lower cost at matched verified utility | Yes for exact component/elimination vs enumeration; no for adaptive vs strong fixed routing at the condition level | DCF-13A–D; DCF-10–14 |
 | Constructive exactness guarantee with materially reduced cost | Yes: component restriction, symbolic elimination cost, credal certificate (zero negative-utility actions with 24× the coverage of pointwise bounds) | DCF-13, MathCan `DCFDecision.lean` |
 | Learned router beats strongest symbolic after charging costs | No | DCF-14, DCF-15, DCF-22 |
+| Learned component improves verified accuracy over the cheap approximate operator | Yes: message-passing correction to BP, 3/3 seeds, transfers to most unseen families; not compute-efficient here | DCF-23 |
 | Coarse (regime) router beats strongest fixed policy per condition | No (best on the mean only) | DCF-19, DCF-19B |
 | Self-flagged escalation beats the better fixed operator per condition | Yes in the DCF-20 mesh (6/6 at λ = 0.1 and 0.3; loses at λ = 0.01); no on the DCF-14 families (0 wins against the best alternative) | DCF-20B, DCF-21 |
 
@@ -91,6 +94,7 @@ What does survive is symbolic adaptivity with exactness: exact when the symbolic
 | DCF-20 harder mesh world and escalation | `research/dcf20_hard_mesh_routing` |
 | DCF-21 escalation generalisation | `research/dcf21_escalation_generalization` |
 | DCF-22 compact curriculum model | `research/dcf22_curriculum_model` |
+| DCF-23 learned message passing | `research/dcf23_message_passing` |
 | Kernel-checked lemmas | [MathCan `MathCan/DCFDecision.lean`](https://github.com/patrickdugan/MathCan/blob/main/MathCan/DCFDecision.lean) |
 | LDT mesh units and J router | [HybridTRMLDT `research_gym/ldt_mesh`](https://github.com/MoralityLabAI/HybridTRMLDT/tree/master/research_gym/ldt_mesh) |
 | Dataset schema, loader, supervision views | [DataGoblin `schemas/dcf16_decision_trace.schema.json`, `src/datagoblin/datasets/dcf16.py`](https://github.com/MoralityLabAI/DataGoblin/blob/master/src/datagoblin/datasets/dcf16.py) |
