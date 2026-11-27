@@ -1,0 +1,61 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "MOLT-GOBLIN-01",
+  "gym_version": "01",
+  "source": {
+    "repository": "MoralityLabAI/DataGoblin",
+    "commit": "c06ac62fca6a4b8a6b8a69bba65a6435b463d8dc",
+    "path": "docs/molt_goblin_gym_v1.md",
+    "blob": "34ccb5b10af6feaba6d91464eee1a63cf3dc0f82"
+  },
+  "objective": "Select informative, admissible experiment arrays under exact resource and evidence constraints.",
+  "context": "Four finite planning families; producer proposes, LDT sorter recommends, operator authorizes, independent steward scores. OOD size transfer is distinct from semantic family transfer.",
+  "steps": [
+    {
+      "id": "proposal",
+      "name": "Generate candidate",
+      "description": "Define a proposed experiment and required controls."
+    },
+    {
+      "id": "admit",
+      "name": "Check admissibility",
+      "description": "Check precedence and resource constraints."
+    },
+    {
+      "id": "select",
+      "name": "Select array",
+      "description": "Optimize utility or characterize Pareto uncertainty."
+    },
+    {
+      "id": "execute",
+      "name": "Authorize execution",
+      "description": "Describe proposal-only boundary and owner approval."
+    },
+    {
+      "id": "score",
+      "name": "Score evidence",
+      "description": "Specify exact grading, root custody and promotion limits."
+    }
+  ],
+  "packs": [
+    "research",
+    "strategy"
+  ],
+  "specific_questions": [
+    {
+      "id": "array",
+      "prompt": "Solve a small concurrent experiment selection example with summed RAM, slots and visit constraints; prove optimality."
+    },
+    {
+      "id": "pareto",
+      "prompt": "Construct interval-valued Pareto comparisons, including an unresolved case."
+    },
+    {
+      "id": "dag",
+      "prompt": "Give a prefix-DAG validity check and a counterexample involving a forward dependency."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "datagoblin.training_gym.molt_goblin exact finite scorer."
+}

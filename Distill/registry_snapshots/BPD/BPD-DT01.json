@@ -1,0 +1,71 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "BPD-DT01",
+  "gym_version": "DT01",
+  "source": {
+    "repository": "MoralityLabAI/BPD",
+    "commit": "376e85bfc7aca49f02cc1167208603f414183b8d",
+    "path": "mechinterp/bpd/experiments/depth_steering_gym/README.md",
+    "blob": "a1bf19921cd0e96f405251b0588ac286250bfff8"
+  },
+  "objective": "Determine whether task-selected causal subspaces retain effective and protected behavior across recurrent depths.",
+  "context": "Exact Sudoku, ARC-style transformations and hidden-ending storyworld interfaces; development-depth steering, later-depth evaluation, physical metric and full normalized observer. Native checkpoints and official task data are separate resources.",
+  "steps": [
+    {
+      "id": "task",
+      "name": "Define the public task",
+      "description": "Separate observation, allowed action, exact result and hidden evaluator data."
+    },
+    {
+      "id": "state",
+      "name": "Observe recurrent state",
+      "description": "Specify physical coordinates, metric, loop depth and H/L commit semantics."
+    },
+    {
+      "id": "subspace",
+      "name": "Fit candidate steering",
+      "description": "Use development states to select task-relevant causal directions."
+    },
+    {
+      "id": "control",
+      "name": "Construct matched nulls",
+      "description": "Match task Jacobian, signed intervention and dose while checking protected readouts."
+    },
+    {
+      "id": "transfer",
+      "name": "Test unseen depths",
+      "description": "Freeze selection and compare at later loops and disjoint task structures."
+    },
+    {
+      "id": "audit",
+      "name": "Evaluate claim",
+      "description": "Separate exact task verification from causal efficacy and native-model generalization."
+    }
+  ],
+  "packs": [
+    "causal_geometry",
+    "recurrent",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "rotate",
+      "prompt": "Construct a two-dimensional recurrent rotation in which a direction effective at one depth is ineffective at a later depth; compute the transported perturbation."
+    },
+    {
+      "id": "protected",
+      "prompt": "Give a finite example with target and protected readouts. Derive a permissible intervention and a norm-matched sham."
+    },
+    {
+      "id": "normalization",
+      "prompt": "Explain why matching a raw linear projection may fail after nonlinear normalization; provide a numerical example."
+    },
+    {
+      "id": "split",
+      "prompt": "Specify how official ARC inputs, synthetic transformations and development-depth selection should be separated to avoid leakage."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "depth_steering_gym audit, exact task worlds and protected causal-subspace evaluator; native TRM bridge separate."
+}

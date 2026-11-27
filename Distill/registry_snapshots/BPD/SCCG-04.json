@@ -1,0 +1,71 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "SCCG-04",
+  "gym_version": "04",
+  "source": {
+    "repository": "MoralityLabAI/BPD",
+    "commit": "376e85bfc7aca49f02cc1167208603f414183b8d",
+    "path": "mechinterp/bpd/experiments/sccg01/SUPPORT_GYM_PROTOCOL.md",
+    "blob": "372103f96ee9490b765b57408c528b69b242f4ea"
+  },
+  "objective": "Select a small physical intervention support with an exact gain threshold and protected constraints under a finite dose cap.",
+  "context": "Constructed orthogonal-source family with eight editable directions, supports of size at most three, protected rows, normalized score and an exact affine-sphere reduction. A small tied ranker proposes candidates; independent rational checks determine success.",
+  "steps": [
+    {
+      "id": "normalize",
+      "name": "Write normalized intervention",
+      "description": "Define physical dose, baseline normalization and target/protected scores."
+    },
+    {
+      "id": "transform",
+      "name": "Reduce to affine sphere",
+      "description": "Introduce scaled variables and derive the equality and cap constraints."
+    },
+    {
+      "id": "enumerate",
+      "name": "Enumerate supports",
+      "description": "Explain why size-three supports cover smaller supports and derive the count."
+    },
+    {
+      "id": "verify",
+      "name": "Compute exact feasibility",
+      "description": "Derive rational threshold checks and identify the boundary conditions."
+    },
+    {
+      "id": "rank",
+      "name": "Train and compare rankers",
+      "description": "Compare random, magnitude, tangent, analytic and learned orders under a fixed verifier budget."
+    },
+    {
+      "id": "audit",
+      "name": "Report evidence",
+      "description": "Count actually replayed checks, solvable-root ceiling, label cost and limitations."
+    }
+  ],
+  "packs": [
+    "causal_geometry",
+    "formal",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "sphere",
+      "prompt": "Derive the affine-sphere representation and physical-dose cap from the declared normalized edit model."
+    },
+    {
+      "id": "support",
+      "prompt": "Explain why checking every size-three support suffices for a support size upper bound of three; state the combinatorial count."
+    },
+    {
+      "id": "failure",
+      "prompt": "Give an example where a large target magnitude selects a support that cannot preserve a protected readout."
+    },
+    {
+      "id": "cost",
+      "prompt": "Explain when fewer exact verifier calls can reduce total compute, accounting for candidate scoring and training-label cost."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "sccg01 support_gym.py exact finite rational support checks and independent float controls."
+}

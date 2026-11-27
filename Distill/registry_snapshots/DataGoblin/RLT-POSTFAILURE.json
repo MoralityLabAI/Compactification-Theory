@@ -1,0 +1,58 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "RLT-POSTFAILURE",
+  "gym_version": "postfailure_exit.v1",
+  "source": {
+    "repository": "MoralityLabAI/DataGoblin",
+    "commit": "c06ac62fca6a4b8a6b8a69bba65a6435b463d8dc",
+    "path": "docs/rlt_postfailure_value_gym.md",
+    "blob": "1e519a4ec3cf9d6f21b3fd17b4d439babd6075f8"
+  },
+  "objective": "Estimate whether another verifier call or recurrent visit is worth its cost after a failed attempt.",
+  "context": "Public failed candidate and checker code; future rescue labels are separate. Calibrated ridge readout on archived fixed-depth trajectories; exact acceptance remains verifier-owned.",
+  "steps": [
+    {
+      "id": "replay",
+      "name": "Verify archive",
+      "description": "Reconstruct task, checkpoint and verifier evidence."
+    },
+    {
+      "id": "observe",
+      "name": "Observe failure",
+      "description": "Define what is known at the post-check decision."
+    },
+    {
+      "id": "estimate",
+      "name": "Estimate value",
+      "description": "Derive marginal expected benefit of further compute."
+    },
+    {
+      "id": "calibrate",
+      "name": "Freeze threshold",
+      "description": "Specify calibration-only selection and missed-rescue bound."
+    },
+    {
+      "id": "evaluate",
+      "name": "Evaluate policy",
+      "description": "Count saved visits, costs, missed rescues and OOD limits."
+    }
+  ],
+  "packs": [
+    "recurrent",
+    "research",
+    "strategy"
+  ],
+  "specific_questions": [
+    {
+      "id": "boundary",
+      "prompt": "Compare pre-check STOP and post-check CONTINUE as different information sets; construct a case where the policies disagree."
+    },
+    {
+      "id": "risk",
+      "prompt": "Derive a decision rule for rescue value versus verifier cost and show how uncertainty changes defer behavior."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "RLT postfailure_exit replay validator and independent future-rescue labels."
+}

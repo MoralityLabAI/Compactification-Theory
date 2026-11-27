@@ -1,0 +1,66 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "PPT-A-B",
+  "gym_version": "PPT plans A/B reference",
+  "source": {
+    "repository": "MoralityLabAI/LoopedTransformers",
+    "commit": "c42044c5ea0927382dd910a173ef9142a8d49d02",
+    "path": "research/lean_cgrt_hrm400/PPT_GYM_RUNBOOK.md",
+    "blob": "6f42640c2cefde0c25807b7c54858e7883019fb3"
+  },
+  "objective": "Study recurrent ranking of checked Lean tactics, independent fast learning, and loop-message effects.",
+  "context": "Small reference models rank pre-collected tactics with independent Lean receipts. A uses a shared cell and eight typed roles; B has prelude, tied middle blocks, message bank and coda. Only full-goal closure is positive for this task.",
+  "steps": [
+    {
+      "id": "encode",
+      "name": "Encode goal and candidates",
+      "description": "Specify byte-local and typed latent inputs."
+    },
+    {
+      "id": "recur",
+      "name": "Process recurrent state",
+      "description": "Describe shared blocks and message recurrence."
+    },
+    {
+      "id": "support",
+      "name": "Adapt on support feedback",
+      "description": "Derive the independent CPU fast-head update and controls."
+    },
+    {
+      "id": "rank",
+      "name": "Rank tactics",
+      "description": "Define permitted evidence, candidate scores and exit rule."
+    },
+    {
+      "id": "verify",
+      "name": "Evaluate held-out goals",
+      "description": "Explain receipt scope and matched message or depth comparisons."
+    }
+  ],
+  "packs": [
+    "formal",
+    "recurrent",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "closure",
+      "prompt": "Explain the difference between an accepted tactic that leaves subgoals and a full-goal-closing tactic. Propose a checkable scoring contract for each."
+    },
+    {
+      "id": "messages",
+      "prompt": "Derive a small message-bank recurrence and construct normal, zero and rolled-message controls."
+    },
+    {
+      "id": "matching",
+      "prompt": "Design a comparison that separates message effects from extra parameter and compute budget."
+    },
+    {
+      "id": "plasticity",
+      "prompt": "Construct a numerical fast logistic head support update and its held-out prediction; describe the retrieval-only baseline."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "Existing PPT checked-menu receipt scorer; independent Lean kernel needed for new proof claims."
+}

@@ -18,7 +18,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m unittest discover -s Distill/tests -v
+      - run: python -m Distill.campaign_cli inventory
       - run: |
+          python -m Distill.campaign_cli plan --out /tmp/distill-plan --budget-usd 200 --reserve-usd 10 --input-usd-per-million 4 --output-usd-per-million 20
+          python -m Distill.campaign_cli status --campaign /tmp/distill-plan
           python -m Distill compile --adapter research/pluto_gym/distill_exam.json --out /tmp/pluto.json
           python -m Distill prompt --packet /tmp/pluto.json > /tmp/pluto-prompt.txt
           rustc Distill/rust/compile_exam.rs -o /tmp/distill-compile
