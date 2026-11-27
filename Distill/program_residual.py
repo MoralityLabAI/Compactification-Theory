@@ -9,7 +9,7 @@ from fractions import Fraction
 from functools import lru_cache
 import math
 import random
-from .core import require
+from .core import digest, require
 from .research_program import Model
 from .program_oracle import Oracle, Baseline, actual_transition
 from .program_student import ACTIONS, FEATURES, Meter, Exhausted, public_features
@@ -119,8 +119,9 @@ class Residual:
             counts[a]=n
         return cls(weights,counts)
     def choose(self,m,s,base,meter):
-        legal=[a for a in ACTIONS if a in m.legal(s) and a!=base and self.counts[a]>0]
         meter.charge(16+len(ACTIONS))
+        allowed=set(m.legal(s))
+        legal=[a for a in ACTIONS if a in allowed and a!=base and self.counts[a]>0]
         if not legal:
             return base,0.0
         x=features(m,s,base,meter)
@@ -132,7 +133,8 @@ class Residual:
 def learn_gate(rows):
     groups=defaultdict(list)
     for r in rows:
-        groups[r["gate_key"]].append(r)
+        if r["incumbent_reached"]:
+            groups[r["gate_key"]].append(r)
     result={}
     for key,group in sorted(groups.items()):
         roots={r["root_id"] for r in group}
@@ -231,7 +233,7 @@ def labeled_rows(spec,*,provisional=None,limit=96):
         deviated=reachable(m,lambda s:select(m,s,Meter(32768),"always",provisional)[0])
     all_states=base|oracle|deviated
     rows=[]
-    rid=__import__("Distill.core",fromlist=["digest"]).digest(spec)
+    rid=digest(spec)
     for s in sorted(all_states,key=order):
         b,q,star=cf.label(s)
         rows.append({"root_id":rid,"state":s,"base":b,"features":features(m,s,b),
