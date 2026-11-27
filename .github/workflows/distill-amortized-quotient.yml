@@ -1,0 +1,32 @@
+name: Distill amortized quotient
+on:
+  pull_request:
+    paths:
+      - 'Distill/program_projection.py'
+      - 'Distill/program_quotient.py'
+      - 'Distill/quotient_policy.py'
+      - 'Distill/quotient_campaign.py'
+      - 'Distill/amortized_quotient_campaign.py'
+      - 'Distill/tests/test_projection.py'
+      - '.github/workflows/distill-amortized-quotient.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  amortized-quotient:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -p test_projection.py -v
+      - run: python -m unittest discover -s Distill/tests -p test_quotient.py -v
+      - run: python -m Distill.amortized_quotient_campaign --out /tmp/distill-amortized
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distill-12-full-receipts
+          path: /tmp/distill-amortized/
+          if-no-files-found: error
+          retention-days: 30
