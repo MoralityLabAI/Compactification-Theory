@@ -1,0 +1,679 @@
+{
+  "evidence": "designed recurrent toy, exposed development; no native model claim",
+  "roots_per_regime": 8,
+  "training_cases_per_root": 192,
+  "eval_cases_per_root": 512,
+  "visits": 6,
+  "teacher_steps": 160,
+  "gate_steps": 100,
+  "arithmetic": {
+    "checks": 641,
+    "budget_profiles": 64,
+    "correlated_example": [
+      1,
+      1.25,
+      1.5
+    ]
+  },
+  "summary": {
+    "persistent": {
+      "dense": {
+        "accuracy": 0.9869791641831398,
+        "nll": 0.040626129833981395,
+        "source_cost": 60,
+        "reads": 60
+      },
+      "baseline": {
+        "accuracy": 0.8207600936293602,
+        "nll": 1.3635104093700647,
+        "source_cost": 30.125,
+        "reads": 18
+      },
+      "anchored": {
+        "accuracy": 0.833251953125,
+        "nll": 1.19202078320086,
+        "source_cost": 21.625,
+        "reads": 18
+      },
+      "unanchored": {
+        "accuracy": 0.8213704451918602,
+        "nll": 1.255105908960104,
+        "source_cost": 28.75,
+        "reads": 18
+      },
+      "shuffled": {
+        "accuracy": 0.8354085311293602,
+        "nll": 1.172973396256566,
+        "source_cost": 27,
+        "reads": 18
+      }
+    },
+    "rotating": {
+      "dense": {
+        "accuracy": 0.9720865860581398,
+        "nll": 0.1087848236784339,
+        "source_cost": 60,
+        "reads": 60
+      },
+      "baseline": {
+        "accuracy": 0.7266031950712204,
+        "nll": 2.0698196589946747,
+        "source_cost": 39,
+        "reads": 18
+      },
+      "anchored": {
+        "accuracy": 0.6855875626206398,
+        "nll": 2.7196064814925194,
+        "source_cost": 33.75,
+        "reads": 18
+      },
+      "unanchored": {
+        "accuracy": 0.7524414137005806,
+        "nll": 1.7724167928099632,
+        "source_cost": 39.5,
+        "reads": 18
+      },
+      "shuffled": {
+        "accuracy": 0.7381184920668602,
+        "nll": 2.066518135368824,
+        "source_cost": 35,
+        "reads": 18
+      }
+    }
+  },
+  "rows": [
+    {
+      "root": 57000,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9951171875,
+          "nll": 0.014533810317516327,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.955078125,
+          "nll": 0.18720044195652008,
+          "source_cost": 32,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.8763020634651184,
+          "nll": 0.4978512227535248,
+          "source_cost": 20,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.8987630009651184,
+          "nll": 0.4044087827205658,
+          "source_cost": 30,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.8473307490348816,
+          "nll": 0.6927790641784668,
+          "source_cost": 30,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 57001,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9847005009651184,
+          "nll": 0.03657635673880577,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.8121744990348816,
+          "nll": 1.5878982543945312,
+          "source_cost": 34,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.8102213740348816,
+          "nll": 1.4762874841690063,
+          "source_cost": 21,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.8216145634651184,
+          "nll": 1.0206741094589233,
+          "source_cost": 28,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.8346354365348816,
+          "nll": 1.545060157775879,
+          "source_cost": 31,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 57002,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9938151240348816,
+          "nll": 0.01631300337612629,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.8388671875,
+          "nll": 0.9068061709403992,
+          "source_cost": 28,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.9534505009651184,
+          "nll": 0.2493632286787033,
+          "source_cost": 21,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.9000651240348816,
+          "nll": 0.8228387832641602,
+          "source_cost": 23,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.9534505009651184,
+          "nll": 0.2493632286787033,
+          "source_cost": 21,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 57003,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9768880009651184,
+          "nll": 0.07755931466817856,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.4873046875,
+          "nll": 4.766513824462891,
+          "source_cost": 27,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.6139323115348816,
+          "nll": 3.598255157470703,
+          "source_cost": 23,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.5231119990348816,
+          "nll": 4.336656093597412,
+          "source_cost": 28,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.5947265625,
+          "nll": 3.6801185607910156,
+          "source_cost": 25,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 57004,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9879557490348816,
+          "nll": 0.03763245791196823,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.7981770634651184,
+          "nll": 1.3039084672927856,
+          "source_cost": 24,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.9427083134651184,
+          "nll": 0.5293917655944824,
+          "source_cost": 18,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.7584635615348816,
+          "nll": 1.3757926225662231,
+          "source_cost": 30,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.9427083134651184,
+          "nll": 0.4219464361667633,
+          "source_cost": 27,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 57005,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9820963740348816,
+          "nll": 0.043868839740753174,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.9195963740348816,
+          "nll": 0.6997821927070618,
+          "source_cost": 37,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.7766926884651184,
+          "nll": 1.130470633506775,
+          "source_cost": 24,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.9140625,
+          "nll": 0.624502956867218,
+          "source_cost": 32,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.7854817509651184,
+          "nll": 0.9869523644447327,
+          "source_cost": 29,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 57006,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9856770634651184,
+          "nll": 0.05155406519770622,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.8317057490348816,
+          "nll": 1.136051893234253,
+          "source_cost": 34,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.8785807490348816,
+          "nll": 0.7116302847862244,
+          "source_cost": 21,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.8317057490348816,
+          "nll": 1.136051893234253,
+          "source_cost": 34,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.9108073115348816,
+          "nll": 0.46465086936950684,
+          "source_cost": 28,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 57007,
+      "regime": "persistent",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9895833134651184,
+          "nll": 0.046971190720796585,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.9231770634651184,
+          "nll": 0.3199220299720764,
+          "source_cost": 25,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.8141276240348816,
+          "nll": 1.342916488647461,
+          "source_cost": 25,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.9231770634651184,
+          "nll": 0.3199220299720764,
+          "source_cost": 25,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.8141276240348816,
+          "nll": 1.342916488647461,
+          "source_cost": 25,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58000,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9755859375,
+          "nll": 0.08841816335916519,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.8502604365348816,
+          "nll": 0.6625351905822754,
+          "source_cost": 35,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.6682942509651184,
+          "nll": 2.3982667922973633,
+          "source_cost": 27,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.7666015625,
+          "nll": 2.026756525039673,
+          "source_cost": 36,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.7112630009651184,
+          "nll": 1.9489299058914185,
+          "source_cost": 36,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58001,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9723307490348816,
+          "nll": 0.10521800071001053,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.5875651240348816,
+          "nll": 3.3339061737060547,
+          "source_cost": 38,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.5556640625,
+          "nll": 4.113639831542969,
+          "source_cost": 33,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.6891276240348816,
+          "nll": 2.821244239807129,
+          "source_cost": 40,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.6031901240348816,
+          "nll": 3.9428188800811768,
+          "source_cost": 28,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58002,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9674479365348816,
+          "nll": 0.14402155578136444,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.548828125,
+          "nll": 3.1471970081329346,
+          "source_cost": 35,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.6956380009651184,
+          "nll": 2.115633249282837,
+          "source_cost": 30,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.697265625,
+          "nll": 1.7490392923355103,
+          "source_cost": 39,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.748046875,
+          "nll": 1.311629295349121,
+          "source_cost": 36,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58003,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9720051884651184,
+          "nll": 0.10655046254396439,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.8704426884651184,
+          "nll": 0.7671475410461426,
+          "source_cost": 44,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.654296875,
+          "nll": 3.968390464782715,
+          "source_cost": 39,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.7985026240348816,
+          "nll": 1.3209327459335327,
+          "source_cost": 44,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.8623046875,
+          "nll": 0.8026235699653625,
+          "source_cost": 41,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58004,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.978515625,
+          "nll": 0.06699176877737045,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.7340494990348816,
+          "nll": 2.1701719760894775,
+          "source_cost": 40,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.8434244990348816,
+          "nll": 0.7828704714775085,
+          "source_cost": 39,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.8427734375,
+          "nll": 0.7303515076637268,
+          "source_cost": 40,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.8203125,
+          "nll": 1.2540024518966675,
+          "source_cost": 35,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58005,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9798176884651184,
+          "nll": 0.07506943494081497,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.8232421875,
+          "nll": 1.2713322639465332,
+          "source_cost": 45,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.6845703125,
+          "nll": 2.7699382305145264,
+          "source_cost": 36,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.78125,
+          "nll": 1.9159609079360962,
+          "source_cost": 43,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.7770182490348816,
+          "nll": 1.871321678161621,
+          "source_cost": 32,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58006,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9619140625,
+          "nll": 0.1461845189332962,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.685546875,
+          "nll": 2.4492833614349365,
+          "source_cost": 38,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.6985676884651184,
+          "nll": 2.382392406463623,
+          "source_cost": 36,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.7535807490348816,
+          "nll": 1.3482694625854492,
+          "source_cost": 37,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.6969401240348816,
+          "nll": 2.3733954429626465,
+          "source_cost": 35,
+          "reads": 18
+        }
+      }
+    },
+    {
+      "root": 58007,
+      "regime": "rotating",
+      "eval_cases": 512,
+      "arms": {
+        "dense": {
+          "accuracy": 0.9690755009651184,
+          "nll": 0.13782468438148499,
+          "source_cost": 60,
+          "reads": 60
+        },
+        "baseline": {
+          "accuracy": 0.712890625,
+          "nll": 2.756983757019043,
+          "source_cost": 37,
+          "reads": 18
+        },
+        "anchored": {
+          "accuracy": 0.6842448115348816,
+          "nll": 3.2257204055786133,
+          "source_cost": 30,
+          "reads": 18
+        },
+        "unanchored": {
+          "accuracy": 0.6904296875,
+          "nll": 2.266779661178589,
+          "source_cost": 37,
+          "reads": 18
+        },
+        "shuffled": {
+          "accuracy": 0.6858723759651184,
+          "nll": 3.027423858642578,
+          "source_cost": 37,
+          "reads": 18
+        }
+      }
+    }
+  ],
+  "cpu_seconds": 3.3198607649999996
+}
