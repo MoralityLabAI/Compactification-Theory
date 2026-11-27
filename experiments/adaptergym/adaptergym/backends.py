@@ -45,7 +45,9 @@ class Llama:
                "--port", str(self.port), "-ngl", "99", "--load-mode", "none", "--ctx-size", str(self.ctx),
                "-np", str(self.slots), "-ctk", "q8_0", "-ctv", "q8_0", "-fa", "on", "-b", "256", "-ub", "128", "--jinja",
                "--reasoning", "off", "--reasoning-budget", "0", "--no-reasoning-preserve", "--min-p", "0",
-               "--seed", "523", "--temp", "0", "--metrics"]
+               "--seed", "523", "--temp", "0", "--metrics",
+               # host-RAM prompt cache: default 8 GiB, useless for eval/sample runs where each prompt is sent once
+               "--cache-ram", str(c.get("cache_ram_mib", 0))]
         if spec:
             cmd += c.get("spec_args", [])
         if self.lora:
