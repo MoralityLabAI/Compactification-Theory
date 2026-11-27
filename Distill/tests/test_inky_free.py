@@ -169,6 +169,8 @@ class InkyTests(unittest.TestCase):
                     runner.sample(j.packets[0])
                 self.assertEqual(len(calls),old)
         self.assertEqual(visible_text({"role":"assistant","content":"hello"}),"hello")
+        self.assertEqual(visible_text({"role":"assistant","content":"<|message_model|><|content_thinking|>private reasoning"}),"")
+        self.assertEqual(visible_text({"role":"assistant","content":"<|message_model|><|content_thinking|>private<|content_text|>{\"ok\":1}<|end|>"}),"{\"ok\":1}")
 
     def test_review_binding(self):
         with tempfile.TemporaryDirectory() as d:
@@ -192,3 +194,45 @@ class InkyTests(unittest.TestCase):
             bad["response_sha256"]="0"*64
             with self.assertRaises(ValueError):
                 validate_review(p,response,bad)
+
+    def test_full_design_roster_and_generation_bounds(self):
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)/"full-design"
+            cfg=config("fixture",20261127,0,False,design_mode="full",design_profile="full",
+                       design_difficulties=("foundation","standard","frontier"),section_size=5,
+                       max_generation=8192,effort=0.5)
+            plan=make_plan(root,cfg)
+            j=Journal(root)
+            self.assertEqual(len(j.packets),547)
+            self.assertEqual(sum(len(p["questions"]) for p in j.packets),2585)
+            self.assertEqual(len({p["gym_id"] for p in j.packets}),25)
+            self.assertEqual({p["difficulty"] for p in j.packets},{"foundation","standard","frontier"})
+            self.assertEqual(len({p["gym_id"] for p in j.packets[:25]}),25)
+            self.assertEqual(run(j,fixture_sample,10)["counts"]["format_valid"],10)
+            self.assertEqual(Journal(root).summary(replay=True)["counts"]["finished"],10)
+            self.assertEqual(plan["config"]["max_generation"],8192)
+            self.assertEqual(plan["config"]["effort"],0.5)
+        with self.assertRaises(ValueError):
+            config("live",20261127,0,False)
+        with self.assertRaises(ValueError):
+            config("live",20261127,3,False,max_generation=CONTEXT)
+        with self.assertRaises(ValueError):
+            config("live",20261127,3,False,effort=1.0)
+        with self.assertRaises(ValueError):
+            config("live",20261127,3,False,design_mode="full",section_size=6)
+        with tempfile.TemporaryDirectory() as d:
+            root=Path(d)/"live-tuned"
+            make_plan(root,config("live",20261127,1,False,max_generation=8192,effort=0.5))
+            j=Journal(root)
+            p=j.next_packet()
+            raw=fixture_sample(p)
+            raw.update(provider="tinker",requested_model=FREE_MODEL,model_revision=None,
+                       input_tokens=1100,output_tokens=8192,
+                       billing="free_tier_requested_not_invoice_verified")
+            self.assertFalse(j.finish(p,raw)["cap_overrun"])
+            p2=j.next_packet()
+            raw2=fixture_sample(p2)
+            raw2.update(provider="tinker",requested_model=FREE_MODEL,model_revision=None,
+                        input_tokens=1100,output_tokens=8193,
+                        billing="free_tier_requested_not_invoice_verified")
+            self.assertTrue(j.finish(p2,raw2)["cap_overrun"])

@@ -8,9 +8,9 @@ Pricing source (checked 2026-11-27): https://thinkingmachines.ai/tinker/pricing/
 
 The experiment is a **reference/evaluation** pilot. It does not train or promote an adapter. All 30 generated cases (ten families, three difficulties) and an optional one five-question design section from each of 25 adapters form a deterministic roster. Foundation, standard and frontier case sizes vary. Design sections are partial examinations. The model receives only the public packet; the exact oracle runs after the response is returned. The original public seed namespace is visible and is not a sealed confirmation test.
 
-Use the existing DataGoblin Tinker SDK and renderer pattern (Agonist/tinker_live.py at c06ac62fca6a4b8a6b8a69bba65a6435b463d8dc, blob 3c58ced49e2721ab519da0f21d04b39710360edc). On the authenticated operator host:
+Use the existing DataGoblin Tinker SDK and renderer pattern (Agonist/tinker_live.py at c06ac62fca6a4b8a6b8a69bba65a6435b463d8dc, blob 3c58ced49e2721ab519da0f21d04b39710360edc). Note: `tml-renderers>=0.4.2` publishes Linux (`manylinux`) and macOS wheels only; on Windows hosts, run CPU-only orchestration inside WSL2 Linux. On the authenticated operator host:
 
-    python -m pip install tinker tinker-cookbook
+    python -m pip install tinker tinker-cookbook tml-renderers
     python -m Distill.inky_free prepare --out runs/inky-pilot --mode live --per-family 3 --include-design
     python -m Distill.inky_free run --campaign runs/inky-pilot --confirm-free-tier --limit 1
 
@@ -18,6 +18,11 @@ The first request verifies the actual live provider and renderer path. Use the e
 
     python -m Distill.inky_free run --campaign runs/inky-pilot --confirm-free-tier --limit 54
     python -m Distill.inky_free replay --campaign runs/inky-pilot
+
+Scaled procedural and complete 25-gym design examinations (bounded within the 12,288 context cap; optional `--max-generation` and `--effort` tuning):
+
+    python -m Distill.inky_free prepare --out runs/inky-full --mode live --per-family 96 --max-generation 8192 --effort 0.6
+    python -m Distill.inky_free prepare --out runs/inky-design-full --mode live --per-family 0 --design-mode full --design-profile full --section-size 5 --max-generation 8192 --effort 0.6
 
 Context: 12,288 rendered input plus maximum generation, hard cap 16,384, output cap 4,096 tokens (includes reasoning tokens if returned by SDK), effort .9 and temperature .3. A prompt exceeding the rendered cap stops before sampling. The actual model weight revision is unknown unless the provider supplies and the operator verifies it. The receipt records the requested model ID, renderer, SDK/Cookbook versions, token counts and latency; no invoice is inferred. Only visible assistant text is retained; reasoning/tool blocks and raw token IDs are not stored. Unclean termination, invalid JSON, exact wrong answers and abstention are separate outcomes. Failed requests remain pending, including uncertain network/timeouts. No app-level retry, no automatic release, no silent reissue. Reconcile pending requests with provider before operating further. A STOP file prevents new requests; it cannot cancel a submitted call. One pending claim at a time via SQLite. A completed campaign can be replayed without calls. Keep its journal and prompts private and do not commit live outputs.
 

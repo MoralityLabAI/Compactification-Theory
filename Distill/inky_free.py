@@ -36,28 +36,68 @@ LEVELS = ("foundation", "standard", "frontier")
 def utc():
     return datetime.now(timezone.utc).isoformat()
 
-def config(mode, seed, per_family, include_design):
+def config(mode, seed, per_family, include_design, *, design_mode=None,
+           design_profile="full", design_difficulties=LEVELS, section_size=5,
+           max_generation=MAX_GENERATION, effort=EFFORT):
     require(mode in ("fixture", "live"), "unsupported mode")
     require(type(seed) is int and 0 <= seed < 2**63, "invalid seed")
-    require(type(per_family) is int and 1 <= per_family <= 96, "invalid cases per family")
     require(type(include_design) is bool, "invalid design switch")
-    return {"mode": mode, "seed": seed, "per_family": per_family,
-            "include_design": include_design, "model": FREE_MODEL if mode == "live" else "offline-fixture",
-            "context": CONTEXT, "hard_context": HARD_CONTEXT, "max_generation": MAX_GENERATION,
-            "effort": EFFORT, "temperature": TEMPERATURE,
-            "purpose": "reference_evaluation", "training_admission": False}
+    require(design_mode in (None, "pilot", "full"), "unsupported design mode")
+    if design_mode == "full":
+        include_design = True
+    elif design_mode == "pilot":
+        include_design = True
+        design_mode = None
+    min_cases = 0 if include_design else 1
+    require(type(per_family) is int and min_cases <= per_family <= 96, "invalid cases per family")
+    require(type(max_generation) is int and 256 <= max_generation <= CONTEXT - 1024, "invalid max generation")
+    require(type(effort) in (int, float) and 0.0 <= float(effort) < 1.0, "invalid effort")
+    effort_val = round(float(effort), 4)
+    cfg = {"mode": mode, "seed": seed, "per_family": per_family,
+           "include_design": include_design, "model": FREE_MODEL if mode == "live" else "offline-fixture",
+           "context": CONTEXT, "hard_context": HARD_CONTEXT, "max_generation": max_generation,
+           "effort": effort_val, "temperature": TEMPERATURE,
+           "purpose": "reference_evaluation", "training_admission": False}
+    if design_mode == "full":
+        require(design_profile in ("quick", "full"), "invalid design profile")
+        require(isinstance(design_difficulties, (list, tuple)) and 1 <= len(design_difficulties) <= 3
+                and len(set(design_difficulties)) == len(design_difficulties)
+                and set(design_difficulties) <= set(LEVELS), "invalid design difficulties")
+        require(type(section_size) is int and 1 <= section_size <= 5, "invalid section size")
+        cfg["design_mode"] = "full"
+        cfg["design_profile"] = design_profile
+        cfg["design_difficulties"] = list(design_difficulties)
+        cfg["section_size"] = section_size
+    return cfg
 
 def roster(cfg):
-    expected = config(cfg["mode"], cfg["seed"], cfg["per_family"], cfg["include_design"])
+    require(isinstance(cfg, dict), "invalid config")
+    expected = config(
+        cfg.get("mode"), cfg.get("seed"), cfg.get("per_family"), cfg.get("include_design"),
+        design_mode=cfg.get("design_mode"),
+        design_profile=cfg.get("design_profile", "full"),
+        design_difficulties=cfg.get("design_difficulties", LEVELS),
+        section_size=cfg.get("section_size", 5),
+        max_generation=cfg.get("max_generation", MAX_GENERATION),
+        effort=cfg.get("effort", EFFORT),
+    )
     require(cfg == expected, "run configuration differs from registered free-only policy")
     adapters = load_registry()
-    queues = [generate_instances(adapters[name], seed=cfg["seed"], count=cfg["per_family"],
-                                difficulties=LEVELS) for name in FAMILIES]
-    # Interleave families before repeating any family.
-    packets = [queue[i] for i in range(cfg["per_family"]) for queue in queues]
-    if cfg["include_design"]:
+    packets = []
+    if cfg["per_family"] > 0:
+        queues = [generate_instances(adapters[name], seed=cfg["seed"], count=cfg["per_family"],
+                                    difficulties=LEVELS) for name in FAMILIES]
+        # Interleave families before repeating any family.
+        packets = [queue[i] for i in range(cfg["per_family"]) for queue in queues]
+    if cfg.get("design_mode") == "full":
+        d_queues = [split_quiz(compile_quiz(a, profile=cfg["design_profile"], difficulty=d),
+                               max_questions=cfg["section_size"])
+                    for d in cfg["design_difficulties"] for a in adapters.values()]
+        packets += [q[i] for i in range(max(map(len, d_queues))) for q in d_queues if i < len(q)]
+    elif cfg["include_design"]:
         packets += [split_quiz(compile_quiz(a, profile="quick", difficulty="standard"),
                                max_questions=5)[0] for a in adapters.values()]
+    require(bool(packets), "empty roster")
     require(len({p["packet_id"] for p in packets}) == len(packets), "duplicate packet")
     return packets
 
@@ -96,6 +136,12 @@ def visible_text(message):
     require(isinstance(message, dict) and message.get("role") == "assistant", "expected assistant message")
     content = message.get("content")
     if isinstance(content, str):
+        # TmlV0Renderer returns raw decoded tokens as a string on MALFORMED truncation.
+        if "<|content_thinking|>" in content or "<|message_model|>" in content:
+            if "<|content_text|>" not in content:
+                return ""
+            visible = content.split("<|content_text|>")[-1]
+            return visible.split("<|", 1)[0]
         return content
     require(isinstance(content, list), "unexpected assistant content")
     texts = []
@@ -108,30 +154,36 @@ def visible_text(message):
 
 class TinkerFree:
     """Use the free model ID for every sampling client. The base ID is metadata only."""
-    def __init__(self):
+    def __init__(self, *, max_generation=MAX_GENERATION, effort=EFFORT):
         require(bool(os.environ.get("TINKER_API_KEY")), "TINKER_API_KEY is not configured")
+        require(type(max_generation) is int and 256 <= max_generation <= CONTEXT - 1024, "invalid max generation")
+        require(type(effort) in (int, float) and 0.0 <= float(effort) < 1.0, "invalid effort")
         import tinker
         from tinker_cookbook import model_info
         from tinker_cookbook.renderers import get_renderer
         from tinker_cookbook.tokenizer_utils import get_tokenizer
         self.tinker = tinker
+        self.max_generation = max_generation
+        self.effort = round(float(effort), 4)
         self.renderer_name = model_info.get_recommended_renderer_name(TOKENIZER_MODEL)
         self.renderer = get_renderer(self.renderer_name, get_tokenizer(TOKENIZER_MODEL))
         self.sdk_version = importlib.metadata.version("tinker")
         self.cookbook_version = importlib.metadata.version("tinker-cookbook")
         self.service = tinker.ServiceClient()
         self.client = self.service.create_sampling_client(base_model=FREE_MODEL).result(timeout=180)
+        if hasattr(self.client, "get_base_model"):
+            require(self.client.get_base_model() == FREE_MODEL, "sampling client base model mismatch")
 
     def sample(self, packet):
         prompt = self.renderer.build_generation_prompt(
-            [{"role":"user","content":render_prompt(packet)}], effort=EFFORT)
+            [{"role":"user","content":render_prompt(packet)}], effort=self.effort)
         n = prompt.length
-        require(type(n) is int and 0 < n and n + MAX_GENERATION <= CONTEXT <= HARD_CONTEXT,
+        require(type(n) is int and 0 < n and n + self.max_generation <= CONTEXT <= HARD_CONTEXT,
                 "rendered context exceeds cap")
         start = time.perf_counter()
         result = self.client.sample(
             prompt=prompt, num_samples=1,
-            sampling_params=self.tinker.SamplingParams(max_tokens=MAX_GENERATION,
+            sampling_params=self.tinker.SamplingParams(max_tokens=self.max_generation,
                 temperature=TEMPERATURE, stop=self.renderer.get_stop_sequences()),
         ).result(timeout=600)
         require(len(result.sequences) == 1, "unexpected number of sampled sequences")
@@ -161,7 +213,7 @@ def fixture_sample(packet, variant="correct"):
             "text":canonical(obj).decode("ascii") if variant!="invalid" else "invalid JSON",
             "elapsed_ms":0,"utc":utc(),"billing":"no_provider_call"}
 
-def score(packet, raw, mode):
+def score(packet, raw, mode, *, max_generation=MAX_GENERATION):
     require(isinstance(raw, dict) and set(raw)=={"provider","requested_model","model_revision",
         "renderer","sdk_version","cookbook_version","input_tokens","output_tokens","clean",
         "stop_reason","text","elapsed_ms","utc","billing"}, "invalid transport receipt")
@@ -174,7 +226,7 @@ def score(packet, raw, mode):
     if mode=="live":
         n,m=raw["input_tokens"],raw["output_tokens"]
         require(type(n) is int and type(m) is int and n>0 and m>=0, "invalid token accounting")
-        cap_overrun = n+MAX_GENERATION>CONTEXT or m>MAX_GENERATION or n+m>HARD_CONTEXT
+        cap_overrun = n+max_generation>CONTEXT or m>max_generation or n+m>HARD_CONTEXT
     result={"packet_id":packet["packet_id"],"raw_sha256":digest(raw),"mode":mode,
             "custody":"reference_only","training_admission":False,
             "format":"not_checked","exact_check":"not_checked","cap_overrun":cap_overrun,
@@ -204,6 +256,8 @@ class Journal:
         self.root=Path(root)
         self.plan,self.packets=load_plan(root)
         self.mode=self.plan["config"]["mode"]
+        self.max_generation=self.plan["config"]["max_generation"]
+        self.effort=self.plan["config"]["effort"]
         self.path=self.root/"inky.sqlite3"
         self.by_id={p["packet_id"]:p for p in self.packets}
 
@@ -252,7 +306,7 @@ class Journal:
         with self.tx() as db:
             require(db.execute("SELECT state,raw FROM attempts WHERE packet_id=?",(rid,)).fetchone()==("pending",None),"attempt not pending or raw already saved")
             db.execute("UPDATE attempts SET raw=? WHERE packet_id=?",(raw_text,rid))
-        receipt=score(packet,raw,self.mode)
+        receipt=score(packet,raw,self.mode,max_generation=self.max_generation)
         with self.tx() as db:
             require(db.execute("SELECT state,raw FROM attempts WHERE packet_id=?",(rid,)).fetchone()==("pending",raw_text),"attempt changed during grading")
             db.execute("UPDATE attempts SET state='finished',finished=?,receipt=? WHERE packet_id=?",
@@ -271,7 +325,7 @@ class Journal:
             row=db.execute("SELECT state,raw,receipt FROM attempts WHERE packet_id=?",(packet_id,)).fetchone()
         require(row is not None and row[0]=="finished","result not complete")
         raw,receipt=json.loads(row[1]),json.loads(row[2])
-        require(receipt==score(self.by_id[packet_id],raw,self.mode),"result replay mismatch")
+        require(receipt==score(self.by_id[packet_id],raw,self.mode,max_generation=self.max_generation),"result replay mismatch")
         return self.by_id[packet_id],raw,receipt
 
     def summary(self, *, replay=False):
@@ -288,7 +342,7 @@ class Journal:
             raw,r=json.loads(raw),json.loads(receipt)
             require(r["raw_sha256"]==digest(raw) and r["packet_id"]==rid,"stored response hash mismatch")
             if replay:
-                require(r==score(p,raw,self.mode),"replay mismatch")
+                require(r==score(p,raw,self.mode,max_generation=self.max_generation),"replay mismatch")
             counts["finished"]+=1
             counts["format_"+r["format"]]+=1
             g=per_gym.setdefault(p["gym_id"],Counter())
@@ -335,6 +389,12 @@ def main():
     a.add_argument("--seed",type=int,default=20261127)
     a.add_argument("--per-family",type=int,default=3)
     a.add_argument("--include-design",action="store_true")
+    a.add_argument("--design-mode",choices=("pilot","full"),default=None)
+    a.add_argument("--design-profile",choices=("quick","full"),default="full")
+    a.add_argument("--design-difficulties",default=",".join(LEVELS))
+    a.add_argument("--section-size",type=int,default=5)
+    a.add_argument("--max-generation",type=int,default=MAX_GENERATION)
+    a.add_argument("--effort",type=float,default=EFFORT)
     for name in ("run","status","replay"):
         a=sub.add_parser(name)
         a.add_argument("--campaign",required=True)
@@ -343,7 +403,12 @@ def main():
             a.add_argument("--confirm-free-tier",action="store_true")
     args=p.parse_args()
     if args.command=="prepare":
-        plan=make_plan(args.out,config(args.mode,args.seed,args.per_family,args.include_design))
+        diffs=tuple(x.strip() for x in args.design_difficulties.split(",") if x.strip())
+        plan=make_plan(args.out,config(
+            args.mode,args.seed,args.per_family,args.include_design,
+            design_mode=args.design_mode,design_profile=args.design_profile,
+            design_difficulties=diffs,section_size=args.section_size,
+            max_generation=args.max_generation,effort=args.effort))
         result={"plan_id":plan["plan_id"],"planned_requests":len(plan["packets"]),"mode":args.mode,"provider_calls":0}
     else:
         j=Journal(args.campaign)
@@ -358,7 +423,7 @@ def main():
                 if summary["counts"].get("finished",0)==len(j.packets):
                     print(json.dumps(summary,sort_keys=True,indent=2))
                     return
-                sampler=TinkerFree().sample
+                sampler=TinkerFree(max_generation=j.max_generation,effort=j.effort).sample
             else:
                 require(not args.confirm_free_tier,"fixture lane cannot become live")
                 sampler=fixture_sample
