@@ -3,7 +3,7 @@ from __future__ import annotations
 from fractions import Fraction
 from functools import lru_cache
 import json
-from .core import INSTANCE_VERSION, _packet, canonical, evaluate, require, split_quiz
+from .core import INSTANCE_VERSION, _packet, _unique, _reject_constant, canonical, evaluate, require, split_quiz
 from .instances import compile_instance, parity
 
 def chromatic(n,edges):
@@ -167,7 +167,7 @@ def grade_instance(packet,response,*,adapter=None):
     def check(case,fields):
         expected=exact_value(case)
         try:
-            return canonical(json.loads(fields["answer"]))==canonical(expected)
+            return canonical(json.loads(fields["answer"],object_pairs_hook=_unique,parse_constant=_reject_constant))==canonical(expected)
         except (ValueError,TypeError,OverflowError):
             return False
     receipt=evaluate(packet,response,checkers={"case.solve":check})
