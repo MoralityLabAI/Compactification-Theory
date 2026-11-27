@@ -32,10 +32,19 @@ current environment, so vramorama attributes the leases to this session.
   - `bench`: bitcoin-defi-bench agent episodes (bonding, dlc, netting; development seeds).
   - `train_bonsai`: bonsai-gym `canary.py`, which resumes `checkpoint.pt`.
   - `tinker_sft`: `inky-tinker/tinker_sft.py` in WSL.
+  - `hillclimb`: one evaluation move per arm in a DataGoblin hill-climb lane, driven by the served model itself
+    through the `data-goblin` GDK app. Arms (`label`, optional `adapter`, `alias` for the served model id, `args`
+    after `/datagoblin-hillclimb`) run in order inside the step's lease, one server each. If no app run
+    (`conversations`, default 2) reaches a decision and the step sets `"fallback": "script"`,
+    `datagoblin.hillclimb.drive` records the move with the same service calls on the lane's eval contract. An arm
+    is done when `<work>/results/<step>-<label>.json` exists; it is written only after the lane's ledger
+    (`paths.datagoblin_state`) has a decision with a measured value made while that arm was served.
 - `vram` on a step puts it in its own vramorama lease (`--guard-power 1800 --restart 20`). Steps without it run
   inline.
 - `tags`: select subsets, e.g. `eval-bonsai` (inference on Bonsai only), `train-bonsai`,
   `eval-bonsai-adapter`, `eval-inky`.
+- `alias` on a step (or a `hillclimb` arm) replaces the backend's `name` as the served model id, so an adapter
+  arm's requests and scores carry their own model id.
 
 ## Preflight
 
@@ -63,3 +72,19 @@ results in bitcoin-defi-bench (82799a2, fdcd86b).
 
 - The 1-bit and fp rank-8 adapters on Bonsai score the same on both measures.
 - Netting is -0.628 for every arm, including both bases: no plan was accepted.
+
+## driver_adapter (Data Goblin self_adapter lane)
+
+`plans/driver_adapter.json` closes the self_adapter loop of the DataGoblin `data-goblin` app: an adapter on the model
+that drives the app, trained on the app's own hill-climb decisions and judged by the app's gate.
+
+- Data (`<work>` = `Documents/Codex/datagoblin-driver`): DataGoblin `bench make --split train --seed 1 --count 2000`
+  -> `bench export-sft` -> `curate` gives 2000 exact-oracle rows (`curated-train-s1/admitted.jsonl`: gate_verdict 814,
+  proposal_legality 721, next_lane 465; 347 tokens per row on average, 631 at most). Val: train seed 2, 96 rows,
+  minus 7 whose bench view also occurs in seed 1 (`val/val.jsonl`, 89 rows). The dev bench (split dev, seed 0,
+  120 tasks) shares no view with either.
+- `train-driver`: `b25_driver_fp_r8`, rank 8 on every projection of Ternary Bonsai 2.5 27B PTQ1_0, lr 2e-4, one
+  epoch (250 steps x 8 rows), 12 GB lease with `cuda_memory_fraction` 0.72.
+- `eval-driver`: backend `b25plain` (the PTQ1_0 file without the MTP head, plain decoding, so both arms decode the
+  same way), ctx 32768, 9 GB lease. Arm `base`, then arm `fp-r8` with the adapter applied and served as
+  `bonsai-2.5-27b-driver-fp-r8`. The ledger is `<work>/ledger`; app receipts are `<work>/ledger/receipts.jsonl`.

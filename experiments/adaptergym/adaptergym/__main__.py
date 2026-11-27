@@ -96,7 +96,8 @@ def cmd_launch(plan: dict, tags: str, after_pid: int = 0) -> int:
         return 2
     # one log per launch: a running launch's cmd holds its log open, so a second `>>` to it would fail silently
     log = Path(plan["work"]) / "logs" / f"gym-run-{time.strftime('%Y%m%d-%H%M%S')}.log"
-    inner = f'"{plan["paths"]["gym_python"]}" -u -m adaptergym run "{plan["_path"]}"' + (f" --tags {tags}" if tags else "") + (f" --after-pid {after_pid}" if after_pid else "")
+    log.parent.mkdir(parents=True, exist_ok=True)  # cmd's `>>` fails (and the run never starts) without the folder
+    inner =f'"{plan["paths"]["gym_python"]}" -u -m adaptergym run "{plan["_path"]}"' + (f" --tags {tags}" if tags else "") + (f" --after-pid {after_pid}" if after_pid else "")
     ps = ("$s = New-CimInstance -ClassName Win32_ProcessStartup -ClientOnly -Property @{ EnvironmentVariables = "
           "[string[]](Get-ChildItem env: | ForEach-Object { \"$($_.Name)=$($_.Value)\" }) }; "
           f"$r = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{{ CommandLine = 'cmd /c \"{inner} >> \"{log}\" 2>&1\"'; "

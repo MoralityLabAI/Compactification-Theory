@@ -1,0 +1,41 @@
+{
+ "name": "driver-adapter",
+ "about": "Data Goblin self_adapter lane: a rank-8 LoRA on Ternary Bonsai 2.5 27B (the model that drives the data-goblin GDK app) trained on curated hill-climb decision rows (DataGoblin bench train split, seed 1: bench make -> export-sft -> curate, admitted.jsonl), then base and adapter measured on the fixed dev bench (split dev, seed 0, 120 tasks, limit 120) by evaluation moves the served model drives through the app, so the self_adapter ledger (paths.datagoblin_state) holds the baseline and the gate verdict on one eval contract. Plain decoding (no MTP) for both arms. Data: <work>/curated-train-s1, <work>/val. Tags: train-driver, eval-driver.",
+ "work": "C:/Users/patri/Documents/Codex/datagoblin-driver",
+ "port": 18296,
+ "paths": {
+  "gym_python": "C:/Users/patri/AppData/Local/Programs/Python/Python312/python.exe",
+  "train_python": "C:/Users/patri/.venvs/bluebeam/Scripts/python.exe",
+  "bonsai_gym": "C:/Users/patri/OneDrive/Documents/GitHub/adapter-bits/experiments/bonsai-gym",
+  "datagoblin": "C:/Users/patri/OneDrive/Documents/GitHub/DataGoblin-gdk",
+  "datagoblin_app": "C:/Users/patri/Documents/Codex/BitAgent-desktop/desktop/target/debug/data-goblin.exe",
+  "datagoblin_python": "C:/Users/patri/AppData/Local/Programs/Python/Python312/python.exe",
+  "datagoblin_state": "C:/Users/patri/Documents/Codex/datagoblin-driver/ledger"
+ },
+ "backends": {
+  "b25plain": {
+   "kind": "llama",
+   "name": "bonsai-2.5-27b",
+   "bin": "C:/Users/patri/tools/llama-prism-b12178/bin",
+   "model": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0.gguf",
+   "sha256": "929560ec9d37cf3cadd4b00cc87b51c570082a628dd830b4692dc0b2ed18dbbe",
+   "runtime": "llama-prism-b12178 (0.7.0-dev commit 03ec60072) PTQ1_0 pure-GPU q8 KV, plain decoding (no MTP draft)"
+  }
+ },
+ "steps": [
+  {"id": "driver-train", "kind": "train_bonsai", "config": "b25_driver_fp_r8", "vram": "12G", "tags": ["train-driver"]},
+  {"id": "driver-eval", "kind": "hillclimb", "backend": "b25plain", "lane": "self_adapter", "ctx": 32768, "vram": "9G",
+   "conversations": 2, "fallback": "script", "bench": {"seed": 0, "count": 120, "limit": 120},
+   "arms": [
+    {"label": "base",
+     "args": "self_adapter. Baseline move: the endpoint serves the driver model without an adapter. Run bench_make with split dev, seed 0, count 120; then driver_bench on that run with limit 120, using the endpoint's base_url and model id from suite_status; then record_result and decide.",
+     "hypothesis": "Baseline: Ternary Bonsai 2.5 27B without an adapter on the self_adapter dev bench (split dev, seed 0, 120 tasks, limit 120)."},
+    {"label": "fp-r8",
+     "adapter": "C:/Users/patri/Documents/Codex/datagoblin-driver/runs/b25_driver_fp_r8/adapter.gguf",
+     "alias": "bonsai-2.5-27b-driver-fp-r8",
+     "args": "self_adapter. Evaluation move: the endpoint now serves the driver model with the rank-8 LoRA b25_driver_fp_r8 loaded (adaptergym plans/driver_adapter.json, trained on 2000 curated train-split bench rows). Reuse the incumbent's dev bench (the bench_make run with split dev, seed 0, count 120; ledger_status lists it) or rerun bench_make with exactly those values; then driver_bench with limit 120 against the endpoint from suite_status; then record_result and decide.",
+     "hypothesis": "The rank-8 LoRA b25_driver_fp_r8, trained on 2000 curated exact-oracle rows (bench train split, seed 1), raises bench_accuracy on the dev bench by at least the gate's 0.03 over the base model; a delta below 0.03 refutes it."}
+   ],
+   "after": ["driver-train"], "tags": ["eval-driver"]}
+ ]
+}

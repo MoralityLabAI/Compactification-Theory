@@ -38,12 +38,18 @@ def check(plan: dict, chosen: list[dict] | None = None) -> int:
     errs, P = [], plan["paths"]
     chosen = plan["steps"] if chosen is None else chosen
     used = {s.get("backend") for s in chosen}
-    for key in ("gym_python", "suite_python", "train_python"):
+    for key in ("gym_python", "suite_python", "train_python", "datagoblin_python"):
         if key in P and (why := _venv_problem(P[key])):
             errs.append(f"paths.{key} {P[key]}: {why}")
-    for key in ("node", "bench", "suite", "bonsai_gym"):
+    for key in ("node", "bench", "suite", "bonsai_gym", "datagoblin", "datagoblin_app"):
         if key in P and not Path(P[key]).exists():
             errs.append(f"paths.{key} missing: {P[key]}")
+    if any(s["kind"] == "hillclimb" for s in chosen):
+        for key in ("datagoblin", "datagoblin_app", "datagoblin_python", "datagoblin_state"):
+            if key not in P:
+                errs.append(f"paths.{key} is required by hillclimb steps")
+        if "datagoblin" in P and not (Path(P["datagoblin"]) / "src" / "datagoblin" / "hillclimb" / "drive.py").exists():
+            errs.append(f"paths.datagoblin {P['datagoblin']}: no src/datagoblin/hillclimb/drive.py (needs DataGoblin master)")
     for name, b in plan["backends"].items():
         if name not in used:
             continue
@@ -63,7 +69,7 @@ def check(plan: dict, chosen: list[dict] | None = None) -> int:
     for s in chosen:
         if s.get("backend") and s["backend"] not in plan["backends"]:
             errs.append(f"step {s['id']}: unknown backend {s['backend']}")
-        for f in [s.get("adapter")] + list(s.get("loras", {}).values()):
+        for f in [s.get("adapter")] + list(s.get("loras", {}).values()) + [a.get("adapter") for a in s.get("arms", [])]:
             if f and not Path(f).exists() and str(Path(f)).lower() not in produced:
                 errs.append(f"step {s['id']}: adapter {f} missing and no train step makes it")
         for f in s.get("overlays", []):

@@ -13,11 +13,21 @@
   rft_rows      score_all.py rft: keep each pool prompt's shortest correct finished sample as a training row, then
                 assemble data/<family>/train.jsonl ({"family", "val": N held out, "gold": prepend gold_train.jsonl})
   router        onebit_suite/router.py (TRM router over the per-arm scores; CPU torch from paths.train_python)
+  hillclimb     one evaluation move per arm in a DataGoblin hill-climb lane, driven by the model under test through
+                the data-goblin GDK app: {"backend", "lane", "arms": [{"label", optional "adapter", "alias" (served
+                model id), "args" (text after /datagoblin-hillclimb), "hypothesis"}], optional "conversations" (app
+                runs per arm, default 2), "fallback": "script" (datagoblin.hillclimb.drive records the move when no
+                app run reached a decision), "bench" {"seed", "count", "limit"} for that script, "ctx", "max_turns",
+                "approve"}; paths datagoblin, datagoblin_app, datagoblin_python, datagoblin_state (the ledger). Done
+                when every arm has <work>/results/<step>-<label>.json, written once the lane's ledger has a decision
+                with a measured value made while that arm was served.
 """
 from __future__ import annotations
 
 import json
+import os
 import subprocess
+import time
 from pathlib import Path
 
 from . import backends
@@ -48,7 +58,85 @@ def _server(plan: dict, s: dict, tag: str):
         kw["overlays"] = s["overlays"]
     if cfg["kind"] == "squid":
         kw["ctx"] = s.get("ctx", 16384)
-    return backends.make(plan["backends"], s["backend"], plan.get("port", 18290), Path(plan["work"]) / "logs" / f"gym-{tag}.log", **kw)
+    named = {**plan["backends"], s["backend"]: {**cfg, "name": s["alias"]}} if s.get("alias") else plan["backends"]
+    return backends.make(named, s["backend"], plan.get("port", 18290), Path(plan["work"]) / "logs" / f"gym-{tag}.log", **kw)
+
+
+def _hc_marker(plan: dict, s: dict, arm: dict) -> Path:
+    return Path(plan["work"]) / "results" / f"{s['id']}-{arm['label']}.json"
+
+
+def _hc_env(P: dict) -> dict:
+    root = Path(P["datagoblin"])
+    extra = [os.environ["PYTHONPATH"]] if os.environ.get("PYTHONPATH") else []
+    return {**os.environ, "PYTHONPATH": os.pathsep.join([str(root / "src"), str(root), *extra]), "PYTHONIOENCODING": "utf-8"}
+
+
+def _hc_ledger(plan: dict, s: dict) -> dict:
+    """The lane's ledger status from DataGoblin's own reader, which also checks the hash chain."""
+    P = plan["paths"]
+    out = subprocess.run([P["datagoblin_python"], "-m", "datagoblin.hillclimb", "--root", P["datagoblin"], "--state-dir",
+                          P["datagoblin_state"], "--lane", s["lane"], "--last", "50"],
+                         capture_output=True, text=True, encoding="utf-8", cwd=P["datagoblin"], env=_hc_env(P))
+    if out.returncode != 0:
+        raise RuntimeError(f"ledger status failed ({out.returncode}): {out.stdout[-400:]} {out.stderr[-400:]}")
+    return json.loads(out.stdout)
+
+
+def _hc_closed(status: dict, lane: str, after: int) -> dict | None:
+    """The first decision after record `after` that closed a move of `lane` with a measured value."""
+    for r in status["recent"]:
+        if r["seq"] > after and r["kind"] == "decision" and r.get("lane") == lane and r.get("verdict") != "replicate" \
+                and r.get("value") is not None:
+            return r
+    return None
+
+
+def _hc_arm(plan: dict, s: dict, arm: dict) -> None:
+    P, cfg = plan["paths"], plan["backends"][s["backend"]]
+    model = arm.get("alias") or cfg["name"]
+    tag = f"{s['id']}-{arm['label']}"
+    with _server(plan, {**s, "adapter": arm.get("adapter"), "alias": arm.get("alias")}, tag) as srv:
+        start = _hc_ledger(plan, s)["records"]
+        closed, how = None, None
+        for n in range(1, s.get("conversations", 2) + 1):
+            cmd = [P["datagoblin_app"], "run", "--root", P["datagoblin"], "--python", P["datagoblin_python"],
+                   "--skill", "datagoblin-hillclimb", "--args", arm.get("args", s["lane"]),
+                   "--approve", s.get("approve", "local"), "--base-url", srv.url, "--model", model,
+                   "--state-dir", P["datagoblin_state"], "--context", str(s.get("ctx", 32768)),
+                   "--max-turns", str(s.get("max_turns", 40))]
+            with open(Path(plan["work"]) / "logs" / f"{tag}-app{n}.log", "w", encoding="utf-8") as lf:
+                rc = subprocess.run(cmd, cwd=P["datagoblin"], stdout=lf, stderr=subprocess.STDOUT, env=_hc_env(P)).returncode
+            closed = _hc_closed(_hc_ledger(plan, s), s["lane"], start)
+            print(f"{tag}: app run {n} exit {rc}, decision {closed}", flush=True)
+            if closed:
+                how = f"app run {n}"
+                break
+        if closed is None and s.get("fallback") == "script":
+            b = s.get("bench", {})
+            cmd = [P["datagoblin_python"], "-m", "datagoblin.hillclimb.drive", "--root", P["datagoblin"],
+                   "--state-dir", P["datagoblin_state"], "--base-url", srv.url, "--model", model,
+                   "--seed", str(b.get("seed", 0)), "--count", str(b.get("count", 120)), "--limit", str(b.get("limit", 120)),
+                   "--note", f"adaptergym {plan['name']} {tag}: scripted, no app run reached a decision"]
+            if arm.get("hypothesis"):
+                cmd += ["--hypothesis", arm["hypothesis"]]
+            with open(Path(plan["work"]) / "logs" / f"{tag}-script.log", "w", encoding="utf-8") as lf:
+                rc = subprocess.run(cmd, cwd=P["datagoblin"], stdout=lf, stderr=subprocess.STDOUT, env=_hc_env(P)).returncode
+            closed = _hc_closed(_hc_ledger(plan, s), s["lane"], start)
+            print(f"{tag}: scripted move exit {rc}, decision {closed}", flush=True)
+            how = "script" if closed else None
+        if closed is None:
+            raise RuntimeError(f"{tag}: no decision with a value in the {s['lane']} ledger; see {plan['work']}/logs/{tag}-*.log")
+        status = _hc_ledger(plan, s)
+        marker = _hc_marker(plan, s, arm)
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.write_text(json.dumps({
+            "step": s["id"], "arm": arm["label"], "lane": s["lane"], "model": model, "adapter": arm.get("adapter"),
+            "runtime": srv.runtime, "backend_model": cfg["model"], "backend_sha256": cfg.get("sha256"), "recorded_by": how,
+            "decision": closed, "records": [r for r in status["recent"] if r["seq"] > start], "lane_state": status["lanes"][0],
+            "ledger": str(Path(P["datagoblin_state"]) / "ledger.jsonl"), "ledger_records": status["records"],
+            "t": time.strftime("%Y-%m-%d %H:%M:%S")}, indent=1), encoding="utf-8")
+        print(f"{tag}: {closed['verdict']} {closed['value']} ({how}) -> {marker}", flush=True)
 
 
 def done(plan: dict, s: dict) -> bool:
@@ -74,12 +162,20 @@ def done(plan: dict, s: dict) -> bool:
         return (d / "train.jsonl").exists() and src.exists() and (d / "train.jsonl").stat().st_mtime >= src.stat().st_mtime
     if k == "router":
         return (Path(plan["work"]) / "results" / "router" / "router.md").exists()
+    if k == "hillclimb":
+        return all(_hc_marker(plan, s, arm).exists() for arm in s["arms"])
     raise ValueError(k)
 
 
 def run(plan: dict, s: dict) -> None:
     k, P = s["kind"], plan["paths"]
-    if k == "generate":
+    if k == "hillclimb":
+        for arm in s["arms"]:  # arms run in plan order, one server each, inside this step's lease
+            if _hc_marker(plan, s, arm).exists():
+                print("skip", s["id"], arm["label"], flush=True)
+                continue
+            _hc_arm(plan, s, arm)
+    elif k == "generate":
         with _server(plan, s, s["id"]) as srv:
             names = list(s.get("loras", {}))
             for rows, out in _gen_jobs(plan, s):
