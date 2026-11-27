@@ -12,6 +12,7 @@ from .program_student import Meter
 from .program_oracle import Oracle, actual_transition, frac
 from .program_quotient import diagnostic,MODES
 from .quotient_policy import Policy,Auditor,CONFIGS
+from .program_projection import METRICS
 from .cancellation_campaign import evaluate as original_evaluate
 from .opportunity_campaign import make_spec,mean
 from .student_campaign import PRICE,CPU_ENVELOPE_NS
@@ -29,7 +30,7 @@ ARMS=("budget_rule","original_tail","original_broad","late",
       *(mode+"_"+name for mode,name in CANDIDATES),
       "forced_flags_tail","forced_marginal_tail","calibrated")
 
-def evaluate(spec,config,cap,*,mode="marginal",forced=False,audit=True):
+def evaluate(spec,config,cap,*,mode="marginal",forced=False,audit=True,optimization=None):
     m=Model(spec)
     ref=Auditor(m) if audit else None
     total=defaultdict(int)
@@ -40,7 +41,7 @@ def evaluate(spec,config,cap,*,mode="marginal",forced=False,audit=True):
     margins=[]
     for i,w in enumerate(m.worlds):
         s=m.initial()
-        actor=Policy(config,mode=mode,forced=forced)
+        actor=Policy(config,mode=mode,forced=forced,optimization=optimization)
         meter=Meter(cap)
         c=defaultdict(int)
         elapsed=0
@@ -94,6 +95,8 @@ def evaluate(spec,config,cap,*,mode="marginal",forced=False,audit=True):
              audited_intervals=ref.checked if ref else 0,independent_action_replays=ref.replays if ref else 0,
              min_accepted_net_lower=frac(min(margins)) if margins else None,
              receipt_set_sha256=digest([receipts[r] for r in sorted(receipts)]))
+    if optimization is not None:
+        r.update({k:frac(Fraction(total[k],M)) for k in METRICS})
     if ref:
         ref.close()
     return r,[receipts[r] for r in sorted(receipts)]
