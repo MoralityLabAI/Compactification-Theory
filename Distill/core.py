@@ -286,7 +286,7 @@ def render_prompt(packet: dict) -> str:
             "status answered or abstain, and a nested fields object containing exactly the requested fields. "
             "For an answered question, answer is a native JSON value in the specified shape, not JSON encoded inside a string. "
             "All other fields are nonempty strings. For response abstention use fields {reason: nonempty string}. "
-            "Example for a question requesting an integer: {\\\"question_id\\\":\\\"case.solve\\\",\\\"status\\\":\\\"answered\\\",\\\"fields\\\":{\\\"answer\\\":2,\\\"worked_solution\\\":\\\"calculation\\\",\\\"check\\\":\\\"independent check\\\",\\\"assumptions\\\":\\\"scope\\\"}}. "
+            'Example for a question requesting an integer: {"question_id":"case.solve","status":"answered","fields":{"answer":2,"worked_solution":"calculation","check":"independent check","assumptions":"scope"}}. '
             "Use concise equations or pseudocode and concrete intermediate quantities; aim for 40 to 120 words per prose field. "
             "Escape JSON backslashes, answer every requested question once, and output JSON only. "
             "This is reference evaluation, with independent exact checks and separate review of research judgment."
