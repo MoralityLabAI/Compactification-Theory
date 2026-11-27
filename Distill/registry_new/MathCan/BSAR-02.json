@@ -1,0 +1,62 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "BSAR-02",
+  "gym_version": "BSAR-02 static curriculum",
+  "source": {
+    "repository": "patrickdugan/MathCan",
+    "commit": "8e69174f434c388196e658f00ac72d261632a276",
+    "path": "research/bsar_audit/BSAR02_CURRICULUM.md",
+    "blob": "9245baf728ff2ee16af05dd4a3f2e38cdde5364a"
+  },
+  "objective": "Audit the boundary between algebraic Lean declarations and claims about analytic PDEs.",
+  "context": "129 source-text signatures from six BSA-R rounds; train Steps 2–5, dev Step 6, test Step 7; duplicate lemma names assigned to latest split. Source classification alone does not certify a theorem.",
+  "steps": [
+    {
+      "id": "extract",
+      "name": "Extract signatures",
+      "description": "Identify named hypotheses and types using pinned source."
+    },
+    {
+      "id": "classify",
+      "name": "Classify scope",
+      "description": "Separate integer algebra, abstract types and analytic statements."
+    },
+    {
+      "id": "premise",
+      "name": "Identify missing premises",
+      "description": "Explain the analytic bridge needed for a PDE implication."
+    },
+    {
+      "id": "split",
+      "name": "Keep rounds separate",
+      "description": "Prevent theorem-name and lineage overlap."
+    },
+    {
+      "id": "verify",
+      "name": "Audit independent evidence",
+      "description": "Require kernel and analytic evidence where appropriate."
+    }
+  ],
+  "packs": [
+    "formal",
+    "algebra",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "lagrange",
+      "prompt": "Derive the finite-dimensional vector Lagrange identity and state the additional conditions needed to apply pointwise algebra to a field."
+    },
+    {
+      "id": "type",
+      "prompt": "Explain why an abstract type named R is insufficient evidence of a real-valued analytic theorem."
+    },
+    {
+      "id": "classification",
+      "prompt": "Give an example of a missing-premise claim and a distinct unsupported-PDE-lift claim, with a reproducible review rule."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "MathCan research.bsar_audit boundary curriculum/source gate; static-only classification; Lean replay separate."
+}

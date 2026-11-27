@@ -1,0 +1,62 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "MOLT-HYBRID-01",
+  "gym_version": "01 strict-prefix fixture",
+  "source": {
+    "repository": "MoralityLabAI/HybridTRMLDT",
+    "commit": "433ad5e30123f5ee80ffd18fabe67357547a263d",
+    "path": "research_gym/benchmarks/molt_hybrid/prefix_memory.py",
+    "blob": "881ea18cc38f2f021722e84ddf368a7e5bc54d68"
+  },
+  "objective": "Compare tied synchronous recurrence with exact topological prefix computation and invalidation.",
+  "context": "Finite strict-prefix DAG, modular sum recurrence, arbitrary initial state, longest dependency depth, structural descendants. Independent mathematical fixture.",
+  "steps": [
+    {
+      "id": "validate",
+      "name": "Validate prefix graph",
+      "description": "Reject duplicate parents and non-prefix edges."
+    },
+    {
+      "id": "bound",
+      "name": "Derive depth bound",
+      "description": "Compute longest node dependency chain."
+    },
+    {
+      "id": "iterate",
+      "name": "Run synchronous visits",
+      "description": "Use previous-visit states and modular arithmetic."
+    },
+    {
+      "id": "compile",
+      "name": "Compute topological values",
+      "description": "Use parent values in strict prefix order."
+    },
+    {
+      "id": "invalidate",
+      "name": "Invalidate descendants",
+      "description": "Mark all and only structural descendants of changes, including changed nodes."
+    }
+  ],
+  "packs": [
+    "recurrent",
+    "formal",
+    "algebra"
+  ],
+  "specific_questions": [
+    {
+      "id": "convergence",
+      "prompt": "Prove that the maximum dependency depth suffices for stabilization from arbitrary initial state."
+    },
+    {
+      "id": "minimal",
+      "prompt": "Construct a graph and initial state attaining a worst-case bound, then explain why the bound may be loose for a specific input."
+    },
+    {
+      "id": "invalidation",
+      "prompt": "Give a structural descendant example where a changed dependency cancels algebraically; distinguish structural safety from minimal numerical change."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "HybridTRMLDT prefix_memory.py validate, bound, synchronous, topological, invalidate."
+}

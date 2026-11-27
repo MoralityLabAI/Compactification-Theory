@@ -1,0 +1,62 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "CSC-01",
+  "gym_version": "01",
+  "source": {
+    "repository": "MoralityLabAI/Control-Harness",
+    "commit": "22c0d0d83c0863c122f6142f095f471eacef8e6d",
+    "path": "spectral_control_gym/README.md",
+    "blob": "44ac6d9b67da0fb176b5df01c0c6f8a56fcb3e17"
+  },
+  "objective": "Certify sufficient stability of a frozen spectral control readout.",
+  "context": "Training-derived symmetric nonnegative graph; F(p)=(I+alpha L)^(-p/2); frozen normalized feature/readout; empirical veto thresholds; numerical residual checks not interval proof.",
+  "steps": [
+    {
+      "id": "graph",
+      "name": "Construct graph",
+      "description": "Define training-only features, graph and Laplacian."
+    },
+    {
+      "id": "filter",
+      "name": "Apply spectral power",
+      "description": "Use nonnegative eigenvalues and functional calculus."
+    },
+    {
+      "id": "derive",
+      "name": "Bound exponent variation",
+      "description": "Derive a scalar supremum and lift to operator norm."
+    },
+    {
+      "id": "margin",
+      "name": "Certify stability",
+      "description": "Translate readout displacement into argmax and veto bounds."
+    },
+    {
+      "id": "audit",
+      "name": "Evaluate controls",
+      "description": "Match capacity and calibrate before held-out evaluation."
+    }
+  ],
+  "packs": [
+    "formal",
+    "causal_geometry",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "derivative",
+      "prompt": "Derive the scalar bound sup over lambda>=0 of the absolute p derivative of (1+alpha lambda)^(-p/2)."
+    },
+    {
+      "id": "margin",
+      "prompt": "Give a concrete pair of scores and perturbation bound that certifies or fails to certify the chosen action."
+    },
+    {
+      "id": "zero",
+      "prompt": "Explain the truncation issue caused by disconnected zero modes."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "Control-Harness spectral_control_gym core and run; numerical certificate checks."
+}

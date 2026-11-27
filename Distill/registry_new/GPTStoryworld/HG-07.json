@@ -1,0 +1,67 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "HG-07",
+  "gym_version": "07 raw-state parity",
+  "source": {
+    "repository": "MoralityLabAI/GPTStoryworld",
+    "commit": "1fd272bc0390f9e50a8a9a714767e715223b44be",
+    "path": "verifiers_envs/storyworld-hypergames-env/Hypergames/single_player/HG07_PROTOCOL.md",
+    "blob": "3e4de148741f3be4e5bbd57411db6207469c1d09"
+  },
+  "objective": "Test discovery of binary parity goals from raw state under matched updates and privileged auxiliary controls.",
+  "context": "Raw binary vectors, six-coordinate parity goals, exact GF(2) interpolator, flat versus tied cells, true versus shuffled fragments, calibration-only release with asymmetric payoff.",
+  "steps": [
+    {
+      "id": "generate",
+      "name": "Define parity goals",
+      "description": "Specify binary state, sparse rows and held-out generators."
+    },
+    {
+      "id": "observe",
+      "name": "Separate information",
+      "description": "Raw input and goal labels versus privileged fragment supervision."
+    },
+    {
+      "id": "fit",
+      "name": "Fit matched arms",
+      "description": "Explain equal update/shape budget and extra forward visits."
+    },
+    {
+      "id": "infer",
+      "name": "Use structural oracle",
+      "description": "Derive GF(2) rank condition for identified query parity."
+    },
+    {
+      "id": "release",
+      "name": "Calibrate release",
+      "description": "Derive reward threshold from asymmetric payoff."
+    },
+    {
+      "id": "audit",
+      "name": "Report evidence",
+      "description": "Separate structural reference, task-only neural head and privileged composition."
+    }
+  ],
+  "packs": [
+    "recurrent",
+    "algebra",
+    "strategy"
+  ],
+  "specific_questions": [
+    {
+      "id": "parity",
+      "prompt": "Prove the condition under which an unseen parity query is determined by observed linear equations over GF(2)."
+    },
+    {
+      "id": "release",
+      "prompt": "Derive the threshold for release with correct +10, wrong -15 and abstain 0."
+    },
+    {
+      "id": "aux",
+      "prompt": "Design a true-versus-shuffled fragment comparison without conflating supervision and compute."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "GPTStoryworld HG-07 exact GF(2) interpolator and registered CPU replay."
+}
