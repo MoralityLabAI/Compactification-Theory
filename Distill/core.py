@@ -15,6 +15,9 @@ from .packs import CASE, COMMON, EXPLAIN, PACKS, PACK_VERSION, QUICK, STEP
 
 VERSION = "0.3.0"
 INSTANCE_VERSION = "distill.procedural.v1"
+RESEARCH_VERSION = "0.4.0"
+RESEARCH_GENERATOR = "distill.research.v1"
+RESEARCH_RESPONSE = "distill.response.v2"
 DIFFICULTIES = {
     "foundation": "Use a minimal finite example and explicit definitions. State every prerequisite needed for the example.",
     "standard": "Give a reproducible derivation at the registered gym scope, with a checkable witness or explicit assumptions.",
@@ -198,7 +201,7 @@ def compile_quiz(adapter: dict, *, profile: str = "full", public_case: dict | No
 def split_quiz(packet: dict, *, max_questions: int = 5) -> list[dict]:
     """Deterministic independently answerable sections; no answer carryover."""
     _packet(packet)
-    require(packet["library_version"] == VERSION and "section" not in packet, "split requires a complete current-version packet")
+    require(packet["library_version"] in (VERSION, RESEARCH_VERSION) and "section" not in packet, "split requires a complete current-version packet")
     require(type(max_questions) is int and 1 <= max_questions <= 32, "invalid section size")
     qs = packet["questions"]
     groups = [qs[i:i+max_questions] for i in range(0, len(qs), max_questions)]
@@ -213,9 +216,9 @@ def split_quiz(packet: dict, *, max_questions: int = 5) -> list[dict]:
 
 def _packet(packet: dict) -> None:
     require(isinstance(packet, dict) and packet.get("schema_version") == PACKET_SCHEMA, "invalid packet schema")
-    require(packet.get("library_version") in ("0.1.0", "0.2.0", VERSION) and packet.get("pack_version") == PACK_VERSION, "unsupported packet version")
+    require(packet.get("library_version") in ("0.1.0", "0.2.0", VERSION, RESEARCH_VERSION) and packet.get("pack_version") == PACK_VERSION, "unsupported packet version")
     base = {"schema_version", "library_version", "pack_version", "profile", "gym_id", "gym_version", "source", "adapter_sha256", "purpose", "objective", "context", "public_case", "questions", "packet_id"}
-    if packet["library_version"] in ("0.2.0", VERSION):
+    if packet["library_version"] in ("0.2.0", VERSION, RESEARCH_VERSION):
         base |= {"difficulty", "difficulty_instruction"}
         require(packet.get("difficulty") in DIFFICULTIES and packet.get("difficulty_instruction") == DIFFICULTIES[packet["difficulty"]], "invalid difficulty")
         if "section" in packet:
@@ -236,6 +239,19 @@ def _packet(packet: dict) -> None:
         require(case is not None, "instance requires public case")
         content = digest({"kind": case["kind"], "data": case["data"]})
         require(ins["content_sha256"] == content and case["case_id"] == "proc-v1-" + content, "instance content mismatch")
+    if packet["library_version"] == RESEARCH_VERSION:
+        base.add("research")
+        info = packet.get("research")
+        object_keys(info, {"generator","family","seed","ordinal","content_sha256"}, "research metadata")
+        require(info["generator"] == RESEARCH_GENERATOR, "unsupported research generator")
+        slug(info["family"], "research family")
+        require(type(info["seed"]) is int and 0 <= info["seed"] < 2**63, "invalid research seed")
+        require(type(info["ordinal"]) is int and 0 <= info["ordinal"] < 10**7, "invalid research ordinal")
+        _case(packet.get("public_case"))
+        case = packet["public_case"]
+        require(case is not None and case["kind"] == info["family"], "research case family mismatch")
+        h = digest({"kind":case["kind"],"data":case["data"]})
+        require(info["content_sha256"] == h and case["case_id"] == "research-v1-" + h, "research content mismatch")
     object_keys(packet, base, "packet")
     require(packet["profile"] in ("quick", "full"), "invalid packet profile")
     slug(packet["gym_id"], "gym id")
@@ -260,6 +276,22 @@ def _packet(packet: dict) -> None:
 
 def render_prompt(packet: dict) -> str:
     _packet(packet)
+    if "research" in packet:
+        instruction = (
+            "Complete this research examination with reproducible public mathematical work and explicit scientific judgments. "
+            "Use the registered objective and supplied evidence; distinguish proposed tests, conditional model calculations, "
+            "observations and established results. Do not invent experimental outcomes, claim executions, or claim a proof was checked without evidence. "
+            "Return one JSON object with schema_version distill.response.v2, packet_id copied from the packet, "
+            "model {provider,revision,run_id} (unknown if unavailable), and answers. Each answer has question_id, "
+            "status answered or abstain, and a nested fields object containing exactly the requested fields. "
+            "For an answered question, answer is a native JSON value in the specified shape, not JSON encoded inside a string. "
+            "All other fields are nonempty strings. For response abstention use fields {reason: nonempty string}. "
+            "Example for a question requesting an integer: {\\\"question_id\\\":\\\"case.solve\\\",\\\"status\\\":\\\"answered\\\",\\\"fields\\\":{\\\"answer\\\":2,\\\"worked_solution\\\":\\\"calculation\\\",\\\"check\\\":\\\"independent check\\\",\\\"assumptions\\\":\\\"scope\\\"}}. "
+            "Use concise equations or pseudocode and concrete intermediate quantities; aim for 40 to 120 words per prose field. "
+            "Escape JSON backslashes, answer every requested question once, and output JSON only. "
+            "This is reference evaluation, with independent exact checks and separate review of research judgment."
+        )
+        return instruction + "\n\n" + canonical(packet).decode("ascii")
     instruction = (
         "Complete the research examination using public, checkable explanations, derivations, "
         "worked examples, pseudocode and certificates. State assumptions, intermediate results "
@@ -278,7 +310,7 @@ def render_prompt(packet: dict) -> str:
 def validate_response(packet: dict, response: dict) -> dict:
     _packet(packet)
     object_keys(response, {"schema_version", "packet_id", "model", "answers"}, "response")
-    require(response["schema_version"] == RESPONSE_SCHEMA, "unsupported response schema")
+    require(response["schema_version"] == (RESEARCH_RESPONSE if "research" in packet else RESPONSE_SCHEMA), "unsupported response schema")
     require(response["packet_id"] == packet["packet_id"], "response packet mismatch")
     object_keys(response["model"], {"provider", "revision", "run_id"}, "model")
     for key, value in response["model"].items():
@@ -294,12 +326,15 @@ def validate_response(packet: dict, response: dict) -> dict:
         fields = {"reason"} if answer["status"] == "abstain" else set(questions[qid]["fields"])
         object_keys(answer["fields"], fields, "answer payload")
         for key, value in answer["fields"].items():
-            string(value, key)
+            if "research" in packet and key == "answer" and answer["status"] == "answered":
+                _public_value(value)
+            else:
+                string(value, key)
         answers[qid] = answer
     canonical(response)
     return answers
 
-Checker = Callable[[dict | None, dict[str, str]], bool]
+Checker = Callable[[dict | None, dict[str, Any]], bool]
 
 def evaluate(packet: dict, response: dict, *, checkers: Mapping[str, Checker] | None = None) -> dict:
     answers = validate_response(packet, response)
