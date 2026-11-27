@@ -1,0 +1,68 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "IRC-PG-01",
+  "gym_version": "0.1",
+  "source": {
+    "repository": "MoralityLabAI/Compactification-Theory",
+    "commit": "ec93d1e0a4a16506df0e189a1f54ae9fcbc70dd8",
+    "path": "research/pluto_gym/PROTOCOL.md",
+    "blob": "102ed9a108f6ee9302cd13e59bedc5b602f11373"
+  },
+  "objective": "Measure interface-relative policy and curriculum adaptation under deadline and memory budgets.",
+  "context": "Finite fronts with cues, camera/global visibility, command/switch ticks, decision cap, exact schedule oracle and a small target learner. Native game claims need separate evidence.",
+  "steps": [
+    {
+      "id": "state",
+      "name": "Public state",
+      "description": "Specify the visible cue, selected front, elapsed ticks and resolved fronts."
+    },
+    {
+      "id": "oracle",
+      "name": "Schedule ceiling",
+      "description": "Derive the feasible front orders and attainable weighted reward."
+    },
+    {
+      "id": "adapt",
+      "name": "Adaptation",
+      "description": "Explain frozen, random and designer curriculum arms under matched resources."
+    },
+    {
+      "id": "score",
+      "name": "Scoring",
+      "description": "Separate interface opportunity cost from controller regret."
+    },
+    {
+      "id": "transfer",
+      "name": "Native transfer",
+      "description": "Specify evidence needed for claims about TensorCraft rather than the surrogate."
+    }
+  ],
+  "packs": [
+    "strategy",
+    "recurrent",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "interface_bound",
+      "prompt": "Derive the equal-weight command count when the first front is already selected. Discuss the deadline equality case."
+    },
+    {
+      "id": "memory",
+      "prompt": "Explain the independent-bit query lower-bound fixture and when it applies to a policy."
+    }
+  ],
+  "example_case": {
+    "classification": "public_development",
+    "case_id": "pluto-new-toy-01",
+    "kind": "equal_weight_fronts",
+    "data": {
+      "fronts": 5,
+      "deadline": 12,
+      "command_ticks": 3,
+      "switch_ticks": 2
+    }
+  },
+  "case_question": "For the public equal-weight case, the first front is already selected and each later distinct front needs one switch. Assume no additional binding decision cap. Find the maximum completed commands. Put the integer alone in answer; show a feasible schedule and upper bound in worked_solution.",
+  "native_verifier": "research.pluto_gym.env oracle_value and math_ref; native evaluation separate."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "AEG-01",
+  "gym_version": "AEG-01 / NOR45-60",
+  "source": {
+    "repository": "MoralityLabAI/Compactification-Theory",
+    "commit": "ec93d1e0a4a16506df0e189a1f54ae9fcbc70dd8",
+    "path": "research/authorized_exact_gym/README.md",
+    "blob": "ea29d9dea5b3b7f0db87c1304ce4023239130dd0"
+  },
+  "objective": "Check authorization and exact outputs for signed computations.",
+  "context": "Public query and trust context, untrusted signed envelopes, accept/reject/abstain, exact output vector and indexed Merkle root. Referee material is separate.",
+  "steps": [
+    {
+      "id": "bind",
+      "name": "Bind request",
+      "description": "Identify the independent query and trusted context."
+    },
+    {
+      "id": "auth",
+      "name": "Authorize",
+      "description": "Verify signature, expiry, scope and session binding."
+    },
+    {
+      "id": "execute",
+      "name": "Exact execution",
+      "description": "Explain original and support-compressed computation."
+    },
+    {
+      "id": "commit",
+      "name": "Commit result",
+      "description": "Specify canonical coefficients and indexed Merkle root."
+    },
+    {
+      "id": "grade",
+      "name": "Independent grading",
+      "description": "Compare against original interpreter and distinguish invalid actions from abstention."
+    }
+  ],
+  "packs": [
+    "authenticated",
+    "formal",
+    "algebra"
+  ],
+  "specific_questions": [
+    {
+      "id": "semantic",
+      "prompt": "Explain the difference between a valid authorized program and the authority's external semantic honesty."
+    },
+    {
+      "id": "compression",
+      "prompt": "Derive conditions under which support compression and invocation-local reuse preserve all output coefficients and the original root."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "research.authorized_exact_gym.gym score with independently retained referee manifest."
+}

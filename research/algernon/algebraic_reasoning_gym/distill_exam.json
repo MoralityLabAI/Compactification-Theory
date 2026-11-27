@@ -1,0 +1,58 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "ARG-01",
+  "gym_version": "ARG-01",
+  "source": {
+    "repository": "MoralityLabAI/Compactification-Theory",
+    "commit": "ec93d1e0a4a16506df0e189a1f54ae9fcbc70dd8",
+    "path": "research/algernon/algebraic_reasoning_gym/README.md",
+    "blob": "7d4c9413ad41d1186929957e1d3c686777d3e727"
+  },
+  "objective": "Compare budgeted algebraic program search against independent exact formal-series verification.",
+  "context": "Two public demos through degree 12 and a fresh input; three-symbol graph programs; restricted and exhaustive search; future query output stays with EvalMath.",
+  "steps": [
+    {
+      "id": "packet",
+      "name": "Public task",
+      "description": "Describe demonstrations, query and allowed candidate syntax."
+    },
+    {
+      "id": "compile",
+      "name": "Class compilation",
+      "description": "Explain equivalence classes and the search space."
+    },
+    {
+      "id": "rank",
+      "name": "Candidate ordering",
+      "description": "Compare frozen learned rankers and exact static ordering."
+    },
+    {
+      "id": "query",
+      "name": "Paid verification",
+      "description": "Define agreement and first mismatch, and account for candidate budget."
+    },
+    {
+      "id": "heldout",
+      "name": "Future check",
+      "description": "Describe private future-query verification and collision controls."
+    }
+  ],
+  "packs": [
+    "formal",
+    "algebra",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "collision",
+      "prompt": "Construct a small formal-series ambiguity with identical observed prefixes and distinct continuations."
+    },
+    {
+      "id": "budget",
+      "prompt": "Explain how a restricted 12-candidate policy should be compared with exhaustive search."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "Pinned EvalMath spiral_ln.algebraic_reasoning_oracle and ARG external grader."
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "SCM-23",
+  "gym_version": "SCM-23",
+  "source": {
+    "repository": "MoralityLabAI/Compactification-Theory",
+    "commit": "ec93d1e0a4a16506df0e189a1f54ae9fcbc70dd8",
+    "path": "research/dimensional_atlas/gym/scm23_transport_fiber/README.md",
+    "blob": "30e1a6c2658c091ac3fb8796046eb212a6b7f9d5"
+  },
+  "objective": "Evaluate causal transport within a fixed head fiber using calibrated interventions.",
+  "context": "Tied four-visit F11 arithmetic model, linear readout head, shared TopK SAE, calibration-fit rank-four frames, held-out donor/recipient pairs and matched L2 norms. LayerNorm makes the linear fiber an incomplete nonlinear guarantee.",
+  "steps": [
+    {
+      "id": "state",
+      "name": "State and head",
+      "description": "Define the hidden space, readout map and its fiber."
+    },
+    {
+      "id": "fit",
+      "name": "Calibration",
+      "description": "Fit a gradient-transport frame using calibration margins only."
+    },
+    {
+      "id": "freeze",
+      "name": "Freeze",
+      "description": "Specify the admissible information at held-out time."
+    },
+    {
+      "id": "intervene",
+      "name": "Intervention",
+      "description": "Drive every frame from the same donor-recipient difference at equal norm."
+    },
+    {
+      "id": "audit",
+      "name": "Evidence audit",
+      "description": "Compare controls, seed dependence, primary gate and limitations."
+    }
+  ],
+  "packs": [
+    "causal_geometry",
+    "recurrent",
+    "research"
+  ],
+  "specific_questions": [
+    {
+      "id": "layernorm",
+      "prompt": "Derive why a vector in the kernel of a linear head may change the post-LayerNorm output. Construct a numerical witness."
+    },
+    {
+      "id": "seed",
+      "prompt": "Explain which statistical unit should govern inference for dependent pairs within one model seed."
+    }
+  ],
+  "example_case": null,
+  "case_question": null,
+  "native_verifier": "SCM-23 compact_replay.py and independent receipt auditor; private checkpoint claims separate."
+}

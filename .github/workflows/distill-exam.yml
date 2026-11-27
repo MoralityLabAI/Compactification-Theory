@@ -1,0 +1,25 @@
+name: Distill offline exam checks
+on:
+  pull_request:
+    paths:
+      - 'Distill/**'
+      - 'research/**/distill_exam.json'
+      - '.github/workflows/distill-exam.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -v
+      - run: |
+          python -m Distill compile --adapter research/pluto_gym/distill_exam.json --out /tmp/pluto.json
+          python -m Distill prompt --packet /tmp/pluto.json > /tmp/pluto-prompt.txt
+          rustc Distill/rust/compile_exam.rs -o /tmp/distill-compile
+          /tmp/distill-compile research/chromatic_observer_gym_v1/distill_exam.json /tmp/coe.json

@@ -1,0 +1,64 @@
+{
+  "schema_version": "distill.adapter.v1",
+  "gym_id": "COE-01",
+  "gym_version": "v1 / COE-01",
+  "source": {
+    "repository": "MoralityLabAI/Compactification-Theory",
+    "commit": "ec93d1e0a4a16506df0e189a1f54ae9fcbc70dd8",
+    "path": "research/chromatic_observer_gym_v1/README.md",
+    "blob": "ee7307245cb1ea3021d5d31b2ba7b3556f1c4766"
+  },
+  "objective": "Characterize minimum observer width for evaluator-relevant distinctions and robustness.",
+  "context": "Finite evaluator graphs, binary codes, Hamming separation, optional Lipschitz constraints, metric quotient. Separate synthetic exact results from learned neural claims.",
+  "steps": [
+    {
+      "id": "graph",
+      "name": "Evaluator graph",
+      "description": "Define state vertices and required distinctions."
+    },
+    {
+      "id": "color",
+      "name": "Ordinary observer",
+      "description": "Construct and justify a minimal binary code."
+    },
+    {
+      "id": "margin",
+      "name": "Robust observer",
+      "description": "Reason about erasures and adversarial flips."
+    },
+    {
+      "id": "metric",
+      "name": "Metric quotient",
+      "description": "Derive the feasibility condition and regularity threshold."
+    },
+    {
+      "id": "assay",
+      "name": "Neural assay",
+      "description": "Design a split-safe learned probe comparison."
+    }
+  ],
+  "packs": [
+    "formal",
+    "causal_geometry"
+  ],
+  "specific_questions": [
+    {
+      "id": "bottleneck",
+      "prompt": "Derive the minimax path expression for the critical Lipschitz threshold, including the equality case."
+    },
+    {
+      "id": "counterexample",
+      "prompt": "Give a graph or metric where a tempting stronger reconstruction claim fails."
+    }
+  ],
+  "example_case": {
+    "classification": "public_development",
+    "case_id": "coe-new-cycle-01",
+    "kind": "cycle_observer",
+    "data": {
+      "vertices": 7
+    }
+  },
+  "case_question": "For an undirected cycle on the supplied number of vertices, find the minimum ordinary binary observer width that separates adjacent vertices. Put the integer alone in answer; provide a valid coloring and lower bound.",
+  "native_verifier": "research/chromatic_observer_gym_v1/observer_codes.py exact finite solver; toy checker separate."
+}
