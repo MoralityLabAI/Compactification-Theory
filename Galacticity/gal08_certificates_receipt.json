@@ -1,0 +1,136 @@
+{
+  "schema": "gal08.certificates.v1",
+  "checks": 29010,
+  "affineProductPairs": 5456,
+  "certCases": 256,
+  "negative": 768,
+  "unsupportedRandomCircuits": 193,
+  "profiles": [
+    {
+      "n": 4,
+      "gates": 22,
+      "exhaustiveGateEvaluations": "352",
+      "constructionUnits": 86,
+      "verificationUnits": 201,
+      "certificatePayloadBits": 110
+    },
+    {
+      "n": 8,
+      "gates": 42,
+      "exhaustiveGateEvaluations": "10752",
+      "constructionUnits": 298,
+      "verificationUnits": 685,
+      "certificatePayloadBits": 378
+    },
+    {
+      "n": 16,
+      "gates": 82,
+      "exhaustiveGateEvaluations": "5373952",
+      "constructionUnits": 1106,
+      "verificationUnits": 2517,
+      "certificatePayloadBits": 1394
+    },
+    {
+      "n": 24,
+      "gates": 122,
+      "exhaustiveGateEvaluations": "2046820352",
+      "constructionUnits": 2426,
+      "verificationUnits": 5501,
+      "certificatePayloadBits": 3050
+    },
+    {
+      "n": 32,
+      "gates": 162,
+      "exhaustiveGateEvaluations": "695784701952",
+      "constructionUnits": 4258,
+      "verificationUnits": 9637,
+      "certificatePayloadBits": 5346
+    },
+    {
+      "n": 40,
+      "gates": 202,
+      "exhaustiveGateEvaluations": "222101348810752",
+      "constructionUnits": 6602,
+      "verificationUnits": 14925,
+      "certificatePayloadBits": 8282
+    }
+  ],
+  "cancellation": [
+    {
+      "n": 2,
+      "gates": 7,
+      "anf": {
+        "status": "exact",
+        "peak": 4,
+        "work": 10,
+        "outTerms": 0
+      },
+      "localIdentity": "same-wire XOR"
+    },
+    {
+      "n": 4,
+      "gates": 13,
+      "anf": {
+        "status": "exact",
+        "peak": 16,
+        "work": 48,
+        "outTerms": 0
+      },
+      "localIdentity": "same-wire XOR"
+    },
+    {
+      "n": 8,
+      "gates": 25,
+      "anf": {
+        "status": "exact",
+        "peak": 256,
+        "work": 772,
+        "outTerms": 0
+      },
+      "localIdentity": "same-wire XOR"
+    },
+    {
+      "n": 12,
+      "gates": 37,
+      "anf": {
+        "status": "exact",
+        "peak": 4096,
+        "work": 12296,
+        "outTerms": 0
+      },
+      "localIdentity": "same-wire XOR"
+    },
+    {
+      "n": 16,
+      "gates": 49,
+      "anf": {
+        "status": "exact",
+        "peak": 65536,
+        "work": 196620,
+        "outTerms": 0
+      },
+      "localIdentity": "same-wire XOR"
+    },
+    {
+      "n": 20,
+      "gates": 61,
+      "anf": {
+        "status": "cap",
+        "peak": 65537,
+        "work": 196625
+      },
+      "localIdentity": "same-wire XOR"
+    },
+    {
+      "n": 24,
+      "gates": 73,
+      "anf": {
+        "status": "cap",
+        "peak": 65537,
+        "work": 196629
+      },
+      "localIdentity": "same-wire XOR"
+    }
+  ],
+  "scope": "authenticated circuit DAG as input; affine-at-every-gate proof; logical coefficient work, not hardware or cryptographic proof cost; finite ANF cap"
+}
