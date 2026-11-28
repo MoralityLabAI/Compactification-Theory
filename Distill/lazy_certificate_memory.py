@@ -63,10 +63,12 @@ class Memo:
         # Frozen hybrid: avoid expensive early-stage marginal projections.
         return "literal" if s.stage<2 else "marginal"
 
-    def query(self,s):
+    def query(self,s,meter=None):
         require(s.stage<4,"terminal query")
         m=self.m
-        meter=Meter(10**8)
+        if meter is None:
+            meter=Meter(10**8)
+        begin=meter.used
         local={}
         self.stats["requests"]+=1
 
@@ -150,11 +152,15 @@ class Memo:
                     self.stats["skipped_writes"]+=1
             return v,r
 
-        v,r=tail(s,True)
-        meter.charge(64+16)
-        M=m.mass(s.mask)
-        self.stats["work"]+=meter.used
-        return v,r,M
+        try:
+            v,r=tail(s,True)
+            meter.charge(64+16)
+            M=m.mass(s.mask)
+            return v,r,M
+        finally:
+            # Completed exact subproblems may survive an interrupted query;
+            # all work already charged survives as well.
+            self.stats["work"]+=meter.used-begin
 
     def metrics(self):
         return {**{k:self.stats[k] for k in STATS},

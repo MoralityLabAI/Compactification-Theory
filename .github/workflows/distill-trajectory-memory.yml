@@ -1,0 +1,29 @@
+name: Distill trajectory-local opportunity memory
+on:
+  pull_request:
+    paths:
+      - 'Distill/trajectory_memory.py'
+      - 'Distill/lazy_certificate_memory.py'
+      - 'Distill/tests/test_trajectory_memory.py'
+      - '.github/workflows/distill-trajectory-memory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  trajectory-memory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -p test_trajectory_memory.py -v
+      - run: python -m unittest discover -s Distill/tests -p test_lazy_certificate_memory.py -v
+      - run: python -m Distill.trajectory_memory --out /tmp/distill-trajectory-memory
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distill-16-trajectory-memory
+          path: /tmp/distill-trajectory-memory/
+          if-no-files-found: error
+          retention-days: 30
