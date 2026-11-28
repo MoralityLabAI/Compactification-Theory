@@ -1,0 +1,7985 @@
+{
+  "schema": "gal06.stochastic.v1",
+  "checks": 4138,
+  "tinyBruteCases": 224,
+  "witnessReplays": 1310,
+  "oracleNodes": 321298,
+  "environmentCount": 40,
+  "gridCases": 1000,
+  "policyCases": 200,
+  "capitalSweep": [
+    0,
+    24
+  ],
+  "summary": {
+    "stable": {
+      "cases": 40,
+      "worldMass": 160,
+      "oracleSafe": 82,
+      "oracleQuarter": 85,
+      "policies": {
+        "wait": {
+          "successMass": 16,
+          "ruinMass": 0
+        },
+        "expected": {
+          "successMass": 94,
+          "ruinMass": 19
+        },
+        "joint": {
+          "successMass": 82,
+          "ruinMass": 0
+        },
+        "marginal": {
+          "successMass": 82,
+          "ruinMass": 0
+        }
+      }
+    },
+    "correlated": {
+      "cases": 40,
+      "worldMass": 160,
+      "oracleSafe": 56,
+      "oracleQuarter": 65,
+      "policies": {
+        "wait": {
+          "successMass": 0,
+          "ruinMass": 0
+        },
+        "expected": {
+          "successMass": 73,
+          "ruinMass": 38
+        },
+        "joint": {
+          "successMass": 50,
+          "ruinMass": 0
+        },
+        "marginal": {
+          "successMass": 50,
+          "ruinMass": 0
+        }
+      }
+    },
+    "hedged": {
+      "cases": 40,
+      "worldMass": 160,
+      "oracleSafe": 98,
+      "oracleQuarter": 99,
+      "policies": {
+        "wait": {
+          "successMass": 24,
+          "ruinMass": 0
+        },
+        "expected": {
+          "successMass": 91,
+          "ruinMass": 24
+        },
+        "joint": {
+          "successMass": 86,
+          "ruinMass": 0
+        },
+        "marginal": {
+          "successMass": 90,
+          "ruinMass": 0
+        }
+      }
+    },
+    "delayed": {
+      "cases": 40,
+      "worldMass": 160,
+      "oracleSafe": 74,
+      "oracleQuarter": 79,
+      "policies": {
+        "wait": {
+          "successMass": 0,
+          "ruinMass": 0
+        },
+        "expected": {
+          "successMass": 56,
+          "ruinMass": 38
+        },
+        "joint": {
+          "successMass": 51,
+          "ruinMass": 0
+        },
+        "marginal": {
+          "successMass": 49,
+          "ruinMass": 0
+        }
+      }
+    },
+    "shift": {
+      "cases": 40,
+      "worldMass": 160,
+      "oracleSafe": 65,
+      "oracleQuarter": 71,
+      "policies": {
+        "wait": {
+          "successMass": 0,
+          "ruinMass": 0
+        },
+        "expected": {
+          "successMass": 74,
+          "ruinMass": 40
+        },
+        "joint": {
+          "successMass": 44,
+          "ruinMass": 0
+        },
+        "marginal": {
+          "successMass": 42,
+          "ruinMass": 0
+        }
+      }
+    },
+    "all": {
+      "cases": 200,
+      "worldMass": 800,
+      "oracleSafe": 375,
+      "oracleQuarter": 399,
+      "policies": {
+        "wait": {
+          "successMass": 40,
+          "ruinMass": 0
+        },
+        "expected": {
+          "successMass": 388,
+          "ruinMass": 159
+        },
+        "joint": {
+          "successMass": 313,
+          "ruinMass": 0
+        },
+        "marginal": {
+          "successMass": 313,
+          "ruinMass": 0
+        }
+      }
+    }
+  },
+  "minima": [
+    {
+      "family": "stable",
+      "seed": 60001,
+      "minima": {
+        "4/0": 6,
+        "3/0": 6,
+        "3/1": 6,
+        "2/1": 3
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60002,
+      "minima": {
+        "4/0": 10,
+        "3/0": 10,
+        "3/1": 10,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60003,
+      "minima": {
+        "4/0": 11,
+        "3/0": 11,
+        "3/1": 11,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60004,
+      "minima": {
+        "4/0": 10,
+        "3/0": 10,
+        "3/1": 10,
+        "2/1": 3
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60005,
+      "minima": {
+        "4/0": 8,
+        "3/0": 8,
+        "3/1": 8,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60006,
+      "minima": {
+        "4/0": 8,
+        "3/0": 8,
+        "3/1": 8,
+        "2/1": 3
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60007,
+      "minima": {
+        "4/0": 10,
+        "3/0": 10,
+        "3/1": 10,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60008,
+      "minima": {
+        "4/0": 11,
+        "3/0": 11,
+        "3/1": 11,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60101,
+      "minima": {
+        "4/0": 22,
+        "3/0": 21,
+        "3/1": 21,
+        "2/1": 5
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60102,
+      "minima": {
+        "4/0": 17,
+        "3/0": 16,
+        "3/1": 16,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60103,
+      "minima": {
+        "4/0": 19,
+        "3/0": 18,
+        "3/1": 18,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60104,
+      "minima": {
+        "4/0": 18,
+        "3/0": 17,
+        "3/1": 17,
+        "2/1": 3
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60105,
+      "minima": {
+        "4/0": 22,
+        "3/0": 21,
+        "3/1": 21,
+        "2/1": 5
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60106,
+      "minima": {
+        "4/0": 14,
+        "3/0": 13,
+        "3/1": 13,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60107,
+      "minima": {
+        "4/0": 19,
+        "3/0": 18,
+        "3/1": 18,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60108,
+      "minima": {
+        "4/0": 14,
+        "3/0": 13,
+        "3/1": 13,
+        "2/1": 2
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60201,
+      "minima": {
+        "4/0": 8,
+        "3/0": 6,
+        "3/1": 6,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60202,
+      "minima": {
+        "4/0": 6,
+        "3/0": 6,
+        "3/1": 6,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60203,
+      "minima": {
+        "4/0": 7,
+        "3/0": 7,
+        "3/1": 7,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60204,
+      "minima": {
+        "4/0": 7,
+        "3/0": 7,
+        "3/1": 7,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60205,
+      "minima": {
+        "4/0": 10,
+        "3/0": 7,
+        "3/1": 7,
+        "2/1": 6
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60206,
+      "minima": {
+        "4/0": 10,
+        "3/0": 9,
+        "3/1": 9,
+        "2/1": 6
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60207,
+      "minima": {
+        "4/0": 6,
+        "3/0": 6,
+        "3/1": 6,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60208,
+      "minima": {
+        "4/0": 6,
+        "3/0": 6,
+        "3/1": 6,
+        "2/1": 3
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60301,
+      "minima": {
+        "4/0": 7,
+        "3/0": 7,
+        "3/1": 7,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60302,
+      "minima": {
+        "4/0": 10,
+        "3/0": 10,
+        "3/1": 10,
+        "2/1": 6
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60303,
+      "minima": {
+        "4/0": 9,
+        "3/0": 9,
+        "3/1": 9,
+        "2/1": 5
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60304,
+      "minima": {
+        "4/0": 6,
+        "3/0": 6,
+        "3/1": 6,
+        "2/1": 3
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60305,
+      "minima": {
+        "4/0": 7,
+        "3/0": 7,
+        "3/1": 7,
+        "2/1": 3
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60306,
+      "minima": {
+        "4/0": 12,
+        "3/0": 12,
+        "3/1": 12,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60307,
+      "minima": {
+        "4/0": 11,
+        "3/0": 11,
+        "3/1": 11,
+        "2/1": 6
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60308,
+      "minima": {
+        "4/0": 12,
+        "3/0": 12,
+        "3/1": 12,
+        "2/1": 4
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60401,
+      "minima": {
+        "4/0": 12,
+        "3/0": 11,
+        "3/1": 11,
+        "2/1": 6
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60402,
+      "minima": {
+        "4/0": 14,
+        "3/0": 12,
+        "3/1": 12,
+        "2/1": 7
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60403,
+      "minima": {
+        "4/0": 14,
+        "3/0": 13,
+        "3/1": 13,
+        "2/1": 7
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60404,
+      "minima": {
+        "4/0": 11,
+        "3/0": 9,
+        "3/1": 9,
+        "2/1": 6
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60405,
+      "minima": {
+        "4/0": 11,
+        "3/0": 9,
+        "3/1": 9,
+        "2/1": 5
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60406,
+      "minima": {
+        "4/0": 10,
+        "3/0": 8,
+        "3/1": 8,
+        "2/1": 6
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60407,
+      "minima": {
+        "4/0": 11,
+        "3/0": 9,
+        "3/1": 9,
+        "2/1": 5
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60408,
+      "minima": {
+        "4/0": 6,
+        "3/0": 6,
+        "3/1": 6,
+        "2/1": 4
+      }
+    }
+  ],
+  "examples": {
+    "hedge": {
+      "jointSameDue": 0,
+      "marginalSameDue": 10,
+      "jointStaggered": 5
+    },
+    "gamble": {
+      "seed": 1,
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ]
+    }
+  },
+  "rows": [
+    {
+      "family": "stable",
+      "seed": 60001,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60001,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60001,
+      "K": 6,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60001,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60001,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60002,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60002,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60002,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60002,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60002,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60003,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60003,
+      "K": 4,
+      "oracle": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 0
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 1,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60003,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60003,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60003,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60004,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60004,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60004,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60004,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60004,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60005,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60005,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60005,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60005,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60005,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60006,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60006,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60006,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60006,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60006,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60007,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60007,
+      "K": 4,
+      "oracle": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 0
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 1,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60007,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60007,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60007,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60008,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60008,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60008,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60008,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 60008,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60101,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60101,
+      "K": 4,
+      "oracle": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60101,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60101,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60101,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60102,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60102,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60102,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60102,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60102,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60103,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60103,
+      "K": 4,
+      "oracle": [
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60103,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60103,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60103,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60104,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60104,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60104,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60104,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60104,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60105,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60105,
+      "K": 4,
+      "oracle": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60105,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60105,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60105,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60106,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60106,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60106,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60106,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60106,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60107,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60107,
+      "K": 4,
+      "oracle": [
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60107,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60107,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60107,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60108,
+      "K": 2,
+      "oracle": [
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60108,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60108,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60108,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "correlated",
+      "seed": 60108,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60201,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60201,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 3
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60201,
+      "K": 6,
+      "oracle": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "frontier": [
+        [
+          3,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60201,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60201,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60202,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60202,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60202,
+      "K": 6,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60202,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60202,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60203,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60203,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60203,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60203,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60203,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60204,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60204,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60204,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60204,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60204,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60205,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60205,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 3
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 1,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60205,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60205,
+      "K": 8,
+      "oracle": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "frontier": [
+        [
+          3,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60205,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60206,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60206,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 0
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 1,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60206,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60206,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60206,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60207,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60207,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60207,
+      "K": 6,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60207,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60207,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60208,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60208,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60208,
+      "K": 6,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60208,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "hedged",
+      "seed": 60208,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 4,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60301,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60301,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60301,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60301,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60301,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60302,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60302,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 0
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60302,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60302,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60302,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60303,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60303,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 0
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 1,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60303,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60303,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60303,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60304,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60304,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60304,
+      "K": 6,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60304,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60304,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60305,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60305,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60305,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60305,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60305,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60306,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60306,
+      "K": 4,
+      "oracle": [
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60306,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60306,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60306,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60307,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60307,
+      "K": 4,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60307,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 1,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60307,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60307,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60308,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60308,
+      "K": 4,
+      "oracle": [
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 0
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60308,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 1,
+          "r": 0
+        },
+        "marginal": {
+          "s": 1,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60308,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "delayed",
+      "seed": 60308,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60401,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60401,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60401,
+      "K": 6,
+      "oracle": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60401,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60401,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60402,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60402,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60402,
+      "K": 6,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60402,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60402,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60403,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 0,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60403,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60403,
+      "K": 6,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60403,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60403,
+      "K": 10,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60404,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60404,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60404,
+      "K": 6,
+      "oracle": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60404,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60404,
+      "K": 10,
+      "oracle": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "frontier": [
+        [
+          3,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 3,
+          "r": 0
+        },
+        "joint": {
+          "s": 3,
+          "r": 0
+        },
+        "marginal": {
+          "s": 3,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60405,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60405,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60405,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60405,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60405,
+      "K": 10,
+      "oracle": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "frontier": [
+        [
+          3,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 3,
+          "r": 0
+        },
+        "joint": {
+          "s": 3,
+          "r": 0
+        },
+        "marginal": {
+          "s": 3,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60406,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        1,
+        1,
+        1
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 1,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60406,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60406,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60406,
+      "K": 8,
+      "oracle": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "frontier": [
+        [
+          3,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60406,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60407,
+      "K": 2,
+      "oracle": [
+        0,
+        1,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60407,
+      "K": 4,
+      "oracle": [
+        1,
+        1,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60407,
+      "K": 6,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60407,
+      "K": 8,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 0
+        },
+        "joint": {
+          "s": 2,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60407,
+      "K": 10,
+      "oracle": [
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "frontier": [
+        [
+          3,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 3,
+          "r": 0
+        },
+        "joint": {
+          "s": 3,
+          "r": 0
+        },
+        "marginal": {
+          "s": 3,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60408,
+      "K": 2,
+      "oracle": [
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          0,
+          0
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60408,
+      "K": 4,
+      "oracle": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "frontier": [
+        [
+          2,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 2
+        },
+        "joint": {
+          "s": 0,
+          "r": 0
+        },
+        "marginal": {
+          "s": 0,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60408,
+      "K": 6,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 2,
+          "r": 1
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 2,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60408,
+      "K": 8,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 3,
+          "r": 0
+        },
+        "joint": {
+          "s": 3,
+          "r": 0
+        },
+        "marginal": {
+          "s": 3,
+          "r": 0
+        }
+      }
+    },
+    {
+      "family": "shift",
+      "seed": 60408,
+      "K": 10,
+      "oracle": [
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "frontier": [
+        [
+          4,
+          0
+        ]
+      ],
+      "policies": {
+        "wait": {
+          "s": 0,
+          "r": 0
+        },
+        "expected": {
+          "s": 4,
+          "r": 0
+        },
+        "joint": {
+          "s": 4,
+          "r": 0
+        },
+        "marginal": {
+          "s": 4,
+          "r": 0
+        }
+      }
+    }
+  ],
+  "scope": "exact finite weighted hidden-world model; deterministic policies, atomic settlements, known scenario table, no controller cost or wall timing; robust reserves assume all liabilities modeled; null minima right censored above capital 24"
+}

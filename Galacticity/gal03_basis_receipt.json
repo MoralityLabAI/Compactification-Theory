@@ -1,0 +1,2768 @@
+{
+  "schema": "gal03.priced_basis.v1",
+  "checks": 351394,
+  "fixtures": 175616,
+  "profiles": 81,
+  "winners": {
+    "direct": 23,
+    "repeat": 37,
+    "basis": 21
+  },
+  "rows": [
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 2576
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 3326,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 3590
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 2696
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 3326,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 3710
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 3592
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 3326,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 4606
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 2620
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 5909,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 6173
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 3070
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 5909,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 6293
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 6430
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 5909,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 7189
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 308,
+        "arith": 308,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1386,
+        "bypasses": 0,
+        "cost": 3176
+      },
+      "basis": {
+        "probes": 16,
+        "arith": 11433,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 11705
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 308,
+        "arith": 308,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1386,
+        "bypasses": 0,
+        "cost": 7796
+      },
+      "basis": {
+        "probes": 16,
+        "arith": 11433,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 11945
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 2,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 308,
+        "arith": 308,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1386,
+        "bypasses": 0,
+        "cost": 42292
+      },
+      "basis": {
+        "probes": 16,
+        "arith": 11433,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 13737
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 2624
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 3350,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 3638
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 3104
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 3350,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 4118
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 6688
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 3350,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 7702
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 2800
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 5705,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 5993
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 4600
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 5705,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 6473
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 18040
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 5705,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 10057
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 1336,
+        "arith": 1336,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1503,
+        "bypasses": 0,
+        "cost": 5232
+      },
+      "basis": {
+        "probes": 64,
+        "arith": 11229,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 11549
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 1336,
+        "arith": 1336,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1503,
+        "bypasses": 0,
+        "cost": 25272
+      },
+      "basis": {
+        "probes": 64,
+        "arith": 11229,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 12509
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 8,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 1336,
+        "arith": 1336,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1503,
+        "bypasses": 0,
+        "cost": 174904
+      },
+      "basis": {
+        "probes": 64,
+        "arith": 11229,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 19677
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 2816
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 3446,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 3830
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 4736
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 3446,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 5750
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 36,
+        "bypasses": 0,
+        "cost": 19072
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 3446,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 20086
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 3520
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 5955,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 6339
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 10720
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 5955,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 8259
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 135,
+        "bypasses": 0,
+        "cost": 64480
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 5955,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 48,
+        "bypasses": 0,
+        "cost": 22595
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 5088,
+        "arith": 5088,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1431,
+        "bypasses": 0,
+        "cost": 12736
+      },
+      "basis": {
+        "probes": 256,
+        "arith": 11565,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 12077
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 5088,
+        "arith": 5088,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1431,
+        "bypasses": 0,
+        "cost": 89056
+      },
+      "basis": {
+        "probes": 256,
+        "arith": 11565,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 15917
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 8,
+      "b": 32,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 5088,
+        "arith": 5088,
+        "key": 2304,
+        "output": 256,
+        "peakPayloadBits": 1431,
+        "bypasses": 0,
+        "cost": 658912
+      },
+      "basis": {
+        "probes": 256,
+        "arith": 11565,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 96,
+        "bypasses": 0,
+        "cost": 44589
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 4624
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 5374,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 5638
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 4744
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 5374,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 5758
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 5640
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 5374,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 6654
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 4668
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 10134,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 10398
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 5118
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 10134,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 10518
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 8478
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 10134,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 11414
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 510,
+        "arith": 510,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4335,
+        "bypasses": 0,
+        "cost": 5628
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 38093,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 38381
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 510,
+        "arith": 510,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4335,
+        "bypasses": 0,
+        "cost": 13278
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 38093,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 38861
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 2,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 510,
+        "arith": 510,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4335,
+        "bypasses": 0,
+        "cost": 70398
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 38093,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 42445
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 4672
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 5398,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 5686
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 5152
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 5398,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 6166
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 8736
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 5398,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 9750
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 4848
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 9733,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 10021
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 6648
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 9733,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 10501
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 20088
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 9733,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 14085
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4352,
+        "bypasses": 0,
+        "cost": 8704
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 38087,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 38471
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4352,
+        "bypasses": 0,
+        "cost": 39424
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 38087,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 40391
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 8,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4352,
+        "bypasses": 0,
+        "cost": 268800
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 38087,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 54727
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 4864
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 5494,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 5878
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 6784
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 5494,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 7798
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 68,
+        "bypasses": 0,
+        "cost": 21120
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 5494,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 22134
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 5568
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 10147,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 10531
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 12768
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 10147,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 12451
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 255,
+        "bypasses": 0,
+        "cost": 66528
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 10147,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 84,
+        "bypasses": 0,
+        "cost": 26787
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 8160,
+        "arith": 8160,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4335,
+        "bypasses": 0,
+        "cost": 20928
+      },
+      "basis": {
+        "probes": 512,
+        "arith": 38008,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 38776
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 8160,
+        "arith": 8160,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4335,
+        "bypasses": 0,
+        "cost": 143328
+      },
+      "basis": {
+        "probes": 512,
+        "arith": 38008,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 46456
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 16,
+      "b": 32,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 8160,
+        "arith": 8160,
+        "key": 4352,
+        "output": 256,
+        "peakPayloadBits": 4335,
+        "bypasses": 0,
+        "cost": 1057248
+      },
+      "basis": {
+        "probes": 512,
+        "arith": 38008,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 336,
+        "bypasses": 0,
+        "cost": 103800
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 6672
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 7422,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 7686
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 6792
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 7422,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 7806
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 8,
+        "arith": 8,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 7688
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 7422,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 8702
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 6716
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 14222,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 14486
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 7166
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 14222,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 14606
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 30,
+        "arith": 30,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 10526
+      },
+      "basis": {
+        "probes": 8,
+        "arith": 14222,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 15502
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1280
+      },
+      "repeat": {
+        "probes": 512,
+        "arith": 512,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 7680
+      },
+      "basis": {
+        "probes": 48,
+        "arith": 79690,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 79994
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 8960
+      },
+      "repeat": {
+        "probes": 512,
+        "arith": 512,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 15360
+      },
+      "basis": {
+        "probes": 48,
+        "arith": 79690,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 80714
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 2,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 512,
+        "arith": 512,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 66304
+      },
+      "repeat": {
+        "probes": 512,
+        "arith": 512,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 72704
+      },
+      "basis": {
+        "probes": 48,
+        "arith": 79690,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 86090
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 6720
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 7446,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 7734
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 7200
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 7446,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 8214
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 32,
+        "arith": 32,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 10784
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 7446,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 11798
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 6896
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 14044,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 14332
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 8696
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 14044,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 14812
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 120,
+        "arith": 120,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 22136
+      },
+      "basis": {
+        "probes": 32,
+        "arith": 14044,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 18396
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 4352
+      },
+      "repeat": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 10752
+      },
+      "basis": {
+        "probes": 192,
+        "arith": 78706,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 79154
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 35072
+      },
+      "repeat": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 41472
+      },
+      "basis": {
+        "probes": 192,
+        "arith": 78706,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 82034
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 8,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 264448
+      },
+      "repeat": {
+        "probes": 2048,
+        "arith": 2048,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 270848
+      },
+      "basis": {
+        "probes": 192,
+        "arith": 78706,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 103538
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "repeat",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 6912
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 7542,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 7926
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "repeat",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 8832
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 7542,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 9846
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "repeat",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 128,
+        "arith": 128,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 100,
+        "bypasses": 0,
+        "cost": 23168
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 7542,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 24182
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "subspace",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 7616
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 15115,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 15499
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "subspace",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 14816
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 15115,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 17419
+      },
+      "winner": "repeat"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "subspace",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 480,
+        "arith": 480,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 375,
+        "bypasses": 0,
+        "cost": 68576
+      },
+      "basis": {
+        "probes": 128,
+        "arith": 15115,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 120,
+        "bypasses": 0,
+        "cost": 31755
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "dense",
+      "price": 1,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 16640
+      },
+      "repeat": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 23040
+      },
+      "basis": {
+        "probes": 768,
+        "arith": 80562,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 81586
+      },
+      "winner": "direct"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "dense",
+      "price": 16,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 139520
+      },
+      "repeat": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 145920
+      },
+      "basis": {
+        "probes": 768,
+        "arith": 80562,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 93106
+      },
+      "winner": "basis"
+    },
+    {
+      "r": 24,
+      "b": 32,
+      "workload": "dense",
+      "price": 128,
+      "direct": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 0,
+        "bypasses": 0,
+        "cost": 1057024
+      },
+      "repeat": {
+        "probes": 8192,
+        "arith": 8192,
+        "key": 6400,
+        "output": 256,
+        "peakPayloadBits": 6400,
+        "bypasses": 0,
+        "cost": 1063424
+      },
+      "basis": {
+        "probes": 768,
+        "arith": 80562,
+        "key": 0,
+        "output": 256,
+        "peakPayloadBits": 720,
+        "bypasses": 0,
+        "cost": 179122
+      },
+      "winner": "basis"
+    }
+  ],
+  "scope": "synthetic slice-local oracle; explicit probe price, XOR and pivot-test units, repeat-key r+1 ideal dictionary units, output units; resident payload cap excludes runtime overhead"
+}

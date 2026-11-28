@@ -1,0 +1,43 @@
+{
+  "schema": "gal01.learned_router.v1",
+  "training": {
+    "n": 768,
+    "correct": 758,
+    "unsafe": 10,
+    "falseAbstain": 0
+  },
+  "heldout": {
+    "n": 768,
+    "correct": 729,
+    "unsafe": 39,
+    "falseAbstain": 0
+  },
+  "gatedCorrect": 768,
+  "weights": [
+    0.09550694294956087,
+    3.0313694245691054,
+    -2.654412213966397,
+    2.615709483088219
+  ],
+  "adversary": {
+    "commonEarlyObservations": [
+      {
+        "m": 1,
+        "baseline": 12,
+        "candidate": 26
+      },
+      {
+        "m": 4,
+        "baseline": 48,
+        "candidate": 56
+      }
+    ],
+    "horizon": 16,
+    "baseline": 192,
+    "affineCost": 176,
+    "adversarialCost": 240,
+    "gate": "abstain"
+  },
+  "training_admission": false,
+  "scope": "synthetic offline logistic baseline; no DataGoblin or LLM weights updated"
+}
