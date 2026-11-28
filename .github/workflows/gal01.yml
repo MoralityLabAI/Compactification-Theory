@@ -33,4 +33,10 @@ jobs:
       - run: diff -u Galacticity/gal03_receipt.json /tmp/gal03.json
       - run: node Galacticity/gal03_basis.mjs > /tmp/gal03_basis.json
       - run: diff -u Galacticity/gal03_basis_receipt.json /tmp/gal03_basis.json
+      - run: node Galacticity/gal04_rent_buy.mjs > /tmp/gal04_rent_buy.json
+      - run: diff -u Galacticity/gal04_rent_buy_receipt.json /tmp/gal04_rent_buy.json
+      - run: node Galacticity/gal04_market.mjs > /tmp/gal04_market.json
+      - run: diff -u Galacticity/gal04_market_receipt.json /tmp/gal04_market.json
+      - run: node Galacticity/gal04_guard.mjs > /tmp/gal04_guard.json
+      - run: diff -u Galacticity/gal04_guard_receipt.json /tmp/gal04_guard.json
       - run: python Galacticity/test_distill_profile.py
