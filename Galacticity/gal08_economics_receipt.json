@@ -1,0 +1,170 @@
+{
+  "schema": "gal08.economics.v1",
+  "checks": 27704,
+  "cases": 22848,
+  "rows": [
+    {
+      "n": 4,
+      "gates": 22,
+      "gatePrice": 1,
+      "setup": 287,
+      "directPerUse": 23,
+      "affinePerUse": 9,
+      "first2x": "115"
+    },
+    {
+      "n": 4,
+      "gates": 22,
+      "gatePrice": 2,
+      "setup": 287,
+      "directPerUse": 45,
+      "affinePerUse": 9,
+      "first2x": "22"
+    },
+    {
+      "n": 4,
+      "gates": 22,
+      "gatePrice": 4,
+      "setup": 287,
+      "directPerUse": 89,
+      "affinePerUse": 9,
+      "first2x": "9"
+    },
+    {
+      "n": 8,
+      "gates": 42,
+      "gatePrice": 1,
+      "setup": 983,
+      "directPerUse": 43,
+      "affinePerUse": 17,
+      "first2x": "219"
+    },
+    {
+      "n": 8,
+      "gates": 42,
+      "gatePrice": 2,
+      "setup": 983,
+      "directPerUse": 85,
+      "affinePerUse": 17,
+      "first2x": "39"
+    },
+    {
+      "n": 8,
+      "gates": 42,
+      "gatePrice": 4,
+      "setup": 983,
+      "directPerUse": 169,
+      "affinePerUse": 17,
+      "first2x": "15"
+    },
+    {
+      "n": 16,
+      "gates": 82,
+      "gatePrice": 1,
+      "setup": 3623,
+      "directPerUse": 83,
+      "affinePerUse": 33,
+      "first2x": "427"
+    },
+    {
+      "n": 16,
+      "gates": 82,
+      "gatePrice": 2,
+      "setup": 3623,
+      "directPerUse": 165,
+      "affinePerUse": 33,
+      "first2x": "74"
+    },
+    {
+      "n": 16,
+      "gates": 82,
+      "gatePrice": 4,
+      "setup": 3623,
+      "directPerUse": 329,
+      "affinePerUse": 33,
+      "first2x": "28"
+    },
+    {
+      "n": 24,
+      "gates": 122,
+      "gatePrice": 1,
+      "setup": 7927,
+      "directPerUse": 123,
+      "affinePerUse": 49,
+      "first2x": "635"
+    },
+    {
+      "n": 24,
+      "gates": 122,
+      "gatePrice": 2,
+      "setup": 7927,
+      "directPerUse": 245,
+      "affinePerUse": 49,
+      "first2x": "108"
+    },
+    {
+      "n": 24,
+      "gates": 122,
+      "gatePrice": 4,
+      "setup": 7927,
+      "directPerUse": 489,
+      "affinePerUse": 49,
+      "first2x": "41"
+    },
+    {
+      "n": 32,
+      "gates": 162,
+      "gatePrice": 1,
+      "setup": 13895,
+      "directPerUse": 163,
+      "affinePerUse": 65,
+      "first2x": "843"
+    },
+    {
+      "n": 32,
+      "gates": 162,
+      "gatePrice": 2,
+      "setup": 13895,
+      "directPerUse": 325,
+      "affinePerUse": 65,
+      "first2x": "143"
+    },
+    {
+      "n": 32,
+      "gates": 162,
+      "gatePrice": 4,
+      "setup": 13895,
+      "directPerUse": 649,
+      "affinePerUse": 65,
+      "first2x": "54"
+    },
+    {
+      "n": 40,
+      "gates": 202,
+      "gatePrice": 1,
+      "setup": 21527,
+      "directPerUse": 203,
+      "affinePerUse": 81,
+      "first2x": "1051"
+    },
+    {
+      "n": 40,
+      "gates": 202,
+      "gatePrice": 2,
+      "setup": 21527,
+      "directPerUse": 405,
+      "affinePerUse": 81,
+      "first2x": "178"
+    },
+    {
+      "n": 40,
+      "gates": 202,
+      "gatePrice": 4,
+      "setup": 21527,
+      "directPerUse": 809,
+      "affinePerUse": 81,
+      "first2x": "67"
+    }
+  ],
+  "scope": "declared scalar price only; fixed authenticated circuit, one-time checked factor form, dense affine evaluation; no timings or optimized algorithm lower bound"
+}
