@@ -1,6 +1,6 @@
 function parity(x){let p=0;while(x){x&=x-1;p^=1}return p}
 
-function evalGate(g,values,x){switch(g.op){case "in":return (x>>>g.i)&1;case "const":return g.v;case "xor":return values[g.a]^values[g.b];case "and":return values[g.a]&values[g.b];default:throw Error("gate")}}
+function evalGate(g,values,x){switch(g.op){case "in":return Number((BigInt(x)>>BigInt(g.i))&1n);case "const":return g.v;case "xor":return values[g.a]^values[g.b];case "and":return values[g.a]&values[g.b];default:throw Error("gate")}}
 
 function evaluate(c,x){let v=[];for(let g of c.gates)v.push(evalGate(g,v,x));return v[c.out]}
 
