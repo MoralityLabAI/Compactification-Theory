@@ -1,3 +1,5 @@
+import { pathToFileURL } from "node:url";
+
 function rng(seed){let x=seed>>>0;return ()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return x>>>0}}
 
 function mass(e,B){let n=0;for(let w=0;w<e.weights.length;w++)if(B&(1<<w))n+=e.weights[w];return n}
@@ -82,4 +84,5 @@ function run(){let checks=0;const check=(v,msg)=>{checks++;if(!v)throw Error("ch
  return {schema:"gal06.stochastic.v1",checks,tinyBruteCases:tiny,witnessReplays:witness,oracleNodes:nodes,environmentCount:minRows.length,gridCases:minRows.length*25,policyCases:rows.length,capitalSweep:[0,24],summary,minima:minRows,examples:{hedge:{jointSameDue:0,marginalSameDue:10,jointStaggered:5},gamble:{seed:1,frontier:g.frontier.map(p=>[p.s,p.r])}},rows,scope:"exact finite weighted hidden-world model; deterministic policies, atomic settlements, known scenario table, no controller cost or wall timing; robust reserves assume all liabilities modeled; null minima right censored above capital 24"}
 }
 
-console.log(JSON.stringify(run(),null,2));
+export {gen, oracle, replay, reserve, marginalReserve, mass};
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) console.log(JSON.stringify(run(),null,2));
