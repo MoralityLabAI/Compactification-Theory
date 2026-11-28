@@ -1,3 +1,5 @@
+import {pathToFileURL} from "node:url";
+
 function rng(seed){let x=seed>>>0;return ()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return x>>>0}}
 
 function mass(weights,mask){return weights.reduce((s,w,i)=>s+((mask&(1<<i))?w:0),0)}
@@ -53,4 +55,5 @@ function run(){let checks=0,bruteCases=0,witnesses=0,nodes=0;const check=(v,msg)
  return {schema:"gal07.ambiguity.v1",checks,bruteCases,witnesses,nodes,grid:thresholds.length*21,cases:rows.length,thresholds,summary,rows,scope:"synthetic deterministic policies; known finite scenarios, fixed prior chosen once, upfront paid tests, terminal project, no controller work or native timing"}
 }
 
-console.log(JSON.stringify(run(),null,2));
+export {gen,mass,solve,score,select,replay,metrics};
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)console.log(JSON.stringify(run(),null,2));
