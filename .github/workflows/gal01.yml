@@ -43,4 +43,6 @@ jobs:
       - run: diff -u Galacticity/gal05_paths_receipt.json /tmp/gal05_paths.json
       - run: node Galacticity/gal05_portfolio.mjs > /tmp/gal05_portfolio.json
       - run: diff -u Galacticity/gal05_portfolio_receipt.json /tmp/gal05_portfolio.json
+      - run: node Galacticity/gal05_gym.mjs selftest > /tmp/gal05_gym.json
+      - run: diff -u Galacticity/gal05_gym_receipt.json /tmp/gal05_gym.json
       - run: python Galacticity/test_distill_profile.py
