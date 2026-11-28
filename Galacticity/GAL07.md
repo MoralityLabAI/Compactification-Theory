@@ -191,6 +191,24 @@ instances; the coupling and optimality arguments are paper proofs.
 
 ## 6. Research gym and next step
 
+Executable ambiguity-aware packet emitter and exact grader:
+
+    node Galacticity/gal07_gym.mjs emit 74001 hazard 8 6 2 > packet.json
+    node Galacticity/gal07_gym.mjs grade packet.json response.json
+    node Galacticity/gal07_gym.mjs selftest
+
+The packet schema is gal07.packet.v1 with capital, riskMass, radiusMass,
+and the public environment. Both masses use the common prior denominator.
+The response gal07.response.v1 contains worstSuccessMass, worstRuinMass,
+and a policy tree. Leaves are {kind:"abstain"} or {kind:"buy",i:projectIndex}.
+A test node is {kind:"test",i:testIndex,by:{signal:child,...}}.
+The grader replays all worlds, checks the actual outcome masks and the
+robust mass claims under every prior and TV radius, and recomputes the
+optimal feasible worst-success mass. 363 self-tests pass, including
+incorrect claims, illegal tests, an unsafe nominal solution and a
+zero-nominal-mass event with nonzero TV exposure. No live model calls.
+
+
 Expose costs, test menu, signal partitions, possible payoffs, prior
 vertices, risk cap and capital. Keep the actual world and oracle
 answer private. A submitted policy must be nonanticipative; replay
