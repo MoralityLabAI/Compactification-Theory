@@ -1,0 +1,21 @@
+name: Learning Theory bibliography integrity
+on:
+  push:
+    paths:
+      - 'papers/learning_theory/**'
+      - '.github/workflows/learning-theory-papers.yml'
+  pull_request:
+    paths:
+      - 'papers/learning_theory/**'
+      - '.github/workflows/learning-theory-papers.yml'
+jobs:
+  references:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify bibliography and cross-links
+        run: python papers/learning_theory/verify_catalog.py
