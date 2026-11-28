@@ -1,0 +1,206 @@
+{
+  "schema": "lean-setmm-port-v1",
+  "source_commit": "1fac0f2ec5b5d39256553481878bf6119fa27b2b",
+  "setmm_commit": "806509385370b29fe8b1723804777ac21b1ce194",
+  "ports": [
+    {
+      "metamath_label": "ml-ct-fc10-and",
+      "source": "research/refutation_bench/fc10/smoke.lean",
+      "source_blob": "2f80801ec74326f8ab673c4badf357faf3604c88",
+      "lean_declaration": "fc10_smoke_and",
+      "scope": "propositional schema",
+      "mapping": "P,Q map to ph,ps.",
+      "hypotheses": [
+        "|- ph",
+        "|- ps"
+      ],
+      "statement": "|- ( ph /\\ ps )",
+      "proof_steps": 5
+    },
+    {
+      "metamath_label": "ml-ct-quotient-congruence",
+      "source": "research/algernon/algebraic_machine/lean/Algernon/Semiconjugacy.lean",
+      "source_blob": "c0e83458c3cda055ef87d9b72fd99ffb37b64791",
+      "lean_declaration": "AlgernonAlgebra.quotient_congruence",
+      "scope": "pointwise equational translation",
+      "mapping": "F latent step, G semantic step, H decoder, A/B latent states. Universal commutation specialized at A/B; the pointwise implication proves the source result for set-coded functions.",
+      "hypotheses": [
+        "|- ( H ` ( F ` A ) ) = ( G ` ( H ` A ) )",
+        "|- ( H ` ( F ` B ) ) = ( G ` ( H ` B ) )",
+        "|- ( H ` A ) = ( H ` B )"
+      ],
+      "statement": "|- ( H ` ( F ` A ) ) = ( H ` ( F ` B ) )",
+      "proof_steps": 43
+    },
+    {
+      "metamath_label": "ml-ct-three-cycle",
+      "source": "research/algernon/algebraic_machine/lean/Algernon/Semiconjugacy.lean",
+      "source_blob": "c0e83458c3cda055ef87d9b72fd99ffb37b64791",
+      "lean_declaration": "AlgernonAlgebra.three_cycle_closes",
+      "scope": "set-valued translation",
+      "mapping": "F,G,H three transitions; A,B,C states s0,s1,s2. Preserves all premises and conclusion under set-function interpretation.",
+      "hypotheses": [
+        "|- B = ( F ` A )",
+        "|- C = ( G ` B )",
+        "|- A = ( H ` C )"
+      ],
+      "statement": "|- A = ( H ` ( G ` ( F ` A ) ) )",
+      "proof_steps": 49
+    },
+    {
+      "metamath_label": "ml-ct-smoke-add4",
+      "source": "research/refutation_bench/fc10/smoke.lean",
+      "source_blob": "2f80801ec74326f8ab673c4badf357faf3604c88",
+      "lean_declaration": "fc10_smoke_omega",
+      "scope": "natural arithmetic translation",
+      "mapping": "A=a,B=b; Nat membership explicit.",
+      "hypotheses": [
+        "|- A e. NN0",
+        "|- B e. NN0",
+        "|- A <_ B"
+      ],
+      "statement": "|- ( A + 4 ) <_ ( B + 4 )",
+      "proof_steps": 27
+    },
+    {
+      "metamath_label": "ml-ct-smoke-list",
+      "source": "research/refutation_bench/fc10/smoke.lean",
+      "source_blob": "2f80801ec74326f8ab673c4badf357faf3604c88",
+      "lean_declaration": "fc10_smoke_list",
+      "scope": "set-coded list translation",
+      "mapping": "S,T,U finite words over NN0 represent lists of Nat; ++ is ordered concatenation of words.",
+      "hypotheses": [
+        "|- S e. Word NN0",
+        "|- T e. Word NN0",
+        "|- U e. Word NN0"
+      ],
+      "statement": "|- ( S ++ ( T ++ U ) ) = ( ( S ++ T ) ++ U )",
+      "proof_steps": 51
+    },
+    {
+      "metamath_label": "ml-ct-semiconjugacy-induction",
+      "source": "research/algernon/algebraic_machine/lean/Algernon/Semiconjugacy.lean",
+      "source_blob": "c0e83458c3cda055ef87d9b72fd99ffb37b64791",
+      "lean_declaration": "AlgernonAlgebra.semiconjugacy_iterate",
+      "scope": "trajectory-graph induction translation",
+      "mapping": "S(n)=iterate F n h, T(n)=iterate G n (H h), H=decoder. Base equality and both universally quantified successor equations express the two recursions; commutation is specialized along S. The certificate performs actual NN0 induction for arbitrary N. Set-coded functions and the unfolding of Lean iterate are the correspondence interpretation; no automatic translation of dependent types or recursion construction.",
+      "hypotheses": [
+        "|- N e. NN0",
+        "|- ( H ` ( S ` 0 ) ) = ( T ` 0 )",
+        "|- A. y e. NN0 ( S ` ( y + 1 ) ) = ( F ` ( S ` y ) )",
+        "|- A. y e. NN0 ( T ` ( y + 1 ) ) = ( G ` ( T ` y ) )",
+        "|- A. y e. NN0 ( H ` ( F ` ( S ` y ) ) ) = ( G ` ( H ` ( S ` y ) ) )"
+      ],
+      "statement": "|- ( H ` ( S ` N ) ) = ( T ` N )",
+      "proof_steps": 946,
+      "distinct": [
+        [
+          "F",
+          "x"
+        ],
+        [
+          "F",
+          "y"
+        ],
+        [
+          "G",
+          "x"
+        ],
+        [
+          "G",
+          "y"
+        ],
+        [
+          "H",
+          "x"
+        ],
+        [
+          "H",
+          "y"
+        ],
+        [
+          "N",
+          "x"
+        ],
+        [
+          "N",
+          "y"
+        ],
+        [
+          "S",
+          "x"
+        ],
+        [
+          "S",
+          "y"
+        ],
+        [
+          "T",
+          "x"
+        ],
+        [
+          "T",
+          "y"
+        ],
+        [
+          "x",
+          "y"
+        ]
+      ]
+    },
+    {
+      "metamath_label": "ml-ct-invariant-iterate-induction",
+      "source": "research/algernon/algebraic_machine/lean/Algernon/Semiconjugacy.lean",
+      "source_blob": "c0e83458c3cda055ef87d9b72fd99ffb37b64791",
+      "lean_declaration": "AlgernonAlgebra.invariant_iterate",
+      "scope": "trajectory-graph induction translation",
+      "mapping": "S(n)=iterate F n h, A is the validity set. Premises are valid initial state, universal successor equation, and closure specialized along S. Actual NN0 induction proves S(N) in A. The trajectory representation and unfolding of iterate are the human correspondence.",
+      "hypotheses": [
+        "|- N e. NN0",
+        "|- ( S ` 0 ) e. A",
+        "|- A. y e. NN0 ( S ` ( y + 1 ) ) = ( F ` ( S ` y ) )",
+        "|- A. y e. NN0 ( ( S ` y ) e. A -> ( F ` ( S ` y ) ) e. A )"
+      ],
+      "statement": "|- ( S ` N ) e. A",
+      "proof_steps": 487,
+      "distinct": [
+        [
+          "A",
+          "x"
+        ],
+        [
+          "A",
+          "y"
+        ],
+        [
+          "F",
+          "x"
+        ],
+        [
+          "F",
+          "y"
+        ],
+        [
+          "N",
+          "x"
+        ],
+        [
+          "N",
+          "y"
+        ],
+        [
+          "S",
+          "x"
+        ],
+        [
+          "S",
+          "y"
+        ],
+        [
+          "x",
+          "y"
+        ]
+      ]
+    }
+  ]
+}
