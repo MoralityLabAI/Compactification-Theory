@@ -1,0 +1,37 @@
+name: SA-01 sorry-free semantic audit fixtures
+on:
+  push:
+    paths:
+      - 'research/refutation_bench/semantic_audit_sa01/**'
+      - '.github/workflows/refutation-sa01.yml'
+  pull_request:
+    paths:
+      - 'research/refutation_bench/semantic_audit_sa01/**'
+      - '.github/workflows/refutation-sa01.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned Lean
+        run: |
+          curl --fail --location --retry 3 https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst -o /tmp/lean.tar.zst
+          tar --zstd -xf /tmp/lean.tar.zst -C /tmp
+          echo /tmp/lean-4.19.0-linux/bin >> "$GITHUB_PATH"
+      - name: Compile sources and independent certificates
+        run: |
+          lean --version
+          python research/refutation_bench/semantic_audit_sa01/seed.py --out /tmp/sa01
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sa01-native-receipts
+          path: /tmp/sa01
+          retention-days: 14
