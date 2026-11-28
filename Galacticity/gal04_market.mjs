@@ -1,3 +1,5 @@
+import { pathToFileURL } from "node:url";
+
 function rng(seed){let x=seed>>>0;return ()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return x>>>0}}
 
 function itemsFor(seed){const rnd=rng(seed);return Array.from({length:5},(_,i)=>({size:2+rnd()%4,read:12+rnd()%25,hit:1+rnd()%4,extra:20+rnd()%70}))}
@@ -37,6 +39,7 @@ function createPolicy(name,items,cap,num=1,den=1,ttl=4){let mask=0,credit=items.
 }
 
 function parity(x){let p=0;while(x){x&=x-1;p^=1}return p}
+function referenceParity(x){let p=0;for(let j=0;j<32;j++)p=(p+((x>>>j)&1))%2;return p}
 
 function replay(items,events,cap,seed,decide,offlineMasks=null){let rand=rng(seed),world=items.map(()=>rand()),cache=new Map(),prev=0,tot={build:0,service:0,holding:0,controller:0},peak=0,fills=0,hits=0,invalidations=0,answers=0;
  for(let t=0;t<events.length;t++){let ev=events[t];for(let i=0;i<items.length;i++)if(ev.invalid&(1<<i)){world[i]=rand();if(cache.delete(i))invalidations++}
@@ -44,7 +47,7 @@ function replay(items,events,cap,seed,decide,offlineMasks=null){let rand=rng(see
  if(m&~(live|bit)||units(items,m)>cap)throw Error("invalid action");
  for(const i of [...cache.keys()])if(!(m&(1<<i)))cache.delete(i);
  for(let i=0;i<items.length;i++)if(m&(1<<i)){if(!cache.has(i)){if(i!==j)throw Error("prefetch");cache.set(i,parity(world[i]));tot.build+=items[i].read*ev.price+items[i].extra;fills++}}
- if(m&bit&&items[j].hit<=items[j].read*ev.price){if(cache.get(j)!==parity(world[j]))throw Error("stale answer");tot.service+=items[j].hit+1;hits++}else{let y=parity(world[j]);if(y!==parity(world[j]))throw Error("wrong direct");tot.service+=items[j].read*ev.price+1}
+ if(m&bit&&items[j].hit<=items[j].read*ev.price){if(cache.get(j)!==referenceParity(world[j]))throw Error("stale answer");tot.service+=items[j].hit+1;hits++}else{let y=parity(world[j]);if(y!==referenceParity(world[j]))throw Error("wrong direct");tot.service+=items[j].read*ev.price+1}
  let bytes=0;for(const i of cache.keys())bytes+=items[i].size;if(bytes!==units(items,m))throw Error("cache mismatch");tot.holding+=bytes*ev.hold;tot.controller+=act.work;peak=Math.max(peak,bytes);answers++;prev=m}
  let cost=tot.build+tot.service+tot.holding;return {market:cost,total:cost+tot.controller,...tot,peak,fills,hits,invalidations,answers}}
 
@@ -63,4 +66,7 @@ function run(){
  return {schema:"gal04.market.v1",checks,bruteCases,trainEpisodes:72,testEpisodes:rows.length,requests:rows.length*72,selected:key(selected),calibration:cal,summaries,rows,scope:"synthetic exact semantic cache; declared work units, payload cap, current public event only; offline oracle pays no planning; no native BPD or DataGoblin training"}
 }
 
-console.log(JSON.stringify(run(),null,2));
+
+
+export { rng, itemsFor, eventsFor, units, directCost, marketStep, total, offline, createPolicy, replay };
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) console.log(JSON.stringify(run(),null,2));
