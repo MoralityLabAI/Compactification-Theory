@@ -1,0 +1,115 @@
+{
+  "analytic_primes": [
+    {
+      "attained_queries": 10,
+      "contradiction_gap": 2,
+      "cross_shift_world_pairs": 250,
+      "forbidden_queries": 9,
+      "line_pair_lower_for_all_words": 32,
+      "line_pair_upper_if_erasure_robust": 30,
+      "marker_count": 2,
+      "max_light_weight_one_lines": 9,
+      "optimal_queries": 10,
+      "prime": 5,
+      "verified_code_distance": 2
+    },
+    {
+      "attained_queries": 14,
+      "contradiction_gap": 9,
+      "cross_shift_world_pairs": 1029,
+      "forbidden_queries": 13,
+      "line_pair_lower_for_all_words": 72,
+      "line_pair_upper_if_erasure_robust": 63,
+      "marker_count": 2,
+      "max_light_weight_one_lines": 13,
+      "optimal_queries": 14,
+      "prime": 7,
+      "verified_code_distance": 2
+    },
+    {
+      "attained_queries": 22,
+      "contradiction_gap": 35,
+      "cross_shift_world_pairs": 6655,
+      "forbidden_queries": 21,
+      "line_pair_lower_for_all_words": 200,
+      "line_pair_upper_if_erasure_robust": 165,
+      "marker_count": 2,
+      "max_light_weight_one_lines": 21,
+      "optimal_queries": 22,
+      "prime": 11,
+      "verified_code_distance": 2
+    },
+    {
+      "attained_queries": 26,
+      "contradiction_gap": 54,
+      "cross_shift_world_pairs": 13182,
+      "forbidden_queries": 25,
+      "line_pair_lower_for_all_words": 288,
+      "line_pair_upper_if_erasure_robust": 234,
+      "marker_count": 2,
+      "max_light_weight_one_lines": 25,
+      "optimal_queries": 26,
+      "prime": 13,
+      "verified_code_distance": 2
+    }
+  ],
+  "proof_status": "analytic_uniform_p_ge5_plus_exhaustive_p2_p3",
+  "schema": "OIC32-PRIME-GLOBAL-FIXED-ERASURE-V1",
+  "small_primes": [
+    {
+      "checked_normalized_schedules": 4,
+      "erasure_robust_schedule_exists": false,
+      "example": [
+        0,
+        0,
+        0
+      ],
+      "horizon": 3,
+      "max_minimum_cross_shift_distance": 1,
+      "prime": 2
+    },
+    {
+      "checked_normalized_schedules": 8,
+      "erasure_robust_schedule_exists": true,
+      "example": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "horizon": 4,
+      "max_minimum_cross_shift_distance": 2,
+      "prime": 2
+    },
+    {
+      "checked_normalized_schedules": 81,
+      "erasure_robust_schedule_exists": false,
+      "example": [
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "horizon": 5,
+      "max_minimum_cross_shift_distance": 1,
+      "prime": 3
+    },
+    {
+      "checked_normalized_schedules": 243,
+      "erasure_robust_schedule_exists": true,
+      "example": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "horizon": 6,
+      "max_minimum_cross_shift_distance": 2,
+      "prime": 3
+    }
+  ],
+  "statement": "For every prime p>=2, global fixed one-marked-erasure minimum is 2p"
+}

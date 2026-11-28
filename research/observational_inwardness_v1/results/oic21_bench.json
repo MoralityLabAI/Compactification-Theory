@@ -1,0 +1,1195 @@
+{
+  "elapsed_seconds": 8.962,
+  "n_train": [
+    4,
+    5,
+    6
+  ],
+  "ns": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    12,
+    16,
+    24,
+    32
+  ],
+  "query_resource": "one labeled sensor-bit per time step, address cost separately charged",
+  "results": [
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.625,
+        "cyclic_sweep_accuracy": 0.625,
+        "optimal_fixed": {
+          "accuracy": 1.0,
+          "word": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "random_fixed_accuracy_max": 1.0,
+        "random_fixed_accuracy_mean": 0.7822265625,
+        "random_fixed_accuracy_min": 0.5625,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 12,
+        "brier": 0.125,
+        "conditional_entropy_bits": 0.25,
+        "horizon": 6,
+        "leaves": 14,
+        "n": 4,
+        "output_bits": 6,
+        "queried_nodes": 38,
+        "shift_accuracy": 0.875,
+        "total_link_bits": 18
+      },
+      "information_gain": {
+        "adaptive_address_bits": 12,
+        "brier": 0.125,
+        "conditional_entropy_bits": 0.25,
+        "horizon": 6,
+        "leaves": 13,
+        "n": 4,
+        "output_bits": 6,
+        "queried_nodes": 38,
+        "shift_accuracy": 0.875,
+        "total_link_bits": 18
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.05,
+          "mean_shift_accuracy": 0.95,
+          "min_shift_accuracy": 0.9375,
+          "runs": [
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 0,
+              "shift_accuracy": 0.9375
+            },
+            {
+              "brier": 0.0,
+              "conditional_entropy_bits": 0.0,
+              "seed": 1,
+              "shift_accuracy": 1.0
+            },
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 2,
+              "shift_accuracy": 0.9375
+            },
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 3,
+              "shift_accuracy": 0.9375
+            },
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 4,
+              "shift_accuracy": 0.9375
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.0625,
+          "mean_shift_accuracy": 0.9375,
+          "min_shift_accuracy": 0.9375,
+          "runs": [
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 0,
+              "shift_accuracy": 0.9375
+            },
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 1,
+              "shift_accuracy": 0.9375
+            },
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 2,
+              "shift_accuracy": 0.9375
+            },
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 3,
+              "shift_accuracy": 0.9375
+            },
+            {
+              "brier": 0.0625,
+              "conditional_entropy_bits": 0.125,
+              "seed": 4,
+              "shift_accuracy": 0.9375
+            }
+          ]
+        }
+      },
+      "n": 4,
+      "optimal_adaptive": {
+        "accuracy": 1.0,
+        "denominator": 16,
+        "expected_success_numerator": 16
+      },
+      "query_budget": 6,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 1.0,
+        "active_time_steps": 4,
+        "installed_sensor_address_bits": 4,
+        "output_bits": 8,
+        "sensors_installed": 2
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.4,
+        "cyclic_sweep_accuracy": 0.4,
+        "optimal_fixed": {
+          "accuracy": 0.84,
+          "word": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1
+          ]
+        },
+        "random_fixed_accuracy_max": 0.84,
+        "random_fixed_accuracy_mean": 0.724375,
+        "random_fixed_accuracy_min": 0.52,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 21,
+        "brier": 0.04,
+        "conditional_entropy_bits": 0.08,
+        "horizon": 7,
+        "leaves": 23,
+        "n": 5,
+        "output_bits": 7,
+        "queried_nodes": 61,
+        "shift_accuracy": 0.96,
+        "total_link_bits": 28
+      },
+      "information_gain": {
+        "adaptive_address_bits": 21,
+        "brier": 0.12799999999999997,
+        "conditional_entropy_bits": 0.30438561897747246,
+        "horizon": 7,
+        "leaves": 21,
+        "n": 5,
+        "output_bits": 7,
+        "queried_nodes": 59,
+        "shift_accuracy": 0.88,
+        "total_link_bits": 28
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.04,
+          "mean_shift_accuracy": 0.96,
+          "min_shift_accuracy": 0.96,
+          "runs": [
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 0,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 1,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 2,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 3,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 4,
+              "shift_accuracy": 0.96
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.04,
+          "mean_shift_accuracy": 0.96,
+          "min_shift_accuracy": 0.96,
+          "runs": [
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 0,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 1,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 2,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 3,
+              "shift_accuracy": 0.96
+            },
+            {
+              "brier": 0.04,
+              "conditional_entropy_bits": 0.08,
+              "seed": 4,
+              "shift_accuracy": 0.96
+            }
+          ]
+        }
+      },
+      "n": 5,
+      "optimal_adaptive": {
+        "accuracy": 0.96,
+        "denominator": 25,
+        "expected_success_numerator": 24
+      },
+      "query_budget": 7,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 1.0,
+        "active_time_steps": 5,
+        "installed_sensor_address_bits": 6,
+        "output_bits": 10,
+        "sensors_installed": 2
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        2
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.4722222222222222,
+        "cyclic_sweep_accuracy": 0.4722222222222222,
+        "optimal_fixed": null,
+        "random_fixed_accuracy_max": 0.6944444444444444,
+        "random_fixed_accuracy_mean": 0.5863715277777778,
+        "random_fixed_accuracy_min": 0.4444444444444444,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 24,
+        "brier": 0.23888888888888887,
+        "conditional_entropy_bits": 0.5894244708020451,
+        "horizon": 8,
+        "leaves": 25,
+        "n": 6,
+        "output_bits": 8,
+        "queried_nodes": 88,
+        "shift_accuracy": 0.7777777777777778,
+        "total_link_bits": 32
+      },
+      "information_gain": {
+        "adaptive_address_bits": 24,
+        "brier": 0.24537037037037038,
+        "conditional_entropy_bits": 0.6530493056757483,
+        "horizon": 8,
+        "leaves": 25,
+        "n": 6,
+        "output_bits": 8,
+        "queried_nodes": 88,
+        "shift_accuracy": 0.7777777777777778,
+        "total_link_bits": 32
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.1151851851851852,
+          "mean_shift_accuracy": 0.9,
+          "min_shift_accuracy": 0.8611111111111112,
+          "runs": [
+            {
+              "brier": 0.16111111111111115,
+              "conditional_entropy_bits": 0.35707647145203736,
+              "seed": 0,
+              "shift_accuracy": 0.8611111111111112
+            },
+            {
+              "brier": 0.09259259259259259,
+              "conditional_entropy_bits": 0.20860486123130378,
+              "seed": 1,
+              "shift_accuracy": 0.9166666666666666
+            },
+            {
+              "brier": 0.10555555555555557,
+              "conditional_entropy_bits": 0.24596536034092623,
+              "seed": 2,
+              "shift_accuracy": 0.9166666666666666
+            },
+            {
+              "brier": 0.13333333333333336,
+              "conditional_entropy_bits": 0.3015209158964818,
+              "seed": 3,
+              "shift_accuracy": 0.8888888888888888
+            },
+            {
+              "brier": 0.08333333333333334,
+              "conditional_entropy_bits": 0.1876357639489852,
+              "seed": 4,
+              "shift_accuracy": 0.9166666666666666
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.12444444444444447,
+          "mean_shift_accuracy": 0.888888888888889,
+          "min_shift_accuracy": 0.8611111111111112,
+          "runs": [
+            {
+              "brier": 0.13333333333333336,
+              "conditional_entropy_bits": 0.3015209158964818,
+              "seed": 0,
+              "shift_accuracy": 0.8888888888888888
+            },
+            {
+              "brier": 0.08333333333333334,
+              "conditional_entropy_bits": 0.1876357639489852,
+              "seed": 1,
+              "shift_accuracy": 0.9166666666666666
+            },
+            {
+              "brier": 0.16111111111111115,
+              "conditional_entropy_bits": 0.35707647145203736,
+              "seed": 2,
+              "shift_accuracy": 0.8611111111111112
+            },
+            {
+              "brier": 0.13333333333333336,
+              "conditional_entropy_bits": 0.3015209158964818,
+              "seed": 3,
+              "shift_accuracy": 0.8888888888888888
+            },
+            {
+              "brier": 0.11111111111111112,
+              "conditional_entropy_bits": 0.2641604167868593,
+              "seed": 4,
+              "shift_accuracy": 0.8888888888888888
+            }
+          ]
+        }
+      },
+      "n": 6,
+      "optimal_adaptive": {
+        "accuracy": 0.9444444444444444,
+        "denominator": 36,
+        "expected_success_numerator": 34
+      },
+      "query_budget": 8,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 0.7777777777777778,
+        "active_time_steps": 6,
+        "installed_sensor_address_bits": 6,
+        "output_bits": 12,
+        "sensors_installed": 2
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.2857142857142857,
+        "cyclic_sweep_accuracy": 0.2857142857142857,
+        "optimal_fixed": null,
+        "random_fixed_accuracy_max": 0.6938775510204082,
+        "random_fixed_accuracy_mean": 0.6029974489795918,
+        "random_fixed_accuracy_min": 0.46938775510204084,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 27,
+        "brier": 0.12244897959183673,
+        "conditional_entropy_bits": 0.3011201531053769,
+        "horizon": 9,
+        "leaves": 40,
+        "n": 7,
+        "output_bits": 9,
+        "queried_nodes": 127,
+        "shift_accuracy": 0.8775510204081632,
+        "total_link_bits": 36
+      },
+      "information_gain": {
+        "adaptive_address_bits": 27,
+        "brier": 0.24829931972789113,
+        "conditional_entropy_bits": 0.6738683675235484,
+        "horizon": 9,
+        "leaves": 35,
+        "n": 7,
+        "output_bits": 9,
+        "queried_nodes": 125,
+        "shift_accuracy": 0.7755102040816326,
+        "total_link_bits": 36
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.12244897959183673,
+          "mean_shift_accuracy": 0.8775510204081632,
+          "min_shift_accuracy": 0.8775510204081632,
+          "runs": [
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 0,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 1,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 2,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 3,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 4,
+              "shift_accuracy": 0.8775510204081632
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.12244897959183673,
+          "mean_shift_accuracy": 0.8775510204081632,
+          "min_shift_accuracy": 0.8775510204081632,
+          "runs": [
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 0,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 1,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 2,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 3,
+              "shift_accuracy": 0.8775510204081632
+            },
+            {
+              "brier": 0.12244897959183673,
+              "conditional_entropy_bits": 0.3011201531053769,
+              "seed": 4,
+              "shift_accuracy": 0.8775510204081632
+            }
+          ]
+        }
+      },
+      "n": 7,
+      "query_budget": 9,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 1.0,
+        "active_time_steps": 7,
+        "installed_sensor_address_bits": 6,
+        "output_bits": 14,
+        "sensors_installed": 2
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1,
+        2
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.34375,
+        "cyclic_sweep_accuracy": 0.34375,
+        "optimal_fixed": null,
+        "random_fixed_accuracy_max": 0.59375,
+        "random_fixed_accuracy_mean": 0.50537109375,
+        "random_fixed_accuracy_min": 0.34375,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 30,
+        "brier": 0.24131944444444445,
+        "conditional_entropy_bits": 0.6224901418295,
+        "horizon": 10,
+        "leaves": 45,
+        "n": 8,
+        "output_bits": 10,
+        "queried_nodes": 180,
+        "shift_accuracy": 0.765625,
+        "total_link_bits": 40
+      },
+      "information_gain": {
+        "adaptive_address_bits": 30,
+        "brier": 0.328804347826087,
+        "conditional_entropy_bits": 0.9831642111023053,
+        "horizon": 10,
+        "leaves": 40,
+        "n": 8,
+        "output_bits": 10,
+        "queried_nodes": 169,
+        "shift_accuracy": 0.6875,
+        "total_link_bits": 40
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.23647435897435898,
+          "mean_shift_accuracy": 0.796875,
+          "min_shift_accuracy": 0.78125,
+          "runs": [
+            {
+              "brier": 0.22115384615384615,
+              "conditional_entropy_bits": 0.6563414197769426,
+              "seed": 0,
+              "shift_accuracy": 0.8125
+            },
+            {
+              "brier": 0.2520833333333333,
+              "conditional_entropy_bits": 0.7849817337113671,
+              "seed": 1,
+              "shift_accuracy": 0.78125
+            },
+            {
+              "brier": 0.23918269230769232,
+              "conditional_entropy_bits": 0.7188414197769426,
+              "seed": 2,
+              "shift_accuracy": 0.796875
+            },
+            {
+              "brier": 0.23918269230769232,
+              "conditional_entropy_bits": 0.7188414197769426,
+              "seed": 3,
+              "shift_accuracy": 0.796875
+            },
+            {
+              "brier": 0.23076923076923078,
+              "conditional_entropy_bits": 0.7204018177474094,
+              "seed": 4,
+              "shift_accuracy": 0.796875
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.2337162837162837,
+          "mean_shift_accuracy": 0.796875,
+          "min_shift_accuracy": 0.78125,
+          "runs": [
+            {
+              "brier": 0.24639423076923078,
+              "conditional_entropy_bits": 0.7439920521900178,
+              "seed": 0,
+              "shift_accuracy": 0.78125
+            },
+            {
+              "brier": 0.23918269230769232,
+              "conditional_entropy_bits": 0.7188414197769426,
+              "seed": 1,
+              "shift_accuracy": 0.796875
+            },
+            {
+              "brier": 0.22115384615384615,
+              "conditional_entropy_bits": 0.6563414197769426,
+              "seed": 2,
+              "shift_accuracy": 0.8125
+            },
+            {
+              "brier": 0.23883928571428573,
+              "conditional_entropy_bits": 0.72575337400833,
+              "seed": 3,
+              "shift_accuracy": 0.796875
+            },
+            {
+              "brier": 0.22301136363636365,
+              "conditional_entropy_bits": 0.6765446922319813,
+              "seed": 4,
+              "shift_accuracy": 0.796875
+            }
+          ]
+        }
+      },
+      "n": 8,
+      "query_budget": 10,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 0.90625,
+        "active_time_steps": 8,
+        "installed_sensor_address_bits": 9,
+        "output_bits": 24,
+        "sensors_installed": 3
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1,
+        4
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.2708333333333333,
+        "cyclic_sweep_accuracy": 0.2708333333333333,
+        "optimal_fixed": null,
+        "random_fixed_accuracy_max": 0.4375,
+        "random_fixed_accuracy_mean": 0.3887803819444444,
+        "random_fixed_accuracy_min": 0.3472222222222222,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 56,
+        "brier": 0.39560931899641577,
+        "conditional_entropy_bits": 1.3222159057554075,
+        "horizon": 14,
+        "leaves": 80,
+        "n": 12,
+        "output_bits": 14,
+        "queried_nodes": 505,
+        "shift_accuracy": 0.6180555555555556,
+        "total_link_bits": 70
+      },
+      "information_gain": {
+        "adaptive_address_bits": 56,
+        "brier": 0.3999756335282651,
+        "conditional_entropy_bits": 1.3890920752327487,
+        "horizon": 14,
+        "leaves": 81,
+        "n": 12,
+        "output_bits": 14,
+        "queried_nodes": 481,
+        "shift_accuracy": 0.6111111111111112,
+        "total_link_bits": 70
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.2232295261099609,
+          "mean_shift_accuracy": 0.7958333333333333,
+          "min_shift_accuracy": 0.7916666666666666,
+          "runs": [
+            {
+              "brier": 0.228505291005291,
+              "conditional_entropy_bits": 0.7409934675351675,
+              "seed": 0,
+              "shift_accuracy": 0.7916666666666666
+            },
+            {
+              "brier": 0.21678743961352653,
+              "conditional_entropy_bits": 0.6812496283295469,
+              "seed": 1,
+              "shift_accuracy": 0.8055555555555556
+            },
+            {
+              "brier": 0.22420634920634924,
+              "conditional_entropy_bits": 0.7291218984758155,
+              "seed": 2,
+              "shift_accuracy": 0.7916666666666666
+            },
+            {
+              "brier": 0.22373188405797104,
+              "conditional_entropy_bits": 0.6951385172184357,
+              "seed": 3,
+              "shift_accuracy": 0.7986111111111112
+            },
+            {
+              "brier": 0.2229166666666667,
+              "conditional_entropy_bits": 0.7064272109413209,
+              "seed": 4,
+              "shift_accuracy": 0.7916666666666666
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.22219477382520864,
+          "mean_shift_accuracy": 0.7972222222222223,
+          "min_shift_accuracy": 0.7847222222222222,
+          "runs": [
+            {
+              "brier": 0.2222222222222222,
+              "conditional_entropy_bits": 0.7502715278979705,
+              "seed": 0,
+              "shift_accuracy": 0.7986111111111112
+            },
+            {
+              "brier": 0.22373188405797104,
+              "conditional_entropy_bits": 0.6951385172184357,
+              "seed": 1,
+              "shift_accuracy": 0.7986111111111112
+            },
+            {
+              "brier": 0.2222222222222222,
+              "conditional_entropy_bits": 0.7502715278979705,
+              "seed": 2,
+              "shift_accuracy": 0.7986111111111112
+            },
+            {
+              "brier": 0.2167874396135266,
+              "conditional_entropy_bits": 0.6812496283295468,
+              "seed": 3,
+              "shift_accuracy": 0.8055555555555556
+            },
+            {
+              "brier": 0.22601010101010108,
+              "conditional_entropy_bits": 0.776104028225165,
+              "seed": 4,
+              "shift_accuracy": 0.7847222222222222
+            }
+          ]
+        }
+      },
+      "n": 12,
+      "query_budget": 14,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 0.7291666666666666,
+        "active_time_steps": 12,
+        "installed_sensor_address_bits": 12,
+        "output_bits": 36,
+        "sensors_installed": 3
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.1796875,
+        "cyclic_sweep_accuracy": 0.1796875,
+        "optimal_fixed": null,
+        "random_fixed_accuracy_max": 0.3984375,
+        "random_fixed_accuracy_mean": 0.361328125,
+        "random_fixed_accuracy_min": 0.30859375,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 72,
+        "brier": 0.3211699695121951,
+        "conditional_entropy_bits": 1.0598522399238868,
+        "horizon": 18,
+        "leaves": 164,
+        "n": 16,
+        "output_bits": 18,
+        "queried_nodes": 1180,
+        "shift_accuracy": 0.69140625,
+        "total_link_bits": 90
+      },
+      "information_gain": {
+        "adaptive_address_bits": 72,
+        "brier": 0.5120738636363635,
+        "conditional_entropy_bits": 2.098276010688261,
+        "horizon": 18,
+        "leaves": 118,
+        "n": 16,
+        "output_bits": 18,
+        "queried_nodes": 982,
+        "shift_accuracy": 0.49609375,
+        "total_link_bits": 90
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.30472806123998714,
+          "mean_shift_accuracy": 0.71640625,
+          "min_shift_accuracy": 0.69921875,
+          "runs": [
+            {
+              "brier": 0.29611895161290325,
+              "conditional_entropy_bits": 1.1233618593892403,
+              "seed": 0,
+              "shift_accuracy": 0.7265625
+            },
+            {
+              "brier": 0.29389880952380953,
+              "conditional_entropy_bits": 1.1112907622885908,
+              "seed": 1,
+              "shift_accuracy": 0.73046875
+            },
+            {
+              "brier": 0.30807291666666664,
+              "conditional_entropy_bits": 1.1473680615753006,
+              "seed": 2,
+              "shift_accuracy": 0.7109375
+            },
+            {
+              "brier": 0.32490079365079366,
+              "conditional_entropy_bits": 1.1948493094033614,
+              "seed": 3,
+              "shift_accuracy": 0.69921875
+            },
+            {
+              "brier": 0.3006488347457627,
+              "conditional_entropy_bits": 1.1250675386186992,
+              "seed": 4,
+              "shift_accuracy": 0.71484375
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.29711506032873225,
+          "mean_shift_accuracy": 0.72265625,
+          "min_shift_accuracy": 0.71484375,
+          "runs": [
+            {
+              "brier": 0.30002520161290325,
+              "conditional_entropy_bits": 1.1408008962904517,
+              "seed": 0,
+              "shift_accuracy": 0.72265625
+            },
+            {
+              "brier": 0.29611895161290325,
+              "conditional_entropy_bits": 1.1233618593892403,
+              "seed": 1,
+              "shift_accuracy": 0.7265625
+            },
+            {
+              "brier": 0.30002520161290325,
+              "conditional_entropy_bits": 1.1311743593892403,
+              "seed": 2,
+              "shift_accuracy": 0.72265625
+            },
+            {
+              "brier": 0.30680071721311475,
+              "conditional_entropy_bits": 1.144800592644261,
+              "seed": 3,
+              "shift_accuracy": 0.71484375
+            },
+            {
+              "brier": 0.28260522959183676,
+              "conditional_entropy_bits": 1.0494113818735715,
+              "seed": 4,
+              "shift_accuracy": 0.7265625
+            }
+          ]
+        }
+      },
+      "n": 16,
+      "query_budget": 18,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 0.8125,
+        "active_time_steps": 16,
+        "installed_sensor_address_bits": 16,
+        "output_bits": 64,
+        "sensors_installed": 4
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1,
+        3,
+        9
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.1440972222222222,
+        "cyclic_sweep_accuracy": 0.1440972222222222,
+        "optimal_fixed": null,
+        "random_fixed_accuracy_max": 0.3055555555555556,
+        "random_fixed_accuracy_mean": 0.2868923611111111,
+        "random_fixed_accuracy_min": 0.2534722222222222,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 130,
+        "brier": 0.4583199786324786,
+        "conditional_entropy_bits": 1.897456707004586,
+        "horizon": 26,
+        "leaves": 296,
+        "n": 24,
+        "output_bits": 26,
+        "queried_nodes": 3616,
+        "shift_accuracy": 0.5503472222222222,
+        "total_link_bits": 156
+      },
+      "information_gain": {
+        "adaptive_address_bits": 130,
+        "brier": 0.49012463033375586,
+        "conditional_entropy_bits": 2.2038395050414112,
+        "horizon": 26,
+        "leaves": 282,
+        "n": 24,
+        "output_bits": 26,
+        "queried_nodes": 3302,
+        "shift_accuracy": 0.515625,
+        "total_link_bits": 156
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.2883103152802784,
+          "mean_shift_accuracy": 0.7229166666666667,
+          "min_shift_accuracy": 0.71875,
+          "runs": [
+            {
+              "brier": 0.28582317073170727,
+              "conditional_entropy_bits": 1.2138342808834004,
+              "seed": 0,
+              "shift_accuracy": 0.7256944444444444
+            },
+            {
+              "brier": 0.28929539295392953,
+              "conditional_entropy_bits": 1.225388138577938,
+              "seed": 1,
+              "shift_accuracy": 0.7222222222222222
+            },
+            {
+              "brier": 0.2919314971751412,
+              "conditional_entropy_bits": 1.2386013632798971,
+              "seed": 2,
+              "shift_accuracy": 0.71875
+            },
+            {
+              "brier": 0.28672316384180785,
+              "conditional_entropy_bits": 1.2210668746165119,
+              "seed": 3,
+              "shift_accuracy": 0.7239583333333334
+            },
+            {
+              "brier": 0.2877783516988062,
+              "conditional_entropy_bits": 1.2195174854896536,
+              "seed": 4,
+              "shift_accuracy": 0.7239583333333334
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.28651900810708975,
+          "mean_shift_accuracy": 0.7253472222222223,
+          "min_shift_accuracy": 0.7118055555555556,
+          "runs": [
+            {
+              "brier": 0.29971205962059616,
+              "conditional_entropy_bits": 1.2513958642573582,
+              "seed": 0,
+              "shift_accuracy": 0.7118055555555556
+            },
+            {
+              "brier": 0.2892953929539295,
+              "conditional_entropy_bits": 1.2201458642573584,
+              "seed": 1,
+              "shift_accuracy": 0.7222222222222222
+            },
+            {
+              "brier": 0.28755928184281837,
+              "conditional_entropy_bits": 1.2173065031056227,
+              "seed": 2,
+              "shift_accuracy": 0.7239583333333334
+            },
+            {
+              "brier": 0.2965994268077601,
+              "conditional_entropy_bits": 1.2536086515982747,
+              "seed": 3,
+              "shift_accuracy": 0.71875
+            },
+            {
+              "brier": 0.2594288793103448,
+              "conditional_entropy_bits": 1.1133357969521611,
+              "seed": 4,
+              "shift_accuracy": 0.75
+            }
+          ]
+        }
+      },
+      "n": 24,
+      "query_budget": 26,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 0.6527777777777778,
+        "active_time_steps": 24,
+        "installed_sensor_address_bits": 20,
+        "output_bits": 96,
+        "sensors_installed": 4
+      }
+    },
+    {
+      "best_multi_sensor_markers": [
+        0,
+        1,
+        2,
+        4,
+        8
+      ],
+      "fixed": {
+        "constant_marker_accuracy": 0.091796875,
+        "cyclic_sweep_accuracy": 0.091796875,
+        "optimal_fixed": null,
+        "random_fixed_accuracy_max": 0.30859375,
+        "random_fixed_accuracy_mean": 0.286468505859375,
+        "random_fixed_accuracy_min": 0.2685546875,
+        "random_fixed_seeds": 64
+      },
+      "greedy": {
+        "adaptive_address_bits": 170,
+        "brier": 0.3612111714071856,
+        "conditional_entropy_bits": 1.4757531776073038,
+        "horizon": 34,
+        "leaves": 633,
+        "n": 32,
+        "output_bits": 34,
+        "queried_nodes": 9049,
+        "shift_accuracy": 0.646484375,
+        "total_link_bits": 204
+      },
+      "information_gain": {
+        "adaptive_address_bits": 170,
+        "brier": 0.5309053308823529,
+        "conditional_entropy_bits": 2.59305590900496,
+        "horizon": 34,
+        "leaves": 465,
+        "n": 32,
+        "output_bits": 34,
+        "queried_nodes": 7400,
+        "shift_accuracy": 0.474609375,
+        "total_link_bits": 204
+      },
+      "learned": {
+        "full": {
+          "mean_brier": 0.3400931360130389,
+          "mean_shift_accuracy": 0.67265625,
+          "min_shift_accuracy": 0.6669921875,
+          "runs": [
+            {
+              "brier": 0.34104432683691754,
+              "conditional_entropy_bits": 1.6050396242894405,
+              "seed": 0,
+              "shift_accuracy": 0.6728515625
+            },
+            {
+              "brier": 0.33932756696428573,
+              "conditional_entropy_bits": 1.5800734094281421,
+              "seed": 1,
+              "shift_accuracy": 0.67578125
+            },
+            {
+              "brier": 0.3462841621863799,
+              "conditional_entropy_bits": 1.6210027381218428,
+              "seed": 2,
+              "shift_accuracy": 0.6669921875
+            },
+            {
+              "brier": 0.33801573620996445,
+              "conditional_entropy_bits": 1.5908565188925177,
+              "seed": 3,
+              "shift_accuracy": 0.6748046875
+            },
+            {
+              "brier": 0.335793887867647,
+              "conditional_entropy_bits": 1.5947197179712107,
+              "seed": 4,
+              "shift_accuracy": 0.6728515625
+            }
+          ]
+        },
+        "heldout": {
+          "mean_brier": 0.3373937952880625,
+          "mean_shift_accuracy": 0.67421875,
+          "min_shift_accuracy": 0.6611328125,
+          "runs": [
+            {
+              "brier": 0.35195173487544484,
+              "conditional_entropy_bits": 1.6412905582270974,
+              "seed": 0,
+              "shift_accuracy": 0.6611328125
+            },
+            {
+              "brier": 0.33606261120996445,
+              "conditional_entropy_bits": 1.587605575985347,
+              "seed": 1,
+              "shift_accuracy": 0.6767578125
+            },
+            {
+              "brier": 0.33926057310070673,
+              "conditional_entropy_bits": 1.5965023555414415,
+              "seed": 2,
+              "shift_accuracy": 0.673828125
+            },
+            {
+              "brier": 0.33620447392086333,
+              "conditional_entropy_bits": 1.5554731130118702,
+              "seed": 3,
+              "shift_accuracy": 0.677734375
+            },
+            {
+              "brier": 0.32348958333333333,
+              "conditional_entropy_bits": 1.4924661832773498,
+              "seed": 4,
+              "shift_accuracy": 0.681640625
+            }
+          ]
+        }
+      },
+      "n": 32,
+      "query_budget": 34,
+      "simultaneous_sensor_baseline": {
+        "accuracy": 0.748046875,
+        "active_time_steps": 32,
+        "installed_sensor_address_bits": 25,
+        "output_bits": 160,
+        "sensors_installed": 5
+      }
+    }
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "splits": [
+    "full",
+    "heldout"
+  ],
+  "status": "executed_standard_library_exact_belief_plus_cpu_trained_policy"
+}

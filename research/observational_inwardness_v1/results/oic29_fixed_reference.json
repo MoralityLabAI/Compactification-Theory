@@ -1,0 +1,129 @@
+{
+  "claim_scope": "constructive upper bounds only; no 21-query UNSAT certificate",
+  "schedules": [
+    {
+      "cross_shift_pair_count": 1029,
+      "distance_spectrum": {
+        "3": 144,
+        "4": 279,
+        "5": 60,
+        "6": 300,
+        "7": 120,
+        "8": 78,
+        "9": 48
+      },
+      "distinct_marker_count": 3,
+      "distinct_observed_receipts": 1058,
+      "first_episode_total_with_offline_preprogramming": 75,
+      "markers": [
+        0,
+        1,
+        2
+      ],
+      "minimum_cross_shift_distance": 3,
+      "n": 7,
+      "name": "three_markers_q22",
+      "offline_marker_address_config_bits": 9,
+      "offline_preprogrammed_schedule_bits": 44,
+      "online_address_bits_if_transmitted_each_query": 66,
+      "online_response_bits": 22,
+      "online_total_bits_with_dynamic_addressing": 88,
+      "q": 22,
+      "repeat_episode_online_bits_after_preprogramming": 22,
+      "true_world_fault_paths": 1127,
+      "word": [
+        0,
+        1,
+        2,
+        2,
+        1,
+        2,
+        0,
+        2,
+        0,
+        0,
+        1,
+        2,
+        1,
+        1,
+        1,
+        2,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1
+      ]
+    },
+    {
+      "cross_shift_pair_count": 1029,
+      "distance_spectrum": {
+        "13": 42,
+        "14": 42,
+        "3": 60,
+        "4": 360,
+        "7": 150,
+        "8": 375
+      },
+      "distinct_marker_count": 2,
+      "distinct_observed_receipts": 1260,
+      "first_episode_total_with_offline_preprogramming": 60,
+      "markers": [
+        0,
+        1
+      ],
+      "minimum_cross_shift_distance": 3,
+      "n": 7,
+      "name": "two_markers_q27",
+      "offline_marker_address_config_bits": 6,
+      "offline_preprogrammed_schedule_bits": 27,
+      "online_address_bits_if_transmitted_each_query": 81,
+      "online_response_bits": 27,
+      "online_total_bits_with_dynamic_addressing": 108,
+      "q": 27,
+      "repeat_episode_online_bits_after_preprogramming": 27,
+      "true_world_fault_paths": 1372,
+      "word": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "schema": "OIC29-FIXED-N7-V1",
+  "solver_status": {
+    "q15_affine_20m": "CAP",
+    "q19_affine_12m": "CAP",
+    "q19_affine_8m_orderings": "CAP",
+    "q21_integer_solver_20s": "TIME_LIMIT"
+  },
+  "unresolved": [
+    "adaptive query horizons 15-19",
+    "fixed 21-query existence"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "OIC30-Q20-REDUCED-MILP-SOLVER-STATUS-V1",
+  "n": 7,
+  "query_horizon": 20,
+  "substitutions": 1,
+  "sensor_addresses_allowed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "row_counts_by_time_residue": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2
+  ],
+  "integer_variables": 49,
+  "distance_constraints_for_distinct_shifts": 1029,
+  "solver": "SciPy 1.17.0 scipy.optimize.milp / HiGHS",
+  "python_version": "3.13.5",
+  "source_file": "oic30_reduced_milp.py",
+  "source_sha256": "a878202687717f241440524f7674ee10782783c3565efe63c9e0937aac92e356",
+  "time_limit_seconds": 55,
+  "observed_runtime_seconds": 50.52,
+  "status_code": 2,
+  "reported_status": "INFEASIBLE",
+  "solver_message": "The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is None)",
+  "proof_status": "solver-reported only; no independently checkable UNSAT certificate",
+  "claim_scope": "fixed sensor words; each time residue occupancy has an exact integer expansion; no adaptive policy lower bound",
+  "comparison": "Q21 explicit 3-marker fixed code is independently verified; earlier full-variable Q20 HiGHS also reported infeasible"
+}

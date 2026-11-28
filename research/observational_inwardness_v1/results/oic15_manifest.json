@@ -1,0 +1,57 @@
+{
+  "analysis_sha256": "25be7c863278c022af89bb64f88a68a29ba6d7b3535b395ad7d4f3f927787f2f",
+  "ci": "pure-stdlib trace/oracle verifier; optional torch weight-replay verifier",
+  "experiment": {
+    "architectures": [
+      "gru",
+      "cyclic",
+      "raw"
+    ],
+    "cpu_wall_seconds_recorded": 30.300588756000025,
+    "n_fits": 30,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "train_steps": 500,
+    "training_examples_per_fit": 64000,
+    "training_splits": [
+      "full",
+      "heldout"
+    ]
+  },
+  "files": {
+    "traces": {
+      "base64_bytes": 48561,
+      "gzip_bytes": 36418,
+      "gzip_sha256": "012fe13b3c68d7f1e75972ac72dfa86fea33617e599b80f95a1e6f00a4586d3e",
+      "path": "oic15_traces.json.gz.b64",
+      "raw_bytes": 292680,
+      "raw_sha256": "6b9002a0a3865c2af65970055fee9a9cdc8b8a334ff15263c4ef6eae4ed98947"
+    },
+    "weights": {
+      "base64_bytes": 476005,
+      "gzip_bytes": 357003,
+      "gzip_sha256": "6f6a8a49908df6e05b3d9726c93e8c5fe70668d02af8c152ad1c16c8666771ff",
+      "path": "oic15_weights.json.gz.b64",
+      "raw_bytes": 786357,
+      "raw_sha256": "9690fb17836b1b71fb332de9296bdb87913ce7d29391ba43e376e37d81319e5a"
+    }
+  },
+  "full_json_sha256": "b2bb763fea04af03a8f7ea988e3db4be7164ac6f703b10e788c650cf6ff1db09",
+  "scope": "one declared hidden-cycle toy system, not a pretrained model",
+  "source_sha256": {
+    "oic15_analyze.py": "17cee44eeb3ccd95c1a37eea433088236a64cd21a0f0e8356acf54dee5e8cc13",
+    "oic15_math.py": "bf6fc3efc3519d41c4d831233928751241b92c7a115dd93172bedada32482e82",
+    "oic15_package.py": "ba48edd1fa611ed28d9182f859cb1614b6bf9f9f19fefa1d3f0806a7ccf7be62",
+    "oic15_pilot.py": "28b6dd0aa3f36b4c94743538ef7e90cc8c7f470c0caa965e81e3ee6c003b3ce7",
+    "oic15_verify.py": "c4f9629cbdf8719a7b3af439d733a21a8ce0d7810a623f7486b9e1dae3f092ac",
+    "test_oic15_math.py": "d40e02921a5d22c7fcd5a66810aca8ac1a6bb1d43ad47b211a6c2e8f44755476",
+    "test_oic15_verify.py": "3bc16b03e8a10f9bfe9a744689cd7fe0cfc7b6d2a367dd48722547e9861f8a31"
+  },
+  "status": "executed_finite_synthetic_monitor_experiment",
+  "tag": "OIC-15-CPU-01"
+}
