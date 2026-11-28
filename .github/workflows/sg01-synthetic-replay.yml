@@ -1,0 +1,47 @@
+name: SG-01 synthetic spectral receipt replay
+on:
+  pull_request:
+    paths:
+      - 'research/spectral_geometry_v1/gym.mjs'
+      - 'research/spectral_geometry_v1/results/pilot.json'
+      - '.github/workflows/sg01-synthetic-replay.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sg01-synthetic-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Replay the two frozen synthetic regimes
+        run: |
+          set -euo pipefail
+          node research/spectral_geometry_v1/gym.mjs > "$RUNNER_TEMP/sg01.json"
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          import { readFileSync } from 'node:fs';
+          const read = p => JSON.parse(readFileSync(p, 'utf8'));
+          const received = read(process.env.RUNNER_TEMP + '/sg01.json');
+          const pinned = read('research/spectral_geometry_v1/results/pilot.json');
+          function compare(a, b, path='receipt') {
+            if (typeof b === 'number' && !Number.isInteger(b)) {
+              assert.ok(Number.isFinite(a) && Math.abs(a-b) <= 1e-11 * Math.max(1,Math.abs(b)), path);
+            } else if (b && typeof b === 'object') {
+              assert.equal(Array.isArray(a), Array.isArray(b), path);
+              assert.deepEqual(Object.keys(a).sort(), Object.keys(b).sort(), path);
+              for (const k of Object.keys(b)) compare(a[k], b[k], path + '.' + k);
+            } else {
+              assert.equal(a, b, path);
+            }
+          }
+          assert.equal(received.exact.checks, 2511);
+          assert.equal(Object.keys(received.regimes).length, 2);
+          compare(received, pinned);
+          console.log('SG-01 synthetic receipt matches the archived finite and numeric outputs.');
+          JS
