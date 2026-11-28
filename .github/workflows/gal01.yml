@@ -1,0 +1,30 @@
+name: GAL-01 exact scale replay
+on:
+  pull_request:
+    paths:
+      - 'Galacticity/**'
+      - '.github/workflows/gal01.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node Galacticity/gal01.mjs > /tmp/gal01.json
+      - run: diff -u Galacticity/receipt.json /tmp/gal01.json
+      - run: node Galacticity/learned_router.mjs > /tmp/router.json
+      - run: |
+          python - <<'PY'
+          import json
+          a=json.load(open('/tmp/router.json'))
+          b=json.load(open('Galacticity/router_receipt.json'))
+          for k in ('training','heldout','gatedCorrect','adversary'):
+              assert a[k]==b[k], k
+          assert a['training_admission'] is False
+          PY
+      - run: python Galacticity/test_distill_profile.py
