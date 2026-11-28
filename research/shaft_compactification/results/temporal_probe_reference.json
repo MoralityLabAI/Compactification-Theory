@@ -1,0 +1,54 @@
+{
+  "evidence": "exhaustive_64_state_temporal_task_reference",
+  "state_space": "16 goal truth tables times 4 previous tokens",
+  "families": {
+    "xor_lag": {
+      "physical_states": 64,
+      "one_step_observation_classes": 16,
+      "two_step_observation_classes": 16,
+      "one_step_alias_pairs_split_by_two_steps": 72,
+      "first_alias": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "first_alias_current_response": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "two_step_patterns_differ": true,
+      "two_step_signature_previous_token_invariant": true
+    },
+    "parity_gate": {
+      "physical_states": 64,
+      "one_step_observation_classes": 16,
+      "two_step_observation_classes": 16,
+      "one_step_alias_pairs_split_by_two_steps": 64,
+      "first_alias": [
+        [
+          0,
+          0
+        ],
+        [
+          15,
+          1
+        ]
+      ],
+      "first_alias_current_response": [
+        0,
+        1,
+        0,
+        1
+      ],
+      "two_step_patterns_differ": true,
+      "two_step_signature_previous_token_invariant": true
+    }
+  }
+}

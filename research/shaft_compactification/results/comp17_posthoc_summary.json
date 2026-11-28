@@ -1,0 +1,80 @@
+{
+  "experiment": "SHAFT-COMP-17 post-hoc capacity-matched control",
+  "status": "exploratory_followup_after_registered_results",
+  "protocol": "SHAFT_COMP_17_POSTHOC.md",
+  "source_seeds": [
+    1303,
+    1304,
+    1403,
+    1404
+  ],
+  "readout": "16-output linear probe trained on 4 one-step response bits duplicated four times; Adam400 lr .04, initialization seed model+92000",
+  "same_models_pairs_eligibility_and_labels_as_registered": true,
+  "heldout": {
+    "eligible": 523,
+    "positives": 31,
+    "auc": {
+      "duplicate_immediate_16": 0.556517,
+      "instant_immediate_4": 0.557042,
+      "history_two_step_16": 0.660504
+    }
+  },
+  "families": {
+    "xor_lag": {
+      "eligible": 312,
+      "positives": 19,
+      "auc": {
+        "duplicate_immediate_16": 0.564397,
+        "instant_immediate_4": 0.562781,
+        "history_two_step_16": 0.617029
+      }
+    },
+    "parity_gate": {
+      "eligible": 211,
+      "positives": 12,
+      "auc": {
+        "duplicate_immediate_16": 0.554858,
+        "instant_immediate_4": 0.556533,
+        "history_two_step_16": 0.73325
+      }
+    }
+  },
+  "difference_history_minus_duplicate": {
+    "auc": 0.103986,
+    "bootstrap95": [
+      0.012786,
+      0.190357
+    ],
+    "permutation_p_two_sided": 0.010989,
+    "permutation_null_mean": 0.001902,
+    "bootstrap_trials": 1000,
+    "permutation_trials": 1000,
+    "exploratory": true
+  },
+  "exact_duplicate_auc_counts": {
+    "pooled": {
+      "positive": 31,
+      "negative": 492,
+      "strict_wins": 8488,
+      "ties": 0
+    },
+    "xor_lag": {
+      "positive": 19,
+      "negative": 293,
+      "strict_wins": 3142,
+      "ties": 0
+    },
+    "parity_gate": {
+      "positive": 12,
+      "negative": 199,
+      "strict_wins": 1325,
+      "ties": 0
+    }
+  },
+  "raw_posthoc_sha256": "1163d3b9044227650fac1d9eaeb77c0a46c67f7e8310dd71ed90dc6972d7bb0c",
+  "limits": [
+    "Posthoc analysis not a substitute for preregistered primary result",
+    "Independent initialization and training variation remain confounders",
+    "Only 31 delayed divergence events across four heldout toy models"
+  ]
+}

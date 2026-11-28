@@ -1,0 +1,31 @@
+{
+  "evidence": "exhaustive integer finite behavioral gauge and decoder",
+  "experiment": "SHAFT-COMP-22",
+  "result": {
+    "repeat_toggle": {
+      "all_full_state_transition_and_output_checks": 4608,
+      "canonical_and_reduced_decoder_exact": true,
+      "canonical_state_count": 768,
+      "canonical_states_per_reduced_code": 2,
+      "complement_latch_gauge_pairs_checked": 768,
+      "exhaustive_words_checked_per_state": 259,
+      "immediate_alias_two_query_split": true,
+      "minimal_behavioral_classes": 384,
+      "symmetry": "(g,l,p) and (g XOR 63,l XOR 1,p) have identical behavior for every future input word",
+      "two_query_signature_classes": 384
+    },
+    "successor_toggle": {
+      "all_full_state_transition_and_output_checks": 4608,
+      "canonical_and_reduced_decoder_exact": true,
+      "canonical_state_count": 768,
+      "canonical_states_per_reduced_code": 2,
+      "complement_latch_gauge_pairs_checked": 768,
+      "exhaustive_words_checked_per_state": 259,
+      "immediate_alias_two_query_split": true,
+      "minimal_behavioral_classes": 384,
+      "symmetry": "(g,l,p) and (g XOR 63,l XOR 1,p) have identical behavior for every future input word",
+      "two_query_signature_classes": 384
+    }
+  },
+  "vocabulary": 6
+}

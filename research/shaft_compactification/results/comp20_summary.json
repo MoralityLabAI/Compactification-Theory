@@ -1,0 +1,337 @@
+{
+  "experiment": "SHAFT-COMP-20",
+  "registration_commit": "9201423bc6b5895ed1773a15b683d385b9481b08",
+  "calibration_lock_sha256": "a27f43cea93d4e6d4f4f17c9a56811c24740b535fc01950e2b8eba2681d5f38b",
+  "exact_automata_reference": "results/comp20_exact_finite.json",
+  "calibration": {
+    "total": 4096,
+    "eligible": 464,
+    "positives": 226,
+    "negatives": 238,
+    "oracle_positives": 310,
+    "oracle_native_agreement": 0.418103,
+    "auc": {
+      "distance": 0.681862,
+      "duplicate": 0.410222,
+      "duplicate_norm": 0.340857,
+      "goal": 0.674667,
+      "goal_norm": 0.477449,
+      "history": 0.4538,
+      "history_norm": 0.351714
+    }
+  },
+  "heldout": {
+    "total": 4096,
+    "eligible": 1016,
+    "positives": 200,
+    "negatives": 816,
+    "oracle_positives": 699,
+    "oracle_native_agreement": 0.373031,
+    "auc": {
+      "distance": 0.592377,
+      "duplicate": 0.449681,
+      "duplicate_norm": 0.41454,
+      "goal": 0.492745,
+      "goal_norm": 0.407059,
+      "history": 0.47674,
+      "history_norm": 0.431311
+    }
+  },
+  "per_family_heldout": {
+    "repeat_toggle": {
+      "total": 2048,
+      "eligible": 325,
+      "positives": 108,
+      "negatives": 217,
+      "oracle_positives": 216,
+      "oracle_native_agreement": 0.427692,
+      "auc": {
+        "distance": 0.643113,
+        "duplicate": 0.404634,
+        "duplicate_norm": 0.327658,
+        "goal": 0.616103,
+        "goal_norm": 0.518263,
+        "history": 0.414661,
+        "history_norm": 0.335509
+      },
+      "history_minus_goal": -0.201442
+    },
+    "successor_toggle": {
+      "total": 2048,
+      "eligible": 691,
+      "positives": 92,
+      "negatives": 599,
+      "oracle_positives": 483,
+      "oracle_native_agreement": 0.347323,
+      "auc": {
+        "distance": 0.583454,
+        "duplicate": 0.400087,
+        "duplicate_norm": 0.349913,
+        "goal": 0.510017,
+        "goal_norm": 0.423223,
+        "history": 0.43177,
+        "history_norm": 0.370654
+      },
+      "history_minus_goal": -0.078247
+    }
+  },
+  "models": {
+    "2001": {
+      "family": "repeat_toggle",
+      "phase": "calibration",
+      "accuracy_d12": 0.7872721552848816,
+      "accuracy_d32": 0.6392822265625,
+      "eligible": 212,
+      "positives": 132,
+      "oracle_positives": 141,
+      "model_sha256": "02e1de5968fde789d50e082f61976623cf88c317aeac6bbc6bf09bc4e51636db",
+      "full_receipt_sha256": "3055cd4d3d179cf7a50339d6e55bab402bf096b931b5ac3ed0fddc80e2154172"
+    },
+    "2002": {
+      "family": "repeat_toggle",
+      "phase": "calibration",
+      "accuracy_d12": 0.6949869990348816,
+      "accuracy_d32": 0.58270263671875,
+      "eligible": 24,
+      "positives": 22,
+      "oracle_positives": 16,
+      "model_sha256": "dc0822da659ebff966d91d948af7cb93f175c782a7b10d6a758f86f271b49403",
+      "full_receipt_sha256": "ac34b2db4808ffcd547ae3dd90b62ea9fc158541a15355a5938e520e788bdf77"
+    },
+    "2003": {
+      "family": "repeat_toggle",
+      "phase": "heldout",
+      "accuracy_d12": 0.7830403447151184,
+      "accuracy_d32": 0.61700439453125,
+      "eligible": 48,
+      "positives": 40,
+      "oracle_positives": 31,
+      "model_sha256": "ab3c5640ae551e6164a7173a37b913de24e79d65e90804dcff728f1f8ed67467",
+      "full_receipt_sha256": "9e0a6471165485b54c1c06a19dce027ddc1e723e81eb1feb6eb8e10aea5faf2e"
+    },
+    "2004": {
+      "family": "repeat_toggle",
+      "phase": "heldout",
+      "accuracy_d12": 0.6834309697151184,
+      "accuracy_d32": 0.57550048828125,
+      "eligible": 277,
+      "positives": 68,
+      "oracle_positives": 185,
+      "model_sha256": "c5e1526fba3de959dc58618bea2fba209ff5e187bb852b2b27d5a21f857bb8fa",
+      "full_receipt_sha256": "1be0b556a6626042a7cb64c3cea205ae63603144b933c7b6f0de25ced4aa8ce0"
+    },
+    "2011": {
+      "family": "successor_toggle",
+      "phase": "calibration",
+      "accuracy_d12": 0.6609700322151184,
+      "accuracy_d32": 0.56134033203125,
+      "eligible": 171,
+      "positives": 40,
+      "oracle_positives": 114,
+      "model_sha256": "abbcb5d6204756f0b4eb1069cbb32f554ba3816a4c9acb9028ababe714ed1c95",
+      "full_receipt_sha256": "6406b7f2a089c47b9c903c0c63848e5d1f6333c0b591a6f06624b52bcf9ed17d"
+    },
+    "2012": {
+      "family": "successor_toggle",
+      "phase": "calibration",
+      "accuracy_d12": 0.6848958134651184,
+      "accuracy_d32": 0.57501220703125,
+      "eligible": 57,
+      "positives": 32,
+      "oracle_positives": 39,
+      "model_sha256": "583a73d2c8ad5ed2c974c3969794107c2af4c9861e38015a43b646d9e7d5e1dd",
+      "full_receipt_sha256": "ad474e2c0f1368d34a388a8a90e33f51943dcfc091a3c917060dd4696943c546"
+    },
+    "2013": {
+      "family": "successor_toggle",
+      "phase": "heldout",
+      "accuracy_d12": 0.7400715947151184,
+      "accuracy_d32": 0.60546875,
+      "eligible": 655,
+      "positives": 64,
+      "oracle_positives": 463,
+      "model_sha256": "765458f982a0e6071f777a1cd60b41641503fa4ed201ed09a192417f7beed0d6",
+      "full_receipt_sha256": "7786adac3772ce3af0e7a206b5d3494c192a17494a8c8b6e520737161a9544ee"
+    },
+    "2014": {
+      "family": "successor_toggle",
+      "phase": "heldout",
+      "accuracy_d12": 0.8232421875,
+      "accuracy_d32": 0.6285400390625,
+      "eligible": 36,
+      "positives": 28,
+      "oracle_positives": 20,
+      "model_sha256": "25827527877be622ec0a9f7ce095b0380a3532497faef9048eb30044b9bd4386",
+      "full_receipt_sha256": "3ab777d44e0f7c52b1c3714ae91dc958f87498338fce969086dd27e081baa65d"
+    }
+  },
+  "fixed_thresholds": {
+    "goal": 1.1933250427246094,
+    "duplicate": 2.333848476409912,
+    "history": 2.2467072010040283
+  },
+  "operating_points": {
+    "combined": {
+      "goal": {
+        "eligible": 1016,
+        "positives": 200,
+        "negatives": 816,
+        "tp": 99,
+        "fp": 426,
+        "tpr": 0.495,
+        "fpr": 0.522059,
+        "threshold": 1.1933250427246094
+      },
+      "duplicate": {
+        "eligible": 1016,
+        "positives": 200,
+        "negatives": 816,
+        "tp": 62,
+        "fp": 210,
+        "tpr": 0.31,
+        "fpr": 0.257353,
+        "threshold": 2.333848476409912
+      },
+      "history": {
+        "eligible": 1016,
+        "positives": 200,
+        "negatives": 816,
+        "tp": 64,
+        "fp": 201,
+        "tpr": 0.32,
+        "fpr": 0.246324,
+        "threshold": 2.2467072010040283
+      }
+    },
+    "repeat_toggle": {
+      "history": {
+        "eligible": 325,
+        "positives": 108,
+        "negatives": 217,
+        "tp": 58,
+        "fp": 155,
+        "tpr": 0.537037,
+        "fpr": 0.714286,
+        "threshold": 2.2467072010040283
+      }
+    },
+    "successor_toggle": {
+      "history": {
+        "eligible": 691,
+        "positives": 92,
+        "negatives": 599,
+        "tp": 6,
+        "fp": 46,
+        "tpr": 0.065217,
+        "fpr": 0.076795,
+        "threshold": 2.2467072010040283
+      }
+    }
+  },
+  "uncertainty": {
+    "primary_delta_auc": -0.016005,
+    "bootstrap95": [
+      -0.07181,
+      0.041796
+    ],
+    "bootstrap_valid": 1000,
+    "permutations": 1000,
+    "permutation_null_mean": -0.007189,
+    "permutation_p_two_sided": 0.559441,
+    "uncertainty_scope": "within family/model/depth; two heldout model seeds per family"
+  },
+  "supported_neural_transfer": false,
+  "fpr_transfer_pass": false,
+  "eligible_primary_pair_counts": {
+    "calibration": {
+      "distance": {
+        "positive": 226,
+        "negative": 238,
+        "wins": 36676,
+        "ties": 0
+      },
+      "duplicate": {
+        "positive": 226,
+        "negative": 238,
+        "wins": 22065,
+        "ties": 0
+      },
+      "duplicate_norm": {
+        "positive": 226,
+        "negative": 238,
+        "wins": 18334,
+        "ties": 0
+      },
+      "goal": {
+        "positive": 226,
+        "negative": 238,
+        "wins": 36289,
+        "ties": 0
+      },
+      "goal_norm": {
+        "positive": 226,
+        "negative": 238,
+        "wins": 25681,
+        "ties": 0
+      },
+      "history": {
+        "positive": 226,
+        "negative": 238,
+        "wins": 24409,
+        "ties": 0
+      },
+      "history_norm": {
+        "positive": 226,
+        "negative": 238,
+        "wins": 18918,
+        "ties": 0
+      }
+    },
+    "heldout": {
+      "distance": {
+        "positive": 200,
+        "negative": 816,
+        "wins": 96676,
+        "ties": 0
+      },
+      "duplicate": {
+        "positive": 200,
+        "negative": 816,
+        "wins": 73388,
+        "ties": 0
+      },
+      "duplicate_norm": {
+        "positive": 200,
+        "negative": 816,
+        "wins": 67653,
+        "ties": 0
+      },
+      "goal": {
+        "positive": 200,
+        "negative": 816,
+        "wins": 80416,
+        "ties": 0
+      },
+      "goal_norm": {
+        "positive": 200,
+        "negative": 816,
+        "wins": 66432,
+        "ties": 0
+      },
+      "history": {
+        "positive": 200,
+        "negative": 816,
+        "wins": 77804,
+        "ties": 0
+      },
+      "history_norm": {
+        "positive": 200,
+        "negative": 816,
+        "wins": 70390,
+        "ties": 0
+      }
+    }
+  },
+  "all_full_training_files_present": true,
+  "warning": "All eight model seeds failed the preregistered 90% base-model capability gate. Interpret empirical predictive AUC as behavior of poorly learned recurrent dynamics."
+}

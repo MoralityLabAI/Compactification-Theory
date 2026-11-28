@@ -1,0 +1,164 @@
+{
+  "evidence": "exhaustive_integer_six_bit_shift_register",
+  "states": 64,
+  "state_dimensions": 6,
+  "measurement_dimension": 1,
+  "results": [
+    {
+      "horizon": 0,
+      "exact_observability_rank": 1,
+      "kernel_dimension": 5,
+      "gramian_diagonal": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "behavior_classes": 2,
+      "compatible_states_per_signature": 32
+    },
+    {
+      "horizon": 1,
+      "exact_observability_rank": 2,
+      "kernel_dimension": 4,
+      "gramian_diagonal": [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "behavior_classes": 4,
+      "compatible_states_per_signature": 16
+    },
+    {
+      "horizon": 2,
+      "exact_observability_rank": 3,
+      "kernel_dimension": 3,
+      "gramian_diagonal": [
+        1,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "behavior_classes": 8,
+      "compatible_states_per_signature": 8
+    },
+    {
+      "horizon": 3,
+      "exact_observability_rank": 4,
+      "kernel_dimension": 2,
+      "gramian_diagonal": [
+        1,
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "behavior_classes": 16,
+      "compatible_states_per_signature": 4
+    },
+    {
+      "horizon": 4,
+      "exact_observability_rank": 5,
+      "kernel_dimension": 1,
+      "gramian_diagonal": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        0
+      ],
+      "behavior_classes": 32,
+      "compatible_states_per_signature": 2
+    },
+    {
+      "horizon": 5,
+      "exact_observability_rank": 6,
+      "kernel_dimension": 0,
+      "gramian_diagonal": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "behavior_classes": 64,
+      "compatible_states_per_signature": 1
+    },
+    {
+      "horizon": 6,
+      "exact_observability_rank": 6,
+      "kernel_dimension": 0,
+      "gramian_diagonal": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "behavior_classes": 64,
+      "compatible_states_per_signature": 1
+    },
+    {
+      "horizon": 7,
+      "exact_observability_rank": 6,
+      "kernel_dimension": 0,
+      "gramian_diagonal": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "behavior_classes": 64,
+      "compatible_states_per_signature": 1
+    },
+    {
+      "horizon": 8,
+      "exact_observability_rank": 6,
+      "kernel_dimension": 0,
+      "gramian_diagonal": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "behavior_classes": 64,
+      "compatible_states_per_signature": 1
+    }
+  ],
+  "five_step_delay_witness": {
+    "initial_state": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "other_state": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "indistinguishable_through_horizon": 4,
+    "distinguished_at_horizon": 5
+  },
+  "check": "exact integer Gramian quadratic form equals sum of squared observations across all 64 states and nine horizons"
+}

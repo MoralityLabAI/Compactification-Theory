@@ -1,0 +1,59 @@
+{
+  "evidence": "exhaustive finite history-signature partitions",
+  "results": {
+    "4": {
+      "alphabet": 4,
+      "current_equivalence_class_size": 4,
+      "goals": 16,
+      "states": 64,
+      "immediate_signature_classes": 16,
+      "joint_one_and_two_step_classes": 54,
+      "strict_refinement": true,
+      "witness": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "witness_immediate_signature": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "witness_two_step_disagrees": true
+    },
+    "6": {
+      "alphabet": 6,
+      "current_equivalence_class_size": 6,
+      "goals": 64,
+      "states": 384,
+      "immediate_signature_classes": 64,
+      "joint_one_and_two_step_classes": 348,
+      "strict_refinement": true,
+      "witness": [
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "witness_immediate_signature": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "witness_two_step_disagrees": true
+    }
+  }
+}
