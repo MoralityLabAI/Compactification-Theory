@@ -51,4 +51,10 @@ jobs:
       - run: diff -u Galacticity/gal06_risk_receipt.json /tmp/gal06_risk.json
       - run: node Galacticity/gal06_gym.mjs selftest > /tmp/gal06_gym.json
       - run: diff -u Galacticity/gal06_gym_receipt.json /tmp/gal06_gym.json
+      - run: node Galacticity/gal07_ambiguity.mjs > /tmp/gal07_ambiguity.json
+      - run: diff -u Galacticity/gal07_ambiguity_receipt.json /tmp/gal07_ambiguity.json
+      - run: node Galacticity/gal07_risk.mjs > /tmp/gal07_risk.json
+      - run: diff -u Galacticity/gal07_risk_receipt.json /tmp/gal07_risk.json
+      - run: node Galacticity/gal07_gym.mjs selftest > /tmp/gal07_gym.json
+      - run: diff -u Galacticity/gal07_gym_receipt.json /tmp/gal07_gym.json
       - run: python Galacticity/test_distill_profile.py
