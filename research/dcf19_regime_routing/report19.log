@@ -1,0 +1,7 @@
+﻿0.2/low {'fixed_bp': (0.1631, 0.1629, 0.0), 'fixed_exact': (0.1641, 0.1603, 1.0), 'regime': (0.1631, 0.1629, 0.0), 'epoch_oracle': (0.1634, 0.163, 0.25)}
+0.2/high {'fixed_bp': (0.068, 0.068, 0.0), 'fixed_exact': (0.0684, 0.0646, 1.0), 'regime': (0.068, 0.0679, 0.0), 'epoch_oracle': (0.068, 0.068, 0.0)}
+0.4/low {'fixed_bp': (0.165, 0.164, 0.0), 'fixed_exact': (0.1689, 0.1638, 1.0), 'regime': (0.1667, 0.163, 0.38), 'epoch_oracle': (0.1677, 0.165, 0.62)}
+0.4/high {'fixed_bp': (0.0493, 0.049, 0.0), 'fixed_exact': (0.051, 0.0455, 1.0), 'regime': (0.0493, 0.0489, 0.0), 'epoch_oracle': (0.0495, 0.0491, 0.12)}
+0.6/low {'fixed_bp': (0.1652, 0.1631, 0.0), 'fixed_exact': (0.1767, 0.171, 1.0), 'regime': (0.1739, 0.169, 0.5), 'epoch_oracle': (0.1758, 0.1713, 0.75)}
+0.6/high {'fixed_bp': (0.0383, 0.037, 0.0), 'fixed_exact': (0.0408, 0.0352, 1.0), 'regime': (0.0387, 0.0365, 0.12), 'epoch_oracle': (0.0383, 0.037, 0.0)}
+{'R1': {'rule': 'regime objective_total exceeds fixed_bp in more held-out conditions than it falls below (6 conditions, fresh seeds never used by DCF-15)', 'wins': 1, 'losses': 5, 'passed': False}, 'R2': {'rule': 'regime objective_total is within 0.001 of the better of fixed_bp and fixed_exact in at least 4 of 6 held-out conditions', 'conditions_within': 5, 'required': 4, 'passed': True}}

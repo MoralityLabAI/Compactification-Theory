@@ -1,0 +1,707 @@
+{
+ "world": {
+  "noise": "tight",
+  "xor_frac": 0.333,
+  "triangle": true,
+  "aligned": false
+ },
+ "selected": {
+  "policy": "probe",
+  "params": {
+   "delta": 0.3,
+   "phi": 0.02
+  },
+  "mean_objective_total": 0.2956510554543415
+ },
+ "gates": {
+  "W1": {
+   "rule": "the selected world is materially harder on fresh held-out seeds: mean decision-change rate (exact vs BP) >= 0.05 and mean epoch-oracle headroom over the better fixed operator >= 0.01",
+   "mean_decision_change_rate": 0.018147786458333332,
+   "mean_epoch_headroom": 0.0005050485361635382,
+   "passed": false
+  },
+  "R1": {
+   "rule": "selected policy objective_total exceeds the dev-strongest fixed operator in more held-out conditions than it falls below",
+   "strongest_fixed": "fixed_exact",
+   "wins": 0,
+   "losses": 6,
+   "passed": false
+  },
+  "R2": {
+   "rule": "selected policy exceeds the better of fixed_bp and fixed_exact (chosen per condition with hindsight) in at least half the held-out conditions",
+   "conditions_beating_better_fixed": 0,
+   "conditions": 6,
+   "passed": false
+  }
+ },
+ "decision_change_rate": {
+  "0.2": 0.0078125,
+  "0.3": 0.01171875,
+  "0.4": 0.01025390625,
+  "0.5": 0.01953125,
+  "0.6": 0.02490234375,
+  "0.7": 0.03466796875
+ },
+ "headroom": {
+  "0.2": 0.0007968652406996624,
+  "0.3": 0.0009889813502029776,
+  "0.4": 0.0011928124480630742,
+  "0.5": 0.0,
+  "0.6": 5.1632178015514896e-05,
+  "0.7": 0.0
+ },
+ "table": {
+  "0.2/fixed_bp": {
+   "n": 2048,
+   "eu": 0.26048350640267937,
+   "regret": 0.0021594880106636394,
+   "realized": 0.267578125,
+   "coverage": 0.3701171875,
+   "selective_risk": 0.055408970976253295,
+   "kernel_ms": 0.06352733603862747,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.2598482330422931,
+   "objective_total": 0.2598482330422931,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.0
+  },
+  "0.2/fixed_exact": {
+   "n": 2048,
+   "eu": 0.26264299441334304,
+   "regret": 0.0,
+   "realized": 0.27294921875,
+   "coverage": 0.373046875,
+   "selective_risk": 0.05366492146596859,
+   "kernel_ms": 0.3776349386463145,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.2588666450268799,
+   "objective_total": 0.2588666450268799,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.2/selected": {
+   "n": 2048,
+   "eu": 0.2624560611475492,
+   "regret": 0.00018693326579383076,
+   "realized": 0.2724609375,
+   "coverage": 0.37255859375,
+   "selective_risk": 0.053735255570117955,
+   "kernel_ms": 0.3784189015519385,
+   "route_ms": 0.00038842772198677267,
+   "launches_per_step": 1.109375,
+   "objective_kernel": 0.2586718721320298,
+   "objective_total": 0.25866798785480993,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.125,
+    "exact": 0.875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.875
+  },
+  "0.2/epoch_oracle": {
+   "n": 2048,
+   "eu": 0.26249383684754746,
+   "regret": 0.00014915756579555973,
+   "realized": 0.2724609375,
+   "coverage": 0.37255859375,
+   "selective_risk": 0.053735255570117955,
+   "kernel_ms": 0.18487385645546986,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.26064509828299276,
+   "objective_total": 0.26064509828299276,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.5,
+    "exact": 0.5,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.5
+  },
+  "0.2/query_oracle": {
+   "n": 2048,
+   "eu": 0.26264299441334304,
+   "regret": 0.0,
+   "realized": 0.27294921875,
+   "coverage": 0.373046875,
+   "selective_risk": 0.05366492146596859,
+   "kernel_ms": 0.07444612901765706,
+   "route_ms": 0.0,
+   "launches_per_step": 1.171875,
+   "objective_kernel": 0.26189853312316647,
+   "objective_total": 0.26189853312316647,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.9921875,
+    "exact": 0.0078125,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.0078125
+  },
+  "0.3/fixed_bp": {
+   "n": 2048,
+   "eu": 0.27713685851791936,
+   "regret": 0.004252044705845502,
+   "realized": 0.28564453125,
+   "coverage": 0.3759765625,
+   "selective_risk": 0.048051948051948054,
+   "kernel_ms": 0.09897493015933147,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.276147109216326,
+   "objective_total": 0.276147109216326,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.0
+  },
+  "0.3/fixed_exact": {
+   "n": 2048,
+   "eu": 0.28138890322376486,
+   "regret": 0.0,
+   "realized": 0.28662109375,
+   "coverage": 0.3818359375,
+   "selective_risk": 0.049872122762148335,
+   "kernel_ms": 0.4548742744524128,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.27684016047924076,
+   "objective_total": 0.27684016047924076,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.3/selected": {
+   "n": 2048,
+   "eu": 0.2812414568632988,
+   "regret": 0.0001474463604660404,
+   "realized": 0.28564453125,
+   "coverage": 0.380859375,
+   "selective_risk": 0.05,
+   "kernel_ms": 0.45858506832233065,
+   "route_ms": 0.00016499022592597612,
+   "launches_per_step": 1.109375,
+   "objective_kernel": 0.2766556061800755,
+   "objective_total": 0.27665395627781625,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.125,
+    "exact": 0.875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.875
+  },
+  "0.3/epoch_oracle": {
+   "n": 2048,
+   "eu": 0.28138890322376486,
+   "regret": 0.0,
+   "realized": 0.28662109375,
+   "coverage": 0.3818359375,
+   "selective_risk": 0.049872122762148335,
+   "kernel_ms": 0.3559761394321133,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.27782914182944374,
+   "objective_total": 0.27782914182944374,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.25,
+    "exact": 0.75,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.75
+  },
+  "0.3/query_oracle": {
+   "n": 2048,
+   "eu": 0.28138890322376486,
+   "regret": 0.0,
+   "realized": 0.28662109375,
+   "coverage": 0.3818359375,
+   "selective_risk": 0.049872122762148335,
+   "kernel_ms": 0.11960250426816114,
+   "route_ms": 0.0,
+   "launches_per_step": 1.328125,
+   "objective_kernel": 0.2801928781810833,
+   "objective_total": 0.2801928781810833,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.98828125,
+    "exact": 0.01171875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.01171875
+  },
+  "0.4/fixed_bp": {
+   "n": 2048,
+   "eu": 0.26507564881452217,
+   "regret": 0.004634904279345265,
+   "realized": 0.2119140625,
+   "coverage": 0.353515625,
+   "selective_risk": 0.08011049723756906,
+   "kernel_ms": 0.1936749062702302,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.2631388997518199,
+   "objective_total": 0.2631388997518199,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.0
+  },
+  "0.4/fixed_exact": {
+   "n": 2048,
+   "eu": 0.26971055309386743,
+   "regret": 0.0,
+   "realized": 0.21923828125,
+   "coverage": 0.36083984375,
+   "selective_risk": 0.07848443843031123,
+   "kernel_ms": 0.5269884686203582,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.2644406684076639,
+   "objective_total": 0.2644406684076639,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.4/selected": {
+   "n": 2048,
+   "eu": 0.2693137463367244,
+   "regret": 0.00039680675714307576,
+   "realized": 0.220703125,
+   "coverage": 0.35986328125,
+   "selective_risk": 0.0773405698778833,
+   "kernel_ms": 0.5349278489871073,
+   "route_ms": 0.00027636718868961907,
+   "launches_per_step": 1.09375,
+   "objective_kernel": 0.2639644678468533,
+   "objective_total": 0.2639617041749664,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.25,
+    "exact": 0.75,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.75
+  },
+  "0.4/epoch_oracle": {
+   "n": 2048,
+   "eu": 0.2692107725768017,
+   "regret": 0.0004997805170657685,
+   "realized": 0.22265625,
+   "coverage": 0.359375,
+   "selective_risk": 0.07608695652173914,
+   "kernel_ms": 0.35772917210747346,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.26563348085572697,
+   "objective_total": 0.26563348085572697,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.5,
+    "exact": 0.5,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.5
+  },
+  "0.4/query_oracle": {
+   "n": 2048,
+   "eu": 0.26971055309386743,
+   "regret": 0.0,
+   "realized": 0.21923828125,
+   "coverage": 0.36083984375,
+   "selective_risk": 0.07848443843031123,
+   "kernel_ms": 0.20955615903784697,
+   "route_ms": 0.0,
+   "launches_per_step": 1.25,
+   "objective_kernel": 0.267614991503489,
+   "objective_total": 0.267614991503489,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.98974609375,
+    "exact": 0.01025390625,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.01025390625
+  },
+  "0.5/fixed_bp": {
+   "n": 2048,
+   "eu": 0.2925579599820084,
+   "regret": 0.01057626331275717,
+   "realized": 0.28759765625,
+   "coverage": 0.3779296875,
+   "selective_risk": 0.04780361757105943,
+   "kernel_ms": 0.25549526172347664,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.2900030073647737,
+   "objective_total": 0.2900030073647737,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.0
+  },
+  "0.5/fixed_exact": {
+   "n": 2048,
+   "eu": 0.3031342232947656,
+   "regret": 0.0,
+   "realized": 0.3056640625,
+   "coverage": 0.388671875,
+   "selective_risk": 0.04271356783919598,
+   "kernel_ms": 0.5471435652587228,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.29766278764217835,
+   "objective_total": 0.29766278764217835,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.5/selected": {
+   "n": 2048,
+   "eu": 0.30299248907688947,
+   "regret": 0.000141734217876131,
+   "realized": 0.3046875,
+   "coverage": 0.3876953125,
+   "selective_risk": 0.042821158690176324,
+   "kernel_ms": 0.566490675853224,
+   "route_ms": 0.000213525382264379,
+   "launches_per_step": 1.109375,
+   "objective_kernel": 0.2973275823183572,
+   "objective_total": 0.29732544706453456,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.125,
+    "exact": 0.875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.875
+  },
+  "0.5/epoch_oracle": {
+   "n": 2048,
+   "eu": 0.3031342232947656,
+   "regret": 0.0,
+   "realized": 0.3056640625,
+   "coverage": 0.388671875,
+   "selective_risk": 0.04271356783919598,
+   "kernel_ms": 0.5471435652587228,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.29766278764217835,
+   "objective_total": 0.29766278764217835,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.5/query_oracle": {
+   "n": 2048,
+   "eu": 0.3031342232947656,
+   "regret": 0.0,
+   "realized": 0.3056640625,
+   "coverage": 0.388671875,
+   "selective_risk": 0.04271356783919598,
+   "kernel_ms": 0.28700066078854225,
+   "route_ms": 0.0,
+   "launches_per_step": 1.4375,
+   "objective_kernel": 0.3002642166868802,
+   "objective_total": 0.3002642166868802,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.98046875,
+    "exact": 0.01953125,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.01953125
+  },
+  "0.6/fixed_bp": {
+   "n": 2048,
+   "eu": 0.3094659387751628,
+   "regret": 0.009353060286007221,
+   "realized": 0.32373046875,
+   "coverage": 0.404296875,
+   "selective_risk": 0.03985507246376811,
+   "kernel_ms": 0.36527354648376986,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.30581320331032513,
+   "objective_total": 0.30581320331032513,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.0
+  },
+  "0.6/fixed_exact": {
+   "n": 2048,
+   "eu": 0.31881899906117006,
+   "regret": 0.0,
+   "realized": 0.33203125,
+   "coverage": 0.41748046875,
+   "selective_risk": 0.04093567251461988,
+   "kernel_ms": 0.5629754310905453,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.31318924475026455,
+   "objective_total": 0.31318924475026455,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.6/selected": {
+   "n": 2048,
+   "eu": 0.3183645033174687,
+   "regret": 0.0004544957437014243,
+   "realized": 0.33154296875,
+   "coverage": 0.4169921875,
+   "selective_risk": 0.040983606557377046,
+   "kernel_ms": 0.5930663307672085,
+   "route_ms": 0.00028012692609991063,
+   "launches_per_step": 1.109375,
+   "objective_kernel": 0.31243384000979657,
+   "objective_total": 0.31243103874053557,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.125,
+    "exact": 0.875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.875
+  },
+  "0.6/epoch_oracle": {
+   "n": 2048,
+   "eu": 0.31881515921017445,
+   "regret": 3.839850995620111e-06,
+   "realized": 0.33154296875,
+   "coverage": 0.4169921875,
+   "selective_risk": 0.040983606557377046,
+   "kernel_ms": 0.5574282281894315,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.31324087692828007,
+   "objective_total": 0.31324087692828007,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.125,
+    "exact": 0.875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.875
+  },
+  "0.6/query_oracle": {
+   "n": 2048,
+   "eu": 0.31881899906117006,
+   "regret": 0.0,
+   "realized": 0.33203125,
+   "coverage": 0.41748046875,
+   "selective_risk": 0.04093567251461988,
+   "kernel_ms": 0.4023644942036883,
+   "route_ms": 0.0,
+   "launches_per_step": 1.515625,
+   "objective_kernel": 0.3147953541191332,
+   "objective_total": 0.3147953541191332,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.97509765625,
+    "exact": 0.02490234375,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.02490234375
+  },
+  "0.7/fixed_bp": {
+   "n": 2048,
+   "eu": 0.27512324196106736,
+   "regret": 0.020154270763363236,
+   "realized": 0.25244140625,
+   "coverage": 0.357421875,
+   "selective_risk": 0.05874316939890711,
+   "kernel_ms": 0.4085172074315312,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.27103806988675205,
+   "objective_total": 0.27103806988675205,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.0
+  },
+  "0.7/fixed_exact": {
+   "n": 2048,
+   "eu": 0.2952775127244306,
+   "regret": 0.0,
+   "realized": 0.26318359375,
+   "coverage": 0.373046875,
+   "selective_risk": 0.058900523560209424,
+   "kernel_ms": 0.5526505981012582,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.289751006743418,
+   "objective_total": 0.289751006743418,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.7/selected": {
+   "n": 2048,
+   "eu": 0.29403195830564655,
+   "regret": 0.0012455544187840463,
+   "realized": 0.26171875,
+   "coverage": 0.37158203125,
+   "selective_risk": 0.05913272010512484,
+   "kernel_ms": 0.5869733773014281,
+   "route_ms": 0.0001977050914092615,
+   "launches_per_step": 1.109375,
+   "objective_kernel": 0.2881622245326323,
+   "objective_total": 0.2881602474817182,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.125,
+    "exact": 0.875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.875
+  },
+  "0.7/epoch_oracle": {
+   "n": 2048,
+   "eu": 0.2952775127244306,
+   "regret": 0.0,
+   "realized": 0.26318359375,
+   "coverage": 0.373046875,
+   "selective_risk": 0.058900523560209424,
+   "kernel_ms": 0.5526505981012582,
+   "route_ms": 0.0,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.289751006743418,
+   "objective_total": 0.289751006743418,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "exact_fraction": 1.0
+  },
+  "0.7/query_oracle": {
+   "n": 2048,
+   "eu": 0.2952775127244306,
+   "regret": 0.0,
+   "realized": 0.26318359375,
+   "coverage": 0.373046875,
+   "selective_risk": 0.058900523560209424,
+   "kernel_ms": 0.45583617591144604,
+   "route_ms": 0.0,
+   "launches_per_step": 1.65625,
+   "objective_kernel": 0.2907191509653162,
+   "objective_total": 0.2907191509653162,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.96533203125,
+    "exact": 0.03466796875,
+    "abstain": 0.0
+   },
+   "exact_fraction": 0.03466796875
+  }
+ },
+ "mean": {
+  "fixed_bp": {
+   "eu": 0.2799738590755599,
+   "objective_total": 0.2776647537620483,
+   "kernel_ms": 0.23091053135116113,
+   "route_ms": 0.0,
+   "exact_fraction": 0.0,
+   "regret": 0.008521671892997006,
+   "coverage": 0.3732096354166667,
+   "selective_risk": 0.05499554594991751
+  },
+  "fixed_exact": {
+   "eu": 0.2884955309685569,
+   "objective_total": 0.2834584188416076,
+   "kernel_ms": 0.5037112126949352,
+   "route_ms": 0.0,
+   "exact_fraction": 1.0,
+   "regret": 0.0,
+   "coverage": 0.3824869791666667,
+   "selective_risk": 0.054095207762075576
+  },
+  "selected": {
+   "eu": 0.28806670250792954,
+   "objective_total": 0.28286673026573017,
+   "kernel_ms": 0.5197437004638729,
+   "route_ms": 0.00025352375606265315,
+   "exact_fraction": 0.8541666666666666,
+   "regret": 0.00042882846062742473,
+   "coverage": 0.381591796875,
+   "selective_risk": 0.05400221846677991
+  },
+  "epoch_oracle": {
+   "eu": 0.2883867346462474,
+   "objective_total": 0.28412706538034005,
+   "kernel_ms": 0.42596692659074487,
+   "route_ms": 0.0,
+   "exact_fraction": 0.7708333333333334,
+   "regret": 0.0001087963223094914,
+   "coverage": 0.382080078125,
+   "selective_risk": 0.053715338801797984
+  },
+  "query_oracle": {
+   "eu": 0.2884955309685569,
+   "objective_total": 0.2859141874298447,
+   "kernel_ms": 0.25813435387122363,
+   "route_ms": 0.0,
+   "exact_fraction": 0.018147786458333332,
+   "regret": 0.0,
+   "coverage": 0.3824869791666667,
+   "selective_risk": 0.054095207762075576
+  }
+ }
+}

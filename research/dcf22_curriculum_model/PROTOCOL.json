@@ -1,0 +1,15 @@
+{"experiment":"DCF-22 compact recurrent model trained on the DCF-16 curriculum",
+"data":{"train":"DCF-16 train (600) plus train_large: fresh records from the same four training families and sizes","val":"DCF-16 val (120), epoch selection only","heldout":"DCF-16 heldout (200), scored once after models and predictions are committed"},
+"train_large":{"families":["chain","tree","grid","sparse"],"sizes":[8,12,16,24,32],"seeds":150,"seed_base":360000},
+"workers":6,"threads":4,
+"inputs":"factor tokens of the query component (far-to-near by hop distance, nearest max_tokens kept) and global structure/budget/operator-cost features; no operator posterior is an input",
+"max_tokens":24,"hidden":{"gru":16,"mlp":20},"trunk":32,
+"training":{"optimizer":"Adam"},"lr":0.003,"batch":64,"max_epochs":80,"patience":10,"cost_weight":0.5,"seeds":[0,1,2],
+"loss":"BCE(posterior, verified reference) + CE(choice, DCF-16 selected option, masked to affordable operators) + cost_weight * MSE(log2 exact cost / 20)",
+"bootstrap_seed":2222,
+"gates":{
+ "G1":"selector (choice head, acting on the chosen operator's stored action) is non-inferior to the EvalMath symbolic predictor in held-out expected utility (bootstrap 95% lower bound of the mean paired difference > -0.01) and uses fewer mean counted operator ops, for at least 2 of 3 GRU seeds",
+ "G2":"GRU posterior MSE against the verified reference is lower than the parameter-matched MLP's on held-out, on the mean over seeds and in at least 2 of 3 paired seeds",
+ "G3":"acting on the GRU's own posterior beats loopy BP at the record's budget (bootstrap 95% lower bound of the mean paired expected-utility difference > 0) for at least 2 of 3 seeds"},
+"compute_note":"model multiply-accumulates are reported per prediction (mean_macs) next to counted operator ops; they are different units and neither gate charges them",
+"reward":"+1 correct, -penalty wrong, 0 abstain"}

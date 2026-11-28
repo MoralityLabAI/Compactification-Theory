@@ -1,0 +1,12 @@
+{"experiment":"DCF-23 learned message passing on the factor graph",
+"data":"DCF-22 splits: DCF-16 train + DCF-22 train_large (3,600 records, four training families) for training; DCF-16 val for epoch selection; DCF-16 held-out (200, six of nine families unseen) scored once after weights are committed",
+"variants":{"mp_bp":"message passing with BP beliefs as variable features and output = BP parity logit + learned correction","mp_pure":"same architecture without any BP input (graph and factor tables only)"},
+"bp_iters":50,"bp_damping":0.5,"bp_note":"fg.loopy_bp with a fixed cap, independent of the record budget; BP is the input and the baseline",
+"hidden":32,"rounds":4,"lr":0.003,"batch":32,"max_epochs":60,"patience":10,"seeds":[0,1,2],"workers":6,"threads":4,"bootstrap_seed":2323,
+"loss":"BCE(posterior logit, verified reference posterior)",
+"gates":{
+ "M1":"mp_bp held-out posterior MSE against the verified reference is below BP's for at least 2 of 3 seeds",
+ "M2":"acting on the mp_bp posterior beats acting on BP's posterior in held-out expected utility (bootstrap 95% lower bound of the mean paired difference > 0) for at least 2 of 3 seeds",
+ "M3":"mp_pure held-out posterior MSE is below the constant p = 0.5 predictor's for at least 2 of 3 seeds (DCF-22's token models failed this)"},
+"compute_note":"model multiply-accumulates per prediction are reported next to BP's counted operations; different units, not charged by any gate",
+"reward":"+1 correct, -penalty wrong, 0 abstain; act at p >= penalty/(1+penalty) or <= 1/(1+penalty)"}

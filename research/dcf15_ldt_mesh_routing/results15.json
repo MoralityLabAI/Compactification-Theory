@@ -1,0 +1,1555 @@
+{
+ "strongest_symbolic_on_dev": "symbolic",
+ "train_seconds": 0.130750900003477,
+ "amortized_train_ms_per_decision": 0.010640535482053792,
+ "mlp_params": 547,
+ "table": {
+  "0.2/low/fixed_local": {
+   "n": 2048,
+   "eu": 0.13421280236518937,
+   "regret": 0.031602627195840026,
+   "realized": 0.1533203125,
+   "coverage": 0.24609375,
+   "selective_risk": 0.07539682539682539,
+   "kernel_ms": 0.0007344176610123742,
+   "route_ms": 0.0007818848821727897,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.13420545818857926,
+   "objective_total": 0.13419763933975754,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/low/fixed_local_nomerge": {
+   "n": 2048,
+   "eu": 0.1187815799242398,
+   "regret": 0.04703384963678961,
+   "realized": 0.14453125,
+   "coverage": 0.22265625,
+   "selective_risk": 0.07017543859649122,
+   "kernel_ms": 0.00037042101464610357,
+   "route_ms": 0.0017500488276311899,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.11877787571409334,
+   "objective_total": 0.11876037522581703,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.1792318555558945
+  },
+  "0.2/low/fixed_bp": {
+   "n": 2048,
+   "eu": 0.16378910184906026,
+   "regret": 0.0020263277119691365,
+   "realized": 0.1796875,
+   "coverage": 0.296875,
+   "selective_risk": 0.07894736842105263,
+   "kernel_ms": 0.012664402726638201,
+   "route_ms": 0.002510888556628288,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.1636624578217939,
+   "objective_total": 0.1636373489362276,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/low/fixed_exact": {
+   "n": 2048,
+   "eu": 0.1658154295610294,
+   "regret": 0.0,
+   "realized": 0.1787109375,
+   "coverage": 0.3056640625,
+   "selective_risk": 0.08306709265175719,
+   "kernel_ms": 0.33162181911733085,
+   "route_ms": 0.00216528319185727,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.1624992113698561,
+   "objective_total": 0.16247755853793752,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/low/random": {
+   "n": 2048,
+   "eu": 0.1564068304692836,
+   "regret": 0.009408599091745802,
+   "realized": 0.17431640625,
+   "coverage": 0.2841796875,
+   "selective_risk": 0.07731958762886598,
+   "kernel_ms": 0.13905513509097087,
+   "route_ms": 0.02734135738435839,
+   "launches_per_step": 3.0,
+   "objective_kernel": 0.1550162791183739,
+   "objective_total": 0.15474286554453032,
+   "ops": {
+    "local": 0.33251953125,
+    "bp": 0.3408203125,
+    "exact": 0.32666015625,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/low/symbolic": {
+   "n": 2048,
+   "eu": 0.16378910184906026,
+   "regret": 0.0020263277119691365,
+   "realized": 0.1796875,
+   "coverage": 0.296875,
+   "selective_risk": 0.07894736842105263,
+   "kernel_ms": 0.012365727249315794,
+   "route_ms": 0.42151513680721564,
+   "launches_per_step": 2.0,
+   "objective_kernel": 0.16366544457656707,
+   "objective_total": 0.15945029320849496,
+   "ops": {
+    "local": 0.34716796875,
+    "bp": 0.65283203125,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/low/symbolic_j": {
+   "n": 2048,
+   "eu": 0.13973849129596894,
+   "regret": 0.026076938265060478,
+   "realized": 0.1591796875,
+   "coverage": 0.23974609375,
+   "selective_risk": 0.06720977596741344,
+   "kernel_ms": 0.0067081905040556255,
+   "route_ms": 0.4230286620341417,
+   "launches_per_step": 0.90625,
+   "objective_kernel": 0.13967140939092837,
+   "objective_total": 0.13544112277058695,
+   "ops": {
+    "local": 0.00244140625,
+    "bp": 0.27587890625,
+    "exact": 0.0,
+    "abstain": 0.7216796875
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/low/learned": {
+   "n": 2048,
+   "eu": 0.1591964883484891,
+   "regret": 0.006618941212540286,
+   "realized": 0.16748046875,
+   "coverage": 0.28955078125,
+   "selective_risk": 0.08431703204047218,
+   "kernel_ms": 0.10357856338199989,
+   "route_ms": 0.6522074218082707,
+   "launches_per_step": 2.890625,
+   "objective_kernel": 0.1581607027146691,
+   "objective_total": 0.15153222314176584,
+   "ops": {
+    "local": 0.23046875,
+    "bp": 0.33837890625,
+    "exact": 0.13671875,
+    "abstain": 0.29443359375
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/low/oracle": {
+   "n": 2048,
+   "eu": 0.16579811080222084,
+   "regret": 1.7318758808553805e-05,
+   "realized": 0.18212890625,
+   "coverage": 0.30419921875,
+   "selective_risk": 0.08025682182985554,
+   "kernel_ms": 0.018294768861638097,
+   "route_ms": 1.985874462832271,
+   "launches_per_step": 1.140625,
+   "objective_kernel": 0.16561516311360447,
+   "objective_total": 0.14575641848528176,
+   "ops": {
+    "local": 0.015625,
+    "bp": 0.2802734375,
+    "exact": 0.00830078125,
+    "abstain": 0.69580078125
+   },
+   "mean_final_kl": 0.12325653905430763
+  },
+  "0.2/high/fixed_local": {
+   "n": 2048,
+   "eu": 0.04947064044538041,
+   "regret": 0.01540694867876724,
+   "realized": 0.046875,
+   "coverage": 0.12255859375,
+   "selective_risk": 0.12350597609561753,
+   "kernel_ms": 0.0005663085061906944,
+   "route_ms": 0.0019141601796945906,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.04946497736031849,
+   "objective_total": 0.049445835758521545,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.2/high/fixed_local_nomerge": {
+   "n": 2048,
+   "eu": 0.04199844069702473,
+   "regret": 0.022879148427122915,
+   "realized": 0.04052734375,
+   "coverage": 0.111328125,
+   "selective_risk": 0.12719298245614036,
+   "kernel_ms": 0.0003702241887962837,
+   "route_ms": 0.0019232909451716296,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.041994738455136765,
+   "objective_total": 0.04197550554568505,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.17248774158119007
+  },
+  "0.2/high/fixed_bp": {
+   "n": 2048,
+   "eu": 0.06465549497899799,
+   "regret": 0.00022209414514965748,
+   "realized": 0.0625,
+   "coverage": 0.15283203125,
+   "selective_risk": 0.1182108626198083,
+   "kernel_ms": 0.009632026931536777,
+   "route_ms": 0.0027561034237066906,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.06455917470968262,
+   "objective_total": 0.06453161367544555,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.2/high/fixed_exact": {
+   "n": 2048,
+   "eu": 0.06487758912414765,
+   "regret": 0.0,
+   "realized": 0.06396484375,
+   "coverage": 0.15673828125,
+   "selective_risk": 0.11838006230529595,
+   "kernel_ms": 0.3791766693732436,
+   "route_ms": 0.002237744240574102,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.0610858224304152,
+   "objective_total": 0.06106344498800946,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.2/high/random": {
+   "n": 2048,
+   "eu": 0.060284856762733444,
+   "regret": 0.004592732361414198,
+   "realized": 0.05322265625,
+   "coverage": 0.14599609375,
+   "selective_risk": 0.12709030100334448,
+   "kernel_ms": 0.15435692229945933,
+   "route_ms": 0.05033803703113904,
+   "launches_per_step": 3.0,
+   "objective_kernel": 0.058741287539738854,
+   "objective_total": 0.058237907169427464,
+   "ops": {
+    "local": 0.31982421875,
+    "bp": 0.3564453125,
+    "exact": 0.32373046875,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.2/high/symbolic": {
+   "n": 2048,
+   "eu": 0.06465549497899799,
+   "regret": 0.00022209414514965748,
+   "realized": 0.0625,
+   "coverage": 0.15283203125,
+   "selective_risk": 0.1182108626198083,
+   "kernel_ms": 0.009565158790927442,
+   "route_ms": 0.4940133789865797,
+   "launches_per_step": 1.9375,
+   "objective_kernel": 0.06455984339108871,
+   "objective_total": 0.05961970960122291,
+   "ops": {
+    "local": 0.25634765625,
+    "bp": 0.74365234375,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.2/high/symbolic_j": {
+   "n": 2048,
+   "eu": 0.054540311018633686,
+   "regret": 0.010337278105513948,
+   "realized": 0.048828125,
+   "coverage": 0.1220703125,
+   "selective_risk": 0.12,
+   "kernel_ms": 0.0026882345114224064,
+   "route_ms": 0.5120000977285599,
+   "launches_per_step": 0.84375,
+   "objective_kernel": 0.05451342867351948,
+   "objective_total": 0.04939342769623387,
+   "ops": {
+    "local": 0.00146484375,
+    "bp": 0.1728515625,
+    "exact": 0.0,
+    "abstain": 0.82568359375
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.2/high/learned": {
+   "n": 2048,
+   "eu": 0.06071207116801214,
+   "regret": 0.004165517956135517,
+   "realized": 0.052734375,
+   "coverage": 0.140625,
+   "selective_risk": 0.125,
+   "kernel_ms": 0.0681697198698824,
+   "route_ms": 0.7691674317307218,
+   "launches_per_step": 2.71875,
+   "objective_kernel": 0.06003037396931331,
+   "objective_total": 0.052232294297185546,
+   "ops": {
+    "local": 0.29443359375,
+    "bp": 0.27099609375,
+    "exact": 0.06982421875,
+    "abstain": 0.36474609375
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.2/high/oracle": {
+   "n": 2048,
+   "eu": 0.0648480044024521,
+   "regret": 2.9584721695551986e-05,
+   "realized": 0.0615234375,
+   "coverage": 0.154296875,
+   "selective_risk": 0.12025316455696203,
+   "kernel_ms": 0.005690137649170143,
+   "route_ms": 2.098987402305852,
+   "launches_per_step": 0.9375,
+   "objective_kernel": 0.06479110302596039,
+   "objective_total": 0.04380122900290187,
+   "ops": {
+    "local": 0.00927734375,
+    "bp": 0.1435546875,
+    "exact": 0.00146484375,
+    "abstain": 0.845703125
+   },
+   "mean_final_kl": 0.13336645653275975
+  },
+  "0.4/low/fixed_local": {
+   "n": 2048,
+   "eu": 0.11941528368070814,
+   "regret": 0.07956241977395628,
+   "realized": 0.10205078125,
+   "coverage": 0.20458984375,
+   "selective_risk": 0.10023866348448687,
+   "kernel_ms": 0.000980023120386277,
+   "route_ms": 0.0019679687000007107,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.11940548344950427,
+   "objective_total": 0.11938580376250427,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/low/fixed_local_nomerge": {
+   "n": 2048,
+   "eu": 0.08571428689181637,
+   "regret": 0.11326341656284805,
+   "realized": 0.0625,
+   "coverage": 0.15283203125,
+   "selective_risk": 0.1182108626198083,
+   "kernel_ms": 0.000369383974137153,
+   "route_ms": 0.001989941381452809,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.08571059305207501,
+   "objective_total": 0.08569069363826048,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.35018454284661504
+  },
+  "0.4/low/fixed_bp": {
+   "n": 2048,
+   "eu": 0.19437206683467528,
+   "regret": 0.004605636619989166,
+   "realized": 0.177734375,
+   "coverage": 0.3193359375,
+   "selective_risk": 0.08868501529051988,
+   "kernel_ms": 0.07962691407036744,
+   "route_ms": 0.0032439940618189667,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.1935757976939716,
+   "objective_total": 0.1935433577533534,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/low/fixed_exact": {
+   "n": 2048,
+   "eu": 0.19897770345466442,
+   "regret": 0.0,
+   "realized": 0.185546875,
+   "coverage": 0.33203125,
+   "selective_risk": 0.08823529411764706,
+   "kernel_ms": 0.5381340619109197,
+   "route_ms": 0.0026984374699168256,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.1935963628355552,
+   "objective_total": 0.19356937846085603,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/low/random": {
+   "n": 2048,
+   "eu": 0.1733566487225769,
+   "regret": 0.025621054732087534,
+   "realized": 0.14990234375,
+   "coverage": 0.29150390625,
+   "selective_risk": 0.09715242881072027,
+   "kernel_ms": 0.24027321219766803,
+   "route_ms": 0.06065678705979849,
+   "launches_per_step": 3.0,
+   "objective_kernel": 0.17095391660060022,
+   "objective_total": 0.17034734873000223,
+   "ops": {
+    "local": 0.32421875,
+    "bp": 0.341796875,
+    "exact": 0.333984375,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/low/symbolic": {
+   "n": 2048,
+   "eu": 0.19437206683467528,
+   "regret": 0.004605636619989166,
+   "realized": 0.177734375,
+   "coverage": 0.3193359375,
+   "selective_risk": 0.08868501529051988,
+   "kernel_ms": 0.07936327517370996,
+   "route_ms": 0.4205276854563067,
+   "launches_per_step": 1.75,
+   "objective_kernel": 0.19357843408293818,
+   "objective_total": 0.1893731572283751,
+   "ops": {
+    "local": 0.14794921875,
+    "bp": 0.85205078125,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/low/symbolic_j": {
+   "n": 2048,
+   "eu": 0.13000597660423155,
+   "regret": 0.06897172685043287,
+   "realized": 0.10546875,
+   "coverage": 0.193359375,
+   "selective_risk": 0.09090909090909091,
+   "kernel_ms": 0.04046036303544717,
+   "route_ms": 0.24269604499949082,
+   "launches_per_step": 0.90625,
+   "objective_kernel": 0.12960137297387705,
+   "objective_total": 0.12717441252388215,
+   "ops": {
+    "local": 0.0009765625,
+    "bp": 0.21240234375,
+    "exact": 0.00341796875,
+    "abstain": 0.783203125
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/low/learned": {
+   "n": 2048,
+   "eu": 0.19077635391391345,
+   "regret": 0.008201349540750996,
+   "realized": 0.17578125,
+   "coverage": 0.31005859375,
+   "selective_risk": 0.08661417322834646,
+   "kernel_ms": 0.21460178620712586,
+   "route_ms": 0.33875722663623264,
+   "launches_per_step": 2.859375,
+   "objective_kernel": 0.18863033605184215,
+   "objective_total": 0.18513635843065931,
+   "ops": {
+    "local": 0.1005859375,
+    "bp": 0.458984375,
+    "exact": 0.189453125,
+    "abstain": 0.2509765625
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/low/oracle": {
+   "n": 2048,
+   "eu": 0.19896723043977332,
+   "regret": 1.0473014891104401e-05,
+   "realized": 0.18359375,
+   "coverage": 0.330078125,
+   "selective_risk": 0.08875739644970414,
+   "kernel_ms": 0.0663544575135411,
+   "route_ms": 4.208461621082904,
+   "launches_per_step": 1.1875,
+   "objective_kernel": 0.19830368586463792,
+   "objective_total": 0.15621906965380888,
+   "ops": {
+    "local": 0.00146484375,
+    "bp": 0.3154296875,
+    "exact": 0.01318359375,
+    "abstain": 0.669921875
+   },
+   "mean_final_kl": 0.20279159750827364
+  },
+  "0.4/high/fixed_local": {
+   "n": 2048,
+   "eu": 0.031038120991704374,
+   "regret": 0.02314854383653296,
+   "realized": 0.0439453125,
+   "coverage": 0.0830078125,
+   "selective_risk": 0.09411764705882353,
+   "kernel_ms": 0.0007816023352655609,
+   "route_ms": 0.0008115234528816018,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.031030304968351713,
+   "objective_total": 0.031022189733822897,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.4/high/fixed_local_nomerge": {
+   "n": 2048,
+   "eu": 0.023256110854056697,
+   "regret": 0.03093055397418063,
+   "realized": 0.03271484375,
+   "coverage": 0.06201171875,
+   "selective_risk": 0.09448818897637795,
+   "kernel_ms": 0.00036941121234713596,
+   "route_ms": 0.000843505908676434,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.023252416741933225,
+   "objective_total": 0.02324398168284646,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.3541939841538752
+  },
+  "0.4/high/fixed_bp": {
+   "n": 2048,
+   "eu": 0.05331240124471924,
+   "regret": 0.0008742635835180884,
+   "realized": 0.0556640625,
+   "coverage": 0.1240234375,
+   "selective_risk": 0.11023622047244094,
+   "kernel_ms": 0.044724618580332436,
+   "route_ms": 0.0028039550699077154,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.05286515505891591,
+   "objective_total": 0.052837115508216834,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.4/high/fixed_exact": {
+   "n": 2048,
+   "eu": 0.054186664828237335,
+   "regret": 0.0,
+   "realized": 0.05908203125,
+   "coverage": 0.1298828125,
+   "selective_risk": 0.10902255639097744,
+   "kernel_ms": 0.5396283894167151,
+   "route_ms": 0.0010453124126286184,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.048790380934070184,
+   "objective_total": 0.0487799278099439,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.4/high/random": {
+   "n": 2048,
+   "eu": 0.04857860479434173,
+   "regret": 0.005608060033895603,
+   "realized": 0.044921875,
+   "coverage": 0.11572265625,
+   "selective_risk": 0.12236286919831224,
+   "kernel_ms": 0.23061664862467196,
+   "route_ms": 0.03871835929913914,
+   "launches_per_step": 3.0,
+   "objective_kernel": 0.046272438308095014,
+   "objective_total": 0.04588525471510362,
+   "ops": {
+    "local": 0.3193359375,
+    "bp": 0.33740234375,
+    "exact": 0.34326171875,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.4/high/symbolic": {
+   "n": 2048,
+   "eu": 0.05331240124471924,
+   "regret": 0.0008742635835180884,
+   "realized": 0.0556640625,
+   "coverage": 0.1240234375,
+   "selective_risk": 0.11023622047244094,
+   "kernel_ms": 0.04448705990382264,
+   "route_ms": 0.5226705565846146,
+   "launches_per_step": 1.734375,
+   "objective_kernel": 0.05286753064568102,
+   "objective_total": 0.04764082507983487,
+   "ops": {
+    "local": 0.126953125,
+    "bp": 0.873046875,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.4/high/symbolic_j": {
+   "n": 2048,
+   "eu": 0.036388591956453595,
+   "regret": 0.017798072871783734,
+   "realized": 0.041015625,
+   "coverage": 0.07275390625,
+   "selective_risk": 0.087248322147651,
+   "kernel_ms": 0.010409039732810502,
+   "route_ms": 0.48705351559164,
+   "launches_per_step": 0.71875,
+   "objective_kernel": 0.03628450155912549,
+   "objective_total": 0.03141396640320909,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.099609375,
+    "exact": 0.0,
+    "abstain": 0.900390625
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.4/high/learned": {
+   "n": 2048,
+   "eu": 0.049453024000833304,
+   "regret": 0.00473364082740403,
+   "realized": 0.05322265625,
+   "coverage": 0.109375,
+   "selective_risk": 0.10267857142857142,
+   "kernel_ms": 0.11200318801093377,
+   "route_ms": 0.7264447753811965,
+   "launches_per_step": 2.640625,
+   "objective_kernel": 0.048332992120723964,
+   "objective_total": 0.04096213901209146,
+   "ops": {
+    "local": 0.19873046875,
+    "bp": 0.31640625,
+    "exact": 0.0693359375,
+    "abstain": 0.41552734375
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.4/high/oracle": {
+   "n": 2048,
+   "eu": 0.0541556287434347,
+   "regret": 3.1036084802624794e-05,
+   "realized": 0.056640625,
+   "coverage": 0.12744140625,
+   "selective_risk": 0.1111111111111111,
+   "kernel_ms": 0.0248241119756276,
+   "route_ms": 4.932348583903234,
+   "launches_per_step": 0.890625,
+   "objective_kernel": 0.053907387623678436,
+   "objective_total": 0.004583901784646091,
+   "ops": {
+    "local": 0.00146484375,
+    "bp": 0.12060546875,
+    "exact": 0.00537109375,
+    "abstain": 0.87255859375
+   },
+   "mean_final_kl": 0.25543234339753534
+  },
+  "0.6/low/fixed_local": {
+   "n": 2048,
+   "eu": 0.0825863296289541,
+   "regret": 0.11170972316681813,
+   "realized": 0.087890625,
+   "coverage": 0.15869140625,
+   "selective_risk": 0.08923076923076922,
+   "kernel_ms": 0.0011317765429612254,
+   "route_ms": 0.0023134277746805765,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.0825750118635245,
+   "objective_total": 0.0825518775857777,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/low/fixed_local_nomerge": {
+   "n": 2048,
+   "eu": 0.03420274446590221,
+   "regret": 0.16009330832987,
+   "realized": 0.0439453125,
+   "coverage": 0.068359375,
+   "selective_risk": 0.07142857142857142,
+   "kernel_ms": 0.0003679675230591294,
+   "route_ms": 0.0023417480221610276,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.03419906479067161,
+   "objective_total": 0.03417564731045,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.4082254515814994
+  },
+  "0.6/low/fixed_bp": {
+   "n": 2048,
+   "eu": 0.18594758639415454,
+   "regret": 0.00834846640161769,
+   "realized": 0.15771484375,
+   "coverage": 0.296875,
+   "selective_risk": 0.09375,
+   "kernel_ms": 0.23632675215446694,
+   "route_ms": 0.004293163943458467,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.18358431887260987,
+   "objective_total": 0.18354138723317528,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/low/fixed_exact": {
+   "n": 2048,
+   "eu": 0.19429605279577222,
+   "regret": 0.0,
+   "realized": 0.16748046875,
+   "coverage": 0.31884765625,
+   "selective_risk": 0.09494640122511486,
+   "kernel_ms": 0.5688667084897328,
+   "route_ms": 0.00264814461203855,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.18860738571087493,
+   "objective_total": 0.18858090426475455,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/low/random": {
+   "n": 2048,
+   "eu": 0.15990517288322992,
+   "regret": 0.034390879912542305,
+   "realized": 0.14111328125,
+   "coverage": 0.265625,
+   "selective_risk": 0.09375,
+   "kernel_ms": 0.29348218339308424,
+   "route_ms": 0.053260058560766765,
+   "launches_per_step": 3.0,
+   "objective_kernel": 0.15697035104929907,
+   "objective_total": 0.1564377504636914,
+   "ops": {
+    "local": 0.33203125,
+    "bp": 0.34765625,
+    "exact": 0.3203125,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/low/symbolic": {
+   "n": 2048,
+   "eu": 0.18594758639415454,
+   "regret": 0.00834846640161769,
+   "realized": 0.15771484375,
+   "coverage": 0.296875,
+   "selective_risk": 0.09375,
+   "kernel_ms": 0.23590138701912963,
+   "route_ms": 0.5997363769303377,
+   "launches_per_step": 1.5625,
+   "objective_kernel": 0.1835885725239632,
+   "objective_total": 0.17759120875465984,
+   "ops": {
+    "local": 0.1005859375,
+    "bp": 0.8994140625,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/low/symbolic_j": {
+   "n": 2048,
+   "eu": 0.10047862923025626,
+   "regret": 0.09381742356551596,
+   "realized": 0.1005859375,
+   "coverage": 0.14208984375,
+   "selective_risk": 0.058419243986254296,
+   "kernel_ms": 0.08175478657446901,
+   "route_ms": 0.5815087889544657,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.09966108136451157,
+   "objective_total": 0.09384599347496692,
+   "ops": {
+    "local": 0.0009765625,
+    "bp": 0.14599609375,
+    "exact": 0.0126953125,
+    "abstain": 0.84033203125
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/low/learned": {
+   "n": 2048,
+   "eu": 0.18334268975276247,
+   "regret": 0.01095336304300977,
+   "realized": 0.15869140625,
+   "coverage": 0.29541015625,
+   "selective_risk": 0.09256198347107437,
+   "kernel_ms": 0.3388723950821639,
+   "route_ms": 0.8175555665417278,
+   "launches_per_step": 2.6875,
+   "objective_kernel": 0.17995396580194084,
+   "objective_total": 0.17167200478170302,
+   "ops": {
+    "local": 0.0595703125,
+    "bp": 0.494140625,
+    "exact": 0.22412109375,
+    "abstain": 0.22216796875
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/low/oracle": {
+   "n": 2048,
+   "eu": 0.19426921525455704,
+   "regret": 2.6837541215219058e-05,
+   "realized": 0.169921875,
+   "coverage": 0.31640625,
+   "selective_risk": 0.09259259259259259,
+   "kernel_ms": 0.16814610453845405,
+   "route_ms": 19.120585351604547,
+   "launches_per_step": 1.421875,
+   "objective_kernel": 0.19258775420917246,
+   "objective_total": 0.00138190069312701,
+   "ops": {
+    "local": 0.0009765625,
+    "bp": 0.28857421875,
+    "exact": 0.02685546875,
+    "abstain": 0.68359375
+   },
+   "mean_final_kl": 0.2508987437186011
+  },
+  "0.6/high/fixed_local": {
+   "n": 2048,
+   "eu": 0.019457067837196675,
+   "regret": 0.019639621258592158,
+   "realized": 0.02734375,
+   "coverage": 0.05908203125,
+   "selective_risk": 0.10743801652892562,
+   "kernel_ms": 0.0009824122854045986,
+   "route_ms": 0.0022062012554613375,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.01944724371434263,
+   "objective_total": 0.019425181701788016,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.4062257131262127
+  },
+  "0.6/high/fixed_local_nomerge": {
+   "n": 2048,
+   "eu": 0.006309732194423762,
+   "regret": 0.03278695690136507,
+   "realized": 0.0078125,
+   "coverage": 0.0322265625,
+   "selective_risk": 0.15151515151515152,
+   "kernel_ms": 0.00036904052674661855,
+   "route_ms": 0.002039746078708049,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.006306041789156296,
+   "objective_total": 0.0062856443283692155,
+   "ops": {
+    "local": 1.0,
+    "bp": 0.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.6882875821074211
+  },
+  "0.6/high/fixed_bp": {
+   "n": 2048,
+   "eu": 0.0371117264613849,
+   "regret": 0.0019849626344039277,
+   "realized": 0.02587890625,
+   "coverage": 0.09423828125,
+   "selective_risk": 0.14507772020725387,
+   "kernel_ms": 0.1389773705225344,
+   "route_ms": 0.003935937474608409,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.03572195275615956,
+   "objective_total": 0.035682593381413476,
+   "ops": {
+    "local": 0.0,
+    "bp": 1.0,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.4062257131262127
+  },
+  "0.6/high/fixed_exact": {
+   "n": 2048,
+   "eu": 0.03909668909578884,
+   "regret": 0.0,
+   "realized": 0.03271484375,
+   "coverage": 0.09619140625,
+   "selective_risk": 0.1319796954314721,
+   "kernel_ms": 0.5537205261233673,
+   "route_ms": 0.002385742117638756,
+   "launches_per_step": 1.0,
+   "objective_kernel": 0.03355948383455516,
+   "objective_total": 0.033535626413378775,
+   "ops": {
+    "local": 0.0,
+    "bp": 0.0,
+    "exact": 1.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.4062257131262127
+  },
+  "0.6/high/random": {
+   "n": 2048,
+   "eu": 0.032479794846528354,
+   "regret": 0.006616894249260477,
+   "realized": 0.02734375,
+   "coverage": 0.08349609375,
+   "selective_risk": 0.13450292397660818,
+   "kernel_ms": 0.2623955300805684,
+   "route_ms": 0.04081718743975671,
+   "launches_per_step": 3.0,
+   "objective_kernel": 0.029855839545722674,
+   "objective_total": 0.029447667671325107,
+   "ops": {
+    "local": 0.33935546875,
+    "bp": 0.30322265625,
+    "exact": 0.357421875,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.4062257131262127
+  },
+  "0.6/high/symbolic": {
+   "n": 2048,
+   "eu": 0.0371117264613849,
+   "regret": 0.0019849626344039277,
+   "realized": 0.02587890625,
+   "coverage": 0.09423828125,
+   "selective_risk": 0.14507772020725387,
+   "kernel_ms": 0.13806844433244198,
+   "route_ms": 0.529724804675169,
+   "launches_per_step": 1.796875,
+   "objective_kernel": 0.03573104201806049,
+   "objective_total": 0.030433793971308798,
+   "ops": {
+    "local": 0.1298828125,
+    "bp": 0.8701171875,
+    "exact": 0.0,
+    "abstain": 0.0
+   },
+   "mean_final_kl": 0.4062257131262127
+  },
+  "0.6/high/symbolic_j": {
+   "n": 2048,
+   "eu": 0.023483274502880278,
+   "regret": 0.015613414592908555,
+   "realized": 0.0224609375,
+   "coverage": 0.0517578125,
+   "selective_risk": 0.11320754716981132,
+   "kernel_ms": 0.02051009028410656,
+   "route_ms": 0.5117965820460313,
+   "launches_per_step": 0.734375,
+   "objective_kernel": 0.023278173600039212,
+   "objective_total": 0.0181602077795789,
+   "ops": {
+    "local": 0.0009765625,
+    "bp": 0.06640625,
+    "exact": 0.00048828125,
+    "abstain": 0.93212890625
+   },
+   "mean_final_kl": 0.4062257131262127
+  },
+  "0.6/high/learned": {
+   "n": 2048,
+   "eu": 0.03470018561443411,
+   "regret": 0.004396503481354723,
+   "realized": 0.029296875,
+   "coverage": 0.08544921875,
+   "selective_risk": 0.13142857142857142,
+   "kernel_ms": 0.20822562013568438,
+   "route_ms": 0.7753572266402387,
+   "launches_per_step": 2.703125,
+   "objective_kernel": 0.03261792941307727,
+   "objective_total": 0.02475795179185434,
+   "ops": {
+    "local": 0.19140625,
+    "bp": 0.3349609375,
+    "exact": 0.1044921875,
+    "abstain": 0.369140625
+   },
+   "mean_final_kl": 0.4062257131262127
+  },
+  "0.6/high/oracle": {
+   "n": 2048,
+   "eu": 0.03908860426544974,
+   "regret": 8.084830339095278e-06,
+   "realized": 0.0341796875,
+   "coverage": 0.09521484375,
+   "selective_risk": 0.1282051282051282,
+   "kernel_ms": 0.039072485063712775,
+   "route_ms": 11.431130859403282,
+   "launches_per_step": 0.890625,
+   "objective_kernel": 0.03869787941481261,
+   "objective_total": -0.0756134291792202,
+   "ops": {
+    "local": 0.00146484375,
+    "bp": 0.0869140625,
+    "exact": 0.0068359375,
+    "abstain": 0.90478515625
+   },
+   "mean_final_kl": 0.4062257131262127
+  }
+ },
+ "paired": {
+  "learned_vs_fixed_local_objective_total": {
+   "wins": 6,
+   "losses": 0,
+   "conditions": 6
+  },
+  "learned_vs_fixed_bp_objective_total": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_fixed_exact_objective_total": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_symbolic_objective_total": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_symbolic_j_objective_total": {
+   "wins": 6,
+   "losses": 0,
+   "conditions": 6
+  },
+  "learned_vs_fixed_local_objective_kernel": {
+   "wins": 6,
+   "losses": 0,
+   "conditions": 6
+  },
+  "learned_vs_fixed_bp_objective_kernel": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_fixed_exact_objective_kernel": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_symbolic_objective_kernel": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_symbolic_j_objective_kernel": {
+   "wins": 6,
+   "losses": 0,
+   "conditions": 6
+  },
+  "learned_vs_fixed_local_eu": {
+   "wins": 6,
+   "losses": 0,
+   "conditions": 6
+  },
+  "learned_vs_fixed_bp_eu": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_fixed_exact_eu": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_symbolic_eu": {
+   "wins": 0,
+   "losses": 6,
+   "conditions": 6
+  },
+  "learned_vs_symbolic_j_eu": {
+   "wins": 6,
+   "losses": 0,
+   "conditions": 6
+  }
+ },
+ "promotion": {
+  "rule": "learned wins more held-out conditions than it loses against the strongest dev-selected symbolic router on objective_total",
+  "wins": 0,
+  "losses": 6,
+  "promoted": false
+ },
+ "batch_sweep": [
+  {
+   "router": "symbolic",
+   "B": 1,
+   "summary": {
+    "n": 8192,
+    "eu": 0.1880783740645417,
+    "regret": 0.004005075325442282,
+    "realized": 0.1920166015625,
+    "coverage": 0.30859375,
+    "selective_risk": 0.07555379746835443,
+    "kernel_ms": 0.10054056686602614,
+    "route_ms": 0.4890847900584916,
+    "launches_per_step": 1.0,
+    "objective_kernel": 0.18707296839588144,
+    "objective_total": 0.18218212049529653,
+    "ops": {
+     "local": 0.1650390625,
+     "bp": 0.8349609375,
+     "exact": 0.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 76.24779010000202
+  },
+  {
+   "router": "symbolic",
+   "B": 8,
+   "summary": {
+    "n": 8192,
+    "eu": 0.1880783740645417,
+    "regret": 0.004005075325442282,
+    "realized": 0.1920166015625,
+    "coverage": 0.30859375,
+    "selective_risk": 0.07555379746835443,
+    "kernel_ms": 0.0928604747311694,
+    "route_ms": 0.5235550780939846,
+    "launches_per_step": 1.517578125,
+    "objective_kernel": 0.18714976931722999,
+    "objective_total": 0.18191421853629014,
+    "ops": {
+     "local": 0.1650390625,
+     "bp": 0.8349609375,
+     "exact": 0.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 82.9089002000037
+  },
+  {
+   "router": "symbolic",
+   "B": 32,
+   "summary": {
+    "n": 8192,
+    "eu": 0.1880783740645417,
+    "regret": 0.004005075325442282,
+    "realized": 0.1920166015625,
+    "coverage": 0.30859375,
+    "selective_risk": 0.07555379746835443,
+    "kernel_ms": 0.09187335438102627,
+    "route_ms": 0.5322902710185318,
+    "launches_per_step": 1.70703125,
+    "objective_kernel": 0.18715964052073142,
+    "objective_total": 0.1818367378105461,
+    "ops": {
+     "local": 0.1650390625,
+     "bp": 0.8349609375,
+     "exact": 0.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 84.66465009999956
+  },
+  {
+   "router": "symbolic",
+   "B": 128,
+   "summary": {
+    "n": 8192,
+    "eu": 0.1880783740645417,
+    "regret": 0.004005075325442282,
+    "realized": 0.1920166015625,
+    "coverage": 0.30859375,
+    "selective_risk": 0.07555379746835443,
+    "kernel_ms": 0.09161282123965205,
+    "route_ms": 0.5091354492314792,
+    "launches_per_step": 1.90625,
+    "objective_kernel": 0.18716224585214516,
+    "objective_total": 0.1820708913598304,
+    "ops": {
+     "local": 0.1650390625,
+     "bp": 0.8349609375,
+     "exact": 0.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 80.19334420000087
+  },
+  {
+   "router": "symbolic",
+   "B": 256,
+   "summary": {
+    "n": 8192,
+    "eu": 0.1880783740645417,
+    "regret": 0.004005075325442282,
+    "realized": 0.1920166015625,
+    "coverage": 0.30859375,
+    "selective_risk": 0.07555379746835443,
+    "kernel_ms": 0.09156729026194882,
+    "route_ms": 0.5205606445013444,
+    "launches_per_step": 2.0,
+    "objective_kernel": 0.1871627011619222,
+    "objective_total": 0.18195709471690877,
+    "ops": {
+     "local": 0.1650390625,
+     "bp": 0.8349609375,
+     "exact": 0.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 84.44446619999508
+  },
+  {
+   "router": "learned",
+   "B": 1,
+   "summary": {
+    "n": 8192,
+    "eu": 0.18271538873375215,
+    "regret": 0.00936806065623182,
+    "realized": 0.186767578125,
+    "coverage": 0.299072265625,
+    "selective_risk": 0.07510204081632653,
+    "kernel_ms": 0.4389575214467845,
+    "route_ms": 0.9290742797025686,
+    "launches_per_step": 0.7386474609375,
+    "objective_kernel": 0.1783258135192843,
+    "objective_total": 0.16903507072225862,
+    "ops": {
+     "local": 0.10400390625,
+     "bp": 0.444580078125,
+     "exact": 0.1900634765625,
+     "abstain": 0.2613525390625
+    }
+   },
+   "simulator_wall_seconds": 67.148125300002
+  },
+  {
+   "router": "learned",
+   "B": 8,
+   "summary": {
+    "n": 8192,
+    "eu": 0.18268690011714034,
+    "regret": 0.00939654927284364,
+    "realized": 0.1865234375,
+    "coverage": 0.298828125,
+    "selective_risk": 0.07516339869281045,
+    "kernel_ms": 0.29892621017915366,
+    "route_ms": 0.8971120483796113,
+    "launches_per_step": 2.197265625,
+    "objective_kernel": 0.17969763801534883,
+    "objective_total": 0.1707265175315527,
+    "ops": {
+     "local": 0.104248046875,
+     "bp": 0.4508056640625,
+     "exact": 0.1883544921875,
+     "abstain": 0.256591796875
+    }
+   },
+   "simulator_wall_seconds": 66.62109530000453
+  },
+  {
+   "router": "learned",
+   "B": 32,
+   "summary": {
+    "n": 8192,
+    "eu": 0.1826932403970739,
+    "regret": 0.009390208992910088,
+    "realized": 0.1866455078125,
+    "coverage": 0.2989501953125,
+    "selective_risk": 0.07513270722743977,
+    "kernel_ms": 0.22068900648168263,
+    "route_ms": 0.8813556274285261,
+    "launches_per_step": 2.859375,
+    "objective_kernel": 0.18048635033225707,
+    "objective_total": 0.1716727940579718,
+    "ops": {
+     "local": 0.1068115234375,
+     "bp": 0.4498291015625,
+     "exact": 0.18896484375,
+     "abstain": 0.25439453125
+    }
+   },
+   "simulator_wall_seconds": 66.24921829999948
+  },
+  {
+   "router": "learned",
+   "B": 128,
+   "summary": {
+    "n": 8192,
+    "eu": 0.1827542274937857,
+    "regret": 0.00932922189619828,
+    "realized": 0.1868896484375,
+    "coverage": 0.2991943359375,
+    "selective_risk": 0.07507139942880457,
+    "kernel_ms": 0.19247575298395966,
+    "route_ms": 0.8618555420527585,
+    "launches_per_step": 2.984375,
+    "objective_kernel": 0.1808294699639461,
+    "objective_total": 0.17221091454341853,
+    "ops": {
+     "local": 0.1087646484375,
+     "bp": 0.449462890625,
+     "exact": 0.1903076171875,
+     "abstain": 0.25146484375
+    }
+   },
+   "simulator_wall_seconds": 66.14817100000073
+  },
+  {
+   "router": "learned",
+   "B": 256,
+   "summary": {
+    "n": 8192,
+    "eu": 0.18275422749378573,
+    "regret": 0.009329221896198277,
+    "realized": 0.1868896484375,
+    "coverage": 0.2991943359375,
+    "selective_risk": 0.07507139942880457,
+    "kernel_ms": 0.18746432361032558,
+    "route_ms": 0.7978964965742463,
+    "launches_per_step": 3.0,
+    "objective_kernel": 0.18087958425768244,
+    "objective_total": 0.17290061929194,
+    "ops": {
+     "local": 0.1087646484375,
+     "bp": 0.4495849609375,
+     "exact": 0.1903076171875,
+     "abstain": 0.2513427734375
+    }
+   },
+   "simulator_wall_seconds": 64.61384299999918
+  },
+  {
+   "router": "fixed_exact",
+   "B": 1,
+   "summary": {
+    "n": 8192,
+    "eu": 0.19208344938998398,
+    "regret": 0.0,
+    "realized": 0.2020263671875,
+    "coverage": 0.318603515625,
+    "selective_risk": 0.07318007662835249,
+    "kernel_ms": 1.79679607549191,
+    "route_ms": 0.0031185913069720073,
+    "launches_per_step": 1.0,
+    "objective_kernel": 0.1741154886350649,
+    "objective_total": 0.17408430272199518,
+    "ops": {
+     "local": 0.0,
+     "bp": 0.0,
+     "exact": 1.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 25.84676149999723
+  },
+  {
+   "router": "fixed_exact",
+   "B": 8,
+   "summary": {
+    "n": 8192,
+    "eu": 0.19208344938998398,
+    "regret": 0.0,
+    "realized": 0.2020263671875,
+    "coverage": 0.318603515625,
+    "selective_risk": 0.07318007662835249,
+    "kernel_ms": 0.6438082889349945,
+    "route_ms": 0.0025808960355533372,
+    "launches_per_step": 1.0,
+    "objective_kernel": 0.18564536650063404,
+    "objective_total": 0.1856195575402785,
+    "ops": {
+     "local": 0.0,
+     "bp": 0.0,
+     "exact": 1.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 25.412893799999438
+  },
+  {
+   "router": "fixed_exact",
+   "B": 32,
+   "summary": {
+    "n": 8192,
+    "eu": 0.19208344938998398,
+    "regret": 0.0,
+    "realized": 0.2020263671875,
+    "coverage": 0.318603515625,
+    "selective_risk": 0.07318007662835249,
+    "kernel_ms": 0.5202738832324679,
+    "route_ms": 0.0022367553649260685,
+    "launches_per_step": 1.0,
+    "objective_kernel": 0.1868807105576593,
+    "objective_total": 0.18685834300401005,
+    "ops": {
+     "local": 0.0,
+     "bp": 0.0,
+     "exact": 1.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 25.446961100002227
+  },
+  {
+   "router": "fixed_exact",
+   "B": 128,
+   "summary": {
+    "n": 8192,
+    "eu": 0.192083449389984,
+    "regret": 0.0,
+    "realized": 0.2020263671875,
+    "coverage": 0.318603515625,
+    "selective_risk": 0.07318007662835249,
+    "kernel_ms": 0.48939028180683625,
+    "route_ms": 0.0021732665596019274,
+    "launches_per_step": 1.0,
+    "objective_kernel": 0.1871895465719156,
+    "objective_total": 0.1871678139063196,
+    "ops": {
+     "local": 0.0,
+     "bp": 0.0,
+     "exact": 1.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 25.80553019999934
+  },
+  {
+   "router": "fixed_exact",
+   "B": 256,
+   "summary": {
+    "n": 8192,
+    "eu": 0.19208344938998398,
+    "regret": 0.0,
+    "realized": 0.2020263671875,
+    "coverage": 0.318603515625,
+    "selective_risk": 0.07318007662835249,
+    "kernel_ms": 0.48424301490256416,
+    "route_ms": 0.0019383911231685147,
+    "launches_per_step": 1.0,
+    "objective_kernel": 0.18724101924095835,
+    "objective_total": 0.18722163532972666,
+    "ops": {
+     "local": 0.0,
+     "bp": 0.0,
+     "exact": 1.0,
+     "abstain": 0.0
+    }
+   },
+   "simulator_wall_seconds": 20.00976520000404
+  }
+ ],
+ "cost_model": {
+  "local": {
+   "a": 3.14094308883362e-06,
+   "b": 4.3718906592350175e-09,
+   "r2": 0.9699987750029699
+  },
+  "update": {
+   "a": 5.461235452003108e-06,
+   "b": 2.594087946176089e-10,
+   "r2": 0.9868415883823168
+  },
+  "bp": {
+   "a": 3.642678580346007e-06,
+   "b": 2.1505904905104034e-10,
+   "r2": 0.9977619780264001
+  },
+  "exact": {
+   "a": 0.0013122390920416145,
+   "b": 5.756017240328933e-10,
+   "r2": 0.7547402076778911
+  }
+ }
+}

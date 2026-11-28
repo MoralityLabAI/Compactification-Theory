@@ -1,0 +1,19 @@
+{"experiment":"DCF-14 computational width as a routing signal",
+"splits":{
+ "dev":[{"families":["chain","tree","grid","sparse"],"sizes":[8,12,16,24,32],"seeds":10,"seed_base":140000}],
+ "test":[{"families":["star","dense","hyper","ktree","xor_noiseless","weak_dense"],"sizes":[8,12,16,24,32,48,64],"seeds":6,"seed_base":240000},
+         {"families":["chain","tree","grid","sparse"],"sizes":[48,64],"seeds":6,"seed_base":250000},
+         {"families":["chain","tree","star","ktree"],"sizes":[128,256],"seeds":3,"seed_base":260000}]},
+"instance_cycle":"seed index s: noise low/high alternating, query size 1+s%3, misspecified model (solver noise = 0.4 x true, overconfident) when s%3==2 except xor_noiseless",
+"budgets":[10,14,18],"budget_unit":"log2 counted table-entry operations per query",
+"penalties":[4,9],"reward":"+1 correct, -penalty wrong, 0 abstain; penalty 4 -> act at p>=0.8, penalty 9 -> p>=0.9",
+"lambda":0.05,"lambda_meaning":"oracle/learned label objective = expected utility - lambda * ops / budget",
+"exact_max_union":22,"enum_max_vars":18,"cutset_max":16,"max_particles":4096,
+"tree_depth":4,"mlp_hidden":[16],"workers":6,"random_policy_seed":1414,
+"h1_features":["n","comp_vars","width_min_fill","width_lower","cutset"],
+"verification":"reference posterior = einsum VE (min-fill) under the generating model, accepted as verified only when an independent exact path (log-space enumeration and/or batched cutset conditioning) agrees within 1e-8; instances without a verified reference are scored by realized utility only",
+"gates":{
+ "H1":"on verified held-out instances, the min-fill width single-feature model (fit on dev) has R^2 for log2 best-exact ops at least 0.10 higher than each of n and comp_vars, and a higher Spearman rank correlation than both",
+ "H1_failures":"report per-family Spearman and the families where width is not the best single predictor (xor_noiseless with the GF(2) operator is expected to break it)",
+ "S1":"learned_tree or learned_mlp promotes only if, on held-out conditions (family,n,budget,penalty), it has more condition wins than losses in mean verified expected utility against the strongest hand-designed policy selected on dev, or equal utility at lower ops in a majority of tied conditions; training and routing time are reported alongside"},
+"no_tuning":"selector14.pkl, selector14_summary.json and this file are committed before receipt14_test.json is generated; nothing is refit after the held-out run"}

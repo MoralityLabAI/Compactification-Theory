@@ -1,0 +1,50 @@
+﻿python.exe : multiprocessing.pool.RemoteTraceback: 
+At line:1 char:550
++ ... dth_routing; $t=Get-Date; & $py width14.py test *> test14.log; "test  ...
++                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (multiprocessing.pool.RemoteTraceback: :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+"""
+Traceback (most recent call last):
+  File "C:\Users\patri\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+                    ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\patri\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\pool.py", line 48, in mapstar
+    return list(map(*args))
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\patri\OneDrive\Documents\GitHub\Compactification-Theory\research\dcf14_width_routing\width14.py", 
+line 68, in run_instance
+    r = fg.variable_elimination(ref_prob, order=order)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\patri\OneDrive\Documents\GitHub\Compactification-Theory\research\dcf14_width_routing\fg.py", line 
+289, in variable_elimination
+    joint = _einsum(factors, q) if factors else np.ones((2,) * len(q))
+            ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\patri\OneDrive\Documents\GitHub\Compactification-Theory\research\dcf14_width_routing\fg.py", line 
+250, in _einsum
+    return np.einsum(*args, [lab.setdefault(v, len(lab)) for v in out])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\patri\AppData\Local\Temp\claude\ef09c3e9b19acbe0\fc2bac21-8cfe-4b5b-91e6-256edeb52280\scratchpad\venv\
+Lib\site-packages\numpy\_core\einsumfunc.py", line 1423, in einsum
+    return c_einsum(*operands, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: too many operands
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\patri\OneDrive\Documents\GitHub\Compactification-Theory\research\dcf14_width_routing\width14.py", 
+line 365, in <module>
+    stage_run(stage)
+  File "C:\Users\patri\OneDrive\Documents\GitHub\Compactification-Theory\research\dcf14_width_routing\width14.py", 
+line 117, in stage_run
+    recs = pool.map(run_instance, sp, chunksize=1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\patri\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\pool.py", line 367, in map
+    return self._map_async(func, iterable, mapstar, chunksize).get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\patri\AppData\Local\Programs\Python\Python312\Lib\multiprocessing\pool.py", line 774, in get
+    raise self._value
+ValueError: too many operands

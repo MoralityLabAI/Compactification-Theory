@@ -1,0 +1,16 @@
+{"experiment":"DCF-24 frozen DCF-23 message-passing correction in the high-width regime",
+"blocks":[
+ {"families":["dense"],"sizes":[16,20,24,28],"seeds":8,"seed_base":470000},
+ {"families":["grid"],"sizes":[64,100,144],"seeds":8,"seed_base":480000},
+ {"families":["sparse"],"sizes":[48,64,96,128],"seeds":8,"seed_base":490000}],
+"record_budget":18,"workers":6,
+"verification":"DCF-14 run_instance: reference = einsum VE under the generating model (max union 22), accepted only if an independent exact path agrees within 1e-8; unverifiable instances are dropped",
+"models":"DCF-23 mp_bp seeds 0,1,2 loaded frozen from dcf23_message_passing/models (digests in that directory's PRE_PREDICT_SHA256); no retraining or recalibration",
+"seeds":[0,1,2],"bootstrap_seed":2424,
+"costs":"exact = counted ops of the cheapest exact operator (symbolic); BP = 50-iteration loopy BP counted ops; model path = BP ops + model multiply-accumulates (different units, summed as stated)",
+"caps":[16,20],"h2_min_instances":20,
+"gates":{
+ "H1":"acting on the frozen mp_bp posterior beats acting on BP in expected utility (bootstrap 95% lower bound of the mean paired difference > 0) for at least 2 of 3 seeds",
+ "H2":"on instances where exact ops exceed BP ops plus model MACs (at least 20 such instances), the same comparison passes for at least 2 of 3 seeds",
+ "H3":"at both caps, 'exact if its ops fit the cap, else mp_bp' beats 'exact if it fits, else BP' in expected utility (bootstrap lower bound > 0) for at least 2 of 3 seeds"},
+"reward":"+1 correct, -penalty wrong, 0 abstain"}

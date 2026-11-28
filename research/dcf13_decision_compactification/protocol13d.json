@@ -1,0 +1,15 @@
+{"widths":[8,12,16],"seeds":[1301,1303,1307],"n":128,
+"calibration":{"widths":[8,12],"seeds":[1009,1013,1019],"timing_rng":313,"note":"alpha = median over development conditions (DCF-13B fixture offsets +300000) of enumeration seconds-per-work over elimination seconds-per-work; frozen in calibration13d.json before the fresh run"},
+"part_a":{"reps":5,"timing_rng":317,"fixture_offset":700000},
+"part_b":{"budgets":[8,16,32]},
+"part_c":{"widths":[8,12,16],"fixture_offset":900000,"prior":"w ~ U[0,1] shared by all ambiguous triple sensors of an episode","bma_grid":[0,0.25,0.5,0.75,1],"subdivision_depth":6,"full_joint_checks":8,"independent_checks":4},
+"reward":{"correct":1,"wrong":-4,"abstain":0},
+"gates":{
+"A1":"hybrid_cost decisions identical to full enumeration, zero skips, max posterior delta < 1e-10, in all 36 conditions",
+"A2":"hybrid_cost median time <= min(component_full, ve_full) in >= 27/36 conditions",
+"A3":"ve_symbolic work equals executed eliminate() work in every episode",
+"B1":"every non-declined fg.variable_elimination posterior equals the Numba full-enumeration posterior within 1e-9",
+"C1":"bma_exact equals 16-point Gauss-Legendre BMA over independent brute-force masses within 1e-9; oracle_w equals brute force within 1e-9 (audited episodes)",
+"C2":"credal actions: zero audited actions below confidence 0.8 on a 101-point w grid, and zero actions with negative expected utility under the oracle posterior in any episode",
+"C3":"bma_exact mean expected utility >= plugin_half mean expected utility over the 9 conditions, and credal_shared_d6 coverage > pointwise_robust coverage in >= 8/9 conditions"},
+"no_tuning":"fresh seeds are run once after calibration13d.json is committed; no arm, threshold or gate is changed after opening them"}

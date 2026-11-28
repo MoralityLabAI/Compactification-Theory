@@ -1,0 +1,7 @@
+﻿flag {'decisions': 2286, 'changes': 278, 'flagged': 1218, 'changes_flagged': 202, 'recall': 0.7266187050359713, 'precision': 0.16584564860426929}
+0.05 {'escalate': 0.2903, 'abstain': 0.0, 'exact_else_mbe': 0.3188, 'exact_else_bp': 0.3139, 'exact_or_abstain': 0.2859, 'always_bp': 0.2558} vs mbe {'wins': 45, 'losses': 365, 'ties': 28} vs best {'wins': 0, 'losses': 384, 'ties': 54}
+0.2 {'escalate': 0.2157, 'abstain': 0.0, 'exact_else_mbe': 0.2864, 'exact_else_bp': 0.2825, 'exact_or_abstain': 0.2714, 'always_bp': 0.1823} vs mbe {'wins': 40, 'losses': 370, 'ties': 28} vs best {'wins': 0, 'losses': 394, 'ties': 44}
+0.5 {'escalate': 0.0665, 'abstain': 0.0, 'exact_else_mbe': 0.2216, 'exact_else_bp': 0.2198, 'exact_or_abstain': 0.2423, 'always_bp': 0.0354} vs mbe {'wins': 39, 'losses': 371, 'ties': 28} vs best {'wins': 0, 'losses': 402, 'ties': 36}
+paths {'bp': 1068, 'exact': 624, 'abstain': 750} ops {'escalate': 13834, 'abstain': 0, 'exact_else_mbe': 6792, 'exact_else_bp': 4341, 'exact_or_abstain': 1965, 'always_bp': 13223}
+gates {'F1': False, 'E1': False, 'E2': False}
+domain B {'escalate': {'eu': 0.3001805604367692, 'mean_ops': 15472.57, 'n': 200}, 'symbolic': {'eu': 0.3523842236760401, 'mean_ops': 8008.56, 'n': 200}, 'always_bp': {'eu': 0.2286635233456709, 'mean_ops': 14926.94, 'n': 200}}

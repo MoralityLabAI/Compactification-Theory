@@ -1,0 +1,15 @@
+﻿python.exe : Traceback (most recent call last):
+At line:1 char:628
++ ... EXITCODE $((Get-Date)-$t)"; & $py width14.py fit *> fit14.log; "fit e ...
++                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Users\patri\OneDrive\Documents\GitHub\Compactification-Theory\research\dcf14_width_routing\width14.py", 
+line 367, in <module>
+    stage_fit()
+  File "C:\Users\patri\OneDrive\Documents\GitHub\Compactification-Theory\research\dcf14_width_routing\width14.py", 
+line 215, in stage_fit
+    ys.append(math.log2(c))
+              ^^^^^^^^^^^^
+ValueError: math domain error

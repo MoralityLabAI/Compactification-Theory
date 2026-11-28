@@ -1,0 +1,16 @@
+{"experiment":"DCF-20 routing in a harder mesh world",
+"base":"DCF-15 mesh (units, operators, slow merges, calibrated batch cost model, lambda 0.01) and DCF-19 accounting are unchanged; only the episode generator differs",
+"noise":{"low":[0.03,0.10],"tight":[0.005,0.03],"high":[0.12,0.25]},
+"world_grid":{"noise":["low","tight"],"xor_frac":[0.333,1.0],"triangle":[false,true],"aligned":[false,true]},
+"world_selection":"16 worlds, rho 0.5, 64 episodes each on world-selection seeds; select the world with the largest epoch-oracle headroom over the better fixed operator; committed in world20.json before routing development",
+"world_rho":0.5,"world_episodes":64,
+"rho":{"dev":[0.3,0.5,0.7],"test":[0.2,0.3,0.4,0.5,0.6,0.7]},
+"seed_base":{"world":750000,"dev":760000,"test":770000},
+"episodes":64,"batch":32,
+"tau_grid":[0,0.5,1,2,3,4,6,8,1000000000],"delta_grid":[0.02,0.05,0.1,0.15,0.2,0.3],"phi_grid":[0.02,0.05,0.1,0.2,0.3,0.5],
+"policy_selection":"single candidate (regime tau, probe delta/phi, escalate delta) with the highest mean objective_total over the dev conditions; strongest_fixed = better of fixed_bp and fixed_exact on dev; both committed in selection20.json before the held-out traces exist",
+"reward":{"correct":1,"wrong":-4,"abstain":0},
+"gates":{
+"W1":"the selected world is materially harder on fresh held-out seeds: mean decision-change rate (exact vs BP) >= 0.05 and mean epoch-oracle headroom over the better fixed operator >= 0.01",
+"R1":"selected policy objective_total exceeds the dev-strongest fixed operator in more held-out conditions than it falls below",
+"R2":"selected policy exceeds the better of fixed_bp and fixed_exact (chosen per condition with hindsight) in at least half the held-out conditions"}}

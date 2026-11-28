@@ -1,0 +1,17 @@
+{"experiment":"DCF-19 regime-level routing on the DCF-15 mesh",
+"world":"identical to DCF-15 (mesh15.py, its PROTOCOL.json and cost_model15.json are used unchanged)",
+"policy":"regime: at each slow-epoch start t in {8,16,24}, every episode in the batch uses exact if the batch mean of S = sum over pending cross-unit sensors of (ln 2 - H(e)) is >= tau, else cluster BP; epoch 0 uses BP",
+"baselines":"fixed_bp (strongest dev-selected policy in DCF-15), fixed_exact; epoch_oracle picks the better operator per batch-epoch with hindsight (privileged upper bound for this policy class)",
+"accounting":"one kernel launch per step: a_op + b_op * summed work (DCF-15 calibrated model), plus block-update kernel; routing time = measured wall time of computing S, spread over the epoch's queries",
+"tau_grid":[0,0.5,1,2,3,4,6,8,1000000000],
+"tau_selection":"maximise mean objective_total over the four DCF-15 development conditions (rho 0.2/0.4 x noise low/high, DCF-15 dev seeds); ties go to the larger tau",
+"rho":{"dev":[0.2,0.4],"test":[0.2,0.4,0.6]},
+"seed_base":{"dev":150000,"test":450000,"sweep":550000},
+"episodes":64,"batch":32,"batch_sizes":[1,8,32,128,256],"sweep":{"condition":[0.4,"low"],"episodes":256},
+"lambda":0.01,"r2_tolerance":0.001,
+"reward":{"correct":1,"wrong":-4,"abstain":0},
+"gates":{
+"R1":"regime objective_total exceeds fixed_bp in more held-out conditions than it falls below (6 conditions, fresh seeds never used by DCF-15)",
+"R2":"regime objective_total is within 0.001 of the better of fixed_bp and fixed_exact in at least 4 of 6 held-out conditions"},
+"equivalence":"operator choice does not change mesh state, so the outcome of every policy is computed from a trace that executes both operators on every query (tests/test_regime19.py checks trace evaluation against a direct online run)",
+"no_tuning":"selection19.json is committed before trace19_test.json.gz is generated"}

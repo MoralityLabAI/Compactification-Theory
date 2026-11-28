@@ -1,0 +1,7 @@
+# DCF-14A: Structural width feasibility pilot
+
+Executed fresh CPU exploratory benchmark, 216 configurations, 72 graph fixtures. Boolean positive unary/pair factors, n=8,16,32,64; chain, star, tree, grid, sparse and dense random; seeds 1401,1409,1423. Natural, min-degree, min-fill ordering; cap 16 variables per intermediate factor. Three timed inference repetitions, ordering time separate. 53/72,65/72,66/72 completed respectively. 54 small-system independent enumeration checks max relative error 4.44e-16. Completed orderings agree within 1e-11 relative partition function.
+
+At n64 minimum fill widths: chain/star/tree 1; grid 10; sparse 13/11/15; dense 46/47/46. Dense cases exceed cap. Among successful runs Spearman correlations of inference time with n=.937, width=.341, sum 2^(degree+1)=.824, observed factor multiplication work proxy=.781. Selection by scope cap and Python overhead limit interpretation. Width is useful for feasibility; no universal runtime predictor claim.
+
+This pilot measures partition functions rather than decision utility, with supplied graph and factors. No learned selector, approximate inference, GPU, energy or matched working-memory study. Source and raw receipts are in the conversation's dcf14 archive; repository report only until source is uploaded. DCF-13 report already present on branch; original local receipts unavailable in current sandbox. DCF-15/16 not executed. Next: pre-register held-out graph families and decision queries, compare optimized VE, cutset and approximate policies at matched utility and latency.

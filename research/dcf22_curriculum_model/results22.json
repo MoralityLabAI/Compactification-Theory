@@ -1,0 +1,214 @@
+{
+ "n": 200,
+ "symbolic": {
+  "eu": 0.3523842236760401,
+  "mean_ops": 8008.56
+ },
+ "always_bp": {
+  "eu": 0.2286635233456709
+ },
+ "models": {
+  "gru_s0": {
+   "selector_eu": 0.3012702220274236,
+   "selector_minus_symbolic": -0.051114001648616514,
+   "selector_minus_symbolic_lower95": -0.10828737988375647,
+   "selector_mean_ops": 1921.37,
+   "selector_alg_match": 0.62,
+   "posterior_eu": -0.009983915939583794,
+   "posterior_minus_bp": -0.2386474392852547,
+   "posterior_minus_bp_lower95": -0.32755277036259267,
+   "posterior_mse_vs_reference": 0.13525663485609546,
+   "posterior_brier_vs_truth": 0.2532809747551657,
+   "posterior_coverage": 0.025,
+   "posterior_selective_risk": 0.4,
+   "cost_r2": 0.3772533558933957,
+   "mean_macs": 34705.6,
+   "per_family_posterior_minus_bp": {
+    "chain": 0.09018996066196931,
+    "dense": -0.44924574324948474,
+    "grid": -0.25042300235301085,
+    "hyper": 0.01944147916285127,
+    "ktree": -0.27586069826691095,
+    "sparse": -0.3307595245012595,
+    "star": -0.29319425531361576,
+    "weak_dense": 0.0035930067928785364,
+    "xor_noiseless": -0.46875
+   }
+  },
+  "gru_s1": {
+   "selector_eu": 0.3530854157048421,
+   "selector_minus_symbolic": 0.0007011920288019158,
+   "selector_minus_symbolic_lower95": -0.041141089313786905,
+   "selector_mean_ops": 2322.86,
+   "selector_alg_match": 0.67,
+   "posterior_eu": -0.022845151249291887,
+   "posterior_minus_bp": -0.25150867459496273,
+   "posterior_minus_bp_lower95": -0.3526772705779782,
+   "posterior_mse_vs_reference": 0.13709929813323243,
+   "posterior_brier_vs_truth": 0.2589248886786049,
+   "posterior_coverage": 0.11,
+   "posterior_selective_risk": 0.3181818181818182,
+   "cost_r2": 0.08632231677012847,
+   "mean_macs": 34705.6,
+   "per_family_posterior_minus_bp": {
+    "chain": -0.031648514685391885,
+    "dense": -0.3867462388416334,
+    "grid": -0.1254325053328173,
+    "hyper": -0.01692516828047773,
+    "ktree": -0.3274641858174819,
+    "sparse": -0.26825952632256567,
+    "star": -0.21124644806243806,
+    "weak_dense": -0.10396262707407025,
+    "xor_noiseless": -0.5625
+   }
+  },
+  "gru_s2": {
+   "selector_eu": 0.3307851185632709,
+   "selector_minus_symbolic": -0.02159910511276922,
+   "selector_minus_symbolic_lower95": -0.07052844317696476,
+   "selector_mean_ops": 1931.565,
+   "selector_alg_match": 0.675,
+   "posterior_eu": 0.0,
+   "posterior_minus_bp": -0.2286635233456709,
+   "posterior_minus_bp_lower95": -0.30649236533164154,
+   "posterior_mse_vs_reference": 0.13810412692696056,
+   "posterior_brier_vs_truth": 0.25253111810243195,
+   "posterior_coverage": 0.0,
+   "posterior_selective_risk": 0.0,
+   "cost_r2": 0.1698211356817898,
+   "mean_macs": 34705.6,
+   "per_family_posterior_minus_bp": {
+    "chain": 0.09018996066196931,
+    "dense": -0.5117457273362341,
+    "grid": -0.25042300235301085,
+    "hyper": -0.02190457158060466,
+    "ktree": -0.27586069826691095,
+    "sparse": -0.09552447911846604,
+    "star": -0.3234677560457611,
+    "weak_dense": 0.07822297232110646,
+    "xor_noiseless": -0.46875
+   }
+  },
+  "mlp_s0": {
+   "selector_eu": 0.35478259489605996,
+   "selector_minus_symbolic": 0.002398371220019868,
+   "selector_minus_symbolic_lower95": -0.038666273709928,
+   "selector_mean_ops": 2030.79,
+   "selector_alg_match": 0.695,
+   "posterior_eu": -0.02,
+   "posterior_minus_bp": -0.2486635233456709,
+   "posterior_minus_bp_lower95": -0.3410750647660354,
+   "posterior_mse_vs_reference": 0.1344623950797153,
+   "posterior_brier_vs_truth": 0.24652100354875273,
+   "posterior_coverage": 0.005,
+   "posterior_selective_risk": 1.0,
+   "cost_r2": -0.14044846717603732,
+   "mean_macs": 8805.2,
+   "per_family_posterior_minus_bp": {
+    "chain": 0.09018996066196931,
+    "dense": -0.5117457273362341,
+    "grid": -0.25042300235301085,
+    "hyper": -0.02190457158060466,
+    "ktree": -0.27586069826691095,
+    "sparse": -0.09552447911846604,
+    "star": -0.3234677560457611,
+    "weak_dense": 0.07822297232110646,
+    "xor_noiseless": -0.59375
+   }
+  },
+  "mlp_s1": {
+   "selector_eu": 0.338787471388668,
+   "selector_minus_symbolic": -0.013596752287372102,
+   "selector_minus_symbolic_lower95": -0.06065478040138443,
+   "selector_mean_ops": 1922.015,
+   "selector_alg_match": 0.71,
+   "posterior_eu": -0.011406697455134755,
+   "posterior_minus_bp": -0.24007022080080567,
+   "posterior_minus_bp_lower95": -0.32175251687324397,
+   "posterior_mse_vs_reference": 0.1350501083770203,
+   "posterior_brier_vs_truth": 0.25038204214551746,
+   "posterior_coverage": 0.005,
+   "posterior_selective_risk": 1.0,
+   "cost_r2": 0.035609074617497405,
+   "mean_macs": 8805.2,
+   "per_family_posterior_minus_bp": {
+    "chain": 0.09018996066196931,
+    "dense": -0.5117457273362341,
+    "grid": -0.25042300235301085,
+    "hyper": -0.11696038370672762,
+    "ktree": -0.27586069826691095,
+    "sparse": -0.09552447911846604,
+    "star": -0.3234677560457611,
+    "weak_dense": 0.07822297232110646,
+    "xor_noiseless": -0.46875
+   }
+  },
+  "mlp_s2": {
+   "selector_eu": 0.3594664108020939,
+   "selector_minus_symbolic": 0.007082187126053694,
+   "selector_minus_symbolic_lower95": -0.03340244462359505,
+   "selector_mean_ops": 2045.81,
+   "selector_alg_match": 0.705,
+   "posterior_eu": -0.017390422501292812,
+   "posterior_minus_bp": -0.2460539458469637,
+   "posterior_minus_bp_lower95": -0.3283753925612792,
+   "posterior_mse_vs_reference": 0.14236159656529282,
+   "posterior_brier_vs_truth": 0.2603330998315396,
+   "posterior_coverage": 0.01,
+   "posterior_selective_risk": 0.5,
+   "cost_r2": 0.2887477318084881,
+   "mean_macs": 8805.2,
+   "per_family_posterior_minus_bp": {
+    "chain": 0.09018996066196931,
+    "dense": -0.5117457273362341,
+    "grid": -0.25042300235301085,
+    "hyper": -0.16682475909137806,
+    "ktree": -0.27586069826691095,
+    "sparse": -0.09552447911846604,
+    "star": -0.3234677560457611,
+    "weak_dense": 0.07822297232110646,
+    "xor_noiseless": -0.46875
+   }
+  }
+ },
+ "gates": {
+  "G1": {
+   "rule": "selector (choice head, acting on the chosen operator's stored action) is non-inferior to the EvalMath symbolic predictor in held-out expected utility (bootstrap 95% lower bound of the mean paired difference > -0.01) and uses fewer mean counted operator ops, for at least 2 of 3 GRU seeds",
+   "per_seed_lower95": [
+    -0.10828737988375647,
+    -0.041141089313786905,
+    -0.07052844317696476
+   ],
+   "per_seed_mean_ops": [
+    1921.37,
+    2322.86,
+    1931.565
+   ],
+   "symbolic_mean_ops": 8008.56,
+   "passed": false
+  },
+  "G2": {
+   "rule": "GRU posterior MSE against the verified reference is lower than the parameter-matched MLP's on held-out, on the mean over seeds and in at least 2 of 3 paired seeds",
+   "gru": [
+    0.13525663485609546,
+    0.13709929813323243,
+    0.13810412692696056
+   ],
+   "mlp": [
+    0.1344623950797153,
+    0.1350501083770203,
+    0.14236159656529282
+   ],
+   "passed": false
+  },
+  "G3": {
+   "rule": "acting on the GRU's own posterior beats loopy BP at the record's budget (bootstrap 95% lower bound of the mean paired expected-utility difference > 0) for at least 2 of 3 seeds",
+   "per_seed_lower95": [
+    -0.32755277036259267,
+    -0.3526772705779782,
+    -0.30649236533164154
+   ],
+   "passed": false
+  }
+ }
+}

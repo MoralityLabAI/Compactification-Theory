@@ -1,0 +1,11 @@
+﻿{'n': 88, 'families': {'dense': 32, 'grid': 24, 'sparse': 32}, 'width': {'min': 5, 'median': 12.0, 'max': 19}, 'ops': {'exact_median': 147744.0, 'bp_median': 45034.0, 'model_macs_median': 4994592.0}, 'exact_eu': 0.5937230631731961, 'bp': {'eu': 0.5963909757517054, 'mse': 0.003629877779038731}, 'model_cheaper_than_exact': 9}
+seed 0 {'eu': 0.6015, 'mse': 0.004, 'eu_minus_bp': 0.0051, 'eu_minus_bp_lower95': -0.0166, 'cheaper_regime_eu_minus_bp': 0.0, 'cheaper_regime_lower95': 0.0}
+seed 1 {'eu': 0.6041, 'mse': 0.0034, 'eu_minus_bp': 0.0077, 'eu_minus_bp_lower95': -0.013, 'cheaper_regime_eu_minus_bp': 0.0, 'cheaper_regime_lower95': 0.0}
+seed 2 {'eu': 0.6084, 'mse': 0.0039, 'eu_minus_bp': 0.012, 'eu_minus_bp_lower95': -0.0029, 'cheaper_regime_eu_minus_bp': 0.0, 'cheaper_regime_lower95': 0.0}
+cap16_s0 {'exact_fraction': 0.3864, 'mp_policy_eu': 0.6041, 'bp_policy_eu': 0.5991, 'diff': 0.0051, 'lower95': -0.0166, 'mp_policy_mean_cost': 4256047.7614, 'bp_policy_mean_cost': 46535.7614}
+cap20_s0 {'exact_fraction': 0.7045, 'mp_policy_eu': 0.6023, 'bp_policy_eu': 0.5937, 'diff': 0.0086, 'lower95': -0.013, 'mp_policy_mean_cost': 2257817.625, 'bp_policy_mean_cost': 128962.7159}
+cap16_s1 {'exact_fraction': 0.3864, 'mp_policy_eu': 0.6067, 'bp_policy_eu': 0.5991, 'diff': 0.0077, 'lower95': -0.013, 'mp_policy_mean_cost': 4256047.7614, 'bp_policy_mean_cost': 46535.7614}
+cap20_s1 {'exact_fraction': 0.7045, 'mp_policy_eu': 0.6023, 'bp_policy_eu': 0.5937, 'diff': 0.0086, 'lower95': -0.013, 'mp_policy_mean_cost': 2257817.625, 'bp_policy_mean_cost': 128962.7159}
+cap16_s2 {'exact_fraction': 0.3864, 'mp_policy_eu': 0.6111, 'bp_policy_eu': 0.5991, 'diff': 0.012, 'lower95': -0.0029, 'mp_policy_mean_cost': 4256047.7614, 'bp_policy_mean_cost': 46535.7614}
+cap20_s2 {'exact_fraction': 0.7045, 'mp_policy_eu': 0.6067, 'bp_policy_eu': 0.5937, 'diff': 0.013, 'lower95': 0.0, 'mp_policy_mean_cost': 2257817.625, 'bp_policy_mean_cost': 128962.7159}
+{'H1': False, 'H2': False, 'H3': False}
