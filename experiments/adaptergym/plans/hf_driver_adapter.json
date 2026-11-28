@@ -1,0 +1,9 @@
+[
+ {
+  "repo": "AlephFunk/datagoblin-bonsai25-27b-driver-fp-r8",
+  "run": "C:/Users/patri/Documents/Codex/datagoblin-driver/runs/b25_driver_fp_r8",
+  "base": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0.gguf",
+  "about": "Full-precision rank-8 LoRA on Ternary Bonsai 2.5 27B: the driver adapter of the Data Goblin GDK app's self_adapter lane (github.com/MoralityLabAI/DataGoblin, gdk/). Trained on 2000 exact-oracle hill-climb decision tasks (DataGoblin bench, train split, seed 1: promotion-gate verdicts, recipe-call legality, next eligible lane), curated under split custody. Dev bench (120 tasks, dev split, seed 0; a task's digest picks its split, so no dev task was trained on), driven through the app on plain decoding: base 0.725 (87/120) -> adapter 0.983 (118/120), promoted by the lane gate (+0.258 against min_delta 0.03); DataGoblin 955cf0f, Compactification-Theory adapter-bits cdb831f6. The bench measures applying the hill-climb rules on this task family, not hill-climbing skill on live lanes."
+ }
+]
