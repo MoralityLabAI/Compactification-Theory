@@ -29,4 +29,8 @@ jobs:
           PY
       - run: node Galacticity/gal02.mjs > /tmp/gal02.json
       - run: diff -u Galacticity/gal02_receipt.json /tmp/gal02.json
+      - run: node Galacticity/gal03.mjs > /tmp/gal03.json
+      - run: diff -u Galacticity/gal03_receipt.json /tmp/gal03.json
+      - run: node Galacticity/gal03_basis.mjs > /tmp/gal03_basis.json
+      - run: diff -u Galacticity/gal03_basis_receipt.json /tmp/gal03_basis.json
       - run: python Galacticity/test_distill_profile.py
