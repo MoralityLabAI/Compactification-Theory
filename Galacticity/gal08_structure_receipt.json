@@ -1,0 +1,52 @@
+{
+  "schema": "gal08.structural.v1",
+  "checks": 74662,
+  "rowCases": 65812,
+  "affineCases": 1020,
+  "codeCases": 502,
+  "profiles": [
+    {
+      "n": 4,
+      "explicit": 16,
+      "linear": 4,
+      "affine": 5,
+      "certBits": 5
+    },
+    {
+      "n": 8,
+      "explicit": 256,
+      "linear": 8,
+      "affine": 9,
+      "certBits": 9
+    },
+    {
+      "n": 16,
+      "explicit": 65536,
+      "linear": 16,
+      "affine": 17,
+      "certBits": 17
+    },
+    {
+      "n": 24,
+      "explicit": 16777216,
+      "linear": 24,
+      "affine": 25,
+      "certBits": 25
+    },
+    {
+      "n": 32,
+      "explicit": 4294967296,
+      "linear": 32,
+      "affine": 33,
+      "certBits": 33
+    },
+    {
+      "n": 40,
+      "explicit": 1099511627776,
+      "linear": 40,
+      "affine": 41,
+      "certBits": 41
+    }
+  ],
+  "scope": "exact finite-field observations and trusted affine/linear promise; no claim that arbitrary programs satisfy the promise"
+}
