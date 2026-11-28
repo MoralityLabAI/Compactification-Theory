@@ -1,0 +1,33 @@
+name: Levin counterfactual goal memory
+on:
+  push:
+    paths:
+      - 'research/levin_sieve_v1/counterfactual_goal_memory/**'
+      - '.github/workflows/levin-counterfactual-goal-memory.yml'
+  pull_request:
+    paths:
+      - 'research/levin_sieve_v1/counterfactual_goal_memory/**'
+      - '.github/workflows/levin-counterfactual-goal-memory.yml'
+jobs:
+  exact-cpu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact unit and negative controls
+        run: python -m unittest discover -s research/levin_sieve_v1/counterfactual_goal_memory -p 'test_territory.py' -v
+      - name: Check deterministic receipt
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          folder = Path("research/levin_sieve_v1/counterfactual_goal_memory")
+          committed = json.loads((folder / "results.json").read_text())
+          computed = json.loads(subprocess.check_output([sys.executable, str(folder / "territory.py")], text=True))
+          assert committed == computed, "deterministic receipt differs from recomputation"
+          PY
