@@ -1,0 +1,7503 @@
+{
+  "schema": "gal07.risk.v1",
+  "checks": 13690,
+  "tvCases": 1568,
+  "auditCases": 4608,
+  "auditProfiles": [
+    {
+      "addressBits": 4,
+      "cases": "16",
+      "probes90Accept10False": "15",
+      "probesZeroFalse": "16",
+      "seedWithUnitProbeAndBuild10": "25"
+    },
+    {
+      "addressBits": 8,
+      "cases": "256",
+      "probes90Accept10False": "228",
+      "probesZeroFalse": "256",
+      "seedWithUnitProbeAndBuild10": "238"
+    },
+    {
+      "addressBits": 16,
+      "cases": "65536",
+      "probes90Accept10False": "58255",
+      "probesZeroFalse": "65536",
+      "seedWithUnitProbeAndBuild10": "58265"
+    },
+    {
+      "addressBits": 24,
+      "cases": "16777216",
+      "probes90Accept10False": "14913081",
+      "probesZeroFalse": "16777216",
+      "seedWithUnitProbeAndBuild10": "14913091"
+    },
+    {
+      "addressBits": 32,
+      "cases": "4294967296",
+      "probes90Accept10False": "3817748708",
+      "probesZeroFalse": "4294967296",
+      "seedWithUnitProbeAndBuild10": "3817748718"
+    },
+    {
+      "addressBits": 40,
+      "cases": "1099511627776",
+      "probes90Accept10False": "977343669135",
+      "probesZeroFalse": "1099511627776",
+      "seedWithUnitProbeAndBuild10": "977343669145"
+    }
+  ],
+  "rect": {
+    "priorWeights": [
+      [
+        9,
+        1,
+        1,
+        9
+      ],
+      [
+        1,
+        9,
+        9,
+        1
+      ]
+    ],
+    "branchMass": 10,
+    "ruinMassByPrior": [
+      10,
+      10
+    ],
+    "fixedPriorRisk": "1/2",
+    "branchwiseAdversaryRisk": "9/10"
+  },
+  "summary": {
+    "nominal": {
+      "worstS": 3138,
+      "tvS": 2960,
+      "nonzeroRisk": 72,
+      "hullViolations": 50,
+      "tvViolations": 72,
+      "outsideViolations": 72
+    },
+    "robust": {
+      "worstS": 2872,
+      "tvS": 2732,
+      "nonzeroRisk": 34,
+      "hullViolations": 0,
+      "tvViolations": 34,
+      "outsideViolations": 28
+    },
+    "tv": {
+      "worstS": 2682,
+      "tvS": 2556,
+      "nonzeroRisk": 0,
+      "hullViolations": 0,
+      "tvViolations": 0,
+      "outsideViolations": 0
+    }
+  },
+  "cases": 200,
+  "rows": [
+    {
+      "family": "screenable",
+      "seed": 73001,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73001,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73001,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73001,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73001,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73002,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73002,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73002,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73002,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73002,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73003,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73003,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73003,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73003,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73003,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73004,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73004,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73004,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73004,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73004,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73005,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73005,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73005,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73005,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73005,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73006,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73006,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73006,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73006,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73006,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73007,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73007,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73007,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73007,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73007,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73008,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73008,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73008,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73008,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "screenable",
+      "seed": 73008,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73101,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73101,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73101,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 12,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73101,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73101,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73102,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73102,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 8,
+          "worstR": 6,
+          "midS": 9,
+          "midR": 4,
+          "outsideS": 11,
+          "outsideR": 1,
+          "tvS": 6,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73102,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 12,
+          "midR": 4,
+          "outsideS": 12,
+          "outsideR": 1,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73102,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73102,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 20,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 23,
+          "outsideR": 0,
+          "tvS": 18,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 20,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 23,
+          "outsideR": 0,
+          "tvS": 18,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73103,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73103,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 6,
+          "worstR": 6,
+          "midS": 7,
+          "midR": 4,
+          "outsideS": 2,
+          "outsideR": 10,
+          "tvS": 4,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73103,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 12,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 12,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73103,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 16,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 1,
+          "tvS": 14,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73103,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 18,
+          "worstR": 0,
+          "midS": 20,
+          "midR": 0,
+          "outsideS": 14,
+          "outsideR": 0,
+          "tvS": 16,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73104,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73104,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 8,
+          "worstR": 6,
+          "midS": 9,
+          "midR": 4,
+          "outsideS": 11,
+          "outsideR": 1,
+          "tvS": 6,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73104,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73104,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 12,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 12,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73104,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 16,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 14,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73105,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73105,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73105,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73105,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 12,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 12,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73105,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73106,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73106,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 6,
+          "worstR": 6,
+          "midS": 7,
+          "midR": 4,
+          "outsideS": 2,
+          "outsideR": 10,
+          "tvS": 4,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73106,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 12,
+          "midR": 4,
+          "outsideS": 12,
+          "outsideR": 1,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73106,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 12,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 12,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73106,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 16,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 1,
+          "tvS": 14,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73107,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73107,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 6,
+          "worstR": 6,
+          "midS": 7,
+          "midR": 4,
+          "outsideS": 2,
+          "outsideR": 10,
+          "tvS": 4,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73107,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73107,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73107,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 16,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 14,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 16,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 14,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73108,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73108,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73108,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 14,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 12,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 12,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73108,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 4,
+          "outsideR": 10,
+          "tvS": 10,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 16,
+          "worstR": 6,
+          "midS": 16,
+          "midR": 4,
+          "outsideS": 13,
+          "outsideR": 10,
+          "tvS": 14,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 14,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 22,
+          "outsideR": 0,
+          "tvS": 12,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "aliased",
+      "seed": 73108,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73201,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73201,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73201,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73201,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73201,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73202,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73202,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73202,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73202,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73202,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73203,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73203,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 6,
+          "worstR": 6,
+          "midS": 7,
+          "midR": 4,
+          "outsideS": 2,
+          "outsideR": 10,
+          "tvS": 4,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 4,
+          "worstR": 0,
+          "midS": 8,
+          "midR": 0,
+          "outsideS": 20,
+          "outsideR": 0,
+          "tvS": 2,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73203,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73203,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73203,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73204,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73204,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73204,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73204,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73204,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73205,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73205,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73205,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73205,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73205,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73206,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73206,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73206,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73206,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73206,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73207,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73207,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 4,
+          "worstR": 0,
+          "midS": 8,
+          "midR": 0,
+          "outsideS": 20,
+          "outsideR": 0,
+          "tvS": 2,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 4,
+          "worstR": 0,
+          "midS": 8,
+          "midR": 0,
+          "outsideS": 20,
+          "outsideR": 0,
+          "tvS": 2,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73207,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73207,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73207,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73208,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73208,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73208,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73208,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "alternative",
+      "seed": 73208,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73301,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73301,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73301,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73301,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73301,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73302,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73302,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73302,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73302,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73302,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73303,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73303,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73303,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73303,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73303,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73304,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73304,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 13,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73304,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 16,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 13,
+          "outsideR": 0,
+          "tvS": 14,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73304,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73304,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73305,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73305,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73305,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73305,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73305,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73306,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73306,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73306,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73306,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73306,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73307,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73307,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73307,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73307,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73307,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73308,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73308,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73308,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73308,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "hazard",
+      "seed": 73308,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73401,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73401,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73401,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73401,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 13,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 13,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73401,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73402,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73402,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73402,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73402,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73402,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73403,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73403,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73403,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73403,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73403,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73404,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73404,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73404,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73404,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73404,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73405,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73405,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73405,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73405,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73405,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73406,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73406,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73406,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73406,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "robust": {
+          "worstS": 18,
+          "worstR": 6,
+          "midS": 20,
+          "midR": 4,
+          "outsideS": 14,
+          "outsideR": 10,
+          "tvS": 16,
+          "tvR": 8
+        },
+        "tv": {
+          "worstS": 12,
+          "worstR": 0,
+          "midS": 16,
+          "midR": 0,
+          "outsideS": 4,
+          "outsideR": 0,
+          "tvS": 10,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73406,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73407,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73407,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73407,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73407,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73407,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73408,
+      "K": 4,
+      "policies": {
+        "nominal": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 0,
+          "worstR": 0,
+          "midS": 0,
+          "midR": 0,
+          "outsideS": 0,
+          "outsideR": 0,
+          "tvS": 0,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73408,
+      "K": 6,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73408,
+      "K": 8,
+      "policies": {
+        "nominal": {
+          "worstS": 12,
+          "worstR": 12,
+          "midS": 16,
+          "midR": 8,
+          "outsideS": 4,
+          "outsideR": 20,
+          "tvS": 10,
+          "tvR": 14
+        },
+        "robust": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 10,
+          "worstR": 0,
+          "midS": 11,
+          "midR": 0,
+          "outsideS": 12,
+          "outsideR": 0,
+          "tvS": 8,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73408,
+      "K": 10,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    },
+    {
+      "family": "expensive",
+      "seed": 73408,
+      "K": 12,
+      "policies": {
+        "nominal": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "robust": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        },
+        "tv": {
+          "worstS": 24,
+          "worstR": 0,
+          "midS": 24,
+          "midR": 0,
+          "outsideS": 24,
+          "outsideR": 0,
+          "tvS": 24,
+          "tvR": 0
+        }
+      }
+    }
+  ],
+  "scope": "exact finite TV event envelopes, hard audit-cap formula, same-grid 25% risk sensitivity; model ambiguity only, no controller cost"
+}
