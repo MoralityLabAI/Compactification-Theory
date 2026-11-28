@@ -1,0 +1,7431 @@
+{
+  "schema": "gal04.market.v1",
+  "checks": 4120,
+  "bruteCases": 1364,
+  "trainEpisodes": 72,
+  "testEpisodes": 120,
+  "requests": 8640,
+  "selected": "threshold_1_1_ttl12",
+  "calibration": {
+    "direct": 287961,
+    "lru": 319031,
+    "threshold_1_2_ttl1": 249509,
+    "threshold_1_2_ttl4": 238513,
+    "threshold_1_2_ttl12": 225099,
+    "threshold_1_1_ttl1": 254490,
+    "threshold_1_1_ttl4": 238144,
+    "threshold_1_1_ttl12": 219234,
+    "threshold_2_1_ttl1": 274629,
+    "threshold_2_1_ttl4": 254617,
+    "threshold_2_1_ttl12": 235912
+  },
+  "summaries": {
+    "stable": {
+      "episodes": 24,
+      "offline": 23528,
+      "policies": {
+        "direct": {
+          "cost": 90510,
+          "market": 90510,
+          "overhead": 0,
+          "lossesVsDirect": 0,
+          "maxRatio": 5.558891454965358
+        },
+        "lru": {
+          "cost": 60400,
+          "market": 48417,
+          "overhead": 11983,
+          "lossesVsDirect": 4,
+          "maxRatio": 3.9746450304259633
+        },
+        "threshold_1_1_ttl4": {
+          "cost": 47456,
+          "market": 36733,
+          "overhead": 10723,
+          "lossesVsDirect": 0,
+          "maxRatio": 2.407211961301671
+        },
+        "threshold_1_1_ttl12": {
+          "cost": 47456,
+          "market": 36733,
+          "overhead": 10723,
+          "lossesVsDirect": 0,
+          "maxRatio": 2.407211961301671
+        }
+      }
+    },
+    "bursts": {
+      "episodes": 24,
+      "offline": 37139,
+      "policies": {
+        "direct": {
+          "cost": 84927,
+          "market": 84927,
+          "overhead": 0,
+          "lossesVsDirect": 0,
+          "maxRatio": 2.7685314685314686
+        },
+        "lru": {
+          "cost": 68932,
+          "market": 56754,
+          "overhead": 12178,
+          "lossesVsDirect": 3,
+          "maxRatio": 2.301980198019802
+        },
+        "threshold_1_1_ttl4": {
+          "cost": 67515,
+          "market": 56822,
+          "overhead": 10693,
+          "lossesVsDirect": 0,
+          "maxRatio": 2.1064476885644767
+        },
+        "threshold_1_1_ttl12": {
+          "cost": 66797,
+          "market": 55839,
+          "overhead": 10958,
+          "lossesVsDirect": 0,
+          "maxRatio": 2.0630220197418376
+        }
+      }
+    },
+    "churn": {
+      "episodes": 24,
+      "offline": 43956,
+      "policies": {
+        "direct": {
+          "cost": 44172,
+          "market": 44172,
+          "overhead": 0,
+          "lossesVsDirect": 0,
+          "maxRatio": 1.0141689373297003
+        },
+        "lru": {
+          "cost": 176562,
+          "market": 159114,
+          "overhead": 17448,
+          "lossesVsDirect": 24,
+          "maxRatio": 5.117314930991217
+        },
+        "threshold_1_1_ttl4": {
+          "cost": 65751,
+          "market": 55328,
+          "overhead": 10423,
+          "lossesVsDirect": 24,
+          "maxRatio": 1.6205962059620596
+        },
+        "threshold_1_1_ttl12": {
+          "cost": 64118,
+          "market": 53550,
+          "overhead": 10568,
+          "lossesVsDirect": 24,
+          "maxRatio": 1.591869918699187
+        }
+      }
+    },
+    "prices": {
+      "episodes": 24,
+      "offline": 58923,
+      "policies": {
+        "direct": {
+          "cost": 164808,
+          "market": 164808,
+          "overhead": 0,
+          "lossesVsDirect": 0,
+          "maxRatio": 5.308205470313542
+        },
+        "lru": {
+          "cost": 128244,
+          "market": 114896,
+          "overhead": 13348,
+          "lossesVsDirect": 9,
+          "maxRatio": 3.335526315789474
+        },
+        "threshold_1_1_ttl4": {
+          "cost": 134334,
+          "market": 123281,
+          "overhead": 11053,
+          "lossesVsDirect": 3,
+          "maxRatio": 3.725421348314607
+        },
+        "threshold_1_1_ttl12": {
+          "cost": 119327,
+          "market": 108174,
+          "overhead": 11153,
+          "lossesVsDirect": 3,
+          "maxRatio": 2.634351145038168
+        }
+      }
+    },
+    "shock": {
+      "episodes": 24,
+      "offline": 47763,
+      "policies": {
+        "direct": {
+          "cost": 204810,
+          "market": 204810,
+          "overhead": 0,
+          "lossesVsDirect": 0,
+          "maxRatio": 5.780645161290322
+        },
+        "lru": {
+          "cost": 122660,
+          "market": 110437,
+          "overhead": 12223,
+          "lossesVsDirect": 0,
+          "maxRatio": 3.2586793737236217
+        },
+        "threshold_1_1_ttl4": {
+          "cost": 85791,
+          "market": 75423,
+          "overhead": 10368,
+          "lossesVsDirect": 0,
+          "maxRatio": 2.0588679245283017
+        },
+        "threshold_1_1_ttl12": {
+          "cost": 85791,
+          "market": 75423,
+          "overhead": 10368,
+          "lossesVsDirect": 0,
+          "maxRatio": 2.0588679245283017
+        }
+      }
+    },
+    "all": {
+      "episodes": 120,
+      "offline": 211309,
+      "policies": {
+        "direct": {
+          "cost": 589227,
+          "market": 589227,
+          "overhead": 0,
+          "lossesVsDirect": 0,
+          "maxRatio": 5.780645161290322
+        },
+        "lru": {
+          "cost": 556798,
+          "market": 489618,
+          "overhead": 67180,
+          "lossesVsDirect": 40,
+          "maxRatio": 5.117314930991217
+        },
+        "threshold_1_1_ttl4": {
+          "cost": 400847,
+          "market": 347587,
+          "overhead": 53260,
+          "lossesVsDirect": 27,
+          "maxRatio": 3.725421348314607
+        },
+        "threshold_1_1_ttl12": {
+          "cost": 383489,
+          "market": 329719,
+          "overhead": 53770,
+          "lossesVsDirect": 27,
+          "maxRatio": 2.634351145038168
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "family": "stable",
+      "seed": 20001,
+      "cap": 5,
+      "offline": 986,
+      "policies": {
+        "direct": {
+          "market": 3832,
+          "total": 3832,
+          "build": 0,
+          "service": 3832,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3357,
+          "total": 3919,
+          "build": 3084,
+          "service": 273,
+          "holding": 0,
+          "controller": 562,
+          "peak": 5,
+          "fills": 28,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1761,
+          "total": 2213,
+          "build": 672,
+          "service": 1089,
+          "holding": 0,
+          "controller": 452,
+          "peak": 5,
+          "fills": 6,
+          "hits": 52,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1761,
+          "total": 2213,
+          "build": 672,
+          "service": 1089,
+          "holding": 0,
+          "controller": 452,
+          "peak": 5,
+          "fills": 6,
+          "hits": 52,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20001,
+      "cap": 8,
+      "offline": 928,
+      "policies": {
+        "direct": {
+          "market": 3832,
+          "total": 3832,
+          "build": 0,
+          "service": 3832,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2322,
+          "total": 2839,
+          "build": 2049,
+          "service": 273,
+          "holding": 0,
+          "controller": 517,
+          "peak": 8,
+          "fills": 19,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1506,
+          "total": 1948,
+          "build": 558,
+          "service": 948,
+          "holding": 0,
+          "controller": 442,
+          "peak": 7,
+          "fills": 5,
+          "hits": 55,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1506,
+          "total": 1948,
+          "build": 558,
+          "service": 948,
+          "holding": 0,
+          "controller": 442,
+          "peak": 7,
+          "fills": 5,
+          "hits": 55,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20001,
+      "cap": 12,
+      "offline": 853,
+      "policies": {
+        "direct": {
+          "market": 3832,
+          "total": 3832,
+          "build": 0,
+          "service": 3832,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1330,
+          "total": 1792,
+          "build": 1057,
+          "service": 273,
+          "holding": 0,
+          "controller": 462,
+          "peak": 11,
+          "fills": 10,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1228,
+          "total": 1660,
+          "build": 444,
+          "service": 784,
+          "holding": 0,
+          "controller": 432,
+          "peak": 11,
+          "fills": 4,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1228,
+          "total": 1660,
+          "build": 444,
+          "service": 784,
+          "holding": 0,
+          "controller": 432,
+          "peak": 11,
+          "fills": 4,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20002,
+      "cap": 5,
+      "offline": 939,
+      "policies": {
+        "direct": {
+          "market": 2308,
+          "total": 2308,
+          "build": 0,
+          "service": 2308,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2150,
+          "total": 2657,
+          "build": 1928,
+          "service": 222,
+          "holding": 0,
+          "controller": 507,
+          "peak": 5,
+          "fills": 18,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1342,
+          "total": 1784,
+          "build": 466,
+          "service": 876,
+          "holding": 0,
+          "controller": 442,
+          "peak": 5,
+          "fills": 5,
+          "hits": 55,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1342,
+          "total": 1784,
+          "build": 466,
+          "service": 876,
+          "holding": 0,
+          "controller": 442,
+          "peak": 5,
+          "fills": 5,
+          "hits": 55,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20002,
+      "cap": 8,
+      "offline": 920,
+      "policies": {
+        "direct": {
+          "market": 2308,
+          "total": 2308,
+          "build": 0,
+          "service": 2308,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1612,
+          "total": 2089,
+          "build": 1390,
+          "service": 222,
+          "holding": 0,
+          "controller": 477,
+          "peak": 8,
+          "fills": 13,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1197,
+          "total": 1634,
+          "build": 393,
+          "service": 804,
+          "holding": 0,
+          "controller": 437,
+          "peak": 7,
+          "fills": 4,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1197,
+          "total": 1634,
+          "build": 393,
+          "service": 804,
+          "holding": 0,
+          "controller": 437,
+          "peak": 7,
+          "fills": 4,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20002,
+      "cap": 12,
+      "offline": 845,
+      "policies": {
+        "direct": {
+          "market": 2308,
+          "total": 2308,
+          "build": 0,
+          "service": 2308,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1117,
+          "total": 1569,
+          "build": 895,
+          "service": 222,
+          "holding": 0,
+          "controller": 452,
+          "peak": 12,
+          "fills": 8,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1197,
+          "total": 1629,
+          "build": 393,
+          "service": 804,
+          "holding": 0,
+          "controller": 432,
+          "peak": 10,
+          "fills": 4,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1197,
+          "total": 1629,
+          "build": 393,
+          "service": 804,
+          "holding": 0,
+          "controller": 432,
+          "peak": 10,
+          "fills": 4,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20003,
+      "cap": 5,
+      "offline": 858,
+      "policies": {
+        "direct": {
+          "market": 4162,
+          "total": 4162,
+          "build": 0,
+          "service": 4162,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2190,
+          "total": 2712,
+          "build": 2016,
+          "service": 174,
+          "holding": 0,
+          "controller": 522,
+          "peak": 5,
+          "fills": 22,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1407,
+          "total": 1854,
+          "build": 615,
+          "service": 792,
+          "holding": 0,
+          "controller": 447,
+          "peak": 5,
+          "fills": 7,
+          "hits": 59,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1407,
+          "total": 1854,
+          "build": 615,
+          "service": 792,
+          "holding": 0,
+          "controller": 447,
+          "peak": 5,
+          "fills": 7,
+          "hits": 59,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20003,
+      "cap": 8,
+      "offline": 851,
+      "policies": {
+        "direct": {
+          "market": 4162,
+          "total": 4162,
+          "build": 0,
+          "service": 4162,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1089,
+          "total": 1546,
+          "build": 915,
+          "service": 174,
+          "holding": 0,
+          "controller": 457,
+          "peak": 8,
+          "fills": 10,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1200,
+          "total": 1642,
+          "build": 527,
+          "service": 673,
+          "holding": 0,
+          "controller": 442,
+          "peak": 7,
+          "fills": 6,
+          "hits": 61,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1200,
+          "total": 1642,
+          "build": 527,
+          "service": 673,
+          "holding": 0,
+          "controller": 442,
+          "peak": 7,
+          "fills": 6,
+          "hits": 61,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20003,
+      "cap": 12,
+      "offline": 767,
+      "policies": {
+        "direct": {
+          "market": 4162,
+          "total": 4162,
+          "build": 0,
+          "service": 4162,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 801,
+          "total": 1238,
+          "build": 627,
+          "service": 174,
+          "holding": 0,
+          "controller": 437,
+          "peak": 12,
+          "fills": 7,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1058,
+          "total": 1490,
+          "build": 443,
+          "service": 615,
+          "holding": 0,
+          "controller": 432,
+          "peak": 9,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1058,
+          "total": 1490,
+          "build": 443,
+          "service": 615,
+          "holding": 0,
+          "controller": 432,
+          "peak": 9,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20004,
+      "cap": 5,
+      "offline": 1412,
+      "policies": {
+        "direct": {
+          "market": 3366,
+          "total": 3366,
+          "build": 0,
+          "service": 3366,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3315,
+          "total": 3892,
+          "build": 2963,
+          "service": 352,
+          "holding": 0,
+          "controller": 577,
+          "peak": 5,
+          "fills": 31,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2593,
+          "total": 3080,
+          "build": 1168,
+          "service": 1425,
+          "holding": 0,
+          "controller": 487,
+          "peak": 5,
+          "fills": 12,
+          "hits": 48,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2593,
+          "total": 3080,
+          "build": 1168,
+          "service": 1425,
+          "holding": 0,
+          "controller": 487,
+          "peak": 5,
+          "fills": 12,
+          "hits": 48,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20004,
+      "cap": 8,
+      "offline": 1209,
+      "policies": {
+        "direct": {
+          "market": 3366,
+          "total": 3366,
+          "build": 0,
+          "service": 3366,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2214,
+          "total": 2726,
+          "build": 1862,
+          "service": 352,
+          "holding": 0,
+          "controller": 512,
+          "peak": 8,
+          "fills": 19,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2028,
+          "total": 2495,
+          "build": 907,
+          "service": 1121,
+          "holding": 0,
+          "controller": 467,
+          "peak": 7,
+          "fills": 9,
+          "hits": 56,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2028,
+          "total": 2495,
+          "build": 907,
+          "service": 1121,
+          "holding": 0,
+          "controller": 467,
+          "peak": 7,
+          "fills": 9,
+          "hits": 56,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20004,
+      "cap": 12,
+      "offline": 1021,
+      "policies": {
+        "direct": {
+          "market": 3366,
+          "total": 3366,
+          "build": 0,
+          "service": 3366,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1548,
+          "total": 2020,
+          "build": 1196,
+          "service": 352,
+          "holding": 0,
+          "controller": 472,
+          "peak": 12,
+          "fills": 12,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1464,
+          "total": 1906,
+          "build": 580,
+          "service": 884,
+          "holding": 0,
+          "controller": 442,
+          "peak": 12,
+          "fills": 6,
+          "hits": 61,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1464,
+          "total": 1906,
+          "build": 580,
+          "service": 884,
+          "holding": 0,
+          "controller": 442,
+          "peak": 12,
+          "fills": 6,
+          "hits": 61,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20005,
+      "cap": 5,
+      "offline": 911,
+      "policies": {
+        "direct": {
+          "market": 4814,
+          "total": 4814,
+          "build": 0,
+          "service": 4814,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2343,
+          "total": 2865,
+          "build": 2053,
+          "service": 290,
+          "holding": 0,
+          "controller": 522,
+          "peak": 5,
+          "fills": 20,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1280,
+          "total": 1727,
+          "build": 532,
+          "service": 748,
+          "holding": 0,
+          "controller": 447,
+          "peak": 5,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1280,
+          "total": 1727,
+          "build": 532,
+          "service": 748,
+          "holding": 0,
+          "controller": 447,
+          "peak": 5,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20005,
+      "cap": 8,
+      "offline": 911,
+      "policies": {
+        "direct": {
+          "market": 4814,
+          "total": 4814,
+          "build": 0,
+          "service": 4814,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1926,
+          "total": 2428,
+          "build": 1636,
+          "service": 290,
+          "holding": 0,
+          "controller": 502,
+          "peak": 7,
+          "fills": 16,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1213,
+          "total": 1660,
+          "build": 532,
+          "service": 681,
+          "holding": 0,
+          "controller": 447,
+          "peak": 7,
+          "fills": 5,
+          "hits": 63,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1213,
+          "total": 1660,
+          "build": 532,
+          "service": 681,
+          "holding": 0,
+          "controller": 447,
+          "peak": 7,
+          "fills": 5,
+          "hits": 63,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20005,
+      "cap": 12,
+      "offline": 866,
+      "policies": {
+        "direct": {
+          "market": 4814,
+          "total": 4814,
+          "build": 0,
+          "service": 4814,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1281,
+          "total": 1738,
+          "build": 991,
+          "service": 290,
+          "holding": 0,
+          "controller": 457,
+          "peak": 12,
+          "fills": 10,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1213,
+          "total": 1645,
+          "build": 532,
+          "service": 681,
+          "holding": 0,
+          "controller": 432,
+          "peak": 12,
+          "fills": 5,
+          "hits": 63,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1213,
+          "total": 1645,
+          "build": 532,
+          "service": 681,
+          "holding": 0,
+          "controller": 432,
+          "peak": 12,
+          "fills": 5,
+          "hits": 63,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20006,
+      "cap": 5,
+      "offline": 1131,
+      "policies": {
+        "direct": {
+          "market": 2508,
+          "total": 2508,
+          "build": 0,
+          "service": 2508,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2598,
+          "total": 3130,
+          "build": 2380,
+          "service": 218,
+          "holding": 0,
+          "controller": 532,
+          "peak": 5,
+          "fills": 23,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1835,
+          "total": 2292,
+          "build": 811,
+          "service": 1024,
+          "holding": 0,
+          "controller": 457,
+          "peak": 5,
+          "fills": 8,
+          "hits": 48,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1835,
+          "total": 2292,
+          "build": 811,
+          "service": 1024,
+          "holding": 0,
+          "controller": 457,
+          "peak": 5,
+          "fills": 8,
+          "hits": 48,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20006,
+      "cap": 8,
+      "offline": 942,
+      "policies": {
+        "direct": {
+          "market": 2508,
+          "total": 2508,
+          "build": 0,
+          "service": 2508,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1831,
+          "total": 2323,
+          "build": 1613,
+          "service": 218,
+          "holding": 0,
+          "controller": 492,
+          "peak": 7,
+          "fills": 16,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1444,
+          "total": 1881,
+          "build": 573,
+          "service": 871,
+          "holding": 0,
+          "controller": 437,
+          "peak": 7,
+          "fills": 6,
+          "hits": 52,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1444,
+          "total": 1881,
+          "build": 573,
+          "service": 871,
+          "holding": 0,
+          "controller": 437,
+          "peak": 7,
+          "fills": 6,
+          "hits": 52,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20006,
+      "cap": 12,
+      "offline": 875,
+      "policies": {
+        "direct": {
+          "market": 2508,
+          "total": 2508,
+          "build": 0,
+          "service": 2508,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1402,
+          "total": 1864,
+          "build": 1184,
+          "service": 218,
+          "holding": 0,
+          "controller": 462,
+          "peak": 12,
+          "fills": 12,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1381,
+          "total": 1813,
+          "build": 573,
+          "service": 808,
+          "holding": 0,
+          "controller": 432,
+          "peak": 12,
+          "fills": 6,
+          "hits": 53,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1381,
+          "total": 1813,
+          "build": 573,
+          "service": 808,
+          "holding": 0,
+          "controller": 432,
+          "peak": 12,
+          "fills": 6,
+          "hits": 53,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20007,
+      "cap": 5,
+      "offline": 1137,
+      "policies": {
+        "direct": {
+          "market": 4492,
+          "total": 4492,
+          "build": 0,
+          "service": 4492,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3238,
+          "total": 3790,
+          "build": 3066,
+          "service": 172,
+          "holding": 0,
+          "controller": 552,
+          "peak": 5,
+          "fills": 26,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2265,
+          "total": 2737,
+          "build": 1233,
+          "service": 1032,
+          "holding": 0,
+          "controller": 472,
+          "peak": 5,
+          "fills": 11,
+          "hits": 56,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2265,
+          "total": 2737,
+          "build": 1233,
+          "service": 1032,
+          "holding": 0,
+          "controller": 472,
+          "peak": 5,
+          "fills": 11,
+          "hits": 56,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20007,
+      "cap": 8,
+      "offline": 1078,
+      "policies": {
+        "direct": {
+          "market": 4492,
+          "total": 4492,
+          "build": 0,
+          "service": 4492,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2395,
+          "total": 2907,
+          "build": 2223,
+          "service": 172,
+          "holding": 0,
+          "controller": 512,
+          "peak": 8,
+          "fills": 19,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1899,
+          "total": 2361,
+          "build": 993,
+          "service": 906,
+          "holding": 0,
+          "controller": 462,
+          "peak": 8,
+          "fills": 9,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1899,
+          "total": 2361,
+          "build": 993,
+          "service": 906,
+          "holding": 0,
+          "controller": 462,
+          "peak": 8,
+          "fills": 9,
+          "hits": 58,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20007,
+      "cap": 12,
+      "offline": 948,
+      "policies": {
+        "direct": {
+          "market": 4492,
+          "total": 4492,
+          "build": 0,
+          "service": 4492,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1801,
+          "total": 2283,
+          "build": 1629,
+          "service": 172,
+          "holding": 0,
+          "controller": 482,
+          "peak": 12,
+          "fills": 14,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1551,
+          "total": 1998,
+          "build": 767,
+          "service": 784,
+          "holding": 0,
+          "controller": 447,
+          "peak": 12,
+          "fills": 7,
+          "hits": 60,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1551,
+          "total": 1998,
+          "build": 767,
+          "service": 784,
+          "holding": 0,
+          "controller": 447,
+          "peak": 12,
+          "fills": 7,
+          "hits": 60,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20008,
+      "cap": 5,
+      "offline": 1227,
+      "policies": {
+        "direct": {
+          "market": 4688,
+          "total": 4688,
+          "build": 0,
+          "service": 4688,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2981,
+          "total": 3533,
+          "build": 2695,
+          "service": 286,
+          "holding": 0,
+          "controller": 552,
+          "peak": 4,
+          "fills": 26,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2139,
+          "total": 2606,
+          "build": 1056,
+          "service": 1083,
+          "holding": 0,
+          "controller": 467,
+          "peak": 4,
+          "fills": 10,
+          "hits": 56,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2139,
+          "total": 2606,
+          "build": 1056,
+          "service": 1083,
+          "holding": 0,
+          "controller": 467,
+          "peak": 4,
+          "fills": 10,
+          "hits": 56,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20008,
+      "cap": 8,
+      "offline": 961,
+      "policies": {
+        "direct": {
+          "market": 4688,
+          "total": 4688,
+          "build": 0,
+          "service": 4688,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2151,
+          "total": 2653,
+          "build": 1865,
+          "service": 286,
+          "holding": 0,
+          "controller": 502,
+          "peak": 8,
+          "fills": 18,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1266,
+          "total": 1703,
+          "build": 537,
+          "service": 729,
+          "holding": 0,
+          "controller": 437,
+          "peak": 8,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1266,
+          "total": 1703,
+          "build": 537,
+          "service": 729,
+          "holding": 0,
+          "controller": 437,
+          "peak": 8,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "stable",
+      "seed": 20008,
+      "cap": 12,
+      "offline": 952,
+      "policies": {
+        "direct": {
+          "market": 4688,
+          "total": 4688,
+          "build": 0,
+          "service": 4688,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1425,
+          "total": 1887,
+          "build": 1139,
+          "service": 286,
+          "holding": 0,
+          "controller": 462,
+          "peak": 12,
+          "fills": 11,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1266,
+          "total": 1698,
+          "build": 537,
+          "service": 729,
+          "holding": 0,
+          "controller": 432,
+          "peak": 11,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1266,
+          "total": 1698,
+          "build": 537,
+          "service": 729,
+          "holding": 0,
+          "controller": 432,
+          "peak": 11,
+          "fills": 5,
+          "hits": 62,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20101,
+      "cap": 5,
+      "offline": 1517,
+      "policies": {
+        "direct": {
+          "market": 3565,
+          "total": 3565,
+          "build": 0,
+          "service": 3565,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2250,
+          "total": 2777,
+          "build": 1833,
+          "service": 274,
+          "holding": 143,
+          "controller": 527,
+          "peak": 5,
+          "fills": 20,
+          "hits": 72,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1981,
+          "total": 2448,
+          "build": 708,
+          "service": 1135,
+          "holding": 138,
+          "controller": 467,
+          "peak": 5,
+          "fills": 8,
+          "hits": 54,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1981,
+          "total": 2448,
+          "build": 708,
+          "service": 1135,
+          "holding": 138,
+          "controller": 467,
+          "peak": 5,
+          "fills": 8,
+          "hits": 54,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20101,
+      "cap": 8,
+      "offline": 1413,
+      "policies": {
+        "direct": {
+          "market": 3565,
+          "total": 3565,
+          "build": 0,
+          "service": 3565,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2020,
+          "total": 2527,
+          "build": 1493,
+          "service": 274,
+          "holding": 253,
+          "controller": 507,
+          "peak": 8,
+          "fills": 16,
+          "hits": 72,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1991,
+          "total": 2433,
+          "build": 708,
+          "service": 1135,
+          "holding": 148,
+          "controller": 442,
+          "peak": 8,
+          "fills": 8,
+          "hits": 54,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2015,
+          "total": 2482,
+          "build": 708,
+          "service": 1087,
+          "holding": 220,
+          "controller": 467,
+          "peak": 8,
+          "fills": 8,
+          "hits": 55,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20101,
+      "cap": 12,
+      "offline": 1385,
+      "policies": {
+        "direct": {
+          "market": 3565,
+          "total": 3565,
+          "build": 0,
+          "service": 3565,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1644,
+          "total": 2101,
+          "build": 944,
+          "service": 274,
+          "holding": 426,
+          "controller": 457,
+          "peak": 12,
+          "fills": 10,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1991,
+          "total": 2423,
+          "build": 708,
+          "service": 1135,
+          "holding": 148,
+          "controller": 432,
+          "peak": 9,
+          "fills": 8,
+          "hits": 54,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2027,
+          "total": 2464,
+          "build": 708,
+          "service": 1038,
+          "holding": 281,
+          "controller": 437,
+          "peak": 12,
+          "fills": 8,
+          "hits": 56,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20102,
+      "cap": 5,
+      "offline": 1991,
+      "policies": {
+        "direct": {
+          "market": 4151,
+          "total": 4151,
+          "build": 0,
+          "service": 4151,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3747,
+          "total": 4319,
+          "build": 3332,
+          "service": 290,
+          "holding": 125,
+          "controller": 572,
+          "peak": 5,
+          "fills": 31,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3050,
+          "total": 3512,
+          "build": 1189,
+          "service": 1760,
+          "holding": 101,
+          "controller": 462,
+          "peak": 5,
+          "fills": 11,
+          "hits": 43,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2829,
+          "total": 3296,
+          "build": 1059,
+          "service": 1656,
+          "holding": 114,
+          "controller": 467,
+          "peak": 5,
+          "fills": 10,
+          "hits": 44,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20102,
+      "cap": 8,
+      "offline": 1752,
+      "policies": {
+        "direct": {
+          "market": 4151,
+          "total": 4151,
+          "build": 0,
+          "service": 4151,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2843,
+          "total": 3355,
+          "build": 2307,
+          "service": 290,
+          "holding": 246,
+          "controller": 512,
+          "peak": 8,
+          "fills": 21,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3031,
+          "total": 3473,
+          "build": 1189,
+          "service": 1720,
+          "holding": 122,
+          "controller": 442,
+          "peak": 7,
+          "fills": 11,
+          "hits": 44,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2678,
+          "total": 3135,
+          "build": 930,
+          "service": 1539,
+          "holding": 209,
+          "controller": 457,
+          "peak": 8,
+          "fills": 9,
+          "hits": 46,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20102,
+      "cap": 12,
+      "offline": 1644,
+      "policies": {
+        "direct": {
+          "market": 4151,
+          "total": 4151,
+          "build": 0,
+          "service": 4151,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2394,
+          "total": 2876,
+          "build": 1728,
+          "service": 290,
+          "holding": 376,
+          "controller": 482,
+          "peak": 12,
+          "fills": 16,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3031,
+          "total": 3463,
+          "build": 1189,
+          "service": 1720,
+          "holding": 122,
+          "controller": 432,
+          "peak": 11,
+          "fills": 11,
+          "hits": 44,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2651,
+          "total": 3093,
+          "build": 930,
+          "service": 1461,
+          "holding": 260,
+          "controller": 442,
+          "peak": 11,
+          "fills": 9,
+          "hits": 48,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20103,
+      "cap": 5,
+      "offline": 1250,
+      "policies": {
+        "direct": {
+          "market": 2533,
+          "total": 2533,
+          "build": 0,
+          "service": 2533,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1827,
+          "total": 2349,
+          "build": 1464,
+          "service": 188,
+          "holding": 175,
+          "controller": 522,
+          "peak": 5,
+          "fills": 21,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1736,
+          "total": 2188,
+          "build": 683,
+          "service": 928,
+          "holding": 125,
+          "controller": 452,
+          "peak": 5,
+          "fills": 11,
+          "hits": 50,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1829,
+          "total": 2306,
+          "build": 723,
+          "service": 948,
+          "holding": 158,
+          "controller": 477,
+          "peak": 5,
+          "fills": 11,
+          "hits": 51,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20103,
+      "cap": 8,
+      "offline": 1143,
+      "policies": {
+        "direct": {
+          "market": 2533,
+          "total": 2533,
+          "build": 0,
+          "service": 2533,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1478,
+          "total": 1960,
+          "build": 1038,
+          "service": 188,
+          "holding": 252,
+          "controller": 482,
+          "peak": 8,
+          "fills": 14,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1747,
+          "total": 2184,
+          "build": 683,
+          "service": 928,
+          "holding": 136,
+          "controller": 437,
+          "peak": 8,
+          "fills": 11,
+          "hits": 50,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1688,
+          "total": 2140,
+          "build": 618,
+          "service": 854,
+          "holding": 216,
+          "controller": 452,
+          "peak": 8,
+          "fills": 10,
+          "hits": 54,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20103,
+      "cap": 12,
+      "offline": 1088,
+      "policies": {
+        "direct": {
+          "market": 2533,
+          "total": 2533,
+          "build": 0,
+          "service": 2533,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1456,
+          "total": 1908,
+          "build": 906,
+          "service": 188,
+          "holding": 362,
+          "controller": 452,
+          "peak": 12,
+          "fills": 12,
+          "hits": 72,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1747,
+          "total": 2179,
+          "build": 683,
+          "service": 928,
+          "holding": 136,
+          "controller": 432,
+          "peak": 11,
+          "fills": 11,
+          "hits": 50,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1713,
+          "total": 2150,
+          "build": 618,
+          "service": 854,
+          "holding": 241,
+          "controller": 437,
+          "peak": 12,
+          "fills": 10,
+          "hits": 54,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20104,
+      "cap": 5,
+      "offline": 1442,
+      "policies": {
+        "direct": {
+          "market": 3346,
+          "total": 3346,
+          "build": 0,
+          "service": 3346,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2389,
+          "total": 2911,
+          "build": 2002,
+          "service": 281,
+          "holding": 106,
+          "controller": 522,
+          "peak": 5,
+          "fills": 20,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2407,
+          "total": 2869,
+          "build": 973,
+          "service": 1373,
+          "holding": 61,
+          "controller": 462,
+          "peak": 5,
+          "fills": 11,
+          "hits": 44,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2423,
+          "total": 2895,
+          "build": 973,
+          "service": 1373,
+          "holding": 77,
+          "controller": 472,
+          "peak": 5,
+          "fills": 11,
+          "hits": 44,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20104,
+      "cap": 8,
+      "offline": 1317,
+      "policies": {
+        "direct": {
+          "market": 3346,
+          "total": 3346,
+          "build": 0,
+          "service": 3346,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1843,
+          "total": 2330,
+          "build": 1365,
+          "service": 281,
+          "holding": 197,
+          "controller": 487,
+          "peak": 8,
+          "fills": 14,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2310,
+          "total": 2752,
+          "build": 885,
+          "service": 1343,
+          "holding": 82,
+          "controller": 442,
+          "peak": 7,
+          "fills": 10,
+          "hits": 44,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2255,
+          "total": 2717,
+          "build": 885,
+          "service": 1221,
+          "holding": 149,
+          "controller": 462,
+          "peak": 7,
+          "fills": 10,
+          "hits": 47,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20104,
+      "cap": 12,
+      "offline": 1301,
+      "policies": {
+        "direct": {
+          "market": 3346,
+          "total": 3346,
+          "build": 0,
+          "service": 3346,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1540,
+          "total": 1992,
+          "build": 981,
+          "service": 281,
+          "holding": 278,
+          "controller": 452,
+          "peak": 11,
+          "fills": 10,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2162,
+          "total": 2594,
+          "build": 792,
+          "service": 1273,
+          "holding": 97,
+          "controller": 432,
+          "peak": 9,
+          "fills": 9,
+          "hits": 46,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2133,
+          "total": 2565,
+          "build": 792,
+          "service": 1139,
+          "holding": 202,
+          "controller": 432,
+          "peak": 11,
+          "fills": 9,
+          "hits": 50,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20105,
+      "cap": 5,
+      "offline": 1818,
+      "policies": {
+        "direct": {
+          "market": 3320,
+          "total": 3320,
+          "build": 0,
+          "service": 3320,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3603,
+          "total": 4185,
+          "build": 3204,
+          "service": 266,
+          "holding": 133,
+          "controller": 582,
+          "peak": 5,
+          "fills": 32,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2545,
+          "total": 3002,
+          "build": 1099,
+          "service": 1331,
+          "holding": 115,
+          "controller": 457,
+          "peak": 5,
+          "fills": 10,
+          "hits": 43,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2553,
+          "total": 3025,
+          "build": 1099,
+          "service": 1331,
+          "holding": 123,
+          "controller": 472,
+          "peak": 5,
+          "fills": 10,
+          "hits": 43,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20105,
+      "cap": 8,
+      "offline": 1638,
+      "policies": {
+        "direct": {
+          "market": 3320,
+          "total": 3320,
+          "build": 0,
+          "service": 3320,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2360,
+          "total": 2862,
+          "build": 1844,
+          "service": 266,
+          "holding": 250,
+          "controller": 502,
+          "peak": 8,
+          "fills": 20,
+          "hits": 72,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2476,
+          "total": 2908,
+          "build": 1083,
+          "service": 1257,
+          "holding": 136,
+          "controller": 432,
+          "peak": 7,
+          "fills": 10,
+          "hits": 45,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2395,
+          "total": 2847,
+          "build": 927,
+          "service": 1247,
+          "holding": 221,
+          "controller": 452,
+          "peak": 8,
+          "fills": 9,
+          "hits": 47,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20105,
+      "cap": 12,
+      "offline": 1510,
+      "policies": {
+        "direct": {
+          "market": 3320,
+          "total": 3320,
+          "build": 0,
+          "service": 3320,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2110,
+          "total": 2577,
+          "build": 1461,
+          "service": 266,
+          "holding": 383,
+          "controller": 467,
+          "peak": 12,
+          "fills": 15,
+          "hits": 72,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2476,
+          "total": 2908,
+          "build": 1083,
+          "service": 1257,
+          "holding": 136,
+          "controller": 432,
+          "peak": 7,
+          "fills": 10,
+          "hits": 45,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2383,
+          "total": 2820,
+          "build": 911,
+          "service": 1209,
+          "holding": 263,
+          "controller": 437,
+          "peak": 11,
+          "fills": 9,
+          "hits": 48,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20106,
+      "cap": 5,
+      "offline": 1617,
+      "policies": {
+        "direct": {
+          "market": 3959,
+          "total": 3959,
+          "build": 0,
+          "service": 3959,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2364,
+          "total": 2901,
+          "build": 1959,
+          "service": 289,
+          "holding": 116,
+          "controller": 537,
+          "peak": 5,
+          "fills": 22,
+          "hits": 72,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2578,
+          "total": 3050,
+          "build": 1090,
+          "service": 1389,
+          "holding": 99,
+          "controller": 472,
+          "peak": 5,
+          "fills": 11,
+          "hits": 48,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2578,
+          "total": 3055,
+          "build": 1090,
+          "service": 1389,
+          "holding": 99,
+          "controller": 477,
+          "peak": 5,
+          "fills": 11,
+          "hits": 48,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20106,
+      "cap": 8,
+      "offline": 1487,
+      "policies": {
+        "direct": {
+          "market": 3959,
+          "total": 3959,
+          "build": 0,
+          "service": 3959,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1765,
+          "total": 2242,
+          "build": 1269,
+          "service": 289,
+          "holding": 207,
+          "controller": 477,
+          "peak": 8,
+          "fills": 14,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2365,
+          "total": 2802,
+          "build": 1037,
+          "service": 1202,
+          "holding": 126,
+          "controller": 437,
+          "peak": 7,
+          "fills": 10,
+          "hits": 51,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2366,
+          "total": 2813,
+          "build": 961,
+          "service": 1220,
+          "holding": 185,
+          "controller": 447,
+          "peak": 8,
+          "fills": 9,
+          "hits": 51,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20106,
+      "cap": 12,
+      "offline": 1430,
+      "policies": {
+        "direct": {
+          "market": 3959,
+          "total": 3959,
+          "build": 0,
+          "service": 3959,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1860,
+          "total": 2332,
+          "build": 1269,
+          "service": 289,
+          "holding": 302,
+          "controller": 472,
+          "peak": 12,
+          "fills": 14,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2368,
+          "total": 2800,
+          "build": 1037,
+          "service": 1202,
+          "holding": 129,
+          "controller": 432,
+          "peak": 10,
+          "fills": 10,
+          "hits": 51,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2378,
+          "total": 2810,
+          "build": 961,
+          "service": 1220,
+          "holding": 197,
+          "controller": 432,
+          "peak": 11,
+          "fills": 9,
+          "hits": 51,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20107,
+      "cap": 5,
+      "offline": 2060,
+      "policies": {
+        "direct": {
+          "market": 4243,
+          "total": 4243,
+          "build": 0,
+          "service": 4243,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3568,
+          "total": 4130,
+          "build": 3223,
+          "service": 224,
+          "holding": 121,
+          "controller": 562,
+          "peak": 5,
+          "fills": 27,
+          "hits": 72,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2692,
+          "total": 3164,
+          "build": 1047,
+          "service": 1526,
+          "holding": 119,
+          "controller": 472,
+          "peak": 5,
+          "fills": 10,
+          "hits": 50,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2694,
+          "total": 3171,
+          "build": 1047,
+          "service": 1526,
+          "holding": 121,
+          "controller": 477,
+          "peak": 5,
+          "fills": 10,
+          "hits": 50,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20107,
+      "cap": 8,
+      "offline": 1981,
+      "policies": {
+        "direct": {
+          "market": 4243,
+          "total": 4243,
+          "build": 0,
+          "service": 4243,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3481,
+          "total": 4033,
+          "build": 3094,
+          "service": 224,
+          "holding": 163,
+          "controller": 552,
+          "peak": 7,
+          "fills": 26,
+          "hits": 72,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2702,
+          "total": 3159,
+          "build": 1047,
+          "service": 1526,
+          "holding": 129,
+          "controller": 457,
+          "peak": 7,
+          "fills": 10,
+          "hits": 50,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2742,
+          "total": 3219,
+          "build": 1047,
+          "service": 1526,
+          "holding": 169,
+          "controller": 477,
+          "peak": 7,
+          "fills": 10,
+          "hits": 50,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20107,
+      "cap": 12,
+      "offline": 1809,
+      "policies": {
+        "direct": {
+          "market": 4243,
+          "total": 4243,
+          "build": 0,
+          "service": 4243,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2476,
+          "total": 2973,
+          "build": 1974,
+          "service": 224,
+          "holding": 278,
+          "controller": 497,
+          "peak": 12,
+          "fills": 17,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2663,
+          "total": 3095,
+          "build": 1047,
+          "service": 1467,
+          "holding": 149,
+          "controller": 432,
+          "peak": 12,
+          "fills": 10,
+          "hits": 51,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2738,
+          "total": 3195,
+          "build": 1077,
+          "service": 1405,
+          "holding": 256,
+          "controller": 457,
+          "peak": 12,
+          "fills": 10,
+          "hits": 53,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20108,
+      "cap": 5,
+      "offline": 1713,
+      "policies": {
+        "direct": {
+          "market": 3192,
+          "total": 3192,
+          "build": 0,
+          "service": 3192,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3252,
+          "total": 3814,
+          "build": 2819,
+          "service": 289,
+          "holding": 144,
+          "controller": 562,
+          "peak": 5,
+          "fills": 28,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2247,
+          "total": 2714,
+          "build": 786,
+          "service": 1342,
+          "holding": 119,
+          "controller": 467,
+          "peak": 5,
+          "fills": 8,
+          "hits": 45,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2247,
+          "total": 2714,
+          "build": 786,
+          "service": 1342,
+          "holding": 119,
+          "controller": 467,
+          "peak": 5,
+          "fills": 8,
+          "hits": 45,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20108,
+      "cap": 8,
+      "offline": 1444,
+      "policies": {
+        "direct": {
+          "market": 3192,
+          "total": 3192,
+          "build": 0,
+          "service": 3192,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2359,
+          "total": 2871,
+          "build": 1840,
+          "service": 289,
+          "holding": 230,
+          "controller": 512,
+          "peak": 8,
+          "fills": 20,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2258,
+          "total": 2695,
+          "build": 786,
+          "service": 1342,
+          "holding": 130,
+          "controller": 437,
+          "peak": 7,
+          "fills": 8,
+          "hits": 45,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2248,
+          "total": 2705,
+          "build": 786,
+          "service": 1265,
+          "holding": 197,
+          "controller": 457,
+          "peak": 7,
+          "fills": 8,
+          "hits": 46,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "bursts",
+      "seed": 20108,
+      "cap": 12,
+      "offline": 1389,
+      "policies": {
+        "direct": {
+          "market": 3192,
+          "total": 3192,
+          "build": 0,
+          "service": 3192,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 2125,
+          "total": 2607,
+          "build": 1454,
+          "service": 289,
+          "holding": 382,
+          "controller": 482,
+          "peak": 12,
+          "fills": 16,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2268,
+          "total": 2700,
+          "build": 786,
+          "service": 1342,
+          "holding": 140,
+          "controller": 432,
+          "peak": 9,
+          "fills": 8,
+          "hits": 45,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2295,
+          "total": 2732,
+          "build": 786,
+          "service": 1265,
+          "holding": 244,
+          "controller": 437,
+          "peak": 11,
+          "fills": 8,
+          "hits": 46,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20201,
+      "cap": 5,
+      "offline": 1835,
+      "policies": {
+        "direct": {
+          "market": 1861,
+          "total": 1861,
+          "build": 0,
+          "service": 1861,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7591,
+          "total": 8358,
+          "build": 6785,
+          "service": 232,
+          "holding": 574,
+          "controller": 767,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2344,
+          "total": 2786,
+          "build": 536,
+          "service": 1680,
+          "holding": 128,
+          "controller": 442,
+          "peak": 5,
+          "fills": 6,
+          "hits": 6,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2212,
+          "total": 2659,
+          "build": 446,
+          "service": 1468,
+          "holding": 298,
+          "controller": 447,
+          "peak": 5,
+          "fills": 5,
+          "hits": 13,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20201,
+      "cap": 8,
+      "offline": 1835,
+      "policies": {
+        "direct": {
+          "market": 1861,
+          "total": 1861,
+          "build": 0,
+          "service": 1861,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7801,
+          "total": 8563,
+          "build": 6785,
+          "service": 232,
+          "holding": 784,
+          "controller": 762,
+          "peak": 7,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2360,
+          "total": 2792,
+          "build": 536,
+          "service": 1680,
+          "holding": 144,
+          "controller": 432,
+          "peak": 6,
+          "fills": 6,
+          "hits": 6,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2367,
+          "total": 2814,
+          "build": 536,
+          "service": 1467,
+          "holding": 364,
+          "controller": 447,
+          "peak": 7,
+          "fills": 6,
+          "hits": 13,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20201,
+      "cap": 12,
+      "offline": 1835,
+      "policies": {
+        "direct": {
+          "market": 1861,
+          "total": 1861,
+          "build": 0,
+          "service": 1861,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 8443,
+          "total": 9185,
+          "build": 6785,
+          "service": 232,
+          "holding": 1426,
+          "controller": 742,
+          "peak": 12,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2360,
+          "total": 2792,
+          "build": 536,
+          "service": 1680,
+          "holding": 144,
+          "controller": 432,
+          "peak": 6,
+          "fills": 6,
+          "hits": 6,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2251,
+          "total": 2683,
+          "build": 371,
+          "service": 1256,
+          "holding": 624,
+          "controller": 432,
+          "peak": 11,
+          "fills": 4,
+          "hits": 20,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20202,
+      "cap": 5,
+      "offline": 1845,
+      "policies": {
+        "direct": {
+          "market": 1867,
+          "total": 1867,
+          "build": 0,
+          "service": 1867,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 5158,
+          "total": 5915,
+          "build": 4330,
+          "service": 202,
+          "holding": 626,
+          "controller": 757,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2506,
+          "total": 2953,
+          "build": 718,
+          "service": 1562,
+          "holding": 226,
+          "controller": 447,
+          "peak": 5,
+          "fills": 12,
+          "hits": 12,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2409,
+          "total": 2871,
+          "build": 661,
+          "service": 1382,
+          "holding": 366,
+          "controller": 462,
+          "peak": 5,
+          "fills": 11,
+          "hits": 19,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20202,
+      "cap": 8,
+      "offline": 1845,
+      "policies": {
+        "direct": {
+          "market": 1867,
+          "total": 1867,
+          "build": 0,
+          "service": 1867,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 5404,
+          "total": 6156,
+          "build": 4330,
+          "service": 202,
+          "holding": 872,
+          "controller": 752,
+          "peak": 8,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2548,
+          "total": 2985,
+          "build": 718,
+          "service": 1562,
+          "holding": 268,
+          "controller": 437,
+          "peak": 8,
+          "fills": 12,
+          "hits": 12,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2485,
+          "total": 2937,
+          "build": 661,
+          "service": 1340,
+          "holding": 484,
+          "controller": 452,
+          "peak": 8,
+          "fills": 11,
+          "hits": 21,
+          "invalidations": 6,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20202,
+      "cap": 12,
+      "offline": 1845,
+      "policies": {
+        "direct": {
+          "market": 1867,
+          "total": 1867,
+          "build": 0,
+          "service": 1867,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6051,
+          "total": 6773,
+          "build": 4273,
+          "service": 202,
+          "holding": 1576,
+          "controller": 722,
+          "peak": 12,
+          "fills": 71,
+          "hits": 72,
+          "invalidations": 10,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2558,
+          "total": 2990,
+          "build": 718,
+          "service": 1562,
+          "holding": 278,
+          "controller": 432,
+          "peak": 10,
+          "fills": 12,
+          "hits": 12,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2438,
+          "total": 2875,
+          "build": 492,
+          "service": 1186,
+          "holding": 760,
+          "controller": 437,
+          "peak": 10,
+          "fills": 8,
+          "hits": 27,
+          "invalidations": 6,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20203,
+      "cap": 5,
+      "offline": 1594,
+      "policies": {
+        "direct": {
+          "market": 1594,
+          "total": 1594,
+          "build": 0,
+          "service": 1594,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6807,
+          "total": 7559,
+          "build": 5994,
+          "service": 201,
+          "holding": 612,
+          "controller": 752,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2033,
+          "total": 2465,
+          "build": 493,
+          "service": 1438,
+          "holding": 102,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 6,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1900,
+          "total": 2337,
+          "build": 349,
+          "service": 1305,
+          "holding": 246,
+          "controller": 437,
+          "peak": 3,
+          "fills": 4,
+          "hits": 11,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20203,
+      "cap": 8,
+      "offline": 1594,
+      "policies": {
+        "direct": {
+          "market": 1594,
+          "total": 1594,
+          "build": 0,
+          "service": 1594,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7237,
+          "total": 7969,
+          "build": 5994,
+          "service": 201,
+          "holding": 1042,
+          "controller": 732,
+          "peak": 8,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 10,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2033,
+          "total": 2465,
+          "build": 493,
+          "service": 1438,
+          "holding": 102,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 6,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1931,
+          "total": 2363,
+          "build": 349,
+          "service": 1282,
+          "holding": 300,
+          "controller": 432,
+          "peak": 6,
+          "fills": 4,
+          "hits": 12,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20203,
+      "cap": 12,
+      "offline": 1594,
+      "policies": {
+        "direct": {
+          "market": 1594,
+          "total": 1594,
+          "build": 0,
+          "service": 1594,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7450,
+          "total": 8157,
+          "build": 5831,
+          "service": 201,
+          "holding": 1418,
+          "controller": 707,
+          "peak": 11,
+          "fills": 70,
+          "hits": 72,
+          "invalidations": 12,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2033,
+          "total": 2465,
+          "build": 493,
+          "service": 1438,
+          "holding": 102,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 6,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1931,
+          "total": 2363,
+          "build": 349,
+          "service": 1282,
+          "holding": 300,
+          "controller": 432,
+          "peak": 6,
+          "fills": 4,
+          "hits": 12,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20204,
+      "cap": 5,
+      "offline": 1559,
+      "policies": {
+        "direct": {
+          "market": 1559,
+          "total": 1559,
+          "build": 0,
+          "service": 1559,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6005,
+          "total": 6777,
+          "build": 5153,
+          "service": 274,
+          "holding": 578,
+          "controller": 772,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1620,
+          "total": 2052,
+          "build": 58,
+          "service": 1530,
+          "holding": 32,
+          "controller": 432,
+          "peak": 4,
+          "fills": 1,
+          "hits": 1,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1631,
+          "total": 2063,
+          "build": 58,
+          "service": 1501,
+          "holding": 72,
+          "controller": 432,
+          "peak": 4,
+          "fills": 1,
+          "hits": 2,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20204,
+      "cap": 8,
+      "offline": 1559,
+      "policies": {
+        "direct": {
+          "market": 1559,
+          "total": 1559,
+          "build": 0,
+          "service": 1559,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6313,
+          "total": 7070,
+          "build": 5153,
+          "service": 274,
+          "holding": 886,
+          "controller": 757,
+          "peak": 8,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1620,
+          "total": 2052,
+          "build": 58,
+          "service": 1530,
+          "holding": 32,
+          "controller": 432,
+          "peak": 4,
+          "fills": 1,
+          "hits": 1,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1631,
+          "total": 2063,
+          "build": 58,
+          "service": 1501,
+          "holding": 72,
+          "controller": 432,
+          "peak": 4,
+          "fills": 1,
+          "hits": 2,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20204,
+      "cap": 12,
+      "offline": 1559,
+      "policies": {
+        "direct": {
+          "market": 1559,
+          "total": 1559,
+          "build": 0,
+          "service": 1559,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6907,
+          "total": 7654,
+          "build": 5153,
+          "service": 274,
+          "holding": 1480,
+          "controller": 747,
+          "peak": 12,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 1620,
+          "total": 2052,
+          "build": 58,
+          "service": 1530,
+          "holding": 32,
+          "controller": 432,
+          "peak": 4,
+          "fills": 1,
+          "hits": 1,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 1631,
+          "total": 2063,
+          "build": 58,
+          "service": 1501,
+          "holding": 72,
+          "controller": 432,
+          "peak": 4,
+          "fills": 1,
+          "hits": 2,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20205,
+      "cap": 5,
+      "offline": 2033,
+      "policies": {
+        "direct": {
+          "market": 2033,
+          "total": 2033,
+          "build": 0,
+          "service": 2033,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6247,
+          "total": 7014,
+          "build": 5396,
+          "service": 189,
+          "holding": 662,
+          "controller": 767,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2554,
+          "total": 2996,
+          "build": 515,
+          "service": 1821,
+          "holding": 218,
+          "controller": 442,
+          "peak": 5,
+          "fills": 7,
+          "hits": 7,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2588,
+          "total": 3040,
+          "build": 515,
+          "service": 1733,
+          "holding": 340,
+          "controller": 452,
+          "peak": 5,
+          "fills": 7,
+          "hits": 10,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20205,
+      "cap": 8,
+      "offline": 2033,
+      "policies": {
+        "direct": {
+          "market": 2033,
+          "total": 2033,
+          "build": 0,
+          "service": 2033,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6247,
+          "total": 7014,
+          "build": 5396,
+          "service": 189,
+          "holding": 662,
+          "controller": 767,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2554,
+          "total": 2996,
+          "build": 515,
+          "service": 1821,
+          "holding": 218,
+          "controller": 442,
+          "peak": 5,
+          "fills": 7,
+          "hits": 7,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2588,
+          "total": 3040,
+          "build": 515,
+          "service": 1733,
+          "holding": 340,
+          "controller": 452,
+          "peak": 5,
+          "fills": 7,
+          "hits": 10,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20205,
+      "cap": 12,
+      "offline": 2033,
+      "policies": {
+        "direct": {
+          "market": 2033,
+          "total": 2033,
+          "build": 0,
+          "service": 2033,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6897,
+          "total": 7649,
+          "build": 5396,
+          "service": 189,
+          "holding": 1312,
+          "controller": 752,
+          "peak": 10,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2592,
+          "total": 3024,
+          "build": 515,
+          "service": 1821,
+          "holding": 256,
+          "controller": 432,
+          "peak": 9,
+          "fills": 7,
+          "hits": 7,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2588,
+          "total": 3025,
+          "build": 401,
+          "service": 1613,
+          "holding": 574,
+          "controller": 437,
+          "peak": 9,
+          "fills": 5,
+          "hits": 14,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20206,
+      "cap": 5,
+      "offline": 2029,
+      "policies": {
+        "direct": {
+          "market": 2029,
+          "total": 2029,
+          "build": 0,
+          "service": 2029,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7254,
+          "total": 8001,
+          "build": 6329,
+          "service": 245,
+          "holding": 680,
+          "controller": 747,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2669,
+          "total": 3101,
+          "build": 701,
+          "service": 1826,
+          "holding": 142,
+          "controller": 432,
+          "peak": 5,
+          "fills": 8,
+          "hits": 8,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2626,
+          "total": 3073,
+          "build": 701,
+          "service": 1607,
+          "holding": 318,
+          "controller": 447,
+          "peak": 5,
+          "fills": 8,
+          "hits": 16,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20206,
+      "cap": 8,
+      "offline": 2029,
+      "policies": {
+        "direct": {
+          "market": 2029,
+          "total": 2029,
+          "build": 0,
+          "service": 2029,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7518,
+          "total": 8230,
+          "build": 6255,
+          "service": 245,
+          "holding": 1018,
+          "controller": 712,
+          "peak": 8,
+          "fills": 71,
+          "hits": 72,
+          "invalidations": 12,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2669,
+          "total": 3101,
+          "build": 701,
+          "service": 1826,
+          "holding": 142,
+          "controller": 432,
+          "peak": 5,
+          "fills": 8,
+          "hits": 8,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2471,
+          "total": 2903,
+          "build": 531,
+          "service": 1426,
+          "holding": 514,
+          "controller": 432,
+          "peak": 7,
+          "fills": 6,
+          "hits": 23,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20206,
+      "cap": 12,
+      "offline": 2029,
+      "policies": {
+        "direct": {
+          "market": 2029,
+          "total": 2029,
+          "build": 0,
+          "service": 2029,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3586,
+          "total": 4018,
+          "build": 1843,
+          "service": 245,
+          "holding": 1498,
+          "controller": 432,
+          "peak": 12,
+          "fills": 21,
+          "hits": 72,
+          "invalidations": 17,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2669,
+          "total": 3101,
+          "build": 701,
+          "service": 1826,
+          "holding": 142,
+          "controller": 432,
+          "peak": 5,
+          "fills": 8,
+          "hits": 8,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2471,
+          "total": 2903,
+          "build": 531,
+          "service": 1426,
+          "holding": 514,
+          "controller": 432,
+          "peak": 7,
+          "fills": 6,
+          "hits": 23,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20207,
+      "cap": 5,
+      "offline": 1865,
+      "policies": {
+        "direct": {
+          "market": 1865,
+          "total": 1865,
+          "build": 0,
+          "service": 1865,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6500,
+          "total": 7247,
+          "build": 5680,
+          "service": 244,
+          "holding": 576,
+          "controller": 747,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2378,
+          "total": 2815,
+          "build": 580,
+          "service": 1650,
+          "holding": 148,
+          "controller": 437,
+          "peak": 5,
+          "fills": 9,
+          "hits": 9,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2312,
+          "total": 2769,
+          "build": 539,
+          "service": 1455,
+          "holding": 318,
+          "controller": 457,
+          "peak": 5,
+          "fills": 8,
+          "hits": 16,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20207,
+      "cap": 8,
+      "offline": 1865,
+      "policies": {
+        "direct": {
+          "market": 1865,
+          "total": 1865,
+          "build": 0,
+          "service": 1865,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6883,
+          "total": 7610,
+          "build": 5623,
+          "service": 244,
+          "holding": 1016,
+          "controller": 727,
+          "peak": 8,
+          "fills": 71,
+          "hits": 72,
+          "invalidations": 9,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2396,
+          "total": 2828,
+          "build": 580,
+          "service": 1650,
+          "holding": 166,
+          "controller": 432,
+          "peak": 6,
+          "fills": 9,
+          "hits": 9,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2305,
+          "total": 2742,
+          "build": 498,
+          "service": 1245,
+          "holding": 562,
+          "controller": 437,
+          "peak": 8,
+          "fills": 7,
+          "hits": 25,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20207,
+      "cap": 12,
+      "offline": 1865,
+      "policies": {
+        "direct": {
+          "market": 1865,
+          "total": 1865,
+          "build": 0,
+          "service": 1865,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6298,
+          "total": 6935,
+          "build": 4476,
+          "service": 244,
+          "holding": 1578,
+          "controller": 637,
+          "peak": 12,
+          "fills": 56,
+          "hits": 72,
+          "invalidations": 11,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2396,
+          "total": 2828,
+          "build": 580,
+          "service": 1650,
+          "holding": 166,
+          "controller": 432,
+          "peak": 6,
+          "fills": 9,
+          "hits": 9,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2306,
+          "total": 2738,
+          "build": 498,
+          "service": 1216,
+          "holding": 592,
+          "controller": 432,
+          "peak": 11,
+          "fills": 7,
+          "hits": 26,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20208,
+      "cap": 5,
+      "offline": 1892,
+      "policies": {
+        "direct": {
+          "market": 1916,
+          "total": 1916,
+          "build": 0,
+          "service": 1916,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6431,
+          "total": 7203,
+          "build": 5691,
+          "service": 218,
+          "holding": 522,
+          "controller": 772,
+          "peak": 5,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2272,
+          "total": 2704,
+          "build": 381,
+          "service": 1763,
+          "holding": 128,
+          "controller": 432,
+          "peak": 5,
+          "fills": 5,
+          "hits": 5,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2123,
+          "total": 2570,
+          "build": 278,
+          "service": 1537,
+          "holding": 308,
+          "controller": 447,
+          "peak": 5,
+          "fills": 4,
+          "hits": 13,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20208,
+      "cap": 8,
+      "offline": 1892,
+      "policies": {
+        "direct": {
+          "market": 1916,
+          "total": 1916,
+          "build": 0,
+          "service": 1916,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6791,
+          "total": 7523,
+          "build": 5691,
+          "service": 218,
+          "holding": 882,
+          "controller": 732,
+          "peak": 8,
+          "fills": 72,
+          "hits": 72,
+          "invalidations": 11,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2272,
+          "total": 2704,
+          "build": 381,
+          "service": 1763,
+          "holding": 128,
+          "controller": 432,
+          "peak": 5,
+          "fills": 5,
+          "hits": 5,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2187,
+          "total": 2624,
+          "build": 278,
+          "service": 1467,
+          "holding": 442,
+          "controller": 437,
+          "peak": 7,
+          "fills": 4,
+          "hits": 15,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "churn",
+      "seed": 20208,
+      "cap": 12,
+      "offline": 1892,
+      "policies": {
+        "direct": {
+          "market": 1916,
+          "total": 1916,
+          "build": 0,
+          "service": 1916,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7295,
+          "total": 7982,
+          "build": 5575,
+          "service": 218,
+          "holding": 1502,
+          "controller": 687,
+          "peak": 12,
+          "fills": 70,
+          "hits": 72,
+          "invalidations": 17,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2272,
+          "total": 2704,
+          "build": 381,
+          "service": 1763,
+          "holding": 128,
+          "controller": 432,
+          "peak": 5,
+          "fills": 5,
+          "hits": 5,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2168,
+          "total": 2600,
+          "build": 278,
+          "service": 1436,
+          "holding": 454,
+          "controller": 432,
+          "peak": 9,
+          "fills": 4,
+          "hits": 16,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20301,
+      "cap": 5,
+      "offline": 3078,
+      "policies": {
+        "direct": {
+          "market": 6488,
+          "total": 6488,
+          "build": 0,
+          "service": 6488,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7128,
+          "total": 7800,
+          "build": 6613,
+          "service": 275,
+          "holding": 240,
+          "controller": 672,
+          "peak": 3,
+          "fills": 50,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5431,
+          "total": 5908,
+          "build": 2442,
+          "service": 2851,
+          "holding": 138,
+          "controller": 477,
+          "peak": 3,
+          "fills": 13,
+          "hits": 31,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 5449,
+          "total": 5931,
+          "build": 2442,
+          "service": 2851,
+          "holding": 156,
+          "controller": 482,
+          "peak": 3,
+          "fills": 13,
+          "hits": 31,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20301,
+      "cap": 8,
+      "offline": 1805,
+      "policies": {
+        "direct": {
+          "market": 6488,
+          "total": 6488,
+          "build": 0,
+          "service": 6488,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3172,
+          "total": 3679,
+          "build": 2423,
+          "service": 275,
+          "holding": 474,
+          "controller": 507,
+          "peak": 6,
+          "fills": 20,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4055,
+          "total": 4502,
+          "build": 1738,
+          "service": 2023,
+          "holding": 294,
+          "controller": 447,
+          "peak": 6,
+          "fills": 9,
+          "hits": 42,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3878,
+          "total": 4335,
+          "build": 1635,
+          "service": 1871,
+          "holding": 372,
+          "controller": 457,
+          "peak": 6,
+          "fills": 8,
+          "hits": 41,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20301,
+      "cap": 12,
+      "offline": 1310,
+      "policies": {
+        "direct": {
+          "market": 6488,
+          "total": 6488,
+          "build": 0,
+          "service": 6488,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1426,
+          "total": 1858,
+          "build": 485,
+          "service": 275,
+          "holding": 666,
+          "controller": 432,
+          "peak": 9,
+          "fills": 6,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3863,
+          "total": 4295,
+          "build": 1688,
+          "service": 1827,
+          "holding": 348,
+          "controller": 432,
+          "peak": 9,
+          "fills": 8,
+          "hits": 46,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3019,
+          "total": 3451,
+          "build": 1220,
+          "service": 1307,
+          "holding": 492,
+          "controller": 432,
+          "peak": 9,
+          "fills": 5,
+          "hits": 51,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20302,
+      "cap": 5,
+      "offline": 4460,
+      "policies": {
+        "direct": {
+          "market": 7957,
+          "total": 7957,
+          "build": 0,
+          "service": 7957,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7936,
+          "total": 8613,
+          "build": 7334,
+          "service": 282,
+          "holding": 320,
+          "controller": 677,
+          "peak": 4,
+          "fills": 50,
+          "hits": 72,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 6865,
+          "total": 7367,
+          "build": 3053,
+          "service": 3588,
+          "holding": 224,
+          "controller": 502,
+          "peak": 4,
+          "fills": 18,
+          "hits": 33,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 6873,
+          "total": 7380,
+          "build": 3053,
+          "service": 3588,
+          "holding": 232,
+          "controller": 507,
+          "peak": 4,
+          "fills": 18,
+          "hits": 33,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20302,
+      "cap": 8,
+      "offline": 2437,
+      "policies": {
+        "direct": {
+          "market": 7957,
+          "total": 7957,
+          "build": 0,
+          "service": 7957,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4970,
+          "total": 5532,
+          "build": 4056,
+          "service": 282,
+          "holding": 632,
+          "controller": 562,
+          "peak": 8,
+          "fills": 30,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5378,
+          "total": 5835,
+          "build": 2346,
+          "service": 2648,
+          "holding": 384,
+          "controller": 457,
+          "peak": 8,
+          "fills": 13,
+          "hits": 42,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 4397,
+          "total": 4859,
+          "build": 1819,
+          "service": 2138,
+          "holding": 440,
+          "controller": 462,
+          "peak": 8,
+          "fills": 11,
+          "hits": 44,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20302,
+      "cap": 12,
+      "offline": 1499,
+      "policies": {
+        "direct": {
+          "market": 7957,
+          "total": 7957,
+          "build": 0,
+          "service": 7957,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1638,
+          "total": 2070,
+          "build": 420,
+          "service": 282,
+          "holding": 936,
+          "controller": 432,
+          "peak": 12,
+          "fills": 6,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4031,
+          "total": 4463,
+          "build": 1777,
+          "service": 1790,
+          "holding": 464,
+          "controller": 432,
+          "peak": 12,
+          "fills": 9,
+          "hits": 47,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2978,
+          "total": 3410,
+          "build": 1274,
+          "service": 1008,
+          "holding": 696,
+          "controller": 432,
+          "peak": 12,
+          "fills": 6,
+          "hits": 56,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20303,
+      "cap": 5,
+      "offline": 4460,
+      "policies": {
+        "direct": {
+          "market": 7490,
+          "total": 7490,
+          "build": 0,
+          "service": 7490,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 8803,
+          "total": 9470,
+          "build": 8173,
+          "service": 230,
+          "holding": 400,
+          "controller": 667,
+          "peak": 5,
+          "fills": 51,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 6549,
+          "total": 7031,
+          "build": 2636,
+          "service": 3633,
+          "holding": 280,
+          "controller": 482,
+          "peak": 5,
+          "fills": 13,
+          "hits": 28,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 6679,
+          "total": 7171,
+          "build": 2641,
+          "service": 3738,
+          "holding": 300,
+          "controller": 492,
+          "peak": 5,
+          "fills": 14,
+          "hits": 29,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20303,
+      "cap": 8,
+      "offline": 4460,
+      "policies": {
+        "direct": {
+          "market": 7490,
+          "total": 7490,
+          "build": 0,
+          "service": 7490,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 8803,
+          "total": 9470,
+          "build": 8173,
+          "service": 230,
+          "holding": 400,
+          "controller": 667,
+          "peak": 5,
+          "fills": 51,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 6549,
+          "total": 7031,
+          "build": 2636,
+          "service": 3633,
+          "holding": 280,
+          "controller": 482,
+          "peak": 5,
+          "fills": 13,
+          "hits": 28,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 6679,
+          "total": 7171,
+          "build": 2641,
+          "service": 3738,
+          "holding": 300,
+          "controller": 492,
+          "peak": 5,
+          "fills": 14,
+          "hits": 29,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20303,
+      "cap": 12,
+      "offline": 2615,
+      "policies": {
+        "direct": {
+          "market": 7490,
+          "total": 7490,
+          "build": 0,
+          "service": 7490,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 5546,
+          "total": 6093,
+          "build": 4546,
+          "service": 230,
+          "holding": 770,
+          "controller": 547,
+          "peak": 10,
+          "fills": 28,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5885,
+          "total": 6332,
+          "build": 2309,
+          "service": 3176,
+          "holding": 400,
+          "controller": 447,
+          "peak": 10,
+          "fills": 11,
+          "hits": 34,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 4833,
+          "total": 5290,
+          "build": 1764,
+          "service": 2469,
+          "holding": 600,
+          "controller": 457,
+          "peak": 10,
+          "fills": 9,
+          "hits": 45,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20304,
+      "cap": 5,
+      "offline": 3289,
+      "policies": {
+        "direct": {
+          "market": 5756,
+          "total": 5756,
+          "build": 0,
+          "service": 5756,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6022,
+          "total": 6674,
+          "build": 5524,
+          "service": 230,
+          "holding": 268,
+          "controller": 652,
+          "peak": 4,
+          "fills": 46,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5847,
+          "total": 6339,
+          "build": 2867,
+          "service": 2838,
+          "holding": 142,
+          "controller": 492,
+          "peak": 4,
+          "fills": 15,
+          "hits": 30,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 5599,
+          "total": 6091,
+          "build": 2704,
+          "service": 2723,
+          "holding": 172,
+          "controller": 492,
+          "peak": 4,
+          "fills": 14,
+          "hits": 32,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20304,
+      "cap": 8,
+      "offline": 1716,
+      "policies": {
+        "direct": {
+          "market": 5756,
+          "total": 5756,
+          "build": 0,
+          "service": 5756,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4098,
+          "total": 4640,
+          "build": 3342,
+          "service": 230,
+          "holding": 526,
+          "controller": 542,
+          "peak": 7,
+          "fills": 27,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4260,
+          "total": 4717,
+          "build": 1925,
+          "service": 1991,
+          "holding": 344,
+          "controller": 457,
+          "peak": 7,
+          "fills": 9,
+          "hits": 46,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3611,
+          "total": 4068,
+          "build": 1516,
+          "service": 1679,
+          "holding": 416,
+          "controller": 457,
+          "peak": 7,
+          "fills": 7,
+          "hits": 49,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20304,
+      "cap": 12,
+      "offline": 1229,
+      "policies": {
+        "direct": {
+          "market": 5756,
+          "total": 5756,
+          "build": 0,
+          "service": 5756,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1428,
+          "total": 1860,
+          "build": 416,
+          "service": 230,
+          "holding": 782,
+          "controller": 432,
+          "peak": 10,
+          "fills": 6,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3410,
+          "total": 3842,
+          "build": 1453,
+          "service": 1613,
+          "holding": 344,
+          "controller": 432,
+          "peak": 10,
+          "fills": 7,
+          "hits": 48,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2787,
+          "total": 3219,
+          "build": 1044,
+          "service": 1267,
+          "holding": 476,
+          "controller": 432,
+          "peak": 10,
+          "fills": 5,
+          "hits": 53,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20305,
+      "cap": 5,
+      "offline": 2977,
+      "policies": {
+        "direct": {
+          "market": 7027,
+          "total": 7027,
+          "build": 0,
+          "service": 7027,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6343,
+          "total": 6970,
+          "build": 5861,
+          "service": 196,
+          "holding": 286,
+          "controller": 627,
+          "peak": 5,
+          "fills": 41,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5486,
+          "total": 5973,
+          "build": 2649,
+          "service": 2645,
+          "holding": 192,
+          "controller": 487,
+          "peak": 5,
+          "fills": 15,
+          "hits": 37,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 4968,
+          "total": 5455,
+          "build": 2363,
+          "service": 2397,
+          "holding": 208,
+          "controller": 487,
+          "peak": 5,
+          "fills": 14,
+          "hits": 39,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20305,
+      "cap": 8,
+      "offline": 1761,
+      "policies": {
+        "direct": {
+          "market": 7027,
+          "total": 7027,
+          "build": 0,
+          "service": 7027,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4121,
+          "total": 4653,
+          "build": 3441,
+          "service": 196,
+          "holding": 484,
+          "controller": 532,
+          "peak": 7,
+          "fills": 23,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4361,
+          "total": 4818,
+          "build": 2172,
+          "service": 1861,
+          "holding": 328,
+          "controller": 457,
+          "peak": 7,
+          "fills": 11,
+          "hits": 45,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3933,
+          "total": 4395,
+          "build": 1929,
+          "service": 1622,
+          "holding": 382,
+          "controller": 462,
+          "peak": 7,
+          "fills": 10,
+          "hits": 47,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20305,
+      "cap": 12,
+      "offline": 1329,
+      "policies": {
+        "direct": {
+          "market": 7027,
+          "total": 7027,
+          "build": 0,
+          "service": 7027,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1450,
+          "total": 1882,
+          "build": 570,
+          "service": 196,
+          "holding": 684,
+          "controller": 432,
+          "peak": 9,
+          "fills": 6,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3828,
+          "total": 4260,
+          "build": 1938,
+          "service": 1526,
+          "holding": 364,
+          "controller": 432,
+          "peak": 9,
+          "fills": 9,
+          "hits": 48,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2408,
+          "total": 2840,
+          "build": 1123,
+          "service": 765,
+          "holding": 520,
+          "controller": 432,
+          "peak": 9,
+          "fills": 6,
+          "hits": 55,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20306,
+      "cap": 5,
+      "offline": 3520,
+      "policies": {
+        "direct": {
+          "market": 7011,
+          "total": 7011,
+          "build": 0,
+          "service": 7011,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 8173,
+          "total": 8835,
+          "build": 7617,
+          "service": 258,
+          "holding": 298,
+          "controller": 662,
+          "peak": 5,
+          "fills": 48,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 7121,
+          "total": 7618,
+          "build": 3411,
+          "service": 3478,
+          "holding": 232,
+          "controller": 497,
+          "peak": 5,
+          "fills": 15,
+          "hits": 30,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 6607,
+          "total": 7104,
+          "build": 3118,
+          "service": 3217,
+          "holding": 272,
+          "controller": 497,
+          "peak": 5,
+          "fills": 14,
+          "hits": 33,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20306,
+      "cap": 8,
+      "offline": 2128,
+      "policies": {
+        "direct": {
+          "market": 7011,
+          "total": 7011,
+          "build": 0,
+          "service": 7011,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6516,
+          "total": 7098,
+          "build": 5738,
+          "service": 258,
+          "holding": 520,
+          "controller": 582,
+          "peak": 7,
+          "fills": 34,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5834,
+          "total": 6306,
+          "build": 2751,
+          "service": 2837,
+          "holding": 246,
+          "controller": 472,
+          "peak": 7,
+          "fills": 12,
+          "hits": 33,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 4836,
+          "total": 5308,
+          "build": 2165,
+          "service": 2287,
+          "holding": 384,
+          "controller": 472,
+          "peak": 7,
+          "fills": 10,
+          "hits": 40,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20306,
+      "cap": 12,
+      "offline": 1498,
+      "policies": {
+        "direct": {
+          "market": 7011,
+          "total": 7011,
+          "build": 0,
+          "service": 7011,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1712,
+          "total": 2144,
+          "build": 518,
+          "service": 258,
+          "holding": 936,
+          "controller": 432,
+          "peak": 12,
+          "fills": 6,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4457,
+          "total": 4889,
+          "build": 2061,
+          "service": 2090,
+          "holding": 306,
+          "controller": 432,
+          "peak": 12,
+          "fills": 9,
+          "hits": 37,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3199,
+          "total": 3631,
+          "build": 1281,
+          "service": 1380,
+          "holding": 538,
+          "controller": 432,
+          "peak": 12,
+          "fills": 6,
+          "hits": 47,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20307,
+      "cap": 5,
+      "offline": 3320,
+      "policies": {
+        "direct": {
+          "market": 6175,
+          "total": 6175,
+          "build": 0,
+          "service": 6175,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 7201,
+          "total": 7873,
+          "build": 6599,
+          "service": 310,
+          "holding": 292,
+          "controller": 672,
+          "peak": 4,
+          "fills": 50,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 6245,
+          "total": 6732,
+          "build": 2898,
+          "service": 3211,
+          "holding": 136,
+          "controller": 487,
+          "peak": 4,
+          "fills": 15,
+          "hits": 26,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 5931,
+          "total": 6428,
+          "build": 2569,
+          "service": 3166,
+          "holding": 196,
+          "controller": 497,
+          "peak": 4,
+          "fills": 15,
+          "hits": 28,
+          "invalidations": 1,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20307,
+      "cap": 8,
+      "offline": 2040,
+      "policies": {
+        "direct": {
+          "market": 6175,
+          "total": 6175,
+          "build": 0,
+          "service": 6175,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4914,
+          "total": 5491,
+          "build": 4024,
+          "service": 310,
+          "holding": 580,
+          "controller": 577,
+          "peak": 8,
+          "fills": 33,
+          "hits": 72,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5080,
+          "total": 5532,
+          "build": 2267,
+          "service": 2619,
+          "holding": 194,
+          "controller": 452,
+          "peak": 8,
+          "fills": 12,
+          "hits": 29,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 4099,
+          "total": 4556,
+          "build": 1688,
+          "service": 2007,
+          "holding": 404,
+          "controller": 457,
+          "peak": 8,
+          "fills": 9,
+          "hits": 40,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20307,
+      "cap": 12,
+      "offline": 1424,
+      "policies": {
+        "direct": {
+          "market": 6175,
+          "total": 6175,
+          "build": 0,
+          "service": 6175,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1568,
+          "total": 2000,
+          "build": 416,
+          "service": 310,
+          "holding": 842,
+          "controller": 432,
+          "peak": 11,
+          "fills": 6,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4873,
+          "total": 5305,
+          "build": 2099,
+          "service": 2436,
+          "holding": 338,
+          "controller": 432,
+          "peak": 11,
+          "fills": 11,
+          "hits": 35,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3115,
+          "total": 3547,
+          "build": 1179,
+          "service": 1324,
+          "holding": 612,
+          "controller": 432,
+          "peak": 11,
+          "fills": 6,
+          "hits": 53,
+          "invalidations": 3,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20308,
+      "cap": 5,
+      "offline": 3269,
+      "policies": {
+        "direct": {
+          "market": 7032,
+          "total": 7032,
+          "build": 0,
+          "service": 7032,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6582,
+          "total": 7229,
+          "build": 6051,
+          "service": 261,
+          "holding": 270,
+          "controller": 647,
+          "peak": 4,
+          "fills": 44,
+          "hits": 72,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5312,
+          "total": 5799,
+          "build": 2302,
+          "service": 2818,
+          "holding": 192,
+          "controller": 487,
+          "peak": 4,
+          "fills": 14,
+          "hits": 35,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 5266,
+          "total": 5763,
+          "build": 2302,
+          "service": 2748,
+          "holding": 216,
+          "controller": 497,
+          "peak": 4,
+          "fills": 14,
+          "hits": 37,
+          "invalidations": 0,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20308,
+      "cap": 8,
+      "offline": 1946,
+      "policies": {
+        "direct": {
+          "market": 7032,
+          "total": 7032,
+          "build": 0,
+          "service": 7032,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3867,
+          "total": 4399,
+          "build": 3062,
+          "service": 261,
+          "holding": 544,
+          "controller": 532,
+          "peak": 7,
+          "fills": 23,
+          "hits": 72,
+          "invalidations": 1,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4311,
+          "total": 4758,
+          "build": 1931,
+          "service": 2062,
+          "holding": 318,
+          "controller": 447,
+          "peak": 7,
+          "fills": 11,
+          "hits": 41,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 4131,
+          "total": 4593,
+          "build": 1876,
+          "service": 1875,
+          "holding": 380,
+          "controller": 462,
+          "peak": 7,
+          "fills": 10,
+          "hits": 44,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "prices",
+      "seed": 20308,
+      "cap": 12,
+      "offline": 1353,
+      "policies": {
+        "direct": {
+          "market": 7032,
+          "total": 7032,
+          "build": 0,
+          "service": 7032,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 1479,
+          "total": 1911,
+          "build": 448,
+          "service": 261,
+          "holding": 770,
+          "controller": 432,
+          "peak": 10,
+          "fills": 6,
+          "hits": 72,
+          "invalidations": 3,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 4250,
+          "total": 4682,
+          "build": 1840,
+          "service": 2062,
+          "holding": 348,
+          "controller": 432,
+          "peak": 10,
+          "fills": 10,
+          "hits": 41,
+          "invalidations": 2,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2899,
+          "total": 3331,
+          "build": 1204,
+          "service": 1131,
+          "holding": 564,
+          "controller": 432,
+          "peak": 10,
+          "fills": 6,
+          "hits": 54,
+          "invalidations": 2,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20401,
+      "cap": 5,
+      "offline": 1469,
+      "policies": {
+        "direct": {
+          "market": 6551,
+          "total": 6551,
+          "build": 0,
+          "service": 6551,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3945,
+          "total": 4497,
+          "build": 2780,
+          "service": 205,
+          "holding": 960,
+          "controller": 552,
+          "peak": 5,
+          "fills": 30,
+          "hits": 72,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2115,
+          "total": 2547,
+          "build": 676,
+          "service": 1439,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2115,
+          "total": 2547,
+          "build": 676,
+          "service": 1439,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20401,
+      "cap": 8,
+      "offline": 1469,
+      "policies": {
+        "direct": {
+          "market": 6551,
+          "total": 6551,
+          "build": 0,
+          "service": 6551,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4263,
+          "total": 4780,
+          "build": 2594,
+          "service": 205,
+          "holding": 1464,
+          "controller": 517,
+          "peak": 8,
+          "fills": 27,
+          "hits": 72,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2115,
+          "total": 2547,
+          "build": 676,
+          "service": 1439,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2115,
+          "total": 2547,
+          "build": 676,
+          "service": 1439,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20401,
+      "cap": 12,
+      "offline": 1469,
+      "policies": {
+        "direct": {
+          "market": 6551,
+          "total": 6551,
+          "build": 0,
+          "service": 6551,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4320,
+          "total": 4787,
+          "build": 2011,
+          "service": 205,
+          "holding": 2104,
+          "controller": 467,
+          "peak": 12,
+          "fills": 21,
+          "hits": 72,
+          "invalidations": 11,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2115,
+          "total": 2547,
+          "build": 676,
+          "service": 1439,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2115,
+          "total": 2547,
+          "build": 676,
+          "service": 1439,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20402,
+      "cap": 5,
+      "offline": 2005,
+      "policies": {
+        "direct": {
+          "market": 7891,
+          "total": 7891,
+          "build": 0,
+          "service": 7891,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4374,
+          "total": 4936,
+          "build": 3081,
+          "service": 293,
+          "holding": 1000,
+          "controller": 562,
+          "peak": 5,
+          "fills": 35,
+          "hits": 72,
+          "invalidations": 8,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3221,
+          "total": 3653,
+          "build": 1212,
+          "service": 2009,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 34,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3221,
+          "total": 3653,
+          "build": 1212,
+          "service": 2009,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 34,
+          "invalidations": 6,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20402,
+      "cap": 8,
+      "offline": 2005,
+      "policies": {
+        "direct": {
+          "market": 7891,
+          "total": 7891,
+          "build": 0,
+          "service": 7891,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4767,
+          "total": 5304,
+          "build": 2946,
+          "service": 293,
+          "holding": 1528,
+          "controller": 537,
+          "peak": 8,
+          "fills": 33,
+          "hits": 72,
+          "invalidations": 10,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3221,
+          "total": 3653,
+          "build": 1212,
+          "service": 2009,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 34,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3221,
+          "total": 3653,
+          "build": 1212,
+          "service": 2009,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 34,
+          "invalidations": 6,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20402,
+      "cap": 12,
+      "offline": 2005,
+      "policies": {
+        "direct": {
+          "market": 7891,
+          "total": 7891,
+          "build": 0,
+          "service": 7891,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 5095,
+          "total": 5577,
+          "build": 2474,
+          "service": 293,
+          "holding": 2328,
+          "controller": 482,
+          "peak": 12,
+          "fills": 28,
+          "hits": 72,
+          "invalidations": 15,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3221,
+          "total": 3653,
+          "build": 1212,
+          "service": 2009,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 34,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3221,
+          "total": 3653,
+          "build": 1212,
+          "service": 2009,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 6,
+          "hits": 34,
+          "invalidations": 6,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20403,
+      "cap": 5,
+      "offline": 2650,
+      "policies": {
+        "direct": {
+          "market": 11889,
+          "total": 11889,
+          "build": 0,
+          "service": 11889,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4795,
+          "total": 5297,
+          "build": 3486,
+          "service": 341,
+          "holding": 968,
+          "controller": 502,
+          "peak": 5,
+          "fills": 28,
+          "hits": 72,
+          "invalidations": 13,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5024,
+          "total": 5456,
+          "build": 2247,
+          "service": 2777,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 7,
+          "hits": 34,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 5024,
+          "total": 5456,
+          "build": 2247,
+          "service": 2777,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 7,
+          "hits": 34,
+          "invalidations": 7,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20403,
+      "cap": 8,
+      "offline": 2650,
+      "policies": {
+        "direct": {
+          "market": 11889,
+          "total": 11889,
+          "build": 0,
+          "service": 11889,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4700,
+          "total": 5177,
+          "build": 3015,
+          "service": 341,
+          "holding": 1344,
+          "controller": 477,
+          "peak": 8,
+          "fills": 25,
+          "hits": 72,
+          "invalidations": 14,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5024,
+          "total": 5456,
+          "build": 2247,
+          "service": 2777,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 7,
+          "hits": 34,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 5024,
+          "total": 5456,
+          "build": 2247,
+          "service": 2777,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 7,
+          "hits": 34,
+          "invalidations": 7,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20403,
+      "cap": 12,
+      "offline": 2650,
+      "policies": {
+        "direct": {
+          "market": 11889,
+          "total": 11889,
+          "build": 0,
+          "service": 11889,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 5145,
+          "total": 5597,
+          "build": 2820,
+          "service": 341,
+          "holding": 1984,
+          "controller": 452,
+          "peak": 12,
+          "fills": 23,
+          "hits": 72,
+          "invalidations": 17,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 5024,
+          "total": 5456,
+          "build": 2247,
+          "service": 2777,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 7,
+          "hits": 34,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 5024,
+          "total": 5456,
+          "build": 2247,
+          "service": 2777,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 7,
+          "hits": 34,
+          "invalidations": 7,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20404,
+      "cap": 5,
+      "offline": 1640,
+      "policies": {
+        "direct": {
+          "market": 6631,
+          "total": 6631,
+          "build": 0,
+          "service": 6631,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3872,
+          "total": 4429,
+          "build": 2674,
+          "service": 222,
+          "holding": 976,
+          "controller": 557,
+          "peak": 5,
+          "fills": 32,
+          "hits": 72,
+          "invalidations": 6,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2235,
+          "total": 2667,
+          "build": 752,
+          "service": 1483,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2235,
+          "total": 2667,
+          "build": 752,
+          "service": 1483,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20404,
+      "cap": 8,
+      "offline": 1640,
+      "policies": {
+        "direct": {
+          "market": 6631,
+          "total": 6631,
+          "build": 0,
+          "service": 6631,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4107,
+          "total": 4629,
+          "build": 2365,
+          "service": 222,
+          "holding": 1520,
+          "controller": 522,
+          "peak": 8,
+          "fills": 28,
+          "hits": 72,
+          "invalidations": 8,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2235,
+          "total": 2667,
+          "build": 752,
+          "service": 1483,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2235,
+          "total": 2667,
+          "build": 752,
+          "service": 1483,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20404,
+      "cap": 12,
+      "offline": 1640,
+      "policies": {
+        "direct": {
+          "market": 6631,
+          "total": 6631,
+          "build": 0,
+          "service": 6631,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4487,
+          "total": 4959,
+          "build": 1913,
+          "service": 222,
+          "holding": 2352,
+          "controller": 472,
+          "peak": 12,
+          "fills": 23,
+          "hits": 72,
+          "invalidations": 12,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2235,
+          "total": 2667,
+          "build": 752,
+          "service": 1483,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2235,
+          "total": 2667,
+          "build": 752,
+          "service": 1483,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20405,
+      "cap": 5,
+      "offline": 2519,
+      "policies": {
+        "direct": {
+          "market": 9960,
+          "total": 9960,
+          "build": 0,
+          "service": 9960,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 5803,
+          "total": 6375,
+          "build": 4605,
+          "service": 222,
+          "holding": 976,
+          "controller": 572,
+          "peak": 5,
+          "fills": 36,
+          "hits": 72,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3977,
+          "total": 4409,
+          "build": 1565,
+          "service": 2412,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 5,
+          "hits": 34,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3977,
+          "total": 4409,
+          "build": 1565,
+          "service": 2412,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 5,
+          "hits": 34,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20405,
+      "cap": 8,
+      "offline": 2519,
+      "policies": {
+        "direct": {
+          "market": 9960,
+          "total": 9960,
+          "build": 0,
+          "service": 9960,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 5753,
+          "total": 6290,
+          "build": 3971,
+          "service": 222,
+          "holding": 1560,
+          "controller": 537,
+          "peak": 8,
+          "fills": 32,
+          "hits": 72,
+          "invalidations": 10,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3977,
+          "total": 4409,
+          "build": 1565,
+          "service": 2412,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 5,
+          "hits": 34,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3977,
+          "total": 4409,
+          "build": 1565,
+          "service": 2412,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 5,
+          "hits": 34,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20405,
+      "cap": 12,
+      "offline": 2519,
+      "policies": {
+        "direct": {
+          "market": 9960,
+          "total": 9960,
+          "build": 0,
+          "service": 9960,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 6119,
+          "total": 6621,
+          "build": 3697,
+          "service": 222,
+          "holding": 2200,
+          "controller": 502,
+          "peak": 12,
+          "fills": 29,
+          "hits": 72,
+          "invalidations": 13,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3977,
+          "total": 4409,
+          "build": 1565,
+          "service": 2412,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 5,
+          "hits": 34,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3977,
+          "total": 4409,
+          "build": 1565,
+          "service": 2412,
+          "holding": 0,
+          "controller": 432,
+          "peak": 4,
+          "fills": 5,
+          "hits": 34,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20406,
+      "cap": 5,
+      "offline": 1705,
+      "policies": {
+        "direct": {
+          "market": 9856,
+          "total": 9856,
+          "build": 0,
+          "service": 9856,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3624,
+          "total": 4141,
+          "build": 2317,
+          "service": 275,
+          "holding": 1032,
+          "controller": 517,
+          "peak": 5,
+          "fills": 24,
+          "hits": 72,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2940,
+          "total": 3372,
+          "build": 1040,
+          "service": 1900,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2940,
+          "total": 3372,
+          "build": 1040,
+          "service": 1900,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20406,
+      "cap": 8,
+      "offline": 1705,
+      "policies": {
+        "direct": {
+          "market": 9856,
+          "total": 9856,
+          "build": 0,
+          "service": 9856,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 3919,
+          "total": 4406,
+          "build": 2004,
+          "service": 275,
+          "holding": 1640,
+          "controller": 487,
+          "peak": 8,
+          "fills": 22,
+          "hits": 72,
+          "invalidations": 8,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2940,
+          "total": 3372,
+          "build": 1040,
+          "service": 1900,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2940,
+          "total": 3372,
+          "build": 1040,
+          "service": 1900,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20406,
+      "cap": 12,
+      "offline": 1705,
+      "policies": {
+        "direct": {
+          "market": 9856,
+          "total": 9856,
+          "build": 0,
+          "service": 9856,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4295,
+          "total": 4762,
+          "build": 1860,
+          "service": 275,
+          "holding": 2160,
+          "controller": 467,
+          "peak": 11,
+          "fills": 20,
+          "hits": 72,
+          "invalidations": 10,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2940,
+          "total": 3372,
+          "build": 1040,
+          "service": 1900,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2940,
+          "total": 3372,
+          "build": 1040,
+          "service": 1900,
+          "holding": 0,
+          "controller": 432,
+          "peak": 3,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20407,
+      "cap": 5,
+      "offline": 2021,
+      "policies": {
+        "direct": {
+          "market": 5720,
+          "total": 5720,
+          "build": 0,
+          "service": 5720,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4056,
+          "total": 4603,
+          "build": 2766,
+          "service": 314,
+          "holding": 976,
+          "controller": 547,
+          "peak": 5,
+          "fills": 32,
+          "hits": 72,
+          "invalidations": 8,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2625,
+          "total": 3057,
+          "build": 965,
+          "service": 1660,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 5,
+          "hits": 35,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2625,
+          "total": 3057,
+          "build": 965,
+          "service": 1660,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 5,
+          "hits": 35,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20407,
+      "cap": 8,
+      "offline": 2021,
+      "policies": {
+        "direct": {
+          "market": 5720,
+          "total": 5720,
+          "build": 0,
+          "service": 5720,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4476,
+          "total": 4993,
+          "build": 2498,
+          "service": 314,
+          "holding": 1664,
+          "controller": 517,
+          "peak": 8,
+          "fills": 28,
+          "hits": 72,
+          "invalidations": 9,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2625,
+          "total": 3057,
+          "build": 965,
+          "service": 1660,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 5,
+          "hits": 35,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2625,
+          "total": 3057,
+          "build": 965,
+          "service": 1660,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 5,
+          "hits": 35,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20407,
+      "cap": 12,
+      "offline": 2021,
+      "policies": {
+        "direct": {
+          "market": 5720,
+          "total": 5720,
+          "build": 0,
+          "service": 5720,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4835,
+          "total": 5292,
+          "build": 2121,
+          "service": 314,
+          "holding": 2400,
+          "controller": 457,
+          "peak": 12,
+          "fills": 24,
+          "hits": 72,
+          "invalidations": 16,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 2625,
+          "total": 3057,
+          "build": 965,
+          "service": 1660,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 5,
+          "hits": 35,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 2625,
+          "total": 3057,
+          "build": 965,
+          "service": 1660,
+          "holding": 0,
+          "controller": 432,
+          "peak": 2,
+          "fills": 5,
+          "hits": 35,
+          "invalidations": 5,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20408,
+      "cap": 5,
+      "offline": 1912,
+      "policies": {
+        "direct": {
+          "market": 9772,
+          "total": 9772,
+          "build": 0,
+          "service": 9772,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4303,
+          "total": 4840,
+          "build": 2961,
+          "service": 222,
+          "holding": 1120,
+          "controller": 537,
+          "peak": 5,
+          "fills": 27,
+          "hits": 72,
+          "invalidations": 5,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3004,
+          "total": 3436,
+          "build": 1224,
+          "service": 1780,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3004,
+          "total": 3436,
+          "build": 1224,
+          "service": 1780,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20408,
+      "cap": 8,
+      "offline": 1912,
+      "policies": {
+        "direct": {
+          "market": 9772,
+          "total": 9772,
+          "build": 0,
+          "service": 9772,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4524,
+          "total": 5036,
+          "build": 2678,
+          "service": 222,
+          "holding": 1624,
+          "controller": 512,
+          "peak": 8,
+          "fills": 24,
+          "hits": 72,
+          "invalidations": 7,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3004,
+          "total": 3436,
+          "build": 1224,
+          "service": 1780,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3004,
+          "total": 3436,
+          "build": 1224,
+          "service": 1780,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    },
+    {
+      "family": "shock",
+      "seed": 20408,
+      "cap": 12,
+      "offline": 1912,
+      "policies": {
+        "direct": {
+          "market": 9772,
+          "total": 9772,
+          "build": 0,
+          "service": 9772,
+          "holding": 0,
+          "controller": 0,
+          "peak": 0,
+          "fills": 0,
+          "hits": 0,
+          "invalidations": 0,
+          "answers": 72
+        },
+        "lru": {
+          "market": 4860,
+          "total": 5332,
+          "build": 2382,
+          "service": 222,
+          "holding": 2256,
+          "controller": 472,
+          "peak": 12,
+          "fills": 21,
+          "hits": 72,
+          "invalidations": 11,
+          "answers": 72
+        },
+        "threshold_1_1_ttl4": {
+          "market": 3004,
+          "total": 3436,
+          "build": 1224,
+          "service": 1780,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        },
+        "threshold_1_1_ttl12": {
+          "market": 3004,
+          "total": 3436,
+          "build": 1224,
+          "service": 1780,
+          "holding": 0,
+          "controller": 432,
+          "peak": 5,
+          "fills": 4,
+          "hits": 36,
+          "invalidations": 4,
+          "answers": 72
+        }
+      }
+    }
+  ],
+  "scope": "synthetic exact semantic cache; declared work units, payload cap, current public event only; offline oracle pays no planning; no native BPD or DataGoblin training"
+}
