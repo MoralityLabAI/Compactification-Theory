@@ -1,0 +1,29 @@
+name: Distill compiled incumbent
+on:
+  pull_request:
+    paths:
+      - 'Distill/compiled_incumbent.py'
+      - 'Distill/trajectory_memory.py'
+      - 'Distill/tests/test_compiled_incumbent.py'
+      - '.github/workflows/distill-compiled-incumbent.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compiled-incumbent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -p test_compiled_incumbent.py -v
+      - run: python -m unittest discover -s Distill/tests -p test_trajectory_memory.py -v
+      - run: python -m Distill.compiled_incumbent --out /tmp/distill-compiled
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distill-17-compiled-incumbent
+          path: /tmp/distill-compiled/
+          if-no-files-found: error
+          retention-days: 30
