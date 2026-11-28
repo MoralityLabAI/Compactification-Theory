@@ -1,0 +1,34 @@
+name: PGC-01 exact operational foundations
+
+on:
+  push:
+    branches:
+      - research/pgc01-operational-foundations-20261126
+    paths:
+      - 'research/pregeometric_compactification/**'
+      - '.github/workflows/pgc01-operational-foundations.yml'
+  pull_request:
+    paths:
+      - 'research/pregeometric_compactification/**'
+      - '.github/workflows/pgc01-operational-foundations.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-influence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: research/pregeometric_compactification
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exhaust the finite systems and replay the committed receipt
+        run: python3 verify_pgc01.py --check receipt.json --output /tmp/pgc01-replay.json
+      - name: Compare canonical bytes
+        run: cmp receipt.json /tmp/pgc01-replay.json
