@@ -147,7 +147,7 @@ def audit_receipt(ref,s,rec):
     return best
 
 
-def evaluate(spec,cap,config,do_audit=True):
+def evaluate(spec,cap,config,do_audit=True,actor_factory=Actor):
     m=Model(spec)
     ref=Auditor(m) if do_audit else None
     total=defaultdict(int)
@@ -157,7 +157,7 @@ def evaluate(spec,cap,config,do_audit=True):
     accepted_seen=set()
     peak=0
     for i,w in enumerate(m.worlds):
-        actor=Actor(m,config)
+        actor=actor_factory(m,config)
         meter=Meter(cap)
         s=m.initial()
         c=defaultdict(int)
