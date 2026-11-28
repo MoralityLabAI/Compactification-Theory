@@ -1,0 +1,27 @@
+name: Distill lazy certificate memory
+on:
+  pull_request:
+    paths:
+      - 'Distill/lazy_certificate_memory.py'
+      - 'Distill/tests/test_lazy_certificate_memory.py'
+      - '.github/workflows/distill-lazy-certificate-memory.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  lazy-certificate-memory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s Distill/tests -p test_lazy_certificate_memory.py -v
+      - run: python -m Distill.lazy_certificate_memory --out /tmp/distill-lazy-memory
+      - uses: actions/upload-artifact@v4
+        with:
+          name: distill-15-lazy-certificate-memory
+          path: /tmp/distill-lazy-memory/
+          if-no-files-found: error
+          retention-days: 30
