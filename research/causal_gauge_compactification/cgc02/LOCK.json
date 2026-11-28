@@ -1,0 +1,143 @@
+{
+  "experiment": "CGC-02",
+  "date": "2026-11-18",
+  "status": "FROZEN_BEFORE_FRESH_FOUR_ROOT_TEACHER_TRAINING",
+  "science_question": "do rank-two protected task Jacobian subspaces chosen at training depths retain donor causal effects at unseen depth 8 beyond physical weight SVD and matched controls",
+  "source_blobs": {
+    "PROTOCOL.md": "9616ec88892cb6d83e0fe7f5ef26d3b80093cc33",
+    "experiment.py": "085e5329a393cb47e43559dc34dedeb9bf74a089",
+    "test_experiment.py": "04a0d1fcd72d9a71e37504215cc05b6f493cbcb9",
+    "native_bpd_parity.py": "7a644ea654da85264d3d8d23f70e4904fe367d8a"
+  },
+  "cgc01_source_blobs": {
+    "research/causal_gauge_compactification/finite_audit.py": "838c5dfa5573e5e9e3205dcc011d3cd25f57dee9",
+    "research/causal_gauge_compactification/THEORY.md": "5e88bec378729a32913a4547b5022d51304b68b4"
+  },
+  "native_bpd_pin": "f22a883144ee7d2caa2bd5d9936dd9e083c7f139",
+  "excluded_design_roots": [
+    901,
+    902
+  ],
+  "fresh_exploratory_roots": [
+    2601,
+    2607,
+    2617,
+    2621
+  ],
+  "teacher_architecture": {
+    "state_dim": 12,
+    "feature_dim": 32,
+    "event_dim": 4,
+    "shared_physical_transition": true,
+    "source_write_passes": 1,
+    "supervised_future_depths": [
+      2,
+      4,
+      6
+    ]
+  },
+  "teacher_training": {
+    "updates": 650,
+    "batch": 128,
+    "lr": 0.008,
+    "task_weights": {
+      "2": 0.75,
+      "4": 1,
+      "6": 0.5
+    },
+    "public_coordinate_penalty_per_step": 0.025
+  },
+  "factors": {
+    "two_independent_refits": true,
+    "active_components": 12,
+    "updates": 360,
+    "lr": 0.03,
+    "full_physical_reconstruction": true
+  },
+  "subspace_selection": {
+    "calibration_cases": 256,
+    "depth_4_single": true,
+    "multi_depth_weights": {
+      "2": 0.75,
+      "4": 1,
+      "6": 0.5
+    },
+    "primary_rank": 2,
+    "selected_from_test": false
+  },
+  "protected_readout": {
+    "type": "all_three_class_softmax",
+    "head_logits": [
+      "state[0]",
+      "state[4]",
+      "zero"
+    ],
+    "exact_projected_coordinates": [
+      0,
+      4
+    ],
+    "max_immediate_probability_error": 0.000001
+  },
+  "evaluation": {
+    "pairs_per_root": 512,
+    "family": "heldout_anticorrelated_scalar_source",
+    "depths": [
+      2,
+      4,
+      6,
+      8
+    ],
+    "primary_unseen_depth": 8,
+    "source_pair_changes_queried_scalar_only": true,
+    "clean_task_max_abs_error": 0.08,
+    "clean_donor_difference_min": 0.15,
+    "clean_current_protected_probability_gap_max": 0.02
+  },
+  "nulls": {
+    "same_norm_random_K": 32,
+    "privileged_full_signed_task_gradient_and_same_norm": 16,
+    "null_horizons": [
+      4,
+      8
+    ]
+  },
+  "gates": {
+    "engineering_all_roots": 4,
+    "teacher_depth4_mae_max": 0.08,
+    "teacher_depth8_mae_max": 0.15,
+    "factor_weight_mse_max": 0.0001,
+    "complete_gauge_max_error": 0.00002,
+    "native_parity_max_error": 0.00001,
+    "tangent_matched_max_error": 0.0001,
+    "min_eligible_per_root_for_science": 200,
+    "min_passing_portability_roots": 3,
+    "portability_task_mse_vs_BPD_weight_SVD_ratio": 0.8,
+    "portability_recovery_advantage_vs_random_K": 0.1,
+    "min_passing_strong_incremental_roots": 3,
+    "strong_incremental_recovery_advantage_vs_privileged_tangent": 0.05
+  },
+  "evidence_class": "4-root prospective exploratory trained toy; no 95/95 calibration, no trained TRM or model privacy statement",
+  "sealed_ARG03_N_case_count_untouched": 168,
+  "pre_fresh_engineering_amendments": [
+    {
+      "number": 1,
+      "original_lock_git_blob": "14e42ea5925f3d5d0f914b3505e85057739830b1",
+      "original_experiment_git_blob": "efae0143b4de870ff4338012b5c9551748a99495",
+      "repaired_experiment_git_blob": "085e5329a393cb47e43559dc34dedeb9bf74a089",
+      "failed_hosted_run": "https://github.com/MoralityLabAI/Compactification-Theory/actions/runs/44239296050",
+      "observed": "11/12 excluded source tests passed. Exact-boundary a=-0.8 with outward signed donor perturbation was clipped to the same source value. The matched-pair generator properly rejected a no-change donor.",
+      "fix": "When the clamped donor source equals the recipient source, reverse the registered signed displacement to guarantee a genuine source change.",
+      "fresh_roots_examined": 0,
+      "science_adjustment": false,
+      "unchanged": [
+        "teacher architecture",
+        "training updates",
+        "calibration roster",
+        "fresh roots",
+        "rank and depth selection",
+        "null controls",
+        "thresholds"
+      ]
+    }
+  ]
+}

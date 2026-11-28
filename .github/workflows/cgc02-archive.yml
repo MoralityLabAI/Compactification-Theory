@@ -1,0 +1,67 @@
+name: CGC-02 archive first registered full raw four-root receipt
+
+on:
+  push:
+    branches:
+      - "research/cgc02-protected-recurrent-depth-20261118"
+    paths:
+      - ".github/workflows/cgc02-archive.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  immutable-raw-receipt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Fetch original registered first-run Actions artifact
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/cgc02receipt"
+          gh run download 44239969004 \
+            --repo MoralityLabAI/Compactification-Theory \
+            --name cgc02-fresh-four-root-protected-depth-eight-receipt \
+            --dir "$RUNNER_TEMP/cgc02receipt"
+      - name: Verify source gate, root roster and byte-for-byte artifact hash
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json,hashlib,os
+          from pathlib import Path
+          root=Path("research/causal_gauge_compactification/cgc02")
+          path=Path(os.environ["RUNNER_TEMP"])/"cgc02receipt"/"cgc02_fresh_4root.json"
+          raw=path.read_bytes()
+          sha=hashlib.sha256(raw).hexdigest()
+          assert sha=="bc309cef503a30d778f992f2e7e4e764b1336dd19636e344d36c5ceb6817f070",(sha,len(raw))
+          data=json.loads(raw)
+          assert data["phase"]=="fresh" and data["roots"]==[2601,2607,2617,2621]
+          assert len(data["rows"])==4
+          assert data["registered_gates"]["engineering_roots_passed"]==4
+          assert data["registered_gates"]["exploratory_unseen_depth_portability_roots"]==1
+          assert data["registered_gates"]["strong_incremental_vs_privileged_tangent_roots"]==0
+          assert json.loads((root/"LOCK.json").read_text())["fresh_exploratory_roots"]==[2601,2607,2617,2621]
+          dest=root/"results"/"fresh_4root.json"
+          dest.parent.mkdir(exist_ok=True,parents=True)
+          dest.write_bytes(raw)
+          print("CGC-02 RAW SHA VERIFIED AND STAGED:",sha,"bytes",len(raw))
+          PY
+      - name: Commit immutable full JSON science receipt to this PR branch
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add research/causal_gauge_compactification/cgc02/results/fresh_4root.json
+          if git diff --cached --quiet; then
+            echo "Receipt already committed"
+          else
+            git commit -m "results(CGC-02): archive byte-verified four-root first-run full raw science receipt"
+            git push origin HEAD:research/cgc02-protected-recurrent-depth-20261118
+          fi
