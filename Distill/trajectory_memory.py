@@ -68,7 +68,7 @@ class Actor:
         if self.kernel is None or self.accepted or s.stage in self.tried:
             return b,None
         room=meter.cap-meter.used-reserve(s)
-        if room<=GATE_WORK+RECEIPT_WORK+1:
+        if room<=GATE_WORK+RECEIPT_WORK+64:
             return b,None
         meter.charge(GATE_WORK)
         self.optional+=GATE_WORK
@@ -81,12 +81,11 @@ class Actor:
         local=Meter(allowance-RECEIPT_WORK)
         trials=[]
         before=self.optional
+        # Acquire compatible mass only after charging its metered scan.
+        local.charge(64)
         M=m.mass(s.mask)
-        # Keep selection cost common and sunk. The optional comparison pays
-        # its own metered acquisition of compatible mass.
         exhausted=False
         try:
-            local.charge(64)
             opts=candidates(m,s,b,local)
             if self.kernel!="late" and opts:
                 base=action_value(m,s,b,self.memo,local)
@@ -282,12 +281,9 @@ def campaign(out,counts=(8,12,12,12),caps=CAPS):
                     if config[-1]:
                         require(all(result[k]==arms["budget_rule"][k] for k in RAW),"forced incumbent changed raw outcomes")
                     if receipts:
-                        # Partition by world to bound canonical JSON file size.
-                        grouped=defaultdict(list)
-                        for r in receipts:
-                            grouped[r["world"]].append(r)
-                        for world,rr in grouped.items():
-                            write_json(out/"receipts"/(rid+"-"+str(cap)+"-"+name+"-"+str(world)+".json"),rr)
+                        # One file per root/cap/arm; at most 64*3 receipts.
+                        require(len(receipts)<=192,"receipt count")
+                        write_json(out/"receipts"/(rid+"-"+str(cap)+"-"+name+".json"),receipts)
                 row={"root":rid,"spec":spec,"split":split,"cap":cap,"arms":arms}
                 name="rows/"+rid+"-"+str(cap)+".json"
                 write_json(out/name,row)
