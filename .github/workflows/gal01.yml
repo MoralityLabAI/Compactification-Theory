@@ -27,4 +27,6 @@ jobs:
               assert a[k]==b[k], k
           assert a['training_admission'] is False
           PY
+      - run: node Galacticity/gal02.mjs > /tmp/gal02.json
+      - run: diff -u Galacticity/gal02_receipt.json /tmp/gal02.json
       - run: python Galacticity/test_distill_profile.py
