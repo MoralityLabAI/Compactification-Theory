@@ -1,3 +1,5 @@
+import { pathToFileURL } from "node:url";
+
 function rng(seed){let x=seed>>>0;return ()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return x>>>0}}
 
 function gen(seed,family,cap,fee){let rnd=rng(seed),p=Array.from({length:7},(_,i)=>({cost:3+rnd()%22,yield:rnd()%8,size:1+rnd()%3,pre:0}));let goal=6,H=7+rnd()%5;p[goal]={cost:42+rnd()%40,yield:0,size:2,pre:0};
@@ -42,4 +44,5 @@ const summary={};for(const f of [...families,"all"]){let rs=rows.filter(r=>r.min
 let trap={projects:[{cost:2,yield:8,size:4,pre:0},{cost:2,yield:2,size:1,pre:0},{cost:9,yield:0,size:2,pre:2}],goal:2,H:6,cap:4,fee:0},o=solve(trap),trapResults=Object.fromEntries(modes.map(m=>[m,policy(trap,o.seed,m)]));check(o.seed===2);check(!trapResults.income.success);check(trapResults.reserve.success);
 return {schema:"gal05.portfolio.v1",checks,tinyBruteCases:tiny,calibrationCases:calibration.filter(r=>r.minimum!==null).length,testCases:summary.all.cases,selected,calibration:cal,summary,trap:{env:trap,oracle:o,policies:trapResults},rows,scope:"synthetic stationary additive independent savings, known costs/horizon, persistent investments, one build per tick, no borrowing, capacity and fixed action fee; planning scan counts separate; oracle computation uncharged"}}
 
-console.log(JSON.stringify(run(),null,2));
+export { gen, solve, replay, forward, mandatory, policy };
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) console.log(JSON.stringify(run(),null,2));
