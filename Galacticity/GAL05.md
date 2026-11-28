@@ -153,6 +153,24 @@ trained DataGoblin result.
 
 ## 6. DataGoblin research gym interface
 
+Standalone executable packet emitter and exact grader:
+
+    node Galacticity/gal05_gym.mjs emit 71 ladder 6 1 12 > packet.json
+    node Galacticity/gal05_gym.mjs grade packet.json response.json
+    node Galacticity/gal05_gym.mjs selftest
+
+The response schema is gal05.response.v1, with reachable (Boolean), plan
+(array of project indices, -1 for idle), minimumSeed (integer or null),
+and minimumPlan (array of indices). A negative reachability claim uses
+an empty plan; impossible environments use null and an empty minimumPlan.
+The grader recomputes the minimum via backward DP, independently checks
+the boundary with forward reachability, and replays both submitted witnesses.
+It reports separate correctness flags, not hidden oracle values. The public
+packet has no optimal plan or oracle-derived starting budget; caller chooses
+capital explicitly. 602 self-test checks passed, including wrong minima,
+wrong reachability, invalid actions and impossible environments.
+
+
 Expose public project descriptions, time, active mask, capital,
 fee/cap and target. Ask for an action sequence, per-tick cost and
 savings ledger, claimed minimum seed, and an explanation of constraints.
