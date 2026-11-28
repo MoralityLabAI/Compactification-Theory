@@ -1,0 +1,43 @@
+name: COG-10 local feature collision bounds
+on:
+  pull_request:
+    paths:
+      - 'research/cog10_locality_bound/**'
+      - '.github/workflows/cog10-locality.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-finite:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/checkout@v4
+        with:
+          repository: MoralityLabAI/DataGoblin
+          ref: ae0dbecffc1d246778ee47d8f3d8ec59b5948f2b
+          path: upstream-cog02
+          sparse-checkout: src/datagoblin/training_gym/rlt_gym
+          persist-credentials: false
+      - name: Verify generator revision
+        run: test "$(git -C upstream-cog02 rev-parse HEAD)" = ae0dbecffc1d246778ee47d8f3d8ec59b5948f2b
+      - name: Run witness and finite-bound tests
+        run: python -m unittest discover -s research/cog10_locality_bound/tests -v
+      - name: Enumerate corpus collision floors
+        run: >-
+          python -m research.cog10_locality_bound.run
+          --generator upstream-cog02/src/datagoblin/training_gym/rlt_gym/cogentic_ledger.py
+          --output "$RUNNER_TEMP/cog10"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cog10-exact-locality
+          path: ${{ runner.temp }}/cog10/
+          if-no-files-found: warn
+          retention-days: 30
