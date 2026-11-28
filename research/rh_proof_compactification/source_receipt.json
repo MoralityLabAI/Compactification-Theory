@@ -1,0 +1,251 @@
+{
+  "status": "source_inventory_and_partial_module_graph_only",
+  "upstream": "lsernau/grh-lean",
+  "pin": "72fead102f663d5c7a407964a13dc0cf9d977207",
+  "inventory": {
+    "grh": {
+      "files": 803,
+      "bytes": 30050271
+    },
+    "grh-compact": {
+      "files": 794,
+      "bytes": 7420187
+    }
+  },
+  "header_limit": 40,
+  "scope": "Induced subgraph of selected modules; unresolved imports omitted from scheduling. Source-byte proxy excludes elaborated terms and actual verifier memory. Samples differ across editions.",
+  "tests": {
+    "checks": 10,
+    "status": "pass"
+  },
+  "sampled": {
+    "grh": {
+      "nodes": {
+        "Main": {
+          "bytes": 1141,
+          "imports": [
+            "New.Main"
+          ]
+        },
+        "Statements": {
+          "bytes": 783,
+          "imports": [
+            "Mathlib"
+          ]
+        },
+        "New.Main": {
+          "bytes": 3254,
+          "imports": [
+            "New.Reduction.OneSidedBound"
+          ]
+        },
+        "Lib.PadicComparison.Primitive.PeriodCoefficients": {
+          "bytes": 43658,
+          "imports": [
+            "Lib.Cohomology.TorsionTheories",
+            "Lib.PadicComparison.Descent.AlmostDescent",
+            "Lib.PadicComparison.HodgeTate.GenericFibre",
+            "Lib.PadicHodge.ArtinSchreierSequence"
+          ]
+        }
+      },
+      "failed": [],
+      "analysis": {
+        "modules": 4,
+        "source_bytes": 48836,
+        "induced_edges": 1,
+        "critical_path_modules": 2,
+        "unresolved_imports": {
+          "Lib.PadicComparison.Primitive.PeriodCoefficients": [
+            "Lib.Cohomology.TorsionTheories",
+            "Lib.PadicComparison.Descent.AlmostDescent",
+            "Lib.PadicComparison.HodgeTate.GenericFibre",
+            "Lib.PadicHodge.ArtinSchreierSequence"
+          ],
+          "New.Main": [
+            "New.Reduction.OneSidedBound"
+          ],
+          "Statements": [
+            "Mathlib"
+          ]
+        },
+        "lexical": {
+          "peak_source_bytes_proxy": 43658,
+          "order": [
+            "Lib.PadicComparison.Primitive.PeriodCoefficients",
+            "New.Main",
+            "Main",
+            "Statements"
+          ]
+        },
+        "frontier": {
+          "peak_source_bytes_proxy": 43658,
+          "order": [
+            "Statements",
+            "New.Main",
+            "Main",
+            "Lib.PadicComparison.Primitive.PeriodCoefficients"
+          ]
+        }
+      }
+    },
+    "grh-compact": {
+      "nodes": {
+        "Main": {
+          "bytes": 519,
+          "imports": [
+            "New.Main"
+          ]
+        },
+        "Statements": {
+          "bytes": 783,
+          "imports": [
+            "Mathlib"
+          ]
+        },
+        "New.Main": {
+          "bytes": 12407,
+          "imports": [
+            "New.Data.DataExist",
+            "New.Endgame.LongForms",
+            "Statements"
+          ]
+        },
+        "New.Data.DataExist": {
+          "bytes": 7439,
+          "imports": [
+            "New.Endgame.OneSidedCriterion",
+            "New.Seesaw.IndexTypes"
+          ]
+        },
+        "New.Endgame.LongForms": {
+          "bytes": 6257,
+          "imports": [
+            "New.Endgame.ShortAndEnough",
+            "New.Exchange.CrudeRows",
+            "New.Rows.LiftVolumeHeight",
+            "New.Selmer.FitTwistsExist"
+          ]
+        },
+        "New.Endgame.ShortAndEnough": {
+          "bytes": 11886,
+          "imports": [
+            "New.Columns.LocalStatement",
+            "New.Rows.RowVolume",
+            "New.Seesaw.SeesawTheorem"
+          ]
+        },
+        "New.Endgame.OneSidedCriterion": {
+          "bytes": 7215,
+          "imports": [
+            "Lib.Analytic.QuadraticTwist.ZeroFreeTwist",
+            "New.Endgame.PrimeError"
+          ]
+        },
+        "New.Rows.RowVolume": {
+          "bytes": 5255,
+          "imports": [
+            "New.Trace.GoodFormTransfer"
+          ]
+        },
+        "New.Rows.LiftVolumeHeight": {
+          "bytes": 9226,
+          "imports": [
+            "New.Rows.ComparisonForms",
+            "New.Rows.HeckeValueHeight"
+          ]
+        },
+        "New.Selmer.FitTwistsExist": {
+          "bytes": 4871,
+          "imports": [
+            "New.Rows.RowVolume",
+            "New.Selmer.DenominatorBound",
+            "New.Selmer.RowsExist",
+            "New.Selmer.TwistForRows"
+          ]
+        },
+        "Lib.PadicComparison.Primitive.TiltedTheory": {
+          "bytes": 5432,
+          "imports": [
+            "Lib.PadicComparison.Descent.AlmostAcyclic",
+            "Lib.PadicComparison.HodgeTate.HodgeTatePairs"
+          ]
+        }
+      },
+      "failed": [],
+      "analysis": {
+        "modules": 11,
+        "source_bytes": 71290,
+        "induced_edges": 10,
+        "critical_path_modules": 5,
+        "unresolved_imports": {
+          "Lib.PadicComparison.Primitive.TiltedTheory": [
+            "Lib.PadicComparison.Descent.AlmostAcyclic",
+            "Lib.PadicComparison.HodgeTate.HodgeTatePairs"
+          ],
+          "New.Data.DataExist": [
+            "New.Seesaw.IndexTypes"
+          ],
+          "New.Endgame.LongForms": [
+            "New.Exchange.CrudeRows"
+          ],
+          "New.Endgame.OneSidedCriterion": [
+            "Lib.Analytic.QuadraticTwist.ZeroFreeTwist",
+            "New.Endgame.PrimeError"
+          ],
+          "New.Endgame.ShortAndEnough": [
+            "New.Columns.LocalStatement",
+            "New.Seesaw.SeesawTheorem"
+          ],
+          "New.Rows.LiftVolumeHeight": [
+            "New.Rows.ComparisonForms",
+            "New.Rows.HeckeValueHeight"
+          ],
+          "New.Rows.RowVolume": [
+            "New.Trace.GoodFormTransfer"
+          ],
+          "New.Selmer.FitTwistsExist": [
+            "New.Selmer.DenominatorBound",
+            "New.Selmer.RowsExist",
+            "New.Selmer.TwistForRows"
+          ],
+          "Statements": [
+            "Mathlib"
+          ]
+        },
+        "lexical": {
+          "peak_source_bytes_proxy": 39679,
+          "order": [
+            "Lib.PadicComparison.Primitive.TiltedTheory",
+            "New.Endgame.OneSidedCriterion",
+            "New.Data.DataExist",
+            "New.Rows.LiftVolumeHeight",
+            "New.Rows.RowVolume",
+            "New.Endgame.ShortAndEnough",
+            "New.Selmer.FitTwistsExist",
+            "New.Endgame.LongForms",
+            "Statements",
+            "New.Main",
+            "Main"
+          ]
+        },
+        "frontier": {
+          "peak_source_bytes_proxy": 40462,
+          "order": [
+            "Statements",
+            "New.Rows.RowVolume",
+            "New.Selmer.FitTwistsExist",
+            "Lib.PadicComparison.Primitive.TiltedTheory",
+            "New.Endgame.OneSidedCriterion",
+            "New.Data.DataExist",
+            "New.Rows.LiftVolumeHeight",
+            "New.Endgame.ShortAndEnough",
+            "New.Endgame.LongForms",
+            "New.Main",
+            "Main"
+          ]
+        }
+      }
+    }
+  }
+}
