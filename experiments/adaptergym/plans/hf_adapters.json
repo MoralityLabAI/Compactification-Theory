@@ -1,0 +1,84 @@
+[
+ {
+  "repo": "AlephFunk/bitagent-bonsai25-27b-bdb-onebit-r8",
+  "run": "C:/Users/patri/Documents/Codex/onebit-suite-25/runs/b25_onebit_bdb",
+  "base": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0.gguf",
+  "about": "1-bit (binary straight-through, per-tensor absmean scale) rank-8 LoRA on Ternary Bonsai 2.5 27B, trained on Bitcoin DeFi Bench (github.com/patrickdugan/bitcoin-defi-bench) families 5 (service bonding), 6 (position netting) and 10 (numeric DLC design): first-turn prompts from training seeds 5000-5049, targets from each family's observation-only teacher skill (scripts/make_sft_data.ts). Bench agent runs (development seeds, greedy, thinking off): normalized gain bonding 0.959, dlc 0.996, netting -0.628 (base 0.652, 0.475, -0.628); bitcoin-defi-bench results 82799a2.",
+  "scores": [
+   "C:/Users/patri/Documents/Codex/onebit-suite-25/scores/solo-onebit-bdb/summary.json"
+  ]
+ },
+ {
+  "repo": "AlephFunk/bitagent-bonsai25-27b-bdb-fp-r8",
+  "run": "C:/Users/patri/Documents/Codex/onebit-suite-25/runs/b25_bdb_fp_r8",
+  "base": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0.gguf",
+  "about": "Full-precision rank-8 LoRA on Ternary Bonsai 2.5 27B, trained on Bitcoin DeFi Bench (github.com/patrickdugan/bitcoin-defi-bench) families 5 (service bonding), 6 (position netting) and 10 (numeric DLC design): first-turn prompts from training seeds 5000-5049, targets from each family's observation-only teacher skill (scripts/make_sft_data.ts). Bench agent runs (development seeds, greedy, thinking off): normalized gain bonding 0.960, dlc 0.996, netting -0.628; bitcoin-defi-bench results fdcd86b.",
+  "scores": [
+   "C:/Users/patri/Documents/Codex/onebit-suite-25/scores/solo-fp-bdb/summary.json"
+  ]
+ },
+ {
+  "repo": "AlephFunk/bitagent-bonsai25-27b-srb-onebit-r8",
+  "run": "C:/Users/patri/Documents/Codex/onebit-suite-25/runs/b25_onebit_srb",
+  "base": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0.gguf",
+  "about": "1-bit (binary straight-through) rank-8 LoRA on Ternary Bonsai 2.5 27B, trained on Systemic Risk Bench rows from issuer roots 49-171 (bonsai-gym onebit_suite srb_data.py)."
+ },
+ {
+  "repo": "AlephFunk/bitagent-bonsai2-2b-bdbx-onebit-r8",
+  "run": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_2b",
+  "base": "Ternary Bonsai 2 2B (PTQ1_0 GGUF)",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2-2b/Ternary-Bonsai-2-2B-PTQ1_0.gguf",
+  "about": "1-bit rank-8 LoRA on Ternary Bonsai 2 2B (PTQ1_0 GGUF), trained on the expanded Bitcoin DeFi Bench SFT rows (bitcoin-defi-bench 1e59b2a, every family with a teacher skill: 4, 5, 6, 7, 9, 10, 11, 12, 13, 14; multi-turn rows), training seeds 5000-5049.",
+  "scores": [
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-2b-base/summary.json",
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-2b-onebit/summary.json"
+  ]
+ },
+ {
+  "repo": "AlephFunk/bitagent-bonsai2-4b-bdbx-onebit-r8",
+  "run": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_4b",
+  "base": "Ternary Bonsai 2 4B (PTQ1_0 GGUF)",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2-4b/Ternary-Bonsai-2-4B-PTQ1_0.gguf",
+  "about": "1-bit rank-8 LoRA on Ternary Bonsai 2 4B (PTQ1_0 GGUF), trained on the expanded Bitcoin DeFi Bench SFT rows (bitcoin-defi-bench 1e59b2a, every family with a teacher skill: 4, 5, 6, 7, 9, 10, 11, 12, 13, 14; multi-turn rows), training seeds 5000-5049.",
+  "scores": [
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-4b-base/summary.json",
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-4b-onebit/summary.json"
+  ]
+ },
+ {
+  "repo": "AlephFunk/bitagent-bonsai2-9b-bdbx-onebit-r8",
+  "run": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_9b",
+  "base": "Ternary Bonsai 2 9B (PTQ1_0 GGUF)",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2-9b/Ternary-Bonsai-2-9B-PTQ1_0.gguf",
+  "about": "1-bit rank-8 LoRA on Ternary Bonsai 2 9B (PTQ1_0 GGUF), trained on the expanded Bitcoin DeFi Bench SFT rows (bitcoin-defi-bench 1e59b2a, every family with a teacher skill: 4, 5, 6, 7, 9, 10, 11, 12, 13, 14; multi-turn rows), training seeds 5000-5049.",
+  "scores": [
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-9b-base/summary.json",
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-9b-onebit/summary.json"
+  ]
+ },
+ {
+  "repo": "AlephFunk/bitagent-bonsai2-27b-bdbx-onebit-r8",
+  "run": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b2_27b",
+  "base": "Ternary Bonsai 2 27B (PTQ1_0 GGUF)",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2-27b/Ternary-Bonsai-2-27B-PTQ1_0.gguf",
+  "about": "1-bit rank-8 LoRA on Ternary Bonsai 2 27B (PTQ1_0 GGUF), trained on the expanded Bitcoin DeFi Bench SFT rows (bitcoin-defi-bench 1e59b2a, every family with a teacher skill: 4, 5, 6, 7, 9, 10, 11, 12, 13, 14; multi-turn rows), training seeds 5000-5049.",
+  "scores": [
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-27b-base/summary.json",
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b2-27b-onebit/summary.json"
+  ]
+ },
+ {
+  "repo": "AlephFunk/bitagent-bonsai25-27b-bdbx-onebit-r8",
+  "run": "C:/Users/patri/Documents/Codex/bdb-expanded/runs/bdbx_onebit_b25_27b",
+  "base": "prism-ml/Ternary-Bonsai-2.5-27B-GGUF",
+  "base_gguf": "C:/Users/patri/models/ternary-bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-PTQ1_0.gguf",
+  "about": "1-bit rank-8 LoRA on prism-ml/Ternary-Bonsai-2.5-27B-GGUF, trained on the expanded Bitcoin DeFi Bench SFT rows (bitcoin-defi-bench 1e59b2a, every family with a teacher skill: 4, 5, 6, 7, 9, 10, 11, 12, 13, 14; multi-turn rows), training seeds 5000-5049.",
+  "scores": [
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b25-27b-base/summary.json",
+   "C:/Users/patri/Documents/Codex/bdb-expanded/scores/b25-27b-onebit/summary.json"
+  ]
+ }
+]
