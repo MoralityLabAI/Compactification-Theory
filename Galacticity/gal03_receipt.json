@@ -1,0 +1,455 @@
+{
+  "schema": "gal03.receipt.v1",
+  "checks": 5306,
+  "exhaustiveMatrices": 512,
+  "spikeCases": 204,
+  "rows": [
+    {
+      "n": 32,
+      "r": 1,
+      "denseBits": 1024,
+      "factorBits": 64,
+      "build": {
+        "reads": 1024,
+        "tests": 1024,
+        "xors": 512,
+        "total": 2560
+      },
+      "verify": 4096,
+      "u": 2080,
+      "v": 160,
+      "first2x": {
+        "trusted": "1",
+        "build": "3",
+        "buildAndVerify": "8"
+      }
+    },
+    {
+      "n": 32,
+      "r": 4,
+      "denseBits": 1024,
+      "factorBits": 256,
+      "build": {
+        "reads": 1024,
+        "tests": 1024,
+        "xors": 1856,
+        "total": 3904
+      },
+      "verify": 10240,
+      "u": 2080,
+      "v": 544,
+      "first2x": {
+        "trusted": "1",
+        "build": "8",
+        "buildAndVerify": "29"
+      }
+    },
+    {
+      "n": 32,
+      "r": 8,
+      "denseBits": 1024,
+      "factorBits": 512,
+      "build": {
+        "reads": 1024,
+        "tests": 1024,
+        "xors": 2976,
+        "total": 5024
+      },
+      "verify": 18432,
+      "u": 2080,
+      "v": 1056,
+      "first2x": {
+        "trusted": null,
+        "build": null,
+        "buildAndVerify": null
+      }
+    },
+    {
+      "n": 32,
+      "r": 16,
+      "denseBits": 1024,
+      "factorBits": 1024,
+      "build": {
+        "reads": 1024,
+        "tests": 1024,
+        "xors": 4384,
+        "total": 6432
+      },
+      "verify": 34816,
+      "u": 2080,
+      "v": 2080,
+      "first2x": {
+        "trusted": null,
+        "build": null,
+        "buildAndVerify": null
+      }
+    },
+    {
+      "n": 32,
+      "r": 32,
+      "denseBits": 1024,
+      "factorBits": 2048,
+      "build": {
+        "reads": 1024,
+        "tests": 1024,
+        "xors": 0,
+        "total": 2048
+      },
+      "verify": 67584,
+      "u": 2080,
+      "v": 4128,
+      "first2x": {
+        "trusted": null,
+        "build": null,
+        "buildAndVerify": null
+      }
+    },
+    {
+      "n": 64,
+      "r": 1,
+      "denseBits": 4096,
+      "factorBits": 128,
+      "build": {
+        "reads": 4096,
+        "tests": 4096,
+        "xors": 2240,
+        "total": 10432
+      },
+      "verify": 16384,
+      "u": 8256,
+      "v": 320,
+      "first2x": {
+        "trusted": "1",
+        "build": "3",
+        "buildAndVerify": "8"
+      }
+    },
+    {
+      "n": 64,
+      "r": 4,
+      "denseBits": 4096,
+      "factorBits": 512,
+      "build": {
+        "reads": 4096,
+        "tests": 4096,
+        "xors": 7808,
+        "total": 16000
+      },
+      "verify": 40960,
+      "u": 8256,
+      "v": 1088,
+      "first2x": {
+        "trusted": "1",
+        "build": "6",
+        "buildAndVerify": "19"
+      }
+    },
+    {
+      "n": 64,
+      "r": 8,
+      "denseBits": 4096,
+      "factorBits": 1024,
+      "build": {
+        "reads": 4096,
+        "tests": 4096,
+        "xors": 15744,
+        "total": 23936
+      },
+      "verify": 73728,
+      "u": 8256,
+      "v": 2112,
+      "first2x": {
+        "trusted": "1",
+        "build": "12",
+        "buildAndVerify": "49"
+      }
+    },
+    {
+      "n": 64,
+      "r": 16,
+      "denseBits": 4096,
+      "factorBits": 2048,
+      "build": {
+        "reads": 4096,
+        "tests": 4096,
+        "xors": 24960,
+        "total": 33152
+      },
+      "verify": 139264,
+      "u": 8256,
+      "v": 4160,
+      "first2x": {
+        "trusted": null,
+        "build": null,
+        "buildAndVerify": null
+      }
+    },
+    {
+      "n": 64,
+      "r": 32,
+      "denseBits": 4096,
+      "factorBits": 4096,
+      "build": {
+        "reads": 4096,
+        "tests": 4096,
+        "xors": 32832,
+        "total": 41024
+      },
+      "verify": 270336,
+      "u": 8256,
+      "v": 8256,
+      "first2x": {
+        "trusted": null,
+        "build": null,
+        "buildAndVerify": null
+      }
+    },
+    {
+      "n": 128,
+      "r": 1,
+      "denseBits": 16384,
+      "factorBits": 256,
+      "build": {
+        "reads": 16384,
+        "tests": 16384,
+        "xors": 7168,
+        "total": 39936
+      },
+      "verify": 65536,
+      "u": 32896,
+      "v": 640,
+      "first2x": {
+        "trusted": "1",
+        "build": "3",
+        "buildAndVerify": "7"
+      }
+    },
+    {
+      "n": 128,
+      "r": 4,
+      "denseBits": 16384,
+      "factorBits": 1024,
+      "build": {
+        "reads": 16384,
+        "tests": 16384,
+        "xors": 30848,
+        "total": 63616
+      },
+      "verify": 163840,
+      "u": 32896,
+      "v": 2176,
+      "first2x": {
+        "trusted": "1",
+        "build": "5",
+        "buildAndVerify": "16"
+      }
+    },
+    {
+      "n": 128,
+      "r": 8,
+      "denseBits": 16384,
+      "factorBits": 2048,
+      "build": {
+        "reads": 16384,
+        "tests": 16384,
+        "xors": 60672,
+        "total": 93440
+      },
+      "verify": 294912,
+      "u": 32896,
+      "v": 4224,
+      "first2x": {
+        "trusted": "1",
+        "build": "8",
+        "buildAndVerify": "32"
+      }
+    },
+    {
+      "n": 128,
+      "r": 16,
+      "denseBits": 16384,
+      "factorBits": 4096,
+      "build": {
+        "reads": 16384,
+        "tests": 16384,
+        "xors": 108800,
+        "total": 141568
+      },
+      "verify": 557056,
+      "u": 32896,
+      "v": 8320,
+      "first2x": {
+        "trusted": "1",
+        "build": "18",
+        "buildAndVerify": "86"
+      }
+    },
+    {
+      "n": 128,
+      "r": 32,
+      "denseBits": 16384,
+      "factorBits": 8192,
+      "build": {
+        "reads": 16384,
+        "tests": 16384,
+        "xors": 193536,
+        "total": 226304
+      },
+      "verify": 1081344,
+      "u": 32896,
+      "v": 16512,
+      "first2x": {
+        "trusted": null,
+        "build": null,
+        "buildAndVerify": null
+      }
+    },
+    {
+      "n": 256,
+      "r": 1,
+      "denseBits": 65536,
+      "factorBits": 512,
+      "build": {
+        "reads": 65536,
+        "tests": 65536,
+        "xors": 30464,
+        "total": 161536
+      },
+      "verify": 262144,
+      "u": 131328,
+      "v": 1280,
+      "first2x": {
+        "trusted": "1",
+        "build": "3",
+        "buildAndVerify": "7"
+      }
+    },
+    {
+      "n": 256,
+      "r": 4,
+      "denseBits": 65536,
+      "factorBits": 2048,
+      "build": {
+        "reads": 65536,
+        "tests": 65536,
+        "xors": 124928,
+        "total": 256000
+      },
+      "verify": 655360,
+      "u": 131328,
+      "v": 4352,
+      "first2x": {
+        "trusted": "1",
+        "build": "5",
+        "buildAndVerify": "15"
+      }
+    },
+    {
+      "n": 256,
+      "r": 8,
+      "denseBits": 65536,
+      "factorBits": 4096,
+      "build": {
+        "reads": 65536,
+        "tests": 65536,
+        "xors": 260352,
+        "total": 391424
+      },
+      "verify": 1179648,
+      "u": 131328,
+      "v": 8448,
+      "first2x": {
+        "trusted": "1",
+        "build": "7",
+        "buildAndVerify": "28"
+      }
+    },
+    {
+      "n": 256,
+      "r": 16,
+      "denseBits": 65536,
+      "factorBits": 8192,
+      "build": {
+        "reads": 65536,
+        "tests": 65536,
+        "xors": 500736,
+        "total": 631808
+      },
+      "verify": 2228224,
+      "u": 131328,
+      "v": 16640,
+      "first2x": {
+        "trusted": "1",
+        "build": "13",
+        "buildAndVerify": "59"
+      }
+    },
+    {
+      "n": 256,
+      "r": 32,
+      "denseBits": 65536,
+      "factorBits": 16384,
+      "build": {
+        "reads": 65536,
+        "tests": 65536,
+        "xors": 910080,
+        "total": 1041152
+      },
+      "verify": 4325376,
+      "u": 131328,
+      "v": 33024,
+      "first2x": {
+        "trusted": "1",
+        "build": "32",
+        "buildAndVerify": "165"
+      }
+    }
+  ],
+  "conditioning": [
+    {
+      "k": 0,
+      "precisionBits": 11
+    },
+    {
+      "k": 4,
+      "precisionBits": 15
+    },
+    {
+      "k": 8,
+      "precisionBits": 19
+    },
+    {
+      "k": 12,
+      "precisionBits": 23
+    },
+    {
+      "k": 16,
+      "precisionBits": 27
+    },
+    {
+      "k": 20,
+      "precisionBits": 31
+    },
+    {
+      "k": 24,
+      "precisionBits": 35
+    },
+    {
+      "k": 28,
+      "precisionBits": 39
+    },
+    {
+      "k": 32,
+      "precisionBits": 43
+    },
+    {
+      "k": 36,
+      "precisionBits": 47
+    },
+    {
+      "k": 40,
+      "precisionBits": 51
+    }
+  ],
+  "scope": "GF(2) operation-count model; source entry reads, XOR, AND, tests, output units; resident accesses/writes and allocation free; storage payload separately reported; no native timing"
+}
