@@ -1,0 +1,417 @@
+{
+  "charge_multiplicities": {
+    "ambient_dimension": 42,
+    "formula": "sum_q d_A(q) d_B(-q)",
+    "multiplicities_A": [
+      2,
+      1,
+      3
+    ],
+    "multiplicities_B": [
+      1,
+      4,
+      2
+    ],
+    "p": 3,
+    "physical_dimension": 16
+  },
+  "constraints": {
+    "by_prime": {
+      "2": {
+        "charge_sectors": 11999,
+        "enumerated_ambient_basis_states": 15885,
+        "graphs": 767
+      },
+      "3": {
+        "charge_sectors": 1354,
+        "enumerated_ambient_basis_states": 1162,
+        "graphs": 38
+      },
+      "5": {
+        "charge_sectors": 1875,
+        "enumerated_ambient_basis_states": 6875,
+        "graphs": 3
+      }
+    },
+    "case_digest_sha256": "21545e47e624e78d06ebcccf6d84cde9624b6dd4da1339c86c4c92759487b528",
+    "counts": {
+      "all_orientations": 793,
+      "charge_sectors": 15228,
+      "compatible_sectors": 6073,
+      "enumerated_ambient_basis_states": 23922,
+      "graphs": 808,
+      "incompatible_sectors": 9155,
+      "loops_parallel_disconnected_cycles": 12,
+      "lossless_round_trips": 23922,
+      "prime_five": 3
+    }
+  },
+  "counterexample": {
+    "budget_cases_checked": 17,
+    "budget_projector_rank": "2*floor(A_max/2)+1",
+    "coercive_operator": "A|n,m>=(abs(n)+abs(m))|n,m>",
+    "cutoff_sequence": [
+      {
+        "cutoff_K": 0,
+        "dimension": 1,
+        "gibbs_trace_partial": "1",
+        "gibbs_trace_tail": "2"
+      },
+      {
+        "cutoff_K": 1,
+        "dimension": 3,
+        "gibbs_trace_partial": "2",
+        "gibbs_trace_tail": "1"
+      },
+      {
+        "cutoff_K": 2,
+        "dimension": 5,
+        "gibbs_trace_partial": "5/2",
+        "gibbs_trace_tail": "1/2"
+      },
+      {
+        "cutoff_K": 4,
+        "dimension": 9,
+        "gibbs_trace_partial": "23/8",
+        "gibbs_trace_tail": "1/8"
+      },
+      {
+        "cutoff_K": 8,
+        "dimension": 17,
+        "gibbs_trace_partial": "383/128",
+        "gibbs_trace_tail": "1/128"
+      },
+      {
+        "cutoff_K": 16,
+        "dimension": 33,
+        "gibbs_trace_partial": "98303/32768",
+        "gibbs_trace_tail": "1/32768"
+      },
+      {
+        "cutoff_K": 32,
+        "dimension": 65,
+        "gibbs_trace_partial": "6442450943/2147483648",
+        "gibbs_trace_tail": "1/2147483648"
+      },
+      {
+        "cutoff_K": 64,
+        "dimension": 129,
+        "gibbs_trace_partial": "27670116110564327423/9223372036854775808",
+        "gibbs_trace_tail": "1/9223372036854775808"
+      },
+      {
+        "cutoff_K": 128,
+        "dimension": 257,
+        "gibbs_trace_partial": "510423550381407695195061911147652317183/170141183460469231731687303715884105728",
+        "gibbs_trace_tail": "1/170141183460469231731687303715884105728"
+      }
+    ],
+    "density_entropy_nats": "log(3)+(4/3)*log(2)",
+    "full_physical_rank": "countably infinite",
+    "gibbs_trace_limit": "3",
+    "gibbs_weights_on_physical_basis": "2^(-abs(n))",
+    "model": "l2(Z) tensor l2(Z), Q_A|n>=n|n>, Q_B|m>=m|m>",
+    "normalized_density_rank": "countably infinite",
+    "physical_basis": "{|n,-n>: n in Z}"
+  },
+  "examples": [
+    {
+      "ambient_dimension": 27,
+      "ambient_field_symbols": 3,
+      "charges": [
+        0,
+        0,
+        0
+      ],
+      "components": [
+        [
+          0,
+          1,
+          2
+        ]
+      ],
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "free_edge_indices": [
+        2
+      ],
+      "free_field_symbols": 1,
+      "name": "triangle",
+      "p": 3,
+      "physical_basis": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          2,
+          2
+        ]
+      ],
+      "physical_dimension": 3,
+      "rank": 2,
+      "vertices": 3
+    },
+    {
+      "ambient_dimension": 243,
+      "ambient_field_symbols": 5,
+      "charges": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "components": [
+        [
+          0,
+          1,
+          2,
+          3
+        ]
+      ],
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          0
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "free_edge_indices": [
+        3,
+        4
+      ],
+      "free_field_symbols": 2,
+      "name": "square_with_diagonal",
+      "p": 3,
+      "physical_basis": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          2,
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          0,
+          0,
+          2
+        ],
+        [
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1
+        ],
+        [
+          2,
+          2,
+          1,
+          1,
+          2
+        ],
+        [
+          2,
+          2,
+          2,
+          2,
+          0
+        ],
+        [
+          1,
+          1,
+          2,
+          2,
+          1
+        ],
+        [
+          0,
+          0,
+          2,
+          2,
+          2
+        ]
+      ],
+      "physical_dimension": 9,
+      "rank": 3,
+      "vertices": 4
+    },
+    {
+      "ambient_dimension": 27,
+      "ambient_field_symbols": 3,
+      "charges": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "components": [
+        [
+          0,
+          1,
+          2,
+          3
+        ]
+      ],
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "free_edge_indices": [],
+      "free_field_symbols": 0,
+      "name": "charged_tree",
+      "p": 3,
+      "physical_basis": [
+        [
+          2,
+          1,
+          0
+        ]
+      ],
+      "physical_dimension": 1,
+      "rank": 3,
+      "vertices": 4
+    },
+    {
+      "ambient_dimension": 9,
+      "ambient_field_symbols": 2,
+      "charges": [
+        1,
+        0,
+        2,
+        0
+      ],
+      "components": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "edges": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "free_edge_indices": [],
+      "free_field_symbols": null,
+      "name": "disconnected_incompatible",
+      "p": 3,
+      "physical_basis": [],
+      "physical_dimension": 0,
+      "rank": 2,
+      "vertices": 4
+    }
+  ],
+  "experiment": "NCG-01",
+  "gluing": {
+    "case_digest_sha256": "387cdb58ac1c17e0472fb66f0ff31a3c0eed591a6cb80f9e5042913d045870cf",
+    "counts": {
+      "boundary_charge_contractions": 8956,
+      "edge_bipartitions": 200,
+      "three_region_associativity_cases": 1404
+    }
+  },
+  "invalid_inputs": {
+    "rejected_invalid_inputs": 13
+  },
+  "normalization": {
+    "conditioned_charge_distribution": [
+      "2/5",
+      "3/5"
+    ],
+    "contraction_after_discarding_local_scales": "5/12",
+    "distribution_after_setting_each_sector_weight_to_one": [
+      "1/2",
+      "1/2"
+    ],
+    "interpretation": "These are positive measure weights. Squaring amplitudes is a separate choice.",
+    "positive_weight_example_A": [
+      1,
+      3
+    ],
+    "positive_weight_example_B": [
+      2,
+      1
+    ],
+    "unnormalized_contraction": 5
+  },
+  "orientation": {
+    "basis_states_checked_for_both_transformations": 3368
+  },
+  "schema_version": 1,
+  "scope": "Finite abelian constraint and gluing toy. No validation of quantum gravity.",
+  "source_sha256": {
+    "ncg01.py": "777495135c2d20b1bdaf8f5b1c124b9b3ef1276462d2c7cc6a26bbd1ed23852f",
+    "verify_ncg01.py": "a8200f7a893714a1b3a8f83741b4fba0e720bf87e6904db698d4c0e6bc90724a"
+  },
+  "status": "PASS"
+}
