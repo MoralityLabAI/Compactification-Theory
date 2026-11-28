@@ -88,3 +88,27 @@ that drives the app, trained on the app's own hill-climb decisions and judged by
 - `eval-driver`: backend `b25plain` (the PTQ1_0 file without the MTP head, plain decoding, so both arms decode the
   same way), ctx 32768, 9 GB lease. Arm `base`, then arm `fp-r8` with the adapter applied and served as
   `bonsai-2.5-27b-driver-fp-r8`. The ledger is `<work>/ledger`; app receipts are `<work>/ledger/receipts.jsonl`.
+
+### Results (2026-11-28)
+
+Training: 250 steps in 5.76 h (median 56 s per step; 94 short 15 W power caps, 879 s paused), peak 8.0 GB allocated.
+Val (89 rows): loss 0.929 -> 0.0069, token accuracy 0.847 -> 0.997, teacher-forced exact match 0/89 -> 86/89; the
+reloaded adapter reproduces the final eval.
+
+Dev bench (split dev, seed 0, 120 tasks, limit 120; tasks sha256 `2310cd36…`, eval contract `824a521e…` for both
+arms), greedy, thinking off. Each arm's move was driven end to end by the served model through `data-goblin run`
+(no scripted fallback), and the hash chain of the 9-record ledger verifies.
+
+| arm | bench_accuracy | gate_verdict | proposal_legality | next_lane | ledger | app calls |
+|---|---|---|---|---|---|---|
+| Bonsai 2.5 27B base | 0.725 (87/120) | 36/54 | 35/49 | 16/17 | m0001 baseline | 7, none failed |
+| + LoRA `b25_driver_fp_r8` | 0.983 (118/120) | 52/54 | 49/49 | 17/17 | m0002 promote, delta +0.258 | 6, none failed |
+
+- The adapter's two misses are gate tasks at a threshold: delta 0.031 against min_delta 0.03 (answered replicate,
+  gold promote) and delta 0.011 against the replicate line 0.01 (answered reject, gold replicate).
+- Train and dev come from the same task generator and rules, disjoint by view digest. The gain is on unseen tasks of
+  the same three types; it does not measure the other decisions the model makes while driving the app.
+- With the adapter loaded the model still drove its own move (ledger_status, suite_status, propose_move,
+  driver_bench on the incumbent's dev run, record_result, decide). That is one conversation, not a driving benchmark.
+- Bench wall times are not comparable: the base arm's bench ran mostly under an 18-minute 15 W cap (864 s against
+  179 s for the adapter arm).
