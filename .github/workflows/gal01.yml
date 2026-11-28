@@ -39,4 +39,8 @@ jobs:
       - run: diff -u Galacticity/gal04_market_receipt.json /tmp/gal04_market.json
       - run: node Galacticity/gal04_guard.mjs > /tmp/gal04_guard.json
       - run: diff -u Galacticity/gal04_guard_receipt.json /tmp/gal04_guard.json
+      - run: node Galacticity/gal05_paths.mjs > /tmp/gal05_paths.json
+      - run: diff -u Galacticity/gal05_paths_receipt.json /tmp/gal05_paths.json
+      - run: node Galacticity/gal05_portfolio.mjs > /tmp/gal05_portfolio.json
+      - run: diff -u Galacticity/gal05_portfolio_receipt.json /tmp/gal05_portfolio.json
       - run: python Galacticity/test_distill_profile.py
