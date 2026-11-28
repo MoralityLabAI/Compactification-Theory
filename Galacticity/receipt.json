@@ -1,0 +1,102 @@
+{
+  "schema": "gal01.receipt.v1",
+  "checks": 37631,
+  "exhaustiveParityCases": 16384,
+  "bounds": [
+    {
+      "addressBits": 0,
+      "K": "1",
+      "threshold": "3"
+    },
+    {
+      "addressBits": 1,
+      "K": "2",
+      "threshold": "5"
+    },
+    {
+      "addressBits": 2,
+      "K": "4",
+      "threshold": "10"
+    },
+    {
+      "addressBits": 3,
+      "K": "8",
+      "threshold": "19"
+    },
+    {
+      "addressBits": 4,
+      "K": "16",
+      "threshold": "37"
+    },
+    {
+      "addressBits": 5,
+      "K": "32",
+      "threshold": "74"
+    },
+    {
+      "addressBits": 6,
+      "K": "64",
+      "threshold": "147"
+    },
+    {
+      "addressBits": 7,
+      "K": "128",
+      "threshold": "293"
+    },
+    {
+      "addressBits": 8,
+      "K": "256",
+      "threshold": "586"
+    },
+    {
+      "addressBits": 9,
+      "K": "512",
+      "threshold": "1171"
+    },
+    {
+      "addressBits": 10,
+      "K": "1024",
+      "threshold": "2341"
+    }
+  ],
+  "tensor": [
+    {
+      "multiplyWeight": "1",
+      "first2xPower": 15,
+      "dimension": "32768"
+    },
+    {
+      "multiplyWeight": "2",
+      "first2xPower": 13,
+      "dimension": "8192"
+    },
+    {
+      "multiplyWeight": "4",
+      "first2xPower": 11,
+      "dimension": "2048"
+    },
+    {
+      "multiplyWeight": "8",
+      "first2xPower": 9,
+      "dimension": "512"
+    },
+    {
+      "multiplyWeight": "16",
+      "first2xPower": 8,
+      "dimension": "256"
+    },
+    {
+      "multiplyWeight": "32",
+      "first2xPower": 7,
+      "dimension": "128"
+    }
+  ],
+  "prediction": {
+    "trainCases": 128,
+    "heldoutCases": 128,
+    "fitPass": 128,
+    "medianBaselinePass": 0,
+    "median": "2"
+  },
+  "scope": "exact logical operation counts; no timing, live gym or neural training"
+}
